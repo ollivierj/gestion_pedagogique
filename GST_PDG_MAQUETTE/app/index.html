@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="fr" ng-app="ng_gst_pdg"> 
+  <head>
+    <meta charset="utf-8">
+    <title>ENI - Gestion pédagogique</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap/bootstrap_3.1.1/css/bootstrap.css">
+    <!-- Font awesome, icones pour bootstrap -->
+    <link rel="stylesheet" href="css/fa/font-awesome_4.0.3/css/font-awesome.css">
+    <!-- Angular css -->
+    <link rel="stylesheet" href="css/angular/ng-table.css">
+    <link rel="stylesheet" href="css/angular/ng-grid_2.0.11/ng-grid.css">
+    <!-- Perso -->
+    <link rel="stylesheet" href="css/fullcalendar.css">
+    <link rel="stylesheet" href="css/main.css">
+	
+  </head>
+
+  <body>
+
+    <div id="wrapper">
+
+      <!-- Sidebar -->
+      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <!-- Les 3 barres du bouton lorsque la résoltuion est faible -->
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html">ENI Gestion Pédagogique</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav side-nav">
+            <li class="active"><a href="index.html#/consultationStagiaires"><i class="fa fa-search"></i> Rechercher un stagiaire</a></li>
+            <li class="dropdown">
+              <a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-file-text"></i> ECFs<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                  <li><a href="index.html#/versionECF">Versions des ECFs</a></li>
+                  <li><a href="index.html#/listeECF">Liste des prochains ECFs</a></li>
+				  <li><a href="index.html#/corrigerECF">Liste des ECFs à corriger</a></li>
+				  
+              </ul>
+            </li>
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-file-o"></i> Suivi des acquis<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                  <li><a href="index.html#/gestionFichesSynthese">Editer les modèles</a></li>
+                  <li><a href="#">Editer les fiches de suivi des acquis</a></li>
+              </ul>
+            </li>
+            <li><a href="index.html#/gestionSessionsValidation"><i class="fa fa-file-o"></i> Session de validation</a></li>
+            <li><a href="index.html#/consultationJury"><i class="fa fa-group"></i> Jury</a></li>
+            <li><a href="index.html#/gestionAbsences"><i class="fa fa-calendar"></i> Calendrier</a></li>
+            <li><a href="index.html#/gestionAvis"><i class="fa fa-calendar"></i>&nbsp;Avis</a></li>
+            <li><a href="index.html#/salle"><i class="fa fa-building-o"></i>&nbsp;Salles</a></li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right navbar-user" dropdown-menu>
+            <li class="dropdown messages-dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> 7<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li class="dropdown-header">7 nouveaux messages</li>
+                <li class="message-preview">
+                  <a href="#">
+                    <span class="avatar"><img src="http://placehold.it/50x50"></span>
+                    <span class="name">Kévin Jamin:</span>
+                    <span class="message">Hey there, I wanted to ask you something...</span>
+                    <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
+                  </a>
+                </li>
+                <li class="divider"></li>
+                <li class="message-preview">
+                  <a href="#">
+                    <span class="avatar"><img src="http://placehold.it/50x50"></span>
+                    <span class="name">Kévin Jamin:</span>
+                    <span class="message">Hey there, I wanted to ask you something...</span>
+                    <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
+                  </a>
+                </li>
+                <li class="divider"></li>
+                <li class="message-preview">
+                  <a href="#">
+                    <span class="avatar"><img src="http://placehold.it/50x50"></span>
+                    <span class="name">Kévin Jamin:</span>
+                    <span class="message">Hey there, I wanted to ask you something...</span>
+                    <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
+                  </a>
+                </li>
+                <li class="divider"></li>
+                <li><a href="#">View Inbox <span class="badge">7</span></a></li>
+              </ul>
+            </li>
+            <li class="dropdown alerts-dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> 3<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Extraction des données de comptes <span class="label label-success">Réussi</span></a></li>
+                <li><a href="#">Correction en cours <span class="label label-info">Info</span></a></li>
+                <li><a href="#">Vous devez ajouter des avis <span class="label label-warning">Alerte</span></a></li>
+                <li><a href="#">Le cours commence dans 1h <span class="label label-danger">Danger</span></a></li>
+                <li class="divider"></li>
+                <li><a href="#">Tout afficher</a></li>
+              </ul>
+            </li>
+            <li class="dropdown user-dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Kévin Jamin <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#"><i class="fa fa-gear"></i> Paramètres</a></li>
+                <li class="divider"></li>
+                <li><a href="index.html#/authentification"><i class="fa fa-power-off"></i> Se déconnecter</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </nav>
+
+      <div id="page-wrapper">
+        <div ng-view></div>
+        
+      </div><!-- /#page-wrapper -->
+
+    </div><!-- /#wrapper -->
+
+    <!-- Librairies js -->
+    <script src="lib/jquery-1.10.2.js"></script>
+    <script src="lib/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="lib/fullcalendar-1.6.4.js"></script>
+    <script src="lib/bootstrap-3.1.1.js"></script>
+    <!--Angular officiel -->
+    <script src="lib/angular-1.16/angular.js"></script>
+    <script src="lib/angular-1.16/angular-route.js"></script>
+    <script src="lib/angular-1.16/angular-animate.min.js"></script>
+    <!--Angular plugins-->
+    <script src="lib/angular-1.16/plugins/ng-table-0.3.2.js"></script>
+    <script src="lib/angular-1.16/plugins/angular-strap-2.0.0.min.js"></script>
+    <script src="lib/angular-1.16/plugins/ng-grid-2.0.11.js"></script>
+    <script src="lib/ui-bootstrap-tpls-0.11.0.js"></script>
+    <script src="js/app.js"></script>
+    <!--  Services js -->
+    <script src="js/services/modalService.js"></script> 
+    <!-- Controllers js -->
+    <script src="js/controllers/consultationStagiairesControllers.js"></script>
+    <script src="js/controllers/authentificationControllers.js"></script>
+    <script src="js/controllers/gestionFichesSyntheseControllers.js"></script>
+    <script src="js/controllers/gestionAbsencesControllers.js"></script>    
+    <script src="js/controllers/gestionAvisControllers.js"></script>  
+    <script src="js/controllers/versionECFControllers.js"></script>    
+    <script src="js/controllers/listeECFControllers.js"></script>    
+    <script src="js/controllers/corrigerECFControllers.js"></script>    
+    <script src="js/controllers/editECFControllers.js"></script>    
+    <script src="js/controllers/editVersionControllers.js"></script>    
+    <script src="js/controllers/editCorrectionControllers.js"></script> 
+    <script src="js/controllers/salle/planningReservationSalleController.js"></script>   
+    <script src="js/controllers/salle/formulaireReservationSalleController.js"></script>  
+    <script src="js/controllers/gestionSessionsValidationControllers.js"></script>  
+    <script src="js/controllers/gestionSessionsValidationControllers.js"></script>
+    <script src="js/controllers/consultationJuryControllers.js"></script>
+    <!--  Directives js -->
+    <script src="js/directives/ui-calendar.js"></script>
+
+
+    <!-- Services -->
+    <script src="js/services/consultationStagiairesServices.js"></script>        
+  </body>
+</html>

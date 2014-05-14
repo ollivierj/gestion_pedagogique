@@ -1,0 +1,43 @@
+<div class="modal-header">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<i class="fa fa-group"></i>&nbsp;R&eacute;servation des salles
+			</h3>
+		</div>
+	</div>
+</div>
+<div class="modal-body">
+	<div class="panel-body">
+		<div class="col-xs-6">
+			<label for="salleSelectionnee">Salle</label> <span
+				class="label label-danger"
+				data-ng-show="submitted && helpForm.sallesPlanifiees.$error.required">Required!</span>
+			<select name="salleSelectionnee" data-ng-model="reservation.salleid"
+				data-ng-options="obj.value as obj.text for obj in sallesLibres"
+				class="form-control" required>
+				<option value=""></option>
+			</select>
+		</div>
+
+		<div class="col-xs-6">
+			<label for="animateurSelectionne">Animateur</label> <span
+				class="label label-danger"
+				data-ng-show="submitted && helpForm.activitesPlanifiees.$error.required">Required!</span>
+
+			<select name="animateurSelectionne"
+				data-ng-model="reservation.animateurid"
+				data-ng-options="obj.value as obj.text for obj in animateursLibres"
+				class="form-control" required>
+				<option value=""></option>
+			</select>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+<button name="annulerSubmit" data-ng-disabled="progress.active()"
+		data-ng-click="annuler()" class="btn btn-primary">Annuler</button>
+	<button name="reservationSubmit" data-ng-disabled="progress.active()"
+		data-ng-click="reserver()" class="btn btn-primary">Réserver</button>
+</div>
+

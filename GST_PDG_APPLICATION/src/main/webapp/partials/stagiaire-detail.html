@@ -1,0 +1,26 @@
+<div class="container">
+    <h1>Stagiaire d&eacute;tail</h1>
+
+    <form novalidate="novalidate" class="form-horizontal">
+        <div class="control-group">
+            <label class="control-label" for="inputPrenom">Pr&eacute;nom:</label>
+
+            <div class="controls">
+                <input type="text" id="inputPrenom" ng-model="stagiaire.prenom"/>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="inputNom">Nom:</label>
+
+            <div class="controls">
+                <input type="text" id="inputNom" ng-model="stagiaire.nom"/>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <a ng-click="cancel()" class="btn btn-small">Annuler</a>
+                <a ng-click="updateStagiaire()" class="btn btn-small btn-primary">Mettre &agrave; jour le stagiaire</a>
+            </div>
+        </div>
+    </form>
+</div>

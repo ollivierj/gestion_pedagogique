@@ -1,0 +1,25 @@
+<div class="container">
+    <h1>Cr&eacute;er un nouveau stagiaire</h1>
+
+    <form novalidate="novalidate" class="form-horizontal">
+        <div class="control-group">
+            <label class="control-label" for="inputPrenom">Pr&eacute;nom:</label>
+
+            <div class="controls">
+                <input type="text" id="inputPrenom" ng-model="stagiaire.prenom" placeholder="Pr&eacute;nom"/>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="inputNom">Nom:</label>
+
+            <div class="controls">
+                <input type="text" id="inputNom" ng-model="stagiaire.nom" placeholder="Nom"/>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <a ng-click="createNewStagiaire()" class="btn btn-small btn-primary">cr&eacute;er un nouveau stagiaire</a>
+            </div>
+        </div>
+    </form>
+</div>
