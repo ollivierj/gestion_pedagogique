@@ -40,13 +40,18 @@ controllers.controller('consultationStagiairesCtrl', function($scope, $http, $lo
     /*Options des tableaux ng-grid*/
     $scope.gridOptionsStagiaire = {
         data: 'stagiaires',
+        rowHeight: 80,
         selectedItems: $scope.stagiaireSelected,
         multiSelect: false,
+        showColumnMenu:true,
+        showFilter:true,
         columnDefs : [
+                {field:'photo', displayName:'Photo', cellTemplate: 'partials/templates/ng-grid_photo.html'},
                 {field:'nom', displayName:'Nom'},
                 {field:'prenom', displayName:'Prénom'},
                 {field:'age', displayName:'Âge'},
                 {field:'promotion', displayName:'Promotion'},
+                {field:'details', displayName:'Details', cellTemplate: 'partials/templates/ng-grid_details.html'}
         ],
         enablePaging: true,
         showFooter: true,
@@ -58,6 +63,8 @@ controllers.controller('consultationStagiairesCtrl', function($scope, $http, $lo
     $scope.gridOptionsPromotion = { 
         data: 'promotions',
         selectedItems: $scope.promotionSelected,
+        showColumnMenu:true,
+        showFilter:true,
         afterSelectionChange : function(promotion) {
             selectChangePromotion(promotion);
         },
