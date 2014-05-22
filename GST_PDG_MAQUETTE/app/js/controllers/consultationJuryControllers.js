@@ -1,6 +1,6 @@
 'use strict';
 
-controllers.controller('consultationJuryCtrl', function($scope) {
+controllers.controller('consultationJuryCtrl', function($scope, $modal, $log) {
 
 	$scope.personneHomologueeSelected = [];
 
@@ -35,4 +35,25 @@ controllers.controller('consultationJuryCtrl', function($scope) {
                 {field:'email', displayName:'E-mail'}
         ]
     };
+
+    $scope.items = ['item1', 'item2', 'item3'];
+
+    $scope.afficherFenetreEdition = function() {
+    	var modalEdit = $modal.open({
+            templateUrl: 'partials/jury/formulaireEditionPersonneHomologuee.html',
+            controller: ModalEditionPersonneHomologueeCtrl,
+            resolve: {
+                items: function () {
+                  return $scope.items;
+                }
+            }
+        });
+   
+     	modalEdit.result.then(function (selectedItem) {
+	      $scope.selected = selectedItem;
+	    }, function () {
+	      $log.info('Modal dismissed at: ' + new Date());
+	    });
+    };
+
 });
