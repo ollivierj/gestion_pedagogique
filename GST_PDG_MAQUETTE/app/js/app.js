@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ng_gst_pdg', ['ngTable','ngRoute', 'ngGrid','mgcrea.ngStrap','ui.bootstrap','ng_gst_pdg.controllers','ng_gst_pdg.services', 'ng_gst_pdg.directives'])
+angular.module('ng_gst_pdg', ['ngRoute', 'ngGrid','ui.bootstrap','ng_gst_pdg.controllers','ng_gst_pdg.services', 'ng_gst_pdg.directives'])
 
 .config(['$routeProvider', function($routeProvider) {
 	$routeProvider.
@@ -27,10 +27,6 @@ angular.module('ng_gst_pdg', ['ngTable','ngRoute', 'ngGrid','mgcrea.ngStrap','ui
 		when('/gestionFichesSynthese', {
 			templateUrl: 'partials/gestionFichesSynthese/gestionFichesSynthese.html',
 			controller: 'gestionFichesSyntheseCtrl'
-		}).
-		when('/gestionAbsences', {
-			templateUrl: 'partials/gestionAbsences/gestionAbsences.html',
-			controller: 'gestionAbsencesCtrl'
 		}).
 		when('/versionECF', {
 			templateUrl: 'partials/gestionEvaluations/versionECF.html',

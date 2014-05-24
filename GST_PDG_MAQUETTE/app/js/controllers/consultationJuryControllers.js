@@ -1,25 +1,12 @@
 'use strict';
 
-controllers.controller('consultationJuryCtrl', function($scope, $modal, $log) {
+controllers.controller('consultationJuryCtrl', function($scope, $modal, $log, pHomologuee) {
 
 	$scope.personneHomologueeSelected = [];
 
-	$scope.personnesHomologuees = [
-		{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":""},
-		{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":""},
-		{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":""},
-		{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":""},
-		{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":""},
-		{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":""},
-		{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":""},
-		{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":""},
-		{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":""},
-		{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":""},
-		{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":""},
-		{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":""},
-		{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":""},
-		{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":""}
-	];
+    pHomologuee.getData().then(function(data) {
+        $scope.personnesHomologuees = data;
+    });
 
 	$scope.gridOptionsJury = {
         data: 'personnesHomologuees',
