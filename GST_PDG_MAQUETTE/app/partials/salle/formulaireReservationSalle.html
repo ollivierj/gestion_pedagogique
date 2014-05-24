@@ -9,105 +9,119 @@
 </div>
 <div class="modal-body">
 	<div class="panel-body">
-		
+
 		<div class="col-xs-6" ui-tree="options">
-			<label>Stagiaires inscrits au cours</label> 
-			<ol ui-tree-nodes ng-model="promotions" data-type="promotion">
-				<li ng-repeat="promotion in promotions" ui-tree-node>
-					<div class="group-title angular-ui-tree-handle" ng-show="!promotion.editing">
-						
-						
-						<div>&nbsp;{{promotion.name}}</div>
+			<label>Stagiaires inscrits au cours</label>
+			<ol ui-tree-nodes ng-model="promotions" class="node"
+				data-type="promotion">
+				<li ng-repeat="promotion in promotions" class="node" ui-tree-node>
+					<div class="group-title angular-ui-tree-handle"
+						ng-show="!promotion.editing">
+
+
+						<div>&nbsp;Promotion {{promotion.name}}</div>
 					</div>
 
-					<ol ui-tree-nodes ng-model="promotion.stagiaires" data-type="stagiaire">
-						<li ng-repeat="stagiaire in promotion.stagiaires" ui-tree-node>
+					<ol ui-tree-nodes ng-model="promotion.stagiaires" class="node"
+						data-type="stagiaire">
+						<li ng-repeat="stagiaire in promotion.stagiaires" class="node"
+							ui-tree-node>
 							<div class="category-title angular-ui-tree-handle">
-								
-								<div>
-									&nbsp;{{stagiaire.name}}
-								</div>
+
+								<div>&nbsp;{{stagiaire.name}}</div>
 							</div>
 						</li>
 					</ol>
 				</li>
 			</ol>
 		</div>
-		
-		
+
+
 		<div class="col-xs-6" ui-tree="options">
-			<label>Salles réservées</label> 
-			<ol ui-tree-nodes ng-model="salles" data-type="salle">
-				<li ng-repeat="salle in salles" ui-tree-node>
-					<div class="group-title angular-ui-tree-handle" ng-show="!salle.editing">
-						<a href="" class="btn btn-danger btn-xs pull-right" data-nodrag ng-click="removeSalle(salle)"><i class="glyphicon glyphicon-remove"></i></a>
-						<a href="" class="btn btn-primary btn-xs pull-right" data-nodrag ng-click="editSalle(salle)"><i class="glyphicon glyphicon-pencil"></i></a>
-						<div>&nbsp;{{salle.name}}</div>
+			<label>Salles réservées</label>
+			<ol ui-tree-nodes ng-model="salles" class="node" data-type="salle">
+				<li ng-repeat="salle in salles" class="node" ui-tree-node>
+					<div class="group-title angular-ui-tree-handle"
+						ng-show="!salle.editing">
+						<a href="" class="btn btn-danger btn-xs pull-right" data-nodrag
+							ng-click="removeSalle(salle)"><i
+							class="glyphicon glyphicon-remove"></i></a> <a href=""
+							class="btn btn-primary btn-xs pull-right" data-nodrag
+							ng-click="editSalle(salle)"><i
+							class="glyphicon glyphicon-pencil"></i></a>
+						<div>&nbsp;Salle {{salle.name}}</div>
 					</div>
-					<div class="group-title angular-ui-tree-handle" data-nodrag ng-show="salle.editing">
+					<div class="group-title angular-ui-tree-handle" data-nodrag
+						ng-show="salle.editing">
 						<form class="form-inline" role="form">
 							<div class="form-group">
 								<div class="row">
-									<div class="col-xs-12">
+									<div class="col-xs-6">
 										<label for="salleSelectionnee">Salle</label> <span
-										class="label label-danger"
-										data-ng-show="submitted && helpForm.sallesPlanifiees.$error.required">Required!</span>
-										<select name="salleSelectionnee" data-ng-model="reservation.salleid"
-										data-ng-options="obj.value as obj.text for obj in sallesLibres"
-										class="form-control" required>
-										<option value=""></option>
-									</select>
+											class="label label-danger"
+											data-ng-show="submitted && helpForm.sallesPlanifiees.$error.required">Required!</span>
+									</div>
+									<div class="col-xs-6">
+										<select name="salleSelectionnee"
+											data-ng-model="reservation.salleid"
+											data-ng-options="obj.value as obj.text for obj in sallesLibres"
+											class="form-control" required>
+											<option value=""></option>
+										</select>
+
+									</div>
+								</div>
+								<div class="top-buffer">
+									<div class="row">
+										<div class="col-xs-6">
+											<label for="animateurSelectionne">Animateur</label> <span
+												class="label label-danger"
+												data-ng-show="submitted && helpForm.activitesPlanifiees.$error.required">Required!</span>
+										</div>
+										<div class="col-xs-6">
+											<select name="animateurSelectionne"
+												data-ng-model="reservation.animateurid"
+												data-ng-options="obj.value as obj.text for obj in animateursLibres"
+												class="form-control" required>
+												<option value=""></option>
+											</select>
+										</div>
+									</div>
 								</div>
 							</div>
-							<div class="top-buffer">
-							<div class="row">
-								<div class="col-xs-12">
-									<label for="animateurSelectionne">Animateur</label> <span
-									class="label label-danger"
-									data-ng-show="submitted && helpForm.activitesPlanifiees.$error.required">Required!</span>
 
-									<select name="animateurSelectionne"
-									data-ng-model="reservation.animateurid"
-									data-ng-options="obj.value as obj.text for obj in animateursLibres"
-									class="form-control" required>
-									<option value=""></option>
-								</select>
+							<div class="modal-footer-node">
+								<button type="submit" class="btn btn-default"
+									ng-click="cancelEditingSalle(salle)">Annuler</button>
+								<button type="submit" class="btn btn-default"
+									ng-click="saveSalle(salle)">Enregistrer</button>
+
 							</div>
-						</div>
-						</div>
+
+						</form>
 					</div>
-					<div class="top-buffer">
-					<div class="row">
-						<div class="col-xs-1 col-xs-offset-2">
-						<button type="submit" class="btn btn-default" ng-click="saveSalle(salle)">Save</button>
-						</div>
-						<div class="col-xs-1 col-xs-offset-2">
-						<button type="submit" class="btn btn-default" ng-click="cancelEditingSalle(salle)">Cancel</button>
-					</div>
-					</div>
-				</div>
-				</form>
-			</div>
-			<ol ui-tree-nodes ng-model="salle.stagiaires" data-type="stagiaire">
-				<li ng-repeat="stagiaire in salle.stagiaires" ui-tree-node>
-					<div class="category-title angular-ui-tree-handle">
-						<a href="" class="btn btn-danger btn-xs pull-right" data-nodrag ng-click="removeStagiaireFromSalle(salle, stagiare)"><i class="glyphicon glyphicon-remove"></i></a>
-						<div>
-							&nbsp;{{stagiaire.name}}
-						</div>
-					</div>
+					<ol ui-tree-nodes ng-model="salle.stagiaires" data-type="stagiaire"
+						class="node">
+						<li ng-repeat="stagiaire in salle.stagiaires" ui-tree-node
+							class="node">
+							<div class="category-title angular-ui-tree-handle">
+								<a href="" class="btn btn-danger btn-xs pull-right" data-nodrag
+									ng-click="removeStagiaireFromSalle(salle, stagiare)"><i
+									class="glyphicon glyphicon-remove"></i></a>
+								<div>&nbsp;{{stagiaire.name}}</div>
+							</div>
+						</li>
+					</ol>
 				</li>
 			</ol>
-		</li>
-	</ol>
-</div>
-</div>
+		</div>
+	</div>
 </div>
 
 <div class="modal-footer">
 	<button name="annulerSubmit" data-ng-disabled="progress.active()"
-	data-ng-click="annuler()" class="btn btn-primary">Annuler</button>
+		data-ng-click="annuler()" class="btn btn-primary">Annuler</button>
 	<button name="reservationSubmit" data-ng-disabled="progress.active()"
-	data-ng-click="reserver()" class="btn btn-primary">Réserver</button>
+		data-ng-click="reserver()" class="btn btn-primary">Réserver</button>
 </div>
 

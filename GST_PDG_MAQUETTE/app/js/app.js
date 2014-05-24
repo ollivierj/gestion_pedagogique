@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ng_gst_pdg', ['ngTable','ngRoute', 'ngGrid','mgcrea.ngStrap','ui.bootstrap','ng_gst_pdg.controllers','ng_gst_pdg.services', 'ng_gst_pdg.directives'])
+angular.module('ng_gst_pdg', ['ngTable','ngRoute', 'ngGrid','mgcrea.ngStrap','ui.bootstrap','ui.tree','ng_gst_pdg.controllers','ng_gst_pdg.services', 'ng_gst_pdg.directives'])
 
 .config(['$routeProvider', function($routeProvider) {
 	$routeProvider.

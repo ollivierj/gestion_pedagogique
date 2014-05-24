@@ -36,6 +36,7 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
         var modalDefaults = {
                 backdrop: true,
                 keyboard: true,
+                size : 'lg',
                 modalFade: true,
                 templateUrl: 'partials/salle/formulaireReservationSalle.html',
                 controller: formulaireReservationSalleCtrl,

@@ -73,7 +73,7 @@ $scope.info = "";
 
     $scope.salles = [
   {
-    "name": "Salle 104",
+    "name": "104",
     "sortOrder": 0,
     "type": "salle",
     "id": 1,
@@ -117,7 +117,7 @@ $scope.info = "";
     ]   
   },
   {
-    "name": "Salle 108",
+    "name": "108",
     "sortOrder": 2,
     "type": "salle",
     "id": 2,
@@ -254,7 +254,7 @@ $scope.promotions.sort(function(promotion1, promotion2) {
         window.alert('You can\'t add more than 10 promotions!');
         return;
       }
-      var promotionName = document.getElementById("sallenName").value;
+      var promotionName = document.getElementById("salleName").value;
       if (promotionName.length > 0) {
         Salles.$add({
           name: promotionName,
