@@ -24,7 +24,7 @@
     <div id="wrapper">
 
       <!-- Sidebar -->
-      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="gestionAbsencesCtrl">
+      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="wrapperCtrl">
         <!-- RESPONSIVE MENU -->
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -42,14 +42,36 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav side-nav">
-            <li class="active"><a href="index.html#/consultationStagiaires"><i class="fa fa-search"></i> Rechercher un stagiaire</a></li>
+            
+            <!-- Menu généré -->
+            <li ng-repeat="menu in menuTitles" ng-class="{dropdown : menu.type == 'multiple'}">
+              
+              <!-- 1 lien -->
+              <a href="{{menu.url}}" ng-if="menu.type == 'single'">
+                <i class="{{menu.iconTitle}}"></i> {{menu.mainTitle}}
+              </a>
+              
+              <!-- Liste déroulante -->
+              <a href="{{menu.url}}" class="dropdown-toggle" data-toggle="dropdown" ng-if="menu.type == 'multiple'">
+                <i class="{{menu.iconTitle}}"></i> {{menu.mainTitle}}<b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li ng-repeat="subMenu in menu.titles">
+                  <a href="{{subMenu.url}}">
+                    <i class="{{subMenu.iconTitle}}"></i> {{subMenu.mainTitle}}
+                  </a>
+                </li>
+              </ul>
+
+            </li>
+
+            <!-- <li class="active"><a href="index.html#/consultationStagiaires"><i class="fa fa-search"></i> Rechercher un stagiaire</a></li>
             <li class="dropdown">
               <a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-file-text"></i> ECFs<b class="caret"></b></a>
               <ul class="dropdown-menu">
                   <li><a href="index.html#/versionECF">Versions des ECFs</a></li>
                   <li><a href="index.html#/listeECF">Liste des prochains ECFs</a></li>
-				  <li><a href="index.html#/corrigerECF">Liste des ECFs à corriger</a></li>
-				  
+				          <li><a href="index.html#/corrigerECF">Liste des ECFs à corriger</a></li>
               </ul>
             </li>
             <li class="dropdown">
@@ -61,9 +83,11 @@
             </li>
             <li><a href="index.html#/gestionSessionsValidation"><i class="fa fa-file-o"></i> Session de validation</a></li>
             <li><a href="index.html#/consultationJury"><i class="fa fa-group"></i> Jury</a></li>
-            <li><a href="" ng-click="afficherModalAbsence()"><i class="fa fa-calendar"></i> Saisir une absence</a></li>
+            
             <li><a href="index.html#/gestionAvis"><i class="fa fa-calendar"></i>&nbsp;Avis</a></li>
-            <li><a href="index.html#/salle"><i class="fa fa-building-o"></i>&nbsp;Salles</a></li>
+            <li><a href="index.html#/salle"><i class="fa fa-building-o"></i>&nbsp;Salles</a></li> -->
+
+            <li><a href="" ng-click="afficherModalAbsence()"><i class="fa fa-calendar"></i> Saisir une absence</a></li>
           </ul>
 
           <!-- MENU HEADER -->
@@ -166,6 +190,7 @@
     <script src="js/controllers/gestionSessionsValidationControllers.js"></script>  
     <script src="js/controllers/consultationJuryControllers.js"></script>
     <script src="js/controllers/jury/editionPersonneHomologuee.js"></script>
+    <script src="js/controllers/wrapperControllers.js"></script>
     <!--  Directives js -->
     <script src="js/directives/ui-calendar.js"></script>
     <!-- Services -->
@@ -174,5 +199,6 @@
     <script src="js/services/versionECFServices.js"></script>        
     <script src="js/services/listeECFServices.js"></script>        
     <script src="js/services/correctionECFServices.js"></script>        
+    <script src="js/services/wrapperServices.js"></script>  
   </body>
 </html>
