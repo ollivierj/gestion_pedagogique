@@ -35,7 +35,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.html">ENI Gestion Pédagogique</a>
+          <a class="navbar-brand" href="index.html">ENI Gestion Pédagogique - {{titleSelected}}</a>
         </div>
 
         <!-- MENU DROITE -->
@@ -44,10 +44,10 @@
           <ul class="nav navbar-nav side-nav">
             
             <!-- Menu généré -->
-            <li ng-repeat="menu in menuTitles" ng-class="{dropdown : menu.type == 'multiple'}">
+            <li ng-repeat="menu in menuTitles" ng-class="{dropdown : menu.type == 'multiple', active : menu.mainTitle == titleSelected}">
               
               <!-- 1 lien -->
-              <a href="{{menu.url}}" ng-if="menu.type == 'single'">
+              <a href="{{menu.url}}" ng-if="menu.type == 'single'" ng-click="setActive(menu.mainTitle)">
                 <i class="{{menu.iconTitle}}"></i> {{menu.mainTitle}}
               </a>
               
@@ -56,8 +56,8 @@
                 <i class="{{menu.iconTitle}}"></i> {{menu.mainTitle}}<b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
-                <li ng-repeat="subMenu in menu.titles">
-                  <a href="{{subMenu.url}}">
+                <li ng-repeat="subMenu in menu.titles" ng-class="{active : subMenu.mainTitle == titleSelected}">
+                  <a href="{{subMenu.url}}" ng-click="setActive(subMenu.mainTitle)">
                     <i class="{{subMenu.iconTitle}}"></i> {{subMenu.mainTitle}}
                   </a>
                 </li>
