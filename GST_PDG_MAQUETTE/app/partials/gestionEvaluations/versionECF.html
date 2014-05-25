@@ -1,71 +1,44 @@
-﻿<div class="row">
-  <div class="col-lg-12">
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-list-alt"></i> Version des ECF</h3>
-      </div>
-      <div class="panel-body">
-		<div class="row">
-			<div class="col-lg-3">
-				<div class="row">
-					<div class="col-lg-12">
-					  Formation : 
-					  <select class="form-control">
-						<option>AL</option>
-						<option>MSII</option>
-					  </select>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-lg-12">
-					  Module : 
-					  <select class="form-control">
-						<option>Java</option>
-						<option>SQL</option>
-						<option>Réseau</option>
-					  </select>
-					</div>
-				</div>
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					<i class="fa fa-list-alt"></i> Version des ECF
+				</h3>
 			</div>
-			<div class="col-lg-9">
-				<table class="table">
-				  <thead>
-					<tr>
-					  <th>Version</th>
-					  <th>Nom</th>
-					  <th>Ennoncé</th>
-					  <th>Correction</th>
-					  <th>#</th>
-					</tr>
-				  </thead>
-				  <tbody>
-					<tr>
-					  <td>1</td>
-					  <td>Test java Version 1</td>
-					  <td><button type="button" class="btn btn-link">java1ennonce.docx</button></td>
-					  <td><button type="button" class="btn btn-link">java1correction.docx</button></td>
-					  <td><a href="index.html#/editVersion">Editer</a></td>
-					</tr>
-					<tr>
-					  <td>2</td>
-					  <td>Test java Version 2</td>
-					  <td><button type="button" class="btn btn-link">java2ennonce.docx</button></td>
-					  <td><button type="button" class="btn btn-link">java2correction.docx</button></td>
-					  <td><a href="index.html#/editVersion">Editer</a></td>
-					</tr>
-					<tr>
-					  <td>3</td>
-					  <td>Test java Version 3</td>
-					  <td><button type="button" class="btn btn-link">java3ennonce.docx</button></td>
-					  <td><button type="button" class="btn btn-link">java3correction.docx</button></td>
-					  <td><a href="index.html#/editVersion">Editer</a></td>
-					</tr>
-				  </tbody>
-				</table>
-				<td><a href="index.html#/editVersion">Ajouter nouvelle version</a>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-lg-3">
+						<div class="row">
+							<div class="col-lg-12">
+								Formation : <select class="form-control">
+									<option>AL</option>
+									<option>MSII</option>
+								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-12">
+								Module : <select class="form-control">
+									<option>Java</option>
+									<option>SQL</option>
+									<option>Réseau</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-9">
+
+						<div class="row">
+							<div class='gridStyle' ng-grid="gridVersionECF"></div>
+						</div>
+						<button class="btn btn-primary"
+							ng-click="afficherModalVersionECF()">Ajouter nouvelle
+							version</button>
+					</div>
+				</div>
 			</div>
 		</div>
-      </div>
-    </div>
-  </div>
-</div> <!-- /row -->
+	</div>
+</div>
+<!-- /row -->
