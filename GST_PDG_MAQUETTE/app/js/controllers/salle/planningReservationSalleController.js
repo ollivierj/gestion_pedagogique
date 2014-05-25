@@ -2,7 +2,7 @@
 
 /* App Module */
 
-controllers.controller('planningReservationSalleCtrl', function($scope, $location, modalService) {
+controllers.controller('planningReservationSalleCtrl', function($scope, $location, modalService, SallesFactory, PromotionsFactory, SallesReserveesFactory, AnimateursLibresFactory) {
 	var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
@@ -43,7 +43,21 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
                 resolve: {
                     items: function () {
                       return event;
-                    }
+                    },
+                    salles: function (SallesFactory) {
+                        return SallesFactory.query().$promise;
+                    },
+                    promotions: function (PromotionsFactory) {
+                        return PromotionsFactory.query().$promise;
+                    },
+                    sallesReservees : function (SallesReserveesFactory) {
+                        return SallesReserveesFactory.query().$promise;
+                    },
+                    animateursLibres : function (AnimateursLibresFactory) {
+                        return AnimateursLibresFactory.query().$promise;
+                    },
+                    
+                    
                 }
             };
        
