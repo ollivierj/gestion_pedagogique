@@ -1,6 +1,6 @@
 'use strict';
 
-controllers.controller('gestionSessionsValidationCtrl', function($scope) {
+controllers.controller('gestionSessionsValidationCtrl', function($scope, $modal, $log) {
 
     $scope.sessionSelected = [];
 
@@ -30,4 +30,42 @@ controllers.controller('gestionSessionsValidationCtrl', function($scope) {
         ]
     };
 
+
+    $scope.items = ['item1', 'item2', 'item3'];
+
+    $scope.afficherFenetreEdition = function() {
+        var modalEdit = $modal.open({
+            templateUrl: 'partials/gestionSessionsValidation/formulaireEditionSession.html',
+            controller: ModalEditionSessionValidationCtrl,
+            resolve: {
+                items: function () {
+                  return $scope.items;
+                }
+            }
+        });
+   
+        modalEdit.result.then(function (selectedItem) {
+          $scope.selected = selectedItem;
+        }, function () {
+          $log.info('Modal dismissed at: ' + new Date());
+        });
+    };
+
+
 });
+
+var ModalEditionSessionValidationCtrl = function ($scope, $modalInstance, items) {
+
+  $scope.items = items;
+  $scope.selected = {
+    item: $scope.items[0]
+  };
+
+  $scope.ok = function () {
+    $modalInstance.close($scope.selected.item);
+  };
+
+  $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
+};

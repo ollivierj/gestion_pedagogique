@@ -1,0 +1,21 @@
+<div class="modal-header">
+	<h4 class="modal-title">Création d'une session de validation</h4>
+</div>
+
+<div class="modal-body">
+	<div class="row">
+        <div class="col-lg-6">
+            <p class="input-group">
+              <input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="dt" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+	<button class="btn btn-primary" ng-click="cancel()">Annuler</button>
+	<button class="btn btn-primary" ng-click="ok()">Enregistrer</button>
+</div>

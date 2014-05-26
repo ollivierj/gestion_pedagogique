@@ -2,7 +2,7 @@
 
 
 
-controllers.controller('gestionAvisCtrl', function($scope, $filter, ngTableParams) {
+controllers.controller('gestionAvisCtrl', function($scope, $filter) {
 
 	$scope.stagiaires = [
 		{nom:'Jamin', prenom:'Kévin', age:22, promotion:'AL'},
