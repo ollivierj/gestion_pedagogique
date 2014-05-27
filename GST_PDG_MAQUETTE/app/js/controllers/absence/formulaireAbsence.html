@@ -1,0 +1,123 @@
+<div class="modal-header">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<i class="fa fa-group"></i>&nbsp;Saisie des absences
+			</h3>
+		</div>
+	</div>
+</div>
+
+<div class="modal-body">
+	<div class="row">
+		<div class="col-lg-6">
+			<p class="input-group">
+				<input type="text" class="form-control"
+					datepicker-popup="dd/MM/yyyy" ng-model="dt" is-open="opened"
+					min-date="minDate" max-date="'2015-06-22'"
+					datepicker-options="dateOptions"
+					date-disabled="disabled(date, mode)" ng-required="true"
+					close-text="Close" /> <span class="input-group-btn">
+					<button type="button" class="btn btn-default"
+						ng-click="open($event)">
+						<i class="glyphicon glyphicon-calendar"></i>
+					</button>
+				</span>
+			</p>
+		</div>
+	</div>
+	<div class="top-buffer">
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="btn-group">
+					<label class="btn btn-primary" ng-model="radioModel"
+						btn-radio="'matin'">Matin</label> <label class="btn btn-primary"
+						ng-model="radioModel" btn-radio="'soir'">Après midi</label>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="top-buffer">
+		<div class="row">
+			<div class="col-xs-12" ui-tree="options">
+
+				<ol class="angular-ui-tree-nodes">
+					<li class="angular-ui-tree-node">
+						<div class="group-title angular-ui-tree-handle">
+							<form class="form-inline" role="form">
+								<div class="form-group">
+									<div class="row">
+										<div class="col-xs-6">
+											<input type="text" class="form-control"
+												id="stagiaireRecherche" placeholder="retardataire">
+										</div>
+										<div class="col-xs-6">
+											<button type="submit" class="btn btn-default"
+												ng-click="addStagiaire()">Ajouter un retardataire</button>
+										</div>
+
+
+									</div>
+								</div>
+							</form>
+						</div>
+					</li>
+				</ol>
+
+				<ol ui-tree-nodes ng-model="retardataires" data-type="retardataire"
+					class="node">
+					<li ng-repeat="retardataire in retardataires" ui-tree-node
+						class="node">
+						<div class="category-title angular-ui-tree-handle">
+							<a href="" class="btn btn-danger btn-xs pull-right" data-nodrag
+								ng-click="removeStagiaireFromSalle(salle, stagiaire)"><i
+								class="glyphicon glyphicon-remove"></i></a> <a href=""
+								class="btn btn-primary btn-xs pull-right" data-nodrag
+								ng-click="editRetardataire(retardataire)"><i
+								class="glyphicon glyphicon-pencil"></i></a>
+							<div>&nbsp;{{retardataire.prenom}}&nbsp;{{retardataire.nom}}</div>
+						</div>
+						<div class="group-title angular-ui-tree-handle" data-nodrag
+							ng-show="retardataire.editing">
+							<form role="form">
+								<div class="row">
+									<div class="col-lg-6">
+										<label for="arrivee">Heure d'arriv�e</label> <span
+											class="label label-danger"
+											data-ng-show="submitted && helpForm.activitesPlanifiees.$error.required">Required!</span>
+
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-6">
+										<timepicker id="arrivee" ng-model="mytime"
+											ng-change="changed()" hour-step="hstep" minute-step="mstep"
+											show-meridian="ismeridian"></timepicker>
+									</div>
+								</div>
+								<div class="modal-footer-node">
+									<button type="submit" class="btn btn-default"
+										ng-click="cancelEditingRetardataire(retardataire)">Annuler</button>
+									<button type="submit" class="btn btn-default"
+										ng-click="saveRetardataire(retardataire)">Enregistrer</button>
+
+								</div>
+
+
+
+							</form>
+						</div>
+					</li>
+				</ol>
+				</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal-footer">
+	<button class="btn btn-primary" ng-click="cancel()">Annuler</button>
+	<button class="btn btn-primary" ng-click="ok()">Enregistrer</button>
+</div>
