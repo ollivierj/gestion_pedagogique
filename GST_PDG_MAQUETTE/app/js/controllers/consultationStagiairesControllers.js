@@ -1,6 +1,6 @@
 'use strict';
 
-controllers.controller('consultationStagiairesCtrl', function($scope, $http, $location, stagiaireSelectedData) {
+controllers.controller('consultationStagiairesCtrl', function($scope, $http, $location, stagiaireData) {
 
     /*Variable contenant la sélection des données des tableaux de recherche*/
     $scope.promotionSelected = [];
@@ -19,16 +19,6 @@ controllers.controller('consultationStagiairesCtrl', function($scope, $http, $lo
         pageSize: 10,
         currentPage: 1
     };  
-
-	// $scope.stagiaires = [
-	// 	{nom:'Jamin', prenom:'Kévin', age:22, promotion:'AL3'},
-	// 	{nom:'Ollivier', prenom:'Julien', age:50, promotion:'AL3'},
-	// 	{nom:'Toto', prenom:'Toto', age:50, promotion:'CDI'},
-	// 	{nom:'Titi', prenom:'Titi', age:50, promotion:'CDI'},
-	// 	{nom:'Tata', prenom:'Tata', age:50, promotion:'Micro'},
-	// 	{nom:'Tutu', prenom:'Tutu', age:50, promotion:'MS2I'},
-	// 	{nom:'Girardeau', prenom:'Fabien', age:22, promotion:'AL3'}
-	// ];
 
     $scope.promotions = [
         {code:'AL3', nbStagiaire:12, annee:2009},
@@ -78,7 +68,7 @@ controllers.controller('consultationStagiairesCtrl', function($scope, $http, $lo
 
     
     $scope.viewDetails = function() {
-        stagiaireSelectedData.set($scope.stagiaireSelected[0]);
+        stagiaireData.set($scope.stagiaireSelected[0]);
         $location.path('/detailsStagiaire');
     };
 
@@ -148,12 +138,12 @@ controllers.controller('consultationStagiairesCtrl', function($scope, $http, $lo
 
 });
 
-controllers.controller('detailsStagiairesCtrl', function($scope, stagiaireSelectedData) {
+controllers.controller('detailsStagiairesCtrl', function($scope, stagiaireData) {
 
     $scope.planningSelected = [];
 
     // $scope.stagiaireSelected = $routeParams.stagiaire;
-    $scope.stagiaireSelected = stagiaireSelectedData.get();
+    $scope.stagiaireSelected = stagiaireData.get();
 
     // $scope.stagiaireSelected = {"nom":"Tata","prenom":"Tata","age":50,"promotion":"Micro"};
 

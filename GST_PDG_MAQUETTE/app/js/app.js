@@ -65,9 +65,9 @@ angular.module('ng_gst_pdg', ['ngRoute', 'ngGrid', 'ui.bootstrap','ui.tree','ng_
 			templateUrl: 'partials/gestionSessionsValidation/gestionSessionsValidation.html',
 			controller: 'gestionSessionsValidationCtrl'
 		}).
-		when('/consultationJury', {
-			templateUrl: 'partials/jury/consultationJury.html',
-			controller: 'consultationJuryCtrl'
+		when('/consultationPersonnesHomologuees', {
+			templateUrl: 'partials/personnesHomologuees/consultationPersonnesHomologuees.html',
+			controller: 'consultationPersonnesHomologueesCtrl'
 		}).
 		otherwise({
 			redirectTo: '/accueil'

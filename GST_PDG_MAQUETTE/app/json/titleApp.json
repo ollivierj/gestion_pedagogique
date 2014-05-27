@@ -16,7 +16,7 @@
 
 	{"mainTitle" : "Session de validation", "iconTitle":"fa fa-file-o", "url":"index.html#/gestionSessionsValidation", "type":"single"},
 
-	{"mainTitle" : "Jury", "iconTitle":"fa fa-group", "url":"index.html#/consultationJury", "type":"single"},
+	{"mainTitle" : "Personnes homologuées", "iconTitle":"fa fa-group", "url":"index.html#/consultationPersonnesHomologuees", "type":"single"},
 
 	{"mainTitle" : "Avis", "iconTitle":"fa fa-calendar", "url":"index.html#/gestionAvis", "type":"single"},
 

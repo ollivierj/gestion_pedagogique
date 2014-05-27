@@ -1,6 +1,6 @@
 'use strict';
 
-services.factory('stagiaireSelectedData', function() {
+services.factory('stagiaireData', function() {
 	var stagiaireServ = {};
 
 	var stagiaireSelected;
