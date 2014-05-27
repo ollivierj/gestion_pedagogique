@@ -141,6 +141,9 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Kévin Jamin <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="#"><i class="fa fa-gear"></i> Paramètres</a></li>
+                <li><a href="index.html#/gestionDroit"><i class="fa fa-gear"></i> Droits</a></li>
+                <li><a href="index.html#/gestionFichesSynthese"><i class="fa fa-gear"></i> Fiche de suivi</a></li>
+                <li><a href="index.html#/versionECF"><i class="fa fa-gear"></i> Version ECF</a></li>
                 <li class="divider"></li>
                 <li><a href="index.html#/authentification"><i class="fa fa-power-off"></i> Se déconnecter</a></li>
               </ul>
@@ -201,6 +204,7 @@
     <script src="js/controllers/gestionSessionsValidationControllers.js"></script>  
     <script src="js/controllers/consultationPersonnesHomologueesControllers.js"></script>
     <script src="js/controllers/wrapperControllers.js"></script>
+    <script src="js/controllers/gestionDroitControllers.js"></script>
     <!--  Directives js -->
     
 
@@ -208,9 +212,12 @@
     <!-- Services -->
     <script src="js/services/consultationStagiairesServices.js"></script>
     <script src="js/services/personneHomologueeServices.js"></script>        
-    <script src="js/services/versionECFServices.js"></script>        
+    <script src="js/services/versionECFServices.js"></script>    
+    <script src="js/services/modeleFicheSyntheseServices.js"></script>       		
     <script src="js/services/listeECFServices.js"></script>        
-    <script src="js/services/correctionECFServices.js"></script>        
+    <script src="js/services/correctionECFServices.js"></script>  
+    <script src="js/services/droitAdminServices.js"></script>      
+    <script src="js/services/droitFormateurServices.js"></script>            
     <script src="js/services/wrapperServices.js"></script>  
   </body>
 </html>
