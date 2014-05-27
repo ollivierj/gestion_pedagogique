@@ -3,15 +3,8 @@
 
 	{"mainTitle" : "ECFs", "iconTitle":"fa fa-file-text", "url":"", "type":"multiple",
 		"titles":[
-					{"mainTitle" : "Versions des ECFs", "iconTitle":"", "url":"index.html#/versionECF", "type":"single"},
 					{"mainTitle" : "Liste des prochains ECFs", "iconTitle":"", "url":"index.html#/listeECF", "type":"single"},
 					{"mainTitle" : "Liste des ECFs à corriger", "iconTitle":"", "url":"index.html#/corrigerECF", "type":"single"}
-				]},
-
-	{"mainTitle" : "Suivi des acquis", "iconTitle":"fa fa-file-o", "url":"", "type":"multiple",
-		"titles":[
-					{"mainTitle" : "Editer les modèles", "iconTitle":"", "url":"index.html#/gestionFichesSynthese", "type":"single"},
-					{"mainTitle" : "Editer les fiches de suivi des acquis", "iconTitle":"", "url":"#", "type":"single"}
 				]},
 
 	{"mainTitle" : "Session de validation", "iconTitle":"fa fa-file-o", "url":"index.html#/gestionSessionsValidation", "type":"single"},

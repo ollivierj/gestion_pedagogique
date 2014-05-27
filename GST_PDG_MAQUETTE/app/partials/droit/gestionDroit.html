@@ -1,0 +1,32 @@
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					<i class="fa fa-list-alt"></i> Droits
+				</h3>
+			</div>
+			<div class="panel-body">
+				<div class="row"><h2>Administrateur</h2></div>
+				<div class="row">
+					<div class='gridStyle' ng-grid="gridDroitAdmin"></div>
+				</div>
+				<div class="row">
+					<button class="btn btn-primary"
+						ng-click="afficherModalGestionDroit()">Droits
+						Administrateur</button>
+				</div><br/>
+				<div class="row"><h2>Formateur</h2></div>
+				<div class="row">
+					<div class='gridStyle' ng-grid="gridDroitFormateur"></div>
+				</div>
+				<div class="row">
+					<button class="btn btn-primary"
+						ng-click="afficherModalGestionDroit()">Droits Formateur</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<!-- /row -->

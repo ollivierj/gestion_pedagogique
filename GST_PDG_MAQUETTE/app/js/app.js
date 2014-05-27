@@ -69,6 +69,10 @@ angular.module('ng_gst_pdg', ['ngRoute', 'ngGrid', 'ui.bootstrap','ui.tree','ng_
 			templateUrl: 'partials/jury/consultationJury.html',
 			controller: 'consultationJuryCtrl'
 		}).
+		when('/gestionDroit', {
+			templateUrl: 'partials/droit/gestionDroit.html',
+			controller: 'gestionDroitCtrl'
+		}).
 		otherwise({
 			redirectTo: '/accueil'
 		});

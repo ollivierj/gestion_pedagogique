@@ -1,0 +1,6 @@
+[
+	{"nom":"Dupond", "prenom":"Jean", "profil":"admin", "formation":"Tous"},
+	{"nom":"Dupont", "prenom":"Jacques", "profil":"admin", "formation":"Tous"},
+	{"nom":"Dupon", "prenom":"Paul", "profil":"admin", "formation":"Tous"},
+	{"nom":"Durand", "prenom":"Henry", "profil":"admin", "formation":"Tous"}
+]
