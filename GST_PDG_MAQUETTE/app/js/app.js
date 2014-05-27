@@ -21,10 +21,6 @@ angular.module('ng_gst_pdg', ['ngRoute', 'ngGrid', 'ui.bootstrap','ui.tree','ng_
 			templateUrl: 'partials/consultationStagiaires/detailsStagiaire.html',
 			controller: 'detailsStagiairesCtrl'
 		}).
-		when('/gestionAvis', {
-			templateUrl: 'partials/gestionAvis/gestionAvis.html',
-			controller: 'gestionAvisCtrl'
-		}).
 		when('/gestionFichesSynthese', {
 			templateUrl: 'partials/gestionFichesSynthese/gestionFichesSynthese.html',
 			controller: 'gestionFichesSyntheseCtrl'
@@ -65,9 +61,9 @@ angular.module('ng_gst_pdg', ['ngRoute', 'ngGrid', 'ui.bootstrap','ui.tree','ng_
 			templateUrl: 'partials/gestionSessionsValidation/gestionSessionsValidation.html',
 			controller: 'gestionSessionsValidationCtrl'
 		}).
-		when('/consultationJury', {
-			templateUrl: 'partials/jury/consultationJury.html',
-			controller: 'consultationJuryCtrl'
+		when('/consultationPersonnesHomologuees', {
+			templateUrl: 'partials/personnesHomologuees/consultationPersonnesHomologuees.html',
+			controller: 'consultationPersonnesHomologueesCtrl'
 		}).
 		when('/gestionDroit', {
 			templateUrl: 'partials/droit/gestionDroit.html',

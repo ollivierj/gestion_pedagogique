@@ -1,17 +1,23 @@
 'use strict';
 
-services.factory('stagiaireSelectedData', function() {
-	var stagiaireServ = {};
+services.factory('stagiaireData', function($resource) {
+	var stagiaireFactory = {};
 
 	var stagiaireSelected;
 
-	stagiaireServ.set = function(stagiaire) {
+	stagiaireFactory.set = function(stagiaire) {
 		stagiaireSelected = stagiaire;		
 	};
 
-	stagiaireServ.get = function() {
+	stagiaireFactory.get = function() {
 		return stagiaireSelected; 
 	};
 
-	return stagiaireServ;
+	stagiaireFactory.getAll = function() {
+		return $resource('json/stagiairesLoad.json', {}, {
+	 		query: { method: 'GET', isArray: true}
+		 });
+	}
+
+	return stagiaireFactory;
 });

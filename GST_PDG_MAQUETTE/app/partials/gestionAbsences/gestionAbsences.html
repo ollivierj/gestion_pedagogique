@@ -33,6 +33,36 @@
             <textarea name="" id="" cols="30" rows="10"></textarea>
         </div>
     </div>
+
+    <div class="col-xs-6" ui-tree="options">
+            <label>Stagiaires inscrits au cours</label>
+            <ol ui-tree-nodes ng-model="promotions" class="node"
+                data-type="promotion">
+                <li ng-repeat="promotion in promotions" class="node" ui-tree-node>
+                    <div class="group-title angular-ui-tree-handle"
+                        ng-show="!promotion.editing">
+
+        
+                        <div class="tree-node-content">
+                        <a class="btn btn-success btn-xs" data-nodrag ng-click="togglePromotion(promotion)"><span class="glyphicon" ng-class="{'glyphicon-chevron-right': promotion.collapsed, 'glyphicon-chevron-down': !promotion.collapsed}"></span></a>
+                        
+                        &nbsp;Promotion {{promotion.name}}</div>
+                    </div>
+                    
+                    <ol ng-hide="promotion.collapsed" ui-tree-nodes ng-model="promotion.stagiaires" class="node"
+                        data-type="stagiaire" >
+                        <li ng-repeat="stagiaire in promotion.stagiaires" class="node"
+                            ui-tree-node>
+                            <div class="category-title angular-ui-tree-handle">
+
+                                <div>&nbsp;{{stagiaire.name}}</div>
+                            </div>
+                        </li>
+                    </ol>
+                    
+                </li>
+            </ol>
+        </div>
 </div>
 
 <div class="modal-footer">
