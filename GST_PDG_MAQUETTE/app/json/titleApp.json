@@ -11,7 +11,5 @@
 
 	{"mainTitle" : "Personnes homologuées", "iconTitle":"fa fa-group", "url":"index.html#/consultationPersonnesHomologuees", "type":"single"},
 
-	{"mainTitle" : "Avis", "iconTitle":"fa fa-calendar", "url":"index.html#/gestionAvis", "type":"single"},
-
 	{"mainTitle" : "Salles", "iconTitle":"fa fa-building-o", "url":"index.html#/salle", "type":"single"}
 ]

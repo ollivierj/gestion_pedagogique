@@ -20,6 +20,8 @@ controllers.controller('consultationStagiairesCtrl', function($scope, $http, $lo
         currentPage: 1
     };  
 
+    $scope.stagiaires = stagiaireData.getAll().$promise;
+
     $scope.promotions = [
         {code:'AL3', nbStagiaire:12, annee:2009},
         {code:'MS2I', nbStagiaire:36, annee:2012},
@@ -70,6 +72,23 @@ controllers.controller('consultationStagiairesCtrl', function($scope, $http, $lo
     $scope.viewDetails = function() {
         stagiaireData.set($scope.stagiaireSelected[0]);
         $location.path('/detailsStagiaire');
+    };
+
+    $scope.listDisplayModeEnabled = true;
+    $scope.DisplayModeEnum = {
+        Card: 0,
+        List: 1
+    };
+
+    $scope.changeDisplayMode = function(displayMode) {
+        switch (displayMode) {
+            case $scope.DisplayModeEnum.Card:
+                $scope.listDisplayModeEnabled = false;
+                break;
+            case $scope.DisplayModeEnum.List:
+                $scope.listDisplayModeEnabled = true;
+                break;
+        }
     };
 
     /*Fonction permettant de filtrer la liste des stagiaires en fonction de la promotion sélectionnée*/
