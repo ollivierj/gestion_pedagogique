@@ -1,5 +1,5 @@
 'use strict';
-var formulaireAbsenceCtrl = function($scope, $modal, $log, retardataires) {
+var formulaireAbsenceCtrl = function($scope, $modalInstance, $log, retardataires) {
 	 $scope.retardataires = retardataires;
 	 $scope.mytime = new Date();
 	 $scope.hstep = 1;
@@ -44,7 +44,7 @@ var formulaireAbsenceCtrl = function($scope, $modal, $log, retardataires) {
 	  };
 
 	  $scope.ok = function () {
-	    $modalInstance.close($scope.selected.item);
+	    $modalInstance.close(null);
 	  };
 
 	  $scope.cancel = function () {
