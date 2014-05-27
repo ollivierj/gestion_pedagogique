@@ -65,25 +65,22 @@ var formulaireReservationSalleCtrl = function($scope, $modalInstance, $filter,
 	});
 
 	$scope.addSalle = function() {
-		if ($scope.promotions.length > 10) {
-			window.alert('You can\'t add more than 10 promotions!');
-			return;
-		}
-		var promotionName = document.getElementById("salleName").value;
-		if (promotionName.length > 0) {
-			Salles.$add({
-				name : promotionName,
-				type : "salle",
-				stagiaires : [],
-				sortOrder : $scope.salles.length
-			});
-			document.getElementById("salleName").value = '';
-		}
+$scope.salles.push( {
+    "sortOrder": salles.length,
+    "type": "salle",
+    "id": salles.length,
+    "editing": true,
+    "collapsed" : true,
+    "stagiaires": [
+          ]
+  });
 	};
 
 	$scope.editSalle = function(salle) {
 		salle.editing = true;
 	};
+	
+
 
 	$scope.cancelEditingSalle = function(salle) {
 		salle.editing = false;
@@ -96,7 +93,7 @@ var formulaireReservationSalleCtrl = function($scope, $modalInstance, $filter,
 	$scope.removeSalle = function(salle) {
 		if (window
 				.confirm('Etes-sûr de vouloir annuler la réservation de cette salle ?')) {
-			salle.destroy();
+			//salle.destroy();
 		}
 	};
 
@@ -104,7 +101,7 @@ var formulaireReservationSalleCtrl = function($scope, $modalInstance, $filter,
 		for (var i = $scope.salles.length - 1; i >= 0; i--) {
 			var salle = $scope.salles[i];
 			salle.sortOrder = i + 1;
-			salle.save();
+			//salle.save();
 		}
 	};
 

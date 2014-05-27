@@ -31,6 +31,10 @@ var formulaireAbsenceCtrl = function($scope, $modalInstance, $log, retardataires
 		$scope.cancelEditingRetardataire = function(retardataire) {
 			retardataire.editing = false;
 		};
+		
+		$scope.addRetardataire = function() {
+			//retardataire.editing = false;
+		};
 
 		$scope.saveRetardataire = function(retardataire) {
 			retardataire.editing = false;
