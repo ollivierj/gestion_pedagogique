@@ -1,14 +1,9 @@
 'use strict';
 
-services.factory('pHomologuee', function($http) {
+services.factory('pHomologuee', function($resource) {
 
-	return {
-		getData: function() {
-
-			return $http.get('json/personnesHomologueesLoad.json').then(function (result) {
-	            return result.data;
-	        });
-		}
-	};
+	return $resource('json/personnesHomologueesLoad.json', {}, {
+		query: {method: 'GET', isArray: true}
+	});
 
 });

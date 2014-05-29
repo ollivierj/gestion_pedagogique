@@ -1,7 +1,8 @@
 <div class="panel">
   <a class="btn btn-primary fa fa-arrow-left" href="#/consultationStagiaires">&nbsp;Retour Recherche stagiaire</a>
 </div>
-  
+
+<!-- Detail du stagiaire, informations générales -->
 <div class="row">
   <div class="col-lg-12">
     <div class="panel panel-primary">
@@ -27,12 +28,13 @@
               Promotion : {{stagiaireSelected.promotion}}
             </div>
           </div>
-        </div> <!-- row -->
+        </div> <!-- /row -->
       </div> <!-- /panel-body -->
     </div> <!-- /panel -->
   </div> <!-- /col-lg -->
 </div> <!-- /row -->
 
+<!-- Liste des absences du stagiaire -->
 <div class="row">
   <div class="col-lg-4">
     <div class="panel panel-primary">
@@ -40,7 +42,10 @@
         <h3 class="panel-title">
           <div class="row">
             <div class="col-lg-6"><i class="fa fa-calendar"></i> Absences</div>
-            <button class="btn btn-info col-lg-2 col-lg-offset-3">Ajouter</button>
+            <!-- Bouton edition d'une absence -->
+            <button class="btn btn-info btn-xs col-lg-offset-5">
+              <i class="glyphicon glyphicon-plus"></i>
+            </button>
           </div>
         </h3>
       </div><!-- /panel-heading -->
@@ -52,13 +57,17 @@
     </div><!-- /panel -->
   </div><!-- /col-lg -->
 
+  <!-- Liste des avis d'un stagiaire -->
   <div class="col-lg-4">
     <div class="panel panel-primary">
       <div class="panel-heading">
         <h3 class="panel-title">
           <div class="row">
             <div class="col-lg-6"><i class="fa fa-group"></i> Avis</div>
-            <button class="btn btn-info col-lg-2 col-lg-offset-3">Ajouter</button>
+            <!-- Bouton edition d'un avis -->
+            <button class="btn btn-info btn-xs col-lg-offset-5">
+              <i class="glyphicon glyphicon-plus"></i>
+            </button>
           </div>
         </h3>
       </div><!-- /panel-heading -->
@@ -70,6 +79,7 @@
     </div><!-- /panel -->
   </div><!-- /col-lg -->
 
+  <!-- Liste des échanges d'un stagiaire -->
   <div class="col-lg-4">
     <div class="panel panel-primary">
       <div class="panel-heading">
@@ -85,6 +95,7 @@
   </div><!-- /col-lg -->
 </div> <!-- /row -->
 
+<!-- Planning individuel du stagiaire sous forme de tableau -->
 <div class="row">
   <div class="col-lg-12">
     <div class="panel panel-primary">
@@ -97,6 +108,7 @@
         <div class="col-lg-8">
           <div class='gridStyle' ng-grid="gridOptionsPlanning"></div>
         </div>
+        <!-- Affichage d'un détail correspondant à la ligne sélectionnée -->
         <div class="col-lg-4">
           <div ng-switch on="planningSelected[0].type">
             <div ng-switch-when="Cours">
@@ -115,6 +127,7 @@
   </div><!-- /col-lg -->
 </div> <!-- /row -->
 
+<!-- Lien vers la fiche de sunthèse des compétences du stagiaire -->
 <div class="row">
   <div class="col-lg-12">
     <div class="panel panel-primary">
@@ -130,6 +143,10 @@
         <div class="row">
           <i>Veuillez glisser déposer un nouveau document afin de remplacer celui-ci</i>
         </div>
+        Promotion : 
+        <select class="form-control">
+            <option>Fiche suivi acquis - ASR</option>
+        </select>
       </div><!-- /panel-body -->
     </div><!-- /panel -->
   </div><!-- /col-lg -->

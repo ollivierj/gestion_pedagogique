@@ -1,14 +1,14 @@
 'use strict';
 
-controllers.controller('consultationPersonnesHomologueesCtrl', function($scope, $modal, $log, pHomologuee) {
+controllers.controller('consultationPersonnesHomologueesCtrl', function($scope, $modal, $log, pHomologuee, homologationData) {
 
 	$scope.personneHomologueeSelected = [];
 
-    pHomologuee.getData().then(function(data) {
-        $scope.personnesHomologuees = data;
-    });
+  pHomologuee.query().$promise.then(function(data) {
+    $scope.personnesHomologuees = data;
+  });
 
-	$scope.gridOptionsJury = {
+	$scope.gridOptionsPersonnesHomologuees = {
         data: 'personnesHomologuees',
         selectedItems: $scope.personneHomologueeSelected,
         multiSelect: false,
@@ -19,7 +19,9 @@ controllers.controller('consultationPersonnesHomologueesCtrl', function($scope, 
                 {field:'adresse', displayName:'Adresse'},
                 {field:'codePostal', displayName:'Code postal'},
                 {field:'ville', displayName:'Ville'},
-                {field:'email', displayName:'E-mail'}
+                {field:'email', displayName:'E-mail'},
+                {field:'homologation', displayName:'Homologation'},
+                {field:'duree', displayName:'Durée'}
         ]
     };
 
@@ -27,11 +29,14 @@ controllers.controller('consultationPersonnesHomologueesCtrl', function($scope, 
 
     $scope.afficherFenetreEdition = function() {
     	var modalEdit = $modal.open({
-            templateUrl: 'partials/jury/formulaireEditionPersonneHomologuee.html',
+            templateUrl: 'partials/personnesHomologuees/formulaireEditionPersonneHomologuee.html',
             controller: ModalEditionPersonneHomologueeCtrl,
             resolve: {
                 items: function () {
                   return $scope.items;
+                },
+                homologations: function(homologationData) {
+                  return homologationData.getAll().query().$promise;
                 }
             }
         });
@@ -45,12 +50,14 @@ controllers.controller('consultationPersonnesHomologueesCtrl', function($scope, 
 
 });
 
-var ModalEditionPersonneHomologueeCtrl = function ($scope, $modalInstance, items) {
+var ModalEditionPersonneHomologueeCtrl = function ($scope, $modalInstance, items, homologations) {
 
   $scope.items = items;
   $scope.selected = {
     item: $scope.items[0]
   };
+
+  $scope.homologations = homologations;
 
   $scope.ok = function () {
     $modalInstance.close($scope.selected.item);

@@ -57,6 +57,14 @@
 			<input class="form-control" type="text" placeholder="E-mail" tooltip="Saisissez un e-mail" tooltip-placement="left">
 		</div>
 	</div>
+
+	<div class="row form-group">
+		<div class="col-lg-12">
+			Homologation :<select class="form-control" tooltip="Choisissez une homologation" tooltip-placement="left">
+				<option ng-repeat="h in homologations">{{h.titre}}</option>
+			</select>
+		</div>
+	</div>
 </div>
 
 <div class="modal-footer">

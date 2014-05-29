@@ -1,9 +1,10 @@
 'use strict';
 
-controllers.controller('gestionSessionsValidationCtrl', function($scope, $modal, $log) {
+controllers.controller('gestionSessionsValidationCtrl', function($scope, $modal, $log, PromotionsFactory, pHomologuee, SallesFactory) {
 
-    $scope.sessionSelected = [];
+  $scope.sessionSelected = [];
 
+  // Données de session de validation
 	$scope.sessionsValidation = [
 		{type:'Session de validation', formation:'AL3', dateDebut:'22/06/2014', dateFin:'27/06/2014', salle:'302', 
             jury: ['jean', 'marc'], 
@@ -17,10 +18,12 @@ controllers.controller('gestionSessionsValidationCtrl', function($scope, $modal,
         {type:'Session de validation', formation:'ASR', dateDebut:'15/02/2015', dateFin:'20/02/2015', salle:'301'}
 	];
 
+  // Paramétrage du tableau nggrid pour session
 	$scope.gridOptionsSessions = {
         data: 'sessionsValidation',
         selectedItems: $scope.sessionSelected,
         multiSelect: false,
+        size: 'lg',
         columnDefs : [
                 {field:'type', displayName:'Type'},
                 {field:'formation', displayName:'Formation'},
@@ -33,14 +36,26 @@ controllers.controller('gestionSessionsValidationCtrl', function($scope, $modal,
 
     $scope.items = ['item1', 'item2', 'item3'];
 
+    // Méthode pour l'affichage de la fenêtre modal
     $scope.afficherFenetreEdition = function() {
         var modalEdit = $modal.open({
             templateUrl: 'partials/gestionSessionsValidation/formulaireEditionSession.html',
             controller: ModalEditionSessionValidationCtrl,
+            size: 'lg',
+            // Données envoyées au controller de la fenêtre modal
             resolve: {
                 items: function () {
                   return $scope.items;
-                }
+                },
+                personnesHomologuees: function(pHomologuee) {
+                  return pHomologuee.query().$promise;
+                },
+                salles: function(SallesFactory) {
+                  return SallesFactory.query().$promise;
+                },
+                promotions: function(PromotionsFactory) {
+                  return PromotionsFactory.query().$promise;
+                }    
             }
         });
    
@@ -54,12 +69,17 @@ controllers.controller('gestionSessionsValidationCtrl', function($scope, $modal,
 
 });
 
-var ModalEditionSessionValidationCtrl = function ($scope, $modalInstance, items) {
+// Controller de la fenêtre modal
+var ModalEditionSessionValidationCtrl = function ($scope, $modalInstance, items, personnesHomologuees, salles, promotions) {
 
   $scope.items = items;
   $scope.selected = {
     item: $scope.items[0]
   };
+
+  $scope.promotions = promotions;
+  $scope.personnesHomologuees = personnesHomologuees;
+  $scope.salles= salles;
 
   $scope.ok = function () {
     $modalInstance.close($scope.selected.item);

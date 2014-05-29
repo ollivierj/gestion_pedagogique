@@ -6,7 +6,7 @@
       </div>
       <div class="panel-body">
 
-        <!-- Filtre -->
+        <!-- Filtre de recherche -->
         <div class="row">
           <nav class="navbar navbar-default" role="navigation">
             <div class="container-fluid">     
@@ -25,35 +25,43 @@
           </nav>
         </div>
 
+        <!-- Mode affichage liste pour stagiaires -->
         <div class="row" ng-show="listDisplayModeEnabled">
           <div class='gridStyle' ng-grid="gridOptionsStagiaire"></div>
         </div>
 
-        <div class="col-lg-3" data-ng-repeat="stagiaire in stagiaires | filter:critereStagiaire" ng-hide="listDisplayModeEnabled">
-          <div class="panel panel-info">
-            <div class="panel-heading">
-              <div class="row">
-                <div class="col-xs-6">
-                  <img data-ng-src="images/male.png" class="cardImage" />
-                </div>
-                <div class="col-xs-6 text-right">
-                <p class="announcement-text">
-                  {{stagiaire.prenom + ' ' +
-                    stagiaire.nom}}</p>
-                </div>
-              </div>
-            </div>
-
-            <a href="#">
-              <div class="panel-footer announcement-bottom">
-                <div class="row">
-                  <div class="col-xs-6">Avis</div>
-                  <div class="col-xs-6 text-right">
-                    <i class="fa fa-arrow-circle-right"></i>
+        <!-- Mode affichage carte pour stagiaires -->
+        <div class="row" ng-hide="listDisplayModeEnabled">
+          <div class="row col-lg-12">
+            <div class="col-lg-3" data-ng-repeat="stagiaire in stagiaires | filter:critereStagiaire">
+              <div class="panel panel-info">
+                <div class="panel-heading">
+                  <div class="row">
+                    <div class="col-xs-6">
+                      <img data-ng-src="images/male.png" class="cardImage" />
+                    </div>
+                    <div class="col-xs-6 text-right">
+                    <p class="announcement-text">{{stagiaire.prenom + ' ' + stagiaire.nom}}</p>
+                    </div>
                   </div>
                 </div>
+
+                <a href="#">
+                  <div class="panel-footer announcement-bottom">
+                    <div class="row">
+                      <div class="col-xs-6">Avis</div>
+                      <div class="col-xs-6 text-right">
+                        <i class="fa fa-arrow-circle-right"></i>
+                      </div>
+                    </div>
+                  </div>
+                </a>
               </div>
-            </a>
+            </div>
+          </div>
+          <!-- Pagination pour le mode d'affichage carte du stagiaire -->
+          <div class="col-lg-12">
+            <pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages"></pagination>  
           </div>
         </div>
 
@@ -62,6 +70,7 @@
   </div> <!-- col-lg-12 -->
 </div> <!-- /row --> 
 
+<!-- Affichage liste pour promotions -->
 <div class="row">
   <div class="col-lg-12">
     <div class="panel panel-primary">
@@ -69,7 +78,9 @@
         <h3 class="panel-title"><i class="fa fa-group"></i> Liste des promotions</h3>
       </div>
       <div class="panel-body">
-        <div class='gridStyle' ng-grid="gridOptionsPromotion"></div>
+        <div class="row">
+          <div class='gridStyle' ng-grid="gridOptionsPromotion"></div>
+        </div>
       </div> <!-- panel-body -->
     </div> <!-- panel -->
   </div> <!-- col-lg-12 -->
