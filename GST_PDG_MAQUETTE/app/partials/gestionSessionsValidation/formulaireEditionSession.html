@@ -12,10 +12,12 @@
   <div class="panel-body">
     <!-- Choix de la date pour la session -->
   	<div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-5">
             Choix de la date de la session de validation
             <p class="input-group">
-              <input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="dt" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+              <input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="dt" 
+                     is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" 
+                     date-disabled="disabled(date, mode)" ng-required="true" close-text="Close">
               <span class="input-group-btn">
                 <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
               </span>
@@ -54,11 +56,36 @@
     <!-- Liste des stagiaires disponibles pour passer une session de validation -->
     <div class="col-xs-6" ui-tree="options">
       <label>Stagiaires disponible pour une session</label>
+      
+      <!-- Ajouter une promotion dans l'arbre -->
+      <ol class="node angular-ui-tree-nodes">
+        <li class="node angular-ui-tree-node">
+          <div class="group-title angular-ui-tree-handle">
+            <form role="form" class="form-inline">
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-lg-8">
+                    <input type="text" class="form-control" placeholder="Rechercher une promotion">
+                  </div>
+                  <div class="col-lg-4">
+                    <a class="btn btn-success pull-right">
+                      <i class="glyphicon glyphicon-plus"></i>
+                    </a>
+                  </div>
+                </div><!-- /row -->
+              </div><!-- /form-group -->
+            </form> 
+          </div><!-- /angular-ui-tree-handle -->          
+        </li><!-- /ng-repeat ui-tree-node -->
+      </ol><!-- /ui-tree-nodes -->
+
+      <!-- Liste des promotions pouvant être placées dans une sessions -->
       <ol ui-tree-nodes ng-model="promotions" class="node" data-type="promotion">
         <li ng-repeat="promotion in promotions" class="node" ui-tree-node>
 
           <div class="group-title angular-ui-tree-handle" ng-show="!promotion.editing">
             <div class="tree-node-content">
+              <!-- Nom de la promotion et bouton pour dérouler la liste des stagiaires -->
               <a class="btn btn-success btn-xs" data-nodrag ng-click="togglePromotion(promotion)">
                 <span class="glyphicon" 
                       ng-class="{'glyphicon-chevron-right': promotion.collapsed, 'glyphicon-chevron-down': !promotion.collapsed}">
@@ -68,6 +95,7 @@
             </div>
           </div><!-- /angular-ui-tree-handle -->
           
+          <!-- Liste des stagiaires associés à la promotion -->
           <ol ng-hide="promotion.collapsed" ui-tree-nodes ng-model="promotion.stagiaires" class="node" data-type="stagiaire" >
             <li ng-repeat="stagiaire in promotion.stagiaires" class="node" ui-tree-node>
               <div class="category-title angular-ui-tree-handle">
@@ -80,88 +108,88 @@
       </ol><!-- /ui-tree-nodes -->
     </div><!-- /ui-tree -->
 
-    <!-- Composition d'un jury et une salle disponible pour cette session de validation -->
+    <!-- Composition d'un jury et une salle disponible pour une session de validation -->
     <div class="col-xs-6" ui-tree="options">
-      <label>Jury et salles réservées</label>
-      <ol ui-tree-nodes ng-model="salles" class="node" data-type="salle">
-        <li ng-repeat="salle in salles" class="node" ui-tree-node>
+      <label>Sessions créées</label>
+      <ol ui-tree-nodes ng-model="sessionsValidation" class="node" data-type="session">
+        <li ng-repeat="session in sessionsValidation" class="node" ui-tree-node>
           
-          <div class="group-title angular-ui-tree-handle" ng-show="!salle.editing">
-
-            <a href="" class="btn btn-danger btn-xs pull-right" data-nodrag ng-click="removeSalle(salle)">
+          <!-- Mode normal du noeud jury/salle -->
+          <div class="group-title angular-ui-tree-handle" ng-show="!session.editing">
+            <!-- Supprimer la session créée -->
+            <a href="" class="btn btn-danger btn-xs pull-right" data-nodrag ng-click="removeSession(session)">
               <i class="glyphicon glyphicon-remove"></i>
             </a>
-
-            <a href="" class="btn btn-primary btn-xs pull-right" data-nodrag ng-click="editSalle(salle)">
+            <!-- Editer la session créée -->
+            <a href="" class="btn btn-primary btn-xs pull-right" data-nodrag ng-click="editSession(session)">
               <i class="glyphicon glyphicon-pencil"></i>
             </a>
-
+            <!-- Affichage des infos de la session et bouton pour dérouler la liste des stagiaires-->
             <div class="tree-node-content">
-              <a class="btn btn-success btn-xs" data-nodrag ng-click="toggleSalle(salle)">
-                <span class="glyphicon" ng-class="{'glyphicon-chevron-right': salle.collapsed, 'glyphicon-chevron-down': !salle.collapsed}"></span>
+              <a class="btn btn-success btn-xs" data-nodrag ng-click="toggleSession(session)">
+                <span class="glyphicon" ng-class="{'glyphicon-chevron-right': session.collapsed, 'glyphicon-chevron-down': !session.collapsed}"></span>
               </a>
-              &nbsp;{{getClassName(salle.id)}}
+              &nbsp;{{session.salle}}&nbsp;-&nbsp;{{session.premierePersonne}}&nbsp;-&nbsp;{{session.deuxiemePersonne}}
             </div>
 
           </div><!-- /angular-ui-tree-handle -->
 
-          <div class="group-title angular-ui-tree-handle" data-nodrag ng-show="salle.editing">
+          <!-- Mode edition du noeud jury/salle -->
+          <div class="group-title angular-ui-tree-handle" data-nodrag ng-show="session.editing">
             <form class="form-inline" role="form">
               <div class="form-group">
 
                 <div class="row">
 
                   <div class="col-xs-6">
-                    <label for="salleSelectionnee">Salle</label> 
-                      <span class="label label-danger"
-                            data-ng-show="submitted && helpForm.sallesPlanifiees.$error.required">Required!</span>
+                    Jury :
                   </div>
 
                   <div class="col-xs-6">
-                    <select name="salleSelectionnee" data-ng-model="reservation.salleid"
-                            data-ng-options="obj.id as obj.nom for obj in referentielSalles"
-                            class="form-control" required>
-                      <option value=""></option>
+                    <select class="form-control" ng-model="newSession.firstPerson" required>
+                      <option ng-repeat="ph in personnesHomologuees">{{ph.nom + ' ' + ph.prenom}}</option>
                     </select>
-
                   </div>
+
+                  <div class="col-xs-6">
+                    <select class="form-control" ng-model="newSession.firstPerson" required>
+                      <option ng-repeat="ph in personnesHomologuees">{{ph.nom + ' ' + ph.prenom}}</option>
+                    </select>
+                  </div>
+
                 </div><!-- /row -->
 
                 <div class="top-buffer">
                   <div class="row">
 
                     <div class="col-xs-6">
-                      <label for="animateurSelectionne">Animateur</label> 
-                        <span class="label label-danger"
-                              data-ng-show="submitted && helpForm.activitesPlanifiees.$error.required">Required!</span>
+                      Salle :
                     </div>
 
                     <div class="col-xs-6">
-                      <select name="animateurSelectionne"
-                              data-ng-model="reservation.animateurid"
-                              data-ng-options="obj.value as obj.text for obj in animateursLibres"
+                      <select ng-model="reservation.animateurid" ng-options="s.nom for s in salles" 
                               class="form-control" required>
                         <option value=""></option>
                       </select>
                     </div>
 
-                  </div><!-- /row -->
-                </div><!-- /top-buffer -->
+                  </div>
+                </div>
 
               </div><!-- /form-group -->
 
               <div class="modal-footer-node">
-                <button type="submit" class="btn btn-default" ng-click="cancelEditingSalle(salle)">Annuler</button>
-                <button type="submit" class="btn btn-default" ng-click="saveSalle(salle)">Enregistrer</button>
+                <button type="submit" class="btn btn-default" ng-click="cancelEditingSession(session)">Annuler</button>
+                <button type="submit" class="btn btn-default" ng-click="saveSession(session)">Enregistrer</button>
               </div>
 
             </form>
           </div> <!-- /angular-ui-tree-handle -->
 
-          <ol ng-hide="salle.collapsed" ui-tree-nodes ng-model="salle.stagiaires" data-type="stagiaire" class="node">
-            <li ng-repeat="stagiaire in salle.stagiaires" ui-tree-node class="node">
+          <ol ng-hide="session.collapsed" ui-tree-nodes ng-model="session.stagiaires" data-type="stagiaire" class="node">
+            <li ng-repeat="stagiaire in session.stagiaires" ui-tree-node class="node">
               <div class="category-title angular-ui-tree-handle">
-                <a href="" class="btn btn-danger btn-xs pull-right" data-nodrag ng-click="removeStagiaireFromSalle(salle, stagiaire)">
+                <a href="" class="btn btn-danger btn-xs pull-right" data-nodrag ng-click="removeStagiaireFromSession(session, stagiaire)">
                   <i class="glyphicon glyphicon-remove"></i>
                 </a>
                 <div>&nbsp;{{stagiaire.name}}</div>

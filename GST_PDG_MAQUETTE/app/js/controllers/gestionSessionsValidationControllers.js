@@ -1,11 +1,11 @@
 'use strict';
 
-controllers.controller('gestionSessionsValidationCtrl', function($scope, $modal, $log, PromotionsFactory, pHomologuee, SallesFactory) {
+controllers.controller('gestionSessionsValidationCtrl', function($scope, $modal, $log, PromotionsFactory, pHomologuee, SallesFactory, sessionsValidationData) {
 
   $scope.sessionSelected = [];
 
   // Données de session de validation
-	$scope.sessionsValidation = [
+	$scope.periodeSessionsValidation = [
 		{type:'Session de validation', formation:'AL3', dateDebut:'22/06/2014', dateFin:'27/06/2014', salle:'302', 
             jury: ['jean', 'marc'], 
             stagiaires:['toto', 'titi']},
@@ -20,7 +20,7 @@ controllers.controller('gestionSessionsValidationCtrl', function($scope, $modal,
 
   // Paramétrage du tableau nggrid pour session
 	$scope.gridOptionsSessions = {
-        data: 'sessionsValidation',
+        data: 'periodeSessionsValidation',
         selectedItems: $scope.sessionSelected,
         multiSelect: false,
         size: 'lg',
@@ -55,7 +55,10 @@ controllers.controller('gestionSessionsValidationCtrl', function($scope, $modal,
                 },
                 promotions: function(PromotionsFactory) {
                   return PromotionsFactory.query().$promise;
-                }    
+                },
+                sessionsValidation: function(sessionsValidationData) {
+                  return sessionsValidationData.query().$promise;
+                }
             }
         });
    
@@ -70,7 +73,7 @@ controllers.controller('gestionSessionsValidationCtrl', function($scope, $modal,
 });
 
 // Controller de la fenêtre modal
-var ModalEditionSessionValidationCtrl = function ($scope, $modalInstance, items, personnesHomologuees, salles, promotions) {
+var ModalEditionSessionValidationCtrl = function ($scope, $modalInstance, items, personnesHomologuees, salles, promotions, sessionsValidation) {
 
   $scope.items = items;
   $scope.selected = {
@@ -80,12 +83,57 @@ var ModalEditionSessionValidationCtrl = function ($scope, $modalInstance, items,
   $scope.promotions = promotions;
   $scope.personnesHomologuees = personnesHomologuees;
   $scope.salles= salles;
+  $scope.sessionsValidation = sessionsValidation;
 
+  //Bouton d'action de la fenêtre modal
   $scope.ok = function () {
     $modalInstance.close($scope.selected.item);
   };
 
   $scope.cancel = function () {
     $modalInstance.dismiss('cancel');
+  };
+
+
+  // DATEPICKER
+  // Désactiver la sélection du week end pour le datepicker 
+  $scope.disabled = function(date, mode) {
+    return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+  };
+
+  // Ouverture de la popup du datepicker
+  $scope.open = function($event) {
+    $event.preventDefault();
+    $event.stopPropagation();
+
+    $scope.opened = true;
+  };
+
+  $scope.dateOptions = {
+    formatYear: 'yy',
+    startingDay: 1
+  };
+
+  // Initialisation à la date du jour
+  $scope.dt = new Date();
+  $scope.format = 'dd/MM/yyyy';
+
+
+  // UI TREE
+  // Afficher la promotion
+  $scope.togglePromotion = function(promotion) {
+    promotion.collapsed = !promotion.collapsed;
+  };
+
+  $scope.toggleSession = function(session) {
+    session.collapsed = !session.collapsed;
+  };
+
+  $scope.removeSession = function(session) {
+
+  };
+
+  $scope.editSession = function(session) {
+    session.editing = true;
   };
 };
