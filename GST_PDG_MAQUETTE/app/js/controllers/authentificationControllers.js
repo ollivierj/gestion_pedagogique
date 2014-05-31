@@ -1,6 +1,6 @@
 'use strict';
 
-controllers.controller('authentificationCtrl', function($scope) {
+var ModalAuthentificationCtrl = function($scope, $modalInstance, items) {
 	var loginBase = 'kjamin', passwordBase = '333';
 
 	$scope.connexionTest = function() {
@@ -10,4 +10,13 @@ controllers.controller('authentificationCtrl', function($scope) {
 			console.log('connexion nok');
 		}
 	};
-});
+
+	//Bouton d'action de la fenêtre modal
+	$scope.ok = function () {
+		$modalInstance.close($scope.selected.item);
+	};
+
+	$scope.cancel = function () {
+		$modalInstance.dismiss('cancel');
+	};
+};

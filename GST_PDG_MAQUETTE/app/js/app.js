@@ -5,10 +5,6 @@ angular.module('ng_gst_pdg', ['ngRoute', 'ngGrid', 'ui.bootstrap','ui.tree','ng_
 
 .config(['$routeProvider', function($routeProvider) {
 	$routeProvider.
-		when('/authentification', {
-			templateUrl: 'partials/authentification/authentification.html',
-			controller: 'authentificationCtrl'
-		}).
 		when('/accueil', {
 			templateUrl: 'partials/accueil.html',
 			controller: 'consultationStagiairesCtrl'

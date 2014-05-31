@@ -31,10 +31,30 @@ controllers.controller('wrapperCtrl', function($scope, modalService, $log,
 	        },
 		}
 	};
+	// Afficher une fenêtre modal pour la saisie d'absences
 	$scope.afficherModalAbsence = function() {
 		modalService.showModal(modalDefaults, {}).then(function(result) {
 			$scope.selected = result;
 		});
-	}
+	};
+
+	// Afficher une fenêtre modal pour la connexion utilisateur
+	$scope.afficherModalConnexion = function() {
+		var modalConnexion = {
+			backdrop : true,
+			keyboard : true,
+			modalFade : true,
+			templateUrl : 'partials/authentification/authentification.html',
+			controller : ModalAuthentificationCtrl,
+			resolve : {
+				items : function() {
+					return $scope.items;
+				}
+			}
+		};
+		modalService.showModal(modalConnexion, {}).then(function(result) {
+			$scope.selected = result;
+		});
+	};
 
 });
