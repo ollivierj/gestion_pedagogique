@@ -7,7 +7,7 @@
 					{"mainTitle" : "Liste des ECFs à corriger", "iconTitle":"", "url":"index.html#/corrigerECF", "type":"single"}
 				]},
 
-	{"mainTitle" : "Session de validation", "iconTitle":"fa fa-file-o", "url":"index.html#/gestionSessionsValidation", "type":"single"},
+	{"mainTitle" : "Sessions de validation", "iconTitle":"fa fa-file-o", "url":"index.html#/gestionSessionsValidation", "type":"single"},
 
 	{"mainTitle" : "Personnes homologuées", "iconTitle":"fa fa-group", "url":"index.html#/consultationPersonnesHomologuees", "type":"single"},
 

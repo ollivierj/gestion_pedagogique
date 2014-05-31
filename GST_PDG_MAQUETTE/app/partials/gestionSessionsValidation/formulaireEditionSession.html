@@ -55,7 +55,7 @@
 
     <!-- Liste des stagiaires disponibles pour passer une session de validation -->
     <div class="col-xs-6" ui-tree="options">
-      <label>Stagiaires disponible pour une session</label>
+      <label>Stagiaires disponible pour une jurySalle</label>
       
       <!-- Ajouter une promotion dans l'arbre -->
       <ol class="node angular-ui-tree-nodes">
@@ -79,7 +79,7 @@
         </li><!-- /ng-repeat ui-tree-node -->
       </ol><!-- /ui-tree-nodes -->
 
-      <!-- Liste des promotions pouvant être placées dans une sessions -->
+      <!-- Liste des promotions pouvant être placées dans une salle -->
       <ol ui-tree-nodes ng-model="promotions" class="node" data-type="promotion">
         <li ng-repeat="promotion in promotions" class="node" ui-tree-node>
 
@@ -110,38 +110,38 @@
 
     <!-- Composition d'un jury et une salle disponible pour une session de validation -->
     <div class="col-xs-6" ui-tree="options">
-      <label>Sessions créées</label>
-      <ol ui-tree-nodes ng-model="sessionsValidation" class="node" data-type="session">
-        <li ng-repeat="session in sessionsValidation" class="node" ui-tree-node>
+      <label>Jurys et salles disponibles</label>
+      <ol ui-tree-nodes ng-model="jurysSalles" class="node" data-type="jurySalle">
+        <li ng-repeat="jurySalle in jurysSalles" class="node" ui-tree-node>
           
           <!-- Mode normal du noeud jury/salle -->
-          <div class="group-title angular-ui-tree-handle" ng-show="!session.editing">
-            <!-- Supprimer la session créée -->
-            <a href="" class="btn btn-danger btn-xs pull-right" data-nodrag ng-click="removeSession(session)">
+          <div class="group-title angular-ui-tree-handle" ng-show="!jurySalle.editing">
+            <!-- Supprimer la jurySalle créée -->
+            <a href="" class="btn btn-danger btn-xs pull-right" data-nodrag ng-click="removeJurySalle(jurySalle)">
               <i class="glyphicon glyphicon-remove"></i>
             </a>
-            <!-- Editer la session créée -->
-            <a href="" class="btn btn-primary btn-xs pull-right" data-nodrag ng-click="editSession(session)">
+            <!-- Editer la jurySalle créée -->
+            <a href="" class="btn btn-primary btn-xs pull-right" data-nodrag ng-click="editJurySalle(jurySalle)">
               <i class="glyphicon glyphicon-pencil"></i>
             </a>
-            <!-- Affichage des infos de la session et bouton pour dérouler la liste des stagiaires-->
+            <!-- Affichage des infos du jury et de la salle et bouton pour dérouler la liste des stagiaires-->
             <div class="tree-node-content">
-              <a class="btn btn-success btn-xs" data-nodrag ng-click="toggleSession(session)">
-                <span class="glyphicon" ng-class="{'glyphicon-chevron-right': session.collapsed, 'glyphicon-chevron-down': !session.collapsed}"></span>
+              <a class="btn btn-success btn-xs" data-nodrag ng-click="toggleJurySalle(jurySalle)">
+                <span class="glyphicon" ng-class="{'glyphicon-chevron-right': jurySalle.collapsed, 'glyphicon-chevron-down': !jurySalle.collapsed}"></span>
               </a>
-              &nbsp;{{session.salle}}&nbsp;-&nbsp;{{session.premierePersonne}}&nbsp;-&nbsp;{{session.deuxiemePersonne}}
+              &nbsp;{{jurySalle.salle}}&nbsp;-&nbsp;{{jurySalle.premierePersonne}}&nbsp;-&nbsp;{{jurySalle.deuxiemePersonne}}
             </div>
 
           </div><!-- /angular-ui-tree-handle -->
 
           <!-- Mode edition du noeud jury/salle -->
-          <div class="group-title angular-ui-tree-handle" data-nodrag ng-show="session.editing">
+          <div class="group-title angular-ui-tree-handle" data-nodrag ng-show="jurySalle.editing">
             <form class="form-inline" role="form">
               <div class="form-group">
 
                 <div class="row">
 
-                  <div class="col-xs-6">
+                  <div class="col-xs-12">
                     Jury :
                   </div>
 
@@ -159,38 +159,39 @@
 
                 </div><!-- /row -->
 
-                <div class="top-buffer">
-                  <div class="row">
+                <div class="row top-buffer">
 
-                    <div class="col-xs-6">
-                      Salle :
-                    </div>
-
-                    <div class="col-xs-6">
-                      <select ng-model="reservation.animateurid" ng-options="s.nom for s in salles" 
-                              class="form-control" required>
-                        <option value=""></option>
-                      </select>
-                    </div>
-
+                  <div class="col-xs-6">
+                    Salle :
                   </div>
+
+                  <div class="col-xs-6">
+                    <select ng-model="reservation.animateurid" ng-options="s.nom for s in salles" 
+                            class="form-control" required>
+                      <option value=""></option>
+                    </select>
+                  </div>
+
                 </div>
 
               </div><!-- /form-group -->
 
               <div class="modal-footer-node">
-                <button type="submit" class="btn btn-default" ng-click="cancelEditingSession(session)">Annuler</button>
-                <button type="submit" class="btn btn-default" ng-click="saveSession(session)">Enregistrer</button>
+                <button class="btn btn-default" ng-click="cancelEditingJurySalle(jurySalle)">Annuler</button>
+                <button type="submit" class="btn btn-default" ng-click="saveJurySalle(jurySalle)">Enregistrer</button>
               </div>
 
             </form>
           </div> <!-- /angular-ui-tree-handle -->
 
-          <ol ng-hide="session.collapsed" ui-tree-nodes ng-model="session.stagiaires" data-type="stagiaire" class="node">
-            <li ng-repeat="stagiaire in session.stagiaires" ui-tree-node class="node">
+          <ol ng-hide="jurySalle.collapsed" ui-tree-nodes ng-model="jurySalle.stagiaires" data-type="stagiaire" class="node">
+            <li ng-repeat="stagiaire in jurySalle.stagiaires" ui-tree-node class="node">
               <div class="category-title angular-ui-tree-handle">
-                <a href="" class="btn btn-danger btn-xs pull-right" data-nodrag ng-click="removeStagiaireFromSession(session, stagiaire)">
+                <a href="" class="btn btn-danger btn-xs pull-right" data-nodrag ng-click="removeStagiaireFromJurySalle(jurySalle, stagiaire)">
                   <i class="glyphicon glyphicon-remove"></i>
+                </a>
+                <a href="" class="btn btn-primary btn-xs pull-right" data-nodrag ng-click="editStagiaireFromJurySalle(jurySalle, stagiaire)">
+                  <i class="glyphicon glyphicon-pencil"></i>
                 </a>
                 <div>&nbsp;{{stagiaire.name}}</div>
               </div>

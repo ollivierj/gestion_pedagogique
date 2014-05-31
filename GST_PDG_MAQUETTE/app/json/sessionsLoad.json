@@ -1,18 +1,10 @@
-  [
-  	{"sortOrder": 0, "type":"session", "premierePersonne":"Jean", "deuxiemePersonne":"Pierre", "salle":"101", "editing": false,"collapsed" : true,
-    	"stagiaires": [
-      					{"name": "Brian Jones","promotion" : "Contrat Pro","sortOrder": 2,"type": "stagiaire"},
-						{"name": "Paul Newman","promotion" : "Contrat Pro","sortOrder": 1,"type": "stagiaire"},
-						{"name": "Brian Molco","promotion" : "AL3B","sortOrder": 1,"type": "stagiaire"},
-						{"name": "Hervé Villard","promotion" : "AL3B","sortOrder": 1,"type": "stagiaire"},
-						{"name": "Marcel Proust","promotion" : "AL3B","sortOrder": 6,"type": "stagiaire"}
-    	]   
-  },
-
-  {"sortOrder": 1, "type": "session", "premierePersonne":"Marc", "deuxiemePersonne":"Eric", "salle":"203", "editing": false, "collapsed" : true,
-    	"stagiaires": [
-      					{"name": "Gustave Effel", "promotion" : "AL3B", "sortOrder": 0, "type": "stagiaire"},
-      					{"name": "Francois Hollande","promotion" : "AL3B","sortOrder": 5,"type": "stagiaire"}
-		]
-  }
+[
+	{"type":"Session de validation", "formation":"AL3", "date":"22/06/2014"},
+	{"type":"CQPM", "formation":"Metallurgie", "date":"10/08/2014"},
+    {"type":"Session de validation", "formation":"MS2I", "date":"01/09/2014"},
+    {"type":"Session de validation", "formation":"Micro", "date":"13/10/2014"},
+    {"type":"Session de validation", "formation":"AL2", "date":"05/11/2014"},
+    {"type":"Session de validation", "formation":"AL2", "date":"11/12/2014"},
+    {"type":"CQPM", "formation":"Metallurgie", "date":"02/01/2015"},
+    {"type":"Session de validation", "formation":"ASR", "date":"15/02/2015"}
 ]
