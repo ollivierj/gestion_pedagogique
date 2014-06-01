@@ -18,9 +18,13 @@ controllers.controller('corrigerECFCtrl', function($scope, $modal, $log, cECF) {
 		selectedItems : $scope.correctionECFSelected,
 		multiSelect : false,
 		columnDefs : [ {
-			field : 'ecf',
-			displayName : 'ECF',
+			field : 'module',
+			displayName : 'Module',
 			cellTemplate : linkCellTemplate
+		}, {
+			field : 'formation',
+			displayName : 'Formation'
+
 		}, {
 			field : 'date',
 			displayName : 'Date'

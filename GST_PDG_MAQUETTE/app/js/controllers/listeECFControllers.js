@@ -14,15 +14,20 @@ controllers
 					});
 
 					var linkCellTemplate = '<a href="" ng-click="afficherModalModifierECF()">{{row.getProperty(col.field)}}</a>';
-
+					var suppression = '<a href="" ><i class="fa fa-times-circle"></i></a>'
+					
 					$scope.gridListeECF = {
 						data : 'listeECF',
 						selectedItems : $scope.listeECFSelected,
 						multiSelect : false,
 						columnDefs : [ {
-							field : 'ecf',
-							displayName : 'ECF',
+							field : 'module',
+							displayName : 'Module',
 							cellTemplate : linkCellTemplate
+						}, {
+							field : 'formation',
+							displayName : 'Formation'
+
 						}, {
 							field : 'date',
 							displayName : 'Date'
@@ -30,6 +35,10 @@ controllers
 						}, {
 							field : 'planifie',
 							displayName : 'Planifié'
+						}, {
+							field : 'supp',
+							displayName : 'Suppression',
+							cellTemplate : suppression
 						} ]
 					};
 

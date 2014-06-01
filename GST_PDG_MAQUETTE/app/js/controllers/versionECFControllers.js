@@ -11,7 +11,7 @@ controllers.controller('versionECFCtrl', function($scope, $modal, $log, vECF) {
     });
 	
     var linkCellTemplate = '<a href="" ng-click="afficherModalVersionECF()">{{row.getProperty(col.field)}}</a>';
-    
+    var suppression = '<a href="" ><i class="fa fa-times-circle"></i></a>'
 	$scope.gridVersionECF = {
 		data : 'versionECF',
 		selectedItems : $scope.versionECFSelected,
@@ -29,7 +29,17 @@ controllers.controller('versionECFCtrl', function($scope, $modal, $log, vECF) {
 		}, {
 			field : 'correction',
 			displayName : 'Correction'
-		} ]
+		}, {
+			field : 'formation',
+			displayName : 'Formation'
+		}, {
+			field : 'module',
+			displayName : 'Module'
+		}, {
+			field : 'del',
+			displayName : 'Suppression',
+			cellTemplate: suppression
+		}  ]
 	};
 	
 	

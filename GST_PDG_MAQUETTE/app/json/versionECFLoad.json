@@ -1,9 +1,9 @@
 [
-	{"version":1, "nom":"Test java Version 1", "ennonce":"java1ennonce.docx", "correction":"java1correction.docx"},
-	{"version":2, "nom":"Test java Version 2", "ennonce":"java2ennonce.docx", "correction":"java2correction.docx"},
-	{"version":3, "nom":"Test java Version 3", "ennonce":"java3ennonce.docx", "correction":"java3correction.docx"},
-	{"version":1, "nom":"Test SQL Version 1", "ennonce":"sql1ennonce.docx", "correction":"sql1correction.docx"},
-	{"version":2, "nom":"Test SQL Version 2", "ennonce":"sql2ennonce.docx", "correction":"sql2correction.docx"},
-	{"version":3, "nom":"Test SQL Version 3", "ennonce":"sql3ennonce.docx", "correction":"sql3correction.docx"}
+	{"version":1, "nom":"Test java Version 1", "ennonce":"java1ennonce.docx", "correction":"java1correction.docx", "formation":"AL", "module":"Java"},
+	{"version":2, "nom":"Test java Version 2", "ennonce":"java2ennonce.docx", "correction":"java2correction.docx", "formation":"AL", "module":"Java"},
+	{"version":3, "nom":"Test java Version 3", "ennonce":"java3ennonce.docx", "correction":"java3correction.docx", "formation":"AL", "module":"Java"},
+	{"version":1, "nom":"Test SQL Version 1", "ennonce":"sql1ennonce.docx", "correction":"sql1correction.docx", "formation":"AL", "module":"Java"},
+	{"version":2, "nom":"Test SQL Version 2", "ennonce":"sql2ennonce.docx", "correction":"sql2correction.docx", "formation":"AL", "module":"Java"},
+	{"version":3, "nom":"Test SQL Version 3", "ennonce":"sql3ennonce.docx", "correction":"sql3correction.docx", "formation":"AL", "module":"Java"}
 ]
 
