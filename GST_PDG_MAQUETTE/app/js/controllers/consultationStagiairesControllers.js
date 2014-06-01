@@ -33,8 +33,8 @@ controllers.controller('consultationStagiairesCtrl', function($scope, $http, $lo
         rowHeight: 80,
         selectedItems: $scope.stagiaireSelected,
         multiSelect: false,
-        showColumnMenu:true,
-        showFilter:true,
+        // showColumnMenu:true,
+        // showFilter:true,
         columnDefs : [
                 {field:'photo', displayName:'Photo', cellTemplate: 'partials/templates/ng-grid_photo.html'},
                 {field:'nom', displayName:'Nom'},
@@ -53,8 +53,8 @@ controllers.controller('consultationStagiairesCtrl', function($scope, $http, $lo
     $scope.gridOptionsPromotion = { 
         data: 'promotions',
         selectedItems: $scope.promotionSelected,
-        showColumnMenu:true,
-        showFilter:true,
+        // showColumnMenu:true,
+        // showFilter:true,
         afterSelectionChange : function(promotion) {
             selectChangePromotion(promotion);
         },
@@ -63,7 +63,9 @@ controllers.controller('consultationStagiairesCtrl', function($scope, $http, $lo
                 {field:'code', displayName:'Code'},
                 {field:'nbStagiaire', displayName:'Nombre de stagiaires'},
                 {field:'annee', displayName:'Année'}
-        ]   
+        ],
+        showFooter: true,
+        enablePaging: true   
     };
 
     
