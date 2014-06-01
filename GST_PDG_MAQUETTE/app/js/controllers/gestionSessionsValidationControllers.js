@@ -16,11 +16,15 @@ controllers.controller('gestionSessionsValidationCtrl', function($scope, $modal,
         selectedItems: $scope.sessionSelected,
         multiSelect: false,
         size: 'lg',
+        // showFilter: true,
+        // showColumnMenu:true,  
         columnDefs : [
                 {field:'type', displayName:'Type'},
                 {field:'formation', displayName:'Formation'},
                 {field:'date', displayName:'Date'}
-        ]
+        ],
+        showFooter: true,
+        enablePaging: true
     };
 
 

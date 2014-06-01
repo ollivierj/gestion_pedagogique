@@ -22,7 +22,9 @@ controllers.controller('consultationPersonnesHomologueesCtrl', function($scope, 
                 {field:'email', displayName:'E-mail'},
                 {field:'homologation', displayName:'Homologation'},
                 {field:'duree', displayName:'Durée'}
-        ]
+        ],
+        showFooter: true,
+        enablePaging: true
     };
 
     $scope.items = ['item1', 'item2', 'item3'];
