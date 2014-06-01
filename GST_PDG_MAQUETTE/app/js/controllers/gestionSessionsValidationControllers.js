@@ -122,16 +122,20 @@ var ModalEditionSessionValidationCtrl = function ($scope, $modalInstance, items,
   $scope.toggleJurySalle = function(jurySalle) {
     jurySalle.collapsed = !jurySalle.collapsed;
   };
-  // Supprimer un noeur jury/salle
+  // Supprimer un noeud jury/salle
   $scope.removeJurySalle = function(jurySalle) {
 
   };
-  // Editer un noeur jury/salle
+  // Editer un noeud jury/salle
   $scope.editJurySalle = function(jurySalle) {
     jurySalle.editing = true;
   };
   // Annuler l'édition d'un noeud jury/salle
   $scope.cancelEditingJurySalle = function(jurySalle) {
     jurySalle.editing = false;
+  };
+  // Affichage du bloc d'édition du créneau de passage du stagiaire
+  $scope.editStagiaireFromJurySalle = function(stagiaire) {
+    stagiaire.editing = true;
   };
 };
