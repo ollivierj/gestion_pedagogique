@@ -1,9 +1,9 @@
 'use strict';
 
-controllers.controller('consultationStagiairesCtrl', function($scope, $http, $location, stagiaireData) {
+controllers.controller('consultationStagiairesCtrl', function($scope, $http, $location, stagiaireData, $modal) {
 
     /*Variable contenant la sélection des données des tableaux de recherche*/
-    $scope.promotionSelected = [];
+    var promotionSelected = [];
     $scope.stagiaireSelected = [];
 
     /*Liste de tous les stagiaires utilisée pour effectuer le filtre*/
@@ -40,7 +40,7 @@ controllers.controller('consultationStagiairesCtrl', function($scope, $http, $lo
                 {field:'nom', displayName:'Nom'},
                 {field:'prenom', displayName:'Prénom'},
                 {field:'age', displayName:'Âge'},
-                {field:'promotion', displayName:'Promotion'},
+                {field:'promotion', displayName:'Promotion', cellTemplate: 'partials/templates/ng-grid_detailsPromotion.html'},
                 {field:'details', displayName:'Details', cellTemplate: 'partials/templates/ng-grid_details.html'}
         ],
         enablePaging: true,
@@ -68,6 +68,18 @@ controllers.controller('consultationStagiairesCtrl', function($scope, $http, $lo
         enablePaging: true   
     };
 
+    // Affiche une fenêtre modal avec les informations de la promotion
+    $scope.displayPromotionDetails = function() {
+        var modalEdit = $modal.open({
+            templateUrl: 'partials/consultationStagiaires/detailsPromotion.html',
+            controller: ModalDisplayPromotionDetails,
+            resolve: {
+                promotion: function() {
+                  return promotionSelected;
+                }
+            }
+        });
+    };
     
     $scope.viewDetails = function() {
         stagiaireData.set($scope.stagiaireSelected[0]);
@@ -201,3 +213,15 @@ controllers.controller('detailsStagiairesCtrl', function($scope, stagiaireData) 
         ]
     };
 });
+
+var ModalDisplayPromotionDetails = function($scope, $modalInstance, promotion) {
+    $scope.promotion = promotion;
+
+    $scope.ok = function () {
+        $modalInstance.close($scope.selected.item);
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+};
