@@ -21,7 +21,7 @@ controllers.controller('consultationPersonnesHomologueesCtrl', function($scope, 
                 {field:'ville', displayName:'Ville'},
                 {field:'email', displayName:'E-mail'},
                 {field:'homologation', displayName:'Homologation'},
-                {field:'duree', displayName:'Durée'}
+                {field:'dateFin', displayName:'Date de fin'}
         ],
         showFooter: true,
         enablePaging: true

@@ -2,7 +2,7 @@
 	<div class="panel panel-primary">
 		<div class="panel-heading">
 		  <h3 class="panel-title">
-		    <i class="fa fa-group"></i> Création d'une personne homologuée
+		    <i class="fa fa-group"></i> Création d'un professionnel homologué
 		  </h3>
 		</div>
 	</div>
@@ -20,6 +20,10 @@
 	    	</div>
 	    	<div class="form-group">
 	        	<input class="form-control" type="text" placeholder="Date de naissance" tooltip="Saisissez une date de naissance" tooltip-placement="left">
+	    	</div>
+	    	<div class="form-group">
+	        	M <input type="radio" tooltip="Monsieur" tooltip-placement="left">
+	        	Mme <input type="radio" tooltip="Madame" tooltip-placement="left">
 	    	</div>
 	    	<div class="form-group">
 	        	Permis <input type="checkbox" tooltip="A-t-il le permis ?" tooltip-placement="left">
@@ -64,11 +68,19 @@
 		</div>
 	</div>
 
-	<div class="row form-group">
+	<!-- <div class="row form-group">
 		<div class="col-lg-12">
 			Homologation :<select class="form-control" tooltip="Choisissez une homologation" tooltip-placement="left">
 				<option ng-repeat="h in homologations">{{h.titre}}</option>
 			</select>
+		</div>
+	</div> -->
+	<div class="row form-group">
+		<div class="col-lg-6">
+			<input class="form-control" type="text" placeholder="Homologation" tooltip="Saisissez une homologation" tooltip-placement="left">
+		</div>
+		<div class="col-lg-6">
+			<input class="form-control" type="text" placeholder="Date de fin" tooltip="Saisissez une date de fin pour l'homologation" tooltip-placement="right">
 		</div>
 	</div>
 </div>

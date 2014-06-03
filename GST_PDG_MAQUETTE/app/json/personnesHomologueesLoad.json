@@ -1,16 +1,16 @@
-[
-	{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":"", "homologation": "homologation MS2I", "duree":"2 ans"},
-	{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":"", "homologation": "homologation ASR", "duree":"2 ans"},
-	{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":"", "homologation": "homologation CDI", "duree":"3 ans"},
-	{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":"", "homologation": "homologation MS2I", "duree":"6 mois"},
-	{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":"", "homologation": "homologation MS2I", "duree":"1 an"},
-	{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":"", "homologation": "homologation AL", "duree":"2 ans"},
-	{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":"", "homologation": "homologation AL", "duree":"2 ans"},
-	{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":"", "homologation": "homologation AL", "duree":"3 ans"},
-	{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":"", "homologation": "homologation CDI", "duree":"5 ans"},
-	{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":"", "homologation": "homologation ASR", "duree":"2 jours"},
-	{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":"", "homologation": "homologation CDI", "duree":"5 jours"},
-	{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":"", "homologation": "homologation AL", "duree":"23 jours"},
-	{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":"", "homologation": "homologation MS2I", "duree":"2 ans"},
-	{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":"", "homologation": "homologation MS2I", "duree":"2 ans"}
+	[
+	{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":"", "homologation": "homologation MS2I", "dateFin":"02/03/2014"},
+	{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":"", "homologation": "homologation ASR", "dateFin":"23/12/2015"},
+	{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":"", "homologation": "homologation CDI", "dateFin":"09/09/2013"},
+	{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":"", "homologation": "homologation MS2I", "dateFin":"12/01/2016"},
+	{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":"", "homologation": "homologation MS2I", "dateFin":"12/01/2016"},
+	{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":"", "homologation": "homologation AL", "dateFin":"02/11/2018"},
+	{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":"", "homologation": "homologation AL", "dateFin":"21/06/2012"},
+	{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":"", "homologation": "homologation AL", "dateFin":"12/03/2014"},
+	{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":"", "homologation": "homologation CDI", "dateFin":"25/04/2016"},
+	{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":"", "homologation": "homologation ASR", "dateFin":"03/11/2017"},
+	{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":"", "homologation": "homologation CDI", "dateFin":"27/08/2016"},
+	{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":"", "homologation": "homologation AL", "dateFin":"12/01/2016"},
+	{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":"", "homologation": "homologation MS2I", "dateFin":"12/01/2016"},
+	{"nom":"Jamin", "prenom":"Kévin", "civilite":22, "adresse":"AL3", "codePostal":"", "ville":"", "email":"", "homologation": "homologation MS2I", "dateFin":"12/01/2016"}
 ]
