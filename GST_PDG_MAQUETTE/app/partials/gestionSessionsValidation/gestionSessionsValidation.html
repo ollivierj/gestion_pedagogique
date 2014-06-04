@@ -9,10 +9,14 @@
         <div class="row">
           <nav class="navbar navbar-default" role="navigation">
             <div class="container-fluid">     
-              <form class="navbar-form navbar-left" role="search">
-                <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Recherche">
-                </div>
+              <form class="navbar-form navbar-left">
+                <input type="text" class="form-control" placeholder="Recherche">
+              </form>
+
+              <form class="navbar-form navbar-right">
+                <button class="btn btn-primary" ng-click="afficherFenetreEdition()">
+                  <span class="fa fa-plus"></span>
+                </button>
               </form>
             </div>
           </nav>
@@ -21,9 +25,6 @@
         <!-- Liste des sessions de validation -->
         <div class="row form-group">
           <div class='gridStyle' ng-grid="gridOptionsSessions"></div>
-        </div>
-        <div>
-          <button class="btn btn-primary col-lg-offset-10" ng-click="afficherFenetreEdition()">Ajouter une nouvelle session</button>
         </div>
       </div> <!-- panel-body -->
     </div> <!-- panel -->

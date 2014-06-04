@@ -41,7 +41,7 @@ controllers.controller('consultationStagiairesCtrl', function($scope, $http, $lo
                 {field:'prenom', displayName:'Prénom'},
                 {field:'age', displayName:'Âge'},
                 {field:'promotion', displayName:'Promotion', cellTemplate: 'partials/templates/ng-grid_detailsPromotion.html'},
-                {field:'details', displayName:'Details', cellTemplate: 'partials/templates/ng-grid_details.html'}
+                {field:'details', displayName:'Actions', cellTemplate: 'partials/templates/ng-grid_details.html'}
         ],
         enablePaging: true,
         showFooter: true,
