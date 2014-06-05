@@ -1,10 +1,10 @@
 [
 	{"type":"Session de validation", "formation":"AL3", "date":"22/06/2014"},
-	{"type":"CQPM", "formation":"Metallurgie", "date":"10/08/2014"},
+	{"type":"CQPM", "formation":"", "date":"10/08/2014"},
     {"type":"Session de validation", "formation":"MS2I", "date":"01/09/2014"},
     {"type":"Session de validation", "formation":"Micro", "date":"13/10/2014"},
     {"type":"Session de validation", "formation":"AL2", "date":"05/11/2014"},
     {"type":"Session de validation", "formation":"AL2", "date":"11/12/2014"},
-    {"type":"CQPM", "formation":"Metallurgie", "date":"02/01/2015"},
+    {"type":"CQPM", "formation":"", "date":"02/01/2015"},
     {"type":"Session de validation", "formation":"ASR", "date":"15/02/2015"}
 ]
