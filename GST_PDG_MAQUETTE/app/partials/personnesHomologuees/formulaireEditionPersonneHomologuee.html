@@ -70,6 +70,9 @@
 
 	<div class="form-group">
 		Homologation
+		<button class="btn btn-primary btn-xs">
+			<span class="fa fa-plus"></span>
+		</button>
 	</div>
 	<div class="row form-group">
 		<div class="col-lg-6">
@@ -77,7 +80,10 @@
 				<option ng-repeat="h in homologations">{{h.titre}}</option>
 			</select>
 		</div>
-		<div class="col-lg-6">
+		<div class="col-lg-3">
+			<input class="form-control" type="text" placeholder="Date de début" tooltip="Saisissez une date de début pour l'homologation" tooltip-placement="top">
+		</div>
+		<div class="col-lg-3">
 			<input class="form-control" type="text" placeholder="Date de fin" tooltip="Saisissez une date de fin pour l'homologation" tooltip-placement="right">
 		</div>
 	</div>

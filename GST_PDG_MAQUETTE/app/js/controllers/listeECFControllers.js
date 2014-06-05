@@ -36,10 +36,10 @@ controllers
 							field : 'planifie',
 							displayName : 'Planifié'
 						}, {
-							field : 'supp',
-							displayName : 'Suppression',
-							cellTemplate : suppression
-						} ]
+							field:'supp',
+							displayName:'Actions', 
+							cellTemplate: 'partials/templates/ng-grid_actions.html'
+						}]
 					};
 
 					$scope.afficherModalModifierECF = function() {

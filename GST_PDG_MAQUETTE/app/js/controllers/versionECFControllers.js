@@ -37,9 +37,9 @@ controllers.controller('versionECFCtrl', function($scope, $modal, $log, vECF) {
 			displayName : 'Module'
 		}, {
 			field : 'del',
-			displayName : 'Suppression',
-			cellTemplate: suppression
-		}  ]
+			displayName:'Actions', 
+			cellTemplate: 'partials/templates/ng-grid_actions.html'
+		}]
 	};
 	
 	

@@ -39,7 +39,7 @@ controllers.controller('consultationStagiairesCtrl', function($scope, $http, $lo
                 {field:'photo', displayName:'Photo', cellTemplate: 'partials/templates/ng-grid_photo.html'},
                 {field:'nom', displayName:'Nom'},
                 {field:'prenom', displayName:'Prénom'},
-                {field:'age', displayName:'Âge'},
+                {field:'dateNaissance', displayName:'Date de naissance'},
                 {field:'promotion', displayName:'Promotion', cellTemplate: 'partials/templates/ng-grid_detailsPromotion.html'},
                 {field:'details', displayName:'Actions', cellTemplate: 'partials/templates/ng-grid_details.html'}
         ],
@@ -185,12 +185,56 @@ controllers.controller('detailsStagiairesCtrl', function($scope, stagiaireData) 
         {date:'02/06/2011', heure:'23:39:30', motif:'Accident sur la route'}
     ];
 
+    $scope.gridOptionsAbsences = {
+        data: 'absences',
+        // selectedItems: $scope.planningSelected,
+        multiSelect: false,
+        columnDefs : [
+                {field:'date', displayName:'Date'},
+                {field:'heure', displayName:'Heure'},
+                {displayName:'Auteur'},
+                {field:'motif', displayName:'Motif'},
+                {displayName:'Actions', cellTemplate: 'partials/templates/ng-grid_actions.html'}
+        ]
+    };
+
     // Les avis concernant le stagiaire
     $scope.avis = [
         {formateur:'Jean', date:'20/12/2012', avis:'Bon élément, attentif'},
         {formateur:'Eric', date:'09/10/2016', avis:'Agité, non intéressé'},
         {formateur:'Patrick', date:'12/08/2011', avis:'S\'intéresse et pose les bonnes questions'}
     ];
+
+    $scope.gridOptionsAvis = {
+        data: 'avis',
+        // selectedItems: $scope.planningSelected,
+        multiSelect: false,
+        columnDefs : [
+                {field:'date', displayName:'Date'},
+                {field:"formateur", displayName:'Auteur'},
+                {field:'avis', displayName:'Avis'},
+                {displayName:'Actions', cellTemplate: 'partials/templates/ng-grid_actions.html'}
+        ]
+    };
+
+    // Les échanges concernant le stagiaire
+    $scope.echanges = [
+        {auteur:'Jean', date:'20/12/2013', echange:'Entretien validé'},
+        {auteur:'Eric', date:'08/12/2013', echange:'En attente des réponses d\'entretien'},
+        {auteur:'Patrick', date:'28/06/2013', echange:'En recherche d\'entreprise'}
+    ];
+
+    $scope.gridOptionsEchanges = {
+        data: 'echanges',
+        // selectedItems: $scope.planningSelected,
+        multiSelect: false,
+        columnDefs : [
+                {field:'date', displayName:'Date'},
+                {field:"auteur", displayName:'Auteur'},
+                {field:'echange', displayName:'Echange'},
+                {displayName:'Actions', cellTemplate: 'partials/templates/ng-grid_actions.html'}
+        ]
+    };
 
     $scope.planning = [
         {type:'Cours', libelle:'Java', date:'20/12/2013'},
@@ -209,7 +253,10 @@ controllers.controller('detailsStagiairesCtrl', function($scope, stagiaireData) 
         columnDefs : [
                 {field:'type', displayName:'Type'},
                 {field:'libelle', displayName:'Libellé'},
-                {field:'date', displayName:'Date'}
+                {field:'date', displayName:'Date de début'},
+                {displayName:'Date de fin'},
+                {displayName:'Heure'},
+                {displayName:'Salle'}
         ]
     };
 });

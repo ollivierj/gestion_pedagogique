@@ -16,12 +16,12 @@ controllers.controller('consultationPersonnesHomologueesCtrl', function($scope, 
                 {field:'nom', displayName:'Nom'},
                 {field:'prenom', displayName:'Prénom'},
                 {field:'civilite', displayName:'Civilité'},
+                {field:'dateNaissance', displayName:'Date de naissance'},
                 {field:'adresse', displayName:'Adresse'},
                 {field:'codePostal', displayName:'Code postal'},
                 {field:'ville', displayName:'Ville'},
                 {field:'email', displayName:'E-mail'},
-                {field:'homologation', displayName:'Homologation'},
-                {field:'dateFin', displayName:'Date de fin'}
+                {displayName:'Actions', cellTemplate: 'partials/templates/ng-grid_actions.html'}
         ],
         showFooter: true,
         enablePaging: true

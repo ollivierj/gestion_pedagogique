@@ -10,25 +10,90 @@
         <h3 class="panel-title"><i class="fa fa-group"></i> Détails</h3>
       </div>
       <div class="panel-body">
-        <div class="col-lg-3">
+
+        <div class="col-lg-2">
             <img src="http://placehold.it/200x200">
         </div>
-        <div class="row">
-          <div class="col-lg-2">
-            <div class="row">
-              Nom : {{stagiaireSelected.nom}}
-            </div>
-            <div class="row">
-              Prénom : {{stagiaireSelected.prenom}}
-            </div>
-            <div class="row">
-              Âge : {{stagiaireSelected.age}}
-            </div>
-            <div class="row">
-              Promotion : {{stagiaireSelected.promotion}}
-            </div>
+
+        <div class="col-lg-5">
+          <div class="row">
+            <div class="col-lg-6">Nom :</div>
+            <div class="col-lg-6">{{stagiaireSelected.nom}}</div>
           </div>
-        </div> <!-- /row -->
+
+          <div class="row">
+            <div class="col-lg-6">Prénom :</div>
+            <div class="col-lg-6">{{stagiaireSelected.prenom}}</div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6">Civilité :</div>
+            <div class="col-lg-6">M</div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6">Date de naissance :</div>
+            <div class="col-lg-6">{{stagiaireSelected.dateNaissance}}</div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6">Adresse :</div>
+            <div class="col-lg-6">21 rue Benjamin Franklin</div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6">Ville :</div>
+            <div class="col-lg-6">Nantes</div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6">Code Postal :</div>
+            <div class="col-lg-6">44000</div>
+          </div>
+
+        </div>
+
+        
+
+        <div class="col-lg-5">
+
+          <div class="row">
+            <div class="col-lg-6">Permis :</div>
+            <div class="col-lg-6"><input type="checkbox" checked="true"></div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6">Promotion :</div>
+            <div class="col-lg-6">{{stagiaireSelected.promotion}}</div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6">Téléphone fixe :</div>
+            <div class="col-lg-6">02-32-51-12-56</div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6">Téléphone portable :</div>
+            <div class="col-lg-6">06-23-54-12-23</div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6">E-mail :</div>
+            <div class="col-lg-6">kevin.jamin@eni.fr</div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6">Répertoire :</div>
+            <div class="col-lg-6"><a href="">Répertoire de Kévin</a></div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6">Synthèse des compétences :</div>
+            <div class="col-lg-6"><button class="btn btn-primary btn-xs fa fa-pencil fa-lg"></button> <a href="">Fiches de synthèses</a></div>
+          </div>
+
+        </div>
+
       </div> <!-- /panel-body -->
     </div> <!-- /panel -->
   </div> <!-- /col-lg -->
@@ -36,51 +101,80 @@
 
 <!-- Liste des absences du stagiaire -->
 <div class="row">
-  <div class="col-lg-4">
+  <div class="col-lg-12">
     <div class="panel panel-primary">
       <div class="panel-heading">
         <h3 class="panel-title">
           <div class="row">
             <div class="col-lg-6"><i class="fa fa-calendar"></i> Absences</div>
-            <!-- Bouton edition d'une absence -->
-            <button class="btn btn-info btn-xs col-lg-offset-5">
-              <i class="glyphicon glyphicon-plus"></i>
-            </button>
           </div>
         </h3>
       </div><!-- /panel-heading -->
       <div class="panel-body">
-        <div ng-repeat="ab in absences">
-          {{ab.date}} - {{ab.heure}} - {{ab.motif}} 
+        <!-- Bouton edition d'une absence -->
+        <div class="row">
+          <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">     
+              <form class="navbar-form navbar-left" role="search">
+                <input type="text" class="form-control" placeholder="Recherche">
+              </form>
+              <form class="navbar-form navbar-right" role="search">
+                <button class="btn btn-primary">
+                  <span class="fa fa-plus"></span>
+                </button>
+              </form>
+            </div>
+          </nav>
+        </div>
+
+        <div class="col-lg-12">
+          <div class='gridStyle' ng-grid="gridOptionsAbsences"></div>
         </div>
       </div><!-- /panel-body -->
     </div><!-- /panel -->
   </div><!-- /col-lg -->
+</div> <!-- /row -->
 
-  <!-- Liste des avis d'un stagiaire -->
-  <div class="col-lg-4">
+<!-- Liste des avis d'un stagiaire -->
+<div class="row">
+  <div class="col-lg-12">
     <div class="panel panel-primary">
       <div class="panel-heading">
         <h3 class="panel-title">
           <div class="row">
             <div class="col-lg-6"><i class="fa fa-group"></i> Avis</div>
-            <!-- Bouton edition d'un avis -->
-            <button class="btn btn-info btn-xs col-lg-offset-5">
-              <i class="glyphicon glyphicon-plus"></i>
-            </button>
           </div>
         </h3>
       </div><!-- /panel-heading -->
       <div class="panel-body">
-        <div ng-repeat="av in avis">
-          {{av.formateur}} - {{av.date}} - {{av.avis}} 
+
+        <!-- Bouton edition d'un avis -->
+        <div class="row">
+          <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">     
+              <form class="navbar-form navbar-left" role="search">
+                <input type="text" class="form-control" placeholder="Recherche">
+              </form>
+              <form class="navbar-form navbar-right" role="search">
+                <button class="btn btn-primary">
+                  <span class="fa fa-plus"></span>
+                </button>
+              </form>
+            </div>
+          </nav>
+        </div>
+
+        <div class="col-lg-12">
+          <div class='gridStyle' ng-grid="gridOptionsAvis"></div>
         </div>
       </div><!-- /panel-body -->
     </div><!-- /panel -->
   </div><!-- /col-lg -->
+</div> <!-- /row -->
 
-  <!-- Liste des échanges d'un stagiaire -->
-  <div class="col-lg-4">
+<!-- Liste des échanges d'un stagiaire -->
+<div class="row">
+  <div class="col-lg-12">
     <div class="panel panel-primary">
       <div class="panel-heading">
         <h3 class="panel-title">
@@ -88,7 +182,25 @@
         </h3>
       </div><!-- /panel-heading -->
       <div class="panel-body">
+
+        <!-- Bouton edition d'un échange -->
         <div class="row">
+          <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">     
+              <form class="navbar-form navbar-left" role="search">
+                <input type="text" class="form-control" placeholder="Recherche">
+              </form>
+              <form class="navbar-form navbar-right" role="search">
+                <button class="btn btn-primary">
+                  <span class="fa fa-plus"></span>
+                </button>
+              </form>
+            </div>
+          </nav>
+        </div>
+
+        <div class="col-lg-12">
+          <div class='gridStyle' ng-grid="gridOptionsEchanges"></div>
         </div>
       </div><!-- /panel-body -->
     </div><!-- /panel -->
@@ -105,29 +217,20 @@
         </h3>
       </div><!-- /panel-heading -->
       <div class="panel-body">
+
+        <div class="row">
+          <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">     
+              <form class="navbar-form navbar-left" role="search">
+                <input type="text" class="form-control" placeholder="Recherche">
+              </form>
+            </div>
+          </nav>
+        </div>
+
         <div class="col-lg-12">
           <div class='gridStyle' ng-grid="gridOptionsPlanning"></div>
         </div>
-      </div><!-- /panel-body -->
-    </div><!-- /panel -->
-  </div><!-- /col-lg -->
-</div> <!-- /row -->
-
-<!-- Lien vers la fiche de sunthèse des compétences du stagiaire -->
-<div class="row">
-  <div class="col-lg-12">
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">
-          <i class="fa fa-file-text"></i> Fiche de synthèse des compétences
-        </h3>
-      </div><!-- /panel-heading -->
-      <div class="panel-body">
-          <a href="">Fiches de synthèse des évaluations</a>
-        Promotion : 
-        <select class="form-control">
-            <option>Fiche suivi acquis - ASR</option>
-        </select>
       </div><!-- /panel-body -->
     </div><!-- /panel -->
   </div><!-- /col-lg -->
