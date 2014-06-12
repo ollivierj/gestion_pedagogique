@@ -12,9 +12,9 @@
   <div class="panel-body">
     <!-- Choix de la date pour la session -->
   	<div class="row">
-        <div class="col-lg-5">
-            Choix de la date de la session de validation
-            <p class="input-group">
+        <div class="col-lg-4">
+            Du
+            <p class="input-group" tooltip="Saisissez la date de début" tooltip-placement="left">
               <input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="dt" 
                      is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" 
                      date-disabled="disabled(date, mode)" ng-required="true" close-text="Close">
@@ -23,13 +23,27 @@
               </span>
             </p>
         </div><!-- /col-lg -->
-        <div class="col-lg-5">
-            Choix du titre professionnel
+
+        <div class="col-lg-4">
+            Au
+            <p class="input-group" tooltip="Saisissez la date de fin" tooltip-placement="top">
+              <input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="dt" 
+                     is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" 
+                     date-disabled="disabled(date, mode)" ng-required="true" close-text="Close">
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+            </p>
+        </div>  
+
+        <div class="col-lg-4">
+            Choix de l'objet
             <select class="form-control">
-              <option>AL</option>
-              <option>MS2I</option>
-              <option>CDI</option>
-              <option>ASR</option>
+              <option>Validation AL</option>
+              <option>CQPM</option>
+              <option>Validation MS2I</option>
+              <option>Validation CDI</option>
+              <option>Validation ASR</option>
             </select>
         </div><!-- /col-lg -->
     </div><!-- /row -->
@@ -45,11 +59,7 @@
                 <option ng-repeat="ph in personnesHomologuees">{{ph.nom + ' ' + ph.prenom}}</option>
               </select>
             </div><!-- /form-group -->
-            <div class="form-group">
-              <select class="form-control">
-                <option ng-repeat="ph in personnesHomologuees">{{ph.nom + ' ' + ph.prenom}}</option>
-              </select>
-            </div><!-- /form-group -->
+            
             Salles : 
             <select class="form-control">
                 <option ng-repeat="s in salles">{{s.nom}}</option>
@@ -64,7 +74,7 @@
 
     <!-- Liste des stagiaires disponibles pour passer une session de validation -->
     <div class="col-xs-6" ui-tree="options">
-      <label>Stagiaires disponible pour une jurySalle</label>
+      <label>Stagiaires disponibles</label>
       
       <!-- Ajouter une promotion dans l'arbre -->
       <ol class="node angular-ui-tree-nodes">
@@ -73,13 +83,8 @@
             <form role="form" class="form-inline">
               <div class="form-group">
                 <div class="row">
-                  <div class="col-lg-8">
+                  <div class="col-lg-12">
                     <input type="text" class="form-control" placeholder="Rechercher une promotion">
-                  </div>
-                  <div class="col-lg-4">
-                    <a class="btn btn-success pull-right">
-                      <i class="glyphicon glyphicon-plus"></i>
-                    </a>
                   </div>
                 </div><!-- /row -->
               </div><!-- /form-group -->
@@ -119,7 +124,7 @@
 
     <!-- Composition d'un jury et une salle disponible pour une session de validation -->
     <div class="col-xs-6" ui-tree="options">
-      <label>Jurys et salles disponibles</label>
+      <label>Instance de sessions</label>
       <ol ui-tree-nodes ng-model="jurysSalles" class="node" data-type="jurySalle">
         <li ng-repeat="jurySalle in jurysSalles" class="node" ui-tree-node>
           
@@ -138,7 +143,7 @@
               <a class="btn btn-success btn-xs" data-nodrag ng-click="toggleJurySalle(jurySalle)">
                 <span class="glyphicon" ng-class="{'glyphicon-chevron-right': jurySalle.collapsed, 'glyphicon-chevron-down': !jurySalle.collapsed}"></span>
               </a>
-              &nbsp;{{jurySalle.salle}}&nbsp;-&nbsp;{{jurySalle.premierePersonne}}&nbsp;-&nbsp;{{jurySalle.deuxiemePersonne}}
+              &nbsp;{{jurySalle.salle}}&nbsp;-&nbsp;{{jurySalle.premierePersonne}}&nbsp;-&nbsp;{{jurySalle.deuxiemePersonne}} - 06/06/2014
             </div>
 
           </div><!-- /angular-ui-tree-handle -->
@@ -150,14 +155,8 @@
 
                 <div class="row">
 
-                  <div class="col-xs-12">
-                    Jury :
-                  </div>
-
                   <div class="col-xs-6">
-                    <select class="form-control" ng-model="newSession.firstPerson" required>
-                      <option ng-repeat="ph in personnesHomologuees">{{ph.nom + ' ' + ph.prenom}}</option>
-                    </select>
+                    Jury :
                   </div>
 
                   <div class="col-xs-6">
@@ -206,12 +205,18 @@
                 <div>&nbsp;{{stagiaire.name}}</div>
               </div>
               <!-- Mode edition de l'heure pour le stagiaire -->
-              <div class="category-title angular-ui-tree-handle" ng-show="stagiaire.editing">
-                Choix du créneaux
-                <select>
-                  <option value="14h00"></option>
-                  <option value="15h00"></option>
-                  <option value="16h00"></option>
+              <div class="category-title angular-ui-tree-handle" ng-show="stagiaire.editing" data-nodrag>
+                Début
+                <select class="form-control">
+                  <option value="">14h00</option>
+                  <option value="">15h00</option>
+                  <option value="">16h00</option>
+                </select>
+                Fin
+                <select class="form-control">
+                  <option value="">14h00</option>
+                  <option value="">15h00</option>
+                  <option value="">16h00</option>
                 </select>
               </div>
             </li><!-- /ng-repeat ui-tree-node -->
@@ -227,4 +232,6 @@
 <div class="modal-footer">
 	<button class="btn btn-primary" ng-click="cancel()">Annuler</button>
 	<button class="btn btn-primary" ng-click="ok()">Enregistrer</button>
+  <button class="btn btn-primary" ng-click="ok()">Valider la session</button>
+  <button class="btn btn-primary" ng-click="ok()">Finaliser la session</button>
 </div>

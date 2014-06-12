@@ -19,9 +19,9 @@ controllers.controller('gestionSessionsValidationCtrl', function($scope, $modal,
         // showFilter: true,
         // showColumnMenu:true,  
         columnDefs : [
-                {field:'type', displayName:'Type'},
-                {field:'formation', displayName:'Titre professionnel'},
-                {field:'date', displayName:'Date'},
+                {field:'type', displayName:'Objet'},
+                {field:'dateDebut', displayName:'Date de début'},
+                {field:'dateFin', displayName:'Date de fin'},
                 {displayName:'Actions', cellTemplate: 'partials/templates/ng-grid_actions.html'}
         ],
         showFooter: true,
