@@ -1,0 +1,114 @@
+<div class="modal-header">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<i class="fa fa-group"></i> Ajout d'un profil
+			</h3>
+		</div>
+	</div>
+</div>
+<div class="modal-body">
+	<div class="panel-body">
+		<div class="row">
+			Libelle du nouveau profil : <input type="text" ng-model="critereStagiaire"
+				class="ng-pristine ng-valid">
+		</div>
+		<br />
+		<div class="row">
+			<div class="col-lg-4">Fiche stagiaire :</div>
+			<div class="btn-group">
+				<label class="btn btn-primary 1" ng-model="radioModel"
+					btn-radio="'w1'">Ecriture</label> <label class="btn btn-primary 1"
+					ng-model="radioModel" btn-radio="'r1'">Lecture</label> <label
+					class="btn btn-primary 1" ng-model="radioModel" btn-radio="'n1'">Aucun</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4">Version ECF :</div>
+			<div class="btn-group">
+				<label class="btn btn-primary 2" ng-model="radioModel"
+					btn-radio="'w2'">Ecriture</label> <label class="btn btn-primary 2"
+					ng-model="radioModel" btn-radio="'r2'">Lecture</label> <label
+					class="btn btn-primary 2" ng-model="radioModel" btn-radio="'n2'">Aucun</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4">Liste prochain ECF :</div>
+			<div class="btn-group">
+				<label class="btn btn-primary" ng-model="radioModel"
+					btn-radio="'w3'">Ecriture</label> <label class="btn btn-primary"
+					ng-model="radioModel" btn-radio="'r3'">Lecture</label> <label
+					class="btn btn-primary" ng-model="radioModel" btn-radio="'n3'">Aucun</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4">Liste ECF a corriger :</div>
+			<div class="btn-group">
+				<label class="btn btn-primary" ng-model="radioModel"
+					btn-radio="'w4'">Ecriture</label> <label class="btn btn-primary"
+					ng-model="radioModel" btn-radio="'r4'">Lecture</label> <label
+					class="btn btn-primary" ng-model="radioModel" btn-radio="'n4'">Aucun</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4">Suivi des acquis :</div>
+			<div class="btn-group">
+				<label class="btn btn-primary" ng-model="radioModel"
+					btn-radio="'w5'">Ecriture</label> <label class="btn btn-primary"
+					ng-model="radioModel" btn-radio="'r5'">Lecture</label> <label
+					class="btn btn-primary" ng-model="radioModel" btn-radio="'n5'">Aucun</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4">Session de validation :</div>
+			<div class="btn-group">
+				<label class="btn btn-primary" ng-model="radioModel"
+					btn-radio="'w6'">Ecriture</label> <label class="btn btn-primary"
+					ng-model="radioModel" btn-radio="'r6'">Lecture</label> <label
+					class="btn btn-primary" ng-model="radioModel" btn-radio="'n6'">Aucun</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4">Jury :</div>
+			<div class="btn-group">
+				<label class="btn btn-primary" ng-model="radioModel"
+					btn-radio="'w7'">Ecriture</label> <label class="btn btn-primary"
+					ng-model="radioModel" btn-radio="'r7'">Lecture</label> <label
+					class="btn btn-primary" ng-model="radioModel" btn-radio="'n7'">Aucun</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4">Avis :</div>
+			<div class="btn-group">
+				<label class="btn btn-primary" ng-model="radioModel"
+					btn-radio="'w8'">Ecriture</label> <label class="btn btn-primary"
+					ng-model="radioModel" btn-radio="'r8'">Lecture</label> <label
+					class="btn btn-primary" ng-model="radioModel" btn-radio="'n8'">Aucun</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4">Salles :</div>
+			<div class="btn-group">
+				<label class="btn btn-primary" ng-model="radioModel"
+					btn-radio="'w9'">Ecriture</label> <label class="btn btn-primary"
+					ng-model="radioModel" btn-radio="'r9'">Lecture</label> <label
+					class="btn btn-primary" ng-model="radioModel" btn-radio="'n9'">Aucun</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4">Absence :</div>
+			<div class="btn-group">
+				<label class="btn btn-primary" ng-model="radioModel"
+					btn-radio="'w10'">Ecriture</label> <label class="btn btn-primary"
+					ng-model="radioModel" btn-radio="'r10'">Lecture</label> <label
+					class="btn btn-primary" ng-model="radioModel" btn-radio="'n10'">Aucun</label>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<button name="annulerSubmit" data-ng-disabled="progress.active()"
+		data-ng-click="cancel()" class="btn btn-primary">Annuler</button>
+	<button name="reservationSubmit" data-ng-disabled="progress.active()"
+		data-ng-click="ok()" class="btn btn-primary">Enregistrer</button>
+</div>

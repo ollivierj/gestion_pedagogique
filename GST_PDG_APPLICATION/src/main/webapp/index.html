@@ -1,43 +1,175 @@
-<!doctype html>
-<html lang="en" ng-app="ng_gst_pdg">
-<head>
+<!DOCTYPE html>
+<html lang="fr" ng-app="ng_gst_pdg"> 
+  <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion pédagogique</title>
-    <link rel="stylesheet" href="css/app.css"/>
-    <link rel="stylesheet" href="css/menu.css"/>
-    <link rel="stylesheet" href="css/bootstrap/bootstrap-responsive.min.css"/>
-    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css"/>
-</head>
-<body>
-<div class="row" ng-app="App">
-	  <div class="large-12 columns" ng-controller="NavCtrl">
-			<nav class="nav-menu" menu-data="menu"></nav>
-			<div ng-view></div>
-	</div>
-</div>
+    <title>ENI - Gestion pédagogique</title>
 
-<!-- JQuery ================================================================ -->
-<script src="lib/jquery/jquery-2.0.3.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap/bootstrap_3.1.1/css/bootstrap.css">
+    <!-- Font awesome, icones pour bootstrap -->
+    <link rel="stylesheet" href="css/fa/font-awesome_4.0.3/css/font-awesome.css">
+    <!-- Angular css -->
+    <link rel="stylesheet" href="css/angular/ng-table.css">
+    <link rel="stylesheet" href="css/angular/ng-grid_2.0.11/ng-grid.css">
+    <!-- Perso -->
+    <link rel="stylesheet" href="css/fullcalendar.css">
+    	<link rel="stylesheet" href="css/angular-ui-tree.min.css">
+	<link rel="stylesheet" href="css/demo.css">
+    <link rel="stylesheet" href="css/main.css">
+	
+  </head>
 
-<!-- Bootstrap ============================================================= -->
-<script src="lib/bootstrap/bootstrap.js"></script>
+  <body>
 
-<!-- AngularJS ============================================================= -->
-<!-- In production use:
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
--->
-<script src="lib/angular-1.2.16/angular.js"></script>
-<script src="lib/angular-1.2.16/angular-resource.js"></script>
-<script src="lib/angular-1.2.16/angular-route.js"></script>
-<script src="lib/angular-1.2.16/angular-sanitize.js"></script>
+    <div id="wrapper">
 
-<!-- AngularJS App Code ==================================================== -->
-<script src="js/app.js"></script>
-<script src="js/services.js"></script>
-<script src="js/controllers.js"></script>
-<script src="js/filters.js"></script>
-<script src="js/directives.js"></script>
+      <!-- Sidebar -->
+      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="wrapperCtrl">
+        <!-- RESPONSIVE MENU -->
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <!-- Les 3 barres du bouton lorsque la résoltuion est faible -->
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html">ENI Gestion Pédagogique - {{titleSelected}}</a>
+        </div>
 
-</body>
+        <!-- MENU DROITE -->
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav side-nav">
+            
+            <!-- Menu généré -->
+            <li ng-repeat="menu in menuTitles" ng-class="{dropdown : menu.type == 'multiple', active : menu.mainTitle == titleSelected}">
+              
+              <!-- 1 lien -->
+              <a href="{{menu.url}}" ng-if="menu.type == 'single'" ng-click="setActive(menu.mainTitle)">
+                <i class="{{menu.iconTitle}}"></i> {{menu.mainTitle}}
+              </a>
+              
+              <!-- Liste déroulante -->
+              <a href="{{menu.url}}" class="dropdown-toggle" data-toggle="dropdown" ng-if="menu.type == 'multiple'">
+                <i class="{{menu.iconTitle}}"></i> {{menu.mainTitle}}<b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li ng-repeat="subMenu in menu.titles" ng-class="{active : subMenu.mainTitle == titleSelected}">
+                  <a href="{{subMenu.url}}" ng-click="setActive(subMenu.mainTitle)">
+                    <i class="{{subMenu.iconTitle}}"></i> {{subMenu.mainTitle}}
+                  </a>
+                </li>
+              </ul>
+
+            </li>
+
+            <li><a href="" ng-click="afficherModalAbsence()"><i class="fa fa-calendar"></i> Saisir une absence</a></li>
+          </ul>
+
+          <!-- MENU HEADER -->
+          <ul class="nav navbar-nav navbar-right navbar-user" dropdown-menu>
+            <li class="dropdown user-dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i><b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="index.html#/gestionDroit"><i class="fa fa-search"></i> Informations profil</a></li>
+              </ul>
+            </li>
+
+            <li class="dropdown alerts-dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> 3<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Extraction des données de comptes <span class="label label-success">Réussi</span></a></li>
+                <li><a href="#">Correction en cours <span class="label label-info">Info</span></a></li>
+                <li><a href="#">Vous devez ajouter des avis <span class="label label-warning">Alerte</span></a></li>
+                <li><a href="#">Le cours commence dans 1h <span class="label label-danger">Danger</span></a></li>
+                <li class="divider"></li>
+                <li><a href="#">Tout afficher</a></li>
+              </ul>
+            </li>
+
+            <li class="dropdown user-dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gear"></i> Administration <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="index.html#/gestionDroit"><i class="fa fa-gear"></i> Droits</a></li>
+                <li><a href="index.html#/gestionFichesSynthese"><i class="fa fa-gear"></i> Fiche de suivi</a></li>
+                <li><a href="index.html#/versionECF"><i class="fa fa-gear"></i> Version ECF</a></li>
+                <li><a href="index.html#/"><i class="fa fa-gear"></i> Titres professionnels</a></li>
+                <li class="divider"></li>
+                <li><a href="index.html#/authentification" ng-click="afficherModalConnexion()"><i class="fa fa-power-off"></i> Se déconnecter</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </nav>
+
+      <div id="page-wrapper">
+        <div ng-view></div>
+        
+      </div><!-- /#page-wrapper -->
+
+    </div><!-- /#wrapper -->
+
+    <!-- Librairies js -->
+    <script src="lib/jquery-1.10.2.js"></script>
+    <script src="lib/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="lib/fullcalendar-1.6.4.js"></script>
+    <script src="lib/bootstrap-3.1.1.js"></script>
+    <!--Angular officiel -->
+    <script src="lib/angular-1.2.16/angular.js"></script>
+    <script src="lib/angular-1.2.16/angular-route.js"></script>
+    <script src="lib/angular-1.2.16/angular-animate.js"></script>
+    <script src="lib/angular-1.2.16/angular-resource.js"></script>
+    
+    <!--Angular plugins-->
+     <script src="lib/angular-1.2.16/plugins/angular-strap-2.0.0.min.js"></script>
+    <script src="lib/angular-1.2.16/plugins/ng-grid-2.0.11.js"></script>
+    <script src="lib/ui-bootstrap-tpls-0.11.0.js"></script>
+    <script src="lib/angular-1.2.16/plugins/angular-ui-tree-2.1.3.js"></script>
+    <script src="lib/angular-1.2.16/plugins/ui-calendar.js"></script>
+    
+    <script src="js/app.js"></script>
+    <!--  Services js -->
+    <script src="js/services/modalService.js"></script> 
+    <script src="js/services/salle/sallesFactory.js"></script>
+    <script src="js/services/promotion/promotionsFactory.js"></script>
+    <script src="js/services/salle/sallesReserveesFactory.js"></script>
+    <script src="js/services/animateur/animateursLibresFactory.js"></script>
+    <script src="js/services/retardataire/retardatairesFactory.js"></script>
+    <script src="js/services/consultationStagiairesService.js"></script>
+    <script src="js/services/personneHomologueeService.js"></script>        
+    <script src="js/services/versionECFServices.js"></script>    
+    <script src="js/services/modeleFicheSyntheseServices.js"></script>          
+    <script src="js/services/listeECFServices.js"></script>        
+    <script src="js/services/correctionECFServices.js"></script>  
+    <script src="js/services/profilServices.js"></script>      
+    <script src="js/services/droitServices.js"></script>            
+    <script src="js/services/wrapperService.js"></script>
+    <script src="js/services/homologationsService.js"></script>  
+    <script src="js/services/sessionsValidationService.js"></script>
+    <script src="js/services/jurysSallesService.js"></script>
+    <!-- filters -->
+    <script src="js/filters/getByIdFilter.js"></script>
+    
+    <!-- Controllers js -->
+    <script src="js/controllers/consultationStagiairesControllers.js"></script>
+    <script src="js/controllers/authentificationControllers.js"></script>
+    <script src="js/controllers/gestionFichesSyntheseControllers.js"></script>
+    <script src="js/controllers/absence/formulaireAbsenceController.js"></script>    
+    <script src="js/controllers/versionECFControllers.js"></script>    
+    <script src="js/controllers/listeECFControllers.js"></script>    
+    <script src="js/controllers/corrigerECFControllers.js"></script>    
+    <script src="js/controllers/editECFControllers.js"></script>    
+    <script src="js/controllers/editVersionControllers.js"></script>    
+    <script src="js/controllers/editCorrectionControllers.js"></script> 
+    <script src="js/controllers/salle/planningReservationSalleController.js"></script>   
+    <script src="js/controllers/salle/formulaireReservationSalleController.js"></script>  
+    <script src="js/controllers/gestionSessionsValidationControllers.js"></script>  
+    <script src="js/controllers/consultationPersonnesHomologueesControllers.js"></script>
+    <script src="js/controllers/wrapperControllers.js"></script>
+    <script src="js/controllers/gestionDroitControllers.js"></script>
+    <!--  Directives js -->
+    
+  </body>
 </html>

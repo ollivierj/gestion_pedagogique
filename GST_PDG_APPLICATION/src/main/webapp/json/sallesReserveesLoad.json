@@ -1,0 +1,62 @@
+  [{
+    "sortOrder": 0,
+    "type": "salle",
+    "id": 1,
+    "editing": false,
+    "collapsed" : true,
+    "stagiaires": [
+      {
+        "name": "Brian Jones",
+        "promotion" : "Contrat Pro",
+        "sortOrder": 2,
+        "type": "stagiaire"
+      },
+      {
+        "name": "Paul Newman",
+        "promotion" : "Contrat Pro",
+        "sortOrder": 1,
+        "type": "stagiaire"
+      },
+      {
+        "name": "Brian Molco",
+        "promotion" : "AL3B",
+        "sortOrder": 1,
+        "type": "stagiaire"
+      },
+      {
+        "name": "Hervé Villard",
+        "promotion" : "AL3B",
+        "sortOrder": 1,
+        "type": "stagiaire"
+      },
+      {
+        "name": "Marcel Proust",
+        "promotion" : "AL3B",
+        "sortOrder": 6,
+        "type": "stagiaire"
+      }
+        ]   
+  },
+  {
+    "sortOrder": 2,
+    "type": "salle",
+    "id": 2,
+    "editing": false,
+    "collapsed" : true,
+    "stagiaires": [
+      {
+        "name": "Gustave Effel",
+        "promotion" : "AL3B",
+        "sortOrder": 0,
+        "type": "stagiaire"
+      },
+      {
+        "name": "Francois Hollande",
+        "promotion" : "AL3B",
+        "sortOrder": 5,
+        "type": "stagiaire"
+      }
+    ]
+  }
+
+]
