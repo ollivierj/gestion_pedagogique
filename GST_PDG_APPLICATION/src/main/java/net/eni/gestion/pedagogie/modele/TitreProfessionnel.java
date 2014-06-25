@@ -4,11 +4,14 @@
 package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
@@ -53,6 +56,11 @@ public class TitreProfessionnel extends AModele<Integer> implements Serializable
 		dataType = DataType.STRING,
 		useGetSet = true)
 	private String lienDocReferences = null;
+	
+	@ForeignCollectionField(eager = true, columnName = ProfessionnelHomologue.ID_FIELD_NAME)
+	private transient Collection<ProfessionnelHomologue> transientProfessionnelHomologues = null;
+
+	private ArrayList<ProfessionnelHomologue> professionnelHomologues = new ArrayList<ProfessionnelHomologue>();
 		
 	@Override
 	public Integer getId() {
@@ -64,5 +72,29 @@ public class TitreProfessionnel extends AModele<Integer> implements Serializable
 		id = pId;
 	}
 
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getLienDocReferences() {
+		return lienDocReferences;
+	}
+
+	public void setLienDocReferences(String lienDocReferences) {
+		this.lienDocReferences = lienDocReferences;
+	}
+	
+	public ArrayList<ProfessionnelHomologue> getProfessionnelHomologues() {
+		if (null != transientProfessionnelHomologues) {
+			professionnelHomologues.clear();
+			professionnelHomologues.addAll(transientProfessionnelHomologues);
+			transientProfessionnelHomologues = null;
+		}
+		return professionnelHomologues;
+	}
 
 }

@@ -44,20 +44,20 @@ public class PlanningIndividuelDetail extends AModele<String> implements Seriali
 
 	@DatabaseField(
 		columnName = ID1_FIELD_NAME,
-		dataType = DataType.INTEGER_OBJ,
+		foreign = true,
 		id = true,
 		generatedId = false,
 		useGetSet = true)
-	private Integer id1 = null;
+	private PlanningIndividuelFormation planningIndividuelFormation = null;
 	
 	@DatabaseField(
 		columnName = ID2_FIELD_NAME,
-		dataType = DataType.UUID,
+		foreign = true,
 		id = true,
 		generatedId = false,
 		useGetSet = true)
-	private UUID id2 = null;
-
+	private Cours cours = null;
+	
 	@DatabaseField(
 		columnName = PRIX_COURS_DEVIS_FIELD_NAME,
 		dataType = DataType.FLOAT_OBJ,
@@ -111,31 +111,94 @@ public class PlanningIndividuelDetail extends AModele<String> implements Seriali
 		
 	@Override
 	public String getId() {
-		return id2 + "/" + id2;
+		return String.valueOf(planningIndividuelFormation.getId()) + "/" + String.valueOf(cours.getId());
 	}
 
 	@Override
 	public void setId(String pId) {
 		String[] ids = pId.split("/");;
-		setId1(Integer.valueOf(ids[0]));
-		setId2(UUID.fromString(ids[1]));
+		setPlanningIndividuelFormation(new PlanningIndividuelFormation(Integer.valueOf(ids[0])));
+		setCours(new Cours(UUID.fromString(ids[1])));
 	}
 
-	public Integer getId1() {
-		return id1;
+	public PlanningIndividuelFormation getPlanningIndividuelFormation() {
+		return planningIndividuelFormation;
 	}
 
-	public void setId1(Integer id1) {
-		this.id1 = id1;
+	public void setPlanningIndividuelFormation(PlanningIndividuelFormation pPlanningIndividuelFormation) {
+		this.planningIndividuelFormation = pPlanningIndividuelFormation;
 	}
 
-	public UUID getId2() {
-		return id2;
+	public Cours getCours() {
+		return cours;
 	}
 
-	public void setId2(UUID id2) {
-		this.id2 = id2;
+	public void setCours(Cours pCours) {
+		this.cours = pCours;
+	}
+
+	public Float getPrixCoursDevis() {
+		return prixCoursDevis;
+	}
+
+	public void setPrixCoursDevis(Float prixCoursDevis) {
+		this.prixCoursDevis = prixCoursDevis;
+	}
+
+	public Float getPrixCoursPECDevis() {
+		return prixCoursPECDevis;
+	}
+
+	public void setPrixCoursPECDevis(Float prixCoursPECDevis) {
+		this.prixCoursPECDevis = prixCoursPECDevis;
+	}
+
+	public Float getPrixCoursFinanceDevis() {
+		return prixCoursFinanceDevis;
+	}
+
+	public void setPrixCoursFinanceDevis(Float prixCoursFinanceDevis) {
+		this.prixCoursFinanceDevis = prixCoursFinanceDevis;
+	}
+
+	public Boolean getDispense() {
+		return dispense;
+	}
+
+	public void setDispense(Boolean dispense) {
+		this.dispense = dispense;
+	}
+
+	public Boolean getInscrit() {
+		return Inscrit;
+	}
+
+	public void setInscrit(Boolean inscrit) {
+		Inscrit = inscrit;
+	}
+
+	public DateTime getDebutCours() {
+		return debutCours;
+	}
+
+	public void setDebutCours(DateTime debutCours) {
+		this.debutCours = debutCours;
+	}
+
+	public DateTime getFinCours() {
+		return finCours;
+	}
+
+	public void setFinCours(DateTime finCours) {
+		this.finCours = finCours;
+	}
+
+	public Short getHeuresRellesCours() {
+		return heuresRellesCours;
+	}
+
+	public void setHeuresRellesCours(Short heuresRellesCours) {
+		this.heuresRellesCours = heuresRellesCours;
 	} 
-
 
 }

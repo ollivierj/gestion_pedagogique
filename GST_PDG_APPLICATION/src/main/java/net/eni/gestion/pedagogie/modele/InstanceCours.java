@@ -4,14 +4,15 @@
 package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
-
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import javax.xml.bind.annotation.XmlRootElement;
-
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
-
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
@@ -20,7 +21,7 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = ModeleMetier.HOMOLOGATION_TABLE_NAME)
 @XmlRootElement
 public class InstanceCours extends AModele<Integer> implements Serializable {
-	
+
 	public InstanceCours() {
 		super();
 	}
@@ -65,7 +66,12 @@ public class InstanceCours extends AModele<Integer> implements Serializable {
 		useGetSet = true,
 		canBeNull = false)
 	private Cours cours = null;
-		
+	
+	@ForeignCollectionField(eager = true, columnName = InstanceCoursStagiaire.ID2_FIELD_NAME)
+	private transient Collection<InstanceCoursStagiaire> transientInstanceCoursStagiaires = null;
+
+	private ArrayList<InstanceCoursStagiaire> instanceCoursStagiaires = new ArrayList<InstanceCoursStagiaire>();
+
 	@Override
 	public Integer getId() {
 		return id;
@@ -75,6 +81,49 @@ public class InstanceCours extends AModele<Integer> implements Serializable {
 	public void setId(Integer pId) {
 		id = pId;
 	}
+	
+	public Utilisateur getAnimateur() {
+		return animateur;
+	}
 
+	public void setAnimateur(Utilisateur animateur) {
+		this.animateur = animateur;
+	}
+
+	public ReservationSalle getReservationSalle() {
+		return reservationSalle;
+	}
+
+	public void setReservationSalle(ReservationSalle reservationSalle) {
+		this.reservationSalle = reservationSalle;
+	}
+
+	public Cours getCours() {
+		return cours;
+	}
+
+	public void setCours(Cours cours) {
+		this.cours = cours;
+	}
+	
+	private ArrayList<InstanceCoursStagiaire> getInstanceCoursStagiaires() {
+		if (null != transientInstanceCoursStagiaires) {
+			instanceCoursStagiaires.clear();
+			instanceCoursStagiaires.addAll(transientInstanceCoursStagiaires);
+			transientInstanceCoursStagiaires = null;
+		}
+		return instanceCoursStagiaires;
+	}
+	
+	public ArrayList<Stagiaire> getStagiaires(){
+		ArrayList<Stagiaire> stagiaires = new ArrayList<Stagiaire>();
+		if (0 < getInstanceCoursStagiaires().size()) {
+			Iterator<InstanceCoursStagiaire> iterator = getInstanceCoursStagiaires().iterator();
+			while (iterator.hasNext()) {
+				stagiaires.add(iterator.next().getStagiaire());
+			}
+		}
+		return stagiaires;
+	}
 
 }

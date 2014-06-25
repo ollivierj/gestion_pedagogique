@@ -5,13 +5,10 @@ package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
 import java.util.Date;
-
 import javax.xml.bind.annotation.XmlRootElement;
-
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 import net.sourceforge.jtds.jdbc.DateTime;
-
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -110,5 +107,60 @@ public class UniteFormation extends AModele<Integer> implements Serializable {
 		id = pId;
 	}
 
+	public String getLibelle() {
+		return libelle;
+	}
+
+	public void setLibelle(String libelle) {
+		this.libelle = libelle;
+	}
+
+	public Short getDureeEnHeures() {
+		return dureeEnHeures;
+	}
+
+	public void setDureeEnHeures(Short dureeEnHeures) {
+		this.dureeEnHeures = dureeEnHeures;
+	}
+
+	public DateTime getDateCreation() {
+		return dateCreation;
+	}
+
+	public void setDateCreation(DateTime dateCreation) {
+		this.dateCreation = dateCreation;
+	}
+
+	public Short getDureeEnSemaines() {
+		return dureeEnSemaines;
+	}
+
+	public void setDureeEnSemaines(Short dureeEnSemaines) {
+		this.dureeEnSemaines = dureeEnSemaines;
+	}
+
+	public Date getDateModif() {
+		return dateModif;
+	}
+
+	public void setDateModif(Date dateModif) {
+		this.dateModif = dateModif;
+	}
+
+	public Integer getLibelleCourt() {
+		return libelleCourt;
+	}
+
+	public void setLibelleCourt(Integer libelleCourt) {
+		this.libelleCourt = libelleCourt;
+	}
+
+	public Boolean getArchiver() {
+		return archiver;
+	}
+
+	public void setArchiver(Boolean archiver) {
+		this.archiver = archiver;
+	}
 
 }

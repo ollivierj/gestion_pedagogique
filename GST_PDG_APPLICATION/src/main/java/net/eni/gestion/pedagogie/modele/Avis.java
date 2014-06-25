@@ -30,12 +30,12 @@ public class Avis extends AModele<Integer> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public final static String ID_FIELD_NAME 						= "AVIS_ID";
-	public final static String STAGIAIRE_FIELD_NAME 				= "AVIS_STAGIAIRE";
-	public final static String INSTANCE_COURS_FIELD_NAME			= "AVIS_INSTANCE_COURS";
-	public final static String TEXTE_FIELD_NAME						= "AVIS_TEXTE";
-	public final static String DATE_SAISIE_FIELD_NAME 				= "AVIS_DATE_SAISIE";
-	public final static String AUTEUR_FIELD_NAME 					= "AVIS_AUTEUR";
+	public final static String ID_FIELD_NAME 				= "AVIS_ID";
+	public final static String STAGIAIRE_FIELD_NAME 		= "AVIS_STAGIAIRE";
+	public final static String INSTANCE_COURS_FIELD_NAME	= "AVIS_INSTANCE_COURS";
+	public final static String TEXTE_FIELD_NAME				= "AVIS_TEXTE";
+	public final static String DATE_SAISIE_FIELD_NAME 		= "AVIS_DATE_SAISIE";
+	public final static String AUTEUR_FIELD_NAME 			= "AVIS_AUTEUR";
 
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
@@ -89,5 +89,44 @@ public class Avis extends AModele<Integer> implements Serializable {
 		id = pId;
 	}
 
+	public Stagiaire getStagiaire() {
+		return stagiaire;
+	}
+
+	public void setStagiaire(Stagiaire stagiaire) {
+		this.stagiaire = stagiaire;
+	}
+
+	public InstanceCours getInstanceCours() {
+		return instanceCours;
+	}
+
+	public void setInstanceCours(InstanceCours instanceCours) {
+		this.instanceCours = instanceCours;
+	}
+
+	public DateTime getTexte() {
+		return texte;
+	}
+
+	public void setTexte(DateTime texte) {
+		this.texte = texte;
+	}
+
+	public DateTime getDateSaisie() {
+		return dateSaisie;
+	}
+
+	public void setDateSaisie(DateTime dateSaisie) {
+		this.dateSaisie = dateSaisie;
+	}
+
+	public Utilisateur getAuteur() {
+		return auteur;
+	}
+
+	public void setAuteur(Utilisateur auteur) {
+		this.auteur = auteur;
+	}
 
 }

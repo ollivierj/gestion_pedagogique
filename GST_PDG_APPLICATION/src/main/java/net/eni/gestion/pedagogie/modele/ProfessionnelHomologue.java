@@ -162,5 +162,132 @@ public class ProfessionnelHomologue extends AModele<Integer> implements Serializ
 		id = pId;
 	}
 
+	public String getCivilite() {
+		return civilite;
+	}
+
+	public void setCivilite(String civilite) {
+		this.civilite = civilite;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public String getPrenom() {
+		return prenom;
+	}
+
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+
+	public String getAdresse1() {
+		return adresse1;
+	}
+
+	public void setAdresse1(String adresse1) {
+		this.adresse1 = adresse1;
+	}
+
+	public String getAdresse2() {
+		return adresse2;
+	}
+
+	public void setAdresse2(String adresse2) {
+		this.adresse2 = adresse2;
+	}
+
+	public String getAdresse3() {
+		return adresse3;
+	}
+
+	public void setAdresse3(String adresse3) {
+		this.adresse3 = adresse3;
+	}
+
+	public String getCodePostal() {
+		return codePostal;
+	}
+
+	public void setCodePostal(String codePostal) {
+		this.codePostal = codePostal;
+	}
+
+	public String getVille() {
+		return ville;
+	}
+
+	public void setVille(String ville) {
+		this.ville = ville;
+	}
+
+	public String getTelephoneFixe() {
+		return telephoneFixe;
+	}
+
+	public void setTelephoneFixe(String telephoneFixe) {
+		this.telephoneFixe = telephoneFixe;
+	}
+
+	public String getTelephonePortable() {
+		return telephonePortable;
+	}
+
+	public void setTelephonePortable(String telephonePortable) {
+		this.telephonePortable = telephonePortable;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public DateTime getDateNaissance() {
+		return dateNaissance;
+	}
+
+	public void setDateNaissance(DateTime dateNaissance) {
+		this.dateNaissance = dateNaissance;
+	}
+
+	public String getCodeRegion() {
+		return codeRegion;
+	}
+
+	public void setCodeRegion(String codeRegion) {
+		this.codeRegion = codeRegion;
+	}
+
+	public String getCodeNationalite() {
+		return codeNationalite;
+	}
+
+	public void setCodeNationalite(String codeNationalite) {
+		this.codeNationalite = codeNationalite;
+	}
+
+	public Boolean getPermis() {
+		return permis;
+	}
+
+	public void setPermis(Boolean permis) {
+		this.permis = permis;
+	}
+
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
 
 }

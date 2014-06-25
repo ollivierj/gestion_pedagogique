@@ -56,5 +56,12 @@ public class Fonction extends AModele<String> implements Serializable {
 		return id;
 	}
 
+	public String getLibelle() {
+		return libelle;
+	}
+
+	public void setLibelle(String libelle) {
+		this.libelle = libelle;
+	}
 
 }

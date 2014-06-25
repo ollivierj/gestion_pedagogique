@@ -29,8 +29,8 @@ public class Parametre extends AModele<String> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public final static String ID_FIELD_NAME 					= "CONSTANTE";
-	public final static String VALEUR_FIELD_NAME 				= "VALEUR";
+	public final static String ID_FIELD_NAME		= "CONSTANTE";
+	public final static String VALEUR_FIELD_NAME 	= "VALEUR";
 	
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
@@ -58,5 +58,20 @@ public class Parametre extends AModele<String> implements Serializable {
 		constante = pId;
 	}
 
+	public String getConstante() {
+		return constante;
+	}
+
+	public void setConstante(String constante) {
+		this.constante = constante;
+	}
+
+	public String getValeur() {
+		return valeur;
+	}
+
+	public void setValeur(String valeur) {
+		this.valeur = valeur;
+	}
 
 }

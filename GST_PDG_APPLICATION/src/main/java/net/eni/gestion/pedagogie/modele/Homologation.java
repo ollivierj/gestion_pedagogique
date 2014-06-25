@@ -32,8 +32,8 @@ public class Homologation extends AModele<Integer> implements Serializable {
 	public final static String ID_FIELD_NAME 						= "HMG_ID";
 	public final static String PROFESSIONNEL_HOMOLOGUE_FIELD_NAME 	= "HMG_PROFESSIONNEL_HOMOLOGUE";
 	public final static String TITRE_PROFESSIONNEL_FIELD_NAME 		= "HMG_TITRE_PROFESSIONNEL";
-	public final static String DATE_DEBUT_FIELD_NAME 			= "HMG_DATE_DEBUT";
-	public final static String DATE_FIN_FIELD_NAME 				= "HMG_DATE_FIN";
+	public final static String DATE_DEBUT_FIELD_NAME 				= "HMG_DATE_DEBUT";
+	public final static String DATE_FIN_FIELD_NAME 					= "HMG_DATE_FIN";
 	
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
@@ -81,5 +81,37 @@ public class Homologation extends AModele<Integer> implements Serializable {
 		id = pId;
 	}
 
+	public ProfessionnelHomologue getProfessionnelHomologue() {
+		return professionnelHomologue;
+	}
+
+	public void setProfessionnelHomologue(
+			ProfessionnelHomologue professionnelHomologue) {
+		this.professionnelHomologue = professionnelHomologue;
+	}
+
+	public TitreProfessionnel getTitreProfessionnel() {
+		return titreProfessionnel;
+	}
+
+	public void setTitreProfessionnel(TitreProfessionnel titreProfessionnel) {
+		this.titreProfessionnel = titreProfessionnel;
+	}
+
+	public Integer getDateDebut() {
+		return dateDebut;
+	}
+
+	public void setDateDebut(Integer dateDebut) {
+		this.dateDebut = dateDebut;
+	}
+
+	public Integer getDateFin() {
+		return dateFin;
+	}
+
+	public void setDateFin(Integer dateFin) {
+		this.dateFin = dateFin;
+	}
 
 }

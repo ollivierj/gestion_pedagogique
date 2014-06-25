@@ -4,12 +4,9 @@
 package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
-
 import javax.xml.bind.annotation.XmlRootElement;
-
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
-
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -31,8 +28,8 @@ public class InstanceEvaluationStagiaire extends AModele<String> implements Seri
 
 	private static final long serialVersionUID = 1L;
 
-	public final static String ID1_FIELD_NAME 		= "INST_EVAL_ID";
-	public final static String ID2_FIELD_NAME 		= "CodeStagiaire";
+	public final static String ID1_FIELD_NAME = "INST_EVAL_ID";
+	public final static String ID2_FIELD_NAME = "CodeStagiaire";
 	
 	@DatabaseField(
 		columnName = ID1_FIELD_NAME,
@@ -61,5 +58,20 @@ public class InstanceEvaluationStagiaire extends AModele<String> implements Seri
 		stagiaire.setId(Integer.valueOf(ids[1]));
 	}
 
+	public InstanceEvaluation getInstanceEvaluation() {
+		return instanceEvaluation;
+	}
+
+	public void setInstanceEvaluation(InstanceEvaluation instanceEvaluation) {
+		this.instanceEvaluation = instanceEvaluation;
+	}
+
+	public Stagiaire getStagiaire() {
+		return stagiaire;
+	}
+
+	public void setStagiaire(Stagiaire stagiaire) {
+		this.stagiaire = stagiaire;
+	}
 
 }

@@ -82,5 +82,36 @@ public class Evaluation extends AModele<Integer> implements Serializable {
 		id = pId;
 	}
 
+	public Module getModule() {
+		return module;
+	}
+
+	public void setModule(Module module) {
+		this.module = module;
+	}
+
+	public String getLienSujet() {
+		return lienSujet;
+	}
+
+	public void setLienSujet(String lienSujet) {
+		this.lienSujet = lienSujet;
+	}
+
+	public String getLienModeleCorrection() {
+		return lienModeleCorrection;
+	}
+
+	public void setLienModeleCorrection(String lienModeleCorrection) {
+		this.lienModeleCorrection = lienModeleCorrection;
+	}
+
+	public String getLienGrilleCorrection() {
+		return lienGrilleCorrection;
+	}
+
+	public void setLienGrilleCorrection(String lienGrilleCorrection) {
+		this.lienGrilleCorrection = lienGrilleCorrection;
+	}
 
 }

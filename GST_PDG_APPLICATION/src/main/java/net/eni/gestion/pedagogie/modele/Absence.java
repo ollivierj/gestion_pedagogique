@@ -89,5 +89,44 @@ public class Absence extends AModele<Integer> implements Serializable {
 		id = pId;
 	}
 
+	public Stagiaire getStagiaire() {
+		return stagiaire;
+	}
 
+	public void setStagiaire(Stagiaire stagiaire) {
+		this.stagiaire = stagiaire;
+	}
+
+	public DateTime getDateArriveeMatin() {
+		return dateArriveeMatin;
+	}
+
+	public void setDateArriveeMatin(DateTime dateArriveeMatin) {
+		this.dateArriveeMatin = dateArriveeMatin;
+	}
+
+	public DateTime getDateArriveeApresMidi() {
+		return dateArriveeApresMidi;
+	}
+
+	public void setDateArriveeApresMidi(DateTime dateArriveeApresMidi) {
+		this.dateArriveeApresMidi = dateArriveeApresMidi;
+	}
+
+	public DateTime getDateSaisie() {
+		return dateSaisie;
+	}
+
+	public void setDateSaisie(DateTime dateSaisie) {
+		this.dateSaisie = dateSaisie;
+	}
+
+	public Utilisateur getAuteur() {
+		return auteur;
+	}
+
+	public void setAuteur(Utilisateur auteur) {
+		this.auteur = auteur;
+	}
+	
 }

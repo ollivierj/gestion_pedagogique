@@ -4,12 +4,16 @@
 package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 import net.sourceforge.jtds.jdbc.DateTime;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
@@ -58,7 +62,6 @@ public class InstanceSessionValidation extends AModele<Integer> implements Seria
 			useGetSet = true)
 		private ReservationSalle reservationSalle = null;
 
-	
 	@DatabaseField(
 		columnName = DATE_FIELD_NAME,
 		dataType = DataType.DATE_TIME,
@@ -67,17 +70,26 @@ public class InstanceSessionValidation extends AModele<Integer> implements Seria
 	private DateTime date = null;
 	
 	@DatabaseField(
-			columnName = LIEN_DOCS_GENERES_FIELD_NAME,
-			dataType = DataType.STRING,
-			useGetSet = true)
-		private String lienDocsGeneres = null;
+		columnName = LIEN_DOCS_GENERES_FIELD_NAME,
+		dataType = DataType.STRING,
+		useGetSet = true)
+	private String lienDocsGeneres = null;
 
 	@DatabaseField(
-			columnName = LIEN_DOCS_COLLECTES_FIELD_NAME,
-			dataType = DataType.STRING,
-			useGetSet = true)
-		private String lienDocsCollectes = null;
+		columnName = LIEN_DOCS_COLLECTES_FIELD_NAME,
+		dataType = DataType.STRING,
+		useGetSet = true)
+	private String lienDocsCollectes = null;
 
+	@ForeignCollectionField(eager = true, columnName = InstanceSessionValidationStagiaire.ID2_FIELD_NAME)
+	private transient Collection<InstanceSessionValidationStagiaire> transientInstanceSessionValidationStagiaires = null;
+
+	private ArrayList<InstanceSessionValidationStagiaire> instanceSessionValidationStagiaires = new ArrayList<InstanceSessionValidationStagiaire>();
+
+	@ForeignCollectionField(eager = true, columnName = Jury.ID2_FIELD_NAME)
+	private transient Collection<Jury> transientJurys = null;
+
+	private ArrayList<Jury> jurys = new ArrayList<Jury>();
 
 	@Override
 	public Integer getId() {
@@ -89,5 +101,84 @@ public class InstanceSessionValidation extends AModele<Integer> implements Seria
 		id = pId;
 	}
 
+	public SessionValidation getSessionValidation() {
+		return sessionValidation;
+	}
+
+	public void setSessionValidation(SessionValidation sessionValidation) {
+		this.sessionValidation = sessionValidation;
+	}
+
+	public ReservationSalle getReservationSalle() {
+		return reservationSalle;
+	}
+
+	public void setReservationSalle(ReservationSalle reservationSalle) {
+		this.reservationSalle = reservationSalle;
+	}
+
+	public DateTime getDate() {
+		return date;
+	}
+
+	public void setDate(DateTime date) {
+		this.date = date;
+	}
+
+	public String getLienDocsGeneres() {
+		return lienDocsGeneres;
+	}
+
+	public void setLienDocsGeneres(String lienDocsGeneres) {
+		this.lienDocsGeneres = lienDocsGeneres;
+	}
+
+	public String getLienDocsCollectes() {
+		return lienDocsCollectes;
+	}
+
+	public void setLienDocsCollectes(String lienDocsCollectes) {
+		this.lienDocsCollectes = lienDocsCollectes;
+	}
+	
+	public ArrayList<InstanceSessionValidationStagiaire> getInstanceSessionValidationStagiaires() {
+		if (null != transientInstanceSessionValidationStagiaires) {
+			instanceSessionValidationStagiaires.clear();
+			instanceSessionValidationStagiaires.addAll(transientInstanceSessionValidationStagiaires);
+			transientInstanceSessionValidationStagiaires = null;
+		}
+		return instanceSessionValidationStagiaires;
+	}
+	
+	public ArrayList<Stagiaire> getStagiaires(){
+		ArrayList<Stagiaire> stagiaires = new ArrayList<Stagiaire>();
+		if (0 < getInstanceSessionValidationStagiaires().size()) {
+			Iterator<InstanceSessionValidationStagiaire> iterator = getInstanceSessionValidationStagiaires().iterator();
+			while (iterator.hasNext()) {
+				stagiaires.add(iterator.next().getStagiaire());
+			}
+		}
+		return stagiaires;
+	}
+	
+	private ArrayList<Jury> getJurys() {
+		if (null != transientJurys) {
+			jurys.clear();
+			jurys.addAll(transientJurys);
+			transientJurys = null;
+		}
+		return jurys;
+	}
+	
+	public ArrayList<ProfessionnelHomologue> getJures(){
+		ArrayList<ProfessionnelHomologue> jures = new ArrayList<ProfessionnelHomologue>();
+		if (0 < getJurys().size()) {
+			Iterator<Jury> iterator = getJurys().iterator();
+			while (iterator.hasNext()) {
+				jures.add(iterator.next().getProfessionnelHomologue());
+			}
+		}
+		return jures;
+	}
 
 }

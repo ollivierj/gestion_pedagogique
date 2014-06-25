@@ -4,11 +4,15 @@
 package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
@@ -100,6 +104,11 @@ public class InstanceEvaluation extends AModele<Integer> implements Serializable
 		useGetSet = true,
 		canBeNull = false)
 	private Integer dateFinPassage = null;
+	
+	@ForeignCollectionField(eager = true, columnName = InstanceEvaluationStagiaire.ID2_FIELD_NAME)
+	private transient Collection<InstanceEvaluationStagiaire> transientInstanceEvaluationStagiaires = null;
+
+	private ArrayList<InstanceEvaluationStagiaire> instanceEvaluationStagiaires = new ArrayList<InstanceEvaluationStagiaire>();
 
 	@Override
 	public Integer getId() {
@@ -111,5 +120,88 @@ public class InstanceEvaluation extends AModele<Integer> implements Serializable
 		id = pId;
 	}
 
+	public ReservationSalle getReservationSalle() {
+		return reservationSalle;
+	}
 
+	public void setReservationSalle(ReservationSalle reservationSalle) {
+		this.reservationSalle = reservationSalle;
+	}
+
+	public Utilisateur getSurveillant() {
+		return surveillant;
+	}
+
+	public void setSurveillant(Utilisateur surveillant) {
+		this.surveillant = surveillant;
+	}
+
+	public Utilisateur getCorrecteur() {
+		return correcteur;
+	}
+
+	public void setCorrecteur(Utilisateur correcteur) {
+		this.correcteur = correcteur;
+	}
+
+	public Evaluation getEvaluation() {
+		return evaluation;
+	}
+
+	public void setEvaluation(Evaluation evaluation) {
+		this.evaluation = evaluation;
+	}
+
+	public String getLienGrilleCorrection() {
+		return lienGrilleCorrection;
+	}
+
+	public void setLienGrilleCorrection(String lienGrilleCorrection) {
+		this.lienGrilleCorrection = lienGrilleCorrection;
+	}
+
+	public String getLienCopiesImmaterrielles() {
+		return lienCopiesImmaterrielles;
+	}
+
+	public void setLienCopiesImmaterrielles(String lienCopiesImmaterrielles) {
+		this.lienCopiesImmaterrielles = lienCopiesImmaterrielles;
+	}
+
+	public Integer getDateDebutPassage() {
+		return dateDebutPassage;
+	}
+
+	public void setDateDebutPassage(Integer dateDebutPassage) {
+		this.dateDebutPassage = dateDebutPassage;
+	}
+
+	public Integer getDateFinPassage() {
+		return dateFinPassage;
+	}
+
+	public void setDateFinPassage(Integer dateFinPassage) {
+		this.dateFinPassage = dateFinPassage;
+	}
+
+	private ArrayList<InstanceEvaluationStagiaire> getInstanceEvaluationStagiaires() {
+		if (null != transientInstanceEvaluationStagiaires) {
+			instanceEvaluationStagiaires.clear();
+			instanceEvaluationStagiaires.addAll(transientInstanceEvaluationStagiaires);
+			transientInstanceEvaluationStagiaires = null;
+		}
+		return instanceEvaluationStagiaires;
+	}
+	
+	public ArrayList<Stagiaire> getStagiaires(){
+		ArrayList<Stagiaire> stagiaires = new ArrayList<Stagiaire>();
+		if (0 < getInstanceEvaluationStagiaires().size()) {
+			Iterator<InstanceEvaluationStagiaire> iterator = getInstanceEvaluationStagiaires().iterator();
+			while (iterator.hasNext()) {
+				stagiaires.add(iterator.next().getStagiaire());
+			}
+		}
+		return stagiaires;
+	}
+	
 }

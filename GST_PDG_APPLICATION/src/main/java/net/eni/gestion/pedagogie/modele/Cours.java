@@ -4,17 +4,18 @@
 package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.UUID;
-
 import javax.xml.bind.annotation.XmlRootElement;
-
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 import net.sourceforge.jtds.jdbc.DateTime;
-
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
@@ -141,15 +142,144 @@ public class Cours extends AModele<UUID> implements Serializable {
 			useGetSet = true)
 	private Integer codeFormateur = null;*/
 	
+	@ForeignCollectionField(eager = true, columnName = PlanningIndividuelDetail.ID2_FIELD_NAME)
+	private transient Collection<PlanningIndividuelDetail> transientPlanningIndividuelDetails = null;
+
+	private ArrayList<PlanningIndividuelDetail> planningIndividuelDetails = new ArrayList<PlanningIndividuelDetail>();
+
+	@ForeignCollectionField(eager = true, columnName = InstanceCoursStagiaire.ID1_FIELD_NAME)
+	private transient Collection<InstanceCoursStagiaire> transientInstanceCoursStagiaires = null;
+
+	private ArrayList<InstanceCoursStagiaire> instanceCoursStagiaires = new ArrayList<InstanceCoursStagiaire>();
+
 	@Override
 	public UUID getId() {
 		return id;
 	}
-
+	
 	@Override
 	public void setId(UUID pId) {
 		id = pId;
 	}
 
+	public DateTime getDebut() {
+		return debut;
+	}
+
+	public void setDebut(DateTime debut) {
+		this.debut = debut;
+	}
+
+	public DateTime getFin() {
+		return fin;
+	}
+
+	public void setFin(DateTime fin) {
+		this.fin = fin;
+	}
+
+	public Short getDureeReelleEnHeures() {
+		return dureeReelleEnHeures;
+	}
+
+	public void setDureeReelleEnHeures(Short dureeReelleEnHeures) {
+		this.dureeReelleEnHeures = dureeReelleEnHeures;
+	}
+
+	public Promotion getPromotion() {
+		return promotion;
+	}
+
+	public void setPromotion(Promotion promotion) {
+		this.promotion = promotion;
+	}
+
+	public Float getPrixPublicAffecte() {
+		return prixPublicAffecte;
+	}
+
+	public void setPrixPublicAffecte(Float prixPublicAffecte) {
+		this.prixPublicAffecte = prixPublicAffecte;
+	}
+
+	public DateTime getDateCreation() {
+		return dateCreation;
+	}
+
+	public void setDateCreation(DateTime dateCreation) {
+		this.dateCreation = dateCreation;
+	}
+
+	public Date getDateModif() {
+		return dateModif;
+	}
+
+	public void setDateModif(Date dateModif) {
+		this.dateModif = dateModif;
+	}
+
+	public Integer getIdModule() {
+		return idModule;
+	}
+
+	public void setIdModule(Integer idModule) {
+		this.idModule = idModule;
+	}
+
+	public String getLibelleCours() {
+		return libelleCours;
+	}
+
+	public void setLibelleCours(String libelleCours) {
+		this.libelleCours = libelleCours;
+	}
+
+	public Integer getDureePrevueEnHeures() {
+		return dureePrevueEnHeures;
+	}
+
+	public void setDureePrevueEnHeures(Integer dureePrevueEnHeures) {
+		this.dureePrevueEnHeures = dureePrevueEnHeures;
+	}
+	
+	private ArrayList<PlanningIndividuelDetail> getPlanningIndividuelDetails() {
+		if (null != transientPlanningIndividuelDetails) {
+			planningIndividuelDetails.clear();
+			planningIndividuelDetails.addAll(transientPlanningIndividuelDetails);
+			transientPlanningIndividuelDetails = null;
+		}
+		return planningIndividuelDetails;
+	}
+	
+	public ArrayList<Stagiaire> getStagiaires(){
+		ArrayList<Stagiaire> stagiaires = new ArrayList<Stagiaire>();
+		if (0 < getPlanningIndividuelDetails().size()) {
+			Iterator<PlanningIndividuelDetail> iterator = getPlanningIndividuelDetails().iterator();
+			while (iterator.hasNext()) {
+				stagiaires.add(iterator.next().getPlanningIndividuelFormation().getStagiaire());
+			}
+		}
+		return stagiaires;
+	}
+	
+	private ArrayList<InstanceCoursStagiaire> getInstanceCoursStagiaires() {
+		if (null != transientInstanceCoursStagiaires) {
+			instanceCoursStagiaires.clear();
+			instanceCoursStagiaires.addAll(transientInstanceCoursStagiaires);
+			transientInstanceCoursStagiaires = null;
+		}
+		return instanceCoursStagiaires;
+	}
+	
+	public ArrayList<InstanceCours> getInstanceCours(){
+		ArrayList<InstanceCours> instanceCours = new ArrayList<InstanceCours>();
+		if (0 < getInstanceCoursStagiaires().size()) {
+			Iterator<InstanceCoursStagiaire> iterator = getInstanceCoursStagiaires().iterator();
+			while (iterator.hasNext()) {
+				instanceCours.add(iterator.next().getInstanceCours());
+			}
+		}
+		return instanceCours;
+	}
 
 }

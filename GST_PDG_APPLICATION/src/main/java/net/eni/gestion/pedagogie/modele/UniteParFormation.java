@@ -4,11 +4,15 @@
 package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
@@ -62,6 +66,11 @@ public class UniteParFormation extends AModele<Integer> implements Serializable 
 		useGetSet = true,
 		canBeNull = false)
 	private UniteFormation uniteFormation = null;
+	
+	@ForeignCollectionField(eager = true, columnName = ModuleParUnite.ID_UNITE_FIELD_NAME)
+	private transient Collection<ModuleParUnite> transientModuleParUnites = null;
+
+	private ArrayList<ModuleParUnite> moduleParUnites = new ArrayList<ModuleParUnite>();
 
 	@Override
 	public Integer getId() {
@@ -73,5 +82,48 @@ public class UniteParFormation extends AModele<Integer> implements Serializable 
 		id = pId;
 	}
 
+	public Formation getFormation() {
+		return formation;
+	}
+
+	public void setFormation(Formation formation) {
+		this.formation = formation;
+	}
+
+	public Short getPosition() {
+		return position;
+	}
+
+	public void setPosition(Short position) {
+		this.position = position;
+	}
+
+	public UniteFormation getUniteFormation() {
+		return uniteFormation;
+	}
+
+	public void setUniteFormation(UniteFormation uniteFormation) {
+		this.uniteFormation = uniteFormation;
+	}
+	
+	private ArrayList<ModuleParUnite> getModuleParUnites() {
+		if (null != transientModuleParUnites) {
+			moduleParUnites.clear();
+			moduleParUnites.addAll(transientModuleParUnites);
+			transientModuleParUnites = null;
+		}
+		return moduleParUnites;
+	}
+	
+	public ArrayList<Module> getModules(){
+		ArrayList<Module> modules = new ArrayList<Module>();
+		if (0 < getModuleParUnites().size()) {
+			Iterator<ModuleParUnite> iterator = getModuleParUnites().iterator();
+			while (iterator.hasNext()) {
+				modules.add(iterator.next().getModule());
+			}
+		}
+		return modules;
+	}
 
 }

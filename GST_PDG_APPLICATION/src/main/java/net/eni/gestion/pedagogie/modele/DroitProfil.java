@@ -4,12 +4,9 @@
 package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
-
 import javax.xml.bind.annotation.XmlRootElement;
-
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
-
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -31,8 +28,8 @@ public class DroitProfil extends AModele<String> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public final static String ID1_FIELD_NAME 		= "PRF_ID";
-	public final static String ID2_FIELD_NAME 		= "DRIT_ID";
+	public final static String ID1_FIELD_NAME = "PRF_ID";
+	public final static String ID2_FIELD_NAME = "DRIT_ID";
 	
 	@DatabaseField(
 		columnName = ID1_FIELD_NAME,
@@ -61,5 +58,20 @@ public class DroitProfil extends AModele<String> implements Serializable {
 		droit.setId(Integer.valueOf(ids[1]));
 	}
 
+	public Profil getProfil() {
+		return profil;
+	}
+
+	public void setProfil(Profil profil) {
+		this.profil = profil;
+	}
+
+	public Droit getDroit() {
+		return droit;
+	}
+
+	public void setDroit(Droit droit) {
+		this.droit = droit;
+	}
 
 }

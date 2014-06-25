@@ -4,12 +4,16 @@
 package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 import net.sourceforge.jtds.jdbc.DateTime;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
@@ -196,6 +200,31 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 		dataType = DataType.STRING,
 		useGetSet = true)
 	private String historique = null;
+	
+	@ForeignCollectionField(eager = true, columnName = Echange.STAGIAIRE_FIELD_NAME)
+	private transient Collection<Echange> transientEchanges = null;
+
+	private ArrayList<Echange> echanges = new ArrayList<Echange>();
+
+	@ForeignCollectionField(eager = true, columnName = Avis.STAGIAIRE_FIELD_NAME)
+	private transient Collection<Avis> transientAvis = null;
+
+	private ArrayList<Avis> avis = new ArrayList<Avis>();
+	
+	@ForeignCollectionField(eager = true, columnName = Absence.STAGIAIRE_FIELD_NAME)
+	private transient Collection<Absence> transientAbsences = null;
+
+	private ArrayList<Absence> absences = new ArrayList<Absence>();
+	
+	@ForeignCollectionField(eager = true, columnName = PlanningIndividuelFormation.CODE_STAGIAIRE_FIELD_NAME)
+	private transient Collection<PlanningIndividuelFormation> transientPlanningIndividuelFormations = null;
+
+	private ArrayList<PlanningIndividuelFormation> planningIndividuelFormations = new ArrayList<PlanningIndividuelFormation>();
+
+	@ForeignCollectionField(eager = true, columnName = InstanceCoursStagiaire.ID2_FIELD_NAME)
+	private transient Collection<InstanceCoursStagiaire> transientInstanceCoursStagiaires = null;
+
+	private ArrayList<InstanceCoursStagiaire> instanceCoursStagiaires = new ArrayList<InstanceCoursStagiaire>();
 
 	@Override
 	public Integer getId() {
@@ -207,5 +236,236 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 		id = pId;
 	}
 
+	public String getCivilite() {
+		return civilite;
+	}
+
+	public void setCivilite(String civilite) {
+		this.civilite = civilite;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public String getPrenom() {
+		return prenom;
+	}
+
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+
+	public String getAdresse1() {
+		return adresse1;
+	}
+
+	public void setAdresse1(String adresse1) {
+		this.adresse1 = adresse1;
+	}
+
+	public String getAdresse2() {
+		return adresse2;
+	}
+
+	public void setAdresse2(String adresse2) {
+		this.adresse2 = adresse2;
+	}
+
+	public String getAdresse3() {
+		return adresse3;
+	}
+
+	public void setAdresse3(String adresse3) {
+		this.adresse3 = adresse3;
+	}
+
+	public String getCodePostal() {
+		return codePostal;
+	}
+
+	public void setCodePostal(String codePostal) {
+		this.codePostal = codePostal;
+	}
+
+	public String getVille() {
+		return ville;
+	}
+
+	public void setVille(String ville) {
+		this.ville = ville;
+	}
+
+	public String getTelephoneFixe() {
+		return telephoneFixe;
+	}
+
+	public void setTelephoneFixe(String telephoneFixe) {
+		this.telephoneFixe = telephoneFixe;
+	}
+
+	public String getTelephonePortable() {
+		return telephonePortable;
+	}
+
+	public void setTelephonePortable(String telephonePortable) {
+		this.telephonePortable = telephonePortable;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public DateTime getDateNaissance() {
+		return dateNaissance;
+	}
+
+	public void setDateNaissance(DateTime dateNaissance) {
+		this.dateNaissance = dateNaissance;
+	}
+
+	public String getCodeRegion() {
+		return codeRegion;
+	}
+
+	public void setCodeRegion(String codeRegion) {
+		this.codeRegion = codeRegion;
+	}
+
+	public String getCodeNationalite() {
+		return codeNationalite;
+	}
+
+	public void setCodeNationalite(String codeNationalite) {
+		this.codeNationalite = codeNationalite;
+	}
+
+	public String getCodeOrigineMedia() {
+		return codeOrigineMedia;
+	}
+
+	public void setCodeOrigineMedia(String codeOrigineMedia) {
+		this.codeOrigineMedia = codeOrigineMedia;
+	}
+
+	public DateTime getDateDernierEnvoiDoc() {
+		return dateDernierEnvoiDoc;
+	}
+
+	public void setDateDernierEnvoiDoc(DateTime dateDernierEnvoiDoc) {
+		this.dateDernierEnvoiDoc = dateDernierEnvoiDoc;
+	}
+
+	public DateTime getDateCreation() {
+		return dateCreation;
+	}
+
+	public void setDateCreation(DateTime dateCreation) {
+		this.dateCreation = dateCreation;
+	}
+
+	public String getRepertoire() {
+		return repertoire;
+	}
+
+	public void setRepertoire(String repertoire) {
+		this.repertoire = repertoire;
+	}
+
+	public Boolean getPermis() {
+		return permis;
+	}
+
+	public void setPermis(Boolean permis) {
+		this.permis = permis;
+	}
+
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+
+	public Boolean getEnvoiDocEnCours() {
+		return envoiDocEnCours;
+	}
+
+	public void setEnvoiDocEnCours(Boolean envoiDocEnCours) {
+		this.envoiDocEnCours = envoiDocEnCours;
+	}
+
+	public String getHistorique() {
+		return historique;
+	}
+
+	public void setHistorique(String historique) {
+		this.historique = historique;
+	}
+	
+	public ArrayList<Echange> getEchanges() {
+		if (null != transientEchanges) {
+			echanges.clear();
+			echanges.addAll(transientEchanges);
+			transientEchanges = null;
+		}
+		return echanges;
+	}
+	
+	public ArrayList<Avis> getAvis() {
+		if (null != transientAvis) {
+			avis.clear();
+			avis.addAll(transientAvis);
+			transientAvis = null;
+		}
+		return avis;
+	}
+	
+	public ArrayList<Absence> getAbsences() {
+		if (null != transientAbsences) {
+			absences.clear();
+			absences.addAll(transientAbsences);
+			transientAbsences = null;
+		}
+		return absences;
+	}
+	
+	public ArrayList<PlanningIndividuelFormation> getPlanningIndividuelFormations() {
+		if (null != transientPlanningIndividuelFormations) {
+			planningIndividuelFormations.clear();
+			planningIndividuelFormations.addAll(transientPlanningIndividuelFormations);
+			transientPlanningIndividuelFormations = null;
+		}
+		return planningIndividuelFormations;
+	}
+	
+	private ArrayList<InstanceCoursStagiaire> getInstanceCoursStagiaires() {
+		if (null != transientInstanceCoursStagiaires) {
+			instanceCoursStagiaires.clear();
+			instanceCoursStagiaires.addAll(transientInstanceCoursStagiaires);
+			transientInstanceCoursStagiaires = null;
+		}
+		return instanceCoursStagiaires;
+	}
+	
+	public ArrayList<InstanceCours> getInstanceCours(){
+		ArrayList<InstanceCours> instanceCours = new ArrayList<InstanceCours>();
+		if (0 < getInstanceCoursStagiaires().size()) {
+			Iterator<InstanceCoursStagiaire> iterator = getInstanceCoursStagiaires().iterator();
+			while (iterator.hasNext()) {
+				instanceCours.add(iterator.next().getInstanceCours());
+			}
+		}
+		return instanceCours;
+	}
 
 }

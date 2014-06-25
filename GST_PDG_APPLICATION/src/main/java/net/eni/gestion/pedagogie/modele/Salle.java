@@ -4,11 +4,14 @@
 package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
@@ -46,6 +49,11 @@ public class Salle extends AModele<String> implements Serializable {
 		useGetSet = true,
 		canBeNull = false)
 	private String libelle = null;
+	
+	@ForeignCollectionField(eager = true, columnName = ReservationSalle.SALLE_FIELD_NAME)
+	private transient Collection<ReservationSalle> transientReservationSalles = null;
+
+	private ArrayList<ReservationSalle> reservationSalles = new ArrayList<ReservationSalle>();
 
 	@Override
 	public String getId() {
@@ -57,5 +65,21 @@ public class Salle extends AModele<String> implements Serializable {
 		id = pId;
 	}
 
+	public String getLibelle() {
+		return libelle;
+	}
+
+	public void setLibelle(String libelle) {
+		this.libelle = libelle;
+	}
+
+	public ArrayList<ReservationSalle> getReservationSalles() {
+		if (null != transientReservationSalles) {
+			reservationSalles.clear();
+			reservationSalles.addAll(transientReservationSalles);
+			transientReservationSalles = null;
+		}
+		return reservationSalles;
+	}
 
 }

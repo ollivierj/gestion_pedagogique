@@ -4,12 +4,14 @@
 package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 import net.sourceforge.jtds.jdbc.DateTime;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
@@ -30,11 +32,11 @@ public class ReservationSalle extends AModele<Integer> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public final static String ID_FIELD_NAME 					= "RES_SALLE_ID";
-	public final static String DATE_DEBUT_FIELD_NAME			= "RES_SALLE_DATE_DEBUT";
-	public final static String DATE_FIN_FIELD_NAME				= "RES_SALLE_DATE_FIN";
-	public final static String NB_POSTE_LIBRE_FIELD_NAME		= "RES_SALLE_NB_POSTE_LIBRE";
-	public final static String SALLE_FIELD_NAME					= "RES_SALLE_SALLE";
+	public final static String ID_FIELD_NAME 				= "RES_SALLE_ID";
+	public final static String DATE_DEBUT_FIELD_NAME		= "RES_SALLE_DATE_DEBUT";
+	public final static String DATE_FIN_FIELD_NAME			= "RES_SALLE_DATE_FIN";
+	public final static String NB_POSTE_LIBRE_FIELD_NAME	= "RES_SALLE_NB_POSTE_LIBRE";
+	public final static String SALLE_FIELD_NAME				= "RES_SALLE_SALLE";
 	
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
@@ -72,14 +74,83 @@ public class ReservationSalle extends AModele<Integer> implements Serializable {
 
 	@Override
 	public Integer getId() {
-		// TODO Auto-generated method stub
 		return id;
 	}
 
+	@ForeignCollectionField(eager = true, columnName = InstanceCours.RESERVATION_SALLE_FIELD_NAME)
+	private transient Collection<InstanceCours> transientInstanceCours = null;
+
+	private InstanceCours instanceCours = null;
+	
+	@ForeignCollectionField(eager = true, columnName = InstanceEvaluation.RESERVATION_SALLE_FIELD_NAME)
+	private transient Collection<InstanceEvaluation> transientInstanceEvaluations = null;
+
+	private InstanceEvaluation instanceEvaluation = null;
+	
+	@ForeignCollectionField(eager = true, columnName = InstanceSessionValidation.RESERVATION_SALLE_FIELD_NAME)
+	private transient Collection<InstanceSessionValidation> transientInstanceSessionValidations = null;
+
+	private InstanceSessionValidation instanceSessionValidation = null;
+	
 	@Override
 	public void setId(Integer pId) {
 		id = pId;
 	}
 
+	public DateTime getDateDebut() {
+		return dateDebut;
+	}
+
+	public void setDateDebut(DateTime dateDebut) {
+		this.dateDebut = dateDebut;
+	}
+
+	public DateTime getDateFin() {
+		return dateFin;
+	}
+
+	public void setDateFin(DateTime dateFin) {
+		this.dateFin = dateFin;
+	}
+
+	public Integer getNbPosteLibre() {
+		return nbPosteLibre;
+	}
+
+	public void setNbPosteLibre(Integer nbPosteLibre) {
+		this.nbPosteLibre = nbPosteLibre;
+	}
+
+	public Salle getSalle() {
+		return salle;
+	}
+
+	public void setSalle(Salle salle) {
+		this.salle = salle;
+	}
+	
+	public InstanceCours getInstanceCours() {
+		if (null != transientInstanceCours && 1 == transientInstanceCours.size()) {
+			instanceCours = transientInstanceCours.iterator().next();
+			transientInstanceCours = null;
+		}
+		return instanceCours;
+	}
+	
+	public InstanceEvaluation getInstanceEvaluation() {
+		if (null != transientInstanceEvaluations && 1 == transientInstanceEvaluations.size()) {
+			instanceEvaluation = transientInstanceEvaluations.iterator().next();
+			transientInstanceEvaluations = null;
+		}
+		return instanceEvaluation;
+	}
+	
+	public InstanceSessionValidation getInstanceSessionValidation() {
+		if (null != transientInstanceSessionValidations && 1 == transientInstanceSessionValidations.size()) {
+			instanceSessionValidation = transientInstanceSessionValidations.iterator().next();
+			transientInstanceSessionValidations = null;
+		}
+		return instanceSessionValidation;
+	}
 
 }

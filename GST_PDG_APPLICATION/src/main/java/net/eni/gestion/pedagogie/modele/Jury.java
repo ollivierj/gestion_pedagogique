@@ -4,12 +4,9 @@
 package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
-
 import javax.xml.bind.annotation.XmlRootElement;
-
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
-
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -31,8 +28,8 @@ public class Jury extends AModele<String> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public final static String ID1_FIELD_NAME 		= "PRF_HMG_ID";
-	public final static String ID2_FIELD_NAME 		= "INST_SES_VAL_ID";
+	public final static String ID1_FIELD_NAME = "PRF_HMG_ID";
+	public final static String ID2_FIELD_NAME = "INST_SES_VAL_ID";
 	
 	@DatabaseField(
 		columnName = ID1_FIELD_NAME,
@@ -61,5 +58,21 @@ public class Jury extends AModele<String> implements Serializable {
 		instanceSessionValidation.setId(Integer.valueOf(ids[1]));
 	}
 
+	public ProfessionnelHomologue getProfessionnelHomologue() {
+		return professionnelHomologue;
+	}
+
+	public void setProfessionnelHomologue(
+			ProfessionnelHomologue professionnelHomologue) {
+		this.professionnelHomologue = professionnelHomologue;
+	}
+
+	public InstanceSessionValidation getInstanceSessionValidation() {
+		return instanceSessionValidation;
+	}
+
+	public void setInstanceSessionValidation(InstanceSessionValidation instanceSessionValidation) {
+		this.instanceSessionValidation = instanceSessionValidation;
+	}
 
 }
