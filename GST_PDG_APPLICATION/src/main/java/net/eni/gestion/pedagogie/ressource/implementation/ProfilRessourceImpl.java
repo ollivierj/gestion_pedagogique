@@ -1,6 +1,7 @@
 package net.eni.gestion.pedagogie.ressource.implementation;
 
 import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -11,30 +12,30 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
-import net.eni.gestion.pedagogie.modele.Stagiaire;
-import net.eni.gestion.pedagogie.ressource.StagiaireRessource;
-import net.eni.gestion.pedagogie.service.StagiaireService;
+import net.eni.gestion.pedagogie.modele.Profil;
+import net.eni.gestion.pedagogie.ressource.ProfilRessource;
+import net.eni.gestion.pedagogie.service.ProfilService;
 import com.google.inject.Inject;
 
 /**
  * @author jollivier
- * Classe d'implémentation pour le module de gestion des stagiaires
+ * Classe d'implémentation pour le module de gestion des profils et des droits associes
  */
-@Path("/stagiaires")
-public class StagiaireRessourceImpl implements StagiaireRessource {
+@Path("/profils")
+public class ProfilRessourceImpl implements ProfilRessource {
 
     /**
-     * Unité métier stagiaire
+     * Unité métier profil
      */
-    private final StagiaireService stagiaireService;
+    private final ProfilService profilService;
 
     /**
      * Constructeur
-     * @param StagiaireService
+     * @param ProfilService
      */
     @Inject
-    public StagiaireRessourceImpl(StagiaireService StagiaireService) {
-        this.stagiaireService = StagiaireService;
+    public ProfilRessourceImpl(ProfilService ProfilService) {
+        this.profilService = ProfilService;
     }
 
     /* (non-Javadoc)
@@ -42,8 +43,8 @@ public class StagiaireRessourceImpl implements StagiaireRessource {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Stagiaire> charger() throws GenericException {
-        return stagiaireService.charger(new Stagiaire());
+    public List<Profil> charger() throws GenericException {
+        return profilService.charger(new Profil());
     }
         
 	/* (non-Javadoc)
@@ -52,8 +53,8 @@ public class StagiaireRessourceImpl implements StagiaireRessource {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-	public Stagiaire chargerDetail(@PathParam("id") Integer id) throws GenericException {
-		return stagiaireService.chargerDetail(new Stagiaire(id));
+	public Profil chargerDetail(@PathParam("id") Integer id) throws GenericException {
+		return profilService.chargerDetail(new Profil(id));
 
 	}
 
@@ -63,8 +64,8 @@ public class StagiaireRessourceImpl implements StagiaireRessource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-	public Stagiaire ajouter(Stagiaire pModel) throws GenericException {
-		return this.stagiaireService.ajouter(pModel);
+	public Profil ajouter(Profil pModel) throws GenericException {
+		return this.profilService.ajouter(pModel);
 	}
 
 	/* (non-Javadoc)
@@ -74,8 +75,8 @@ public class StagiaireRessourceImpl implements StagiaireRessource {
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-	public Stagiaire mettreAJour(Stagiaire pModel) throws GenericException {
-		return this.stagiaireService.mettreAJour(pModel);
+	public Profil mettreAJour(Profil pModel) throws GenericException {
+		return this.profilService.mettreAJour(pModel);
 	}
 
 	/* (non-Javadoc)
@@ -84,8 +85,8 @@ public class StagiaireRessourceImpl implements StagiaireRessource {
 	@DELETE
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Stagiaire supprimer(@PathParam("id") Integer id) throws GenericException {
-		return this.stagiaireService.supprimer(new Stagiaire(id));
+	public Profil supprimer(@PathParam("id") Integer id) throws GenericException {
+		return this.profilService.supprimer(new Profil(id));
 	}
 
 

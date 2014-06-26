@@ -5,8 +5,8 @@ import net.eni.gestion.pedagogie.ressource.generique.CRUDRessource;
 
 /**
  * @author jollivier
- * Interface service pour l'entité stagiaire
+ * Interface service pour le module de consultation des stagiaires
  */
-public interface StagiaireRessource extends CRUDRessource<Stagiaire> {
+public interface StagiaireRessource extends CRUDRessource<Stagiaire, Integer> {
 
 }

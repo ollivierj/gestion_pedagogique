@@ -5,7 +5,7 @@ import net.eni.gestion.pedagogie.service.generique.CRUDService;
 
 /**
  * @author jollivier
- * Interface métier pour l'entité stagiaire
+ * Interface métier pour le module de consultation des stagiaires
  */
 public interface StagiaireService extends CRUDService<Stagiaire> {
 

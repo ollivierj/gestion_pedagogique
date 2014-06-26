@@ -3,43 +3,43 @@ package net.eni.gestion.pedagogie.service.implementation;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import net.eni.gestion.pedagogie.DAO.StagiaireDao;
+import net.eni.gestion.pedagogie.DAO.EvaluationDao;
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
-import net.eni.gestion.pedagogie.modele.Stagiaire;
-import net.eni.gestion.pedagogie.service.StagiaireService;
+import net.eni.gestion.pedagogie.modele.Evaluation;
+import net.eni.gestion.pedagogie.service.EvaluationService;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 /**
  * @author jollivier
- * Classe d'implémentation pour le module de consultation des stagiaires
+ * Classe d'implémentation pour le module de gestion des évaluations
  */
 @Singleton
-public class StagiaireServiceImpl implements StagiaireService {
+public class EvaluationServiceImpl implements EvaluationService {
 
     /**
-     * DAO stagiaire
+     * DAO evaluation
      */
-    private final StagiaireDao stagiaireDao;
+    private final EvaluationDao evaluationDao;
 
     /**
      * Constructeur
-     * @param DAO stagiaire
+     * @param DAO evaluation
      * @throws SQLException
      */
     @Inject
-    public StagiaireServiceImpl(StagiaireDao pStagiaireDao) throws SQLException {
-        this.stagiaireDao = pStagiaireDao;
+    public EvaluationServiceImpl(EvaluationDao pEvaluationDao) throws SQLException {
+        this.evaluationDao = pEvaluationDao;
     }
 
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#charger(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public ArrayList<Stagiaire> charger(Stagiaire pModel)
+	public ArrayList<Evaluation> charger(Evaluation pModel)
 			throws GenericException {
 		try {
-			return this.stagiaireDao.charger(pModel);
+			return this.evaluationDao.charger(pModel);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -48,10 +48,10 @@ public class StagiaireServiceImpl implements StagiaireService {
 	}
 	
 
-	public Stagiaire chargerDetail(Stagiaire pModel) throws GenericException {
+	public Evaluation chargerDetail(Evaluation pModel) throws GenericException {
 		// TODO Auto-generated method stub
 		try {
-			return this.stagiaireDao.chargerDetail(pModel);
+			return this.evaluationDao.chargerDetail(pModel);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -62,9 +62,9 @@ public class StagiaireServiceImpl implements StagiaireService {
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#ajouter(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public Stagiaire ajouter(Stagiaire pModel) throws GenericException {
+	public Evaluation ajouter(Evaluation pModel) throws GenericException {
 		try {
-			return this.stagiaireDao.ajouter(pModel);
+			return this.evaluationDao.ajouter(pModel);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -75,9 +75,9 @@ public class StagiaireServiceImpl implements StagiaireService {
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#mettreAJour(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public Stagiaire mettreAJour(Stagiaire pModel) throws GenericException {
+	public Evaluation mettreAJour(Evaluation pModel) throws GenericException {
 		try {
-			return this.stagiaireDao.mettreAJour(pModel);
+			return this.evaluationDao.mettreAJour(pModel);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -88,9 +88,9 @@ public class StagiaireServiceImpl implements StagiaireService {
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#supprimer(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public Stagiaire supprimer(Stagiaire pModel) throws GenericException {
+	public Evaluation supprimer(Evaluation pModel) throws GenericException {
 		try {
-			return this.stagiaireDao.supprimer(pModel);
+			return this.evaluationDao.supprimer(pModel);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

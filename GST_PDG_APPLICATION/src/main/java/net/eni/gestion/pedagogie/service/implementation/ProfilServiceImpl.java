@@ -3,43 +3,43 @@ package net.eni.gestion.pedagogie.service.implementation;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import net.eni.gestion.pedagogie.DAO.StagiaireDao;
+import net.eni.gestion.pedagogie.DAO.ProfilDao;
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
-import net.eni.gestion.pedagogie.modele.Stagiaire;
-import net.eni.gestion.pedagogie.service.StagiaireService;
+import net.eni.gestion.pedagogie.modele.Profil;
+import net.eni.gestion.pedagogie.service.ProfilService;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 /**
  * @author jollivier
- * Classe d'implémentation pour le module de consultation des stagiaires
+ * Classe d'implémentation pour le module de gestions des profils et des droits associés
  */
 @Singleton
-public class StagiaireServiceImpl implements StagiaireService {
+public class ProfilServiceImpl implements ProfilService {
 
     /**
-     * DAO stagiaire
+     * DAO profil
      */
-    private final StagiaireDao stagiaireDao;
+    private final ProfilDao profilDao;
 
     /**
      * Constructeur
-     * @param DAO stagiaire
+     * @param DAO profil
      * @throws SQLException
      */
     @Inject
-    public StagiaireServiceImpl(StagiaireDao pStagiaireDao) throws SQLException {
-        this.stagiaireDao = pStagiaireDao;
+    public ProfilServiceImpl(ProfilDao pProfilDao) throws SQLException {
+        this.profilDao = pProfilDao;
     }
 
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#charger(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public ArrayList<Stagiaire> charger(Stagiaire pModel)
+	public ArrayList<Profil> charger(Profil pModel)
 			throws GenericException {
 		try {
-			return this.stagiaireDao.charger(pModel);
+			return this.profilDao.charger(pModel);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -48,10 +48,10 @@ public class StagiaireServiceImpl implements StagiaireService {
 	}
 	
 
-	public Stagiaire chargerDetail(Stagiaire pModel) throws GenericException {
+	public Profil chargerDetail(Profil pModel) throws GenericException {
 		// TODO Auto-generated method stub
 		try {
-			return this.stagiaireDao.chargerDetail(pModel);
+			return this.profilDao.chargerDetail(pModel);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -62,9 +62,9 @@ public class StagiaireServiceImpl implements StagiaireService {
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#ajouter(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public Stagiaire ajouter(Stagiaire pModel) throws GenericException {
+	public Profil ajouter(Profil pModel) throws GenericException {
 		try {
-			return this.stagiaireDao.ajouter(pModel);
+			return this.profilDao.ajouter(pModel);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -75,9 +75,9 @@ public class StagiaireServiceImpl implements StagiaireService {
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#mettreAJour(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public Stagiaire mettreAJour(Stagiaire pModel) throws GenericException {
+	public Profil mettreAJour(Profil pModel) throws GenericException {
 		try {
-			return this.stagiaireDao.mettreAJour(pModel);
+			return this.profilDao.mettreAJour(pModel);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -88,9 +88,9 @@ public class StagiaireServiceImpl implements StagiaireService {
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#supprimer(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public Stagiaire supprimer(Stagiaire pModel) throws GenericException {
+	public Profil supprimer(Profil pModel) throws GenericException {
 		try {
-			return this.stagiaireDao.supprimer(pModel);
+			return this.profilDao.supprimer(pModel);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

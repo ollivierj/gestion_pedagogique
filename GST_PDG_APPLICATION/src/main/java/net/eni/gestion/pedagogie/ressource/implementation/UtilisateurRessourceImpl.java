@@ -11,30 +11,30 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
-import net.eni.gestion.pedagogie.modele.Stagiaire;
-import net.eni.gestion.pedagogie.ressource.StagiaireRessource;
-import net.eni.gestion.pedagogie.service.StagiaireService;
+import net.eni.gestion.pedagogie.modele.Utilisateur;
+import net.eni.gestion.pedagogie.ressource.UtilisateurRessource;
+import net.eni.gestion.pedagogie.service.UtilisateurService;
 import com.google.inject.Inject;
 
 /**
  * @author jollivier
- * Classe d'implémentation pour le module de gestion des stagiaires
+ * Classe d'implémentation pour le module de gestion des comptes utilisateur
  */
-@Path("/stagiaires")
-public class StagiaireRessourceImpl implements StagiaireRessource {
+@Path("/utilisateurs")
+public class UtilisateurRessourceImpl implements UtilisateurRessource {
 
     /**
-     * Unité métier stagiaire
+     * Unité métier utilisateur
      */
-    private final StagiaireService stagiaireService;
+    private final UtilisateurService utilisateurService;
 
     /**
      * Constructeur
-     * @param StagiaireService
+     * @param UtilisateurService
      */
     @Inject
-    public StagiaireRessourceImpl(StagiaireService StagiaireService) {
-        this.stagiaireService = StagiaireService;
+    public UtilisateurRessourceImpl(UtilisateurService UtilisateurService) {
+        this.utilisateurService = UtilisateurService;
     }
 
     /* (non-Javadoc)
@@ -42,8 +42,8 @@ public class StagiaireRessourceImpl implements StagiaireRessource {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Stagiaire> charger() throws GenericException {
-        return stagiaireService.charger(new Stagiaire());
+    public List<Utilisateur> charger() throws GenericException {
+        return utilisateurService.charger(new Utilisateur());
     }
         
 	/* (non-Javadoc)
@@ -52,8 +52,8 @@ public class StagiaireRessourceImpl implements StagiaireRessource {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-	public Stagiaire chargerDetail(@PathParam("id") Integer id) throws GenericException {
-		return stagiaireService.chargerDetail(new Stagiaire(id));
+	public Utilisateur chargerDetail(@PathParam("id") Integer id) throws GenericException {
+		return utilisateurService.chargerDetail(new Utilisateur(id));
 
 	}
 
@@ -63,8 +63,8 @@ public class StagiaireRessourceImpl implements StagiaireRessource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-	public Stagiaire ajouter(Stagiaire pModel) throws GenericException {
-		return this.stagiaireService.ajouter(pModel);
+	public Utilisateur ajouter(Utilisateur pModel) throws GenericException {
+		return this.utilisateurService.ajouter(pModel);
 	}
 
 	/* (non-Javadoc)
@@ -74,8 +74,8 @@ public class StagiaireRessourceImpl implements StagiaireRessource {
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-	public Stagiaire mettreAJour(Stagiaire pModel) throws GenericException {
-		return this.stagiaireService.mettreAJour(pModel);
+	public Utilisateur mettreAJour(Utilisateur pModel) throws GenericException {
+		return this.utilisateurService.mettreAJour(pModel);
 	}
 
 	/* (non-Javadoc)
@@ -84,8 +84,8 @@ public class StagiaireRessourceImpl implements StagiaireRessource {
 	@DELETE
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Stagiaire supprimer(@PathParam("id") Integer id) throws GenericException {
-		return this.stagiaireService.supprimer(new Stagiaire(id));
+	public Utilisateur supprimer(@PathParam("id") Integer id) throws GenericException {
+		return this.utilisateurService.supprimer(new Utilisateur(id));
 	}
 
 

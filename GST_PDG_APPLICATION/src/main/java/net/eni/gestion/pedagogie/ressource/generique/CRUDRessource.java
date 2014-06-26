@@ -17,7 +17,7 @@ import net.eni.gestion.pedagogie.modele.generique.AModele;
  * Create, Retrieve, Update, Delete
  * @param <M>
  */
-public interface CRUDRessource<M extends AModele<?>> {
+public interface CRUDRessource<M extends AModele<ID>, ID> {
 
 	/**
 	 * Charge une liste de modèles
@@ -31,7 +31,7 @@ public interface CRUDRessource<M extends AModele<?>> {
 	 * @return Liste de modèles
 	 * @throws GenericException
 	 */
-	public M chargerDetail(int pId) throws GenericException;
+	public M chargerDetail(ID pId) throws GenericException;
 
 	/**
 	 * Ajoute un modèle à l'aide d'une modèle passé en paramètre
@@ -55,5 +55,5 @@ public interface CRUDRessource<M extends AModele<?>> {
 	 * @return Modèle supprimé
 	 * @throws GenericException
 	 */
-	public M supprimer(int pId)  throws GenericException;
+	public M supprimer(ID pId)  throws GenericException;
 }

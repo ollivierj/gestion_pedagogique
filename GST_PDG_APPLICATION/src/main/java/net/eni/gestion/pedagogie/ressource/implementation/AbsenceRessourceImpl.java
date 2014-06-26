@@ -1,6 +1,7 @@
 package net.eni.gestion.pedagogie.ressource.implementation;
 
 import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -11,30 +12,30 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
-import net.eni.gestion.pedagogie.modele.Stagiaire;
-import net.eni.gestion.pedagogie.ressource.StagiaireRessource;
-import net.eni.gestion.pedagogie.service.StagiaireService;
+import net.eni.gestion.pedagogie.modele.Absence;
+import net.eni.gestion.pedagogie.ressource.AbsenceRessource;
+import net.eni.gestion.pedagogie.service.AbsenceService;
 import com.google.inject.Inject;
 
 /**
  * @author jollivier
- * Classe d'implémentation pour le module de gestion des stagiaires
+ * Classe d'implémentation pour le module de suivi des absences
  */
-@Path("/stagiaires")
-public class StagiaireRessourceImpl implements StagiaireRessource {
+@Path("/absences")
+public class AbsenceRessourceImpl implements AbsenceRessource {
 
     /**
-     * Unité métier stagiaire
+     * Unité métier absence
      */
-    private final StagiaireService stagiaireService;
+    private final AbsenceService absenceService;
 
     /**
      * Constructeur
-     * @param StagiaireService
+     * @param AbsenceService
      */
     @Inject
-    public StagiaireRessourceImpl(StagiaireService StagiaireService) {
-        this.stagiaireService = StagiaireService;
+    public AbsenceRessourceImpl(AbsenceService AbsenceService) {
+        this.absenceService = AbsenceService;
     }
 
     /* (non-Javadoc)
@@ -42,8 +43,8 @@ public class StagiaireRessourceImpl implements StagiaireRessource {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Stagiaire> charger() throws GenericException {
-        return stagiaireService.charger(new Stagiaire());
+    public List<Absence> charger() throws GenericException {
+        return absenceService.charger(new Absence());
     }
         
 	/* (non-Javadoc)
@@ -52,8 +53,8 @@ public class StagiaireRessourceImpl implements StagiaireRessource {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-	public Stagiaire chargerDetail(@PathParam("id") Integer id) throws GenericException {
-		return stagiaireService.chargerDetail(new Stagiaire(id));
+	public Absence chargerDetail(@PathParam("id") Integer id) throws GenericException {
+		return absenceService.chargerDetail(new Absence(id));
 
 	}
 
@@ -63,8 +64,8 @@ public class StagiaireRessourceImpl implements StagiaireRessource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-	public Stagiaire ajouter(Stagiaire pModel) throws GenericException {
-		return this.stagiaireService.ajouter(pModel);
+	public Absence ajouter(Absence pModel) throws GenericException {
+		return this.absenceService.ajouter(pModel);
 	}
 
 	/* (non-Javadoc)
@@ -74,8 +75,8 @@ public class StagiaireRessourceImpl implements StagiaireRessource {
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-	public Stagiaire mettreAJour(Stagiaire pModel) throws GenericException {
-		return this.stagiaireService.mettreAJour(pModel);
+	public Absence mettreAJour(Absence pModel) throws GenericException {
+		return this.absenceService.mettreAJour(pModel);
 	}
 
 	/* (non-Javadoc)
@@ -84,8 +85,8 @@ public class StagiaireRessourceImpl implements StagiaireRessource {
 	@DELETE
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Stagiaire supprimer(@PathParam("id") Integer id) throws GenericException {
-		return this.stagiaireService.supprimer(new Stagiaire(id));
+	public Absence supprimer(@PathParam("id") Integer id) throws GenericException {
+		return this.absenceService.supprimer(new Absence(id));
 	}
 
 

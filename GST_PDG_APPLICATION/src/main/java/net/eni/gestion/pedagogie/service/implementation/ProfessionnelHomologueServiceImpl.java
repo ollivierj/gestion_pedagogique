@@ -3,43 +3,43 @@ package net.eni.gestion.pedagogie.service.implementation;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import net.eni.gestion.pedagogie.DAO.StagiaireDao;
+import net.eni.gestion.pedagogie.DAO.ProfessionnelHomologueDao;
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
-import net.eni.gestion.pedagogie.modele.Stagiaire;
-import net.eni.gestion.pedagogie.service.StagiaireService;
+import net.eni.gestion.pedagogie.modele.ProfessionnelHomologue;
+import net.eni.gestion.pedagogie.service.ProfessionnelHomologueService;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 /**
  * @author jollivier
- * Classe d'implémentation pour le module de consultation des stagiaires
+ * Classe d'implémentation pour le module de gestion des professionnel homologues (membres de jury potentiels)
  */
 @Singleton
-public class StagiaireServiceImpl implements StagiaireService {
+public class ProfessionnelHomologueServiceImpl implements ProfessionnelHomologueService {
 
     /**
-     * DAO stagiaire
+     * DAO professionnelHomologue
      */
-    private final StagiaireDao stagiaireDao;
+    private final ProfessionnelHomologueDao professionnelHomologueDao;
 
     /**
      * Constructeur
-     * @param DAO stagiaire
+     * @param DAO professionnelHomologue
      * @throws SQLException
      */
     @Inject
-    public StagiaireServiceImpl(StagiaireDao pStagiaireDao) throws SQLException {
-        this.stagiaireDao = pStagiaireDao;
+    public ProfessionnelHomologueServiceImpl(ProfessionnelHomologueDao pProfessionnelHomologueDao) throws SQLException {
+        this.professionnelHomologueDao = pProfessionnelHomologueDao;
     }
 
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#charger(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public ArrayList<Stagiaire> charger(Stagiaire pModel)
+	public ArrayList<ProfessionnelHomologue> charger(ProfessionnelHomologue pModel)
 			throws GenericException {
 		try {
-			return this.stagiaireDao.charger(pModel);
+			return this.professionnelHomologueDao.charger(pModel);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -48,10 +48,10 @@ public class StagiaireServiceImpl implements StagiaireService {
 	}
 	
 
-	public Stagiaire chargerDetail(Stagiaire pModel) throws GenericException {
+	public ProfessionnelHomologue chargerDetail(ProfessionnelHomologue pModel) throws GenericException {
 		// TODO Auto-generated method stub
 		try {
-			return this.stagiaireDao.chargerDetail(pModel);
+			return this.professionnelHomologueDao.chargerDetail(pModel);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -62,9 +62,9 @@ public class StagiaireServiceImpl implements StagiaireService {
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#ajouter(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public Stagiaire ajouter(Stagiaire pModel) throws GenericException {
+	public ProfessionnelHomologue ajouter(ProfessionnelHomologue pModel) throws GenericException {
 		try {
-			return this.stagiaireDao.ajouter(pModel);
+			return this.professionnelHomologueDao.ajouter(pModel);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -75,9 +75,9 @@ public class StagiaireServiceImpl implements StagiaireService {
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#mettreAJour(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public Stagiaire mettreAJour(Stagiaire pModel) throws GenericException {
+	public ProfessionnelHomologue mettreAJour(ProfessionnelHomologue pModel) throws GenericException {
 		try {
-			return this.stagiaireDao.mettreAJour(pModel);
+			return this.professionnelHomologueDao.mettreAJour(pModel);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -88,9 +88,9 @@ public class StagiaireServiceImpl implements StagiaireService {
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#supprimer(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public Stagiaire supprimer(Stagiaire pModel) throws GenericException {
+	public ProfessionnelHomologue supprimer(ProfessionnelHomologue pModel) throws GenericException {
 		try {
-			return this.stagiaireDao.supprimer(pModel);
+			return this.professionnelHomologueDao.supprimer(pModel);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

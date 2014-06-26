@@ -3,43 +3,43 @@ package net.eni.gestion.pedagogie.service.implementation;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import net.eni.gestion.pedagogie.DAO.StagiaireDao;
+import net.eni.gestion.pedagogie.DAO.ReservationSalleDao;
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
-import net.eni.gestion.pedagogie.modele.Stagiaire;
-import net.eni.gestion.pedagogie.service.StagiaireService;
+import net.eni.gestion.pedagogie.modele.ReservationSalle;
+import net.eni.gestion.pedagogie.service.ReservationSalleService;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 /**
  * @author jollivier
- * Classe d'implémentation pour le module de consultation des stagiaires
+ * Classe d'implémentation pour le module de réservation des salles
  */
 @Singleton
-public class StagiaireServiceImpl implements StagiaireService {
+public class ReservationSalleServiceImpl implements ReservationSalleService {
 
     /**
-     * DAO stagiaire
+     * DAO reservationSalle
      */
-    private final StagiaireDao stagiaireDao;
+    private final ReservationSalleDao reservationSalleDao;
 
     /**
      * Constructeur
-     * @param DAO stagiaire
+     * @param DAO reservationSalle
      * @throws SQLException
      */
     @Inject
-    public StagiaireServiceImpl(StagiaireDao pStagiaireDao) throws SQLException {
-        this.stagiaireDao = pStagiaireDao;
+    public ReservationSalleServiceImpl(ReservationSalleDao pReservationSalleDao) throws SQLException {
+        this.reservationSalleDao = pReservationSalleDao;
     }
 
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#charger(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public ArrayList<Stagiaire> charger(Stagiaire pModel)
+	public ArrayList<ReservationSalle> charger(ReservationSalle pModel)
 			throws GenericException {
 		try {
-			return this.stagiaireDao.charger(pModel);
+			return this.reservationSalleDao.charger(pModel);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -48,10 +48,10 @@ public class StagiaireServiceImpl implements StagiaireService {
 	}
 	
 
-	public Stagiaire chargerDetail(Stagiaire pModel) throws GenericException {
+	public ReservationSalle chargerDetail(ReservationSalle pModel) throws GenericException {
 		// TODO Auto-generated method stub
 		try {
-			return this.stagiaireDao.chargerDetail(pModel);
+			return this.reservationSalleDao.chargerDetail(pModel);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -62,9 +62,9 @@ public class StagiaireServiceImpl implements StagiaireService {
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#ajouter(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public Stagiaire ajouter(Stagiaire pModel) throws GenericException {
+	public ReservationSalle ajouter(ReservationSalle pModel) throws GenericException {
 		try {
-			return this.stagiaireDao.ajouter(pModel);
+			return this.reservationSalleDao.ajouter(pModel);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -75,9 +75,9 @@ public class StagiaireServiceImpl implements StagiaireService {
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#mettreAJour(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public Stagiaire mettreAJour(Stagiaire pModel) throws GenericException {
+	public ReservationSalle mettreAJour(ReservationSalle pModel) throws GenericException {
 		try {
-			return this.stagiaireDao.mettreAJour(pModel);
+			return this.reservationSalleDao.mettreAJour(pModel);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -88,9 +88,9 @@ public class StagiaireServiceImpl implements StagiaireService {
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#supprimer(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public Stagiaire supprimer(Stagiaire pModel) throws GenericException {
+	public ReservationSalle supprimer(ReservationSalle pModel) throws GenericException {
 		try {
-			return this.stagiaireDao.supprimer(pModel);
+			return this.reservationSalleDao.supprimer(pModel);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

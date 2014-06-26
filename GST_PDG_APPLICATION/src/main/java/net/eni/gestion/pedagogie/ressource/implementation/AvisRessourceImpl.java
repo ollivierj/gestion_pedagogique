@@ -11,30 +11,30 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
-import net.eni.gestion.pedagogie.modele.Stagiaire;
-import net.eni.gestion.pedagogie.ressource.StagiaireRessource;
-import net.eni.gestion.pedagogie.service.StagiaireService;
+import net.eni.gestion.pedagogie.modele.Avis;
+import net.eni.gestion.pedagogie.ressource.AvisRessource;
+import net.eni.gestion.pedagogie.service.AvisService;
 import com.google.inject.Inject;
 
 /**
  * @author jollivier
- * Classe d'implémentation pour le module de gestion des stagiaires
+ * Classe d'implémentation pour le module de suivi des avis
  */
-@Path("/stagiaires")
-public class StagiaireRessourceImpl implements StagiaireRessource {
+@Path("/avis")
+public class AvisRessourceImpl implements AvisRessource {
 
     /**
-     * Unité métier stagiaire
+     * Unité métier avis
      */
-    private final StagiaireService stagiaireService;
+    private final AvisService avisService;
 
     /**
      * Constructeur
-     * @param StagiaireService
+     * @param AvisService
      */
     @Inject
-    public StagiaireRessourceImpl(StagiaireService StagiaireService) {
-        this.stagiaireService = StagiaireService;
+    public AvisRessourceImpl(AvisService AvisService) {
+        this.avisService = AvisService;
     }
 
     /* (non-Javadoc)
@@ -42,8 +42,8 @@ public class StagiaireRessourceImpl implements StagiaireRessource {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Stagiaire> charger() throws GenericException {
-        return stagiaireService.charger(new Stagiaire());
+    public List<Avis> charger() throws GenericException {
+        return avisService.charger(new Avis());
     }
         
 	/* (non-Javadoc)
@@ -52,8 +52,8 @@ public class StagiaireRessourceImpl implements StagiaireRessource {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-	public Stagiaire chargerDetail(@PathParam("id") Integer id) throws GenericException {
-		return stagiaireService.chargerDetail(new Stagiaire(id));
+	public Avis chargerDetail(@PathParam("id") Integer id) throws GenericException {
+		return avisService.chargerDetail(new Avis(id));
 
 	}
 
@@ -63,8 +63,8 @@ public class StagiaireRessourceImpl implements StagiaireRessource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-	public Stagiaire ajouter(Stagiaire pModel) throws GenericException {
-		return this.stagiaireService.ajouter(pModel);
+	public Avis ajouter(Avis pModel) throws GenericException {
+		return this.avisService.ajouter(pModel);
 	}
 
 	/* (non-Javadoc)
@@ -74,8 +74,8 @@ public class StagiaireRessourceImpl implements StagiaireRessource {
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-	public Stagiaire mettreAJour(Stagiaire pModel) throws GenericException {
-		return this.stagiaireService.mettreAJour(pModel);
+	public Avis mettreAJour(Avis pModel) throws GenericException {
+		return this.avisService.mettreAJour(pModel);
 	}
 
 	/* (non-Javadoc)
@@ -84,8 +84,8 @@ public class StagiaireRessourceImpl implements StagiaireRessource {
 	@DELETE
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Stagiaire supprimer(@PathParam("id") Integer id) throws GenericException {
-		return this.stagiaireService.supprimer(new Stagiaire(id));
+	public Avis supprimer(@PathParam("id") Integer id) throws GenericException {
+		return this.avisService.supprimer(new Avis(id));
 	}
 
 

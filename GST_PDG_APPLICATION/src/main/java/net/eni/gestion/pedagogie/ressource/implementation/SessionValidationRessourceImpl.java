@@ -11,30 +11,30 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
-import net.eni.gestion.pedagogie.modele.Stagiaire;
-import net.eni.gestion.pedagogie.ressource.StagiaireRessource;
-import net.eni.gestion.pedagogie.service.StagiaireService;
+import net.eni.gestion.pedagogie.modele.SessionValidation;
+import net.eni.gestion.pedagogie.ressource.SessionValidationRessource;
+import net.eni.gestion.pedagogie.service.SessionValidationService;
 import com.google.inject.Inject;
 
 /**
  * @author jollivier
- * Classe d'implémentation pour le module de gestion des stagiaires
+ * Classe d'implémentation pour le module de gestion des sessions de validation
  */
 @Path("/stagiaires")
-public class StagiaireRessourceImpl implements StagiaireRessource {
+public class SessionValidationRessourceImpl implements SessionValidationRessource {
 
     /**
-     * Unité métier stagiaire
+     * Unité métier session validation
      */
-    private final StagiaireService stagiaireService;
+    private final SessionValidationService stagiaireService;
 
     /**
      * Constructeur
-     * @param StagiaireService
+     * @param SessionValidationService
      */
     @Inject
-    public StagiaireRessourceImpl(StagiaireService StagiaireService) {
-        this.stagiaireService = StagiaireService;
+    public SessionValidationRessourceImpl(SessionValidationService SessionValidationService) {
+        this.stagiaireService = SessionValidationService;
     }
 
     /* (non-Javadoc)
@@ -42,8 +42,8 @@ public class StagiaireRessourceImpl implements StagiaireRessource {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Stagiaire> charger() throws GenericException {
-        return stagiaireService.charger(new Stagiaire());
+    public List<SessionValidation> charger() throws GenericException {
+        return stagiaireService.charger(new SessionValidation());
     }
         
 	/* (non-Javadoc)
@@ -52,8 +52,8 @@ public class StagiaireRessourceImpl implements StagiaireRessource {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-	public Stagiaire chargerDetail(@PathParam("id") Integer id) throws GenericException {
-		return stagiaireService.chargerDetail(new Stagiaire(id));
+	public SessionValidation chargerDetail(@PathParam("id") Integer id) throws GenericException {
+		return stagiaireService.chargerDetail(new SessionValidation(id));
 
 	}
 
@@ -63,7 +63,7 @@ public class StagiaireRessourceImpl implements StagiaireRessource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-	public Stagiaire ajouter(Stagiaire pModel) throws GenericException {
+	public SessionValidation ajouter(SessionValidation pModel) throws GenericException {
 		return this.stagiaireService.ajouter(pModel);
 	}
 
@@ -74,7 +74,7 @@ public class StagiaireRessourceImpl implements StagiaireRessource {
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-	public Stagiaire mettreAJour(Stagiaire pModel) throws GenericException {
+	public SessionValidation mettreAJour(SessionValidation pModel) throws GenericException {
 		return this.stagiaireService.mettreAJour(pModel);
 	}
 
@@ -84,8 +84,8 @@ public class StagiaireRessourceImpl implements StagiaireRessource {
 	@DELETE
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Stagiaire supprimer(@PathParam("id") Integer id) throws GenericException {
-		return this.stagiaireService.supprimer(new Stagiaire(id));
+	public SessionValidation supprimer(@PathParam("id") Integer id) throws GenericException {
+		return this.stagiaireService.supprimer(new SessionValidation(id));
 	}
 
 

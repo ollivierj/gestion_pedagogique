@@ -3,7 +3,6 @@ package net.eni.gestion.pedagogie.service.generique;
 import java.util.ArrayList;
 
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
-import net.eni.gestion.pedagogie.modele.Stagiaire;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 /**
@@ -27,7 +26,7 @@ public interface CRUDService<M extends AModele<?>> {
 	 * @return
 	 * @throws GenericException
 	 */
-	public Stagiaire chargerDetail(M pModel) throws GenericException;
+	public M chargerDetail(M pModel) throws GenericException;
 
 	/**
 	 * Ajoute un modèle à l'aide d'une modèle passé en paramètre

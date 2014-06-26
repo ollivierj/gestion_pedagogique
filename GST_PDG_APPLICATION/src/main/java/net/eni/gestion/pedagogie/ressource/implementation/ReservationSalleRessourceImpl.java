@@ -11,30 +11,30 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
-import net.eni.gestion.pedagogie.modele.Stagiaire;
-import net.eni.gestion.pedagogie.ressource.StagiaireRessource;
-import net.eni.gestion.pedagogie.service.StagiaireService;
+import net.eni.gestion.pedagogie.modele.ReservationSalle;
+import net.eni.gestion.pedagogie.ressource.ReservationSalleRessource;
+import net.eni.gestion.pedagogie.service.ReservationSalleService;
 import com.google.inject.Inject;
 
 /**
  * @author jollivier
- * Classe d'implémentation pour le module de gestion des stagiaires
+ * Classe d'implémentation pour le module de reservation des salles
  */
-@Path("/stagiaires")
-public class StagiaireRessourceImpl implements StagiaireRessource {
+@Path("/reservationSalles")
+public class ReservationSalleRessourceImpl implements ReservationSalleRessource {
 
     /**
-     * Unité métier stagiaire
+     * Unité métier reservation des salles
      */
-    private final StagiaireService stagiaireService;
+    private final ReservationSalleService reservationSalleService;
 
     /**
      * Constructeur
-     * @param StagiaireService
+     * @param ReservationSalleService
      */
     @Inject
-    public StagiaireRessourceImpl(StagiaireService StagiaireService) {
-        this.stagiaireService = StagiaireService;
+    public ReservationSalleRessourceImpl(ReservationSalleService ReservationSalleService) {
+        this.reservationSalleService = ReservationSalleService;
     }
 
     /* (non-Javadoc)
@@ -42,8 +42,8 @@ public class StagiaireRessourceImpl implements StagiaireRessource {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Stagiaire> charger() throws GenericException {
-        return stagiaireService.charger(new Stagiaire());
+    public List<ReservationSalle> charger() throws GenericException {
+        return reservationSalleService.charger(new ReservationSalle());
     }
         
 	/* (non-Javadoc)
@@ -52,8 +52,8 @@ public class StagiaireRessourceImpl implements StagiaireRessource {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-	public Stagiaire chargerDetail(@PathParam("id") Integer id) throws GenericException {
-		return stagiaireService.chargerDetail(new Stagiaire(id));
+	public ReservationSalle chargerDetail(@PathParam("id") Integer id) throws GenericException {
+		return reservationSalleService.chargerDetail(new ReservationSalle(id));
 
 	}
 
@@ -63,8 +63,8 @@ public class StagiaireRessourceImpl implements StagiaireRessource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-	public Stagiaire ajouter(Stagiaire pModel) throws GenericException {
-		return this.stagiaireService.ajouter(pModel);
+	public ReservationSalle ajouter(ReservationSalle pModel) throws GenericException {
+		return this.reservationSalleService.ajouter(pModel);
 	}
 
 	/* (non-Javadoc)
@@ -74,8 +74,8 @@ public class StagiaireRessourceImpl implements StagiaireRessource {
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-	public Stagiaire mettreAJour(Stagiaire pModel) throws GenericException {
-		return this.stagiaireService.mettreAJour(pModel);
+	public ReservationSalle mettreAJour(ReservationSalle pModel) throws GenericException {
+		return this.reservationSalleService.mettreAJour(pModel);
 	}
 
 	/* (non-Javadoc)
@@ -84,8 +84,8 @@ public class StagiaireRessourceImpl implements StagiaireRessource {
 	@DELETE
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Stagiaire supprimer(@PathParam("id") Integer id) throws GenericException {
-		return this.stagiaireService.supprimer(new Stagiaire(id));
+	public ReservationSalle supprimer(@PathParam("id") Integer id) throws GenericException {
+		return this.reservationSalleService.supprimer(new ReservationSalle(id));
 	}
 
 

@@ -3,43 +3,43 @@ package net.eni.gestion.pedagogie.service.implementation;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import net.eni.gestion.pedagogie.DAO.StagiaireDao;
+import net.eni.gestion.pedagogie.DAO.AvisDao;
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
-import net.eni.gestion.pedagogie.modele.Stagiaire;
-import net.eni.gestion.pedagogie.service.StagiaireService;
+import net.eni.gestion.pedagogie.modele.Avis;
+import net.eni.gestion.pedagogie.service.AvisService;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 /**
  * @author jollivier
- * Classe d'implémentation pour le module de consultation des stagiaires
+ * Classe d'implémentation pour le module de suivi des avis
  */
 @Singleton
-public class StagiaireServiceImpl implements StagiaireService {
+public class AvisServiceImpl implements AvisService {
 
     /**
-     * DAO stagiaire
+     * DAO avis
      */
-    private final StagiaireDao stagiaireDao;
+    private final AvisDao avisDao;
 
     /**
      * Constructeur
-     * @param DAO stagiaire
+     * @param DAO avis
      * @throws SQLException
      */
     @Inject
-    public StagiaireServiceImpl(StagiaireDao pStagiaireDao) throws SQLException {
-        this.stagiaireDao = pStagiaireDao;
+    public AvisServiceImpl(AvisDao pAvisDao) throws SQLException {
+        this.avisDao = pAvisDao;
     }
 
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#charger(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public ArrayList<Stagiaire> charger(Stagiaire pModel)
+	public ArrayList<Avis> charger(Avis pModel)
 			throws GenericException {
 		try {
-			return this.stagiaireDao.charger(pModel);
+			return this.avisDao.charger(pModel);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -48,10 +48,10 @@ public class StagiaireServiceImpl implements StagiaireService {
 	}
 	
 
-	public Stagiaire chargerDetail(Stagiaire pModel) throws GenericException {
+	public Avis chargerDetail(Avis pModel) throws GenericException {
 		// TODO Auto-generated method stub
 		try {
-			return this.stagiaireDao.chargerDetail(pModel);
+			return this.avisDao.chargerDetail(pModel);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -62,9 +62,9 @@ public class StagiaireServiceImpl implements StagiaireService {
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#ajouter(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public Stagiaire ajouter(Stagiaire pModel) throws GenericException {
+	public Avis ajouter(Avis pModel) throws GenericException {
 		try {
-			return this.stagiaireDao.ajouter(pModel);
+			return this.avisDao.ajouter(pModel);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -75,9 +75,9 @@ public class StagiaireServiceImpl implements StagiaireService {
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#mettreAJour(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public Stagiaire mettreAJour(Stagiaire pModel) throws GenericException {
+	public Avis mettreAJour(Avis pModel) throws GenericException {
 		try {
-			return this.stagiaireDao.mettreAJour(pModel);
+			return this.avisDao.mettreAJour(pModel);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -88,9 +88,9 @@ public class StagiaireServiceImpl implements StagiaireService {
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#supprimer(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public Stagiaire supprimer(Stagiaire pModel) throws GenericException {
+	public Avis supprimer(Avis pModel) throws GenericException {
 		try {
-			return this.stagiaireDao.supprimer(pModel);
+			return this.avisDao.supprimer(pModel);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
