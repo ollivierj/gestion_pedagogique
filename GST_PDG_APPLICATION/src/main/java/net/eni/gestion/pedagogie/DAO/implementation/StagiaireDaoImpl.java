@@ -1,9 +1,9 @@
-package net.eni.gestion.pedagogie.DAO.base.implementation;
+package net.eni.gestion.pedagogie.DAO.implementation;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import net.eni.gestion.pedagogie.DAO.base.StagiaireBase;
+import net.eni.gestion.pedagogie.DAO.StagiaireDao;
 import net.eni.gestion.pedagogie.commun.composant.Connexion;
 import net.eni.gestion.pedagogie.commun.outil.CRUDHelper;
 import net.eni.gestion.pedagogie.commun.outil.SQLHelper;
@@ -19,14 +19,14 @@ import com.j256.ormlite.stmt.QueryBuilder;
  * Service métier "Stagiaire"
  */
 @Singleton
-public class StagiaireBaseImpl extends BaseDaoImpl<Stagiaire, Integer> implements StagiaireBase{
+public class StagiaireDaoImpl extends BaseDaoImpl<Stagiaire, Integer> implements StagiaireDao{
 	
 	
 	/**
 	 * Constructeur de la DAO StagiaireBase
 	 * @throws SQLException
 	 */
-	public StagiaireBaseImpl() throws SQLException {
+	public StagiaireDaoImpl() throws SQLException {
 		super(Connexion.getConnexion(), Stagiaire.class);
 	}
 	

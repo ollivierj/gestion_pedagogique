@@ -1,18 +1,17 @@
 /**
  * 
  */
-package net.eni.gestion.pedagogie.DAO.base.generique;
+package net.eni.gestion.pedagogie.DAO.generique;
 
 import java.util.ArrayList;
 
-import net.eni.gestion.pedagogie.modele.Stagiaire;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 /**
  * @author jollivier
  *Interface pour les actions de bases CRUD (Create, Retrieve, Update, Delete)
  */
-public interface CRUDBase<M extends AModele<?>> {
+public interface CRUDDao<M extends AModele<?>> {
 	
 		
 		/**
@@ -29,7 +28,7 @@ public interface CRUDBase<M extends AModele<?>> {
 		 * @return
 		 * @throws Exception
 		 */
-		public Stagiaire chargerDetail(Stagiaire pModel) throws Exception;
+		public M chargerDetail(M pModel) throws Exception;
 		
 		
 		/**
