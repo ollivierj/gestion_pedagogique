@@ -67,7 +67,7 @@ public class InstanceCours extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private Cours cours = null;
 	
-	@ForeignCollectionField(eager = true, columnName = InstanceCoursStagiaire.ID2_FIELD_NAME)
+	@ForeignCollectionField(eager = true, columnName = InstanceCoursStagiaire.INSTANCE_COURS_FIELD_NAME)
 	private transient Collection<InstanceCoursStagiaire> transientInstanceCoursStagiaires = null;
 
 	private ArrayList<InstanceCoursStagiaire> instanceCoursStagiaires = new ArrayList<InstanceCoursStagiaire>();

@@ -36,10 +36,10 @@ public class ProfilServiceImpl implements ProfilService {
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#charger(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public ArrayList<Profil> charger(Profil pModel)
+	public ArrayList<Profil> charger(Profil pProfil)
 			throws GenericException {
 		try {
-			return this.profilDao.charger(pModel);
+			return this.profilDao.charger(pProfil);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

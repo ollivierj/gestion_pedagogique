@@ -4,11 +4,11 @@
 package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.UUID;
 import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
-import net.sourceforge.jtds.jdbc.DateTime;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -45,17 +45,15 @@ public class PlanningIndividuelDetail extends AModele<String> implements Seriali
 	@DatabaseField(
 		columnName = ID1_FIELD_NAME,
 		foreign = true,
-		id = true,
-		generatedId = false,
-		useGetSet = true)
+		useGetSet = true,
+		canBeNull = false)
 	private PlanningIndividuelFormation planningIndividuelFormation = null;
 	
 	@DatabaseField(
 		columnName = ID2_FIELD_NAME,
 		foreign = true,
-		id = true,
-		generatedId = false,
-		useGetSet = true)
+		useGetSet = true,
+		canBeNull = false)
 	private Cours cours = null;
 	
 	@DatabaseField(
@@ -93,15 +91,15 @@ public class PlanningIndividuelDetail extends AModele<String> implements Seriali
 
 	@DatabaseField(
 		columnName = DEBUT_COURS_FIELD_NAME,
-		dataType = DataType.DATE_TIME,
+		dataType = DataType.DATE,
 		useGetSet = true)
-	private DateTime debutCours = null;
+	private Date debutCours = null;
 
 	@DatabaseField(
 		columnName = FIN_COURS_FIELD_NAME,
-		dataType = DataType.DATE_TIME,
+		dataType = DataType.DATE,
 		useGetSet = true)
-	private DateTime finCours = null;
+	private Date finCours = null;
 
 	@DatabaseField(
 		columnName = HEURES_REELLES_COURS_FIELD_NAME,
@@ -177,19 +175,19 @@ public class PlanningIndividuelDetail extends AModele<String> implements Seriali
 		Inscrit = inscrit;
 	}
 
-	public DateTime getDebutCours() {
+	public Date getDebutCours() {
 		return debutCours;
 	}
 
-	public void setDebutCours(DateTime debutCours) {
+	public void setDebutCours(Date debutCours) {
 		this.debutCours = debutCours;
 	}
 
-	public DateTime getFinCours() {
+	public Date getFinCours() {
 		return finCours;
 	}
 
-	public void setFinCours(DateTime finCours) {
+	public void setFinCours(Date finCours) {
 		this.finCours = finCours;
 	}
 

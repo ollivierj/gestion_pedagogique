@@ -36,10 +36,10 @@ public class EvaluationServiceImpl implements EvaluationService {
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#charger(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public ArrayList<Evaluation> charger(Evaluation pModel)
+	public ArrayList<Evaluation> charger(Evaluation pEvaluation)
 			throws GenericException {
 		try {
-			return this.evaluationDao.charger(pModel);
+			return this.evaluationDao.charger(pEvaluation);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

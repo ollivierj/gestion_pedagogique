@@ -36,10 +36,10 @@ public class ReservationSalleServiceImpl implements ReservationSalleService {
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#charger(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public ArrayList<ReservationSalle> charger(ReservationSalle pModel)
+	public ArrayList<ReservationSalle> charger(ReservationSalle pReservationSalle)
 			throws GenericException {
 		try {
-			return this.reservationSalleDao.charger(pModel);
+			return this.reservationSalleDao.charger(pReservationSalle);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

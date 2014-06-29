@@ -2,13 +2,11 @@ package net.eni.gestion.pedagogie.DAO.implementation;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import net.eni.gestion.pedagogie.DAO.StagiaireDao;
 import net.eni.gestion.pedagogie.commun.composant.Connexion;
 import net.eni.gestion.pedagogie.commun.outil.CRUDHelper;
 import net.eni.gestion.pedagogie.commun.outil.SQLHelper;
 import net.eni.gestion.pedagogie.modele.Stagiaire;
-
 import com.google.inject.Singleton;
 import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.dao.GenericRawResults;

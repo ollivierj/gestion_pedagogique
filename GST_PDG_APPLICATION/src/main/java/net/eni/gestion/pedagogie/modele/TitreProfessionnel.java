@@ -57,10 +57,10 @@ public class TitreProfessionnel extends AModele<Integer> implements Serializable
 		useGetSet = true)
 	private String lienDocReferences = null;
 	
-	@ForeignCollectionField(eager = true, columnName = ProfessionnelHomologue.ID_FIELD_NAME)
-	private transient Collection<ProfessionnelHomologue> transientProfessionnelHomologues = null;
+	@ForeignCollectionField(eager = true, columnName = Homologation.TITRE_PROFESSIONNEL_FIELD_NAME)
+	private transient Collection<Homologation> transientHomologations = null;
 
-	private ArrayList<ProfessionnelHomologue> professionnelHomologues = new ArrayList<ProfessionnelHomologue>();
+	private ArrayList<Homologation> homologations = new ArrayList<Homologation>();
 		
 	@Override
 	public Integer getId() {
@@ -88,13 +88,13 @@ public class TitreProfessionnel extends AModele<Integer> implements Serializable
 		this.lienDocReferences = lienDocReferences;
 	}
 	
-	public ArrayList<ProfessionnelHomologue> getProfessionnelHomologues() {
-		if (null != transientProfessionnelHomologues) {
-			professionnelHomologues.clear();
-			professionnelHomologues.addAll(transientProfessionnelHomologues);
-			transientProfessionnelHomologues = null;
+	public ArrayList<Homologation> getHomologations() {
+		if (null != transientHomologations) {
+			homologations.clear();
+			homologations.addAll(transientHomologations);
+			transientHomologations = null;
 		}
-		return professionnelHomologues;
+		return homologations;
 	}
 
 }

@@ -4,10 +4,10 @@
 package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
-import net.sourceforge.jtds.jdbc.DateTime;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -124,9 +124,9 @@ public class ProfessionnelHomologue extends AModele<Integer> implements Serializ
 
 	@DatabaseField(
 		columnName = DATE_NAISSANCE_FIELD_NAME,
-		dataType = DataType.STRING,
+		dataType = DataType.DATE,
 		useGetSet = true)
-	private DateTime dateNaissance = null;
+	private Date dateNaissance = null;
 
 	@DatabaseField(
 		columnName = CODE_REGION_FIELD_NAME,
@@ -142,7 +142,7 @@ public class ProfessionnelHomologue extends AModele<Integer> implements Serializ
 
 	@DatabaseField(
 		columnName = PERMIS_FIELD_NAME,
-		dataType = DataType.BOOLEAN,
+		dataType = DataType.BOOLEAN_OBJ,
 		useGetSet = true)
 	private Boolean permis = null;
 	
@@ -250,11 +250,11 @@ public class ProfessionnelHomologue extends AModele<Integer> implements Serializ
 		this.email = email;
 	}
 
-	public DateTime getDateNaissance() {
+	public Date getDateNaissance() {
 		return dateNaissance;
 	}
 
-	public void setDateNaissance(DateTime dateNaissance) {
+	public void setDateNaissance(Date dateNaissance) {
 		this.dateNaissance = dateNaissance;
 	}
 

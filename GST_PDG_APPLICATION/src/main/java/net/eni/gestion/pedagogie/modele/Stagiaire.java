@@ -6,11 +6,11 @@ package net.eni.gestion.pedagogie.modele;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
-import net.sourceforge.jtds.jdbc.DateTime;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -135,9 +135,9 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 
 	@DatabaseField(
 		columnName = DATE_NAISSANCE_FIELD_NAME,
-		dataType = DataType.DATE_TIME,
+		dataType = DataType.DATE,
 		useGetSet = true)
-	private DateTime dateNaissance = null;
+	private Date dateNaissance = null;
 
 	@DatabaseField(
 		columnName = CODE_REGION_FIELD_NAME,
@@ -159,15 +159,15 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 	
 	@DatabaseField(
 		columnName = DATE_DERNIER_ENVOI_DOC_FIELD_NAME,
-		dataType = DataType.DATE_TIME,
+		dataType = DataType.DATE,
 		useGetSet = true)
-	private DateTime dateDernierEnvoiDoc = null;
+	private Date dateDernierEnvoiDoc = null;
 	
 	@DatabaseField(
 		columnName = DATE_CREATION_FIELD_NAME,
-		dataType = DataType.DATE_TIME,
+		dataType = DataType.DATE,
 		useGetSet = true)
-	private DateTime dateCreation = null;
+	private Date dateCreation = null;
 
 	@DatabaseField(
 		columnName = REPERTOIRE_FIELD_NAME,
@@ -177,7 +177,7 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 
 	@DatabaseField(
 		columnName = PERMIS_FIELD_NAME,
-		dataType = DataType.BOOLEAN,
+		dataType = DataType.BOOLEAN_OBJ,
 		useGetSet = true,
 		canBeNull = false)
 	private Boolean permis = null;
@@ -221,7 +221,7 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 
 	private ArrayList<PlanningIndividuelFormation> planningIndividuelFormations = new ArrayList<PlanningIndividuelFormation>();
 
-	@ForeignCollectionField(eager = true, columnName = InstanceCoursStagiaire.ID2_FIELD_NAME)
+	@ForeignCollectionField(eager = true, columnName = InstanceCoursStagiaire.STAGIAIRE_FIELD_NAME)
 	private transient Collection<InstanceCoursStagiaire> transientInstanceCoursStagiaires = null;
 
 	private ArrayList<InstanceCoursStagiaire> instanceCoursStagiaires = new ArrayList<InstanceCoursStagiaire>();
@@ -324,11 +324,11 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 		this.email = email;
 	}
 
-	public DateTime getDateNaissance() {
+	public Date getDateNaissance() {
 		return dateNaissance;
 	}
 
-	public void setDateNaissance(DateTime dateNaissance) {
+	public void setDateNaissance(Date dateNaissance) {
 		this.dateNaissance = dateNaissance;
 	}
 
@@ -356,19 +356,19 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 		this.codeOrigineMedia = codeOrigineMedia;
 	}
 
-	public DateTime getDateDernierEnvoiDoc() {
+	public Date getDateDernierEnvoiDoc() {
 		return dateDernierEnvoiDoc;
 	}
 
-	public void setDateDernierEnvoiDoc(DateTime dateDernierEnvoiDoc) {
+	public void setDateDernierEnvoiDoc(Date dateDernierEnvoiDoc) {
 		this.dateDernierEnvoiDoc = dateDernierEnvoiDoc;
 	}
 
-	public DateTime getDateCreation() {
+	public Date getDateCreation() {
 		return dateCreation;
 	}
 
-	public void setDateCreation(DateTime dateCreation) {
+	public void setDateCreation(Date dateCreation) {
 		this.dateCreation = dateCreation;
 	}
 

@@ -11,7 +11,6 @@ import java.util.Iterator;
 import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
-import net.sourceforge.jtds.jdbc.DateTime;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -62,15 +61,15 @@ public class PlanningIndividuelFormation extends AModele<Integer> implements Ser
 
 	@DatabaseField(
 		columnName = DATE_INSCRIPTION_FIELD_NAME,
-		dataType = DataType.DATE_TIME,
+		dataType = DataType.DATE,
 		useGetSet = true)
-	private DateTime dateInscription = null;
+	private Date dateInscription = null;
 
 	@DatabaseField(
 		columnName = DATE_CREATION_FIELD_NAME,
-		dataType = DataType.DATE_TIME,
+		dataType = DataType.DATE,
 		useGetSet = true)
-	private DateTime dateCreation = null;
+	private Date dateCreation = null;
 
 	@DatabaseField(
 		columnName = CODE_TYPE_PROFIL_FIELD_NAME,
@@ -90,13 +89,6 @@ public class PlanningIndividuelFormation extends AModele<Integer> implements Ser
 		foreign = true,
 		useGetSet = true)
 	private Promotion promotion = null;
-
-	@DatabaseField(
-		columnName = DATE_MODIF_FIELD_NAME,
-		dataType = DataType.DATE,
-		useGetSet = true,
-		canBeNull = false)
-	private Date dateModif = null;
 
 	@DatabaseField(
 		columnName = NUM_LIEN_FIELD_NAME,
@@ -127,19 +119,19 @@ public class PlanningIndividuelFormation extends AModele<Integer> implements Ser
 		this.stagiaire = stagiaire;
 	}
 
-	public DateTime getDateInscription() {
+	public Date getDateInscription() {
 		return dateInscription;
 	}
 
-	public void setDateInscription(DateTime dateInscription) {
+	public void setDateInscription(Date dateInscription) {
 		this.dateInscription = dateInscription;
 	}
 
-	public DateTime getDateCreation() {
+	public Date getDateCreation() {
 		return dateCreation;
 	}
 
-	public void setDateCreation(DateTime dateCreation) {
+	public void setDateCreation(Date dateCreation) {
 		this.dateCreation = dateCreation;
 	}
 
@@ -159,20 +151,12 @@ public class PlanningIndividuelFormation extends AModele<Integer> implements Ser
 		this.formation = formation;
 	}
 
-	public Promotion getPrmotion() {
+	public Promotion getPromotion() {
 		return promotion;
 	}
 
-	public void setPrmotion(Promotion prmotion) {
-		this.promotion = prmotion;
-	}
-
-	public Date getDateModif() {
-		return dateModif;
-	}
-
-	public void setDateModif(Date dateModif) {
-		this.dateModif = dateModif;
+	public void setPromotion(Promotion promotion) {
+		this.promotion = promotion;
 	}
 
 	public Integer getNumLien() {

@@ -8,7 +8,6 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
-import net.sourceforge.jtds.jdbc.DateTime;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -65,10 +64,10 @@ public class Module extends AModele<Integer> implements Serializable {
 
 	@DatabaseField(
 		columnName = DATE_CREATION_FIELD_NAME,
-		dataType = DataType.DATE_TIME,
+		dataType = DataType.DATE,
 		useGetSet = true,
 		canBeNull = false)
-	private DateTime dateCreation = null;
+	private Date dateCreation = null;
 		
 	@DatabaseField(
 		columnName = DUREE_EN_SEMAINES_FIELD_NAME,
@@ -90,13 +89,6 @@ public class Module extends AModele<Integer> implements Serializable {
 		useGetSet = true,
 		canBeNull = false)
 	private String libelleCourt = null;
-	
-	@DatabaseField(
-		columnName = DUREE_EN_SEMAINES_FIELD_NAME,
-		dataType = DataType.DATE,
-		useGetSet = true,
-		canBeNull = false)
-	private Date dateModif = null;
 	
 	@DatabaseField(
 		columnName = ARCHIVER_FIELD_NAME,
@@ -131,11 +123,11 @@ public class Module extends AModele<Integer> implements Serializable {
 		this.dureeEnHeures = dureeEnHeures;
 	}
 
-	public DateTime getDateCreation() {
+	public Date getDateCreation() {
 		return dateCreation;
 	}
 
-	public void setDateCreation(DateTime dateCreation) {
+	public void setDateCreation(Date dateCreation) {
 		this.dateCreation = dateCreation;
 	}
 
@@ -161,14 +153,6 @@ public class Module extends AModele<Integer> implements Serializable {
 
 	public void setLibelleCourt(String libelleCourt) {
 		this.libelleCourt = libelleCourt;
-	}
-
-	public Date getDateModif() {
-		return dateModif;
-	}
-
-	public void setDateModif(Date dateModif) {
-		this.dateModif = dateModif;
 	}
 
 	public Boolean getArchiver() {

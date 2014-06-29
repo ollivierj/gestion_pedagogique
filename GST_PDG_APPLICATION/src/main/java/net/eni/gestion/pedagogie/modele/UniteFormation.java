@@ -8,7 +8,6 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
-import net.sourceforge.jtds.jdbc.DateTime;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -64,10 +63,10 @@ public class UniteFormation extends AModele<Integer> implements Serializable {
 	
 	@DatabaseField(
 		columnName = DATE_CREATION_FIELD_NAME,
-		dataType = DataType.DATE_TIME,
+		dataType = DataType.DATE,
 		useGetSet = true,
 		canBeNull = false)
-	private DateTime dateCreation = null;
+	private Date dateCreation = null;
 	
 	@DatabaseField(
 		columnName = DUREE_EN_SEMAINES_FIELD_NAME,
@@ -77,18 +76,11 @@ public class UniteFormation extends AModele<Integer> implements Serializable {
 	private Short dureeEnSemaines = null;
 	
 	@DatabaseField(
-		columnName = DATE_MODIF_FIELD_NAME,
-		dataType = DataType.DATE,
-		useGetSet = true,
-		canBeNull = false)
-	private Date dateModif = null;
-	
-	@DatabaseField(
 		columnName = LIBELLE_COURT_FIELD_NAME,
 		dataType = DataType.STRING,
 		useGetSet = true,
 		canBeNull = false)
-	private Integer libelleCourt = null;
+	private String libelleCourt = null;
 
 	@DatabaseField(
 		columnName = ARCHIVER_FIELD_NAME,
@@ -123,11 +115,11 @@ public class UniteFormation extends AModele<Integer> implements Serializable {
 		this.dureeEnHeures = dureeEnHeures;
 	}
 
-	public DateTime getDateCreation() {
+	public Date getDateCreation() {
 		return dateCreation;
 	}
 
-	public void setDateCreation(DateTime dateCreation) {
+	public void setDateCreation(Date dateCreation) {
 		this.dateCreation = dateCreation;
 	}
 
@@ -139,19 +131,11 @@ public class UniteFormation extends AModele<Integer> implements Serializable {
 		this.dureeEnSemaines = dureeEnSemaines;
 	}
 
-	public Date getDateModif() {
-		return dateModif;
-	}
-
-	public void setDateModif(Date dateModif) {
-		this.dateModif = dateModif;
-	}
-
-	public Integer getLibelleCourt() {
+	public String getLibelleCourt() {
 		return libelleCourt;
 	}
 
-	public void setLibelleCourt(Integer libelleCourt) {
+	public void setLibelleCourt(String libelleCourt) {
 		this.libelleCourt = libelleCourt;
 	}
 

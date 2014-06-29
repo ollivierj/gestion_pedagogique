@@ -4,10 +4,10 @@
 package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
-import net.sourceforge.jtds.jdbc.DateTime;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -67,10 +67,10 @@ public class Echange extends AModele<Integer> implements Serializable {
 	
 	@DatabaseField(
 		columnName = DATE_SAISIE_FIELD_NAME,
-		dataType = DataType.DATE_TIME,
+		dataType = DataType.DATE,
 		useGetSet = true,
 		canBeNull = false)
-	private DateTime versionEchange = null;
+	private Date dateSaisie = null;
 		
 	@Override
 	public Integer getId() {
@@ -106,12 +106,12 @@ public class Echange extends AModele<Integer> implements Serializable {
 		this.commentaire = commentaire;
 	}
 
-	public DateTime getVersionEchange() {
-		return versionEchange;
+	public Date getDateSaisie() {
+		return dateSaisie;
 	}
 
-	public void setVersionEchange(DateTime versionEchange) {
-		this.versionEchange = versionEchange;
+	public void setDateSaisie(Date dateSaisie) {
+		this.dateSaisie = dateSaisie;
 	}
 
 }

@@ -2,12 +2,10 @@ package net.eni.gestion.pedagogie.service.implementation;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import net.eni.gestion.pedagogie.DAO.UtilisateurDao;
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
 import net.eni.gestion.pedagogie.modele.Utilisateur;
 import net.eni.gestion.pedagogie.service.UtilisateurService;
-
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -36,10 +34,10 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#charger(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public ArrayList<Utilisateur> charger(Utilisateur pModel)
+	public ArrayList<Utilisateur> charger(Utilisateur pUtilisateur)
 			throws GenericException {
 		try {
-			return this.utilisateurDao.charger(pModel);
+			return this.utilisateurDao.charger(pUtilisateur);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

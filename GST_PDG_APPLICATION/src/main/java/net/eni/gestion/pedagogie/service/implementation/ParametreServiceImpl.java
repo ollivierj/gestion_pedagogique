@@ -36,10 +36,10 @@ public class ParametreServiceImpl implements ParametreService {
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#charger(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public ArrayList<Parametre> charger(Parametre pModel)
+	public ArrayList<Parametre> charger(Parametre pParametre)
 			throws GenericException {
 		try {
-			return this.parametreDao.charger(pModel);
+			return this.parametreDao.charger(pParametre);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

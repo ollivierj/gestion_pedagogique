@@ -36,10 +36,10 @@ public class AvisServiceImpl implements AvisService {
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#charger(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public ArrayList<Avis> charger(Avis pModel)
+	public ArrayList<Avis> charger(Avis pAvis)
 			throws GenericException {
 		try {
-			return this.avisDao.charger(pModel);
+			return this.avisDao.charger(pAvis);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -87,6 +87,16 @@ public class StagiaireRessourceImpl implements StagiaireRessource {
 	public Stagiaire supprimer(@PathParam("id") Integer id) throws GenericException {
 		return this.stagiaireService.supprimer(new Stagiaire(id));
 	}
+	
+    /* (non-Javadoc)
+     * @see net.eni.gestion.pedagogie.service.contrat.generique.CRUDService#charger()
+     */
+    @GET
+    @Path("/{page}/{pageSize}/{orderBy}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Stagiaire> chargerAvecPagination() throws GenericException {
+        return stagiaireService.charger(new Stagiaire());
+    }
 
 
 }

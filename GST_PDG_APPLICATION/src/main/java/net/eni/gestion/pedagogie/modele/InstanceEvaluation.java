@@ -6,6 +6,7 @@ package net.eni.gestion.pedagogie.modele;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
@@ -93,17 +94,17 @@ public class InstanceEvaluation extends AModele<Integer> implements Serializable
 	
 	@DatabaseField(
 		columnName = DATE_DEBUT_PASSAGE_FIELD_NAME,
-		dataType = DataType.DATE_TIME,
+		dataType = DataType.DATE,
 		useGetSet = true,
 		canBeNull = false)
-	private Integer dateDebutPassage = null;
+	private Date dateDebutPassage = null;
 
 	@DatabaseField(
 		columnName = DATE_FIN_PASSAGE_FIELD_NAME,
-		dataType = DataType.DATE_TIME,
+		dataType = DataType.DATE,
 		useGetSet = true,
 		canBeNull = false)
-	private Integer dateFinPassage = null;
+	private Date dateFinPassage = null;
 	
 	@ForeignCollectionField(eager = true, columnName = InstanceEvaluationStagiaire.ID2_FIELD_NAME)
 	private transient Collection<InstanceEvaluationStagiaire> transientInstanceEvaluationStagiaires = null;
@@ -168,19 +169,19 @@ public class InstanceEvaluation extends AModele<Integer> implements Serializable
 		this.lienCopiesImmaterrielles = lienCopiesImmaterrielles;
 	}
 
-	public Integer getDateDebutPassage() {
+	public Date getDateDebutPassage() {
 		return dateDebutPassage;
 	}
 
-	public void setDateDebutPassage(Integer dateDebutPassage) {
+	public void setDateDebutPassage(Date dateDebutPassage) {
 		this.dateDebutPassage = dateDebutPassage;
 	}
 
-	public Integer getDateFinPassage() {
+	public Date getDateFinPassage() {
 		return dateFinPassage;
 	}
 
-	public void setDateFinPassage(Integer dateFinPassage) {
+	public void setDateFinPassage(Date dateFinPassage) {
 		this.dateFinPassage = dateFinPassage;
 	}
 

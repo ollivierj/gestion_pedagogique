@@ -3,12 +3,10 @@ package net.eni.gestion.pedagogie.DAO.implementation;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.UUID;
-
 import net.eni.gestion.pedagogie.DAO.CoursDao;
 import net.eni.gestion.pedagogie.commun.composant.Connexion;
 import net.eni.gestion.pedagogie.commun.outil.CRUDHelper;
 import net.eni.gestion.pedagogie.modele.Cours;
-
 import com.google.inject.Singleton;
 import com.j256.ormlite.dao.BaseDaoImpl;
 

@@ -36,10 +36,10 @@ public class SessionValidationServiceImpl implements SessionValidationService {
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#charger(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public ArrayList<SessionValidation> charger(SessionValidation pModel)
+	public ArrayList<SessionValidation> charger(SessionValidation pSessionValidation)
 			throws GenericException {
 		try {
-			return this.sessionValidationDao.charger(pModel);
+			return this.sessionValidationDao.charger(pSessionValidation);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

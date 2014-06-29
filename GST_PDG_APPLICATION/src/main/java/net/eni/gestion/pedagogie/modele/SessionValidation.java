@@ -6,10 +6,10 @@ package net.eni.gestion.pedagogie.modele;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
-import net.sourceforge.jtds.jdbc.DateTime;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -58,10 +58,10 @@ public class SessionValidation extends AModele<Integer> implements Serializable 
 	
 	@DatabaseField(
 		columnName = DATE_CREATION_FIELD_NAME,
-		foreign = true,
+		dataType = DataType.DATE,
 		useGetSet = true,
 		canBeNull = false)
-	private DateTime dateCreation = null;
+	private Date dateCreation = null;
 
 	@DatabaseField(
 		columnName = TITRE_PROFESSIONNEL_FIELD_NAME,
@@ -72,17 +72,17 @@ public class SessionValidation extends AModele<Integer> implements Serializable 
 
 	@DatabaseField(
 		columnName = DATE_DEBUT_FIELD_NAME,
-		foreign = true,
+		dataType = DataType.DATE,
 		useGetSet = true,
 		canBeNull = false)
-	private DateTime dateDebut = null;
+	private Date dateDebut = null;
 
 	@DatabaseField(
 		columnName = DATE_FIN_FIELD_NAME,
-		foreign = true,
+		dataType = DataType.DATE,
 		useGetSet = true,
 		canBeNull = false)
-	private DateTime dateFin = null;
+	private Date dateFin = null;
 	
 	@DatabaseField(
 		columnName = LIEN_MODELES_PUBLIPOSTAGE_FIELD_NAME,
@@ -114,11 +114,11 @@ public class SessionValidation extends AModele<Integer> implements Serializable 
 		this.auteur = auteur;
 	}
 
-	public DateTime getDateCreation() {
+	public Date getDateCreation() {
 		return dateCreation;
 	}
 
-	public void setDateCreation(DateTime dateCreation) {
+	public void setDateCreation(Date dateCreation) {
 		this.dateCreation = dateCreation;
 	}
 
@@ -130,19 +130,19 @@ public class SessionValidation extends AModele<Integer> implements Serializable 
 		this.titreProfessionnel = titreProfessionnel;
 	}
 
-	public DateTime getDateDebut() {
+	public Date getDateDebut() {
 		return dateDebut;
 	}
 
-	public void setDateDebut(DateTime dateDebut) {
+	public void setDateDebut(Date dateDebut) {
 		this.dateDebut = dateDebut;
 	}
 
-	public DateTime getDateFin() {
+	public Date getDateFin() {
 		return dateFin;
 	}
 
-	public void setDateFin(DateTime dateFin) {
+	public void setDateFin(Date dateFin) {
 		this.dateFin = dateFin;
 	}
 

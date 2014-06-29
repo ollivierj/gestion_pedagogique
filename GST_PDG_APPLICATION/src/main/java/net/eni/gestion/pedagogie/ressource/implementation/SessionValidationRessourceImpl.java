@@ -20,7 +20,7 @@ import com.google.inject.Inject;
  * @author jollivier
  * Classe d'implémentation pour le module de gestion des sessions de validation
  */
-@Path("/stagiaires")
+@Path("/sessionValidations")
 public class SessionValidationRessourceImpl implements SessionValidationRessource {
 
     /**

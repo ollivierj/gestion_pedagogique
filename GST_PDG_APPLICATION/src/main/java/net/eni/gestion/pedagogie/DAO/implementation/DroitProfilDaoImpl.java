@@ -16,7 +16,7 @@ import com.j256.ormlite.dao.BaseDaoImpl;
  * Service métier "DroitProfil"
  */
 @Singleton
-public class DroitProfilDaoImpl extends BaseDaoImpl<DroitProfil, String> implements DroitProfilDao{
+public class DroitProfilDaoImpl extends BaseDaoImpl<DroitProfil, Integer> implements DroitProfilDao{
 	
 	
 	/**

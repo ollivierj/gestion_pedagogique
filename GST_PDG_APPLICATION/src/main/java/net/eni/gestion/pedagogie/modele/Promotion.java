@@ -10,7 +10,6 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
-import net.sourceforge.jtds.jdbc.DateTime;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -62,17 +61,17 @@ public class Promotion extends AModele<String> implements Serializable {
 
 	@DatabaseField(
 		columnName = DEBUT_FIELD_NAME,
-		dataType = DataType.DATE_TIME,
+		dataType = DataType.DATE,
 		useGetSet = true,
 		canBeNull = false)
-	private DateTime debut = null;
+	private Date debut = null;
 
 	@DatabaseField(
 		columnName = FIN_FIELD_NAME,
-		dataType = DataType.DATE_TIME,
+		dataType = DataType.DATE,
 		useGetSet = true,
 		canBeNull = false)
-	private DateTime fin = null;
+	private Date fin = null;
 
 	@DatabaseField(
 		columnName = CODE_FORMATION_FIELD_NAME,
@@ -89,18 +88,11 @@ public class Promotion extends AModele<String> implements Serializable {
 	private Float prixPublicAffecte = null;
 
 	@DatabaseField(
-		columnName = DATE_MODIF_FIELD_NAME,
+		columnName = DATE_CREATION_FIELD_NAME,
 		dataType = DataType.DATE,
 		useGetSet = true,
 		canBeNull = false)
-	private Date dateModif = null;
-	
-	@DatabaseField(
-		columnName = DATE_CREATION_FIELD_NAME,
-		dataType = DataType.DATE_TIME,
-		useGetSet = true,
-		canBeNull = false)
-	private DateTime dateCreation = null;
+	private Date dateCreation = null;
 
 	@DatabaseField(
 		columnName = PRIX_PEC_AFFECTE_FIELD_NAME,
@@ -139,19 +131,19 @@ public class Promotion extends AModele<String> implements Serializable {
 		this.libelle = libelle;
 	}
 
-	public DateTime getDebut() {
+	public Date getDebut() {
 		return debut;
 	}
 
-	public void setDebut(DateTime debut) {
+	public void setDebut(Date debut) {
 		this.debut = debut;
 	}
 
-	public DateTime getFin() {
+	public Date getFin() {
 		return fin;
 	}
 
-	public void setFin(DateTime fin) {
+	public void setFin(Date fin) {
 		this.fin = fin;
 	}
 
@@ -171,19 +163,11 @@ public class Promotion extends AModele<String> implements Serializable {
 		this.prixPublicAffecte = prixPublicAffecte;
 	}
 
-	public Date getDateModif() {
-		return dateModif;
-	}
-
-	public void setDateModif(Date dateModif) {
-		this.dateModif = dateModif;
-	}
-
-	public DateTime getDateCreation() {
+	public Date getDateCreation() {
 		return dateCreation;
 	}
 
-	public void setDateCreation(DateTime dateCreation) {
+	public void setDateCreation(Date dateCreation) {
 		this.dateCreation = dateCreation;
 	}
 

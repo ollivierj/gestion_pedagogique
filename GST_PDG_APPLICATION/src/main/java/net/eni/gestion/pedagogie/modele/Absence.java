@@ -4,10 +4,10 @@
 package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
-import net.sourceforge.jtds.jdbc.DateTime;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -54,24 +54,24 @@ public class Absence extends AModele<Integer> implements Serializable {
 
 	@DatabaseField(
 		columnName = DATE_ARRIVEE_MATIN_FIELD_NAME,
-		dataType = DataType.DATE_TIME,
+		dataType = DataType.DATE,
 		useGetSet = true,
 		canBeNull = false)
-	private DateTime dateArriveeMatin = null;
+	private Date dateArriveeMatin = null;
 
 	@DatabaseField(
 		columnName = DATE_ARRIVEE_APRES_MIDI_FIELD_NAME,
-		dataType = DataType.DATE_TIME,
+		dataType = DataType.DATE,
 		useGetSet = true,
 		canBeNull = false)
-	private DateTime dateArriveeApresMidi = null;
+	private Date dateArriveeApresMidi = null;
 
 	@DatabaseField(
 		columnName = DATE_SAISIE_FIELD_NAME,
-		dataType = DataType.DATE_TIME,
+		dataType = DataType.DATE,
 		useGetSet = true,
 		canBeNull = false)
-	private DateTime dateSaisie = null;
+	private Date dateSaisie = null;
 	
 	@DatabaseField(
 		columnName = AUTEUR_FIELD_NAME,
@@ -97,27 +97,27 @@ public class Absence extends AModele<Integer> implements Serializable {
 		this.stagiaire = stagiaire;
 	}
 
-	public DateTime getDateArriveeMatin() {
+	public Date getDateArriveeMatin() {
 		return dateArriveeMatin;
 	}
 
-	public void setDateArriveeMatin(DateTime dateArriveeMatin) {
+	public void setDateArriveeMatin(Date dateArriveeMatin) {
 		this.dateArriveeMatin = dateArriveeMatin;
 	}
 
-	public DateTime getDateArriveeApresMidi() {
+	public Date getDateArriveeApresMidi() {
 		return dateArriveeApresMidi;
 	}
 
-	public void setDateArriveeApresMidi(DateTime dateArriveeApresMidi) {
+	public void setDateArriveeApresMidi(Date dateArriveeApresMidi) {
 		this.dateArriveeApresMidi = dateArriveeApresMidi;
 	}
 
-	public DateTime getDateSaisie() {
+	public Date getDateSaisie() {
 		return dateSaisie;
 	}
 
-	public void setDateSaisie(DateTime dateSaisie) {
+	public void setDateSaisie(Date dateSaisie) {
 		this.dateSaisie = dateSaisie;
 	}
 

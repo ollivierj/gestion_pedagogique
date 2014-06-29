@@ -36,10 +36,10 @@ public class EchangeServiceImpl implements EchangeService {
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#charger(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public ArrayList<Echange> charger(Echange pModel)
+	public ArrayList<Echange> charger(Echange pEchange)
 			throws GenericException {
 		try {
-			return this.echangeDao.charger(pModel);
+			return this.echangeDao.charger(pEchange);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

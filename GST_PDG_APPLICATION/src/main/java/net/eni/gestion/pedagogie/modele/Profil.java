@@ -59,7 +59,7 @@ public class Profil extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private String libelle = null;
 	
-	@ForeignCollectionField(eager = true, columnName = DroitProfil.ID1_FIELD_NAME)
+	@ForeignCollectionField(eager = true, columnName = DroitProfil.PROFIL_FIELD_NAME)
 	private transient Collection<DroitProfil> transientDroitProfils = null;
 
 	private ArrayList<DroitProfil> droitProfils = new ArrayList<DroitProfil>();

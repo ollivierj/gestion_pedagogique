@@ -12,7 +12,6 @@ import java.util.UUID;
 import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
-import net.sourceforge.jtds.jdbc.DateTime;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -60,17 +59,17 @@ public class Cours extends AModele<UUID> implements Serializable {
 	
 	@DatabaseField(
 		columnName = DEBUT_FIELD_NAME,
-		dataType = DataType.DATE_TIME,
+		dataType = DataType.DATE,
 		useGetSet = true,
 		canBeNull = false)
-	private DateTime debut = null;
+	private Date debut = null;
 
 	@DatabaseField(
 		columnName = FIN_FIELD_NAME,
-		dataType = DataType.DATE_TIME,
+		dataType = DataType.DATE,
 		useGetSet = true,
 		canBeNull = false)
-	private DateTime fin = null;
+	private Date fin = null;
 
 	@DatabaseField(
 		columnName = DUREE_REELLE_EN_HEURES_FIELD_NAME,
@@ -94,10 +93,10 @@ public class Cours extends AModele<UUID> implements Serializable {
 
 	@DatabaseField(
 		columnName = DATE_CREATION_FIELD_NAME,
-		dataType = DataType.DATE_TIME,
+		dataType = DataType.DATE,
 		useGetSet = true,
 		canBeNull = false)
-	private DateTime dateCreation = null;
+	private Date dateCreation = null;
 
 	@DatabaseField(
 		columnName = DATE_MODIF_FIELD_NAME,
@@ -147,10 +146,10 @@ public class Cours extends AModele<UUID> implements Serializable {
 
 	private ArrayList<PlanningIndividuelDetail> planningIndividuelDetails = new ArrayList<PlanningIndividuelDetail>();
 
-	@ForeignCollectionField(eager = true, columnName = InstanceCoursStagiaire.ID1_FIELD_NAME)
-	private transient Collection<InstanceCoursStagiaire> transientInstanceCoursStagiaires = null;
+	@ForeignCollectionField(eager = true, columnName = InstanceCours.COURS_FIELD_NAME)
+	private transient Collection<InstanceCours> transientInstanceCours = null;
 
-	private ArrayList<InstanceCoursStagiaire> instanceCoursStagiaires = new ArrayList<InstanceCoursStagiaire>();
+	private ArrayList<InstanceCours> instanceCours = new ArrayList<InstanceCours>();
 
 	@Override
 	public UUID getId() {
@@ -162,19 +161,19 @@ public class Cours extends AModele<UUID> implements Serializable {
 		id = pId;
 	}
 
-	public DateTime getDebut() {
+	public Date getDebut() {
 		return debut;
 	}
 
-	public void setDebut(DateTime debut) {
+	public void setDebut(Date debut) {
 		this.debut = debut;
 	}
 
-	public DateTime getFin() {
+	public Date getFin() {
 		return fin;
 	}
 
-	public void setFin(DateTime fin) {
+	public void setFin(Date fin) {
 		this.fin = fin;
 	}
 
@@ -202,11 +201,11 @@ public class Cours extends AModele<UUID> implements Serializable {
 		this.prixPublicAffecte = prixPublicAffecte;
 	}
 
-	public DateTime getDateCreation() {
+	public Date getDateCreation() {
 		return dateCreation;
 	}
 
-	public void setDateCreation(DateTime dateCreation) {
+	public void setDateCreation(Date dateCreation) {
 		this.dateCreation = dateCreation;
 	}
 
@@ -262,24 +261,15 @@ public class Cours extends AModele<UUID> implements Serializable {
 		return stagiaires;
 	}
 	
-	private ArrayList<InstanceCoursStagiaire> getInstanceCoursStagiaires() {
-		if (null != transientInstanceCoursStagiaires) {
-			instanceCoursStagiaires.clear();
-			instanceCoursStagiaires.addAll(transientInstanceCoursStagiaires);
-			transientInstanceCoursStagiaires = null;
-		}
-		return instanceCoursStagiaires;
-	}
-	
-	public ArrayList<InstanceCours> getInstanceCours(){
-		ArrayList<InstanceCours> instanceCours = new ArrayList<InstanceCours>();
-		if (0 < getInstanceCoursStagiaires().size()) {
-			Iterator<InstanceCoursStagiaire> iterator = getInstanceCoursStagiaires().iterator();
-			while (iterator.hasNext()) {
-				instanceCours.add(iterator.next().getInstanceCours());
-			}
+	public ArrayList<InstanceCours> getInstanceCours() {
+		if (null != transientInstanceCours) {
+			instanceCours.clear();
+			instanceCours.addAll(transientInstanceCours);
+			transientInstanceCours = null;
 		}
 		return instanceCours;
 	}
+	
+
 
 }

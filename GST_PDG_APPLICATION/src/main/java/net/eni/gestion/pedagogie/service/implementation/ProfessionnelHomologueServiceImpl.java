@@ -36,10 +36,10 @@ public class ProfessionnelHomologueServiceImpl implements ProfessionnelHomologue
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#charger(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public ArrayList<ProfessionnelHomologue> charger(ProfessionnelHomologue pModel)
+	public ArrayList<ProfessionnelHomologue> charger(ProfessionnelHomologue pProfessionnelHomologue)
 			throws GenericException {
 		try {
-			return this.professionnelHomologueDao.charger(pModel);
+			return this.professionnelHomologueDao.charger(pProfessionnelHomologue);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

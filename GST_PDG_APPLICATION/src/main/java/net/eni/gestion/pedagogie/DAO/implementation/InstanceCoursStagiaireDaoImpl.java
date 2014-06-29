@@ -16,7 +16,7 @@ import com.j256.ormlite.dao.BaseDaoImpl;
  * Service métier "InstanceCoursStagiaire"
  */
 @Singleton
-public class InstanceCoursStagiaireDaoImpl extends BaseDaoImpl<InstanceCoursStagiaire, String> implements InstanceCoursStagiaireDao{
+public class InstanceCoursStagiaireDaoImpl extends BaseDaoImpl<InstanceCoursStagiaire, Integer> implements InstanceCoursStagiaireDao{
 	
 	
 	/**

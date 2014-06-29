@@ -36,10 +36,10 @@ public class StagiaireServiceImpl implements StagiaireService {
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#charger(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public ArrayList<Stagiaire> charger(Stagiaire pModel)
+	public ArrayList<Stagiaire> charger(Stagiaire pStagiaire)
 			throws GenericException {
 		try {
-			return this.stagiaireDao.charger(pModel);
+			return this.stagiaireDao.charger(pStagiaire);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

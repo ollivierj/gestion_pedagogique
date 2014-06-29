@@ -5,10 +5,10 @@ package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
-import net.sourceforge.jtds.jdbc.DateTime;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -48,17 +48,17 @@ public class ReservationSalle extends AModele<Integer> implements Serializable {
 	
 	@DatabaseField(
 		columnName = DATE_DEBUT_FIELD_NAME,
-		dataType = DataType.DATE_TIME,
+		dataType = DataType.DATE,
 		useGetSet = true,
 		canBeNull = false)
-	private DateTime dateDebut = null;
+	private Date dateDebut = null;
 
 	@DatabaseField(
 		columnName = DATE_FIN_FIELD_NAME,
-		dataType = DataType.DATE_TIME,
+		dataType = DataType.DATE,
 		useGetSet = true,
 		canBeNull = false)
-	private DateTime dateFin = null;
+	private Date dateFin = null;
 
 	@DatabaseField(
 		columnName = NB_POSTE_LIBRE_FIELD_NAME,
@@ -97,19 +97,19 @@ public class ReservationSalle extends AModele<Integer> implements Serializable {
 		id = pId;
 	}
 
-	public DateTime getDateDebut() {
+	public Date getDateDebut() {
 		return dateDebut;
 	}
 
-	public void setDateDebut(DateTime dateDebut) {
+	public void setDateDebut(Date dateDebut) {
 		this.dateDebut = dateDebut;
 	}
 
-	public DateTime getDateFin() {
+	public Date getDateFin() {
 		return dateFin;
 	}
 
-	public void setDateFin(DateTime dateFin) {
+	public void setDateFin(Date dateFin) {
 		this.dateFin = dateFin;
 	}
 

@@ -7,6 +7,7 @@ import java.io.Serializable;
 import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -15,49 +16,54 @@ import com.j256.ormlite.table.DatabaseTable;
  */
 @DatabaseTable(tableName = ModeleMetier.JURY_TABLE_NAME)
 @XmlRootElement
-public class Jury extends AModele<String> implements Serializable {
+public class Jury extends AModele<Integer> implements Serializable {
 	
 	public Jury() {
 		super();
 	}
 
-	public Jury(String pId) {
+	public Jury(Integer pId) {
 		super();
 		setId(pId);
 	}
 
 	private static final long serialVersionUID = 1L;
 
-	public final static String ID1_FIELD_NAME = "PRF_HMG_ID";
-	public final static String ID2_FIELD_NAME = "INST_SES_VAL_ID";
-	
+	public final static String ID_FIELD_NAME 							= "JURY_ID";
+	public final static String PROFESSIONNEL_HOMOLOGUE_FIELD_NAME 		= "JURY_PROFESSIONNEL_HOMOLOGUE";
+	public final static String INSTANCE_SESSION_VALIDATION_FIELD_NAME 	= "JURY_INSTANCE_SESSION_VALIDATION";
+
 	@DatabaseField(
-		columnName = ID1_FIELD_NAME,
-		foreign = true,
+		columnName = ID_FIELD_NAME,
+		dataType = DataType.INTEGER_OBJ,
 		id = true,
 		generatedId = false,
 		useGetSet = true)
+	private Integer id = null;
+	
+	@DatabaseField(
+		columnName = PROFESSIONNEL_HOMOLOGUE_FIELD_NAME,
+		foreign = true,
+		useGetSet = true,
+		canBeNull = false)
 	private ProfessionnelHomologue professionnelHomologue = null;
 	
 	@DatabaseField(
-		columnName = ID2_FIELD_NAME,
+		columnName = INSTANCE_SESSION_VALIDATION_FIELD_NAME,
 		foreign = true,
-		id = true,
-		generatedId = false,
-		useGetSet = true)
+		useGetSet = true,
+		canBeNull = false)
 	private InstanceSessionValidation instanceSessionValidation = null;
 
-	public String getId() {
-		return String.valueOf(professionnelHomologue.getId())+'/'+String.valueOf(instanceSessionValidation.getId());
+	@Override
+	public Integer getId() {
+		return id;
 	}
 
 	@Override
-	public void setId(String pId) {
-		String[] ids = pId.split("/");
-		professionnelHomologue.setId(Integer.valueOf(ids[0]));
-		instanceSessionValidation.setId(Integer.valueOf(ids[1]));
+	public void setId(Integer pId) {
+		this.id = pId;
 	}
-
 	public ProfessionnelHomologue getProfessionnelHomologue() {
 		return professionnelHomologue;
 	}

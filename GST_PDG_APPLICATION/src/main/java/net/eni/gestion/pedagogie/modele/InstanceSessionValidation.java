@@ -6,11 +6,11 @@ package net.eni.gestion.pedagogie.modele;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
-import net.sourceforge.jtds.jdbc.DateTime;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -57,17 +57,17 @@ public class InstanceSessionValidation extends AModele<Integer> implements Seria
 	private SessionValidation sessionValidation = null;
 
 	@DatabaseField(
-			columnName = RESERVATION_SALLE_FIELD_NAME,
-			foreign = true,
-			useGetSet = true)
-		private ReservationSalle reservationSalle = null;
+		columnName = RESERVATION_SALLE_FIELD_NAME,
+		foreign = true,
+		useGetSet = true)
+	private ReservationSalle reservationSalle = null;
 
 	@DatabaseField(
 		columnName = DATE_FIELD_NAME,
-		dataType = DataType.DATE_TIME,
+		dataType = DataType.DATE,
 		useGetSet = true,
 		canBeNull = false)
-	private DateTime date = null;
+	private Date date= null;
 	
 	@DatabaseField(
 		columnName = LIEN_DOCS_GENERES_FIELD_NAME,
@@ -81,12 +81,12 @@ public class InstanceSessionValidation extends AModele<Integer> implements Seria
 		useGetSet = true)
 	private String lienDocsCollectes = null;
 
-	@ForeignCollectionField(eager = true, columnName = InstanceSessionValidationStagiaire.ID2_FIELD_NAME)
+	@ForeignCollectionField(eager = true, columnName = InstanceSessionValidationStagiaire.INSTANCE_SESSION_VALIDATION_FIELD_NAME)
 	private transient Collection<InstanceSessionValidationStagiaire> transientInstanceSessionValidationStagiaires = null;
 
 	private ArrayList<InstanceSessionValidationStagiaire> instanceSessionValidationStagiaires = new ArrayList<InstanceSessionValidationStagiaire>();
 
-	@ForeignCollectionField(eager = true, columnName = Jury.ID2_FIELD_NAME)
+	@ForeignCollectionField(eager = true, columnName = Jury.INSTANCE_SESSION_VALIDATION_FIELD_NAME)
 	private transient Collection<Jury> transientJurys = null;
 
 	private ArrayList<Jury> jurys = new ArrayList<Jury>();
@@ -117,12 +117,12 @@ public class InstanceSessionValidation extends AModele<Integer> implements Seria
 		this.reservationSalle = reservationSalle;
 	}
 
-	public DateTime getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(DateTime date) {
-		this.date = date;
+	public void setDate(Date date) {
+		this.date= date;
 	}
 
 	public String getLienDocsGeneres() {

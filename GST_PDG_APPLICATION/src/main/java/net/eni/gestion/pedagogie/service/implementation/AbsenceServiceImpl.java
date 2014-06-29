@@ -36,10 +36,10 @@ public class AbsenceServiceImpl implements AbsenceService {
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#charger(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public ArrayList<Absence> charger(Absence pModel)
+	public ArrayList<Absence> charger(Absence pAbsence)
 			throws GenericException {
 		try {
-			return this.absenceDao.charger(pModel);
+			return this.absenceDao.charger(pAbsence);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

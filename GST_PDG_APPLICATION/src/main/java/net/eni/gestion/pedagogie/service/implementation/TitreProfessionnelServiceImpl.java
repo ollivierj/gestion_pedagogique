@@ -36,10 +36,10 @@ public class TitreProfessionnelServiceImpl implements TitreProfessionnelService 
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#charger(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public ArrayList<TitreProfessionnel> charger(TitreProfessionnel pModel)
+	public ArrayList<TitreProfessionnel> charger(TitreProfessionnel pTitreProfessionnel)
 			throws GenericException {
 		try {
-			return this.titreProfessionnelDao.charger(pModel);
+			return this.titreProfessionnelDao.charger(pTitreProfessionnel);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -4,10 +4,10 @@
 package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
-import net.sourceforge.jtds.jdbc.DateTime;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -64,14 +64,14 @@ public class Avis extends AModele<Integer> implements Serializable {
 		dataType = DataType.STRING,
 		useGetSet = true,
 		canBeNull = false)
-	private DateTime texte = null;
+	private String texte = null;
 
 	@DatabaseField(
 		columnName = DATE_SAISIE_FIELD_NAME,
-		dataType = DataType.DATE_TIME,
+		dataType = DataType.DATE,
 		useGetSet = true,
 		canBeNull = false)
-	private DateTime dateSaisie = null;
+	private Date dateSaisie = null;
 	
 	@DatabaseField(
 		columnName = AUTEUR_FIELD_NAME,
@@ -105,19 +105,19 @@ public class Avis extends AModele<Integer> implements Serializable {
 		this.instanceCours = instanceCours;
 	}
 
-	public DateTime getTexte() {
+	public String getTexte() {
 		return texte;
 	}
 
-	public void setTexte(DateTime texte) {
+	public void setTexte(String texte) {
 		this.texte = texte;
 	}
 
-	public DateTime getDateSaisie() {
+	public Date getDateSaisie() {
 		return dateSaisie;
 	}
 
-	public void setDateSaisie(DateTime dateSaisie) {
+	public void setDateSaisie(Date dateSaisie) {
 		this.dateSaisie = dateSaisie;
 	}
 
