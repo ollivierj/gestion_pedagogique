@@ -1,6 +1,6 @@
 'use strict';
 
-controllers.controller('consultationStagiairesCtrl', function($scope, $http, $location, stagiaireData, $modal) {
+controllers.controller('consultationStagiairesCtrl', function($scope, $http, $location, stagiaireData, StagiairesFactory, $modal) {
 
     /*Variable contenant la sélection des données des tableaux de recherche*/
     var promotionSelected = [];
@@ -147,9 +147,13 @@ controllers.controller('consultationStagiairesCtrl', function($scope, $http, $lo
                     $scope.setPagingData(data,page,pageSize);
                 });*/            
             } else {
-                $http.get('json/stagiairesLoad.json').success(function (largeLoad) {
+               /*$http.get('json/stagiairesLoad.json').success(function (largeLoad) {
                     $scope.setPagingData(largeLoad,page,pageSize);
-                });   
+                });  */
+            	/*
+            	 * Teste coté base OK
+            	 */
+            	StagiairesFactory.query({page: page, pageSize: pageSize});
             }
         }, 100);
     };

@@ -8,7 +8,7 @@ import net.eni.gestion.pedagogie.modele.Jury;
  * Description des requêtes d'accès (écriture, lecture) en base de données 
  * pour la gestion des membres d'un jury pour une instance de session de validation
  */
-public interface JuryDao extends CRUDDao<Jury> {
+public interface JuryDao extends CRUDDao<Jury, Integer> {
 
 	
 

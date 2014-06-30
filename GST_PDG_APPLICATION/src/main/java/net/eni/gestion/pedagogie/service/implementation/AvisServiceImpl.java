@@ -36,10 +36,10 @@ public class AvisServiceImpl implements AvisService {
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#charger(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public ArrayList<Avis> charger(Avis pAvis)
+	public ArrayList<Avis> charger(int page, int pageSize, String orderColumn, String orderDirection, String searchText)
 			throws GenericException {
 		try {
-			return this.avisDao.charger(pAvis);
+			return this.avisDao.charger(page, pageSize, orderColumn, orderDirection, searchText);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -48,10 +48,10 @@ public class AvisServiceImpl implements AvisService {
 	}
 	
 
-	public Avis chargerDetail(Avis pModel) throws GenericException {
+	public Avis chargerDetail(Integer pId) throws GenericException {
 		// TODO Auto-generated method stub
 		try {
-			return this.avisDao.chargerDetail(pModel);
+			return this.avisDao.chargerDetail(pId);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -88,9 +88,9 @@ public class AvisServiceImpl implements AvisService {
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#supprimer(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public Avis supprimer(Avis pModel) throws GenericException {
+	public Integer supprimer(Integer pId) throws GenericException {
 		try {
-			return this.avisDao.supprimer(pModel);
+			return this.avisDao.supprimer(pId);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

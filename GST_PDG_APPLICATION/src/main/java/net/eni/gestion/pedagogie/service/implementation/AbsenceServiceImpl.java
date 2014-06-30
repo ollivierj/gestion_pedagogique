@@ -36,10 +36,10 @@ public class AbsenceServiceImpl implements AbsenceService {
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#charger(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public ArrayList<Absence> charger(Absence pAbsence)
+	public ArrayList<Absence> charger(int page, int pageSize, String orderColumn, String orderDirection, String searchText)
 			throws GenericException {
 		try {
-			return this.absenceDao.charger(pAbsence);
+			return this.absenceDao.charger(page, pageSize, orderColumn, orderDirection, searchText);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -48,10 +48,10 @@ public class AbsenceServiceImpl implements AbsenceService {
 	}
 	
 
-	public Absence chargerDetail(Absence pModel) throws GenericException {
+	public Absence chargerDetail(Integer pId) throws GenericException {
 		// TODO Auto-generated method stub
 		try {
-			return this.absenceDao.chargerDetail(pModel);
+			return this.absenceDao.chargerDetail(pId);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -88,9 +88,9 @@ public class AbsenceServiceImpl implements AbsenceService {
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#supprimer(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public Absence supprimer(Absence pModel) throws GenericException {
+	public Integer supprimer(Integer pId) throws GenericException {
 		try {
-			return this.absenceDao.supprimer(pModel);
+			return this.absenceDao.supprimer(pId);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

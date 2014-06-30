@@ -36,10 +36,10 @@ public class ProfilServiceImpl implements ProfilService {
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#charger(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public ArrayList<Profil> charger(Profil pProfil)
+	public ArrayList<Profil> charger(int page, int pageSize, String orderColumn, String orderDirection, String searchText)
 			throws GenericException {
 		try {
-			return this.profilDao.charger(pProfil);
+			return this.profilDao.charger(page, pageSize, orderColumn, orderDirection, searchText);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -48,10 +48,10 @@ public class ProfilServiceImpl implements ProfilService {
 	}
 	
 
-	public Profil chargerDetail(Profil pModel) throws GenericException {
+	public Profil chargerDetail(Integer pId) throws GenericException {
 		// TODO Auto-generated method stub
 		try {
-			return this.profilDao.chargerDetail(pModel);
+			return this.profilDao.chargerDetail(pId);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -88,9 +88,9 @@ public class ProfilServiceImpl implements ProfilService {
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#supprimer(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public Profil supprimer(Profil pModel) throws GenericException {
+	public Integer supprimer(Integer pId) throws GenericException {
 		try {
-			return this.profilDao.supprimer(pModel);
+			return this.profilDao.supprimer(pId);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

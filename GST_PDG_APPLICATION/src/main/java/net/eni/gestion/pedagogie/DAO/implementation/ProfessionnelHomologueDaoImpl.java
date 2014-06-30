@@ -2,10 +2,12 @@ package net.eni.gestion.pedagogie.DAO.implementation;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 import net.eni.gestion.pedagogie.DAO.ProfessionnelHomologueDao;
 import net.eni.gestion.pedagogie.commun.composant.Connexion;
 import net.eni.gestion.pedagogie.commun.outil.CRUDHelper;
 import net.eni.gestion.pedagogie.modele.ProfessionnelHomologue;
+
 import com.google.inject.Singleton;
 import com.j256.ormlite.dao.BaseDaoImpl;
 
@@ -28,15 +30,15 @@ public class ProfessionnelHomologueDaoImpl extends BaseDaoImpl<ProfessionnelHomo
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.DAO.base.contrat.generique.CRUDBase#charger(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public ArrayList<ProfessionnelHomologue> charger(ProfessionnelHomologue pProfessionnelHomologue) throws Exception {
-		return CRUDHelper.charger(this, pProfessionnelHomologue);
+	public ArrayList<ProfessionnelHomologue> charger(int page, int pageSize, String orderColumn, String orderDirection, String searchText) throws Exception {
+		return CRUDHelper.charger(this, page, pageSize, orderColumn, orderDirection, searchText);
 	}
 	
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.DAO.base.generique.CRUDBase#chargerDetail(net.eni.gestion.pedagogie.modele.ProfessionnelHomologue)
 	 */
-	public ProfessionnelHomologue chargerDetail(ProfessionnelHomologue pProfessionnelHomologue) throws Exception {
-		return CRUDHelper.chargerDetail(this, pProfessionnelHomologue);
+	public ProfessionnelHomologue chargerDetail(Integer pId) throws Exception {
+		return CRUDHelper.chargerDetail(this, pId);
 	}
 
 	/* (non-Javadoc)
@@ -56,8 +58,8 @@ public class ProfessionnelHomologueDaoImpl extends BaseDaoImpl<ProfessionnelHomo
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.DAO.base.contrat.generique.CRUDBase#supprimer(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public ProfessionnelHomologue supprimer(ProfessionnelHomologue pProfessionnelHomologue) throws Exception {
-		return CRUDHelper.supprimer(this, pProfessionnelHomologue);
+	public Integer supprimer(Integer pId) throws Exception {
+		return CRUDHelper.supprimer(this, pId);
 	}
 
 }

@@ -7,7 +7,7 @@ import net.eni.gestion.pedagogie.service.generique.CRUDService;
  * @author jollivier
  * Interface métier pour le module de gestion des sessions de validation
  */
-public interface SessionValidationService extends CRUDService<SessionValidation> {
+public interface SessionValidationService extends CRUDService<SessionValidation, Integer> {
 
 	
 

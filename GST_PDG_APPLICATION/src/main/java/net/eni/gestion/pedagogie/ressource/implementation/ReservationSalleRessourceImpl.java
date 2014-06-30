@@ -1,6 +1,7 @@
 package net.eni.gestion.pedagogie.ressource.implementation;
 
 import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -10,21 +11,23 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
 import net.eni.gestion.pedagogie.modele.ReservationSalle;
 import net.eni.gestion.pedagogie.ressource.ReservationSalleRessource;
 import net.eni.gestion.pedagogie.service.ReservationSalleService;
+
 import com.google.inject.Inject;
 
 /**
  * @author jollivier
- * Classe d'implémentation pour le module de reservation des salles
+ * Classe d'implémentation pour le module de gestion des reservationSalles
  */
 @Path("/reservationSalles")
 public class ReservationSalleRessourceImpl implements ReservationSalleRessource {
 
     /**
-     * Unité métier reservation des salles
+     * Unité métier reservationSalle
      */
     private final ReservationSalleService reservationSalleService;
 
@@ -41,9 +44,10 @@ public class ReservationSalleRessourceImpl implements ReservationSalleRessource 
      * @see net.eni.gestion.pedagogie.service.contrat.generique.CRUDService#charger()
      */
     @GET
+    @Path("/{page}/{pageSize}/{orderBy}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<ReservationSalle> charger() throws GenericException {
-        return reservationSalleService.charger(new ReservationSalle());
+    public List<ReservationSalle> charger(int page, int pageSize, String orderColumn, String orderDirection, String searchText) throws GenericException {
+        return reservationSalleService.charger(page, pageSize, orderColumn, orderDirection, searchText);
     }
         
 	/* (non-Javadoc)
@@ -52,8 +56,8 @@ public class ReservationSalleRessourceImpl implements ReservationSalleRessource 
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-	public ReservationSalle chargerDetail(@PathParam("id") Integer id) throws GenericException {
-		return reservationSalleService.chargerDetail(new ReservationSalle(id));
+	public ReservationSalle chargerDetail(@PathParam("id") Integer pId) throws GenericException {
+		return reservationSalleService.chargerDetail(pId);
 
 	}
 
@@ -84,9 +88,12 @@ public class ReservationSalleRessourceImpl implements ReservationSalleRessource 
 	@DELETE
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public ReservationSalle supprimer(@PathParam("id") Integer id) throws GenericException {
-		return this.reservationSalleService.supprimer(new ReservationSalle(id));
+	public Integer supprimer(@PathParam("id") Integer pId) throws GenericException {
+		return this.reservationSalleService.supprimer(pId);
 	}
+	
+   
+
 
 
 }

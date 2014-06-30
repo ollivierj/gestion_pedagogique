@@ -8,7 +8,7 @@ import net.eni.gestion.pedagogie.modele.Absence;
  * Description des requêtes d'accès (écriture, lecture) en base de données 
  * pour la gestion des absences
  */
-public interface AbsenceDao extends CRUDDao<Absence> {
+public interface AbsenceDao extends CRUDDao<Absence,Integer> {
 
 	
 

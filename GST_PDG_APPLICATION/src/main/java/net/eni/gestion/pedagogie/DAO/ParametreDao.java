@@ -8,7 +8,7 @@ import net.eni.gestion.pedagogie.modele.Parametre;
  * Description des requêtes d'accès (écriture, lecture) en base de données 
  * pour la gestion des parametres
  */
-public interface ParametreDao extends CRUDDao<Parametre> {
+public interface ParametreDao extends CRUDDao<Parametre, String> {
 
 	
 

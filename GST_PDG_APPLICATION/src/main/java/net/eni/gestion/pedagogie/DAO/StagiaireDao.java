@@ -8,7 +8,7 @@ import net.eni.gestion.pedagogie.modele.Stagiaire;
  * Description des requêtes d'accès (écriture, lecture) en base de données 
  * pour la gestion des stagiaires
  */
-public interface StagiaireDao extends CRUDDao<Stagiaire> {
+public interface StagiaireDao extends CRUDDao<Stagiaire, Integer> {
 
 	
 

@@ -36,10 +36,10 @@ public class ProfessionnelHomologueServiceImpl implements ProfessionnelHomologue
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#charger(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public ArrayList<ProfessionnelHomologue> charger(ProfessionnelHomologue pProfessionnelHomologue)
+	public ArrayList<ProfessionnelHomologue> charger(int page, int pageSize, String orderColumn, String orderDirection, String searchText)
 			throws GenericException {
 		try {
-			return this.professionnelHomologueDao.charger(pProfessionnelHomologue);
+			return this.professionnelHomologueDao.charger(page, pageSize, orderColumn, orderDirection, searchText);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -48,10 +48,10 @@ public class ProfessionnelHomologueServiceImpl implements ProfessionnelHomologue
 	}
 	
 
-	public ProfessionnelHomologue chargerDetail(ProfessionnelHomologue pModel) throws GenericException {
+	public ProfessionnelHomologue chargerDetail(Integer pId) throws GenericException {
 		// TODO Auto-generated method stub
 		try {
-			return this.professionnelHomologueDao.chargerDetail(pModel);
+			return this.professionnelHomologueDao.chargerDetail(pId);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -88,9 +88,9 @@ public class ProfessionnelHomologueServiceImpl implements ProfessionnelHomologue
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#supprimer(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public ProfessionnelHomologue supprimer(ProfessionnelHomologue pModel) throws GenericException {
+	public Integer supprimer(Integer pId) throws GenericException {
 		try {
-			return this.professionnelHomologueDao.supprimer(pModel);
+			return this.professionnelHomologueDao.supprimer(pId);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

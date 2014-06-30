@@ -36,10 +36,10 @@ public class ParametreServiceImpl implements ParametreService {
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#charger(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public ArrayList<Parametre> charger(Parametre pParametre)
+	public ArrayList<Parametre> charger(int page, int pageSize, String orderColumn, String orderDirection, String searchText)
 			throws GenericException {
 		try {
-			return this.parametreDao.charger(pParametre);
+			return this.parametreDao.charger(page, pageSize, orderColumn, orderDirection, searchText);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -48,10 +48,10 @@ public class ParametreServiceImpl implements ParametreService {
 	}
 	
 
-	public Parametre chargerDetail(Parametre pModel) throws GenericException {
+	public Parametre chargerDetail(String pId) throws GenericException {
 		// TODO Auto-generated method stub
 		try {
-			return this.parametreDao.chargerDetail(pModel);
+			return this.parametreDao.chargerDetail(pId);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -88,9 +88,9 @@ public class ParametreServiceImpl implements ParametreService {
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#supprimer(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public Parametre supprimer(Parametre pModel) throws GenericException {
+	public String supprimer(String pId) throws GenericException {
 		try {
-			return this.parametreDao.supprimer(pModel);
+			return this.parametreDao.supprimer(pId);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

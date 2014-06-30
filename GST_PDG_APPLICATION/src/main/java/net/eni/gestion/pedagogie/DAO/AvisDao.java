@@ -8,7 +8,7 @@ import net.eni.gestion.pedagogie.modele.Avis;
  * Description des requêtes d'accès (écriture, lecture) en base de données 
  * pour la gestion des avis
  */
-public interface AvisDao extends CRUDDao<Avis> {
+public interface AvisDao extends CRUDDao<Avis,Integer> {
 
 	
 

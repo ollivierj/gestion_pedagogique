@@ -8,7 +8,7 @@ import net.eni.gestion.pedagogie.modele.Droit;
  * Description des requêtes d'accès (écriture, lecture) en base de données 
  * pour la gestion des droits
  */
-public interface DroitDao extends CRUDDao<Droit> {
+public interface DroitDao extends CRUDDao<Droit, Integer> {
 
 	
 

@@ -36,10 +36,10 @@ public class ReservationSalleServiceImpl implements ReservationSalleService {
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#charger(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public ArrayList<ReservationSalle> charger(ReservationSalle pReservationSalle)
+	public ArrayList<ReservationSalle> charger(int page, int pageSize, String orderColumn, String orderDirection, String searchText)
 			throws GenericException {
 		try {
-			return this.reservationSalleDao.charger(pReservationSalle);
+			return this.reservationSalleDao.charger(page, pageSize, orderColumn, orderDirection, searchText);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -48,10 +48,10 @@ public class ReservationSalleServiceImpl implements ReservationSalleService {
 	}
 	
 
-	public ReservationSalle chargerDetail(ReservationSalle pModel) throws GenericException {
+	public ReservationSalle chargerDetail(Integer pId) throws GenericException {
 		// TODO Auto-generated method stub
 		try {
-			return this.reservationSalleDao.chargerDetail(pModel);
+			return this.reservationSalleDao.chargerDetail(pId);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -88,9 +88,9 @@ public class ReservationSalleServiceImpl implements ReservationSalleService {
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#supprimer(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public ReservationSalle supprimer(ReservationSalle pModel) throws GenericException {
+	public Integer supprimer(Integer pId) throws GenericException {
 		try {
-			return this.reservationSalleDao.supprimer(pModel);
+			return this.reservationSalleDao.supprimer(pId);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -8,7 +8,7 @@ import net.eni.gestion.pedagogie.modele.Echange;
  * Description des requêtes d'accès (écriture, lecture) en base de données 
  * pour la gestion des echanges
  */
-public interface EchangeDao extends CRUDDao<Echange> {
+public interface EchangeDao extends CRUDDao<Echange, Integer> {
 
 	
 

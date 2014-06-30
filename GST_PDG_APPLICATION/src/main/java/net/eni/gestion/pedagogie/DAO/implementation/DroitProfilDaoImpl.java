@@ -30,15 +30,15 @@ public class DroitProfilDaoImpl extends BaseDaoImpl<DroitProfil, Integer> implem
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.DAO.base.contrat.generique.CRUDBase#charger(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public ArrayList<DroitProfil> charger(DroitProfil pDroitProfil) throws Exception {
-		return CRUDHelper.charger(this, pDroitProfil);
+	public ArrayList<DroitProfil> charger(int page, int pageSize, String orderColumn, String orderDirection, String searchText) throws Exception {
+		return CRUDHelper.charger(this, page, pageSize, orderColumn, orderDirection, searchText);
 	}
 	
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.DAO.base.generique.CRUDBase#chargerDetail(net.eni.gestion.pedagogie.modele.DroitProfil)
 	 */
-	public DroitProfil chargerDetail(DroitProfil pDroitProfil) throws Exception {
-		return CRUDHelper.chargerDetail(this, pDroitProfil);
+	public DroitProfil chargerDetail(Integer pId) throws Exception {
+		return CRUDHelper.chargerDetail(this, pId);
 	}
 
 	/* (non-Javadoc)
@@ -58,8 +58,8 @@ public class DroitProfilDaoImpl extends BaseDaoImpl<DroitProfil, Integer> implem
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.DAO.base.contrat.generique.CRUDBase#supprimer(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public DroitProfil supprimer(DroitProfil pDroitProfil) throws Exception {
-		return CRUDHelper.supprimer(this, pDroitProfil);
+	public Integer supprimer(Integer pId) throws Exception {
+		return CRUDHelper.supprimer(this, pId);
 	}
 
 }

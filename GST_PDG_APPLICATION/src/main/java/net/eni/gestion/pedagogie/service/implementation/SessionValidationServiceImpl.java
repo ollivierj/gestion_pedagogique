@@ -36,10 +36,10 @@ public class SessionValidationServiceImpl implements SessionValidationService {
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#charger(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public ArrayList<SessionValidation> charger(SessionValidation pSessionValidation)
+	public ArrayList<SessionValidation> charger(int page, int pageSize, String orderColumn, String orderDirection, String searchText)
 			throws GenericException {
 		try {
-			return this.sessionValidationDao.charger(pSessionValidation);
+			return this.sessionValidationDao.charger(page, pageSize, orderColumn, orderDirection, searchText);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -48,10 +48,10 @@ public class SessionValidationServiceImpl implements SessionValidationService {
 	}
 	
 
-	public SessionValidation chargerDetail(SessionValidation pModel) throws GenericException {
+	public SessionValidation chargerDetail(Integer pId) throws GenericException {
 		// TODO Auto-generated method stub
 		try {
-			return this.sessionValidationDao.chargerDetail(pModel);
+			return this.sessionValidationDao.chargerDetail(pId);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -88,9 +88,9 @@ public class SessionValidationServiceImpl implements SessionValidationService {
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#supprimer(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public SessionValidation supprimer(SessionValidation pModel) throws GenericException {
+	public Integer supprimer(Integer pId) throws GenericException {
 		try {
-			return this.sessionValidationDao.supprimer(pModel);
+			return this.sessionValidationDao.supprimer(pId);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

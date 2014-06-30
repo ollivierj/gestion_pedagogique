@@ -36,10 +36,10 @@ public class TitreProfessionnelServiceImpl implements TitreProfessionnelService 
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#charger(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public ArrayList<TitreProfessionnel> charger(TitreProfessionnel pTitreProfessionnel)
+	public ArrayList<TitreProfessionnel> charger(int page, int pageSize, String orderColumn, String orderDirection, String searchText)
 			throws GenericException {
 		try {
-			return this.titreProfessionnelDao.charger(pTitreProfessionnel);
+			return this.titreProfessionnelDao.charger(page, pageSize, orderColumn, orderDirection, searchText);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -48,10 +48,10 @@ public class TitreProfessionnelServiceImpl implements TitreProfessionnelService 
 	}
 	
 
-	public TitreProfessionnel chargerDetail(TitreProfessionnel pModel) throws GenericException {
+	public TitreProfessionnel chargerDetail(Integer pId) throws GenericException {
 		// TODO Auto-generated method stub
 		try {
-			return this.titreProfessionnelDao.chargerDetail(pModel);
+			return this.titreProfessionnelDao.chargerDetail(pId);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -88,9 +88,9 @@ public class TitreProfessionnelServiceImpl implements TitreProfessionnelService 
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#supprimer(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public TitreProfessionnel supprimer(TitreProfessionnel pModel) throws GenericException {
+	public Integer supprimer(Integer pId) throws GenericException {
 		try {
-			return this.titreProfessionnelDao.supprimer(pModel);
+			return this.titreProfessionnelDao.supprimer(pId);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

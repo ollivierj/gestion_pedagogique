@@ -2,83 +2,115 @@ package net.eni.gestion.pedagogie.DAO.implementation;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+
 import net.eni.gestion.pedagogie.DAO.StagiaireDao;
 import net.eni.gestion.pedagogie.commun.composant.Connexion;
 import net.eni.gestion.pedagogie.commun.outil.CRUDHelper;
 import net.eni.gestion.pedagogie.commun.outil.SQLHelper;
 import net.eni.gestion.pedagogie.modele.Stagiaire;
+
 import com.google.inject.Singleton;
 import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.dao.GenericRawResults;
 import com.j256.ormlite.stmt.QueryBuilder;
 
 /**
- * @author jollivier
- * Service métier "Stagiaire"
+ * @author jollivier Service métier "Stagiaire"
  */
 @Singleton
-public class StagiaireDaoImpl extends BaseDaoImpl<Stagiaire, Integer> implements StagiaireDao{
-	
-	
+public class StagiaireDaoImpl extends BaseDaoImpl<Stagiaire, Integer> implements
+		StagiaireDao {
+
 	/**
 	 * Constructeur de la DAO StagiaireBase
+	 * 
 	 * @throws SQLException
 	 */
 	public StagiaireDaoImpl() throws SQLException {
 		super(Connexion.getConnexion(), Stagiaire.class);
 	}
-	
-	/* (non-Javadoc)
-	 * @see net.eni.gestion.pedagogie.DAO.base.contrat.generique.CRUDBase#charger(net.eni.gestion.pedagogie.modele.AModele)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * net.eni.gestion.pedagogie.DAO.base.contrat.generique.CRUDBase#charger
+	 * (net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public ArrayList<Stagiaire> charger(Stagiaire pStagiaire) throws Exception {
-		return CRUDHelper.charger(this, pStagiaire);
-	}
-	
-	/* (non-Javadoc)
-	 * @see net.eni.gestion.pedagogie.DAO.base.generique.CRUDBase#chargerDetail(net.eni.gestion.pedagogie.modele.Stagiaire)
-	 */
-	public Stagiaire chargerDetail(Stagiaire pStagiaire) throws Exception {
-		return CRUDHelper.chargerDetail(this, pStagiaire);
+	public ArrayList<Stagiaire> charger(int page, int pageSize, String orderColumn, String orderDirection, String searchText) throws Exception {
+		return CRUDHelper.charger(this, page, pageSize, orderColumn, orderDirection, searchText);
 	}
 
-	/* (non-Javadoc)
-	 * @see net.eni.gestion.pedagogie.DAO.base.contrat.generique.CRUDBase#ajouter(net.eni.gestion.pedagogie.modele.AModele)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * net.eni.gestion.pedagogie.DAO.base.generique.CRUDBase#chargerDetail(net
+	 * .eni.gestion.pedagogie.modele.Stagiaire)
+	 */
+	public Stagiaire chargerDetail(Integer pId) throws Exception {
+		return CRUDHelper.chargerDetail(this, pId);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * net.eni.gestion.pedagogie.DAO.base.contrat.generique.CRUDBase#ajouter
+	 * (net.eni.gestion.pedagogie.modele.AModele)
 	 */
 	public Stagiaire ajouter(Stagiaire pStagiaire) throws Exception {
 		// La colonne primaire CodeStagiaire n'a pas de propriété identité
 		QueryBuilder<Stagiaire, Integer> lQueryBuilder = this.queryBuilder();
-		lQueryBuilder.selectRaw("MAX("+Stagiaire.ID_FIELD_NAME+")");
-		GenericRawResults<String[]> results = this.queryRaw(lQueryBuilder.prepareStatementString());
-		String[] result = results.getFirstResult();
-		int maxId = Integer.parseInt(result[0]);
+		lQueryBuilder.selectRaw("MAX(" + Stagiaire.ID_FIELD_NAME + ")");
+		GenericRawResults<String[]> results = this.queryRaw(lQueryBuilder
+				.prepareStatementString());
+		List<String[]> result = results.getResults();
+		int maxId = Integer.parseInt(result.get(0)[0]);
 		pStagiaire.setId(++maxId);
 		return CRUDHelper.ajouter(this, pStagiaire);
 	}
 
-	/* (non-Javadoc)
-	 * @see net.eni.gestion.pedagogie.DAO.base.contrat.generique.CRUDBase#mettreAJour(net.eni.gestion.pedagogie.modele.AModele)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * net.eni.gestion.pedagogie.DAO.base.contrat.generique.CRUDBase#mettreAJour
+	 * (net.eni.gestion.pedagogie.modele.AModele)
 	 */
 	public Stagiaire mettreAJour(Stagiaire pStagiaire) throws Exception {
 		return CRUDHelper.mettreAJour(this, pStagiaire);
 	}
 
-	/* (non-Javadoc)
-	 * @see net.eni.gestion.pedagogie.DAO.base.contrat.generique.CRUDBase#supprimer(net.eni.gestion.pedagogie.modele.AModele)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * net.eni.gestion.pedagogie.DAO.base.contrat.generique.CRUDBase#supprimer
+	 * (net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public Stagiaire supprimer(Stagiaire pStagiaire) throws Exception {
+	public Integer supprimer(Integer pId) throws Exception {
 		// Provisoire le mapping n'ayant pas été fait encore
 		StringBuilder lDeleteQuery1 = new StringBuilder();
-			lDeleteQuery1.append("DELETE FROM PlanningIndividuelDetail WHERE CodePlanning IN (SELECT CodePlanning FROM PlanningIndividuelFormation WHERE CodeStagiaire = ").append(SQLHelper.rawSQLArgument(pStagiaire.getId())).append(");");
+		lDeleteQuery1
+				.append("DELETE FROM PlanningIndividuelDetail WHERE CodePlanning IN (SELECT CodePlanning FROM PlanningIndividuelFormation WHERE CodeStagiaire = ")
+				.append(SQLHelper.rawSQLArgument(pId))
+				.append(");");
 		StringBuilder lDeleteQuery2 = new StringBuilder();
-			lDeleteQuery2.append("DELETE FROM PlanningIndividuelFormation WHERE CodeStagiaire = ").append(SQLHelper.rawSQLArgument(pStagiaire.getId())).append(";");
+		lDeleteQuery2
+				.append("DELETE FROM PlanningIndividuelFormation WHERE CodeStagiaire = ")
+				.append(SQLHelper.rawSQLArgument(pId))
+				.append(";");
 		StringBuilder lDeleteQuery3 = new StringBuilder();
-			lDeleteQuery3.append("DELETE FROM StagiaireParEntreprise WHERE CodeStagiaire = ").append(SQLHelper.rawSQLArgument(pStagiaire.getId())).append(";");
+		lDeleteQuery3
+				.append("DELETE FROM StagiaireParEntreprise WHERE CodeStagiaire = ")
+				.append(SQLHelper.rawSQLArgument(pId))
+				.append(";");
 		updateRaw(lDeleteQuery1.toString());
 		updateRaw(lDeleteQuery2.toString());
 		updateRaw(lDeleteQuery3.toString());
-		return CRUDHelper.supprimer(this, pStagiaire);
+		return CRUDHelper.supprimer(this, pId);
 	}
-
 
 }

@@ -1,5 +1,12 @@
 'use strict';
 
+services.factory('StagiairesFactory', function ($resource) {
+    return $resource('/ng_gst_pdg/web/stagiaires/:page/:pageSize/:orderBy', {}, {
+        query: { method: 'GET', isArray: true, params: {id: '@id', page: '@page', pageSize: '@pageSize', orderBy: '@orderBy'} },
+        create: { method: 'POST' }
+    });
+});
+
 services.factory('stagiaireData', function($resource) {
 	var stagiaireFactory = {};
 
@@ -18,6 +25,8 @@ services.factory('stagiaireData', function($resource) {
 	 		query: { method: 'GET', isArray: true}
 		 });
 	}
+	
+
 
 	return stagiaireFactory;
 });

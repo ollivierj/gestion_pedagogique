@@ -19,8 +19,9 @@ import com.j256.ormlite.table.DatabaseTable;
 /**
  * @author jollivier
  */
-@DatabaseTable(tableName = ModeleMetier.STAGIAIRE_TABLE_NAME)
+
 @XmlRootElement
+@DatabaseTable(tableName = ModeleMetier.STAGIAIRE_TABLE_NAME)
 public class Stagiaire extends AModele<Integer> implements Serializable {
 	
 	public Stagiaire() {
@@ -61,8 +62,7 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
 		dataType = DataType.INTEGER_OBJ,
-		id = true,
-		generatedId = false,
+		generatedId = true,
 		useGetSet = true)
 	private Integer id = null;
 	
@@ -216,11 +216,11 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 
 	private ArrayList<Absence> absences = new ArrayList<Absence>();
 	
-	@ForeignCollectionField(eager = true, columnName = PlanningIndividuelFormation.CODE_STAGIAIRE_FIELD_NAME)
+	/*@ForeignCollectionField(eager = true, columnName = PlanningIndividuelFormation.CODE_STAGIAIRE_FIELD_NAME)
 	private transient Collection<PlanningIndividuelFormation> transientPlanningIndividuelFormations = null;
 
 	private ArrayList<PlanningIndividuelFormation> planningIndividuelFormations = new ArrayList<PlanningIndividuelFormation>();
-
+	 */
 	@ForeignCollectionField(eager = true, columnName = InstanceCoursStagiaire.STAGIAIRE_FIELD_NAME)
 	private transient Collection<InstanceCoursStagiaire> transientInstanceCoursStagiaires = null;
 
@@ -437,15 +437,6 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 			transientAbsences = null;
 		}
 		return absences;
-	}
-	
-	public ArrayList<PlanningIndividuelFormation> getPlanningIndividuelFormations() {
-		if (null != transientPlanningIndividuelFormations) {
-			planningIndividuelFormations.clear();
-			planningIndividuelFormations.addAll(transientPlanningIndividuelFormations);
-			transientPlanningIndividuelFormations = null;
-		}
-		return planningIndividuelFormations;
 	}
 	
 	private ArrayList<InstanceCoursStagiaire> getInstanceCoursStagiaires() {

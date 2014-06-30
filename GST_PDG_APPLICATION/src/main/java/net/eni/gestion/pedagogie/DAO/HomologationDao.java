@@ -8,7 +8,7 @@ import net.eni.gestion.pedagogie.modele.Homologation;
  * Description des requêtes d'accès (écriture, lecture) en base de données 
  * pour la gestion des homologations
  */
-public interface HomologationDao extends CRUDDao<Homologation> {
+public interface HomologationDao extends CRUDDao<Homologation, Integer> {
 
 	
 

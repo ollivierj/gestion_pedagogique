@@ -2,10 +2,12 @@ package net.eni.gestion.pedagogie.DAO.implementation;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 import net.eni.gestion.pedagogie.DAO.ParametreDao;
 import net.eni.gestion.pedagogie.commun.composant.Connexion;
 import net.eni.gestion.pedagogie.commun.outil.CRUDHelper;
 import net.eni.gestion.pedagogie.modele.Parametre;
+
 import com.google.inject.Singleton;
 import com.j256.ormlite.dao.BaseDaoImpl;
 
@@ -28,15 +30,15 @@ public class ParametreDaoImpl extends BaseDaoImpl<Parametre, String> implements 
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.DAO.base.contrat.generique.CRUDBase#charger(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public ArrayList<Parametre> charger(Parametre pParametre) throws Exception {
-		return CRUDHelper.charger(this, pParametre);
+	public ArrayList<Parametre> charger(int page, int pageSize, String orderColumn, String orderDirection, String searchText) throws Exception {
+		return CRUDHelper.charger(this, page, pageSize, orderColumn, orderDirection, searchText);
 	}
 	
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.DAO.base.generique.CRUDBase#chargerDetail(net.eni.gestion.pedagogie.modele.Parametre)
 	 */
-	public Parametre chargerDetail(Parametre pParametre) throws Exception {
-		return CRUDHelper.chargerDetail(this, pParametre);
+	public Parametre chargerDetail(String pId) throws Exception {
+		return CRUDHelper.chargerDetail(this, pId);
 	}
 
 	/* (non-Javadoc)
@@ -56,8 +58,8 @@ public class ParametreDaoImpl extends BaseDaoImpl<Parametre, String> implements 
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.DAO.base.contrat.generique.CRUDBase#supprimer(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public Parametre supprimer(Parametre pParametre) throws Exception {
-		return CRUDHelper.supprimer(this, pParametre);
+	public String supprimer(String pId) throws Exception {
+		return CRUDHelper.supprimer(this, pId);
 	}
 
 }

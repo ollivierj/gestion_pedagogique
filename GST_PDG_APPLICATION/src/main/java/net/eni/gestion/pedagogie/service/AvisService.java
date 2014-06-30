@@ -7,7 +7,7 @@ import net.eni.gestion.pedagogie.service.generique.CRUDService;
  * @author jollivier
  * Interface métier pour le module de suivi des avis
  */
-public interface AvisService extends CRUDService<Avis> {
+public interface AvisService extends CRUDService<Avis, Integer> {
 
 	
 

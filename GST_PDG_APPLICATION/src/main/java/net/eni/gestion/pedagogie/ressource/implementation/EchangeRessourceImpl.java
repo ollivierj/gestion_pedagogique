@@ -1,6 +1,7 @@
 package net.eni.gestion.pedagogie.ressource.implementation;
 
 import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -10,15 +11,17 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
 import net.eni.gestion.pedagogie.modele.Echange;
 import net.eni.gestion.pedagogie.ressource.EchangeRessource;
 import net.eni.gestion.pedagogie.service.EchangeService;
+
 import com.google.inject.Inject;
 
 /**
  * @author jollivier
- * Classe d'implémentation pour le module de suivi des echanges
+ * Classe d'implémentation pour le module de gestion des echanges
  */
 @Path("/echanges")
 public class EchangeRessourceImpl implements EchangeRessource {
@@ -41,9 +44,10 @@ public class EchangeRessourceImpl implements EchangeRessource {
      * @see net.eni.gestion.pedagogie.service.contrat.generique.CRUDService#charger()
      */
     @GET
+    @Path("/{page}/{pageSize}/{orderBy}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Echange> charger() throws GenericException {
-        return echangeService.charger(new Echange());
+    public List<Echange> charger(int page, int pageSize, String orderColumn, String orderDirection, String searchText) throws GenericException {
+        return echangeService.charger(page, pageSize, orderColumn, orderDirection, searchText);
     }
         
 	/* (non-Javadoc)
@@ -52,8 +56,8 @@ public class EchangeRessourceImpl implements EchangeRessource {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-	public Echange chargerDetail(@PathParam("id") Integer id) throws GenericException {
-		return echangeService.chargerDetail(new Echange(id));
+	public Echange chargerDetail(@PathParam("id") Integer pId) throws GenericException {
+		return echangeService.chargerDetail(pId);
 
 	}
 
@@ -84,9 +88,12 @@ public class EchangeRessourceImpl implements EchangeRessource {
 	@DELETE
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Echange supprimer(@PathParam("id") Integer id) throws GenericException {
-		return this.echangeService.supprimer(new Echange(id));
+	public Integer supprimer(@PathParam("id") Integer pId) throws GenericException {
+		return this.echangeService.supprimer(pId);
 	}
+	
+   
+
 
 
 }

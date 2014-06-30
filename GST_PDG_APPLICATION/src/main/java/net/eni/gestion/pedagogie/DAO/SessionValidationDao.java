@@ -8,7 +8,7 @@ import net.eni.gestion.pedagogie.modele.SessionValidation;
  * Description des requêtes d'accès (écriture, lecture) en base de données 
  * pour la gestion des sessions de validation
  */
-public interface SessionValidationDao extends CRUDDao<SessionValidation> {
+public interface SessionValidationDao extends CRUDDao<SessionValidation, Integer> {
 
 	
 

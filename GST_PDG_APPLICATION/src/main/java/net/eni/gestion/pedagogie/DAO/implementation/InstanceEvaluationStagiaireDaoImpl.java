@@ -2,10 +2,12 @@ package net.eni.gestion.pedagogie.DAO.implementation;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 import net.eni.gestion.pedagogie.DAO.InstanceEvaluationStagiaireDao;
 import net.eni.gestion.pedagogie.commun.composant.Connexion;
 import net.eni.gestion.pedagogie.commun.outil.CRUDHelper;
 import net.eni.gestion.pedagogie.modele.InstanceEvaluationStagiaire;
+
 import com.google.inject.Singleton;
 import com.j256.ormlite.dao.BaseDaoImpl;
 
@@ -28,15 +30,15 @@ public class InstanceEvaluationStagiaireDaoImpl extends BaseDaoImpl<InstanceEval
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.DAO.base.contrat.generique.CRUDBase#charger(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public ArrayList<InstanceEvaluationStagiaire> charger(InstanceEvaluationStagiaire pInstanceEvaluationStagiaire) throws Exception {
-		return CRUDHelper.charger(this, pInstanceEvaluationStagiaire);
+	public ArrayList<InstanceEvaluationStagiaire> charger(int page, int pageSize, String orderColumn, String orderDirection, String searchText) throws Exception {
+		return CRUDHelper.charger(this, page, pageSize, orderColumn, orderDirection, searchText);
 	}
 	
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.DAO.base.generique.CRUDBase#chargerDetail(net.eni.gestion.pedagogie.modele.InstanceEvaluationStagiaire)
 	 */
-	public InstanceEvaluationStagiaire chargerDetail(InstanceEvaluationStagiaire pInstanceEvaluationStagiaire) throws Exception {
-		return CRUDHelper.chargerDetail(this, pInstanceEvaluationStagiaire);
+	public InstanceEvaluationStagiaire chargerDetail(Integer pId) throws Exception {
+		return CRUDHelper.chargerDetail(this, pId);
 	}
 
 	/* (non-Javadoc)
@@ -56,8 +58,8 @@ public class InstanceEvaluationStagiaireDaoImpl extends BaseDaoImpl<InstanceEval
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.DAO.base.contrat.generique.CRUDBase#supprimer(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public InstanceEvaluationStagiaire supprimer(InstanceEvaluationStagiaire pInstanceEvaluationStagiaire) throws Exception {
-		return CRUDHelper.supprimer(this, pInstanceEvaluationStagiaire);
+	public Integer supprimer(Integer pId) throws Exception {
+		return CRUDHelper.supprimer(this, pId);
 	}
 
 }

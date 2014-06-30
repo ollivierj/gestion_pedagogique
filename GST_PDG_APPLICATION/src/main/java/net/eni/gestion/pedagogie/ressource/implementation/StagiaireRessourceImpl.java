@@ -1,6 +1,7 @@
 package net.eni.gestion.pedagogie.ressource.implementation;
 
 import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -10,10 +11,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
 import net.eni.gestion.pedagogie.modele.Stagiaire;
 import net.eni.gestion.pedagogie.ressource.StagiaireRessource;
 import net.eni.gestion.pedagogie.service.StagiaireService;
+
 import com.google.inject.Inject;
 
 /**
@@ -41,19 +44,20 @@ public class StagiaireRessourceImpl implements StagiaireRessource {
      * @see net.eni.gestion.pedagogie.service.contrat.generique.CRUDService#charger()
      */
     @GET
+    @Path("/{page}/{pageSize}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Stagiaire> charger() throws GenericException {
-        return stagiaireService.charger(new Stagiaire());
+    public List<Stagiaire> charger(@PathParam("page") int page, @PathParam("pageSize") int pageSize, String orderColumn, String orderDirection, String searchText) throws GenericException {
+        return stagiaireService.charger(page, pageSize, Stagiaire.ID_FIELD_NAME, "ASC", "");
     }
         
-	/* (non-Javadoc)
+	/* (non-Javadoc)St
 	 * @see net.eni.gestion.pedagogie.service.generique.CRUDService#chargerDetail(java.lang.Integer)
 	 */
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-	public Stagiaire chargerDetail(@PathParam("id") Integer id) throws GenericException {
-		return stagiaireService.chargerDetail(new Stagiaire(id));
+	public Stagiaire chargerDetail(@PathParam("id") Integer pId) throws GenericException {
+		return stagiaireService.chargerDetail(pId);
 
 	}
 
@@ -84,19 +88,12 @@ public class StagiaireRessourceImpl implements StagiaireRessource {
 	@DELETE
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Stagiaire supprimer(@PathParam("id") Integer id) throws GenericException {
-		return this.stagiaireService.supprimer(new Stagiaire(id));
+	public Integer supprimer(@PathParam("id") Integer pId) throws GenericException {
+		return this.stagiaireService.supprimer(pId);
 	}
 	
-    /* (non-Javadoc)
-     * @see net.eni.gestion.pedagogie.service.contrat.generique.CRUDService#charger()
-     */
-    @GET
-    @Path("/{page}/{pageSize}/{orderBy}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Stagiaire> chargerAvecPagination() throws GenericException {
-        return stagiaireService.charger(new Stagiaire());
-    }
+   
+
 
 
 }

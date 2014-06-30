@@ -11,7 +11,7 @@ import net.eni.gestion.pedagogie.modele.generique.AModele;
  * @author jollivier
  *Interface pour les actions de bases CRUD (Create, Retrieve, Update, Delete)
  */
-public interface CRUDDao<M extends AModele<?>> {
+public interface CRUDDao<M extends AModele<ID>, ID> {
 	
 		
 		/**
@@ -20,7 +20,7 @@ public interface CRUDDao<M extends AModele<?>> {
 		 * @param pModel Modèle servant de critère de recherche
 		 * @return ArrayList<GenericModel> Tableau contenant les résultats de la DAO requêtant l'ensemble des modèles
 		 */
-		public ArrayList<M> charger(M pModel) throws Exception;
+		public ArrayList<M> charger(int page, int pageSize, String orderColumn, String orderDirection, String searchText) throws Exception;
 		
 		/**
 		 * Méthode de chargement du détail d'un modèle + règles de gestion spécifiques
@@ -28,7 +28,7 @@ public interface CRUDDao<M extends AModele<?>> {
 		 * @return
 		 * @throws Exception
 		 */
-		public M chargerDetail(M pModel) throws Exception;
+		public M chargerDetail(ID pId) throws Exception;
 		
 		
 		/**
@@ -54,6 +54,6 @@ public interface CRUDDao<M extends AModele<?>> {
 		 * @param pModel
 		 * @return GenericModel Modèle supprimé suite à l'appel de la DAO supprimant le modèle en base
 		 */
-		public M supprimer(M pModel)throws Exception;
+		public ID supprimer(ID pId)throws Exception;
 
 }

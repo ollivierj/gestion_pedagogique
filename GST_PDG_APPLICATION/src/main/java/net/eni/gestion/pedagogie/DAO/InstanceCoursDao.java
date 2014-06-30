@@ -8,7 +8,7 @@ import net.eni.gestion.pedagogie.modele.InstanceCours;
  * Description des requêtes d'accès (écriture, lecture) en base de données 
  * pour la gestion des instances de cours
  */
-public interface InstanceCoursDao extends CRUDDao<InstanceCours> {
+public interface InstanceCoursDao extends CRUDDao<InstanceCours, Integer> {
 
 	
 

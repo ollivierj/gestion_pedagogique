@@ -8,7 +8,7 @@ import net.eni.gestion.pedagogie.modele.PlanningIndividuelFormation;
  * Description des requêtes d'accès (écriture, lecture) en base de données 
  * pour la gestion des plannings de formation
  */
-public interface PlanningIndividuelFormationDao extends CRUDDao<PlanningIndividuelFormation> {
+public interface PlanningIndividuelFormationDao extends CRUDDao<PlanningIndividuelFormation, Integer> {
 
 	
 

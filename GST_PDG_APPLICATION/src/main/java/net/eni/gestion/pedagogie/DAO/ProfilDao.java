@@ -8,7 +8,7 @@ import net.eni.gestion.pedagogie.modele.Profil;
  * Description des requêtes d'accès (écriture, lecture) en base de données 
  * pour la gestion des profils d'utilisateur pour l'application
  */
-public interface ProfilDao extends CRUDDao<Profil> {
+public interface ProfilDao extends CRUDDao<Profil, Integer> {
 
 	
 

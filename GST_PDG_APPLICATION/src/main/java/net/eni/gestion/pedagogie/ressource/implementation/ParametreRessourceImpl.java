@@ -1,6 +1,7 @@
 package net.eni.gestion.pedagogie.ressource.implementation;
 
 import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -10,15 +11,17 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
 import net.eni.gestion.pedagogie.modele.Parametre;
 import net.eni.gestion.pedagogie.ressource.ParametreRessource;
 import net.eni.gestion.pedagogie.service.ParametreService;
+
 import com.google.inject.Inject;
 
 /**
  * @author jollivier
- * Classe d'implémentation pour le module de paramètrage
+ * Classe d'implémentation pour le module de gestion des parametres
  */
 @Path("/parametres")
 public class ParametreRessourceImpl implements ParametreRessource {
@@ -41,9 +44,10 @@ public class ParametreRessourceImpl implements ParametreRessource {
      * @see net.eni.gestion.pedagogie.service.contrat.generique.CRUDService#charger()
      */
     @GET
+    @Path("/{page}/{pageSize}/{orderBy}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Parametre> charger() throws GenericException {
-        return parametreService.charger(new Parametre());
+    public List<Parametre> charger(int page, int pageSize, String orderColumn, String orderDirection, String searchText) throws GenericException {
+        return parametreService.charger(page, pageSize, orderColumn, orderDirection, searchText);
     }
         
 	/* (non-Javadoc)
@@ -52,8 +56,8 @@ public class ParametreRessourceImpl implements ParametreRessource {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-	public Parametre chargerDetail(@PathParam("id") String id) throws GenericException {
-		return parametreService.chargerDetail(new Parametre(id));
+	public Parametre chargerDetail(@PathParam("id") String pId) throws GenericException {
+		return parametreService.chargerDetail(pId);
 
 	}
 
@@ -84,9 +88,12 @@ public class ParametreRessourceImpl implements ParametreRessource {
 	@DELETE
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Parametre supprimer(@PathParam("id") String id) throws GenericException {
-		return this.parametreService.supprimer(new Parametre(id));
+	public String supprimer(@PathParam("id") String pId) throws GenericException {
+		return this.parametreService.supprimer(pId);
 	}
+	
+   
+
 
 
 }

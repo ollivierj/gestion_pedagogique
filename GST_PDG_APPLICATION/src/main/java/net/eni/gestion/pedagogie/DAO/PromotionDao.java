@@ -8,7 +8,7 @@ import net.eni.gestion.pedagogie.modele.Promotion;
  * Description des requêtes d'accès (écriture, lecture) en base de données 
  * pour la gestion des promotions
  */
-public interface PromotionDao extends CRUDDao<Promotion> {
+public interface PromotionDao extends CRUDDao<Promotion, String> {
 
 	
 

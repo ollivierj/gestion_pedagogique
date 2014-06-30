@@ -8,7 +8,7 @@ import net.eni.gestion.pedagogie.modele.ProfessionnelHomologue;
  * Description des requêtes d'accès (écriture, lecture) en base de données 
  * pour la gestion des professionnels homologués pouvant participer à un jury
  */
-public interface ProfessionnelHomologueDao extends CRUDDao<ProfessionnelHomologue> {
+public interface ProfessionnelHomologueDao extends CRUDDao<ProfessionnelHomologue, Integer> {
 
 	
 

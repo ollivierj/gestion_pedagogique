@@ -8,7 +8,7 @@ import net.eni.gestion.pedagogie.modele.ReservationSalle;
  * Description des requêtes d'accès (écriture, lecture) en base de données 
  * pour la gestion des réservations de salle
  */
-public interface ReservationSalleDao extends CRUDDao<ReservationSalle> {
+public interface ReservationSalleDao extends CRUDDao<ReservationSalle, Integer> {
 
 	
 

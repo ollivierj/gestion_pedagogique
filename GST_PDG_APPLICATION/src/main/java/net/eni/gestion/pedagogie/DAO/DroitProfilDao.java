@@ -8,7 +8,7 @@ import net.eni.gestion.pedagogie.modele.DroitProfil;
  * Description des requêtes d'accès (écriture, lecture) en base de données 
  * pour la gestion des droitprofils
  */
-public interface DroitProfilDao extends CRUDDao<DroitProfil> {
+public interface DroitProfilDao extends CRUDDao<DroitProfil, Integer> {
 
 	
 

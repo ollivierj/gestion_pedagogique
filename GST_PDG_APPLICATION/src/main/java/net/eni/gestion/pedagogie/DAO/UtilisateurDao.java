@@ -8,7 +8,7 @@ import net.eni.gestion.pedagogie.modele.Utilisateur;
  * Description des requêtes d'accès (écriture, lecture) en base de données 
  * pour la gestion des utilisateurs de l'application
  */
-public interface UtilisateurDao extends CRUDDao<Utilisateur> {
+public interface UtilisateurDao extends CRUDDao<Utilisateur, Integer> {
 
 	
 

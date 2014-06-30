@@ -7,7 +7,7 @@ import net.eni.gestion.pedagogie.service.generique.CRUDService;
  * @author jollivier
  * Interface métier pour le module de réservation des salles
  */
-public interface ReservationSalleService extends CRUDService<ReservationSalle> {
+public interface ReservationSalleService extends CRUDService<ReservationSalle, Integer> {
 
 	
 

@@ -8,7 +8,7 @@ import net.eni.gestion.pedagogie.modele.Module;
  * Description des requêtes d'accès (écriture, lecture) en base de données 
  * pour la gestion des modules
  */
-public interface ModuleDao extends CRUDDao<Module> {
+public interface ModuleDao extends CRUDDao<Module, Integer> {
 
 	
 

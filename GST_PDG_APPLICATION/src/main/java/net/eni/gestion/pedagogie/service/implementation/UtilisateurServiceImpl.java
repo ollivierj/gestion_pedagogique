@@ -2,10 +2,12 @@ package net.eni.gestion.pedagogie.service.implementation;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 import net.eni.gestion.pedagogie.DAO.UtilisateurDao;
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
 import net.eni.gestion.pedagogie.modele.Utilisateur;
 import net.eni.gestion.pedagogie.service.UtilisateurService;
+
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -34,10 +36,10 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#charger(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public ArrayList<Utilisateur> charger(Utilisateur pUtilisateur)
+	public ArrayList<Utilisateur> charger(int page, int pageSize, String orderColumn, String orderDirection, String searchText)
 			throws GenericException {
 		try {
-			return this.utilisateurDao.charger(pUtilisateur);
+			return this.utilisateurDao.charger(page, pageSize, orderColumn, orderDirection, searchText);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -46,10 +48,10 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 	}
 	
 
-	public Utilisateur chargerDetail(Utilisateur pModel) throws GenericException {
+	public Utilisateur chargerDetail(Integer pId) throws GenericException {
 		// TODO Auto-generated method stub
 		try {
-			return this.utilisateurDao.chargerDetail(pModel);
+			return this.utilisateurDao.chargerDetail(pId);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -86,9 +88,9 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.metier.contrat.generique.CRUDUnit#supprimer(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public Utilisateur supprimer(Utilisateur pModel) throws GenericException {
+	public Integer supprimer(Integer pId) throws GenericException {
 		try {
-			return this.utilisateurDao.supprimer(pModel);
+			return this.utilisateurDao.supprimer(pId);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

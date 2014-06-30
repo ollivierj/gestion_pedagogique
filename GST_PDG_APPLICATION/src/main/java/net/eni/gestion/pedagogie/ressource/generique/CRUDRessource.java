@@ -24,7 +24,7 @@ public interface CRUDRessource<M extends AModele<ID>, ID> {
 	 * @return Liste de modèles
 	 * @throws GenericException
 	 */
-	public List<M> charger() throws GenericException;
+	public List<M> charger(int page, int pageSize, String orderColumn, String orderDirection, String searchText) throws GenericException;
 	
 	 /**
 	 * Charge un modèle
@@ -55,5 +55,5 @@ public interface CRUDRessource<M extends AModele<ID>, ID> {
 	 * @return Modèle supprimé
 	 * @throws GenericException
 	 */
-	public M supprimer(ID pId)  throws GenericException;
+	public ID supprimer(ID pId)  throws GenericException;
 }

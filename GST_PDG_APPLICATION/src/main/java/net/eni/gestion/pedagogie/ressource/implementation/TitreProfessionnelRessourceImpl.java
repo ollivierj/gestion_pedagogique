@@ -1,6 +1,7 @@
 package net.eni.gestion.pedagogie.ressource.implementation;
 
 import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -10,21 +11,23 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
 import net.eni.gestion.pedagogie.modele.TitreProfessionnel;
 import net.eni.gestion.pedagogie.ressource.TitreProfessionnelRessource;
 import net.eni.gestion.pedagogie.service.TitreProfessionnelService;
+
 import com.google.inject.Inject;
 
 /**
  * @author jollivier
- * Classe d'implémentation pour le module de gestion des titres professionnels
+ * Classe d'implémentation pour le module de gestion des titreProfessionnels
  */
 @Path("/titreProfessionnels")
 public class TitreProfessionnelRessourceImpl implements TitreProfessionnelRessource {
 
     /**
-     * Unité métier titre professionnel
+     * Unité métier titreProfessionnel
      */
     private final TitreProfessionnelService titreProfessionnelService;
 
@@ -41,9 +44,10 @@ public class TitreProfessionnelRessourceImpl implements TitreProfessionnelRessou
      * @see net.eni.gestion.pedagogie.service.contrat.generique.CRUDService#charger()
      */
     @GET
+    @Path("/{page}/{pageSize}/{orderBy}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<TitreProfessionnel> charger() throws GenericException {
-        return titreProfessionnelService.charger(new TitreProfessionnel());
+    public List<TitreProfessionnel> charger(int page, int pageSize, String orderColumn, String orderDirection, String searchText) throws GenericException {
+        return titreProfessionnelService.charger(page, pageSize, orderColumn, orderDirection, searchText);
     }
         
 	/* (non-Javadoc)
@@ -52,8 +56,8 @@ public class TitreProfessionnelRessourceImpl implements TitreProfessionnelRessou
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-	public TitreProfessionnel chargerDetail(@PathParam("id") Integer id) throws GenericException {
-		return titreProfessionnelService.chargerDetail(new TitreProfessionnel(id));
+	public TitreProfessionnel chargerDetail(@PathParam("id") Integer pId) throws GenericException {
+		return titreProfessionnelService.chargerDetail(pId);
 
 	}
 
@@ -84,9 +88,12 @@ public class TitreProfessionnelRessourceImpl implements TitreProfessionnelRessou
 	@DELETE
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public TitreProfessionnel supprimer(@PathParam("id") Integer id) throws GenericException {
-		return this.titreProfessionnelService.supprimer(new TitreProfessionnel(id));
+	public Integer supprimer(@PathParam("id") Integer pId) throws GenericException {
+		return this.titreProfessionnelService.supprimer(pId);
 	}
+	
+   
+
 
 
 }

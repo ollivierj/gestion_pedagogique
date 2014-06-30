@@ -11,7 +11,7 @@ import net.eni.gestion.pedagogie.modele.generique.AModele;
  * Create, Retrieve, Update, Delete
  * @param <M>
  */
-public interface CRUDService<M extends AModele<?>> {
+public interface CRUDService<M extends AModele<ID>, ID> {
 
 	/**
 	 * Charge une liste de modèles à l'aide d'une modèle type passé en paramètre
@@ -19,14 +19,14 @@ public interface CRUDService<M extends AModele<?>> {
 	 * @return
 	 * @throws GenericException
 	 */
-	public ArrayList<M> charger(M pModel) throws GenericException;
+	public ArrayList<M> charger(int page, int pageSize, String orderColumn, String orderDirection, String searchText) throws GenericException;
 	
 	/**
 	 * @param pModel
 	 * @return
 	 * @throws GenericException
 	 */
-	public M chargerDetail(M pModel) throws GenericException;
+	public M chargerDetail(ID pId) throws GenericException;
 
 	/**
 	 * Ajoute un modèle à l'aide d'une modèle passé en paramètre
@@ -50,5 +50,5 @@ public interface CRUDService<M extends AModele<?>> {
 	 * @return
 	 * @throws GenericException
 	 */
-	public M supprimer(M pModel)  throws GenericException;
+	public ID supprimer(ID pId)  throws GenericException;
 }

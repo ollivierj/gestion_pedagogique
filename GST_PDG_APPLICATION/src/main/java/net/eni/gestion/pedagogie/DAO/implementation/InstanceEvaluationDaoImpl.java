@@ -2,10 +2,12 @@ package net.eni.gestion.pedagogie.DAO.implementation;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 import net.eni.gestion.pedagogie.DAO.InstanceEvaluationDao;
 import net.eni.gestion.pedagogie.commun.composant.Connexion;
 import net.eni.gestion.pedagogie.commun.outil.CRUDHelper;
 import net.eni.gestion.pedagogie.modele.InstanceEvaluation;
+
 import com.google.inject.Singleton;
 import com.j256.ormlite.dao.BaseDaoImpl;
 
@@ -28,15 +30,15 @@ public class InstanceEvaluationDaoImpl extends BaseDaoImpl<InstanceEvaluation, I
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.DAO.base.contrat.generique.CRUDBase#charger(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public ArrayList<InstanceEvaluation> charger(InstanceEvaluation pInstanceEvaluation) throws Exception {
-		return CRUDHelper.charger(this, pInstanceEvaluation);
+	public ArrayList<InstanceEvaluation> charger(int page, int pageSize, String orderColumn, String orderDirection, String searchText) throws Exception {
+		return CRUDHelper.charger(this, page, pageSize, orderColumn, orderDirection, searchText);
 	}
 	
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.DAO.base.generique.CRUDBase#chargerDetail(net.eni.gestion.pedagogie.modele.InstanceEvaluation)
 	 */
-	public InstanceEvaluation chargerDetail(InstanceEvaluation pInstanceEvaluation) throws Exception {
-		return CRUDHelper.chargerDetail(this, pInstanceEvaluation);
+	public InstanceEvaluation chargerDetail(Integer pId) throws Exception {
+		return CRUDHelper.chargerDetail(this, pId);
 	}
 
 	/* (non-Javadoc)
@@ -56,8 +58,8 @@ public class InstanceEvaluationDaoImpl extends BaseDaoImpl<InstanceEvaluation, I
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.DAO.base.contrat.generique.CRUDBase#supprimer(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public InstanceEvaluation supprimer(InstanceEvaluation pInstanceEvaluation) throws Exception {
-		return CRUDHelper.supprimer(this, pInstanceEvaluation);
+	public Integer supprimer(Integer pId) throws Exception {
+		return CRUDHelper.supprimer(this, pId);
 	}
 
 }

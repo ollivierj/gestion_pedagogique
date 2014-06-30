@@ -8,7 +8,7 @@ import net.eni.gestion.pedagogie.modele.Salle;
  * Description des requêtes d'accès (écriture, lecture) en base de données 
  * pour la gestion des salles
  */
-public interface SalleDao extends CRUDDao<Salle> {
+public interface SalleDao extends CRUDDao<Salle, String> {
 
 	
 

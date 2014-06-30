@@ -7,7 +7,7 @@ import net.eni.gestion.pedagogie.service.generique.CRUDService;
  * @author jollivier
  * Interface métier pour le module de parametrage
  */
-public interface ParametreService extends CRUDService<Parametre> {
+public interface ParametreService extends CRUDService<Parametre, String> {
 
 	
 

@@ -1,6 +1,7 @@
 package net.eni.gestion.pedagogie.ressource.implementation;
 
 import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -10,17 +11,19 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
 import net.eni.gestion.pedagogie.modele.Avis;
 import net.eni.gestion.pedagogie.ressource.AvisRessource;
 import net.eni.gestion.pedagogie.service.AvisService;
+
 import com.google.inject.Inject;
 
 /**
  * @author jollivier
- * Classe d'implémentation pour le module de suivi des avis
+ * Classe d'implémentation pour le module de gestion des aviss
  */
-@Path("/avis")
+@Path("/aviss")
 public class AvisRessourceImpl implements AvisRessource {
 
     /**
@@ -41,9 +44,10 @@ public class AvisRessourceImpl implements AvisRessource {
      * @see net.eni.gestion.pedagogie.service.contrat.generique.CRUDService#charger()
      */
     @GET
+    @Path("/{page}/{pageSize}/{orderBy}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Avis> charger() throws GenericException {
-        return avisService.charger(new Avis());
+    public List<Avis> charger(int page, int pageSize, String orderColumn, String orderDirection, String searchText) throws GenericException {
+        return avisService.charger(page, pageSize, orderColumn, orderDirection, searchText);
     }
         
 	/* (non-Javadoc)
@@ -52,8 +56,8 @@ public class AvisRessourceImpl implements AvisRessource {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-	public Avis chargerDetail(@PathParam("id") Integer id) throws GenericException {
-		return avisService.chargerDetail(new Avis(id));
+	public Avis chargerDetail(@PathParam("id") Integer pId) throws GenericException {
+		return avisService.chargerDetail(pId);
 
 	}
 
@@ -84,9 +88,12 @@ public class AvisRessourceImpl implements AvisRessource {
 	@DELETE
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Avis supprimer(@PathParam("id") Integer id) throws GenericException {
-		return this.avisService.supprimer(new Avis(id));
+	public Integer supprimer(@PathParam("id") Integer pId) throws GenericException {
+		return this.avisService.supprimer(pId);
 	}
+	
+   
+
 
 
 }

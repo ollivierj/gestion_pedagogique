@@ -30,15 +30,15 @@ public class InstanceCoursStagiaireDaoImpl extends BaseDaoImpl<InstanceCoursStag
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.DAO.base.contrat.generique.CRUDBase#charger(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public ArrayList<InstanceCoursStagiaire> charger(InstanceCoursStagiaire pInstanceCoursStagiaire) throws Exception {
-		return CRUDHelper.charger(this, pInstanceCoursStagiaire);
+	public ArrayList<InstanceCoursStagiaire> charger(int page, int pageSize, String orderColumn, String orderDirection, String searchText) throws Exception {
+		return CRUDHelper.charger(this, page, pageSize, orderColumn, orderDirection, searchText);
 	}
 	
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.DAO.base.generique.CRUDBase#chargerDetail(net.eni.gestion.pedagogie.modele.InstanceCoursStagiaire)
 	 */
-	public InstanceCoursStagiaire chargerDetail(InstanceCoursStagiaire pInstanceCoursStagiaire) throws Exception {
-		return CRUDHelper.chargerDetail(this, pInstanceCoursStagiaire);
+	public InstanceCoursStagiaire chargerDetail(Integer pId) throws Exception {
+		return CRUDHelper.chargerDetail(this, pId);
 	}
 
 	/* (non-Javadoc)
@@ -58,8 +58,8 @@ public class InstanceCoursStagiaireDaoImpl extends BaseDaoImpl<InstanceCoursStag
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.DAO.base.contrat.generique.CRUDBase#supprimer(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public InstanceCoursStagiaire supprimer(InstanceCoursStagiaire pInstanceCoursStagiaire) throws Exception {
-		return CRUDHelper.supprimer(this, pInstanceCoursStagiaire);
+	public Integer supprimer(Integer pId) throws Exception {
+		return CRUDHelper.supprimer(this, pId);
 	}
 
 }

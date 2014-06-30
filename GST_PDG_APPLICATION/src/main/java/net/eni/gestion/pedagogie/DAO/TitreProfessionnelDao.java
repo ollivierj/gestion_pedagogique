@@ -8,7 +8,7 @@ import net.eni.gestion.pedagogie.modele.TitreProfessionnel;
  * Description des requêtes d'accès (écriture, lecture) en base de données 
  * pour la gestion des titres profesionnels
  */
-public interface TitreProfessionnelDao extends CRUDDao<TitreProfessionnel> {
+public interface TitreProfessionnelDao extends CRUDDao<TitreProfessionnel, Integer> {
 
 	
 

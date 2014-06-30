@@ -8,7 +8,7 @@ import net.eni.gestion.pedagogie.modele.UniteParFormation;
  * Description des requêtes d'accès (écriture, lecture) en base de données 
  * pour la gestion des unites par formation
  */
-public interface UniteParFormationDao extends CRUDDao<UniteParFormation> {
+public interface UniteParFormationDao extends CRUDDao<UniteParFormation, Integer> {
 
 	
 

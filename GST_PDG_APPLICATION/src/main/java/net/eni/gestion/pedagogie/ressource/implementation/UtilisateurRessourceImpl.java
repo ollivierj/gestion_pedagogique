@@ -1,6 +1,7 @@
 package net.eni.gestion.pedagogie.ressource.implementation;
 
 import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -10,15 +11,17 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
 import net.eni.gestion.pedagogie.modele.Utilisateur;
 import net.eni.gestion.pedagogie.ressource.UtilisateurRessource;
 import net.eni.gestion.pedagogie.service.UtilisateurService;
+
 import com.google.inject.Inject;
 
 /**
  * @author jollivier
- * Classe d'implémentation pour le module de gestion des comptes utilisateur
+ * Classe d'implémentation pour le module de gestion des utilisateurs
  */
 @Path("/utilisateurs")
 public class UtilisateurRessourceImpl implements UtilisateurRessource {
@@ -41,9 +44,10 @@ public class UtilisateurRessourceImpl implements UtilisateurRessource {
      * @see net.eni.gestion.pedagogie.service.contrat.generique.CRUDService#charger()
      */
     @GET
+    @Path("/{page}/{pageSize}/{orderBy}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Utilisateur> charger() throws GenericException {
-        return utilisateurService.charger(new Utilisateur());
+    public List<Utilisateur> charger(int page, int pageSize, String orderColumn, String orderDirection, String searchText) throws GenericException {
+        return utilisateurService.charger(page, pageSize, orderColumn, orderDirection, searchText);
     }
         
 	/* (non-Javadoc)
@@ -52,8 +56,8 @@ public class UtilisateurRessourceImpl implements UtilisateurRessource {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-	public Utilisateur chargerDetail(@PathParam("id") Integer id) throws GenericException {
-		return utilisateurService.chargerDetail(new Utilisateur(id));
+	public Utilisateur chargerDetail(@PathParam("id") Integer pId) throws GenericException {
+		return utilisateurService.chargerDetail(pId);
 
 	}
 
@@ -84,9 +88,12 @@ public class UtilisateurRessourceImpl implements UtilisateurRessource {
 	@DELETE
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Utilisateur supprimer(@PathParam("id") Integer id) throws GenericException {
-		return this.utilisateurService.supprimer(new Utilisateur(id));
+	public Integer supprimer(@PathParam("id") Integer pId) throws GenericException {
+		return this.utilisateurService.supprimer(pId);
 	}
+	
+   
+
 
 
 }
