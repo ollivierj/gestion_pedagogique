@@ -2,12 +2,15 @@ package net.eni.gestion.pedagogie.commun.composant;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * @author jollivier
  * Manipulation de tuples typés
  * @param <E>
  * @param <F>
  */
+@XmlRootElement
 public class Pair<E,F> implements Serializable/*, Cloneable*/ {
 	
 	/** Default Serial ID */
