@@ -1,11 +1,7 @@
 package net.eni.gestion.pedagogie.ressource;
 
-import java.util.ArrayList;
-
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
 import net.eni.gestion.pedagogie.commun.composant.NamedObjectMap;
-import net.eni.gestion.pedagogie.commun.composant.Pager;
-import net.eni.gestion.pedagogie.commun.composant.Pair;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 /**

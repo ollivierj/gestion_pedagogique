@@ -43,7 +43,7 @@ public class Pager implements Serializable {
 	/**
 	 * index de fin
 	 */
-	private int pageSize;
+	private long pageSize;
 
 	/**
 	 * colonnes de tri
@@ -72,15 +72,15 @@ public class Pager implements Serializable {
 	/**
 	 * @return
 	 */
-	public int getPageSize() {
+	public long getPageSize() {
 		return pageSize;
 	}
 
 	/**
-	 * @param pageSize
+	 * @param l
 	 */
-	public void setPageSize(int pageSize) {
-		this.pageSize = pageSize;
+	public void setPageSize(long l) {
+		this.pageSize = l;
 	}
 
 	/**
