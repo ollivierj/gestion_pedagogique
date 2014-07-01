@@ -9,8 +9,6 @@ import net.eni.gestion.pedagogie.modele.generique.AModele;
 import org.apache.commons.lang3.StringUtils;
 
 import com.j256.ormlite.dao.BaseDaoImpl;
-import com.j256.ormlite.field.FieldType;
-import com.j256.ormlite.table.TableInfo;
 
 /**
  * @author jollivier
@@ -18,16 +16,6 @@ import com.j256.ormlite.table.TableInfo;
  * @param DAO
  */
 public class CRUDHelper {
-	
-	public static <M extends AModele<ID>, ID> ArrayList<String> getProjectionFields(TableInfo<M, ID> tableInfo){
-		ArrayList<String> lFields = new ArrayList<String>();
-		for (FieldType lField : tableInfo.getFieldTypes()) {
-			if (!lField.isForeignCollection()){
-				lFields.add(lField.getColumnName());
-			}	
-		} 
-		return lFields;
-	}
 	
 	/**
 	 * Template pour le chargement totale de modèles
@@ -40,7 +28,7 @@ public class CRUDHelper {
 		try {
 			StringBuilder lQuery = new StringBuilder();
 			lQuery.append("SELECT ");
-			lQuery.append(StringUtils.join(getProjectionFields(pABase.getTableInfo()), ","));
+			lQuery.append(StringUtils.join(ORMLiteHelper.getProjectionFields(pABase.getTableInfo()), ","));
 			lQuery.append(" FROM ( ");
 			lQuery.append(" SELECT *, ");
 			lQuery.append(" ROW_NUMBER() OVER (ORDER BY ");
