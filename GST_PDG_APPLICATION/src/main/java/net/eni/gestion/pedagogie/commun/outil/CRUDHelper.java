@@ -38,15 +38,23 @@ public class CRUDHelper {
 	 */
 	public static <M extends AModele<ID>, ID> NamedObjectMap charger(BaseDaoImpl<M, ID> pABase, Pager pPager) throws Exception {
 		try {
-			String lQuery = "SELECT "+StringUtils.join(getProjectionFields(pABase.getTableInfo()), ",")+
-							" FROM ( "+
-							" SELECT *, "+
-							" ROW_NUMBER() OVER (ORDER BY "+pPager.getSortColumnBy()+" "+pPager.getSortDirectionBy()+") AS RowNum "+
-							" FROM Stagiaire ) AS sub "+
-							" WHERE sub.RowNum BETWEEN "+String.valueOf((pPager.getPage()-1)*pPager.getPageSize())+
-							" AND "+String.valueOf(pPager.getPage()*pPager.getPageSize()-1);
+			StringBuilder lQuery = new StringBuilder();
+			lQuery.append("SELECT ");
+			lQuery.append(StringUtils.join(getProjectionFields(pABase.getTableInfo()), ","));
+			lQuery.append(" FROM ( ");
+			lQuery.append(" SELECT *, ");
+			lQuery.append(" ROW_NUMBER() OVER (ORDER BY ");
+			lQuery.append(pPager.getSortColumnBy());
+			lQuery.append(" ");
+			lQuery.append(pPager.getSortDirectionBy());
+			lQuery.append(") AS RowNum ");
+			lQuery.append(" FROM Stagiaire ) AS sub ");
+			lQuery.append(" WHERE sub.RowNum BETWEEN ");
+			lQuery.append(String.valueOf((pPager.getPage()-1)*pPager.getPageSize()));
+			lQuery.append(" AND ");
+			lQuery.append(String.valueOf(pPager.getPage()*pPager.getPageSize()-1));
 			NamedObjectMap results = new NamedObjectMap();
-			results.put("data", new ArrayList<M>(pABase.queryRaw(lQuery, pABase.getRawRowMapper()).getResults()));
+			results.put("data", new ArrayList<M>(pABase.queryRaw(lQuery.toString(), pABase.getRawRowMapper()).getResults()));
 			results.put("pager", new Pager());
 			return results;
 		} catch (Exception exception) {
