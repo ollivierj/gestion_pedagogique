@@ -43,8 +43,8 @@ public class ProfessionnelHomologue extends AModele<Integer> implements Serializ
 	public final static String TELEPHONE_PORTABLE_FIELD_NAME	= "PRF_HMG_TELEPHONE_PORTABLE";
 	public final static String EMAIL_FIELD_NAME	 				= "PRF_HMG_EMAIL";
 	public final static String DATE_NAISSANCE_FIELD_NAME	 	= "PRF_HMG_DATE_NAISSANCE";
-	public final static String CODE_REGION_FIELD_NAME	 		= "PRF_HMG_CODE_REGION";
-	public final static String CODE_NATIONALITE_FIELD_NAME	 		= "PRF_HMG_NATIONALITE";
+	public final static String CODE_REGION_FIELD_NAME	 		= "PRF_HMG_CODE_REGION_NAISSANCE";
+	public final static String CODE_NATIONALITE_FIELD_NAME	 	= "PRF_HMG_NATIONALITE";
 	public final static String PERMIS_FIELD_NAME	 			= "PRF_HMG_PERMIS";
 	public final static String PHOTO_FIELD_NAME	 				= "PRF_HMG_PHOTO";
 	

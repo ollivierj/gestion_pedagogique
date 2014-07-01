@@ -36,7 +36,9 @@ public class CRUDHelper {
 			lQuery.append(" ");
 			lQuery.append(pPager.getSortDirectionBy());
 			lQuery.append(") AS RowNum ");
-			lQuery.append(" FROM Stagiaire ) AS sub ");
+			lQuery.append(" FROM ");
+			lQuery.append(pABase.getTableInfo().getTableName());
+			lQuery.append(") AS sub ");
 			lQuery.append(" WHERE sub.RowNum BETWEEN ");
 			lQuery.append(String.valueOf((pPager.getPage()-1)*pPager.getPageSize()));
 			lQuery.append(" AND ");
