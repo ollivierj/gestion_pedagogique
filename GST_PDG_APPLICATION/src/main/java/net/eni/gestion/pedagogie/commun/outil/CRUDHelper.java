@@ -43,7 +43,7 @@ public class CRUDHelper {
 			lQuery.append(String.valueOf(pPager.getPage()*pPager.getPageSize()-1));
 			NamedObjectMap results = new NamedObjectMap();
 			results.put("data", new ArrayList<M>(pABase.queryRaw(lQuery.toString(), pABase.getRawRowMapper()).getResults()));
-			pPager.setPageSize(pABase.countOf());
+			pPager.setTotalItems(pABase.countOf());
 			results.put("pager", pPager);
 			return results;
 		} catch (Exception exception) {

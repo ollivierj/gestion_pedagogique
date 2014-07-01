@@ -23,7 +23,7 @@ public interface ARessource<M extends AModele<ID>, ID> {
 	 * @return Liste de modèles
 	 * @throws GenericException
 	 */
-	public NamedObjectMap charger(int page, int pageSize, String sortColumnBy, String sortDirectionBy) throws GenericException;
+	public NamedObjectMap charger(int page, int pageSize, long totalItems, String sortColumnBy, String sortDirectionBy) throws GenericException;
 	
 	 /**
 	 * Charge un modèle

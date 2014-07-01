@@ -126,13 +126,14 @@ controllers.controller('consultationStagiairesCtrl', function($scope, $http, $lo
 
     /*Gestion de la pagination*/
 
-    $scope.setPagingData = function(data, page, pageSize){  
-        var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
-        $scope.stagiaires = pagedData;
-        $scope.totalServerItems = data.length;
+    $scope.setPagingData = function(data, page, pageSize, totalItems){  
+        $scope.stagiaires = data;
+        $scope.totalServerItems = totalItems;
         if (!$scope.$$phase) {
             $scope.$apply();
         }
+        $scope.pagingOptions.pageSize = pageSize;
+        $scope.pagingOptions.currentPage = page;
     };
 
     $scope.getPagedDataAsync = function (pageSize, page, searchText) {
@@ -153,10 +154,10 @@ controllers.controller('consultationStagiairesCtrl', function($scope, $http, $lo
             	/*
             	 * Teste coté base OK
             	 */
-            	 var unepromesse = StagiairesFactory.query({page : 1, pageSize : 10, sortColumnBy : "CodeStagiaire", sortDirectionBy : "DESC"});
+            	 var unepromesse = StagiairesFactory.query({page : $scope.pagingOptions.currentPage, pageSize : $scope.pagingOptions.pageSize, totalItems : $scope.totalServerItems , sortColumnBy : "CodeStagiaire", sortDirectionBy : "DESC"});
             	 unepromesse.$promise.then(
             	        function(response){
-            	        	$scope.setPagingData(response.data,response.pager.page,response.pager.pageSize);
+            	        	$scope.setPagingData(response.data,response.pager.page,response.pager.pageSize, response.pager.totalItems);
             	        	}
             	        ,function(reason){alert('Failed: ' + reason);}
             	     );
