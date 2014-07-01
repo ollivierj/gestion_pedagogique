@@ -1,7 +1,6 @@
 package net.eni.gestion.pedagogie.DAO.implementation;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import net.eni.gestion.pedagogie.DAO.StagiaireDao;
@@ -11,7 +10,6 @@ import net.eni.gestion.pedagogie.commun.outil.SQLHelper;
 import net.eni.gestion.pedagogie.modele.Stagiaire;
 
 import com.google.inject.Singleton;
-import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.dao.GenericRawResults;
 import com.j256.ormlite.stmt.QueryBuilder;
 
@@ -19,7 +17,7 @@ import com.j256.ormlite.stmt.QueryBuilder;
  * @author jollivier Service métier "Stagiaire"
  */
 @Singleton
-public class StagiaireDaoImpl extends BaseDaoImpl<Stagiaire, Integer> implements
+public class StagiaireDaoImpl extends ADaoImpl<Stagiaire, Integer> implements
 		StagiaireDao {
 
 	/**
@@ -29,28 +27,6 @@ public class StagiaireDaoImpl extends BaseDaoImpl<Stagiaire, Integer> implements
 	 */
 	public StagiaireDaoImpl() throws SQLException {
 		super(Connexion.getConnexion(), Stagiaire.class);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * net.eni.gestion.pedagogie.DAO.base.contrat.generique.CRUDBase#charger
-	 * (net.eni.gestion.pedagogie.modele.AModele)
-	 */
-	public ArrayList<Stagiaire> charger(int page, int pageSize, String orderColumn, String orderDirection, String searchText) throws Exception {
-		return CRUDHelper.charger(this, page, pageSize, orderColumn, orderDirection, searchText);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * net.eni.gestion.pedagogie.DAO.base.generique.CRUDBase#chargerDetail(net
-	 * .eni.gestion.pedagogie.modele.Stagiaire)
-	 */
-	public Stagiaire chargerDetail(Integer pId) throws Exception {
-		return CRUDHelper.chargerDetail(this, pId);
 	}
 
 	/*
@@ -72,23 +48,8 @@ public class StagiaireDaoImpl extends BaseDaoImpl<Stagiaire, Integer> implements
 		return CRUDHelper.ajouter(this, pStagiaire);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * net.eni.gestion.pedagogie.DAO.base.contrat.generique.CRUDBase#mettreAJour
-	 * (net.eni.gestion.pedagogie.modele.AModele)
-	 */
-	public Stagiaire mettreAJour(Stagiaire pStagiaire) throws Exception {
-		return CRUDHelper.mettreAJour(this, pStagiaire);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * net.eni.gestion.pedagogie.DAO.base.contrat.generique.CRUDBase#supprimer
-	 * (net.eni.gestion.pedagogie.modele.AModele)
+	/* (non-Javadoc)
+	 * @see net.eni.gestion.pedagogie.DAO.implementation.ADaoImpl#supprimer(java.lang.Object)
 	 */
 	public Integer supprimer(Integer pId) throws Exception {
 		// Provisoire le mapping n'ayant pas été fait encore

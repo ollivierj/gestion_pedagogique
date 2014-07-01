@@ -1,10 +1,11 @@
 package net.eni.gestion.pedagogie.service.implementation;
 
 import java.sql.SQLException;
+import java.util.UUID;
 
-import net.eni.gestion.pedagogie.DAO.AbsenceDao;
-import net.eni.gestion.pedagogie.modele.Absence;
-import net.eni.gestion.pedagogie.service.AbsenceService;
+import net.eni.gestion.pedagogie.DAO.CoursDao;
+import net.eni.gestion.pedagogie.modele.Cours;
+import net.eni.gestion.pedagogie.service.CoursService;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -14,7 +15,7 @@ import com.google.inject.Singleton;
  * Classe d'implémentation pour le module de suivi des absences
  */
 @Singleton
-public class AbsenceServiceImpl extends AServiceImpl<Absence, Integer, AbsenceDao> implements AbsenceService {
+public class CoursServiceImpl extends AServiceImpl<Cours, UUID, CoursDao> implements CoursService {
 
        /**
      * Constructeur
@@ -22,8 +23,8 @@ public class AbsenceServiceImpl extends AServiceImpl<Absence, Integer, AbsenceDa
      * @throws SQLException
      */
     @Inject
-    public AbsenceServiceImpl(AbsenceDao pAbsenceDao) throws SQLException {
-        super(pAbsenceDao);
+    public CoursServiceImpl(CoursDao pCoursDao) throws SQLException {
+        super(pCoursDao);
     }
     
 }

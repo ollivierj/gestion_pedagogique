@@ -1,23 +1,20 @@
 package net.eni.gestion.pedagogie.DAO.implementation;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import net.eni.gestion.pedagogie.DAO.DroitDao;
 import net.eni.gestion.pedagogie.commun.composant.Connexion;
-import net.eni.gestion.pedagogie.commun.outil.CRUDHelper;
 import net.eni.gestion.pedagogie.modele.Droit;
 
 import com.google.inject.Singleton;
-import com.j256.ormlite.dao.BaseDaoImpl;
 
 /**
  * @author jollivier
  * Service métier "Droit"
  */
 @Singleton
-public class DroitDaoImpl extends BaseDaoImpl<Droit, Integer> implements DroitDao{
-	
+public class DroitDaoImpl extends ADaoImpl<Droit, Integer> implements DroitDao{
+
 	
 	/**
 	 * Constructeur de la DAO DroitBase
@@ -26,40 +23,6 @@ public class DroitDaoImpl extends BaseDaoImpl<Droit, Integer> implements DroitDa
 	public DroitDaoImpl() throws SQLException {
 		super(Connexion.getConnexion(), Droit.class);
 	}
-	
-	/* (non-Javadoc)
-	 * @see net.eni.gestion.pedagogie.DAO.base.contrat.generique.CRUDBase#charger(net.eni.gestion.pedagogie.modele.AModele)
-	 */
-	public ArrayList<Droit> charger(int page, int pageSize, String orderColumn, String orderDirection, String searchText) throws Exception {
-		return CRUDHelper.charger(this, page, pageSize, orderColumn, orderDirection, searchText);
-	}
-	
-	/* (non-Javadoc)
-	 * @see net.eni.gestion.pedagogie.DAO.base.generique.CRUDBase#chargerDetail(net.eni.gestion.pedagogie.modele.Droit)
-	 */
-	public Droit chargerDetail(Integer pId) throws Exception {
-		return CRUDHelper.chargerDetail(this, pId);
-	}
 
-	/* (non-Javadoc)
-	 * @see net.eni.gestion.pedagogie.DAO.base.contrat.generique.CRUDBase#ajouter(net.eni.gestion.pedagogie.modele.AModele)
-	 */
-	public Droit ajouter(Droit pDroit) throws Exception {
-		return CRUDHelper.ajouter(this, pDroit);
-	}
-
-	/* (non-Javadoc)
-	 * @see net.eni.gestion.pedagogie.DAO.base.contrat.generique.CRUDBase#mettreAJour(net.eni.gestion.pedagogie.modele.AModele)
-	 */
-	public Droit mettreAJour(Droit pDroit) throws Exception {
-		return CRUDHelper.mettreAJour(this, pDroit);
-	}
-
-	/* (non-Javadoc)
-	 * @see net.eni.gestion.pedagogie.DAO.base.contrat.generique.CRUDBase#supprimer(net.eni.gestion.pedagogie.modele.AModele)
-	 */
-	public Integer supprimer(Integer pId) throws Exception {
-		return CRUDHelper.supprimer(this, pId);
-	}
 
 }

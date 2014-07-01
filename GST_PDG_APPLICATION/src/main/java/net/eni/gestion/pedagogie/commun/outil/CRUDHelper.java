@@ -2,12 +2,15 @@ package net.eni.gestion.pedagogie.commun.outil;
 
 import java.util.ArrayList;
 
+import net.eni.gestion.pedagogie.commun.composant.NamedObjectMap;
+import net.eni.gestion.pedagogie.commun.composant.Pager;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 import org.apache.commons.lang3.StringUtils;
 
 import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.field.FieldType;
+import com.j256.ormlite.table.TableInfo;
 
 /**
  * @author jollivier
@@ -16,6 +19,16 @@ import com.j256.ormlite.field.FieldType;
  */
 public class CRUDHelper {
 	
+	public static <M extends AModele<ID>, ID> ArrayList<String> getProjectionFields(TableInfo<M, ID> tableInfo){
+		ArrayList<String> lFields = new ArrayList<String>();
+		for (FieldType lField : tableInfo.getFieldTypes()) {
+			if (!lField.isForeignCollection()){
+				lFields.add(lField.getColumnName());
+			}	
+		} 
+		return lFields;
+	}
+	
 	/**
 	 * Template pour le chargement totale de modèles
 	 * @param pABase
@@ -23,22 +36,19 @@ public class CRUDHelper {
 	 * @return Tableau de modèles
 	 * @throws Exception 
 	 */
-	public static <M extends AModele<ID>, ID> ArrayList<M> charger(BaseDaoImpl<M, ID> pABase, int page, int pageSize, String orderColumn, String orderDirection, String searchText) throws Exception {
+	public static <M extends AModele<ID>, ID> NamedObjectMap charger(BaseDaoImpl<M, ID> pABase, Pager pPager) throws Exception {
 		try {
-			ArrayList<String> lFields = new ArrayList<String>();
-			for (FieldType lField : pABase.getTableInfo().getFieldTypes()) {
-				if (!lField.isForeignCollection()){
-					lFields.add(lField.getColumnName());
-				}	
-			} 
-			String lQuery = "SELECT "+StringUtils.join(lFields, ",")+
+			String lQuery = "SELECT "+StringUtils.join(getProjectionFields(pABase.getTableInfo()), ",")+
 							" FROM ( "+
 							" SELECT *, "+
-							" ROW_NUMBER() OVER (ORDER BY "+orderColumn+" "+orderDirection+") AS RowNum "+
+							" ROW_NUMBER() OVER (ORDER BY "+pPager.getSortColumnBy()+" "+pPager.getSortDirectionBy()+") AS RowNum "+
 							" FROM Stagiaire ) AS sub "+
-							" WHERE sub.RowNum BETWEEN "+String.valueOf((page-1)*pageSize)+
-							" AND "+String.valueOf(page*pageSize-1);
-			return new ArrayList<M>(pABase.queryRaw(lQuery, pABase.getRawRowMapper()).getResults());
+							" WHERE sub.RowNum BETWEEN "+String.valueOf((pPager.getPage()-1)*pPager.getPageSize())+
+							" AND "+String.valueOf(pPager.getPage()*pPager.getPageSize()-1);
+			NamedObjectMap results = new NamedObjectMap();
+			results.put("data", new ArrayList<M>(pABase.queryRaw(lQuery, pABase.getRawRowMapper()).getResults()));
+			results.put("pager", new Pager());
+			return results;
 		} catch (Exception exception) {
 			throw new Exception("Echec de chargement de la liste d'enregistrements depuis la base de données");
 		}

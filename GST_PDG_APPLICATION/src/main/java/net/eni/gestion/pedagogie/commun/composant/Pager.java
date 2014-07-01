@@ -21,8 +21,8 @@ public class Pager implements Serializable {
 		super();
 	}
 	
-	public Pager(int page, int pageSize, String[] sortColumnBy,
-			String[] sortDirectionBy) {
+	public Pager(int page, int pageSize, String sortColumnBy,
+			String sortDirectionBy) {
 		super();
 		this.page = page;
 		this.pageSize = pageSize;
@@ -48,12 +48,12 @@ public class Pager implements Serializable {
 	/**
 	 * colonnes de tri
 	 */
-	private String[] sortColumnBy;
+	private String sortColumnBy;
 
 	/**
 	 * sens de tri
 	 */
-	private String[] sortDirectionBy;
+	private String sortDirectionBy;
 
 	/**
 	 * @return
@@ -86,28 +86,28 @@ public class Pager implements Serializable {
 	/**
 	 * @return
 	 */
-	public String[] getSortColumnBy() {
+	public String getSortColumnBy() {
 		return sortColumnBy;
 	}
 
 	/**
 	 * @param sortColumnBy
 	 */
-	public void setSortColumnBy(String[] sortColumnBy) {
+	public void setSortColumnBy(String sortColumnBy) {
 		this.sortColumnBy = sortColumnBy;
 	}
 
 	/**
 	 * @return
 	 */
-	public String[] getSortDirectionBy() {
+	public String getSortDirectionBy() {
 		return sortDirectionBy;
 	}
 
 	/**
 	 * @param sortDirectionBy
 	 */
-	public void setSortDirectionBy(String[] sortDirectionBy) {
+	public void setSortDirectionBy(String sortDirectionBy) {
 		this.sortDirectionBy = sortDirectionBy;
 	}
 

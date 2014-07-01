@@ -1,6 +1,5 @@
 package net.eni.gestion.pedagogie.DAO;
 
-import net.eni.gestion.pedagogie.DAO.generique.CRUDDao;
 import net.eni.gestion.pedagogie.modele.ReservationSalle;
 
 /**
@@ -8,7 +7,7 @@ import net.eni.gestion.pedagogie.modele.ReservationSalle;
  * Description des requêtes d'accès (écriture, lecture) en base de données 
  * pour la gestion des réservations de salle
  */
-public interface ReservationSalleDao extends CRUDDao<ReservationSalle, Integer> {
+public interface ReservationSalleDao extends ADao<ReservationSalle, Integer> {
 
 	
 

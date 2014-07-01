@@ -1,6 +1,5 @@
 package net.eni.gestion.pedagogie.DAO;
 
-import net.eni.gestion.pedagogie.DAO.generique.CRUDDao;
 import net.eni.gestion.pedagogie.modele.UniteParFormation;
 
 /**
@@ -8,7 +7,7 @@ import net.eni.gestion.pedagogie.modele.UniteParFormation;
  * Description des requêtes d'accès (écriture, lecture) en base de données 
  * pour la gestion des unites par formation
  */
-public interface UniteParFormationDao extends CRUDDao<UniteParFormation, Integer> {
+public interface UniteParFormationDao extends ADao<UniteParFormation, Integer> {
 
 	
 

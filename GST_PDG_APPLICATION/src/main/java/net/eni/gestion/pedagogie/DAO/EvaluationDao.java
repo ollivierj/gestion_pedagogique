@@ -1,6 +1,5 @@
 package net.eni.gestion.pedagogie.DAO;
 
-import net.eni.gestion.pedagogie.DAO.generique.CRUDDao;
 import net.eni.gestion.pedagogie.modele.Evaluation;
 
 /**
@@ -8,7 +7,7 @@ import net.eni.gestion.pedagogie.modele.Evaluation;
  * Description des requêtes d'accès (écriture, lecture) en base de données 
  * pour la gestion des evaluations
  */
-public interface EvaluationDao extends CRUDDao<Evaluation, Integer> {
+public interface EvaluationDao extends ADao<Evaluation, Integer> {
 
 	
 

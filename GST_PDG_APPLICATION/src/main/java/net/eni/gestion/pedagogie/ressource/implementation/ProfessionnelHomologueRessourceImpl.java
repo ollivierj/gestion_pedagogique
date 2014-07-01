@@ -1,18 +1,7 @@
 package net.eni.gestion.pedagogie.ressource.implementation;
 
-import java.util.List;
-
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
-import net.eni.gestion.pedagogie.commun.composant.GenericException;
 import net.eni.gestion.pedagogie.modele.ProfessionnelHomologue;
 import net.eni.gestion.pedagogie.ressource.ProfessionnelHomologueRessource;
 import net.eni.gestion.pedagogie.service.ProfessionnelHomologueService;
@@ -24,76 +13,15 @@ import com.google.inject.Inject;
  * Classe d'implémentation pour le module de gestion des professionnelHomologues
  */
 @Path("/professionnelHomologues")
-public class ProfessionnelHomologueRessourceImpl implements ProfessionnelHomologueRessource {
-
-    /**
-     * Unité métier professionnelHomologue
-     */
-    private final ProfessionnelHomologueService professionnelHomologueService;
+public class ProfessionnelHomologueRessourceImpl extends ARessourceImpl<ProfessionnelHomologue, Integer, ProfessionnelHomologueService> implements ProfessionnelHomologueRessource {
 
     /**
      * Constructeur
-     * @param ProfessionnelHomologueService
+     * @param professionnelHomologueService
      */
     @Inject
-    public ProfessionnelHomologueRessourceImpl(ProfessionnelHomologueService ProfessionnelHomologueService) {
-        this.professionnelHomologueService = ProfessionnelHomologueService;
+    public ProfessionnelHomologueRessourceImpl(ProfessionnelHomologueService professionnelHomologueService) {
+    	super(professionnelHomologueService);
     }
-
-    /* (non-Javadoc)
-     * @see net.eni.gestion.pedagogie.service.contrat.generique.CRUDService#charger()
-     */
-    @GET
-    @Path("/{page}/{pageSize}/{orderBy}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<ProfessionnelHomologue> charger(int page, int pageSize, String orderColumn, String orderDirection, String searchText) throws GenericException {
-        return professionnelHomologueService.charger(page, pageSize, orderColumn, orderDirection, searchText);
-    }
-        
-	/* (non-Javadoc)
-	 * @see net.eni.gestion.pedagogie.service.generique.CRUDService#chargerDetail(java.lang.Integer)
-	 */
-    @GET
-    @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-	public ProfessionnelHomologue chargerDetail(@PathParam("id") Integer pId) throws GenericException {
-		return professionnelHomologueService.chargerDetail(pId);
-
-	}
-
-    /* (non-Javadoc)
-     * @see net.eni.gestion.pedagogie.service.contrat.generique.CRUDService#ajouter(net.eni.gestion.pedagogie.modele.AModele)
-     */
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-	public ProfessionnelHomologue ajouter(ProfessionnelHomologue pModel) throws GenericException {
-		return this.professionnelHomologueService.ajouter(pModel);
-	}
-
-	/* (non-Javadoc)
-	 * @see net.eni.gestion.pedagogie.service.contrat.generique.CRUDService#mettreAJour(net.eni.gestion.pedagogie.modele.AModele)
-	 */
-	@PUT
-    @Path("{id}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-	public ProfessionnelHomologue mettreAJour(ProfessionnelHomologue pModel) throws GenericException {
-		return this.professionnelHomologueService.mettreAJour(pModel);
-	}
-
-	/* (non-Javadoc)
-	 * @see net.eni.gestion.pedagogie.service.contrat.generique.CRUDService#supprimer(net.eni.gestion.pedagogie.modele.AModele)
-	 */
-	@DELETE
-	@Path("{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Integer supprimer(@PathParam("id") Integer pId) throws GenericException {
-		return this.professionnelHomologueService.supprimer(pId);
-	}
-	
-   
-
-
 
 }

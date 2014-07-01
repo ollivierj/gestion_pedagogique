@@ -153,7 +153,14 @@ controllers.controller('consultationStagiairesCtrl', function($scope, $http, $lo
             	/*
             	 * Teste coté base OK
             	 */
-            	StagiairesFactory.query({page: page, pageSize: pageSize});
+            	 var unepromesse = StagiairesFactory.query({page : 1, pageSize : 10, sortColumnBy : "CodeStagiaire", sortDirectionBy : "DESC"});
+            	 unepromesse.$promise.then(
+            	        function(response){
+            	        	$scope.setPagingData(response.data,response.pager.page,response.pager.pageSize);
+            	        	}
+            	        ,function(reason){alert('Failed: ' + reason);}
+            	     );
+            	
             }
         }, 100);
     };

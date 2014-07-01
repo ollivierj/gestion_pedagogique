@@ -1,29 +1,37 @@
-package net.eni.gestion.pedagogie.service.generique;
+package net.eni.gestion.pedagogie.ressource;
 
 import java.util.ArrayList;
 
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
+import net.eni.gestion.pedagogie.commun.composant.NamedObjectMap;
+import net.eni.gestion.pedagogie.commun.composant.Pager;
+import net.eni.gestion.pedagogie.commun.composant.Pair;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 /**
  * @author jollivier
- * Interface métier de base pour les opération de Création, Récuération, Mise à jour, Suppression
+ *
+ * @param <M>
+ */
+
+/**
+ * @author jollivier
+ * Interface service (web) de base pour les opération de Création, Récuération, Mise à jour, Suppression
  * Create, Retrieve, Update, Delete
  * @param <M>
  */
-public interface CRUDService<M extends AModele<ID>, ID> {
+public interface ARessource<M extends AModele<ID>, ID> {
 
 	/**
-	 * Charge une liste de modèles à l'aide d'une modèle type passé en paramètre
-	 * @param pModel
-	 * @return
+	 * Charge une liste de modèles
+	 * @return Liste de modèles
 	 * @throws GenericException
 	 */
-	public ArrayList<M> charger(int page, int pageSize, String orderColumn, String orderDirection, String searchText) throws GenericException;
+	public NamedObjectMap charger(int page, int pageSize, String sortColumnBy, String sortDirectionBy) throws GenericException;
 	
-	/**
-	 * @param pModel
-	 * @return
+	 /**
+	 * Charge un modèle
+	 * @return Liste de modèles
 	 * @throws GenericException
 	 */
 	public M chargerDetail(ID pId) throws GenericException;
@@ -46,8 +54,8 @@ public interface CRUDService<M extends AModele<ID>, ID> {
 
 	/**
 	 * Supprimer un modèle à l'aide d'un modèle passé en paramètre
-	 * @param pModel
-	 * @return
+	 * @param Modèle à supprimer
+	 * @return Modèle supprimé
 	 * @throws GenericException
 	 */
 	public ID supprimer(ID pId)  throws GenericException;

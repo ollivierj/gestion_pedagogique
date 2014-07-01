@@ -1,8 +1,8 @@
 'use strict';
 
 services.factory('StagiairesFactory', function ($resource) {
-    return $resource('/ng_gst_pdg/web/stagiaires/:page/:pageSize/:orderBy', {}, {
-        query: { method: 'GET', isArray: true, params: {id: '@id', page: '@page', pageSize: '@pageSize', orderBy: '@orderBy'} },
+	return $resource('/ng_gst_pdg/web/stagiaires/page/:page/:pageSize/:sortColumnBy/:sortDirectionBy', {}, {
+        query: { method: 'GET', params: {page: '@page', pageSize: '@pageSize', sortColumnBy: '@sortColumnBy', sortDirectionBy : '@sortDirectionBy'} },
         create: { method: 'POST' }
     });
 });
