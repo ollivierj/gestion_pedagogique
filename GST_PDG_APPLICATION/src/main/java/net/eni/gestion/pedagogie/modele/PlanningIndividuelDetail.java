@@ -6,9 +6,14 @@ package net.eni.gestion.pedagogie.modele;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
+
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.commons.lang3.time.DateFormatUtils;
+
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
+
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -178,6 +183,10 @@ public class PlanningIndividuelDetail extends AModele<String> implements Seriali
 	public Date getDebutCours() {
 		return debutCours;
 	}
+	
+	public String getFormatedDebutCours(){
+		return (null!=debutCours)? DateFormatUtils.format(debutCours, "dd/MM/yyyy"): null;
+	}
 
 	public void setDebutCours(Date debutCours) {
 		this.debutCours = debutCours;
@@ -185,6 +194,10 @@ public class PlanningIndividuelDetail extends AModele<String> implements Seriali
 
 	public Date getFinCours() {
 		return finCours;
+	}
+	
+	public String getFormatedFinCours(){
+		return (null!=finCours)? DateFormatUtils.format(finCours, "dd/MM/yyyy"): null;
 	}
 
 	public void setFinCours(Date finCours) {

@@ -5,9 +5,14 @@ package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
 import java.util.Date;
+
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.commons.lang3.time.DateFormatUtils;
+
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
+
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -108,6 +113,10 @@ public class Echange extends AModele<Integer> implements Serializable {
 
 	public Date getDateSaisie() {
 		return dateSaisie;
+	}
+	
+	public String getFormatedDateSaisie(){
+		return (null!=dateSaisie)? DateFormatUtils.format(dateSaisie, "dd/MM/yyyy"): null;
 	}
 
 	public void setDateSaisie(Date dateSaisie) {

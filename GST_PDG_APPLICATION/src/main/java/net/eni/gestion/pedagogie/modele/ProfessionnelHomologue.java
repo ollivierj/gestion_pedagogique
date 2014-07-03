@@ -4,10 +4,17 @@
 package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
+import java.text.ParseException;
 import java.util.Date;
+
 import javax.xml.bind.annotation.XmlRootElement;
+
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
+
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.commons.lang3.time.DateUtils;
+
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -250,10 +257,29 @@ public class ProfessionnelHomologue extends AModele<Integer> implements Serializ
 		this.email = email;
 	}
 
+	
 	public Date getDateNaissance() {
 		return dateNaissance;
 	}
-
+	
+	private String formatedDateNaissance;
+	
+	public String getFormatedDateNaissance(){
+		this.formatedDateNaissance = (null!=dateNaissance)? DateFormatUtils.format(dateNaissance, "dd/MM/yyyy"): null;
+		return this.formatedDateNaissance;
+	}
+	
+	public void setFormatedDateNaissance(String formatedDateNaissance){
+		try {
+			this.dateNaissance = (null != formatedDateNaissance)? DateUtils.parseDate(formatedDateNaissance, "dd/MM/yyyy"): null;
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.formatedDateNaissance = formatedDateNaissance;  
+		
+	}
+	
 	public void setDateNaissance(Date dateNaissance) {
 		this.dateNaissance = dateNaissance;
 	}

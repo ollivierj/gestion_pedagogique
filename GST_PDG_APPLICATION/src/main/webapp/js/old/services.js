@@ -1,20 +1,5 @@
 'use strict';
 
-/* Services */
-
-/*
- http://docs.angularjs.org/api/ngResource.$resource
-
- Default ngResources are defined as
-
- 'get':    {method:'GET'},
- 'save':   {method:'POST'},
- 'query':  {method:'GET', isArray:true},
- 'remove': {method:'DELETE'},
- 'delete': {method:'DELETE'}
-
- */
-
 var services = angular.module('ng_gst_pdg.services', ['ngResource']);
 
 services.factory('DummyFactory', function ($resource) {

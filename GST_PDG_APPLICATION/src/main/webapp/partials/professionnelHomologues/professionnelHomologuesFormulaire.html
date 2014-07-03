@@ -13,16 +13,16 @@
 	<div class="row form-group">
 		<div class="col-lg-6 form-group">
 	    	<div class="form-group">
-	        	<input class="form-control" type="text" placeholder="Nom" tooltip="Saisissez un nom" tooltip-placement="left">
+	        	<input class="form-control" type="text" placeholder="Nom" tooltip="Saisissez un nom" ng-model="professionnelHomologue.nom" tooltip-placement="left">
 	    	</div>
 	    	<div class="form-group">
-	        	<input class="form-control" type="text" placeholder="Prenom" tooltip="Saisissez un prénom" tooltip-placement="left">
+	        	<input class="form-control" type="text" placeholder="Prenom" tooltip="Saisissez un prénom" ng-model="professionnelHomologue.prenom" tooltip-placement="left">
 	    	</div>
 	    	<div class="form-group">
-	        	<input class="form-control" type="text" placeholder="Date de naissance" tooltip="Saisissez une date de naissance" tooltip-placement="left">
+	        	<input class="form-control" type="text" placeholder="Date de naissance" ng-model="professionnelHomologue.formatedDateNaissance" tooltip="Saisissez une date de naissance" tooltip-placement="left">
 	    	</div>
 	    	<div class="form-group">
-	        	M <input type="radio" tooltip="Monsieur" tooltip-placement="left">
+	        	M <input type="radio" tooltip="Monsieur"  tooltip-placement="left">
 	        	Mme <input type="radio" tooltip="Madame" tooltip-placement="left">
 	    	</div>
 	    	<div class="form-group">
@@ -40,31 +40,31 @@
 	
 	<div class="row form-group">
 		<div class="col-lg-12">
-			<input class="form-control" type="text" placeholder="Adresse" tooltip="Saisissez une adresse" tooltip-placement="left">
+			<input class="form-control" type="text" placeholder="Adresse"  tooltip="Saisissez une adresse"  ng-model="professionnelHomologue.adresse1" tooltip-placement="left">
 		</div>
 	</div>
 
 	<div class="row form-group">
 		<div class="col-lg-6">
-			<input class="form-control" type="text" placeholder="ville" tooltip="Saisissez une ville" tooltip-placement="left">
+			<input class="form-control" type="text" placeholder="ville" tooltip="Saisissez une ville" ng-model="professionnelHomologue.ville" tooltip-placement="left">
 		</div>
 		<div class="col-lg-6">
-			<input class="form-control" type="text" placeholder="Code postal" tooltip="Saisissez un code postal" tooltip-placement="right">
+			<input class="form-control" type="text" placeholder="Code postal" tooltip="Saisissez un code postal" ng-model="professionnelHomologue.codePostal" tooltip-placement="right">
 		</div>
 	</div>
 
 	<div class="row form-group">
 		<div class="col-lg-6">
-			<input class="form-control" type="text" placeholder="Téléphone" tooltip="Saisissez un numéro de téléphone fixe" tooltip-placement="left">
+			<input class="form-control" type="text" placeholder="Téléphone" ng-model="professionnelHomologue.telephoneFixe" tooltip="Saisissez un numéro de téléphone fixe" tooltip-placement="left">
 		</div>
 		<div class="col-lg-6">
-			<input class="form-control" type="text" placeholder="Téléphone portable" tooltip="Saisissez un numéro de téléphone portable" tooltip-placement="right">
+			<input class="form-control" type="text" placeholder="Téléphone portable" ng-model="professionnelHomologue.telephonePortable" tooltip="Saisissez un numéro de téléphone portable" tooltip-placement="right">
 		</div>
 	</div>
 	
 	<div class="row form-group">
 		<div class="col-lg-12">
-			<input class="form-control" type="text" placeholder="E-mail" tooltip="Saisissez un e-mail" tooltip-placement="left">
+			<input class="form-control" type="text" placeholder="E-mail" ng-model="professionnelHomologue.email" tooltip="Saisissez un e-mail" tooltip-placement="left">
 		</div>
 	</div>
 

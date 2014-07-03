@@ -8,9 +8,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
+
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.commons.lang3.time.DateFormatUtils;
+
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
+
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -121,6 +126,10 @@ public class InstanceSessionValidation extends AModele<Integer> implements Seria
 		return date;
 	}
 
+	public String getFormatedDate(){
+		return (null!=date)? DateFormatUtils.format(date, "dd/MM/yyyy"): null;
+	}
+	
 	public void setDate(Date date) {
 		this.date= date;
 	}

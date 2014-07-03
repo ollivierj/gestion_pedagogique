@@ -5,9 +5,14 @@ package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
 import java.util.Date;
+
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.commons.lang3.time.DateFormatUtils;
+
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
+
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -118,6 +123,11 @@ public class UniteFormation extends AModele<Integer> implements Serializable {
 	public Date getDateCreation() {
 		return dateCreation;
 	}
+	
+	public String getFormatedDateCreation(){
+		return (null!=dateCreation)? DateFormatUtils.format(dateCreation, "dd/MM/yyyy H:mm:ss"): null;
+	}
+	
 
 	public void setDateCreation(Date dateCreation) {
 		this.dateCreation = dateCreation;

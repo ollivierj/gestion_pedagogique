@@ -4,13 +4,20 @@
 package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
+
 import javax.xml.bind.annotation.XmlRootElement;
+
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
+
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.commons.lang3.time.DateUtils;
+
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -327,6 +334,21 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 	public Date getDateNaissance() {
 		return dateNaissance;
 	}
+	
+	public String getFormatedDateNaissance(){
+		return (null!=dateNaissance)? DateFormatUtils.format(dateNaissance, "dd/MM/yyyy"): null;
+	}
+	
+	public void setFormatedDateNaissance(String formatedDateNaissance){
+		try {
+			if (null != formatedDateNaissance){
+				this.dateNaissance = DateUtils.parseDate(formatedDateNaissance, "dd/MM/yyyy");				
+			}
+
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public void setDateNaissance(Date dateNaissance) {
 		this.dateNaissance = dateNaissance;
@@ -360,6 +382,10 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 		return dateDernierEnvoiDoc;
 	}
 
+	public String getFormatedDateDernierEnvoiDoc(){
+		return (null!=dateDernierEnvoiDoc)? DateFormatUtils.format(dateDernierEnvoiDoc, "dd/MM/yyyy H:mm:ss"): null;
+	}
+	
 	public void setDateDernierEnvoiDoc(Date dateDernierEnvoiDoc) {
 		this.dateDernierEnvoiDoc = dateDernierEnvoiDoc;
 	}
@@ -367,6 +393,11 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 	public Date getDateCreation() {
 		return dateCreation;
 	}
+	
+	public String getFormatedDateCreation(){
+		return (null!=dateCreation)? DateFormatUtils.format(dateCreation, "dd/MM/yyyy H:mm:ss"): null;
+	}
+	
 
 	public void setDateCreation(Date dateCreation) {
 		this.dateCreation = dateCreation;

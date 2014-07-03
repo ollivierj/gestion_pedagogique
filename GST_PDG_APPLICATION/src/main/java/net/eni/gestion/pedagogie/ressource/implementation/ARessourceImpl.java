@@ -58,7 +58,7 @@ public class ARessourceImpl <M extends AModele<ID>, ID, S extends AService<M,ID>
      * @see net.eni.gestion.pedagogie.service.contrat.generique.CRUDService#ajouter(net.eni.gestion.pedagogie.modele.AModele)
      */
     @POST
-    @Path("/ajout")
+    @Path("/creation")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
 	public M ajouter(M pModel) throws GenericException {
@@ -70,7 +70,7 @@ public class ARessourceImpl <M extends AModele<ID>, ID, S extends AService<M,ID>
 	 */
 	@PUT
 	@Path("/modification")
-    @Consumes(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
 	public M mettreAJour(M pModel) throws GenericException {
 		return this.service.mettreAJour(pModel);
