@@ -5,21 +5,13 @@ controllers
 				'professionelHomologueesCtrl',
 				function($scope, $modal, $log, ProfessionnelHomologuesFactory,
 						homologationData) {
-					$scope
-							.$watch(
-									function() {
-										return ProfessionnelHomologuesFactory.data;
-									},
-									function(data) {
-										$scope.professionnelHomologues = data.professionnelHomologues;
-										$scope.pagingOptions = data.pagingOptions;
-										$scope.totalItems = $scope.pagingOptions.totalItems;
-									}, true);
-
-					$scope.$watch('pagingOptions', function(newVal, oldVal) {
-						if (newVal !== oldVal && newVal.page !== oldVal.page) {
-							ProfessionnelHomologuesFactory.refreshData();
-						}
+					$scope.pagingOptions = ProfessionnelHomologuesFactory.pagingOptions;		
+					
+					$scope.$watch(function() {
+						return $scope.pagingOptions;
+					},
+					function(data){
+						ProfessionnelHomologuesFactory.refreshData($scope);
 					}, true);
 
 					$scope.gridOptionsPersonnesHomologuees = {
@@ -105,7 +97,7 @@ controllers
 								});
 
 						modalEdit.result.then(function(selectedItem) {
-							ProfessionnelHomologuesFactory.refreshData();
+							ProfessionnelHomologuesFactory.refreshData($scope);
 						}, function() {
 							$log.info('Modal dismissed at: ' + new Date());
 						});
@@ -125,14 +117,13 @@ controllers
 									}
 								});
 						modalDelete.result.then(function(selectedItem) {
-							ProfessionnelHomologuesFactory.refreshData();
+							ProfessionnelHomologuesFactory.refreshData($scope);
 						}, function() {
 							$log.info('Modal dismissed at: ' + new Date());
 						});
 					};
-
-
-					ProfessionnelHomologuesFactory.refreshData();
+					
+					ProfessionnelHomologuesFactory.refreshData($scope);
 				});
 
 var modalEditionProfessionnelHomologueCtrl = function($scope, $modalInstance,

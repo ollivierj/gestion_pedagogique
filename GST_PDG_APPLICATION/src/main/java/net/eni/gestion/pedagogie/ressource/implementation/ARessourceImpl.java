@@ -37,10 +37,10 @@ public class ARessourceImpl <M extends AModele<ID>, ID, S extends AService<M,ID>
      * @see net.eni.gestion.pedagogie.service.contrat.generique.CRUDService#charger()
      */
     @GET
-    @Path("page/{page}/{pageSize}/{totalItems}/{sortColumnBy}/{sortDirectionBy}")
+    @Path("page/{page}/{pageSize}/{sortColumnBy}/{sortDirectionBy}")
     @Produces(MediaType.APPLICATION_JSON)
-    public NamedObjectMap charger(@PathParam("page") int page, @PathParam("pageSize") int pageSize, @PathParam("totalItems") long totalItems, @PathParam("sortColumnBy") String sortColumnBy, @PathParam("sortDirectionBy") String sortDirectionBy) throws GenericException {
-        return service.charger(new Pager(page, pageSize, totalItems, sortColumnBy, sortDirectionBy));
+    public NamedObjectMap charger(@PathParam("page") int page, @PathParam("pageSize") int pageSize, @PathParam("sortColumnBy") String sortColumnBy, @PathParam("sortDirectionBy") String sortDirectionBy) throws GenericException {
+        return service.charger(new Pager(page, pageSize, sortColumnBy, sortDirectionBy));
     }
         
 	/* (non-Javadoc)

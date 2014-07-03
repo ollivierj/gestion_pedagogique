@@ -21,12 +21,11 @@ public class Pager implements Serializable {
 		super();
 	}
 	
-	public Pager(int page, int pageSize, long totalItems, String sortColumnBy,
+	public Pager(int page, int pageSize, String sortColumnBy,
 			String sortDirectionBy) {
 		super();
 		this.page = page;
 		this.pageSize = pageSize;
-		this.totalItems = totalItems;
 		this.sortColumnBy = sortColumnBy;
 		this.sortDirectionBy = sortDirectionBy;
 	}

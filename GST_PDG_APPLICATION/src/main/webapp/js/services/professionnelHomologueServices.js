@@ -1,39 +1,32 @@
 'use strict';
 
 services.factory('ProfessionnelHomologuesFactory', function ($resource) {
-	var data = {
-			professionnelHomologues : null, 
-			pagingOptions : {
-				pageSizes : [ 5, 10, 15, 25 ],
-				pageSize : 10,
-				page : 1,
-				totalItems : 0,
-				sortColumnBy : "PRF_HMG_ID",
-				sortDirectionBy : "DESC"
-			}
+	var	pagingOptions = {
+		pageSizes : [ 5, 10, 15, 25 ],
+		pageSize : 10,
+		currentPage : 1,
+		totalItems : 0,
+		sortColumnBy : "PRF_HMG_ID",
+		sortDirectionBy : "DESC"
 	};
+	
 	var page = $resource('/ng_gst_pdg/web/professionnelHomologues/page/:page/:pageSize/:totalItems/:sortColumnBy/:sortDirectionBy', {}, {
-		getData : { method: 'GET', params: {page: data.pagingOptions.page, pageSize: data.pagingOptions.pageSize, totalItems : data.pagingOptions.totalItems, sortColumnBy: data.pagingOptions.sortColumnBy, sortDirectionBy : data.pagingOptions.sortDirectionBy} }
+		getData : { method: 'GET', params: {page: '@page', pageSize: '@pageSize', sortColumnBy: '@sortColumnBy', sortDirectionBy : '@sortDirectionBy'} }
 	});
+	
 	return {
-		data : data,
-		initializeData : function(){
-			if (null==professionnelHomologues){
-				refreshData();
-			}
-		},
-		refreshData : function() {
+		pagingOptions : pagingOptions,
+		refreshData : function($scope) {
 				page.getData(
 					{
-					page : data.pagingOptions.page,
-					pageSize : data.pagingOptions.pageSize,
-					totalItems : data.pagingOptions.totalItems,
-					sortColumnBy : data.pagingOptions.sortColumnBy,
-					sortDirectionBy : data.pagingOptions.sortDirectionBy
+					page : $scope.pagingOptions.currentPage,
+					pageSize : $scope.pagingOptions.pageSize,
+					sortColumnBy : $scope.pagingOptions.sortColumnBy,
+					sortDirectionBy : $scope.pagingOptions.sortDirectionBy
 					}
 				).$promise.then(function(response) {
-					data.professionnelHomologues=response.data;
-					data.pagingOptions=response.pager;
+					$scope.professionnelHomologues=response.data;
+					$scope.totalItems=response.pager.totalItems;
 		         });			
 			},
 		page : page,
