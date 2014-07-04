@@ -42,7 +42,6 @@ public class UniteParFormation extends AModele<Integer> implements Serializable 
 		columnName = ID_FIELD_NAME,
 		dataType = DataType.INTEGER_OBJ,
 		id = true,
-		generatedId = false,
 		useGetSet = true)
 	private Integer id = null;
 	

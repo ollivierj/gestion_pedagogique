@@ -49,8 +49,7 @@ public class InstanceSessionValidation extends AModele<Integer> implements Seria
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
 		dataType = DataType.INTEGER_OBJ,
-		id = true,
-		generatedId = false,
+		generatedId = true,
 		useGetSet = true)
 	private Integer id = null;
 	

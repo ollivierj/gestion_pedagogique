@@ -44,8 +44,7 @@ public class InstanceSessionValidationStagiaire extends AModele<Integer> impleme
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
 		dataType = DataType.INTEGER_OBJ,
-		id = true,
-		generatedId = false,
+		generatedId = true,
 		useGetSet = true)
 	private Integer id = null;
 	

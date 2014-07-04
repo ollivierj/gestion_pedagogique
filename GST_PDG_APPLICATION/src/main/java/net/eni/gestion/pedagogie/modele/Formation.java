@@ -59,7 +59,6 @@ public class Formation extends AModele<String> implements Serializable {
 		columnName = ID_FIELD_NAME,
 		dataType = DataType.STRING,
 		id = true,
-		generatedId = false,
 		useGetSet = true)
 	private String id = null;
 	

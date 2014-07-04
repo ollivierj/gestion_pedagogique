@@ -69,7 +69,7 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
 		dataType = DataType.INTEGER_OBJ,
-		generatedId = true,
+		id = true,
 		useGetSet = true)
 	private Integer id = null;
 	

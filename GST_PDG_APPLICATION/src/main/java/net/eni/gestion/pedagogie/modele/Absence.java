@@ -8,10 +8,10 @@ import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang3.time.DateFormatUtils;
-
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
+
+import org.apache.commons.lang3.time.DateFormatUtils;
 
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
@@ -45,8 +45,7 @@ public class Absence extends AModele<Integer> implements Serializable {
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
 		dataType = DataType.INTEGER_OBJ,
-		id = true,
-		generatedId = false,
+		generatedId = true,
 		useGetSet = true)
 	private Integer id = null;
 	

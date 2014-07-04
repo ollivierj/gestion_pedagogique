@@ -58,7 +58,6 @@ public class Cours extends AModele<UUID> implements Serializable {
 		columnName = ID_FIELD_NAME,
 		dataType = DataType.UUID,
 		id = true,
-		generatedId = false,
 		useGetSet = true)
 	private UUID id = null;
 	
