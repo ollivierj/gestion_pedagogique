@@ -124,9 +124,9 @@ controllers
 									controller : modalConfirmationDeleteProfessionnelHomologueCtrl,
 									resolve : {
 										id : function() {return professionnelHomologueId},
-										title : function() {return "Suppression professionnel homologué"},
-										message : function() {return "Etes-vous sur de vouloir supprimer ce professionnel homologué ?"},
-										ok : function () { return function(item) {ProfessionnelHomologuesFactory.delete.doAction({id : item.id});}}
+										title : function() {return "Suppression professionnel homologué";},
+										message : function() {return "Etes-vous sur de vouloir supprimer ce professionnel homologué ?";},
+										ok : function () { return function(id) {return ProfessionnelHomologuesFactory.delete.doAction({id : id});};}
 									}
 								});
 						modalDelete.result.then(function(selectedItem) {
@@ -158,13 +158,12 @@ var modalEditionProfessionnelHomologueCtrl = function($scope, $modalInstance,
 
 var modalConfirmationDeleteProfessionnelHomologueCtrl = function($scope, $modalInstance, 
 		ProfessionnelHomologuesFactory, id, title, message, ok) {
-	$scope.id = id;
 	$scope.title = title;
 	$scope.message = message;
 	$scope.ok =function(item){
-		ok(item).$promise.then(
+		ok(id).$promise.then(
 			function(response) {
-				$modalInstance.close(item);
+				$modalInstance.close(id);
 			}, 
 			function(reason) {
 				alert('Failed: ' + reason);
