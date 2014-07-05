@@ -2,8 +2,7 @@ package net.eni.gestion.pedagogie.configuration;
 
 
 
-import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
-
+import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Scopes;
@@ -17,7 +16,7 @@ import com.sun.jersey.guice.spi.container.servlet.GuiceContainer;
  * @author jollivier
  * Gestion de la configuration de la'application Web
  */
-public class ApplicationSetup extends GuiceServletContextListener {
+public class ApplicationConfiguration extends GuiceServletContextListener {
 
     @Override
     protected Injector getInjector() {
@@ -33,11 +32,11 @@ public class ApplicationSetup extends GuiceServletContextListener {
                 for (Class<?> resource : resourceConfig.getClasses()) {
                     bind(resource);
                 }
-                bind(RessourceSetup.class).in(Scopes.SINGLETON);
+                bind(ResourceConfiguration.class).in(Scopes.SINGLETON);
                 bind(JacksonJsonProvider.class).in(Scopes.SINGLETON);
 
                 serve("/web/*").with(GuiceContainer.class);
             }
-        }, new ModuleSetup());
+        }, new ModuleConfiguration());
     }
 }

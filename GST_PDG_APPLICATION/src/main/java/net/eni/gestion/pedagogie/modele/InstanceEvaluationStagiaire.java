@@ -64,7 +64,6 @@ public class InstanceEvaluationStagiaire extends AModele<Integer> implements Ser
 	public void setId(Integer pId) {
 		this.id = pId;
 	}
-
 	
 	public InstanceEvaluation getInstanceEvaluation() {
 		return instanceEvaluation;

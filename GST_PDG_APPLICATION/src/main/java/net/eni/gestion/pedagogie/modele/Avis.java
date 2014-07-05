@@ -13,6 +13,7 @@ import org.apache.commons.lang3.time.DateFormatUtils;
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -70,6 +71,7 @@ public class Avis extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private String texte = null;
 
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy H:mm:ss", timezone="CET")   
 	@DatabaseField(
 		columnName = DATE_SAISIE_FIELD_NAME,
 		dataType = DataType.DATE,
@@ -121,10 +123,6 @@ public class Avis extends AModele<Integer> implements Serializable {
 		return dateSaisie;
 	}
 	
-	public String getFormatedDateSaisie(){
-		return (null!=dateSaisie)? DateFormatUtils.format(dateSaisie, "dd/MM/yyyy"): null;
-	}
-
 	public void setDateSaisie(Date dateSaisie) {
 		this.dateSaisie = dateSaisie;
 	}

@@ -10,7 +10,7 @@ import net.eni.gestion.pedagogie.commun.composant.PropertyStore;
  * @author jollivier
  * Gestion de la configuration de l abase de données
  */
-public class BaseSetup {
+public class DatabaseConfiguration {
 	
 	/** Nom du fichier de configuration */
 	public final static String CONFIG_FILE_NAME = "config.properties";
@@ -74,7 +74,7 @@ public class BaseSetup {
 	 */
 	private final static PropertyStore getPropertyStore() {
 		if (null == threadLocal.get()) {
-			synchronized(BaseSetup.class) {
+			synchronized(DatabaseConfiguration.class) {
 	        	if (null == propertyStore) {
 	        		propertyStore = new PropertyStore(getConfigurationFileLocation());
 	        	}

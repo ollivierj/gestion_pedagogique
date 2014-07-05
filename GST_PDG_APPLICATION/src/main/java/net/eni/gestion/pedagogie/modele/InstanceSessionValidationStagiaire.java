@@ -13,6 +13,7 @@ import org.apache.commons.lang3.time.DateFormatUtils;
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -62,6 +63,7 @@ public class InstanceSessionValidationStagiaire extends AModele<Integer> impleme
 		canBeNull = false)
 	private InstanceSessionValidation instanceSessionValidation = null;
 	
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy H:mm:ss", timezone="CET")   
 	@DatabaseField(
 		columnName = HEURE_DEBUT_FIELD_NAME,
 		dataType = DataType.DATE,
@@ -69,6 +71,7 @@ public class InstanceSessionValidationStagiaire extends AModele<Integer> impleme
 		canBeNull = false)
 	private Date heureDebut = null;
 
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy H:mm:ss", timezone="CET")   
 	@DatabaseField(
 		columnName = HEURE_FIN_FIELD_NAME,
 		dataType = DataType.DATE,
@@ -106,20 +109,12 @@ public class InstanceSessionValidationStagiaire extends AModele<Integer> impleme
 		return heureDebut;
 	}
 
-	public String getFormatedDateHeureDebut(){
-		return (null!=heureDebut)? DateFormatUtils.format(heureDebut, "H:mm:ss"): null;
-	}
-	
 	public void setHeureDebut(Date heureDebut) {
 		this.heureDebut = heureDebut;
 	}
 
 	public Date getHeureFin() {
 		return heureFin;
-	}
-	
-	public String getFormatedDateHeureFin(){
-		return (null!=heureFin)? DateFormatUtils.format(heureFin, "H:mm:ss"): null;
 	}
 
 	public void setHeureFin(Date heureFin) {

@@ -16,6 +16,7 @@ import org.apache.commons.lang3.time.DateFormatUtils;
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -96,6 +97,7 @@ public class InstanceEvaluation extends AModele<Integer> implements Serializable
 		useGetSet = true)
 	private String lienCopiesImmaterrielles = null;
 	
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy H:mm:ss", timezone="CET")   
 	@DatabaseField(
 		columnName = DATE_DEBUT_PASSAGE_FIELD_NAME,
 		dataType = DataType.DATE,
@@ -103,6 +105,7 @@ public class InstanceEvaluation extends AModele<Integer> implements Serializable
 		canBeNull = false)
 	private Date dateDebutPassage = null;
 
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy H:mm:ss", timezone="CET")   
 	@DatabaseField(
 		columnName = DATE_FIN_PASSAGE_FIELD_NAME,
 		dataType = DataType.DATE,
@@ -177,20 +180,12 @@ public class InstanceEvaluation extends AModele<Integer> implements Serializable
 		return dateDebutPassage;
 	}
 	
-	public String getFormatedDateDebutPassage(){
-		return (null!=dateDebutPassage)? DateFormatUtils.format(dateDebutPassage, "dd/MM/yyyy H:mm:ss"): null;
-	}
-
 	public void setDateDebutPassage(Date dateDebutPassage) {
 		this.dateDebutPassage = dateDebutPassage;
 	}
 
 	public Date getDateFinPassage() {
 		return dateFinPassage;
-	}
-
-	public String getFormatedDateFinPassage(){
-		return (null!=dateFinPassage)? DateFormatUtils.format(dateFinPassage, "dd/MM/yyyy H:mm:ss"): null;
 	}
 	
 	public void setDateFinPassage(Date dateFinPassage) {

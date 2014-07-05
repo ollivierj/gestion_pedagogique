@@ -16,6 +16,7 @@ import org.apache.commons.lang3.time.DateFormatUtils;
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -65,7 +66,8 @@ public class InstanceSessionValidation extends AModele<Integer> implements Seria
 		foreign = true,
 		useGetSet = true)
 	private ReservationSalle reservationSalle = null;
-
+	
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy", timezone="CET")   
 	@DatabaseField(
 		columnName = DATE_FIELD_NAME,
 		dataType = DataType.DATE,
@@ -125,10 +127,6 @@ public class InstanceSessionValidation extends AModele<Integer> implements Seria
 		return date;
 	}
 
-	public String getFormatedDate(){
-		return (null!=date)? DateFormatUtils.format(date, "dd/MM/yyyy"): null;
-	}
-	
 	public void setDate(Date date) {
 		this.date= date;
 	}

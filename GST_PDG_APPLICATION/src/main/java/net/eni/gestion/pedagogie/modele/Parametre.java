@@ -48,7 +48,6 @@ public class Parametre extends AModele<String> implements Serializable {
 	
 	@Override
 	public String getId() {
-		// TODO Auto-generated method stub
 		return constante;
 	}
 

@@ -99,7 +99,7 @@ import com.google.inject.AbstractModule;
  * @author jollivier
  * Gestion des injections de dépendance pour l'application
  */
-public class ModuleSetup extends AbstractModule {
+public class ModuleConfiguration extends AbstractModule {
     @Override
     protected void configure() {
     	// Binding des daos

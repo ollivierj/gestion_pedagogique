@@ -13,6 +13,7 @@ import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -56,6 +57,7 @@ public class Absence extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private Stagiaire stagiaire = null;
 
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy H:mm:ss", timezone="CET")   
 	@DatabaseField(
 		columnName = DATE_ARRIVEE_MATIN_FIELD_NAME,
 		dataType = DataType.DATE,
@@ -63,6 +65,7 @@ public class Absence extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private Date dateArriveeMatin = null;
 
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy H:mm:ss", timezone="CET")   
 	@DatabaseField(
 		columnName = DATE_ARRIVEE_APRES_MIDI_FIELD_NAME,
 		dataType = DataType.DATE,
@@ -70,6 +73,7 @@ public class Absence extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private Date dateArriveeApresMidi = null;
 
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy H:mm:ss", timezone="CET")   
 	@DatabaseField(
 		columnName = DATE_SAISIE_FIELD_NAME,
 		dataType = DataType.DATE,
@@ -105,34 +109,14 @@ public class Absence extends AModele<Integer> implements Serializable {
 		return dateArriveeMatin;
 	}
 	
-	public String getFormatedDateArriveeMatin(){
-		return (null!=dateArriveeMatin)? DateFormatUtils.format(dateArriveeMatin, "dd/MM/yyyy H:mm:ss"): null;
-	}
-
-	public void setDateArriveeMatin(Date dateArriveeMatin) {
-		this.dateArriveeMatin = dateArriveeMatin;
-	}
-
 	public Date getDateArriveeApresMidi() {
 		return dateArriveeApresMidi;
 	}
 	
-	public String getFormatedDateArriveeApresMidi(){
-		return (null!=dateArriveeApresMidi)? DateFormatUtils.format(dateArriveeApresMidi, "dd/MM/yyyy H:mm:ss"): null;
-	}
-
-	public void setDateArriveeApresMidi(Date dateArriveeApresMidi) {
-		this.dateArriveeApresMidi = dateArriveeApresMidi;
-	}
-
 	public Date getDateSaisie() {
 		return dateSaisie;
 	}
 	
-	public String getFormatedDateSaisie(){
-		return (null!=dateSaisie)? DateFormatUtils.format(dateSaisie, "dd/MM/yyyy"): null;
-	}
-
 	public void setDateSaisie(Date dateSaisie) {
 		this.dateSaisie = dateSaisie;
 	}

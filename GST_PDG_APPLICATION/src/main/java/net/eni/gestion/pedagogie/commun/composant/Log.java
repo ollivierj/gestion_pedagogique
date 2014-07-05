@@ -2,7 +2,7 @@ package net.eni.gestion.pedagogie.commun.composant;
 
 import java.util.Properties;
 
-import net.eni.gestion.pedagogie.configuration.BaseSetup;
+import net.eni.gestion.pedagogie.configuration.DatabaseConfiguration;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -80,7 +80,7 @@ public class Log {
 	 */
 	public final static Logger getLogger() {
 		if (null == threadLocal.get()) {
-			synchronized(BaseSetup.class) {
+			synchronized(DatabaseConfiguration.class) {
 	        	if (null == propertyStore) {
 	        		logger = Logger.getLogger(Log.class);
 	        		logger.setLevel(Level.DEBUG);

@@ -139,6 +139,7 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 		useGetSet = true)
 	private String email = null;
 
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy", timezone="CET")   
 	@DatabaseField(
 		columnName = DATE_NAISSANCE_FIELD_NAME,
 		dataType = DataType.DATE,
@@ -163,12 +164,14 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 		useGetSet = true)
 	private String codeOrigineMedia = null;
 	
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy H:mm:ss", timezone="CET")   
 	@DatabaseField(
 		columnName = DATE_DERNIER_ENVOI_DOC_FIELD_NAME,
 		dataType = DataType.DATE,
 		useGetSet = true)
 	private Date dateDernierEnvoiDoc = null;
 	
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy H:mm:ss", timezone="CET")   
 	@DatabaseField(
 		columnName = DATE_CREATION_FIELD_NAME,
 		dataType = DataType.DATE,
@@ -330,11 +333,6 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 		this.email = email;
 	}
 
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd,HH:00", timezone="CET")
-    public Date getDateNaissance() {
-		return dateNaissance;
-	}
-	
 	public void setDateNaissance(Date dateNaissance) {
 		this.dateNaissance = dateNaissance;
 	}
@@ -367,10 +365,6 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 		return dateDernierEnvoiDoc;
 	}
 
-	public String getFormatedDateDernierEnvoiDoc(){
-		return (null!=dateDernierEnvoiDoc)? DateFormatUtils.format(dateDernierEnvoiDoc, "dd/MM/yyyy H:mm:ss"): null;
-	}
-	
 	public void setDateDernierEnvoiDoc(Date dateDernierEnvoiDoc) {
 		this.dateDernierEnvoiDoc = dateDernierEnvoiDoc;
 	}
@@ -379,11 +373,6 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 		return dateCreation;
 	}
 	
-	public String getFormatedDateCreation(){
-		return (null!=dateCreation)? DateFormatUtils.format(dateCreation, "dd/MM/yyyy H:mm:ss"): null;
-	}
-	
-
 	public void setDateCreation(Date dateCreation) {
 		this.dateCreation = dateCreation;
 	}

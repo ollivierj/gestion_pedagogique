@@ -26,7 +26,7 @@ controllers
 									displayName : 'Civilité'
 								},
 								{
-									field : 'formatedDateNaissance',
+									field : 'dateNaissance',
 									displayName : 'Date de naissance'
 								},
 								{

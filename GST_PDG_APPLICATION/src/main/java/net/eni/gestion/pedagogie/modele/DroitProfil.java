@@ -65,7 +65,6 @@ public class DroitProfil extends AModele<Integer> implements Serializable {
 		
 	}
 
-
 	public Profil getProfil() {
 		return profil;
 	}
@@ -81,7 +80,5 @@ public class DroitProfil extends AModele<Integer> implements Serializable {
 	public void setDroit(Droit droit) {
 		this.droit = droit;
 	}
-
-
 
 }

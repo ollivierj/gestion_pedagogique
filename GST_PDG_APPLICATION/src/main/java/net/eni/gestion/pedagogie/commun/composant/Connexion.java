@@ -2,7 +2,7 @@ package net.eni.gestion.pedagogie.commun.composant;
 
 import java.sql.SQLException;
 
-import net.eni.gestion.pedagogie.configuration.BaseSetup;
+import net.eni.gestion.pedagogie.configuration.DatabaseConfiguration;
 
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
@@ -18,7 +18,7 @@ public class Connexion {
 	 * @throws SQLException
 	 */
 	public static ConnectionSource getConnexion() throws SQLException {
-		return new JdbcConnectionSource(BaseSetup.getDatabaseJdbcConnectionString());
+		return new JdbcConnectionSource(DatabaseConfiguration.getDatabaseJdbcConnectionString());
 	}
             
 }

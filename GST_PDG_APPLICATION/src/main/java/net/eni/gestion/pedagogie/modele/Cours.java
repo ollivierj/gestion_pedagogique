@@ -17,6 +17,7 @@ import org.apache.commons.lang3.time.DateFormatUtils;
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -95,6 +96,7 @@ public class Cours extends AModele<UUID> implements Serializable {
 		canBeNull = false)
 	private Float prixPublicAffecte = null;
 
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy H:mm:ss", timezone="CET")   
 	@DatabaseField(
 		columnName = DATE_CREATION_FIELD_NAME,
 		dataType = DataType.DATE,
@@ -102,6 +104,7 @@ public class Cours extends AModele<UUID> implements Serializable {
 		canBeNull = false)
 	private Date dateCreation = null;
 
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy H:mm:ss", timezone="CET")   
 	@DatabaseField(
 		columnName = DATE_MODIF_FIELD_NAME,
 		dataType = DataType.DATE,
@@ -130,21 +133,6 @@ public class Cours extends AModele<UUID> implements Serializable {
 		canBeNull = false)
 	private Integer dureePrevueEnHeures = null;
 
-/*
- * Ces deux champs sont présents en base mais ne sont pas exploités
- */
-/*	@DatabaseField(
-			columnName = CODE_SALLE_FIELD_NAME,
-			foreign = true,
-			useGetSet = true)
-	private String codeSalle = null;
-
-	@DatabaseField(
-			columnName = CODE_FORMATEUR_FIELD_NAME,
-			dataType = DataType.INTEGER_OBJ,
-			useGetSet = true)
-	private Integer codeFormateur = null;*/
-	
 	@ForeignCollectionField(eager = true, columnName = PlanningIndividuelDetail.ID2_FIELD_NAME)
 	private transient Collection<PlanningIndividuelDetail> transientPlanningIndividuelDetails = null;
 
@@ -169,20 +157,12 @@ public class Cours extends AModele<UUID> implements Serializable {
 		return debut;
 	}
 	
-	public String getFormatedDebut(){
-		return (null!=debut)? DateFormatUtils.format(debut, "dd/MM/yyyy"): null;
-	}
-
 	public void setDebut(Date debut) {
 		this.debut = debut;
 	}
 
 	public Date getFin() {
 		return fin;
-	}
-	
-	public String getFormatedFin(){
-		return (null!=fin)? DateFormatUtils.format(fin, "dd/MM/yyyy"): null;
 	}
 
 	public void setFin(Date fin) {
@@ -223,10 +203,6 @@ public class Cours extends AModele<UUID> implements Serializable {
 
 	public Date getDateModif() {
 		return dateModif;
-	}
-	
-	public String getFormatedDateModif(){
-		return (null!=dateModif)? DateFormatUtils.format(dateModif, "dd/MM/yyyy H:mm:ss"): null;
 	}
 
 	public void setDateModif(Date dateModif) {

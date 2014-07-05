@@ -14,6 +14,7 @@ import org.apache.commons.lang3.time.DateFormatUtils;
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -50,6 +51,7 @@ public class ReservationSalle extends AModele<Integer> implements Serializable {
 		useGetSet = true)
 	private Integer id = null;
 	
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy H:mm:ss", timezone="CET")   
 	@DatabaseField(
 		columnName = DATE_DEBUT_FIELD_NAME,
 		dataType = DataType.DATE,
@@ -57,6 +59,7 @@ public class ReservationSalle extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private Date dateDebut = null;
 
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy H:mm:ss", timezone="CET")   
 	@DatabaseField(
 		columnName = DATE_FIN_FIELD_NAME,
 		dataType = DataType.DATE,
@@ -105,10 +108,6 @@ public class ReservationSalle extends AModele<Integer> implements Serializable {
 		return dateDebut;
 	}
 	
-	public String getFormatedDateDebut(){
-		return (null!=dateDebut)? DateFormatUtils.format(dateDebut, "dd/MM/yyyy H:mm:ss"): null;
-	}
-
 	public void setDateDebut(Date dateDebut) {
 		this.dateDebut = dateDebut;
 	}
@@ -116,10 +115,6 @@ public class ReservationSalle extends AModele<Integer> implements Serializable {
 	public Date getDateFin() {
 		return dateFin;
 	}
-	public String getFormatedDateFin(){
-		return (null!=dateFin)? DateFormatUtils.format(dateFin, "dd/MM/yyyy H:mm:ss"): null;
-	}
-	
 	
 	public void setDateFin(Date dateFin) {
 		this.dateFin = dateFin;

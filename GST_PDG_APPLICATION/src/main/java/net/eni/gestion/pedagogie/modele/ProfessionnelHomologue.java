@@ -4,7 +4,6 @@
 package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
-import java.text.ParseException;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -12,9 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
-import org.apache.commons.lang3.time.DateFormatUtils;
-import org.apache.commons.lang3.time.DateUtils;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -61,7 +58,6 @@ public class ProfessionnelHomologue extends AModele<Integer> implements Serializ
 	public String[] getFullTextSearchFieldNames() {
 		return FULL_TEXT_SEARCH_FIELDS;
 	}
-	
 	
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
@@ -136,10 +132,11 @@ public class ProfessionnelHomologue extends AModele<Integer> implements Serializ
 		useGetSet = true)
 	private String email = null;
 
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="CET")   
 	@DatabaseField(
 		columnName = DATE_NAISSANCE_FIELD_NAME,
 		dataType = DataType.DATE,
-		useGetSet = true)
+		useGetSet = false)
 	private Date dateNaissance = null;
 
 	@DatabaseField(
@@ -264,27 +261,8 @@ public class ProfessionnelHomologue extends AModele<Integer> implements Serializ
 		this.email = email;
 	}
 
-	
 	public Date getDateNaissance() {
 		return dateNaissance;
-	}
-	
-	private String formatedDateNaissance;
-	
-	public String getFormatedDateNaissance(){
-		this.formatedDateNaissance = (null!=dateNaissance)? DateFormatUtils.format(dateNaissance, "dd/MM/yyyy"): null;
-		return this.formatedDateNaissance;
-	}
-	
-	public void setFormatedDateNaissance(String formatedDateNaissance){
-		try {
-			this.dateNaissance = (null != formatedDateNaissance)? DateUtils.parseDate(formatedDateNaissance, "dd/MM/yyyy"): null;
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		this.formatedDateNaissance = formatedDateNaissance;  
-		
 	}
 	
 	public void setDateNaissance(Date dateNaissance) {
@@ -322,7 +300,5 @@ public class ProfessionnelHomologue extends AModele<Integer> implements Serializ
 	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
-
-
 
 }
