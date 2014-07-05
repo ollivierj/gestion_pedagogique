@@ -132,7 +132,7 @@ public class ProfessionnelHomologue extends AModele<Integer> implements Serializ
 		useGetSet = true)
 	private String email = null;
 
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="CET")   
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy", timezone="CET")   
 	@DatabaseField(
 		columnName = DATE_NAISSANCE_FIELD_NAME,
 		dataType = DataType.DATE,
