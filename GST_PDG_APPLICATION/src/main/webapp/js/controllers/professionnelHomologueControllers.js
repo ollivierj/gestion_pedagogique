@@ -3,18 +3,13 @@
 controllers
 		.controller(
 				'professionelHomologueesCtrl',
-				function($scope, $modal, $log, ProfessionnelHomologuesFactory,
+				function($scope, $modal, $log, $timeout, ProfessionnelHomologuesFactory,
 						homologationData) {
 					$scope.pagingOptions = ProfessionnelHomologuesFactory.pagingOptions;		
+					$scope.sortOptions = ProfessionnelHomologuesFactory.sortOptions;		
+					$scope.filterOptions = ProfessionnelHomologuesFactory.filterOptions;
 					
-					$scope.$watch(function() {
-						return $scope.pagingOptions;
-					},
-					function(data){
-						ProfessionnelHomologuesFactory.refreshData($scope);
-					}, true);
-
-					$scope.gridOptionsPersonnesHomologuees = {
+					$scope.professionnelHomologuesGridOptions = {
 						data : 'professionnelHomologues',
 						multiSelect : false,
 						columnDefs : [
@@ -56,7 +51,15 @@ controllers
 								} ],
 						enablePaging : true,
 						showFooter : true,
-						totalServerItems : 'totalItems',
+						keepLastSelected: true,
+						enableColumnResize: true,
+						enableColumnReordering : true,
+						useExternalSorting : true,
+						showColumnMenu : true,
+						i18n : 'fr',
+						totalServerItems : 'totalServerItems',
+						filterOptions : $scope.filterOptions,
+						sortInfo : $scope.sortOptions,
 						pagingOptions : $scope.pagingOptions
 					};
 
@@ -135,6 +138,29 @@ controllers
 							$log.info('Modal dismissed at: ' + new Date());
 						});
 					};
+					
+					$scope.$watch('pagingOptions', function (newVal, oldVal) {
+				        if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
+				        	ProfessionnelHomologuesFactory.refreshData($scope);
+				        }
+				    }, true);
+
+					$scope.$watch('filterOptions', function (newVal, oldVal) {
+				        if (newVal !== oldVal) {
+				        	if ($scope.timer) {
+			                    $timeout.cancel($scope.timer);
+			                }
+				        	$scope.timer = $timeout(function () {
+			                    ProfessionnelHomologuesFactory.refreshData($scope);
+			                }, 500);
+				        }
+				    }, true);
+
+				    $scope.$watch('sortOptions', function (newVal, oldVal) {
+				        if (newVal !== oldVal) {
+				        	ProfessionnelHomologuesFactory.refreshData($scope);
+				        }
+				    }, true);
 					
 					ProfessionnelHomologuesFactory.refreshData($scope);
 				});

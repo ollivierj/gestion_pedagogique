@@ -4,29 +4,38 @@ services.factory('ProfessionnelHomologuesFactory', function ($resource) {
 	var	pagingOptions = {
 		pageSizes : [ 5, 10, 15, 25 ],
 		pageSize : 10,
-		currentPage : 1,
-		totalItems : 0,
-		sortColumnBy : "PRF_HMG_ID",
-		sortDirectionBy : "DESC"
+		currentPage : 1
 	};
 	
-	var page = $resource('/ng_gst_pdg/web/professionnelHomologues/page/:page/:pageSize/:totalItems/:sortColumnBy/:sortDirectionBy', {}, {
-		getData : { method: 'GET', params: {page: '@page', pageSize: '@pageSize', sortColumnBy: '@sortColumnBy', sortDirectionBy : '@sortDirectionBy'} }
+	var filterOptions = {
+        filterText: "",
+        useExternalFilter: true
+	};
+	
+	var sortOptions = {
+        fields: ["nom"],
+        directions: ["DESC"]
+	};
+
+	
+	var page = $resource('/ng_gst_pdg/web/professionnelHomologues/page', {}, {
+		getData : { method: 'POST'}
 	});
 	
 	return {
 		pagingOptions : pagingOptions,
+		filterOptions : filterOptions,
+		sortOptions : sortOptions,
 		refreshData : function($scope) {
 				page.getData(
 					{
-					page : $scope.pagingOptions.currentPage,
-					pageSize : $scope.pagingOptions.pageSize,
-					sortColumnBy : $scope.pagingOptions.sortColumnBy,
-					sortDirectionBy : $scope.pagingOptions.sortDirectionBy
+					pagingOptions : $scope.pagingOptions,
+					filterOptions : $scope.filterOptions,
+					sortOptions : 	$scope.sortOptions
 					}
 				).$promise.then(function(response) {
 					$scope.professionnelHomologues=response.data;
-					$scope.totalItems=response.pager.totalItems;
+					$scope.totalServerItems=response.data.totalServerItems;
 		         });			
 			},
 		page : page,
