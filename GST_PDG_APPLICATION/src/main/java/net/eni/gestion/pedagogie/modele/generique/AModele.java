@@ -7,6 +7,7 @@ package net.eni.gestion.pedagogie.modele.generique;
  */
 public abstract class AModele <ID> {
 
+	
 	/**
 	 * Constructeur
 	 */
@@ -22,4 +23,11 @@ public abstract class AModele <ID> {
 	 * @param Clé unique
 	 */
 	public abstract void setId(ID pId);
+	
+	
+	public String[] getFullTextSearchFieldNames() {
+		return null;
+	}
+	
+	
 }

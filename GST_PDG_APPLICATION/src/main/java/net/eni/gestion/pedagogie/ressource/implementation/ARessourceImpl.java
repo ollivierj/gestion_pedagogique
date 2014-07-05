@@ -1,5 +1,7 @@
 package net.eni.gestion.pedagogie.ressource.implementation;
 
+import java.util.ArrayList;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -13,6 +15,7 @@ import javax.ws.rs.core.MediaType;
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
 import net.eni.gestion.pedagogie.commun.composant.NamedObjectMap;
 import net.eni.gestion.pedagogie.commun.composant.Pager;
+import net.eni.gestion.pedagogie.commun.composant.Pair;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 import net.eni.gestion.pedagogie.ressource.ARessource;
 import net.eni.gestion.pedagogie.service.AService;
@@ -36,11 +39,16 @@ public class ARessourceImpl <M extends AModele<ID>, ID, S extends AService<M,ID>
     /* (non-Javadoc)
      * @see net.eni.gestion.pedagogie.service.contrat.generique.CRUDService#charger()
      */
-    @GET
-    @Path("page/{page}/{pageSize}/{sortColumnBy}/{sortDirectionBy}")
+    @POST
+    @Path("/page")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public NamedObjectMap charger(@PathParam("page") int page, @PathParam("pageSize") int pageSize, @PathParam("sortColumnBy") String sortColumnBy, @PathParam("sortDirectionBy") String sortDirectionBy) throws GenericException {
-        return service.charger(new Pager(page, pageSize, sortColumnBy, sortDirectionBy));
+    public NamedObjectMap charger(Pager pPager) throws GenericException {
+        Pair<ArrayList<M>, Long> page = service.charger(pPager);
+        NamedObjectMap results = new NamedObjectMap();
+        results.put("data", page.first());
+        results.put("totalServerItems", page.second());
+        return results;
     }
         
 	/* (non-Javadoc)

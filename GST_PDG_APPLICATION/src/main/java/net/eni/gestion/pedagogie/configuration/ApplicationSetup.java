@@ -1,5 +1,7 @@
 package net.eni.gestion.pedagogie.configuration;
 
+
+
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 
 import com.google.inject.Guice;
@@ -26,13 +28,12 @@ public class ApplicationSetup extends GuiceServletContextListener {
 
                 super.configureServlets();
 
-                // Configuring Jersey via Guice:
                 ResourceConfig resourceConfig = new PackagesResourceConfig("net.eni.gestion.pedagogie.ressource");
+                
                 for (Class<?> resource : resourceConfig.getClasses()) {
                     bind(resource);
                 }
-
-                // hook Jackson into Jersey as the POJO <-> JSON mapper
+                bind(RessourceSetup.class).in(Scopes.SINGLETON);
                 bind(JacksonJsonProvider.class).in(Scopes.SINGLETON);
 
                 serve("/web/*").with(GuiceContainer.class);

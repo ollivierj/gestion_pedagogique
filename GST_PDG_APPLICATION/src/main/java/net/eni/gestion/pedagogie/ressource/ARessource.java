@@ -2,6 +2,7 @@ package net.eni.gestion.pedagogie.ressource;
 
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
 import net.eni.gestion.pedagogie.commun.composant.NamedObjectMap;
+import net.eni.gestion.pedagogie.commun.composant.Pager;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 /**
@@ -23,7 +24,7 @@ public interface ARessource<M extends AModele<ID>, ID> {
 	 * @return Liste de modèles
 	 * @throws GenericException
 	 */
-	public NamedObjectMap charger(int page, int pageSize, String sortColumnBy, String sortDirectionBy) throws GenericException;
+	public NamedObjectMap charger(Pager pPager) throws GenericException;
 	
 	 /**
 	 * Charge un modèle

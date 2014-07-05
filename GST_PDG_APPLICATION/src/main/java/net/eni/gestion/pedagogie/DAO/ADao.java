@@ -3,8 +3,10 @@
  */
 package net.eni.gestion.pedagogie.DAO;
 
-import net.eni.gestion.pedagogie.commun.composant.NamedObjectMap;
+import java.util.ArrayList;
+
 import net.eni.gestion.pedagogie.commun.composant.Pager;
+import net.eni.gestion.pedagogie.commun.composant.Pair;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 /**
@@ -20,7 +22,7 @@ public interface ADao<M extends AModele<ID>, ID> {
 		 * @param pModel Modèle servant de critère de recherche
 		 * @return ArrayList<GenericModel> Tableau contenant les résultats de la DAO requêtant l'ensemble des modèles
 		 */
-		public NamedObjectMap charger(Pager pPager) throws Exception;
+		public Pair<ArrayList<M>, Long> charger(Pager pPager) throws Exception;
 		
 		/**
 		 * Méthode de chargement du détail d'un modèle + règles de gestion spécifiques

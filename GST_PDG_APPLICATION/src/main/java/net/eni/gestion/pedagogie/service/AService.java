@@ -1,8 +1,13 @@
 package net.eni.gestion.pedagogie.service;
 
+import java.util.ArrayList;
+
+import net.eni.gestion.pedagogie.commun.composant.FilterOptions;
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
-import net.eni.gestion.pedagogie.commun.composant.NamedObjectMap;
 import net.eni.gestion.pedagogie.commun.composant.Pager;
+import net.eni.gestion.pedagogie.commun.composant.PagingOptions;
+import net.eni.gestion.pedagogie.commun.composant.Pair;
+import net.eni.gestion.pedagogie.commun.composant.SortOptions;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 
@@ -20,7 +25,7 @@ public interface AService <M extends AModele<ID>, ID> {
 	 * @return
 	 * @throws GenericException
 	 */
-	public NamedObjectMap charger(Pager pPager) throws GenericException;
+	public Pair<ArrayList<M>, Long> charger(Pager pPager) throws GenericException;
 	
 	/**
 	 * @param pModel
