@@ -83,10 +83,14 @@ controllers
 							professionnelHomologueId) {
 						var modalAdd = $modal
 								.open({
-									templateUrl : 'partials/professionnelHomologues/professionnelHomologuesFormulaire.html',
+									templateUrl : 'partials/templates/form.html',
 									controller : modalEditionProfessionnelHomologueCtrl,
 									resolve : {
+										title : function() {return "Ajout d'un professionnel homologué";},
 										professionnelHomologue : function(){ return {}},
+										schema : function(ProfessionnelHomologuesFactory) {
+											return ProfessionnelHomologuesFactory.jsonschema.getData().$promise;
+										},
 										ok : function() { return function(item){ return ProfessionnelHomologuesFactory.create.doAction(item);}}
 									}
 								});
@@ -102,9 +106,10 @@ controllers
 							professionnelHomologueId) {
 						var modalEdit = $modal
 								.open({
-									templateUrl : 'partials/professionnelHomologues/professionnelHomologuesFormulaire.html',
+									templateUrl : 'partials/templates/form.html',
 									controller : modalEditionProfessionnelHomologueCtrl,
 									resolve : {
+										title : function() {return "Edition d'un professionnel homologué";},
 										professionnelHomologue : function(ProfessionnelHomologuesFactory) {
 											return ProfessionnelHomologuesFactory.detail.getData({id : professionnelHomologueId}).$promise;
 										},
@@ -169,10 +174,11 @@ controllers
 				});
 
 var modalEditionProfessionnelHomologueCtrl = function($scope, $modalInstance,
-		ProfessionnelHomologuesFactory, professionnelHomologue, schema, ok) {
+		ProfessionnelHomologuesFactory, title, professionnelHomologue, schema, ok) {
+	$scope.title = title;
 	$scope.data = professionnelHomologue;
 	$scope.schema = schema;
-	$scope.form = ["nom","prenom","civilite","adresse1","adresse2","adresse3","ville","codePostal",{"key" : "formatedDateNaissance","type":"string","format":"date","minDate": "2014-06-20"}, "codeRegion","telephoneFixe","telephonePortable","permis"];
+	$scope.form = ["nom","prenom","civilite","adresse1","adresse2","adresse3","ville","codePostal","formatedDateNaissance", "codeRegion","telephoneFixe","telephonePortable","permis"];
 	$scope.decorator = 'bootstrap-decorator';
 	$scope.ok =function(data){
 		ok(data).$promise.then(
