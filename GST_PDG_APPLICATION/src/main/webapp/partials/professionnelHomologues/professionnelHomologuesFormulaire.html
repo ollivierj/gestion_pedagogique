@@ -10,87 +10,11 @@
 
 <div class="modal-body">
 	
-	<div class="row form-group">
-		<div class="col-lg-6 form-group">
-	    	<div class="form-group">
-	        	<input class="form-control" type="text" placeholder="Nom" tooltip="Saisissez un nom" ng-model="professionnelHomologue.nom" tooltip-placement="left">
-	    	</div>
-	    	<div class="form-group">
-	        	<input class="form-control" type="text" placeholder="Prenom" tooltip="Saisissez un prénom" ng-model="professionnelHomologue.prenom" tooltip-placement="left">
-	    	</div>
-	    	<div class="form-group">
-	        	<input class="form-control" type="text" placeholder="Date de naissance" ng-model="professionnelHomologue.dateNaissance" tooltip="Saisissez une date de naissance" tooltip-placement="left">
-	    	</div>
-	    	<div class="form-group">
-	        	M <input type="radio" tooltip="Monsieur"  tooltip-placement="left">
-	        	Mme <input type="radio" tooltip="Madame" tooltip-placement="left">
-	    	</div>
-	    	<div class="form-group">
-	        	Permis <input type="checkbox" tooltip="A-t-il le permis ?" tooltip-placement="left">
-	    	</div>
-	    	<div class="form-group">
-	        	<input type="file" tooltip="Choisissez une photo" tooltip-placement="left">
-	    	</div>
-	    </div>
-
-		<div class="col-lg-6">
-	        <img src="http://placehold.it/200x200">
-	    </div>
-    </div>
-	
-	<div class="row form-group">
-		<div class="col-lg-12">
-			<input class="form-control" type="text" placeholder="Adresse"  tooltip="Saisissez une adresse"  ng-model="professionnelHomologue.adresse1" tooltip-placement="left">
-		</div>
-	</div>
-
-	<div class="row form-group">
-		<div class="col-lg-6">
-			<input class="form-control" type="text" placeholder="ville" tooltip="Saisissez une ville" ng-model="professionnelHomologue.ville" tooltip-placement="left">
-		</div>
-		<div class="col-lg-6">
-			<input class="form-control" type="text" placeholder="Code postal" tooltip="Saisissez un code postal" ng-model="professionnelHomologue.codePostal" tooltip-placement="right">
-		</div>
-	</div>
-
-	<div class="row form-group">
-		<div class="col-lg-6">
-			<input class="form-control" type="text" placeholder="Téléphone" ng-model="professionnelHomologue.telephoneFixe" tooltip="Saisissez un numéro de téléphone fixe" tooltip-placement="left">
-		</div>
-		<div class="col-lg-6">
-			<input class="form-control" type="text" placeholder="Téléphone portable" ng-model="professionnelHomologue.telephonePortable" tooltip="Saisissez un numéro de téléphone portable" tooltip-placement="right">
-		</div>
-	</div>
-	
-	<div class="row form-group">
-		<div class="col-lg-12">
-			<input class="form-control" type="text" placeholder="E-mail" ng-model="professionnelHomologue.email" tooltip="Saisissez un e-mail" tooltip-placement="left">
-		</div>
-	</div>
-
-	<div class="form-group">
-		Homologation
-		<button class="btn btn-primary btn-xs">
-			<span class="fa fa-plus"></span>
-		</button>
-	</div>
-	<div class="row form-group">
-		<div class="col-lg-6">
-			<select class="form-control" tooltip="Choisissez une homologation" tooltip-placement="left">
-				<option ng-repeat="h in homologations">{{h.titre}}</option>
-			</select>
-		</div>
-		<div class="col-lg-3">
-			<input class="form-control" type="text" placeholder="Date de début" tooltip="Saisissez une date de début pour l'homologation" tooltip-placement="top">
-		</div>
-		<div class="col-lg-3">
-			<input class="form-control" type="text" placeholder="Date de fin" tooltip="Saisissez une date de fin pour l'homologation" tooltip-placement="right">
-		</div>
-	</div>
+	<form sf-schema="schema" sf-form="form" sf-model="data"></form>
 	
 </div>
 
 <div class="modal-footer">
 	<button class="btn btn-primary" ng-click="cancel()">Annuler</button>
-	<button class="btn btn-primary" ng-click="ok(professionnelHomologue)">Enregistrer</button>
+	<button class="btn btn-primary" ng-click="ok(data)">Enregistrer</button>
 </div>

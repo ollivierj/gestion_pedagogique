@@ -108,6 +108,9 @@ controllers
 										professionnelHomologue : function(ProfessionnelHomologuesFactory) {
 											return ProfessionnelHomologuesFactory.detail.getData({id : professionnelHomologueId}).$promise;
 										},
+										schema : function(ProfessionnelHomologuesFactory) {
+											return ProfessionnelHomologuesFactory.jsonschema.getData().$promise;
+										},
 										ok : function() { return function(item){ return ProfessionnelHomologuesFactory.modify.doAction(item);}}
 									}
 								});
@@ -166,12 +169,15 @@ controllers
 				});
 
 var modalEditionProfessionnelHomologueCtrl = function($scope, $modalInstance,
-		ProfessionnelHomologuesFactory, professionnelHomologue, ok) {
-	$scope.professionnelHomologue = professionnelHomologue;
-	$scope.ok =function(item){
-		ok(item).$promise.then(
+		ProfessionnelHomologuesFactory, professionnelHomologue, schema, ok) {
+	$scope.data = professionnelHomologue;
+	$scope.schema = schema;
+	$scope.form = ["nom","prenom","civilite","adresse1","adresse2","adresse3","ville","codePostal",{"key" : "formatedDateNaissance","type":"string","format":"date","minDate": "2014-06-20"}, "codeRegion","telephoneFixe","telephonePortable","permis"];
+	$scope.decorator = 'bootstrap-decorator';
+	$scope.ok =function(data){
+		ok(data).$promise.then(
 			function(response) {
-				$modalInstance.close(item);
+				$modalInstance.close(data);
 			}, 
 			function(reason) {
 				alert('Failed: ' + reason);

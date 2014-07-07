@@ -39,6 +39,9 @@ services.factory('ProfessionnelHomologuesFactory', function ($resource) {
 		         });			
 			},
 		page : page,
+		jsonschema :  $resource('/ng_gst_pdg/web/professionnelHomologues/jsonschema', {}, {
+			getData : { method: 'GET'}
+		}),
 		detail :  $resource('/ng_gst_pdg/web/professionnelHomologues/detail/:id', {}, {
 			getData : { method: 'GET', params: {id: '@id'}, isArray: false }
 		}),
