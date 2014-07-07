@@ -157,7 +157,7 @@ public class ProfessionnelHomologue extends AModele<Integer> implements Serializ
 		useGetSet = false)
 	private Date dateNaissance = null;
 	
-	@Attributes(title = "Date de naissance", required = false)
+	@Attributes(title = "Date de naissance", required = false, format = "date")
 	private String formatedDateNaissance;
 
 	public String getFormatedDateNaissance() {
