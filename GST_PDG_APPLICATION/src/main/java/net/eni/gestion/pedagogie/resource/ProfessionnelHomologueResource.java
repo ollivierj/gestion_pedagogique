@@ -1,4 +1,4 @@
-package net.eni.gestion.pedagogie.ressource;
+package net.eni.gestion.pedagogie.resource;
 
 import net.eni.gestion.pedagogie.modele.ProfessionnelHomologue;
 
@@ -6,6 +6,6 @@ import net.eni.gestion.pedagogie.modele.ProfessionnelHomologue;
  * @author jollivier
  * Interface service pour le module de gestion des professionnels homologues
  */
-public interface ProfessionnelHomologueRessource extends ARessource<ProfessionnelHomologue, Integer> {
+public interface ProfessionnelHomologueResource extends AResource<ProfessionnelHomologue, Integer> {
 
 }

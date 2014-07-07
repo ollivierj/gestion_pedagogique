@@ -1,9 +1,9 @@
-package net.eni.gestion.pedagogie.ressource.implementation;
+package net.eni.gestion.pedagogie.resource.implementation;
 
 import javax.ws.rs.Path;
 
 import net.eni.gestion.pedagogie.modele.Avis;
-import net.eni.gestion.pedagogie.ressource.AvisRessource;
+import net.eni.gestion.pedagogie.resource.AvisResource;
 import net.eni.gestion.pedagogie.service.AvisService;
 
 import com.google.inject.Inject;
@@ -13,15 +13,15 @@ import com.google.inject.Inject;
  * Classe d'implémentation pour le module de gestion des aviss
  */
 @Path("/aviss")
-public class AvisRessourceImpl extends ARessourceImpl<Avis, Integer, AvisService> implements AvisRessource {
+public class AvisResourceImpl extends AResourceImpl<Avis, Integer, AvisService> implements AvisResource {
 
     /**
      * Constructeur
      * @param AvisService
      */
     @Inject
-    public AvisRessourceImpl(AvisService AvisService) {
-    	super(AvisService);
+    public AvisResourceImpl(AvisService AvisService) {
+    	super(AvisService, Avis.class);
     }
 
 }

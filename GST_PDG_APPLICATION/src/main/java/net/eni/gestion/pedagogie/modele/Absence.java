@@ -11,8 +11,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
-import org.apache.commons.lang3.time.DateFormatUtils;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
@@ -109,10 +107,18 @@ public class Absence extends AModele<Integer> implements Serializable {
 		return dateArriveeMatin;
 	}
 	
+	public void setDateArriveeMatin(Date dateArriveeMatin) {
+		this.dateArriveeMatin = dateArriveeMatin;
+	}
+
 	public Date getDateArriveeApresMidi() {
 		return dateArriveeApresMidi;
 	}
 	
+	public void setDateArriveeApresMidi(Date dateArriveeApresMidi) {
+		this.dateArriveeApresMidi = dateArriveeApresMidi;
+	}
+
 	public Date getDateSaisie() {
 		return dateSaisie;
 	}

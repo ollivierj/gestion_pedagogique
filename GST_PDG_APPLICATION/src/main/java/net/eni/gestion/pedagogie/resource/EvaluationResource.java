@@ -1,4 +1,4 @@
-package net.eni.gestion.pedagogie.ressource;
+package net.eni.gestion.pedagogie.resource;
 
 import net.eni.gestion.pedagogie.modele.Evaluation;
 
@@ -6,6 +6,6 @@ import net.eni.gestion.pedagogie.modele.Evaluation;
  * @author jollivier
  * Interface service pour le module de suivi des evaluations
  */
-public interface EvaluationRessource extends ARessource<Evaluation, Integer> {
+public interface EvaluationResource extends AResource<Evaluation, Integer> {
 
 }

@@ -1,4 +1,4 @@
-package net.eni.gestion.pedagogie.ressource.implementation;
+package net.eni.gestion.pedagogie.resource.implementation;
 
 import java.util.ArrayList;
 
@@ -16,25 +16,47 @@ import net.eni.gestion.pedagogie.commun.composant.GenericException;
 import net.eni.gestion.pedagogie.commun.composant.NamedObjectMap;
 import net.eni.gestion.pedagogie.commun.composant.Pager;
 import net.eni.gestion.pedagogie.commun.composant.Pair;
+import net.eni.gestion.pedagogie.modele.ProfessionnelHomologue;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
-import net.eni.gestion.pedagogie.ressource.ARessource;
+import net.eni.gestion.pedagogie.resource.AResource;
 import net.eni.gestion.pedagogie.service.AService;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.github.reinert.jjschema.v1.JsonSchemaFactory;
+import com.github.reinert.jjschema.v1.JsonSchemaV4Factory;
 import com.google.inject.Inject;
 
-public class ARessourceImpl <M extends AModele<ID>, ID, S extends AService<M,ID>> implements ARessource<M, ID>{
+public class AResourceImpl <M extends AModele<ID>, ID, S extends AService<M,ID>> implements AResource<M, ID>{
    
 
     protected final S service;
+    
+    protected final Class<M> modele;
     
     /**
      * Constructeur
      * @param MService
      */
     @Inject
-    public ARessourceImpl(S pService) {
+    public AResourceImpl(S pService, Class<M> pModele) {
         service = pService;
+        modele = pModele;
     }
+    
+    @GET
+    @Path("/jsonschema")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getJsonSchema() throws GenericException {
+    	JsonSchemaFactory schemaFactory = new JsonSchemaV4Factory();
+    	schemaFactory.setAutoPutDollarSchema(true);
+    	JsonNode productSchema = schemaFactory.createSchema(ProfessionnelHomologue.class);
+    	return productSchema.toString();
+    }
+    
+    /* (non-Javadoc)
+     * @see net.eni.gestion.pedagogie.Resource.AResource#getJsonSchema()
+     */
+ 
 
     /* (non-Javadoc)
      * @see net.eni.gestion.pedagogie.service.contrat.generique.CRUDService#charger()

@@ -1,4 +1,4 @@
-package net.eni.gestion.pedagogie.ressource;
+package net.eni.gestion.pedagogie.resource;
 
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
 import net.eni.gestion.pedagogie.commun.composant.NamedObjectMap;
@@ -17,8 +17,14 @@ import net.eni.gestion.pedagogie.modele.generique.AModele;
  * Create, Retrieve, Update, Delete
  * @param <M>
  */
-public interface ARessource<M extends AModele<ID>, ID> {
+public interface AResource<M extends AModele<ID>, ID> {
 
+	 /**
+	 * @return
+	 * @throws GenericException
+	 */
+	public String getJsonSchema() throws GenericException;
+	
 	/**
 	 * Charge une liste de modèles
 	 * @return Liste de modèles

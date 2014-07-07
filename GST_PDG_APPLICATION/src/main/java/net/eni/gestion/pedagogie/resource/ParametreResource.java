@@ -1,4 +1,4 @@
-package net.eni.gestion.pedagogie.ressource;
+package net.eni.gestion.pedagogie.resource;
 
 import net.eni.gestion.pedagogie.modele.Parametre;
 
@@ -6,6 +6,6 @@ import net.eni.gestion.pedagogie.modele.Parametre;
  * @author jollivier
  * Interface service pour le module de paramètrage
  */
-public interface ParametreRessource extends ARessource<Parametre, String> {
+public interface ParametreResource extends AResource<Parametre, String> {
 
 }

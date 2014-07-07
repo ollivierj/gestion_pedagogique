@@ -1,4 +1,4 @@
-package net.eni.gestion.pedagogie.ressource;
+package net.eni.gestion.pedagogie.resource;
 
 import net.eni.gestion.pedagogie.modele.ReservationSalle;
 
@@ -6,6 +6,6 @@ import net.eni.gestion.pedagogie.modele.ReservationSalle;
  * @author jollivier
  * Interface service pour le module de réservation des salles
  */
-public interface ReservationSalleRessource extends ARessource<ReservationSalle, Integer> {
+public interface ReservationSalleResource extends AResource<ReservationSalle, Integer> {
 
 }

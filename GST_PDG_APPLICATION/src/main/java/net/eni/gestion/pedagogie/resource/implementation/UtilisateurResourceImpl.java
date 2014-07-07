@@ -1,9 +1,9 @@
-package net.eni.gestion.pedagogie.ressource.implementation;
+package net.eni.gestion.pedagogie.resource.implementation;
 
 import javax.ws.rs.Path;
 
 import net.eni.gestion.pedagogie.modele.Utilisateur;
-import net.eni.gestion.pedagogie.ressource.UtilisateurRessource;
+import net.eni.gestion.pedagogie.resource.UtilisateurResource;
 import net.eni.gestion.pedagogie.service.UtilisateurService;
 
 import com.google.inject.Inject;
@@ -13,15 +13,15 @@ import com.google.inject.Inject;
  * Classe d'implémentation pour le module de gestion des utilisateurs
  */
 @Path("/utilisateurs")
-public class UtilisateurRessourceImpl extends ARessourceImpl<Utilisateur, Integer, UtilisateurService> implements UtilisateurRessource {
+public class UtilisateurResourceImpl extends AResourceImpl<Utilisateur, Integer, UtilisateurService> implements UtilisateurResource {
 
     /**
      * Constructeur
      * @param utilisateurService
      */
     @Inject
-    public UtilisateurRessourceImpl(UtilisateurService utilisateurService) {
-    	super(utilisateurService);
+    public UtilisateurResourceImpl(UtilisateurService utilisateurService) {
+    	super(utilisateurService, Utilisateur.class);
     }
 
 }

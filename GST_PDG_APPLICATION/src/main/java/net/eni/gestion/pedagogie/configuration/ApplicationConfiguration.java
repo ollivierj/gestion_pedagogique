@@ -27,7 +27,7 @@ public class ApplicationConfiguration extends GuiceServletContextListener {
 
                 super.configureServlets();
 
-                ResourceConfig resourceConfig = new PackagesResourceConfig("net.eni.gestion.pedagogie.ressource");
+                ResourceConfig resourceConfig = new PackagesResourceConfig("net.eni.gestion.pedagogie.resource");
                 
                 for (Class<?> resource : resourceConfig.getClasses()) {
                     bind(resource);

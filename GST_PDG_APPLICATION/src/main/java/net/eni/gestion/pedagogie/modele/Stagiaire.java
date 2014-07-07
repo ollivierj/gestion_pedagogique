@@ -14,8 +14,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
-import org.apache.commons.lang3.time.DateFormatUtils;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
@@ -331,6 +329,10 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public Date getDateNaissance() {
+		return dateNaissance;
 	}
 
 	public void setDateNaissance(Date dateNaissance) {
