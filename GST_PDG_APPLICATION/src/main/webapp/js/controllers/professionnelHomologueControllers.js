@@ -178,16 +178,42 @@ var modalEditionProfessionnelHomologueCtrl = function($scope, $modalInstance,
 	$scope.title = title;
 	$scope.data = professionnelHomologue;
 	$scope.schema = schema;
-	$scope.form = ["nom","prenom","civilite","adresse1","adresse2","adresse3","ville","codePostal","formatedDateNaissance", "codeRegion","telephoneFixe","telephonePortable","permis"];
+	$scope.form = [
+	            "nom",
+	            "prenom",
+	            "civilite",
+	            "adresse1",
+	            "adresse2",
+	            "adresse3",
+	            "ville",
+	            "codePostal",
+	            "formatedDateNaissance",
+	            "codeRegion",
+	            "telephoneFixe",
+	            "telephonePortable",
+	            "permis",
+	            {
+	            	  type: "actions",
+	            	  items: [
+	            	    { type: 'submit', title: 'Enregistrer' },
+	            	    { type: 'button', title: 'Annuler', onClick: "cancel()" }
+	            	  ]
+	            }
+	            ];
 	$scope.decorator = 'bootstrap-decorator';
-	$scope.ok =function(data){
-		ok(data).$promise.then(
-			function(response) {
-				$modalInstance.close(data);
-			}, 
-			function(reason) {
-				alert('Failed: ' + reason);
-			});
+	$scope.submit =function(){
+		if (generic.$valid){
+			ok($scope.data).$promise.then(
+					function(response) {
+						$modalInstance.close(data);
+					}, 
+					function(reason) {
+						alert('Echec: ' + reason);
+					});
+		}else {
+			alert("La saisie est incorrecte");
+		}
+
 	};
 	$scope.cancel = function() {
 		$modalInstance.dismiss('cancel');
