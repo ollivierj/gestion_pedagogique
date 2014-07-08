@@ -177,42 +177,68 @@ var modalEditionProfessionnelHomologueCtrl = function($scope, $modalInstance,
 		ProfessionnelHomologuesFactory, title, professionnelHomologue, schema, ok) {
 	$scope.title = title;
 	$scope.data = professionnelHomologue;
+	$scope.ok = ok;
 	$scope.schema = schema;
-	$scope.form = [
-	            "nom",
-	            "prenom",
-	            "civilite",
-	            "adresse1",
-	            "adresse2",
-	            "adresse3",
-	            "ville",
-	            "codePostal",
-	            "formatedDateNaissance",
-	            "codeRegion",
-	            "telephoneFixe",
-	            "telephonePortable",
-	            "permis",
-	            {
-	            	  type: "actions",
-	            	  items: [
-	            	    { type: 'submit', title: 'Enregistrer' },
-	            	    { type: 'button', title: 'Annuler', onClick: "cancel()" }
-	            	  ]
-	            }
-	            ];
+	$scope.form = 
+		[
+		{
+		    type: "tabs",
+		    tabs: 
+		    	[
+			    {
+			      title: "Etat civil",
+			      items: 	[
+			             	"civilite",
+				            "nom",
+				            "prenom",
+				            "formatedDateNaissance"
+				            ]
+			    },
+			    {
+				      title: "Adresse",
+				      items: 	[
+					            "adresse1",
+					            "adresse2",
+					            "adresse3",
+					            "ville",
+					            "codePostal",
+					            "codeRegion"
+					            ]
+				    },
+			    {
+			        title: "Contact",
+			        items: 	[
+			               	"email",
+			               	"telephoneFixe",
+			               	"telephonePortable"
+			            	]
+			    },
+			    {
+			        title: "Autre",
+			        items: 	[
+			               	 "permis"
+			            	]
+			    }
+			    ]
+		},	
+        {
+        	  type: "actions",
+        	  items:	[
+		        	    { type: 'submit', title: 'Enregistrer' },
+		        	    { type: 'button', title: 'Annuler', onClick: "cancel()" }
+		        	    ]
+        }
+	    ];
 	$scope.decorator = 'bootstrap-decorator';
 	$scope.submit =function(){
-		if (generic.$valid){
-			ok($scope.data).$promise.then(
+		$scope.ok($scope.data).$promise.then(
 					function(response) {
-						$modalInstance.close(data);
+						$modalInstance.close($scope.data);
 					}, 
 					function(reason) {
 						alert('Echec: ' + reason);
 					});
-		}else {
-			alert("La saisie est incorrecte");
-		}
+		
 
 	};
 	$scope.cancel = function() {
