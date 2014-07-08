@@ -1,0 +1,4 @@
+#Fichiers propriétés propres a l'utilisateur de maven
+pom.properties
+#fichier .gitignore dans le dossier target
+target

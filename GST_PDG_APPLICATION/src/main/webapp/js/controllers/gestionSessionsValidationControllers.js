@@ -1,6 +1,6 @@
 'use strict';
 
-controllers.controller('gestionSessionsValidationCtrl', function($scope, $modal, $log, PromotionsFactory, pHomologuee, SallesFactory, 
+controllers.controller('gestionSessionsValidationCtrl', function($scope, $modal, $log, PromotionsFactory, PersonnelHomologuesFactory, SallesFactory, 
           sessionsValidationData, jurysSallesData) {
 
   $scope.sessionSelected = [];
@@ -42,8 +42,8 @@ controllers.controller('gestionSessionsValidationCtrl', function($scope, $modal,
                 items: function () {
                   return $scope.items;
                 },
-                personnesHomologuees: function(pHomologuee) {
-                  return pHomologuee.query().$promise;
+                personnesHomologuees: function(PersonnelHomologuesFactory) {
+                  return PersonnelHomologuesFactory.query().$promise;
                 },
                 salles: function(SallesFactory) {
                   return SallesFactory.query().$promise;
