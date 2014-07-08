@@ -18,15 +18,23 @@
 
 package com.github.reinert.jjschema.v1;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Set;
+
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.reinert.jjschema.Attributes;
 import com.github.reinert.jjschema.ManagedReference;
 import com.google.common.collect.Lists;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.util.*;
 
 /**
  * @author Danilo Reinert
@@ -217,6 +225,9 @@ public class CustomSchemaWrapper extends SchemaWrapper implements Iterable<Prope
             }
             if (!attributes.format().isEmpty()) {
                 node.put("format", attributes.format());
+            }
+            if (!attributes.validationMessage().isEmpty()) {
+                node.put("validationMessage", attributes.validationMessage());
             }
             if (attributes.maximum() > -1) {
                 node.put("maximum", attributes.maximum());
