@@ -41,6 +41,8 @@ public @interface Attributes {
     
     String format() default "";
     
+    String validationMessage() default "Le format est invalide";
+    
     long maximum() default -1l;
 
     boolean exclusiveMaximum() default false;

@@ -16,7 +16,6 @@ import net.eni.gestion.pedagogie.commun.composant.GenericException;
 import net.eni.gestion.pedagogie.commun.composant.NamedObjectMap;
 import net.eni.gestion.pedagogie.commun.composant.Pager;
 import net.eni.gestion.pedagogie.commun.composant.Pair;
-import net.eni.gestion.pedagogie.modele.ProfessionnelHomologue;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 import net.eni.gestion.pedagogie.resource.AResource;
 import net.eni.gestion.pedagogie.service.AService;
@@ -49,7 +48,7 @@ public class AResourceImpl <M extends AModele<ID>, ID, S extends AService<M,ID>>
     public String getJsonSchema() throws GenericException {
     	JsonSchemaFactory schemaFactory = new JsonSchemaV4Factory();
     	schemaFactory.setAutoPutDollarSchema(true);
-    	JsonNode productSchema = schemaFactory.createSchema(ProfessionnelHomologue.class);
+    	JsonNode productSchema = schemaFactory.createSchema(modele);
     	return productSchema.toString();
     }
     

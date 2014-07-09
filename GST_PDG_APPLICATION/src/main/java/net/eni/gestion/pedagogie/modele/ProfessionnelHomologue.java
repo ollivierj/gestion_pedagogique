@@ -4,11 +4,13 @@
 package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
+import java.text.ParseException;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.commons.lang3.time.DateUtils;
 
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
@@ -115,7 +117,7 @@ public class ProfessionnelHomologue extends AModele<Integer> implements Serializ
 		useGetSet = true)
 	private String adresse3 = null;
 
-	@Attributes(title = "Code Postal", required = true, maxLength = 5)
+	@Attributes(title = "Code Postal", required = true, maxLength = 5, pattern = "^(([0-8][0-9])|(9[0-5]))[0-9]{3}$", validationMessage="Le code postal respecter la forme suivante : \"XXXXX\" ou \"2A\" ou \"2B\"")
 	@DatabaseField(
 		columnName = CODE_POSTAL_FIELD_NAME,
 		dataType = DataType.STRING,
@@ -129,21 +131,21 @@ public class ProfessionnelHomologue extends AModele<Integer> implements Serializ
 		useGetSet = true)
 	private String ville = null;
 
-	@Attributes(title = "Téléphone fixe", required = false, maxLength = 14)
+	@Attributes(title = "Téléphone fixe", required = false, maxLength = 14, pattern = "^0[1-68][0-9]{8}$", validationMessage="Le numéro de téléphone respecter la forme suivante : \"XXXXXXXXXX\"")
 	@DatabaseField(
 		columnName = TELEPHONE_FIXE_FIELD_NAME,
 		dataType = DataType.STRING,
 		useGetSet = true)
 	private String telephoneFixe = null;
 
-	@Attributes(title = "Téléphone portable", required = false, maxLength = 14)
+	@Attributes(title = "Téléphone portable", required = false, maxLength = 14, pattern = "^0[1-68][0-9]{8}$", validationMessage="Le numéro de téléphone doit respecter la forme suivante : \"XXXXXXXXXX\"")
 	@DatabaseField(
 		columnName = TELEPHONE_PORTABLE_FIELD_NAME,
 		dataType = DataType.STRING,
 		useGetSet = true)
 	private String telephonePortable = null;
 
-	@Attributes(title = "Email", required = true, maxLength = 100)
+	@Attributes(title = "Email", required = true, maxLength = 100, pattern = "^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$", validationMessage="L'adresse email doit respecter la forme suivante : \"xxxxx@xxxxx.xxx\"")
 	@DatabaseField(
 		columnName = EMAIL_FIELD_NAME,
 		dataType = DataType.STRING,
@@ -164,7 +166,8 @@ public class ProfessionnelHomologue extends AModele<Integer> implements Serializ
 		return formatedDateNaissance;
 	}
 
-	public void setFormatedDateNaissance(String formatedDateNaissance) {
+	public void setFormatedDateNaissance(String formatedDateNaissance) throws ParseException {
+		this.dateNaissance=(null != formatedDateNaissance) ? DateUtils.parseDate(formatedDateNaissance, "dd/MM/yyyy") : null;
 		this.formatedDateNaissance = formatedDateNaissance;
 	}
 

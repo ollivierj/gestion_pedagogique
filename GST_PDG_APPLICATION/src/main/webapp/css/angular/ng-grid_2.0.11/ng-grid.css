@@ -1,6 +1,8 @@
 .ngGrid {
   background-color: #fdfdfd;
+  min-height: 550px !important;
 }
+
 .ngGrid input[type="checkbox"] {
   margin: 0;
   padding: 0;

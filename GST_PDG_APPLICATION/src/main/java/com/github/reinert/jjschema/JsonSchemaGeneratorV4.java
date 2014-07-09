@@ -56,6 +56,9 @@ public class JsonSchemaGeneratorV4 extends JsonSchemaGenerator {
         if (!props.format().isEmpty()) {
             schema.put("format", props.format());
         }
+        if (!props.validationMessage().isEmpty()) {
+            schema.put("validationMessage", props.title());
+        }
         if (props.maximum() > -1) {
             schema.put("maximum", props.maximum());
         }

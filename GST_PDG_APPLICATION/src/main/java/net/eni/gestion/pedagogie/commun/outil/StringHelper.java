@@ -18,6 +18,16 @@ public class StringHelper {
             :   "";           
     }
     
+    public static int countWordsInPhrase(String pPhrase){
+    	String[] lArrayWords = getWordsArray(pPhrase);
+		return (null!=lArrayWords) ? lArrayWords.length : 0;	
+    }
+    
+    public static String[] getWordsArray(String pPhrase){
+    	String lTrimmedSearchText = pPhrase.trim();
+		return lTrimmedSearchText.split("\\s+");	
+    }
+    
     /**
      * Retourne null si le paramètre est une chaine vide, sinon retourne le paramètre au format chaîne de caractères
      * @param pString Chaine à évaluer

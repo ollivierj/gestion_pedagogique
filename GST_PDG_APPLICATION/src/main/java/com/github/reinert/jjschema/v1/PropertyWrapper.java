@@ -271,6 +271,9 @@ public class PropertyWrapper extends SchemaWrapper {
             if (!attributes.format().isEmpty()) {
                 node.put("format", attributes.format());
             }
+            if (!attributes.validationMessage().isEmpty()) {
+                node.put("validationMessage", attributes.validationMessage());
+            }
             if (attributes.maximum() > -1) {
                 node.put("maximum", attributes.maximum());
             }
