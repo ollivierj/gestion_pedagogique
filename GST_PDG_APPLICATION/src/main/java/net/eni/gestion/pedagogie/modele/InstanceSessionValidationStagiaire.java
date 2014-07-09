@@ -5,9 +5,13 @@ package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
 import java.util.Date;
+
 import javax.xml.bind.annotation.XmlRootElement;
+
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -39,8 +43,7 @@ public class InstanceSessionValidationStagiaire extends AModele<Integer> impleme
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
 		dataType = DataType.INTEGER_OBJ,
-		id = true,
-		generatedId = false,
+		generatedId = true,
 		useGetSet = true)
 	private Integer id = null;
 	
@@ -58,6 +61,7 @@ public class InstanceSessionValidationStagiaire extends AModele<Integer> impleme
 		canBeNull = false)
 	private InstanceSessionValidation instanceSessionValidation = null;
 	
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy H:mm:ss", timezone="CET")   
 	@DatabaseField(
 		columnName = HEURE_DEBUT_FIELD_NAME,
 		dataType = DataType.DATE,
@@ -65,6 +69,7 @@ public class InstanceSessionValidationStagiaire extends AModele<Integer> impleme
 		canBeNull = false)
 	private Date heureDebut = null;
 
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy H:mm:ss", timezone="CET")   
 	@DatabaseField(
 		columnName = HEURE_FIN_FIELD_NAME,
 		dataType = DataType.DATE,

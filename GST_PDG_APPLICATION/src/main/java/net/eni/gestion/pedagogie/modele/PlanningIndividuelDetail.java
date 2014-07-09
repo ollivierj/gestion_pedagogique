@@ -6,9 +6,13 @@ package net.eni.gestion.pedagogie.modele;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
+
 import javax.xml.bind.annotation.XmlRootElement;
+
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -89,12 +93,14 @@ public class PlanningIndividuelDetail extends AModele<String> implements Seriali
 		canBeNull = false)
 	private Boolean Inscrit = null;
 
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy H:mm:ss", timezone="CET")   
 	@DatabaseField(
 		columnName = DEBUT_COURS_FIELD_NAME,
 		dataType = DataType.DATE,
 		useGetSet = true)
 	private Date debutCours = null;
 
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy H:mm:ss", timezone="CET")   
 	@DatabaseField(
 		columnName = FIN_COURS_FIELD_NAME,
 		dataType = DataType.DATE,
@@ -178,7 +184,7 @@ public class PlanningIndividuelDetail extends AModele<String> implements Seriali
 	public Date getDebutCours() {
 		return debutCours;
 	}
-
+	
 	public void setDebutCours(Date debutCours) {
 		this.debutCours = debutCours;
 	}
@@ -186,7 +192,7 @@ public class PlanningIndividuelDetail extends AModele<String> implements Seriali
 	public Date getFinCours() {
 		return finCours;
 	}
-
+	
 	public void setFinCours(Date finCours) {
 		this.finCours = finCours;
 	}

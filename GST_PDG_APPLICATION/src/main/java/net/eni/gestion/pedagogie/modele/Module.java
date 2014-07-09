@@ -5,9 +5,15 @@ package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
 import java.util.Date;
+
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.commons.lang3.time.DateFormatUtils;
+
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -44,7 +50,6 @@ public class Module extends AModele<Integer> implements Serializable {
 		columnName = ID_FIELD_NAME,
 		dataType = DataType.INTEGER_OBJ,
 		id = true,
-		generatedId = false,
 		useGetSet = true)
 	private Integer id = null;
 	
@@ -62,6 +67,7 @@ public class Module extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private Short dureeEnHeures = null;
 
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy H:mm:ss", timezone="CET")   
 	@DatabaseField(
 		columnName = DATE_CREATION_FIELD_NAME,
 		dataType = DataType.DATE,
@@ -125,6 +131,10 @@ public class Module extends AModele<Integer> implements Serializable {
 
 	public Date getDateCreation() {
 		return dateCreation;
+	}
+	
+	public String getFormatedDateCreation(){
+		return (null!=dateCreation)? DateFormatUtils.format(dateCreation, "dd/MM/yyyy H:mm:ss"): null;
 	}
 
 	public void setDateCreation(Date dateCreation) {

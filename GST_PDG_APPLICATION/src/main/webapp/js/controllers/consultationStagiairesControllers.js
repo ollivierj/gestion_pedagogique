@@ -39,7 +39,7 @@ controllers.controller('consultationStagiairesCtrl', function($scope, $http, $lo
                 {field:'photo', displayName:'Photo', cellTemplate: 'partials/templates/ng-grid_photo.html'},
                 {field:'nom', displayName:'Nom'},
                 {field:'prenom', displayName:'Prénom'},
-                {field:'dateNaissance', displayName:'Date de naissance'},
+                {field:'formatedDateNaissance', displayName:'Date de naissance'},
                 {field:'promotion', displayName:'Promotion', cellTemplate: 'partials/templates/ng-grid_detailsPromotion.html'},
                 {field:'details', displayName:'Actions', cellTemplate: 'partials/templates/ng-grid_details.html'}
         ],

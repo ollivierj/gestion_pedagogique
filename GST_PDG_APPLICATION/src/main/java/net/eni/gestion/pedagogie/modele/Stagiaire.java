@@ -8,9 +8,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
+
 import javax.xml.bind.annotation.XmlRootElement;
+
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -62,7 +66,7 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
 		dataType = DataType.INTEGER_OBJ,
-		generatedId = true,
+		id = true,
 		useGetSet = true)
 	private Integer id = null;
 	
@@ -133,6 +137,7 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 		useGetSet = true)
 	private String email = null;
 
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy", timezone="CET")   
 	@DatabaseField(
 		columnName = DATE_NAISSANCE_FIELD_NAME,
 		dataType = DataType.DATE,
@@ -157,12 +162,14 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 		useGetSet = true)
 	private String codeOrigineMedia = null;
 	
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy H:mm:ss", timezone="CET")   
 	@DatabaseField(
 		columnName = DATE_DERNIER_ENVOI_DOC_FIELD_NAME,
 		dataType = DataType.DATE,
 		useGetSet = true)
 	private Date dateDernierEnvoiDoc = null;
 	
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy H:mm:ss", timezone="CET")   
 	@DatabaseField(
 		columnName = DATE_CREATION_FIELD_NAME,
 		dataType = DataType.DATE,
@@ -323,7 +330,7 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
+	
 	public Date getDateNaissance() {
 		return dateNaissance;
 	}
@@ -367,7 +374,7 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 	public Date getDateCreation() {
 		return dateCreation;
 	}
-
+	
 	public void setDateCreation(Date dateCreation) {
 		this.dateCreation = dateCreation;
 	}

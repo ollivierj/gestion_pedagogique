@@ -1,8 +1,16 @@
 package net.eni.gestion.pedagogie.commun.outil;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 
+import net.eni.gestion.pedagogie.commun.composant.GenericException;
+import net.eni.gestion.pedagogie.commun.composant.PropertyPredicate;
+import net.eni.gestion.pedagogie.commun.composant.SortOptions;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.j256.ormlite.field.FieldType;
 import com.j256.ormlite.table.TableInfo;
@@ -14,6 +22,9 @@ import com.j256.ormlite.table.TableInfo;
  */
 public class ORMLiteHelper {
 	
+	public final static String ASC 	= "ASC";
+	public final static String DESC = "DESC";
+	
 	public static <M extends AModele<ID>, ID> ArrayList<String> getProjectionFields(TableInfo<M, ID> tableInfo){
 		ArrayList<String> lFields = new ArrayList<String>();
 		for (FieldType lField : tableInfo.getFieldTypes()) {
@@ -24,5 +35,53 @@ public class ORMLiteHelper {
 		return lFields;
 	}
 	
+	public static <M extends AModele<ID>, ID> String getDataFieldNameFromClassAttributeName(TableInfo<M, ID> pTableInfo, String pFieldName){
+		Collection<FieldType> lFields = new ArrayList<FieldType>(Arrays.asList(pTableInfo.getFieldTypes()));
+		FieldType lField = (FieldType) CollectionUtils.find(lFields, new PropertyPredicate("fieldName", pFieldName));
+		return (null != lField)? lField.getColumnName() : null;
+	}
+	
+	public static String getCompliantOrderDirectionSortString(String pSortDirectionBy){
+		return (ASC.equals(pSortDirectionBy.toUpperCase()) || DESC.equals(pSortDirectionBy.toUpperCase()))? pSortDirectionBy : null;
+	}
+	
+	public static <M extends AModele<ID>, ID> String getOrderByClauseFromSortOptions(TableInfo<M, ID> tableInfo, SortOptions pSortOptions) throws GenericException{
+		if (null == pSortOptions){
+			throw new GenericException("Le champ de tri fourni est vide.");
+		}
+		ArrayList<String> orderByClauseArray = new ArrayList<String>();
+		for (int i=0; i<pSortOptions.getFields().length && i<pSortOptions.getDirections().length; i++) {
+			String orderSortTableFieldBy = ORMLiteHelper.getDataFieldNameFromClassAttributeName(tableInfo, pSortOptions.getFields()[i]);
+			String orderSortDirectionBy = ORMLiteHelper.getCompliantOrderDirectionSortString(pSortOptions.getDirections()[i]);
+			if (null != orderSortTableFieldBy && null != orderSortDirectionBy){
+				StringBuilder lStrBuilder = new StringBuilder();
+				lStrBuilder.append(orderSortTableFieldBy);
+				lStrBuilder.append(" ");
+				lStrBuilder.append(orderSortDirectionBy);
+				orderByClauseArray.add(lStrBuilder.toString());
+			}else{
+				throw new GenericException("Le champ de tri fourni est vide.");
+			}
+		}
+		return (!orderByClauseArray.isEmpty())?StringUtils.join(orderByClauseArray, ", "):"1";
+	}
+	
+	public static String getFullTextSearchWhereClause(String[] pFullTextSearchFields, String pSearchText) throws GenericException{
+		if (null == pFullTextSearchFields){
+			throw new GenericException("Aucun champ défini pour la recherche plein texte. ");
+		}
+		if (null == pSearchText || pSearchText.isEmpty()){
+			return null;
+		}
+		StringBuilder lStrBuilder = new StringBuilder();
+		lStrBuilder.append("CONTAINS((");
+		lStrBuilder.append(StringUtils.join(Arrays.asList(pFullTextSearchFields), ", "));
+		lStrBuilder.append("), ");
+		lStrBuilder.append("'\"");
+		lStrBuilder.append(pSearchText);
+		lStrBuilder.append("\"'");
+		lStrBuilder.append(") ");
+		return lStrBuilder.toString();
+	}
 	
 }

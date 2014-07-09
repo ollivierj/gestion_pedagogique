@@ -2,8 +2,8 @@ package net.eni.gestion.pedagogie.commun.outil;
 
 import java.util.ArrayList;
 
-import net.eni.gestion.pedagogie.commun.composant.NamedObjectMap;
 import net.eni.gestion.pedagogie.commun.composant.Pager;
+import net.eni.gestion.pedagogie.commun.composant.Pair;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 import org.apache.commons.lang3.StringUtils;
@@ -24,7 +24,7 @@ public class CRUDHelper {
 	 * @return Tableau de modèles
 	 * @throws Exception 
 	 */
-	public static <M extends AModele<ID>, ID> NamedObjectMap charger(BaseDaoImpl<M, ID> pABase, Pager pPager) throws Exception {
+	public static <M extends AModele<ID>, ID> Pair<ArrayList<M>, Long> charger(BaseDaoImpl<M, ID> pABase, Pager pPager) throws Exception {
 		try {
 			StringBuilder lQuery = new StringBuilder();
 			lQuery.append("SELECT ");
@@ -32,22 +32,21 @@ public class CRUDHelper {
 			lQuery.append(" FROM ( ");
 			lQuery.append(" SELECT *, ");
 			lQuery.append(" ROW_NUMBER() OVER (ORDER BY ");
-			lQuery.append(pPager.getSortColumnBy());
-			lQuery.append(" ");
-			lQuery.append(pPager.getSortDirectionBy());
+			lQuery.append(ORMLiteHelper.getOrderByClauseFromSortOptions(pABase.getTableInfo(), pPager.getSortOptions()));
 			lQuery.append(") AS RowNum ");
 			lQuery.append(" FROM ");
 			lQuery.append(pABase.getTableInfo().getTableName());
+			String lFullTextSearchWhereClause = ORMLiteHelper.getFullTextSearchWhereClause(pABase.getDataClass().newInstance().getFullTextSearchFieldNames() , pPager.getFilterOptions().getFilterText());
+			if (null !=lFullTextSearchWhereClause){
+				lQuery.append(" WHERE ");
+				lQuery.append(lFullTextSearchWhereClause);
+			}
 			lQuery.append(") AS sub ");
 			lQuery.append(" WHERE sub.RowNum BETWEEN ");
-			lQuery.append(String.valueOf((pPager.getPage()-1)*pPager.getPageSize()));
+			lQuery.append(String.valueOf((pPager.getPagingOptions().getCurrentPage()-1)*pPager.getPagingOptions().getPageSize()));
 			lQuery.append(" AND ");
-			lQuery.append(String.valueOf(pPager.getPage()*pPager.getPageSize()-1));
-			NamedObjectMap results = new NamedObjectMap();
-			results.put("data", new ArrayList<M>(pABase.queryRaw(lQuery.toString(), pABase.getRawRowMapper()).getResults()));
-			pPager.setTotalItems(pABase.countOf());
-			results.put("pager", pPager);
-			return results;
+			lQuery.append(String.valueOf(pPager.getPagingOptions().getCurrentPage()*pPager.getPagingOptions().getPageSize()-1));
+			return new Pair<ArrayList<M>, Long>(new ArrayList<M>(pABase.queryRaw(lQuery.toString(), pABase.getRawRowMapper()).getResults()), pABase.countOf());
 		} catch (Exception exception) {
 			throw new Exception("Echec de chargement de la liste d'enregistrements depuis la base de données");
 		}

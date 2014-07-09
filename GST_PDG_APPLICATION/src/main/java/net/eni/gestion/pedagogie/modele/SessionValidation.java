@@ -7,9 +7,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+
 import javax.xml.bind.annotation.XmlRootElement;
+
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -44,8 +48,7 @@ public class SessionValidation extends AModele<Integer> implements Serializable 
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
 		dataType = DataType.INTEGER_OBJ,
-		id = true,
-		generatedId = false,
+		generatedId = true,
 		useGetSet = true)
 	private Integer id = null;
 
@@ -55,7 +58,8 @@ public class SessionValidation extends AModele<Integer> implements Serializable 
 		useGetSet = true,
 		canBeNull = false)
 	private Utilisateur auteur = null;
-	
+
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy H:mm:ss", timezone="CET")   
 	@DatabaseField(
 		columnName = DATE_CREATION_FIELD_NAME,
 		dataType = DataType.DATE,
@@ -70,6 +74,7 @@ public class SessionValidation extends AModele<Integer> implements Serializable 
 		canBeNull = false)
 	private TitreProfessionnel titreProfessionnel = null;
 
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy", timezone="CET")   
 	@DatabaseField(
 		columnName = DATE_DEBUT_FIELD_NAME,
 		dataType = DataType.DATE,
@@ -77,6 +82,7 @@ public class SessionValidation extends AModele<Integer> implements Serializable 
 		canBeNull = false)
 	private Date dateDebut = null;
 
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy", timezone="CET")   
 	@DatabaseField(
 		columnName = DATE_FIN_FIELD_NAME,
 		dataType = DataType.DATE,
@@ -133,7 +139,7 @@ public class SessionValidation extends AModele<Integer> implements Serializable 
 	public Date getDateDebut() {
 		return dateDebut;
 	}
-
+	
 	public void setDateDebut(Date dateDebut) {
 		this.dateDebut = dateDebut;
 	}
@@ -141,7 +147,7 @@ public class SessionValidation extends AModele<Integer> implements Serializable 
 	public Date getDateFin() {
 		return dateFin;
 	}
-
+	
 	public void setDateFin(Date dateFin) {
 		this.dateFin = dateFin;
 	}

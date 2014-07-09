@@ -1,6 +1,6 @@
 'use strict';
 
-controllers.controller('gestionSessionsValidationCtrl', function($scope, $modal, $log, PromotionsFactory, PersonnelHomologuesFactory, SallesFactory, 
+controllers.controller('gestionSessionsValidationCtrl', function($scope, $modal, $log, PromotionsFactory, SallesFactory, 
           sessionsValidationData, jurysSallesData) {
 
   $scope.sessionSelected = [];
@@ -42,9 +42,9 @@ controllers.controller('gestionSessionsValidationCtrl', function($scope, $modal,
                 items: function () {
                   return $scope.items;
                 },
-                personnesHomologuees: function(PersonnelHomologuesFactory) {
-                  return PersonnelHomologuesFactory.query().$promise;
-                },
+                /*personnesHomologuees: function(pHomologuee) {
+                  return pHomologuee.query().$promise;
+                },*/
                 salles: function(SallesFactory) {
                   return SallesFactory.query().$promise;
                 },
@@ -68,7 +68,7 @@ controllers.controller('gestionSessionsValidationCtrl', function($scope, $modal,
 });
 
 // Controller de la fenêtre modal
-var ModalEditionSessionValidationCtrl = function ($scope, $modalInstance, items, personnesHomologuees, salles, promotions, jurysSalles) {
+var ModalEditionSessionValidationCtrl = function ($scope, $modalInstance, items, professionnelHomologues, salles, promotions, jurysSalles) {
 
   $scope.items = items;
   $scope.selected = {
@@ -76,7 +76,7 @@ var ModalEditionSessionValidationCtrl = function ($scope, $modalInstance, items,
   };
 
   $scope.promotions = promotions;
-  $scope.personnesHomologuees = personnesHomologuees;
+  $scope.professionnelHomologues = professionnelHomologues;
   $scope.salles= salles;
   $scope.jurysSalles = jurysSalles;
 

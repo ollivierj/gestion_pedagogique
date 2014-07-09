@@ -36,8 +36,7 @@ public class DroitProfil extends AModele<Integer> implements Serializable {
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
 		dataType = DataType.INTEGER_OBJ,
-		id = true,
-		generatedId = false,
+		generatedId = true,
 		useGetSet = true)
 	private Integer id = null;
 	
@@ -66,7 +65,6 @@ public class DroitProfil extends AModele<Integer> implements Serializable {
 		
 	}
 
-
 	public Profil getProfil() {
 		return profil;
 	}
@@ -82,7 +80,5 @@ public class DroitProfil extends AModele<Integer> implements Serializable {
 	public void setDroit(Droit droit) {
 		this.droit = droit;
 	}
-
-
 
 }

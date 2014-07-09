@@ -1,0 +1,21 @@
+<div class="modal-header">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<i class="fa fa-group"></i>&nbsp;{{ title }}
+			</h3>
+		</div>
+	</div>
+</div>
+<div class="modal-body">
+	<div class="panel-body">{{ message }}</div>
+</div>
+
+<div class="modal-footer">
+	<button name="cancelSubmit" data-ng-disabled="progress.active()"
+		data-ng-click="cancel()" class="btn btn-primary">Annuler</button>
+	<button name="confirmSubmit" data-ng-disabled="progress.active()"
+		data-ng-click="ok()" class="btn btn-primary">Confirmer</button>
+</div>
+
+

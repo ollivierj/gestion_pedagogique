@@ -1,7 +1,5 @@
 'use strict';
-
-
-angular.module('ng_gst_pdg', ['ngRoute', 'ngGrid', 'ui.bootstrap','ui.tree','ng_gst_pdg.filters','ng_gst_pdg.controllers','ng_gst_pdg.services', 'ng_gst_pdg.directives'])
+angular.module('ng_gst_pdg', ['ngRoute', 'ngGrid', 'schemaForm','ui.bootstrap','ui.tree','ng_gst_pdg.filters','ng_gst_pdg.controllers','ng_gst_pdg.services', 'ng_gst_pdg.directives'])
 
 .config(['$routeProvider', function($routeProvider) {
 	$routeProvider.
@@ -55,11 +53,16 @@ angular.module('ng_gst_pdg', ['ngRoute', 'ngGrid', 'ui.bootstrap','ui.tree','ng_
 		}).
 		when('/gestionSessionsValidation', {
 			templateUrl: 'partials/gestionSessionsValidation/gestionSessionsValidation.html',
-			controller: 'gestionSessionsValidationCtrl'
+			controller: 'gestionSessionsValidationCtrl',
+			resolve : {
+				initializeData : function(professionnelHomologuesFactory){
+					professionnelHomologuesFactory.initializeData();
+				}
+			}
 		}).
-		when('/consultationPersonnesHomologuees', {
-			templateUrl: 'partials/personnesHomologuees/consultationPersonnesHomologuees.html',
-			controller: 'consultationPersonnesHomologueesCtrl'
+		when('/professionnelHomologues', {
+			templateUrl: 'partials/professionnelHomologues/professionnelHomologuesListe.html',
+			controller: 'professionelHomologueesCtrl'
 		}).
 		when('/gestionDroit', {
 			templateUrl: 'partials/droit/gestionDroit.html',

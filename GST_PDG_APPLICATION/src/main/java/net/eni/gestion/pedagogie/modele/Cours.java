@@ -9,9 +9,13 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.UUID;
+
 import javax.xml.bind.annotation.XmlRootElement;
+
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -53,7 +57,6 @@ public class Cours extends AModele<UUID> implements Serializable {
 		columnName = ID_FIELD_NAME,
 		dataType = DataType.UUID,
 		id = true,
-		generatedId = false,
 		useGetSet = true)
 	private UUID id = null;
 	
@@ -91,6 +94,7 @@ public class Cours extends AModele<UUID> implements Serializable {
 		canBeNull = false)
 	private Float prixPublicAffecte = null;
 
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy H:mm:ss", timezone="CET")   
 	@DatabaseField(
 		columnName = DATE_CREATION_FIELD_NAME,
 		dataType = DataType.DATE,
@@ -98,6 +102,7 @@ public class Cours extends AModele<UUID> implements Serializable {
 		canBeNull = false)
 	private Date dateCreation = null;
 
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy H:mm:ss", timezone="CET")   
 	@DatabaseField(
 		columnName = DATE_MODIF_FIELD_NAME,
 		dataType = DataType.DATE,
@@ -126,21 +131,6 @@ public class Cours extends AModele<UUID> implements Serializable {
 		canBeNull = false)
 	private Integer dureePrevueEnHeures = null;
 
-/*
- * Ces deux champs sont présents en base mais ne sont pas exploités
- */
-/*	@DatabaseField(
-			columnName = CODE_SALLE_FIELD_NAME,
-			foreign = true,
-			useGetSet = true)
-	private String codeSalle = null;
-
-	@DatabaseField(
-			columnName = CODE_FORMATEUR_FIELD_NAME,
-			dataType = DataType.INTEGER_OBJ,
-			useGetSet = true)
-	private Integer codeFormateur = null;*/
-	
 	@ForeignCollectionField(eager = true, columnName = PlanningIndividuelDetail.ID2_FIELD_NAME)
 	private transient Collection<PlanningIndividuelDetail> transientPlanningIndividuelDetails = null;
 
@@ -164,7 +154,7 @@ public class Cours extends AModele<UUID> implements Serializable {
 	public Date getDebut() {
 		return debut;
 	}
-
+	
 	public void setDebut(Date debut) {
 		this.debut = debut;
 	}

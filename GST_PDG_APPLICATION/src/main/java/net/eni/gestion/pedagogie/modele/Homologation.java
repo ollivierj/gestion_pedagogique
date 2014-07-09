@@ -4,9 +4,14 @@
 package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
+import java.util.Date;
+
 import javax.xml.bind.annotation.XmlRootElement;
+
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -38,8 +43,7 @@ public class Homologation extends AModele<Integer> implements Serializable {
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
 		dataType = DataType.INTEGER_OBJ,
-		id = true,
-		generatedId = false,
+		generatedId = true,
 		useGetSet = true)
 	private Integer id = null;
 	
@@ -57,19 +61,21 @@ public class Homologation extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private TitreProfessionnel titreProfessionnel = null;
 
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy", timezone="CET")   
 	@DatabaseField(
 		columnName = DATE_DEBUT_FIELD_NAME,
-		dataType = DataType.INTEGER_OBJ,
+		dataType = DataType.DATE,
 		useGetSet = true,
 		canBeNull = false)
-	private Integer dateDebut = null;
+	private Date dateDebut = null;
 
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy", timezone="CET")   
 	@DatabaseField(
 		columnName = DATE_FIN_FIELD_NAME,
-		dataType = DataType.INTEGER_OBJ,
+		dataType = DataType.DATE,
 		useGetSet = true,
 		canBeNull = false)
-	private Integer dateFin = null;
+	private Date dateFin = null;
 			
 	@Override
 	public Integer getId() {
@@ -98,19 +104,19 @@ public class Homologation extends AModele<Integer> implements Serializable {
 		this.titreProfessionnel = titreProfessionnel;
 	}
 
-	public Integer getDateDebut() {
+	public Date getDateDebut() {
 		return dateDebut;
 	}
 
-	public void setDateDebut(Integer dateDebut) {
+	public void setDateDebut(Date dateDebut) {
 		this.dateDebut = dateDebut;
 	}
 
-	public Integer getDateFin() {
+	public Date getDateFin() {
 		return dateFin;
 	}
 
-	public void setDateFin(Integer dateFin) {
+	public void setDateFin(Date dateFin) {
 		this.dateFin = dateFin;
 	}
 

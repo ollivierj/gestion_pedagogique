@@ -32,14 +32,12 @@ public class InstanceEvaluationStagiaire extends AModele<Integer> implements Ser
 	public final static String ID_FIELD_NAME 					= "INST_EVAL_STG_ID";
 	public final static String INSTANCE_EVALUATION_FIELD_NAME 	= "INST_EVAL_STG_INSTANCE_EVALUATION";
 	public final static String STAGIAIRE_FIELD_NAME 			= "INST_EVAL_STG_STAGIAIRE";
-	
-	public final static String ID2_FIELD_NAME = "CodeStagiaire";
+	public final static String ID2_FIELD_NAME 					= "CodeStagiaire";
 	
 	@DatabaseField(
 			columnName = ID_FIELD_NAME,
 			dataType = DataType.INTEGER_OBJ,
-			id = true,
-			generatedId = false,
+			generatedId = true,
 			useGetSet = true)
 		private Integer id = null;
 	
@@ -66,7 +64,6 @@ public class InstanceEvaluationStagiaire extends AModele<Integer> implements Ser
 	public void setId(Integer pId) {
 		this.id = pId;
 	}
-
 	
 	public InstanceEvaluation getInstanceEvaluation() {
 		return instanceEvaluation;

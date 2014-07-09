@@ -8,9 +8,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
+
 import javax.xml.bind.annotation.XmlRootElement;
+
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -47,8 +51,7 @@ public class InstanceEvaluation extends AModele<Integer> implements Serializable
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
 		dataType = DataType.INTEGER_OBJ,
-		id = true,
-		generatedId = false,
+		generatedId = true,
 		useGetSet = true)
 	private Integer id = null;
 	
@@ -92,6 +95,7 @@ public class InstanceEvaluation extends AModele<Integer> implements Serializable
 		useGetSet = true)
 	private String lienCopiesImmaterrielles = null;
 	
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy H:mm:ss", timezone="CET")   
 	@DatabaseField(
 		columnName = DATE_DEBUT_PASSAGE_FIELD_NAME,
 		dataType = DataType.DATE,
@@ -99,6 +103,7 @@ public class InstanceEvaluation extends AModele<Integer> implements Serializable
 		canBeNull = false)
 	private Date dateDebutPassage = null;
 
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy H:mm:ss", timezone="CET")   
 	@DatabaseField(
 		columnName = DATE_FIN_PASSAGE_FIELD_NAME,
 		dataType = DataType.DATE,
@@ -172,7 +177,7 @@ public class InstanceEvaluation extends AModele<Integer> implements Serializable
 	public Date getDateDebutPassage() {
 		return dateDebutPassage;
 	}
-
+	
 	public void setDateDebutPassage(Date dateDebutPassage) {
 		this.dateDebutPassage = dateDebutPassage;
 	}
@@ -180,7 +185,7 @@ public class InstanceEvaluation extends AModele<Integer> implements Serializable
 	public Date getDateFinPassage() {
 		return dateFinPassage;
 	}
-
+	
 	public void setDateFinPassage(Date dateFinPassage) {
 		this.dateFinPassage = dateFinPassage;
 	}
