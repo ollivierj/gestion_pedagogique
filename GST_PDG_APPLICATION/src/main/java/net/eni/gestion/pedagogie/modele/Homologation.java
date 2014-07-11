@@ -11,7 +11,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.github.reinert.jjschema.SchemaIgnore;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -47,6 +50,7 @@ public class Homologation extends AModele<Integer> implements Serializable {
 		useGetSet = true)
 	private Integer id = null;
 	
+	@JsonBackReference
 	@DatabaseField(
 		columnName = PROFESSIONNEL_HOMOLOGUE_FIELD_NAME,
 		foreign = true,
@@ -54,6 +58,8 @@ public class Homologation extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private ProfessionnelHomologue professionnelHomologue = null;
 
+	@JsonIgnore
+	@SchemaIgnore
 	@DatabaseField(
 		columnName = TITRE_PROFESSIONNEL_FIELD_NAME,
 		foreign = true,
@@ -61,6 +67,7 @@ public class Homologation extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private TitreProfessionnel titreProfessionnel = null;
 
+	@JsonIgnore
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy", timezone="CET")   
 	@DatabaseField(
 		columnName = DATE_DEBUT_FIELD_NAME,
@@ -69,6 +76,7 @@ public class Homologation extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private Date dateDebut = null;
 
+	@JsonIgnore
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy", timezone="CET")   
 	@DatabaseField(
 		columnName = DATE_FIN_FIELD_NAME,

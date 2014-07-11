@@ -21,6 +21,7 @@ import net.eni.gestion.pedagogie.resource.AResource;
 import net.eni.gestion.pedagogie.service.AService;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.github.fge.jackson.JsonLoader;
 import com.github.reinert.jjschema.v1.JsonSchemaFactory;
 import com.github.reinert.jjschema.v1.JsonSchemaV4Factory;
 import com.google.inject.Inject;
@@ -46,6 +47,7 @@ public class AResourceImpl <M extends AModele<ID>, ID, S extends AService<M,ID>>
     @Path("/jsonschema")
     @Produces(MediaType.APPLICATION_JSON)
     public String getJsonSchema() throws GenericException {
+    	JsonLoader.class.getResource("/draftv4/schema");
     	JsonSchemaFactory schemaFactory = new JsonSchemaV4Factory();
     	schemaFactory.setAutoPutDollarSchema(true);
     	JsonNode productSchema = schemaFactory.createSchema(modele);

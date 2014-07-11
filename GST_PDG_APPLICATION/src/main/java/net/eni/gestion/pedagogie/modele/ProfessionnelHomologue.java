@@ -5,6 +5,8 @@ package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -17,9 +19,14 @@ import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.module.jsonSchema.annotation.JsonHyperSchema;
 import com.github.reinert.jjschema.Attributes;
+import com.github.reinert.jjschema.SchemaIgnore;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
@@ -199,6 +206,14 @@ public class ProfessionnelHomologue extends AModele<Integer> implements Serializ
 		useGetSet = true)
 	private String photo = null;
 		
+	@SchemaIgnore
+	@JsonIgnore
+	@ForeignCollectionField(eager = true, columnName = Homologation.PROFESSIONNEL_HOMOLOGUE_FIELD_NAME)
+	private transient Collection<Homologation> transientHomologations = null;
+	
+	@JsonManagedReference
+	private ArrayList<Homologation> homologations = new ArrayList<Homologation>();
+	
 	@Override
 	public Integer getId() {
 		return id;
@@ -336,6 +351,15 @@ public class ProfessionnelHomologue extends AModele<Integer> implements Serializ
 
 	public void setPhoto(String photo) {
 		this.photo = photo;
+	}
+	
+	public ArrayList<Homologation> getHomologation() {
+		if (null != transientHomologations) {
+			homologations.clear();
+			homologations.addAll(transientHomologations);
+			transientHomologations = null;
+		}
+		return homologations;
 	}
 
 }
