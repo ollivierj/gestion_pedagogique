@@ -11,17 +11,15 @@ import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang3.time.DateFormatUtils;
-import org.apache.commons.lang3.time.DateUtils;
-
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
+
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.commons.lang3.time.DateUtils;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.module.jsonSchema.annotation.JsonHyperSchema;
 import com.github.reinert.jjschema.Attributes;
 import com.github.reinert.jjschema.SchemaIgnore;
 import com.j256.ormlite.field.DataType;
@@ -199,12 +197,12 @@ public class ProfessionnelHomologue extends AModele<Integer> implements Serializ
 		useGetSet = true)
 	private Boolean permis = null;
 	
-	@JsonIgnore
+	/*@JsonIgnore
 	@DatabaseField(
 		columnName = PHOTO_FIELD_NAME,
 		dataType = DataType.STRING,
 		useGetSet = true)
-	private String photo = null;
+	private String photo = null;*/
 		
 	@SchemaIgnore
 	@JsonIgnore
@@ -212,6 +210,7 @@ public class ProfessionnelHomologue extends AModele<Integer> implements Serializ
 	private transient Collection<Homologation> transientHomologations = null;
 	
 	@JsonManagedReference
+	@Attributes(id = "homologations")
 	private ArrayList<Homologation> homologations = new ArrayList<Homologation>();
 	
 	@Override
@@ -345,13 +344,13 @@ public class ProfessionnelHomologue extends AModele<Integer> implements Serializ
 		this.permis = permis;
 	}
 
-	public String getPhoto() {
+	/*public String getPhoto() {
 		return photo;
 	}
 
 	public void setPhoto(String photo) {
 		this.photo = photo;
-	}
+	}*/
 	
 	public ArrayList<Homologation> getHomologation() {
 		if (null != transientHomologations) {

@@ -2,9 +2,8 @@
 
 controllers
 		.controller(
-				'professionelHomologueesCtrl',
-				function($scope, $modal, $log, $timeout, ProfessionnelHomologuesFactory,
-						homologationData) {
+				'professionelHomologuesCtrl',
+				function($scope, $modal, $log, $timeout, ProfessionnelHomologuesFactory) {
 					$scope.pagingOptions = ProfessionnelHomologuesFactory.pagingOptions;		
 					$scope.sortOptions = ProfessionnelHomologuesFactory.sortOptions;		
 					$scope.filterOptions = ProfessionnelHomologuesFactory.filterOptions;
@@ -212,6 +211,23 @@ var modalEditionProfessionnelHomologueCtrl = function($scope, $modalInstance,
 			               	"telephoneFixe",
 			               	"telephonePortable"
 			            	]
+			    },
+			    {
+			    	title: "Homologations",
+			    	items :
+			    	[{
+			    	      key: "homologation",
+			    	      add: "Ajouter une homologation",
+			    	      items: [
+							{
+								title: "Titre professionnel",
+								key: "homologation[].titreProfessionnel",
+								type : "select"
+							},
+			    	        "homologation[].formatedDateDebut",
+			    	        "homologation[].formatedDateFin"
+			    	      ]
+			    	}]
 			    },
 			    {
 			        title: "Autre",

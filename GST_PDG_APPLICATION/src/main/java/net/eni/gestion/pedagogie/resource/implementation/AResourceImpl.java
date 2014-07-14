@@ -43,6 +43,9 @@ public class AResourceImpl <M extends AModele<ID>, ID, S extends AService<M,ID>>
         modele = pModele;
     }
     
+    /* (non-Javadoc)
+     * @see net.eni.gestion.pedagogie.resource.AResource#getJsonSchema()
+     */
     @GET
     @Path("/jsonschema")
     @Produces(MediaType.APPLICATION_JSON)
@@ -53,10 +56,6 @@ public class AResourceImpl <M extends AModele<ID>, ID, S extends AService<M,ID>>
     	JsonNode productSchema = schemaFactory.createSchema(modele);
     	return productSchema.toString();
     }
-    
-    /* (non-Javadoc)
-     * @see net.eni.gestion.pedagogie.Resource.AResource#getJsonSchema()
-     */
  
 
     /* (non-Javadoc)

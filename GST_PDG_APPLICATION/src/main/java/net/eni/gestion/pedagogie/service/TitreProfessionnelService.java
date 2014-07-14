@@ -1,5 +1,8 @@
 package net.eni.gestion.pedagogie.service;
 
+import java.util.HashMap;
+
+import net.eni.gestion.pedagogie.commun.composant.GenericException;
 import net.eni.gestion.pedagogie.modele.TitreProfessionnel;
 
 /**
@@ -8,6 +11,6 @@ import net.eni.gestion.pedagogie.modele.TitreProfessionnel;
  */
 public interface TitreProfessionnelService extends AService<TitreProfessionnel, Integer> {
 
-	
+	HashMap<Integer, String> getTitleMap() throws GenericException;
 
 }

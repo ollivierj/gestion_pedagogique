@@ -4,6 +4,7 @@
 package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
+import java.text.ParseException;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -11,10 +12,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
+import org.apache.commons.lang3.time.DateUtils;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.github.reinert.jjschema.SchemaIgnore;
+import com.github.reinert.jjschema.Attributes;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -58,8 +60,8 @@ public class Homologation extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private ProfessionnelHomologue professionnelHomologue = null;
 
-	@JsonIgnore
-	@SchemaIgnore
+	@Attributes(title="Titre professionnel", required = true)
+	@JsonBackReference(value = "titre-homologation")
 	@DatabaseField(
 		columnName = TITRE_PROFESSIONNEL_FIELD_NAME,
 		foreign = true,
@@ -68,22 +70,44 @@ public class Homologation extends AModele<Integer> implements Serializable {
 	private TitreProfessionnel titreProfessionnel = null;
 
 	@JsonIgnore
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy", timezone="CET")   
 	@DatabaseField(
 		columnName = DATE_DEBUT_FIELD_NAME,
 		dataType = DataType.DATE,
 		useGetSet = true,
 		canBeNull = false)
 	private Date dateDebut = null;
+	
+	@Attributes(title = "Date de début de validité", required = false, format = "date")
+	private String formatedDateDebut;
+
+	public String getFormatedDateDebut() {
+		return formatedDateDebut;
+	}
+
+	public void setFormatedDateDebut(String formatedDateDebut) throws ParseException {
+		this.dateDebut=(null != formatedDateDebut) ? DateUtils.parseDate(formatedDateDebut, "dd/MM/yyyy") : null;
+		this.formatedDateDebut = formatedDateDebut;
+	}
 
 	@JsonIgnore
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy", timezone="CET")   
 	@DatabaseField(
 		columnName = DATE_FIN_FIELD_NAME,
 		dataType = DataType.DATE,
 		useGetSet = true,
 		canBeNull = false)
 	private Date dateFin = null;
+	
+	@Attributes(title = "Date de fin de validité", required = false, format = "date")
+	private String formatedDateFin;
+
+	public String getFormatedDateFin() {
+		return formatedDateFin;
+	}
+
+	public void setFormatedDateFin(String formatedDateFin) throws ParseException {
+		this.dateFin=(null != formatedDateFin) ? DateUtils.parseDate(formatedDateFin, "dd/MM/yyyy") : null;
+		this.formatedDateFin = formatedDateFin;
+	}
 			
 	@Override
 	public Integer getId() {
