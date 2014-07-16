@@ -33,7 +33,7 @@ public class TitreProfessionnelServiceImpl extends
 		super(pTitreProfessionnelDao);
 	}
 
-	public HashMap<Integer, String> getTitleMap() throws GenericException {
+	public HashMap<String, String> getTitleMap() throws GenericException {
 		try {
 			return dao.getTitleMap();
 		} catch (Exception e) {

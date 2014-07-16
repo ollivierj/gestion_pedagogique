@@ -11,6 +11,6 @@ import net.eni.gestion.pedagogie.modele.TitreProfessionnel;
  */
 public interface TitreProfessionnelService extends AService<TitreProfessionnel, Integer> {
 
-	HashMap<Integer, String> getTitleMap() throws GenericException;
+	HashMap<String, String> getTitleMap() throws GenericException;
 
 }

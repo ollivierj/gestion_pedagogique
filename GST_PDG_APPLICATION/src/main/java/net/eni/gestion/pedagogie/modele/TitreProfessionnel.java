@@ -4,8 +4,6 @@
 package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -13,11 +11,9 @@ import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.github.reinert.jjschema.Attributes;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
@@ -72,12 +68,6 @@ public class TitreProfessionnel extends AModele<Integer> implements Serializable
 		useGetSet = true)
 	private String lienDocReferences = null;
 	
-	@ForeignCollectionField(eager = true, columnName = Homologation.TITRE_PROFESSIONNEL_FIELD_NAME)
-	private transient Collection<Homologation> transientHomologations = null;
-
-	@JsonManagedReference(value = "titre-homologation")
-	private ArrayList<Homologation> homologations = new ArrayList<Homologation>();
-		
 	@Override
 	public Integer getId() {
 		return id;
@@ -104,13 +94,4 @@ public class TitreProfessionnel extends AModele<Integer> implements Serializable
 		this.lienDocReferences = lienDocReferences;
 	}
 	
-	public ArrayList<Homologation> getHomologations() {
-		if (null != transientHomologations) {
-			homologations.clear();
-			homologations.addAll(transientHomologations);
-			transientHomologations = null;
-		}
-		return homologations;
-	}
-
 }

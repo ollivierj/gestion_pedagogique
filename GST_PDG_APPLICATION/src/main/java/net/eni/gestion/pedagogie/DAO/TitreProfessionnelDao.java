@@ -11,5 +11,5 @@ import net.eni.gestion.pedagogie.modele.TitreProfessionnel;
  */
 public interface TitreProfessionnelDao extends ADao<TitreProfessionnel, Integer> {
 
-	public HashMap<Integer, String> getTitleMap() throws Exception;
+	public HashMap<String, String> getTitleMap() throws Exception;
 }

@@ -36,7 +36,7 @@ public class TitreProfessionnelResourceImpl extends AResourceImpl<TitreProfessio
     @GET
     @Path("/titlemap")
     @Produces(MediaType.APPLICATION_JSON)
-    public HashMap<Integer, String> getTitleMap() throws GenericException {
+    public HashMap<String, String> getTitleMap() throws GenericException {
         return service.getTitleMap();
     }
     

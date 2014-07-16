@@ -25,13 +25,13 @@ public class TitreProfessionnelDaoImpl extends ADaoImpl<TitreProfessionnel, Inte
 		super(Connexion.getConnexion(), TitreProfessionnel.class);
 	}
 
-	public HashMap<Integer, String> getTitleMap() throws Exception {
+	public HashMap<String, String> getTitleMap() throws Exception {
 		try{
 			Iterator<TitreProfessionnel> lTitreProfessionnels = this.queryForAll().iterator();
-			HashMap<Integer, String> lResults = new HashMap<Integer, String>();
+			HashMap<String, String> lResults = new HashMap<String, String>();
 			while (lTitreProfessionnels.hasNext()) {
 				TitreProfessionnel lTitrePorfessionnel = lTitreProfessionnels.next();
-				lResults.put(lTitrePorfessionnel.getId(), lTitrePorfessionnel.getCode());
+				lResults.put(lTitrePorfessionnel.getId().toString(), lTitrePorfessionnel.getCode());
 			}
 			return lResults;
 		} catch (Exception exception) {

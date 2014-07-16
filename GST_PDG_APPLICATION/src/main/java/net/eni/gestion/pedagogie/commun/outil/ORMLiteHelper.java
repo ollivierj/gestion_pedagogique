@@ -97,7 +97,7 @@ public class ORMLiteHelper {
 			StringBuilder lStrBuilder = new StringBuilder();
 			lStrBuilder.append("CONTAINS((");
 			lStrBuilder.append(StringUtils.join(
-			Arrays.asList(pFullTextSearchFields), ","));
+					Arrays.asList(pFullTextSearchFields), ","));
 			lStrBuilder.append("), ");
 			lStrBuilder.append("'\"");
 			lStrBuilder.append(lWord);
@@ -107,6 +107,17 @@ public class ORMLiteHelper {
 			lArrayClauses.add(lStrBuilder.toString());
 		}
 		return StringUtils.join(lArrayClauses, " AND ");
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <M extends AModele<ID>, ID> M findItemInList(
+			final M pSearchItem, ArrayList<M> pItemList) {
+		return (M) CollectionUtils.find(pItemList,
+				new org.apache.commons.collections.Predicate() {
+					public boolean evaluate(Object object) {
+						return ((M) object).getId() == pSearchItem.getId();
+					}
+				});
 	}
 
 }
