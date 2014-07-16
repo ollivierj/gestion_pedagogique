@@ -3,7 +3,7 @@
 controllers
 		.controller(
 				'professionelHomologuesCtrl',
-				function($scope, $modal, $log, $timeout, ProfessionnelHomologuesFactory) {
+				function($scope, $modal, $log, $timeout, ProfessionnelHomologuesFactory, TitreProfessionnelsFactory) {
 					$scope.pagingOptions = ProfessionnelHomologuesFactory.pagingOptions;		
 					$scope.sortOptions = ProfessionnelHomologuesFactory.sortOptions;		
 					$scope.filterOptions = ProfessionnelHomologuesFactory.filterOptions;
@@ -25,7 +25,8 @@ controllers
 									displayName : 'Civilité'
 								},
 								{
-									field : 'dateNaissance',
+									field : 'formatedDateNaissance',
+									cellFilter: 'date:\'dd/MM/yyyy\'',
 									displayName : 'Date de naissance'
 								},
 								{
@@ -87,6 +88,9 @@ controllers
 									resolve : {
 										title : function() {return "Ajout d'un professionnel homologué";},
 										professionnelHomologue : function(){ return {}},
+										titreProfessionnels : function(TitreProfessionnelsFactory){
+											return TitreProfessionnelsFactory.titlemap.getData().$promise;
+										},
 										schema : function(ProfessionnelHomologuesFactory) {
 											return ProfessionnelHomologuesFactory.jsonschema.getData().$promise;
 										},
@@ -111,6 +115,9 @@ controllers
 										title : function() {return "Edition d'un professionnel homologué";},
 										professionnelHomologue : function(ProfessionnelHomologuesFactory) {
 											return ProfessionnelHomologuesFactory.detail.getData({id : professionnelHomologueId}).$promise;
+										},
+										titreProfessionnels : function(TitreProfessionnelsFactory){
+											return TitreProfessionnelsFactory.titlemap.getData().$promise;
 										},
 										schema : function(ProfessionnelHomologuesFactory) {
 											return ProfessionnelHomologuesFactory.jsonschema.getData().$promise;
@@ -173,9 +180,10 @@ controllers
 				});
 
 var modalEditionProfessionnelHomologueCtrl = function($scope, $modalInstance,
-		ProfessionnelHomologuesFactory, title, professionnelHomologue, schema, ok) {
+		ProfessionnelHomologuesFactory, title, professionnelHomologue, titreProfessionnels, schema, ok) {
 	$scope.title = title;
 	$scope.data = professionnelHomologue;
+	$scope.titreProfessionnels = titreProfessionnels;
 	$scope.ok = ok;
 	$scope.schema = schema;
 	$scope.form = 
@@ -216,16 +224,18 @@ var modalEditionProfessionnelHomologueCtrl = function($scope, $modalInstance,
 			    	title: "Homologations",
 			    	items :
 			    	[{
-			    	      key: "homologation",
+			    	      key: "homologations",
 			    	      add: "Ajouter une homologation",
 			    	      items: [
 							{
 								title: "Titre professionnel",
-								key: "homologation[].titreProfessionnel",
-								type : "select"
+								key: "homologations[].titreProfessionnel.id",
+								type : "select",
+								schema : { enum : [1, 2] },
+								titleMap : $scope.titreProfessionnels
 							},
-			    	        "homologation[].formatedDateDebut",
-			    	        "homologation[].formatedDateFin"
+			    	        "homologations[].formatedDateDebut",
+			    	        "homologations[].formatedDateFin"
 			    	      ]
 			    	}]
 			    },

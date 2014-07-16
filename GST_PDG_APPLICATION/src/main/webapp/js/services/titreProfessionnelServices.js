@@ -40,7 +40,7 @@ services.factory('TitreProfessionnelsFactory', function ($resource) {
 			},
 		page : page,
 		titlemap : $resource('/ng_gst_pdg/web/titreProfessionnels/titlemap', {}, {
-			getData : { method: 'GET'}
+			getData : { method: 'GET', isArray: false}
 		}),
 		jsonschema :  $resource('/ng_gst_pdg/web/titreProfessionnels/jsonschema', {}, {
 			getData : { method: 'GET'}
