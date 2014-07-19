@@ -8,8 +8,8 @@ controllers
 					$scope.pagingOptions = TitreProfessionnelsFactory.pagingOptions;		
 					$scope.sortOptions = TitreProfessionnelsFactory.sortOptions;		
 					$scope.filterOptions = TitreProfessionnelsFactory.filterOptions;
-					
-					$scope.titreProfessionnelsGridOptions = {
+					$scope.title = "Titres professionnels";
+					$scope.gridOptions = {
 						data : 'titreProfessionnels',
 						multiSelect : false,
 						columnDefs : [
@@ -44,7 +44,7 @@ controllers
 					};
 
 					$scope.viewRow = function(titreProfessionnel) {
-						$scope.editerTitreProfessionnel(titreProfessionnel.id);
+						$scope.visualiserTitreProfessionnel(titreProfessionnel.id);
 					};
 					
 					$scope.removeRow = function(titreProfessionnel) {
@@ -63,10 +63,12 @@ controllers
 									controller : modalEditionTitreProfessionnelCtrl,
 									resolve : {
 										title : function() {return "Ajout d'un titre professionnel";},
+										readonly : function() {return false;},
 										titreProfessionnel : function(){ return {}},
 										schema : function(TitreProfessionnelsFactory) {
 											return TitreProfessionnelsFactory.jsonschema.getData().$promise;
 										},
+										okTitle : function() {return "Enregistrer";},
 										ok : function() { return function(item){ return TitreProfessionnelsFactory.create.doAction(item);}}
 									}
 								});
@@ -78,6 +80,33 @@ controllers
 						});
 					};
 
+					$scope.visualiserTitreProfessionnel = function(
+							titreProfessionnelId) {
+						var modalEdit = $modal
+								.open({
+									templateUrl : 'partials/templates/form.html',
+									controller : modalEditionTitreProfessionnelCtrl,
+									resolve : {
+										title : function() {return "Visualisation d'un titre professionnel";},
+										readonly : function() {return true;},
+										titreProfessionnel : function(TitreProfessionnelsFactory) {
+											return TitreProfessionnelsFactory.detail.getData({id : titreProfessionnelId}).$promise;
+										},
+										schema : function(TitreProfessionnelsFactory) {
+											return TitreProfessionnelsFactory.jsonschema.getData().$promise;
+										},
+										okTitle : function() {return "Fermer";},
+										ok : function() { return function(item){ return item;}}
+									}
+								});
+
+						modalEdit.result.then(function(selectedItem) {
+							TitreProfessionnelsFactory.refreshData($scope);
+						}, function() {
+							$log.info('Modal dismissed at: ' + new Date());
+						});
+					};
+					
 					$scope.editerTitreProfessionnel = function(
 							titreProfessionnelId) {
 						var modalEdit = $modal
@@ -86,12 +115,14 @@ controllers
 									controller : modalEditionTitreProfessionnelCtrl,
 									resolve : {
 										title : function() {return "Edition d'un titre professionnel";},
+										readonly : function() {return false;},
 										titreProfessionnel : function(TitreProfessionnelsFactory) {
 											return TitreProfessionnelsFactory.detail.getData({id : titreProfessionnelId}).$promise;
 										},
 										schema : function(TitreProfessionnelsFactory) {
 											return TitreProfessionnelsFactory.jsonschema.getData().$promise;
 										},
+										okTitle : function() {return "Enregistrer";},
 										ok : function() { return function(item){ return TitreProfessionnelsFactory.modify.doAction(item);}}
 									}
 								});
@@ -150,22 +181,62 @@ controllers
 				});
 
 var modalEditionTitreProfessionnelCtrl = function($scope, $modalInstance,
-		TitreProfessionnelsFactory, title, titreProfessionnel, schema, ok) {
+		TitreProfessionnelsFactory, title, readonly, titreProfessionnel, schema, ok, okTitle) {
 	$scope.title = title;
 	$scope.data = titreProfessionnel;
+	$scope.data.readonly = readonly;
+	$scope.okTitle = okTitle;
 	$scope.ok = ok;
 	$scope.schema = schema;
 	$scope.form = 
 		[
-		 	"code",
-		 	"lienDocReferences",
-		 	{
-        	  type: "actions",
-        	  items:	[
-		        	    { type: 'submit', title: 'Enregistrer' },
-		        	    { type: 'button', title: 'Annuler', onClick: "cancel()" }
-		        	    ]
-		 	}
+			{
+				key : "code",
+				disabled : $scope.data.readonly
+			},
+			{
+				key : "lienDocReferences",
+			 	disabled : $scope.data.readonly
+			},
+			{
+		    	type: "conditional",
+	            condition: "!data.readonly", 
+	            items: 
+	           	 [
+	           	 {
+	           	 type: "actions",
+	           	 items:	
+	           		 [
+			         {
+			         type: 'submit', 
+			         title: $scope.okTitle 
+			         },
+			         { 
+					 type: 'button', 
+					 title: 'Annuler', 
+					 onClick: "cancel()" 
+					 }
+			         ]
+	           	 }
+	           	 ]	
+			},
+			{
+		    	type: "conditional",
+	            condition: "data.readonly", 
+	            items: 
+	           	 [
+	           	 {
+	           	 type: "actions",
+	           	 items:	
+	           		 [
+			         {
+			         type: 'submit', 
+			         title: $scope.okTitle 
+			         }
+			         ]
+	           	 }
+	           	 ]	
+			}
 	    ];
 	$scope.decorator = 'bootstrap-decorator';
 	$scope.submit =function(){

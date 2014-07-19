@@ -7,8 +7,8 @@ controllers
 					$scope.pagingOptions = ProfessionnelHomologuesFactory.pagingOptions;		
 					$scope.sortOptions = ProfessionnelHomologuesFactory.sortOptions;		
 					$scope.filterOptions = ProfessionnelHomologuesFactory.filterOptions;
-					
-					$scope.professionnelHomologuesGridOptions = {
+					$scope.title = "Professionnels homologués";
+					$scope.gridOptions = {
 						data : 'professionnelHomologues',
 						multiSelect : false,
 						columnDefs : [
@@ -68,7 +68,7 @@ controllers
 					};
 
 					$scope.viewRow = function(professionnelHomologue) {
-						$scope.editerProfessionnelHomologue(professionnelHomologue.id);
+						$scope.visualiserProfessionnelHomologue(professionnelHomologue.id);
 					};
 					
 					$scope.removeRow = function(professionnelHomologue) {
@@ -84,9 +84,10 @@ controllers
 						var modalAdd = $modal
 								.open({
 									templateUrl : 'partials/templates/form.html',
-									controller : modalEditionProfessionnelHomologueCtrl,
+									controller : modalProfessionnelHomologueCtrl,
 									resolve : {
 										title : function() {return "Ajout d'un professionnel homologué";},
+										readonly : function() {return false;},
 										professionnelHomologue : function(){ return {}},
 										titreProfessionnels : function(TitreProfessionnelsFactory){
 											return TitreProfessionnelsFactory.titlemap.getData().$promise;
@@ -94,6 +95,7 @@ controllers
 										schema : function(ProfessionnelHomologuesFactory) {
 											return ProfessionnelHomologuesFactory.jsonschema.getData().$promise;
 										},
+										okTitle : function() {return "Enregistrer";},
 										ok : function() { return function(item){ return ProfessionnelHomologuesFactory.create.doAction(item);}}
 									}
 								});
@@ -105,14 +107,15 @@ controllers
 						});
 					};
 
-					$scope.editerProfessionnelHomologue = function(
+					$scope.visualiserProfessionnelHomologue = function(
 							professionnelHomologueId) {
 						var modalEdit = $modal
 								.open({
 									templateUrl : 'partials/templates/form.html',
-									controller : modalEditionProfessionnelHomologueCtrl,
+									controller : modalProfessionnelHomologueCtrl,
 									resolve : {
-										title : function() {return "Edition d'un professionnel homologué";},
+										title : function() {return "Visualisation d'un professionnel homologué";},
+										readonly : function() {return true;},
 										professionnelHomologue : function(ProfessionnelHomologuesFactory) {
 											return ProfessionnelHomologuesFactory.detail.getData({id : professionnelHomologueId}).$promise;
 										},
@@ -122,6 +125,37 @@ controllers
 										schema : function(ProfessionnelHomologuesFactory) {
 											return ProfessionnelHomologuesFactory.jsonschema.getData().$promise;
 										},
+										okTitle : function() {return "Fermer";},
+										ok : function() { return function(item){ return item;}}
+									}
+								});
+
+						modalEdit.result.then(function(selectedItem) {
+							ProfessionnelHomologuesFactory.refreshData($scope);
+						}, function() {
+							$log.info('Modal dismissed at: ' + new Date());
+						});
+					};
+					
+					$scope.editerProfessionnelHomologue = function(
+							professionnelHomologueId) {
+						var modalEdit = $modal
+								.open({
+									templateUrl : 'partials/templates/form.html',
+									controller : modalProfessionnelHomologueCtrl,
+									resolve : {
+										title : function() {return "Edition d'un professionnel homologué";},
+										readonly : function() {return false;},
+										professionnelHomologue : function(ProfessionnelHomologuesFactory) {
+											return ProfessionnelHomologuesFactory.detail.getData({id : professionnelHomologueId}).$promise;
+										},
+										titreProfessionnels : function(TitreProfessionnelsFactory){
+											return TitreProfessionnelsFactory.titlemap.getData().$promise;
+										},
+										schema : function(ProfessionnelHomologuesFactory) {
+											return ProfessionnelHomologuesFactory.jsonschema.getData().$promise;
+										},
+										okTitle : function() {return "Enregistrer";},
 										ok : function() { return function(item){ return ProfessionnelHomologuesFactory.modify.doAction(item);}}
 									}
 								});
@@ -179,11 +213,14 @@ controllers
 					ProfessionnelHomologuesFactory.refreshData($scope);
 				});
 
-var modalEditionProfessionnelHomologueCtrl = function($scope, $modalInstance,
-		ProfessionnelHomologuesFactory, title, professionnelHomologue, titreProfessionnels, schema, ok) {
+var modalProfessionnelHomologueCtrl = function($scope, $modalInstance,
+		ProfessionnelHomologuesFactory, onlyNumbersFilter, title, readonly, professionnelHomologue, titreProfessionnels, schema, ok, okTitle) {
 	$scope.title = title;
 	$scope.data = professionnelHomologue;
-	$scope.titreProfessionnels = titreProfessionnels;
+	$scope.data.readonly = readonly;
+	$scope.titreProfessionnelsTitleMap = titreProfessionnels;
+	$scope.titreProfessionnelsEnum = onlyNumbersFilter(Object.keys($scope.titreProfessionnelsTitleMap)),
+	$scope.okTitle = okTitle;
 	$scope.ok = ok;
 	$scope.schema = schema;
 	$scope.form = 
@@ -195,66 +232,149 @@ var modalEditionProfessionnelHomologueCtrl = function($scope, $modalInstance,
 			    {
 			      title: "Etat civil",
 			      items: 	[
-			             	"civilite",
-				            "nom",
-				            "prenom",
-				            "formatedDateNaissance"
+			             	{
+			             		key : "civilite",
+			             		disabled : $scope.data.readonly
+			             	},
+			             	{
+			             		key : "nom",
+			             		disabled : $scope.data.readonly
+			             	},
+			             	{
+			             		key : "prenom",
+			             		disabled : $scope.data.readonly
+			             	},
+			             	{
+			             		key : "formatedDateNaissance",
+			             		disabled : $scope.data.readonly
+			             	}
 				            ]
 			    },
 			    {
 				      title: "Adresse",
 				      items: 	[
-					            "adresse1",
-					            "adresse2",
-					            "adresse3",
-					            "ville",
-					            "codePostal",
-					            "codeRegion"
-					            ]
+								{
+									key : "adresse1",
+									disabled : $scope.data.readonly
+								},
+								{
+									key : "adresse2",
+									disabled : $scope.data.readonly
+								},
+								{
+									key : "adresse3",
+									disabled : $scope.data.readonly
+								},
+								{
+									key : "ville",
+									disabled : $scope.data.readonly
+								},
+								{
+									key : "codePostal",
+									disabled : $scope.data.readonly
+								},
+								{
+									key : "codeRegion",
+									disabled : $scope.data.readonly
+								}					            
+								]
 				    },
 			    {
 			        title: "Contact",
 			        items: 	[
-			               	"email",
-			               	"telephoneFixe",
-			               	"telephonePortable"
+							{
+								key : "email",
+								disabled : $scope.data.readonly
+							},
+							{
+								key : "telephoneFixe",
+								disabled : $scope.data.readonly
+							},
+							{
+								key : "telephonePortable",
+								disabled : $scope.data.readonly
+							}
 			            	]
 			    },
 			    {
 			    	title: "Homologations",
 			    	items :
-			    	[{
-			    	      key: "homologations",
-			    	      add: "Ajouter une homologation",
-			    	      items: [
-							{
-								title: "Titre professionnel",
-								key: "homologations[].titreProfessionnel.id",
-								type : "select",
-								schema : { enum : [1, 2] },
-								titleMap : $scope.titreProfessionnels
-							},
-			    	        "homologations[].formatedDateDebut",
-			    	        "homologations[].formatedDateFin"
-			    	      ]
-			    	}]
+			    	[
+			    	{
+			    	  key: "homologations",
+		    	      add: "Ajouter une homologation",
+		    	      items: [
+						{
+							title : "Titre professionnel",
+							key: "homologations[].titreProfessionnel.id",
+							type : "select",
+							disabled : $scope.data.readonly,
+							schema : { enum : $scope.titreProfessionnelsEnum},
+							titleMap : $scope.titreProfessionnelsTitleMap
+						},
+						{
+							key: "homologations[].formatedDateDebut",
+							disabled : $scope.data.readonly
+						},
+						{
+							key: "homologations[].formatedDateFin",
+							disabled : $scope.data.readonly
+						}
+		    	      ]
+		    	}
+			    ]
 			    },
 			    {
 			        title: "Autre",
 			        items: 	[
-			               	 "permis"
-			            	]
+							{
+								key: "permis",
+								disabled : $scope.data.readonly
+							}			            	
+							]
 			    }
 			    ]
 		},	
-        {
-        	  type: "actions",
-        	  items:	[
-		        	    { type: 'submit', title: 'Enregistrer' },
-		        	    { type: 'button', title: 'Annuler', onClick: "cancel()" }
-		        	    ]
-        }
-	    ];
+		{
+	    	type: "conditional",
+            condition: "!data.readonly", 
+            items: 
+           	 [
+           	 {
+           	 type: "actions",
+           	 items:	
+           		 [
+		         {
+		         type: 'submit', 
+		         title: $scope.okTitle 
+		         },
+		         { 
+				 type: 'button', 
+				 title: 'Annuler', 
+				 onClick: "cancel()" 
+				 }
+		         ]
+           	 }
+           	 ]	
+		},
+		{
+	    	type: "conditional",
+            condition: "data.readonly", 
+            items: 
+           	 [
+           	 {
+           	 type: "actions",
+           	 items:	
+           		 [
+		         {
+		         type: 'submit', 
+		         title: $scope.okTitle 
+		         }
+		         ]
+           	 }
+           	 ]	
+		}
+		];
 	$scope.decorator = 'bootstrap-decorator';
 	$scope.submit =function(){
 		$scope.ok($scope.data).$promise.then(
@@ -286,6 +406,6 @@ var modalConfirmationDeleteProfessionnelHomologueCtrl = function($scope, $modalI
 			});
 	};
 	$scope.cancel = function() {
-		$modalInstance.dismiss('cancel');
+	$modalInstance.dismiss('cancel');
 	};
 };
