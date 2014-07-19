@@ -302,6 +302,7 @@ var modalProfessionnelHomologueCtrl = function($scope, $modalInstance,
 			    	[
 			    	{
 			    	  key: "homologations",
+			    	  disabled : $scope.data.readonly,
 		    	      add: "Ajouter une homologation",
 		    	      items: [
 						{

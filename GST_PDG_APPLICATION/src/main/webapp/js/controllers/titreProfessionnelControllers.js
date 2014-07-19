@@ -3,8 +3,7 @@
 controllers
 		.controller(
 				'titreProfessionnelsCtrl',
-				function($scope, $modal, $log, $timeout, TitreProfessionnelsFactory,
-						homologationData) {
+				function($scope, $modal, $log, $timeout, TitreProfessionnelsFactory) {
 					$scope.pagingOptions = TitreProfessionnelsFactory.pagingOptions;		
 					$scope.sortOptions = TitreProfessionnelsFactory.sortOptions;		
 					$scope.filterOptions = TitreProfessionnelsFactory.filterOptions;

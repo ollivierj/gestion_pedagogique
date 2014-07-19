@@ -68,6 +68,10 @@ angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 'schemaForm','ui
 			templateUrl: 'partials/templates/list.html',
 			controller: 'titreProfessionnelsCtrl'
 		}).
+		when('/sujetsEvaluation', {
+			templateUrl: 'partials/templates/list.html',
+			controller: 'sujetEvaluationsCtrl'
+		}).
 		when('/gestionDroit', {
 			templateUrl: 'partials/droit/gestionDroit.html',
 			controller: 'gestionDroitCtrl'
