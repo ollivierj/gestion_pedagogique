@@ -10,10 +10,11 @@
       <sf-decorator form="copyWithIndex($index)"></sf-decorator>
     </li>
   </ol>
-  <div class="clearfix" style="padding: 15px;">
+  <div class="clearfix" style="padding: 15px;" ng-hide="form.disabled">
     <button ng-click="appendToArray()"
             type="button"
-            class="btn btn-default pull-right">
+            class="btn btn-default pull-right"
+            ng-hide="form.disabled">
       <i class="glyphicon glyphicon-plus"></i>
       {{ form.add || 'Add'}}
     </button>
