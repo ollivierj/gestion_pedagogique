@@ -47,7 +47,7 @@ public class Module extends AModele<Integer> implements Serializable {
 	public final static String DATE_MODIF_FIELD_NAME 			= "DateModif";
 	public final static String ARCHIVER_FIELD_NAME 				= "Archiver";
 	
-	public final static String[] FULL_TEXT_SEARCH_FIELDS		= {};
+	public final static String[] FULL_TEXT_SEARCH_FIELDS		= {LIBELLE_FIELD_NAME,LIBELLE_COURT_FIELD_NAME};
 	
 	@JsonIgnore
 	@Override

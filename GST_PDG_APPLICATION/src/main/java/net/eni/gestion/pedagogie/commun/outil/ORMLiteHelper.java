@@ -84,11 +84,7 @@ public class ORMLiteHelper {
 	public static String getFullTextSearchWhereClause(
 			String[] pFullTextSearchFields, String pSearchText)
 			throws GenericException {
-		if (null == pFullTextSearchFields) {
-			throw new GenericException(
-					"Aucun champ défini pour la recherche plein texte. ");
-		}
-		if (null == pSearchText || pSearchText.isEmpty()) {
+		if (null == pSearchText || pSearchText.isEmpty() || null == pFullTextSearchFields) {
 			return null;
 		}
 		ArrayList<String> lArrayClauses = new ArrayList<String>();
