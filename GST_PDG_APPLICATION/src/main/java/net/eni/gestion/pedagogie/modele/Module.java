@@ -4,16 +4,17 @@
 package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
+import java.text.ParseException;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang3.time.DateFormatUtils;
-
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
+import net.eni.gestion.pedagogie.commun.outil.DateHelper;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.github.reinert.jjschema.Attributes;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -46,6 +47,14 @@ public class Module extends AModele<Integer> implements Serializable {
 	public final static String DATE_MODIF_FIELD_NAME 			= "DateModif";
 	public final static String ARCHIVER_FIELD_NAME 				= "Archiver";
 	
+	public final static String[] FULL_TEXT_SEARCH_FIELDS		= {};
+	
+	@JsonIgnore
+	@Override
+	public String[] getFullTextSearchFieldNames() {
+		return FULL_TEXT_SEARCH_FIELDS;
+	}
+	
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
 		dataType = DataType.INTEGER_OBJ,
@@ -53,6 +62,7 @@ public class Module extends AModele<Integer> implements Serializable {
 		useGetSet = true)
 	private Integer id = null;
 	
+	@Attributes(title = "Libellé", required = true, maxLength = 200)
 	@DatabaseField(
 		columnName = LIBELLE_FIELD_NAME,
 		dataType = DataType.STRING,
@@ -60,6 +70,7 @@ public class Module extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private String libelle = null;
 
+	@Attributes(title = "Durée en heures", required = true)
 	@DatabaseField(
 		columnName = DUREE_EN_HEURES_FIELD_NAME,
 		dataType = DataType.SHORT_OBJ,
@@ -67,14 +78,18 @@ public class Module extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private Short dureeEnHeures = null;
 
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy H:mm:ss", timezone="CET")   
+	@JsonIgnore
 	@DatabaseField(
 		columnName = DATE_CREATION_FIELD_NAME,
 		dataType = DataType.DATE,
 		useGetSet = true,
 		canBeNull = false)
 	private Date dateCreation = null;
-		
+	
+	@Attributes(title = "Date de création", required = true, format = "date")
+	private String formatedDateCreation;
+	
+	@Attributes(title = "Durée en semaines", required = true)
 	@DatabaseField(
 		columnName = DUREE_EN_SEMAINES_FIELD_NAME,
 		dataType = DataType.SHORT_OBJ,
@@ -82,6 +97,7 @@ public class Module extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private Short dureeEnSemaines = null;
 	
+	@Attributes(title = "Prix public", required = true)
 	@DatabaseField(
 		columnName = PRIX_PUBLIC_EN_COURS_FIELD_NAME,
 		dataType = DataType.FLOAT_OBJ,
@@ -89,6 +105,7 @@ public class Module extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private Float prixPublicEnCours = null;
 	
+	@Attributes(title = "Libellé court", required = true, maxLength = 20)
 	@DatabaseField(
 		columnName = LIBELLE_COURT_FIELD_NAME,
 		dataType = DataType.STRING,
@@ -96,6 +113,7 @@ public class Module extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private String libelleCourt = null;
 	
+	@Attributes(title = "Archiver", required = true)
 	@DatabaseField(
 		columnName = ARCHIVER_FIELD_NAME,
 		dataType = DataType.BOOLEAN_OBJ,
@@ -133,13 +151,20 @@ public class Module extends AModele<Integer> implements Serializable {
 		return dateCreation;
 	}
 	
-	public String getFormatedDateCreation(){
-		return (null!=dateCreation)? DateFormatUtils.format(dateCreation, "dd/MM/yyyy H:mm:ss"): null;
-	}
-
 	public void setDateCreation(Date dateCreation) {
+		this.formatedDateCreation=DateHelper.stringifyDate(dateCreation, "yyyy-MM-dd");
 		this.dateCreation = dateCreation;
 	}
+	
+	public String getFormatedDateCreation() {
+		return formatedDateCreation;
+	}
+
+	public void setFormatedDateCreation(String formatedDateCreation) throws ParseException {
+		this.dateCreation= DateHelper.datifyString(formatedDateCreation, "yyyy-MM-dd");
+		this.formatedDateCreation = formatedDateCreation;
+	}
+	
 
 	public Short getDureeEnSemaines() {
 		return dureeEnSemaines;

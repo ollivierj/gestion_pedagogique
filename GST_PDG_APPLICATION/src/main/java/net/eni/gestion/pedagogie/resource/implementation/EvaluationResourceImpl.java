@@ -12,7 +12,7 @@ import com.google.inject.Inject;
  * @author jollivier
  * Classe d'implémentation pour le module de gestion des evaluations
  */
-@Path("/evaluations")
+@Path("/sujetEvaluations")
 public class EvaluationResourceImpl extends AResourceImpl<Evaluation, Integer, EvaluationService> implements EvaluationResource {
 
     /**

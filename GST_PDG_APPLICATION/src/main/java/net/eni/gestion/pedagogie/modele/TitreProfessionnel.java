@@ -35,7 +35,7 @@ public class TitreProfessionnel extends AModele<Integer> implements Serializable
 	private static final long serialVersionUID = 1L;
 
 	public final static String ID_FIELD_NAME 					= "TR_PRF_ID";
-	public final static String INTITULE_FIELD_NAME					= "TR_PRF_INTITULE";
+	public final static String INTITULE_FIELD_NAME				= "TR_PRF_INTITULE";
 	public final static String LIEN_DOC_REFERENCES_FIELD_NAME	= "TR_PRF_LIEN_DOC_REFERENCES";
 	
 	public final static String[] FULL_TEXT_SEARCH_FIELDS		= {INTITULE_FIELD_NAME};
