@@ -1,5 +1,7 @@
 package net.eni.gestion.pedagogie.DAO;
 
+import java.util.HashMap;
+
 import net.eni.gestion.pedagogie.modele.TitreProfessionnel;
 
 /**
@@ -9,6 +11,5 @@ import net.eni.gestion.pedagogie.modele.TitreProfessionnel;
  */
 public interface TitreProfessionnelDao extends ADao<TitreProfessionnel, Integer> {
 
-	
-
+	public HashMap<String, String> getTitleMap() throws Exception;
 }

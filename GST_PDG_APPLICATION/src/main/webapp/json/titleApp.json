@@ -9,7 +9,6 @@
 
 	{"mainTitle" : "Sessions de validation", "iconTitle":"fa fa-file-o", "url":"index.html#/gestionSessionsValidation", "type":"single"},
 
-	{"mainTitle" : "Professionnels homologués", "iconTitle":"fa fa-group", "url":"index.html#/professionnelHomologues", "type":"single"},
 
 	{"mainTitle" : "Salles", "iconTitle":"fa fa-building-o", "url":"index.html#/salle", "type":"single"}
 ]

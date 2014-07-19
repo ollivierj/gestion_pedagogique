@@ -1,6 +1,9 @@
 package net.eni.gestion.pedagogie.DAO;
 
+import java.util.ArrayList;
+
 import net.eni.gestion.pedagogie.modele.Homologation;
+import net.eni.gestion.pedagogie.modele.ProfessionnelHomologue;
 
 /**
  * @author jollivier
@@ -8,7 +11,8 @@ import net.eni.gestion.pedagogie.modele.Homologation;
  * pour la gestion des homologations
  */
 public interface HomologationDao extends ADao<Homologation, Integer> {
-
 	
+	ArrayList<Homologation> mettreAJourCollectionHomologationForProfessionnelHomologue(ProfessionnelHomologue pProfessionnelHomologue, ArrayList<Homologation> pHomologations) throws Exception;
+		
 
 }

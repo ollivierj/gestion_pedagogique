@@ -7,4 +7,5 @@ filters.filter('getById', function($filter) {
       return 'inconnu';
     }
   };
-})
+});
+

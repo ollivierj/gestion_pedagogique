@@ -61,8 +61,16 @@ angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 'schemaForm','ui
 			}
 		}).
 		when('/professionnelHomologues', {
-			templateUrl: 'partials/professionnelHomologues/professionnelHomologuesListe.html',
-			controller: 'professionelHomologueesCtrl'
+			templateUrl: 'partials/templates/list.html',
+			controller: 'professionelHomologuesCtrl'
+		}).
+		when('/titreProfessionnels', {
+			templateUrl: 'partials/templates/list.html',
+			controller: 'titreProfessionnelsCtrl'
+		}).
+		when('/sujetsEvaluation', {
+			templateUrl: 'partials/templates/list.html',
+			controller: 'sujetEvaluationsCtrl'
 		}).
 		when('/gestionDroit', {
 			templateUrl: 'partials/droit/gestionDroit.html',

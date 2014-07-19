@@ -4,14 +4,18 @@
 package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
+import java.text.ParseException;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
+import net.eni.gestion.pedagogie.commun.outil.DateHelper;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.github.reinert.jjschema.Attributes;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -47,13 +51,18 @@ public class Homologation extends AModele<Integer> implements Serializable {
 		useGetSet = true)
 	private Integer id = null;
 	
+	
+	@JsonBackReference("ProfessionnelHomologue-Homologations")
 	@DatabaseField(
 		columnName = PROFESSIONNEL_HOMOLOGUE_FIELD_NAME,
 		foreign = true,
+		foreignAutoCreate = true,
+		foreignAutoRefresh = true,
 		useGetSet = true,
 		canBeNull = false)
 	private ProfessionnelHomologue professionnelHomologue = null;
 
+	@Attributes(title="Titre professionnel", required = true)
 	@DatabaseField(
 		columnName = TITRE_PROFESSIONNEL_FIELD_NAME,
 		foreign = true,
@@ -61,22 +70,28 @@ public class Homologation extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private TitreProfessionnel titreProfessionnel = null;
 
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy", timezone="CET")   
+	@JsonIgnore
 	@DatabaseField(
 		columnName = DATE_DEBUT_FIELD_NAME,
 		dataType = DataType.DATE,
 		useGetSet = true,
 		canBeNull = false)
 	private Date dateDebut = null;
+	
+	@Attributes(title = "Date de début de validité", required = true, format = "date")
+	private String formatedDateDebut;
 
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy", timezone="CET")   
+	@JsonIgnore
 	@DatabaseField(
 		columnName = DATE_FIN_FIELD_NAME,
 		dataType = DataType.DATE,
 		useGetSet = true,
 		canBeNull = false)
 	private Date dateFin = null;
-			
+	
+	@Attributes(title = "Date de fin de validité", required = true, format = "date")
+	private String formatedDateFin;
+
 	@Override
 	public Integer getId() {
 		return id;
@@ -109,7 +124,17 @@ public class Homologation extends AModele<Integer> implements Serializable {
 	}
 
 	public void setDateDebut(Date dateDebut) {
+		this.formatedDateDebut=DateHelper.stringifyDate(dateDebut, "yyyy-MM-dd");
 		this.dateDebut = dateDebut;
+	}
+	
+	public String getFormatedDateDebut() {
+		return formatedDateDebut;
+	}
+
+	public void setFormatedDateDebut(String formatedDateDebut) throws ParseException {
+		this.dateDebut=DateHelper.datifyString(formatedDateDebut, "yyyy-MM-dd");
+		this.formatedDateDebut = formatedDateDebut;
 	}
 
 	public Date getDateFin() {
@@ -117,7 +142,17 @@ public class Homologation extends AModele<Integer> implements Serializable {
 	}
 
 	public void setDateFin(Date dateFin) {
+		this.formatedDateFin=DateHelper.stringifyDate(dateFin, "yyyy-MM-dd");
 		this.dateFin = dateFin;
+	}
+	
+	public String getFormatedDateFin() {
+		return formatedDateFin;
+	}
+
+	public void setFormatedDateFin(String formatedDateFin) throws ParseException {
+		this.dateFin=DateHelper.datifyString(formatedDateFin, "yyyy-MM-dd");
+		this.formatedDateFin = formatedDateFin;
 	}
 
 }

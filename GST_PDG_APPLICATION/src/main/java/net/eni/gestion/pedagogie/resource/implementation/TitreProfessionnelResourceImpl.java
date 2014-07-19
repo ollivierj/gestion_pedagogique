@@ -1,7 +1,13 @@
 package net.eni.gestion.pedagogie.resource.implementation;
 
-import javax.ws.rs.Path;
+import java.util.HashMap;
 
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import net.eni.gestion.pedagogie.commun.composant.GenericException;
 import net.eni.gestion.pedagogie.modele.TitreProfessionnel;
 import net.eni.gestion.pedagogie.resource.TitreProfessionnelResource;
 import net.eni.gestion.pedagogie.service.TitreProfessionnelService;
@@ -23,5 +29,17 @@ public class TitreProfessionnelResourceImpl extends AResourceImpl<TitreProfessio
     public TitreProfessionnelResourceImpl(TitreProfessionnelService titreProfessionnelService) {
     	super(titreProfessionnelService, TitreProfessionnel.class);
     }
+    
+    /* (non-Javadoc)
+     * @see net.eni.gestion.pedagogie.service.contrat.generique.CRUDService#charger()
+     */
+    @GET
+    @Path("/titlemap")
+    @Produces(MediaType.APPLICATION_JSON)
+    public HashMap<String, String> getTitleMap() throws GenericException {
+        return service.getTitleMap();
+    }
+    
+    
 
 }

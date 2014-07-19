@@ -1,5 +1,7 @@
 package net.eni.gestion.pedagogie.modele.generique;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * @author jollivier
  * Classe abtraite héritée par les modèles
@@ -24,7 +26,7 @@ public abstract class AModele <ID> {
 	 */
 	public abstract void setId(ID pId);
 	
-	
+	@JsonIgnore
 	public String[] getFullTextSearchFieldNames() {
 		return null;
 	}

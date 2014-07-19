@@ -1,11 +1,15 @@
 package net.eni.gestion.pedagogie.commun.outil;
 
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
 import net.eni.gestion.pedagogie.commun.composant.Pair;
+
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.commons.lang3.time.DateUtils;
 
 /**
  * @author jollivier
@@ -149,5 +153,19 @@ public class DateHelper {
 		return (lDateTrouvee)
 			?	new Pair<Date, Date>(newDate(lDateMin), newDate(lDateMax))
 			:	null;
+	}
+	
+	public static String stringifyDate(Date pDate, String pFormat){
+		return (null != pDate && null != pFormat)? DateFormatUtils.format(pDate, pFormat) : null;
+	}
+	
+	public static Date datifyString(String pDate, String pFormat){
+		try {
+			return (null != pDate) ? DateUtils.parseDate(pDate, pFormat) : null;
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

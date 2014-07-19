@@ -5,21 +5,24 @@ package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang3.time.DateFormatUtils;
-import org.apache.commons.lang3.time.DateUtils;
-
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
+import net.eni.gestion.pedagogie.commun.outil.DateHelper;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.github.reinert.jjschema.Attributes;
+import com.github.reinert.jjschema.SchemaIgnore;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
@@ -75,7 +78,7 @@ public class ProfessionnelHomologue extends AModele<Integer> implements Serializ
 		useGetSet = true)
 	private Integer id = null;
 		
-	@Attributes(title = "Civilité", required = true, maxLength = 3, enums={"M","Mme"})	
+	@Attributes(title = "Civilité", required = true, maxLength = 3, enums={"M  ","Mme"})	
 	@DatabaseField(
 		columnName = CIVILITE_FIELD_NAME,
 		dataType = DataType.STRING,
@@ -156,20 +159,11 @@ public class ProfessionnelHomologue extends AModele<Integer> implements Serializ
 	@DatabaseField(
 		columnName = DATE_NAISSANCE_FIELD_NAME,
 		dataType = DataType.DATE,
-		useGetSet = false)
+		useGetSet = true)
 	private Date dateNaissance = null;
 	
 	@Attributes(title = "Date de naissance", required = false, format = "date")
 	private String formatedDateNaissance;
-
-	public String getFormatedDateNaissance() {
-		return formatedDateNaissance;
-	}
-
-	public void setFormatedDateNaissance(String formatedDateNaissance) throws ParseException {
-		this.dateNaissance=(null != formatedDateNaissance) ? DateUtils.parseDate(formatedDateNaissance, "dd/MM/yyyy") : null;
-		this.formatedDateNaissance = formatedDateNaissance;
-	}
 
 	@Attributes(title = "Code région de naissance", required = false, maxLength = 2)
 	@DatabaseField(
@@ -192,13 +186,24 @@ public class ProfessionnelHomologue extends AModele<Integer> implements Serializ
 		useGetSet = true)
 	private Boolean permis = null;
 	
+	@SchemaIgnore
 	@JsonIgnore
-	@DatabaseField(
-		columnName = PHOTO_FIELD_NAME,
-		dataType = DataType.STRING,
-		useGetSet = true)
-	private String photo = null;
-		
+	@ForeignCollectionField(eager = true, columnName = Homologation.PROFESSIONNEL_HOMOLOGUE_FIELD_NAME)
+	private transient Collection<Homologation> transientHomologations = null;
+	
+	public Collection<Homologation> getTransientHomologations() {
+		return transientHomologations;
+	}
+
+	public void setTransientHomologations(
+			Collection<Homologation> transientHomologations) {
+		this.transientHomologations = transientHomologations;
+	}
+
+	@JsonManagedReference("ProfessionnelHomologue-Homologations")
+	@Attributes(id = "homologations")
+	private ArrayList<Homologation> homologations = new ArrayList<Homologation>();
+	
 	@Override
 	public Integer getId() {
 		return id;
@@ -302,8 +307,17 @@ public class ProfessionnelHomologue extends AModele<Integer> implements Serializ
 	}
 	
 	public void setDateNaissance(Date dateNaissance) {
-		this.formatedDateNaissance=DateFormatUtils.format(dateNaissance, "dd/MM/yyyy");
+		this.formatedDateNaissance=DateHelper.stringifyDate(dateNaissance, "yyyy-MM-dd");
 		this.dateNaissance = dateNaissance;
+	}
+	
+	public String getFormatedDateNaissance() {
+		return formatedDateNaissance;
+	}
+
+	public void setFormatedDateNaissance(String formatedDateNaissance) throws ParseException {
+		this.dateNaissance= DateHelper.datifyString(formatedDateNaissance, "yyyy-MM-dd");
+		this.formatedDateNaissance = formatedDateNaissance;
 	}
 
 	public String getCodeRegion() {
@@ -330,12 +344,17 @@ public class ProfessionnelHomologue extends AModele<Integer> implements Serializ
 		this.permis = permis;
 	}
 
-	public String getPhoto() {
-		return photo;
+	public ArrayList<Homologation> getHomologations() {
+		if (null != transientHomologations) {
+			homologations.clear();
+			homologations.addAll(transientHomologations);
+			transientHomologations = null;
+		}
+		return homologations;
 	}
 
-	public void setPhoto(String photo) {
-		this.photo = photo;
+	public void setHomologations(ArrayList<Homologation> homologations) {
+		this.homologations = homologations;
 	}
 
 }

@@ -94,8 +94,12 @@
               <ul class="dropdown-menu">
                 <li><a href="index.html#/gestionDroit"><i class="fa fa-gear"></i> Droits</a></li>
                 <li><a href="index.html#/gestionFichesSynthese"><i class="fa fa-gear"></i> Fiche de suivi</a></li>
-                <li><a href="index.html#/versionECF"><i class="fa fa-gear"></i> Version ECF</a></li>
-                <li><a href="index.html#/"><i class="fa fa-gear"></i> Titres professionnels</a></li>
+                <li><a href="index.html#/sujetsEvaluation"><i class="fa fa-gear"></i> Sujets d'évaluation</a></li>
+                <li><a href="index.html#/titreProfessionnels"><i class="fa fa-gear"></i> Titres professionnels</a></li>
+                <li><a href="index.html#/professionnelHomologues"><i class="fa fa-gear"></i> Professionnels homologués</a></li>
+               
+                
+                
                 <li class="divider"></li>
                 <li><a href="index.html#/authentification" ng-click="afficherModalConnexion()"><i class="fa fa-power-off"></i> Se déconnecter</a></li>
               </ul>
@@ -114,7 +118,8 @@
     <!-- Librairies js -->
     <script src="lib/jquery-1.10.2.js"></script>
     <script src="lib/tv4.min.js"></script>
-    <!-- <script src="lib/tv4-fr-language.js"></script> -->
+    <script src="lib/tv4-fr-language.js"></script>
+    <script src="lib/tv4-custom-validators.js"></script>
     <script src="lib/jquery-ui-1.10.3.custom.min.js"></script>
     <script src="lib/fullcalendar-1.6.4.js"></script>
     <script src="lib/bootstrap-3.1.1.js"></script>
@@ -131,13 +136,20 @@
     <script src="lib/ui-bootstrap-tpls-0.11.0.js"></script>
     <script src="lib/angular-1.2.16/plugins/angular-ui-tree-2.1.3.js"></script>
     <script src="lib/angular-1.2.16/plugins/ui-calendar.js"></script>
-   <script src="lib/angular-1.2.16/plugins/schema-form.min.js"></script>
-    
-    <script src="lib/angular-1.2.16/plugins/bootstrap-decorator.min.js"></script>
-    <script src="lib/angular-1.2.16/plugins/bootstrap-datepicker.min.js"></script>
-    
-    
-    
+	<!-- angular-schema-form -->
+	<script src="lib/angular-1.2.16/plugins/angular-schema-form/module.js"></script>
+	<script src="lib/angular-1.2.16/plugins/angular-schema-form/services/decorators.js"></script>
+	<script src="lib/angular-1.2.16/plugins/angular-schema-form/services/schema-form.js"></script>
+	<script src="lib/angular-1.2.16/plugins/angular-schema-form/services/Select.js"></script>
+	<script src="lib/angular-1.2.16/plugins/angular-schema-form/directives/decorators/bootstrap/bootstrap-decorator.js"></script>
+	<script src="lib/angular-1.2.16/plugins/angular-schema-form/directives/array.js"></script>
+	<script src="lib/angular-1.2.16/plugins/angular-schema-form/directives/changed.js"></script>
+	<script src="lib/angular-1.2.16/plugins/angular-schema-form/directives/schema-form.js"></script>
+	<script src="lib/angular-1.2.16/plugins/angular-schema-form/directives/schema-validate.js"></script>
+	<script src="lib/angular-1.2.16/plugins/angular-schema-form/directives/decorators/bootstrap/datepicker/angular-pickadate.js"></script>
+	<script src="lib/angular-1.2.16/plugins/angular-schema-form/directives/decorators/bootstrap/datepicker/bootstrap-datepicker.js"></script>
+	
+	
     <script src="js/app.js"></script>
     <!--  Services js -->
     <script src="js/services/modalService.js"></script> 
@@ -147,7 +159,10 @@
     <script src="js/services/animateur/animateursLibresFactory.js"></script>
     <script src="js/services/retardataire/retardatairesFactory.js"></script>
     <script src="js/services/consultationStagiairesService.js"></script>
-    <script src="js/services/professionnelHomologueServices.js"></script>        
+    <script src="js/services/professionnelHomologueServices.js"></script> 
+    <script src="js/services/titreProfessionnelServices.js"></script> 
+    <script src="js/services/moduleServices.js"></script> 
+    <script src="js/services/sujetEvaluationServices.js"></script> 
     <script src="js/services/versionECFServices.js"></script>    
     <script src="js/services/modeleFicheSyntheseServices.js"></script>          
     <script src="js/services/listeECFServices.js"></script>        
@@ -160,6 +175,7 @@
     <script src="js/services/jurysSallesService.js"></script>
     <!-- filters -->
     <script src="js/filters/getByIdFilter.js"></script>
+    <script src="js/filters/onlyNumbers.js"></script>
     
     <!-- Controllers js -->
     <script src="js/controllers/consultationStagiairesControllers.js"></script>
@@ -176,6 +192,8 @@
     <script src="js/controllers/salle/formulaireReservationSalleController.js"></script>  
     <script src="js/controllers/gestionSessionsValidationControllers.js"></script>  
     <script src="js/controllers/professionnelHomologueControllers.js"></script>
+    <script src="js/controllers/titreProfessionnelControllers.js"></script>
+    <script src="js/controllers/sujetEvaluationControllers.js"></script>
     <script src="js/controllers/wrapperControllers.js"></script>
     <script src="js/controllers/gestionDroitControllers.js"></script>
     <!--  Directives js -->

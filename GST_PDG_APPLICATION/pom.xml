@@ -9,7 +9,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jersey.version>1.18.1</jersey.version>
 		<guice.version>3.0</guice.version>
-		<guava.version>r09</guava.version>
+		<guava.version>17.0</guava.version>
 	</properties>
 	<name>ng_gst_pdg Maven Webapp</name>
 	<url>http://maven.apache.org</url>
@@ -57,7 +57,7 @@
 		<dependency>
 			<groupId>javax.xml.bind</groupId>
 			<artifactId>jaxb-api</artifactId>
-			<version>2.1</version>
+			<version>2.2</version>
 		</dependency>
 
 		<!-- RESTful web service: Jersey ====================================== -->
@@ -175,9 +175,15 @@
 
 		<dependency>
 			<groupId>com.github.fge</groupId>
-			<artifactId>json-schema-core</artifactId>
-			<version>1.0.1</version>
+			<artifactId>json-schema-validator</artifactId>
+			<version>2.2.5</version>
 		</dependency>
+		<dependency>
+			<groupId>com.github.fge</groupId>
+			<artifactId>json-schema-core</artifactId>
+			<version>1.2.4</version>
+		</dependency>
+
 
 	</dependencies>
 </project>
