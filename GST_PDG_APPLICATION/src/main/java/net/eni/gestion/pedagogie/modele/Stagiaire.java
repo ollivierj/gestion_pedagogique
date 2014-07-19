@@ -15,6 +15,7 @@ import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -62,6 +63,14 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 	public final static String PHOTO_FIELD_NAME	 				= "Photo";
 	public final static String ENVOI_DOC_EN_COURS_FIELD_NAME	= "EnvoiDocEnCours";
 	public final static String HISTORIQUE_FIELD_NAME			= "Historique";
+	
+	// Champ utilisant un index FTS
+	public final static String[] FULL_TEXT_SEARCH_FIELDS		= {NOM_FIELD_NAME, PRENOM_FIELD_NAME, VILLE_FIELD_NAME};
+	
+	@Override
+	public String[] getFullTextSearchFieldNames() {
+		return FULL_TEXT_SEARCH_FIELDS;
+	}
 	
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,

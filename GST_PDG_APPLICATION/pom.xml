@@ -52,11 +52,6 @@
 			<artifactId>guava</artifactId>
 			<version>${guava.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>test</groupId>
-			<artifactId>jjschema</artifactId>
-			<version>1.0</version>
-		</dependency>
 
 		<!-- javax: XML binding =============================================== -->
 		<dependency>

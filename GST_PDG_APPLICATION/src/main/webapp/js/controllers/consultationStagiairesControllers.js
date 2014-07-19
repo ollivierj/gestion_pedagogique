@@ -8,33 +8,17 @@ controllers.controller('consultationStagiairesCtrl', function($scope, $http, $lo
 
     /*Liste de tous les stagiaires utilisée pour effectuer le filtre*/
     var allStagiaire = [];
-
-    $scope.filterOptions = {
-        filterText: "",
-        useExternalFilter: true
-    }; 
+    
     $scope.totalServerItems = 0;
-    $scope.pagingOptions = {
-        pageSizes: [5, 10, 15, 25],
-        pageSize: 10,
-        currentPage: 1
-    };  
-
-    $scope.promotions = [
-        {code:'AL3', nbStagiaire:12, annee:2009},
-        {code:'MS2I', nbStagiaire:36, annee:2012},
-        {code:'CDI', nbStagiaire:14, annee:2013},
-        {code:'Micro', nbStagiaire:26, annee:2010}
-    ];
-
+    $scope.pagingOptions = StagiairesFactory.pagingOptions;
+    $scope.filterOptions = StagiairesFactory.filterOptions;
+    $scope.sortOptions = StagiairesFactory.sortOptions;
+    
     /*Options des tableaux ng-grid*/
     $scope.gridOptionsStagiaire = {
         data: 'stagiaires',
         rowHeight: 80,
         selectedItems: $scope.stagiaireSelected,
-        multiSelect: false,
-        // showColumnMenu:true,
-        // showFilter:true,
         columnDefs : [
                 {field:'photo', displayName:'Photo', cellTemplate: 'partials/templates/ng-grid_photo.html'},
                 {field:'nom', displayName:'Nom'},
@@ -47,25 +31,8 @@ controllers.controller('consultationStagiairesCtrl', function($scope, $http, $lo
         showFooter: true,
         totalServerItems: 'totalServerItems',
         pagingOptions: $scope.pagingOptions,
-        filterOptions: $scope.filterOptions
-    };
-
-    $scope.gridOptionsPromotion = { 
-        data: 'promotions',
-        selectedItems: $scope.promotionSelected,
-        // showColumnMenu:true,
-        // showFilter:true,
-        afterSelectionChange : function(promotion) {
-            selectChangePromotion(promotion);
-        },
-        multiSelect: false,
-        columnDefs : [
-                {field:'code', displayName:'Code'},
-                {field:'nbStagiaire', displayName:'Nombre de stagiaires'},
-                {field:'annee', displayName:'Année'}
-        ],
-        showFooter: true,
-        enablePaging: true   
+        filterOptions: $scope.filterOptions,
+        sortInfo: $scope.sortOptions
     };
 
     // Affiche une fenêtre modal avec les informations de la promotion
@@ -86,6 +53,7 @@ controllers.controller('consultationStagiairesCtrl', function($scope, $http, $lo
         $location.path('/detailsStagiaire');
     };
 
+    //Gestion du mode carte et du mode liste
     $scope.listDisplayModeEnabled = true;
     $scope.DisplayModeEnum = {
         Card: 0,
@@ -103,80 +71,35 @@ controllers.controller('consultationStagiairesCtrl', function($scope, $http, $lo
         }
     };
 
-    /*Fonction permettant de filtrer la liste des stagiaires en fonction de la promotion sélectionnée*/
-    $scope.selectChangePromotion = function(promotion) {
-        /*On exécute le traitement seulement lors de la sélection de la données et non lors de la désélection*/
-        if (promotion.selected == true) {
-            if (allStagiaire.length == 0) {
-                //Initialisation de la variable permettant de toujours avoir la totalité de stagiaires
-                allStagiaire = $scope.stagiaires;
-            };
-            
-            /*Réinitialisation des données afin de les réaffecter en fonction de la promotion*/
-            $scope.stagiaires = [];
-
-            for (var i = 0; i < allStagiaire.length; i++) {
-                if (allStagiaire[i].promotion == promotion.entity.code) {
-                    $scope.stagiaires.push(allStagiaire[i]); 
-                };
-            };
-        };
-    };
-
-
-    /*Gestion de la pagination*/
-
-    $scope.setPagingData = function(data, page, pageSize, totalItems){  
-        $scope.stagiaires = data;
-        $scope.totalServerItems = totalItems;
-        if (!$scope.$$phase) {
-            $scope.$apply();
-        }
-        $scope.pagingOptions.pageSize = pageSize;
-        $scope.pagingOptions.currentPage = page;
-    };
-
-    $scope.getPagedDataAsync = function (pageSize, page, searchText) {
-        setTimeout(function () {
-            var data;
-            if (searchText) {
-                var ft = searchText.toLowerCase();
-                /*$http.get('json/stagiairesLoad.json').success(function (largeLoad) {        
-                    data = largeLoad.filter(function(item) {
-                        return JSON.stringify(item).toLowerCase().indexOf(ft) != -1;
-                    });
-                    $scope.setPagingData(data,page,pageSize);
-                });*/            
-            } else {
-               /*$http.get('json/stagiairesLoad.json').success(function (largeLoad) {
-                    $scope.setPagingData(largeLoad,page,pageSize);
-                });  */
-            	/*
-            	 * Teste coté base OK
-            	 */
-            	 var unepromesse = StagiairesFactory.query({page : $scope.pagingOptions.currentPage, pageSize : $scope.pagingOptions.pageSize, totalItems : $scope.totalServerItems , sortColumnBy : "CodeStagiaire", sortDirectionBy : "DESC"});
-            	 unepromesse.$promise.then(
-            	        function(response){
-            	        	$scope.setPagingData(response.data,response.pager.page,response.pager.pageSize, response.pager.totalItems);
-            	        	}
-            	        ,function(reason){alert('Failed: ' + reason);}
-            	     );
-            	
-            }
-        }, 100);
+    $scope.refreshData = function () {
+    	//Utilisation de la méthode du service permettant la récupération des données
+    	//Cette méthode retourne une promise donc utilisation de .then()
+    	StagiairesFactory.getData($scope.pagingOptions, $scope.sortOptions, $scope.filterOptions).then(
+			function (success) {
+				$scope.stagiaires = success.data;
+		        $scope.totalServerItems = success.totalServerItems;
+			},
+			function (error) {
+				alert('Error : ' + error);
+			}
+		);
     };
     
-    $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
+    $scope.refreshData();
     
+    //Watch equality permet de comparer toutes les données de l'objet aini que ses attributs. Avec la valeur true
+    //Surveillance de la variable pagingOptions
     $scope.$watch('pagingOptions', function (newVal, oldVal) {
         if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
-          $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+        	$scope.refreshData();
         }
     }, true);
+    
+    //Surveillance de la variable filterOptions
     $scope.$watch('filterOptions', function (newVal, oldVal) {
-        if (newVal !== oldVal) {
-          $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
-        }
+    	if (newVal !== oldVal) {
+    		$scope.refreshData();
+    	}
     }, true);
 
 });

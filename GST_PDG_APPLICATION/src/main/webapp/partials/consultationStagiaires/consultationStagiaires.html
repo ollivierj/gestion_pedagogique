@@ -22,7 +22,7 @@
                 </button>
               </form>
               <form class="navbar-form navbar-left">
-                <input type="text" class="form-control" placeholder="Recherche" ng-model="critereStagiaire">  
+                <input type="text" class="form-control" placeholder="Recherche" ng-model="filterOptions.filterText">  
               </form>
             </div>
           </nav>
@@ -36,7 +36,7 @@
         <!-- Mode affichage carte pour stagiaires -->
         <div class="row" ng-hide="listDisplayModeEnabled">
           <div class="row col-lg-12">
-            <div class="col-lg-3" data-ng-repeat="stagiaire in stagiaires | filter:critereStagiaire">
+            <div class="col-lg-3" data-ng-repeat="stagiaire in stagiaires">
               <div class="panel panel-info">
                 <div class="panel-heading">
                   <div class="row">
