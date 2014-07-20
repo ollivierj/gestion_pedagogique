@@ -61,7 +61,7 @@ public class TitreProfessionnel extends AModele<Integer> implements Serializable
 		canBeNull = false)
 	private String code = null;
 
-	@Attributes(title = "Lien vers les documents associés au titre professionnel", required = false, maxLength = 100)
+	@Attributes(title = "Lien vers les documents associés au titre professionnel", required = false, maxLength = 100, format="url")
 	@DatabaseField(
 		columnName = LIEN_DOC_REFERENCES_FIELD_NAME,
 		dataType = DataType.STRING,

@@ -194,8 +194,8 @@ var modalEditionTitreProfessionnelCtrl = function($scope, $modalInstance,
 				disabled : $scope.data.readonly
 			},
 			{
-				key : "lienDocReferences",
-			 	disabled : $scope.data.readonly
+	    		key : "lienDocReferences",
+	    		disabled : $scope.data.readonly
 			},
 			{
 		    	type: "conditional",
