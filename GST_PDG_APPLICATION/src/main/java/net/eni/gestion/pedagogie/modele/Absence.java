@@ -35,6 +35,7 @@ public class Absence extends AModele<Integer> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public final static String ID_FIELD_NAME 						= "ABS_ID";
+	public final static String DATE_FIELD_NAME 						= "ABS_DATE";
 	public final static String STAGIAIRE_FIELD_NAME 				= "ABS_STAGIAIRE";
 	public final static String DATE_ARRIVEE_MATIN_FIELD_NAME		= "ABS_DATE_ARRIVEE_MATIN";
 	public final static String DATE_ARRIVEE_APRES_MIDI_FIELD_NAME	= "ABS_DATE_ARRIVEE_APRES_MIDI";
@@ -48,9 +49,19 @@ public class Absence extends AModele<Integer> implements Serializable {
 		useGetSet = true)
 	private Integer id = null;
 	
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy H:mm:ss", timezone="CET")   
+	@DatabaseField(
+		columnName = DATE_FIELD_NAME,
+		dataType = DataType.DATE,
+		useGetSet = true,
+		canBeNull = false)
+	private Date date = null;
+	
 	@DatabaseField(
 		columnName = STAGIAIRE_FIELD_NAME,
 		foreign = true,
+		foreignAutoCreate = true,
+		foreignAutoRefresh = true,
 		useGetSet = true,
 		canBeNull = false)
 	private Stagiaire stagiaire = null;
@@ -93,6 +104,14 @@ public class Absence extends AModele<Integer> implements Serializable {
 	@Override
 	public void setId(Integer pId) {
 		id = pId;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public Stagiaire getStagiaire() {

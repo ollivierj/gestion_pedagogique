@@ -25,7 +25,6 @@ services.factory('StagiairesFactory', function ($resource) {
 	
 	//Création de la méthode de récupération des données
 	var getData = function (pagingOptionsIn, sortOptionsIn, filterOptionsIn) {
-		console.log(pagingOptionsIn);
 		if (pagingOptionsIn != null && sortOptionsIn != null && filterOptionsIn != null) {
 			//Enregistrement des données
 			pagingOptions = pagingOptionsIn;

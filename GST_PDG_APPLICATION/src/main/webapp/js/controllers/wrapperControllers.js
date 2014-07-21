@@ -20,16 +20,8 @@ controllers.controller('wrapperCtrl', function($scope, $modal, modalService, $lo
 		var modalAbsences = $modal
 		.open({
 			templateUrl : 'partials/absence/formulaireAbsence.html',
-			controller : absencesCtrl,
-			resolve : {
-				retardataires : function (RetardatairesFactory) {
-		            return RetardatairesFactory.query().$promise;
-		        }
-			}
+			controller : absencesCtrl
 		});
-		
-		
-
 	};
 
 	// Afficher une fenêtre modal pour la connexion utilisateur
