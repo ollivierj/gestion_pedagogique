@@ -60,7 +60,10 @@ services.factory('StagiairesFactory', function ($resource) {
 		getData : getData,
 		pagingOptions: pagingOptions,
 		sortOptions : sortOptions,
-		filterOptions: filterOptions
+		filterOptions: filterOptions,
+		dataAutocomplete : $resource('/ng_gst_pdg/web/stagiaires/autocomplete/:search', {}, {
+			getData : { method: 'GET', params: {search: '@search'}, isArray: true }
+		})
 	};
 	
 });

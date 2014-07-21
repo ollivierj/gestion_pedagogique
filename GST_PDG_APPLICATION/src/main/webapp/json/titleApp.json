@@ -1,7 +1,7 @@
 [
 	{"mainTitle" : "Gestion des stagiaires", "iconTitle":"fa fa-search", "url":"index.html#/consultationStagiaires", "type":"single"},
 
-	{"mainTitle" : "ECFs", "iconTitle":"fa fa-file-text", "url":"", "type":"multiple",
+	{"mainTitle" : "Evaluations", "iconTitle":"fa fa-file-text", "url":"", "type":"multiple",
 		"titles":[
 					{"mainTitle" : "Liste des prochains ECFs", "iconTitle":"", "url":"index.html#/listeECF", "type":"single"},
 					{"mainTitle" : "Liste des ECFs à corriger", "iconTitle":"", "url":"index.html#/corrigerECF", "type":"single"}

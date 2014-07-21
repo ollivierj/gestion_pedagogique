@@ -15,7 +15,6 @@ import net.eni.gestion.pedagogie.modele.generique.AModele;
  */
 public interface ADao<M extends AModele<ID>, ID> {
 	
-		
 		/**
 		 * Méthode de chargement totale + règles de gestion spécifiques
 		 * 
@@ -23,6 +22,14 @@ public interface ADao<M extends AModele<ID>, ID> {
 		 * @return ArrayList<GenericModel> Tableau contenant les résultats de la DAO requêtant l'ensemble des modèles
 		 */
 		public Pair<ArrayList<M>, Long> charger(Pager pPager) throws Exception;
+		
+		/**
+		 * Méthode de chargement pour les contrôles autocomplete 
+		 * @param pSearchText
+		 * @return
+		 * @throws Exception
+		 */
+		public ArrayList<M> chargerForAutocompleteSearch(String pSearchText) throws Exception;
 		
 		/**
 		 * Méthode de chargement du détail d'un modèle + règles de gestion spécifiques

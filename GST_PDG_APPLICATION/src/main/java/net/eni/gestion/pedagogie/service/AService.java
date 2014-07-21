@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
 import net.eni.gestion.pedagogie.commun.composant.Pager;
 import net.eni.gestion.pedagogie.commun.composant.Pair;
+import net.eni.gestion.pedagogie.commun.outil.CRUDHelper;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 
@@ -23,6 +24,15 @@ public interface AService <M extends AModele<ID>, ID> {
 	 * @throws GenericException
 	 */
 	public Pair<ArrayList<M>, Long> charger(Pager pPager) throws GenericException;
+	
+	/**
+	 * Chargement d'une liste de modèle pour les contrôles autocomplete
+	 * @param pSearchText
+	 * @return
+	 * @throws GenericException
+	 */
+	public ArrayList<M> chargerForAutocompleteSearch(String pSearchText) throws GenericException;
+	
 	
 	/**
 	 * @param pModel

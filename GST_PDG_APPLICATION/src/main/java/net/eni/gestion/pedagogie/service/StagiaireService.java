@@ -8,6 +8,4 @@ import net.eni.gestion.pedagogie.modele.Stagiaire;
  */
 public interface StagiaireService extends AService<Stagiaire, Integer> {
 	
-	
-
 }

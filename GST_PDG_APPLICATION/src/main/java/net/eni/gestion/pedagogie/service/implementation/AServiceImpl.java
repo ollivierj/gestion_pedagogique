@@ -8,6 +8,7 @@ import net.eni.gestion.pedagogie.DAO.ADao;
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
 import net.eni.gestion.pedagogie.commun.composant.Pager;
 import net.eni.gestion.pedagogie.commun.composant.Pair;
+import net.eni.gestion.pedagogie.commun.outil.CRUDHelper;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 import net.eni.gestion.pedagogie.service.AService;
 
@@ -37,6 +38,17 @@ abstract class AServiceImpl <M extends AModele<ID>, ID, D extends ADao<M, ID>> i
 			throw new GenericException("Echec lors du chargement depuis la base de données.");
 		}
     }
+   
+	/* (non-Javadoc)
+	 * @see net.eni.gestion.pedagogie.DAO.ADao#chargerForAutocompleteSearch(java.lang.String)
+	 */
+	public ArrayList<M> chargerForAutocompleteSearch(String pSearchText) throws GenericException {
+		try {
+			return dao.chargerForAutocompleteSearch(pSearchText);
+		} catch (Exception e) {
+			throw new GenericException("Echec lors du chargement depuis la base de données.");
+		}
+	}
         
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.service.generique.CRUDService#chargerDetail(java.lang.Integer)

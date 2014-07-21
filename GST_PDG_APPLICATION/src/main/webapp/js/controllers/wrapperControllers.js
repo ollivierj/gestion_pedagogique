@@ -1,6 +1,6 @@
 'use strict';
 
-controllers.controller('wrapperCtrl', function($scope, modalService, $log,
+controllers.controller('wrapperCtrl', function($scope, $modal, modalService, $log,
 		wrapMenu) {
 
 	$scope.items = [ 'item1', 'item2', 'item3' ];
@@ -15,27 +15,21 @@ controllers.controller('wrapperCtrl', function($scope, modalService, $log,
 		$scope.titleSelected = title;
 	};
 	
-	var modalDefaults = {
-		backdrop : true,
-		keyboard : true,
-		size : 'lg',
-		modalFade : true,
-		templateUrl : 'partials/absence/formulaireAbsence.html',
-		controller : formulaireAbsenceCtrl,
-		resolve : {
-			items : function() {
-				return $scope.items;
-			}, 
-			retardataires : function (RetardatairesFactory) {
-	            return RetardatairesFactory.query().$promise;
-	        },
-		}
-	};
 	// Afficher une fenêtre modal pour la saisie d'absences
 	$scope.afficherModalAbsence = function() {
-		modalService.showModal(modalDefaults, {}).then(function(result) {
-			$scope.selected = result;
+		var modalAbsences = $modal
+		.open({
+			templateUrl : 'partials/absence/formulaireAbsence.html',
+			controller : absencesCtrl,
+			resolve : {
+				retardataires : function (RetardatairesFactory) {
+		            return RetardatairesFactory.query().$promise;
+		        }
+			}
 		});
+		
+		
+
 	};
 
 	// Afficher une fenêtre modal pour la connexion utilisateur
