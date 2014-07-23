@@ -2,8 +2,6 @@ package net.eni.gestion.pedagogie.resource;
 
 import java.util.ArrayList;
 
-import javax.ws.rs.PathParam;
-
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
 import net.eni.gestion.pedagogie.commun.composant.NamedObjectMap;
 import net.eni.gestion.pedagogie.commun.composant.Pager;
