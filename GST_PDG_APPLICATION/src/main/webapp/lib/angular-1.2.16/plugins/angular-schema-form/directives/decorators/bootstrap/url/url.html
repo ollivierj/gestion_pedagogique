@@ -3,8 +3,9 @@
 
 	<a 	ng-show="form.key" 
 		class="form-control"
-		ng-href="file://///{{$$value$$}}"
-		target="_blank">{{$$value$$}}</a>
+		ng-href="file://{{$$value$$}}"
+		download="file.doc"
+		target="_self">{{$$value$$}}</a>
 </div>
 <div class="form-group" ng-if="!form.disabled" ng-class="{'has-error': hasError(), 'has-success': (hasSuccess() && !form.disabled), 'has-feedback': (form.feedback !== false && !form.disabled)}">
   <label class="control-label" ng-show="showTitle()">{{form.title}}</label>

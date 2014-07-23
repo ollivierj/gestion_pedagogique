@@ -10,5 +10,6 @@
 	{"mainTitle" : "Sessions de validation", "iconTitle":"fa fa-file-o", "url":"index.html#/gestionSessionsValidation", "type":"single"},
 
 
-	{"mainTitle" : "Salles", "iconTitle":"fa fa-building-o", "url":"index.html#/salle", "type":"single"}
+	{"mainTitle" : "Salles", "iconTitle":"fa fa-building-o", "url":"index.html#/salle", "type":"single"},
+	{"mainTitle" : "Fichiers", "iconTitle":"fa fa-building-o", "url":"index.html#/fichiers", "type":"single"}
 ]

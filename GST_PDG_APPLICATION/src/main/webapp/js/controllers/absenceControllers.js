@@ -24,9 +24,7 @@ var absencesCtrl = function($scope, $modalInstance, $log, AbsencesFactory,
 	$scope.periode = 'matin';
 
 	$scope.getStagiaires = function(search) {
-		return StagiairesFactory.dataAutocomplete.getData({
-			search : search
-		}).$promise.then(function(data) {
+		return AbsencesFactory.test.getData().$promise.then(function(data) {
 			var stagiaires = [];
 			angular.forEach(data, function(item) {
 				stagiaires.push(item);
@@ -54,15 +52,18 @@ var absencesCtrl = function($scope, $modalInstance, $log, AbsencesFactory,
 	};
 
 	$scope.addAbsence = function(stagiaire) {
-		$scope.absences.push({
-			stagiaire : stagiaire,
-			date : $scope.date,
-			dateArriveeMatin : null,
-			dateArriveeApresMidi : null,
-			dateSaisie : null,
-			auteur : null,
-			editing : false
-		});
+		if (null != stagiaire){
+			$scope.absences.push({
+				stagiaire : stagiaire,
+				date : $scope.date,
+				dateArriveeMatin : null,
+				dateArriveeApresMidi : null,
+				dateSaisie : null,
+				auteur : null,
+				editing : false
+			});
+		}
+
 	};
 	
 	$scope.removeAbsence = function(absence) {
