@@ -37,6 +37,17 @@ abstract class AServiceImpl <M extends AModele<ID>, ID, D extends ADao<M, ID>> i
 			throw new GenericException("Echec lors du chargement depuis la base de données.");
 		}
     }
+   
+	/* (non-Javadoc)
+	 * @see net.eni.gestion.pedagogie.DAO.ADao#chargerForAutocompleteSearch(java.lang.String)
+	 */
+	public ArrayList<M> chargerForAutocompleteSearch(String pSearchText) throws GenericException {
+		try {
+			return dao.chargerForAutocompleteSearch(pSearchText);
+		} catch (Exception e) {
+			throw new GenericException("Echec lors du chargement depuis la base de données.");
+		}
+	}
         
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.service.generique.CRUDService#chargerDetail(java.lang.Integer)

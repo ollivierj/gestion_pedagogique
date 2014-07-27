@@ -27,6 +27,10 @@ controllers
 										{
 											field : 'lienGrilleCorrection',
 											displayName : 'Lien vers la grille de correction'
+										},
+										{
+											displayName : 'Actions',
+											cellTemplate : 'partials/templates/ng-grid_actions.html'
 										}
 										],
 						enablePaging : true,
@@ -44,27 +48,27 @@ controllers
 					};
 
 					$scope.editRow = function(sujetEvaluation) {
-						$scope.editerTitreProfessionnel(sujetEvaluation.id);
+						$scope.editerSujetEvaluation(sujetEvaluation.id);
 					};
 
 					$scope.viewRow = function(sujetEvaluation) {
-						$scope.visualiserTitreProfessionnel(sujetEvaluation.id);
+						$scope.visualiserSujetEvaluation(sujetEvaluation.id);
 					};
 					
 					$scope.removeRow = function(sujetEvaluation) {
-						$scope.supprimerTitreProfessionnel(sujetEvaluation.id);
+						$scope.supprimerSujetEvaluation(sujetEvaluation.id);
 					};
 					
 					$scope.afficherFenetreEdition = function(){
-						$scope.ajouterTitreProfessionnel();
+						$scope.ajouterSujetEvaluation();
 					}
 					
-					$scope.ajouterTitreProfessionnel = function(
+					$scope.ajouterSujetEvaluation = function(
 							sujetEvaluationId) {
 						var modalAdd = $modal
 								.open({
 									templateUrl : 'partials/templates/form.html',
-									controller : modalEditionTitreProfessionnelCtrl,
+									controller : modalEditionSujetEvaluationCtrl,
 									resolve : {
 										title : function() {return "Ajout d'un sujet d'évaluation";},
 										readonly : function() {return false;},
@@ -87,12 +91,12 @@ controllers
 						});
 					};
 
-					$scope.visualiserTitreProfessionnel = function(
+					$scope.visualiserSujetEvaluation = function(
 							sujetEvaluationId) {
 						var modalEdit = $modal
 								.open({
 									templateUrl : 'partials/templates/form.html',
-									controller : modalEditionTitreProfessionnelCtrl,
+									controller : modalEditionSujetEvaluationCtrl,
 									resolve : {
 										title : function() {return "Visualisation d'un sujet d'évaluation";},
 										readonly : function() {return true;},
@@ -117,12 +121,12 @@ controllers
 						});
 					};
 					
-					$scope.editerTitreProfessionnel = function(
+					$scope.editerSujetEvaluation = function(
 							sujetEvaluationId) {
 						var modalEdit = $modal
 								.open({
 									templateUrl : 'partials/templates/form.html',
-									controller : modalEditionTitreProfessionnelCtrl,
+									controller : modalEditionSujetEvaluationCtrl,
 									resolve : {
 										title : function() {return "Edition d'un sujet d'évaluation";},
 										readonly : function() {return false;},
@@ -147,12 +151,12 @@ controllers
 						});
 					};
 					
-					$scope.supprimerTitreProfessionnel = function(
+					$scope.supprimerSujetEvaluation = function(
 							sujetEvaluationId) {
 						var modalDelete = $modal
 								.open({
 									templateUrl : 'partials/templates/dialog.html',
-									controller : modalConfirmationDeleteTitreProfessionnelCtrl,
+									controller : modalConfirmationDeleteSujetEvaluationCtrl,
 									resolve : {
 										id : function() {return sujetEvaluationId},
 										title : function() {return "Suppression sujet d'évaluation";},
@@ -193,7 +197,7 @@ controllers
 					SujetEvaluationsFactory.refreshData($scope);
 				});
 
-var modalEditionTitreProfessionnelCtrl = function($scope, $modalInstance,
+var modalEditionSujetEvaluationCtrl = function($scope, $modalInstance,
 		SujetEvaluationsFactory, onlyNumbersFilter, title, readonly, sujetEvaluation, modules, schema, ok, okTitle) {
 	$scope.title = title;
 	$scope.data = sujetEvaluation;
@@ -283,7 +287,7 @@ var modalEditionTitreProfessionnelCtrl = function($scope, $modalInstance,
 };
 
 
-var modalConfirmationDeleteTitreProfessionnelCtrl = function($scope, $modalInstance, 
+var modalConfirmationDeleteSujetEvaluationCtrl = function($scope, $modalInstance, 
 		SujetEvaluationsFactory, id, title, message, ok) {
 	$scope.title = title;
 	$scope.message = message;

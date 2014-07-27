@@ -25,6 +25,13 @@ abstract class ADaoImpl<M extends AModele<ID>, ID> extends BaseDaoImpl<M,ID> imp
 	}
 	
 	/* (non-Javadoc)
+	 * @see net.eni.gestion.pedagogie.DAO.ADao#chargerForAutocompleteSearch(java.lang.String)
+	 */
+	public ArrayList<M> chargerForAutocompleteSearch(String pSearchText) throws Exception {
+		return CRUDHelper.chargerForAutocompleteSearch(this, pSearchText);
+	}
+	
+	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.DAO.base.generique.CRUDBase#chargerDetail(net.eni.gestion.pedagogie.modele.Avis)
 	 */
 	public M chargerDetail(ID pId) throws Exception {

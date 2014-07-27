@@ -25,6 +25,15 @@ public interface AService <M extends AModele<ID>, ID> {
 	public Pair<ArrayList<M>, Long> charger(Pager pPager) throws GenericException;
 	
 	/**
+	 * Chargement d'une liste de modèle pour les contrôles autocomplete
+	 * @param pSearchText
+	 * @return
+	 * @throws GenericException
+	 */
+	public ArrayList<M> chargerForAutocompleteSearch(String pSearchText) throws GenericException;
+	
+	
+	/**
 	 * @param pModel
 	 * @return
 	 * @throws GenericException

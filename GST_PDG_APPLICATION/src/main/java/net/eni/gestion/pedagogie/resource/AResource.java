@@ -1,5 +1,7 @@
 package net.eni.gestion.pedagogie.resource;
 
+import java.util.ArrayList;
+
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
 import net.eni.gestion.pedagogie.commun.composant.NamedObjectMap;
 import net.eni.gestion.pedagogie.commun.composant.Pager;
@@ -24,6 +26,14 @@ public interface AResource<M extends AModele<ID>, ID> {
 	 * @throws GenericException
 	 */
 	public String getJsonSchema() throws GenericException;
+	
+	/**
+	 * @param pSearchText
+	 * @return
+	 * @throws GenericException
+	 */
+	public ArrayList<M> chargerForAutocompleteSearch(String pSearchText) throws GenericException;
+		  
 	
 	/**
 	 * Charge une liste de modèles

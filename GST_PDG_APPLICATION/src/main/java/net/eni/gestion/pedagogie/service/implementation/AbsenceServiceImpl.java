@@ -1,8 +1,11 @@
 package net.eni.gestion.pedagogie.service.implementation;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
 
 import net.eni.gestion.pedagogie.DAO.AbsenceDao;
+import net.eni.gestion.pedagogie.commun.composant.GenericException;
 import net.eni.gestion.pedagogie.modele.Absence;
 import net.eni.gestion.pedagogie.service.AbsenceService;
 
@@ -25,5 +28,22 @@ public class AbsenceServiceImpl extends AServiceImpl<Absence, Integer, AbsenceDa
     public AbsenceServiceImpl(AbsenceDao pAbsenceDao) throws SQLException {
         super(pAbsenceDao);
     }
+
+	public ArrayList<Absence> chargerRetardatairesByDate(Date pDate)
+			throws GenericException {
+		try {
+			return dao.chargerAbsencesByDate(pDate);
+		} catch (Exception e) {
+			throw new GenericException("Echec lors du chargement depuis la base de données.");
+		}
+	}
+
+	public ArrayList<Absence> chargerAbsencesByDate(Date pDate) throws GenericException {
+		try {
+			return dao.chargerAbsencesByDate(pDate);
+		} catch (Exception e) {
+			throw new GenericException("Echec lors du chargement depuis la base de données.");
+		}
+	}
     
 }

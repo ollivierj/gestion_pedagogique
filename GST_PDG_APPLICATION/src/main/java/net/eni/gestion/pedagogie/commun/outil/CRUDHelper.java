@@ -127,4 +127,29 @@ public class CRUDHelper {
 		}
 	}
 	
+	/**
+	 * Template pour le chargement totale de modèles
+	 * @param pABase
+	 * @param pModel
+	 * @return Tableau de modèles
+	 * @throws Exception 
+	 */
+	public static <M extends AModele<ID>, ID> ArrayList<M> chargerForAutocompleteSearch(BaseDaoImpl<M, ID> pABase, String pSearchText) throws Exception {
+		try {
+			StringBuilder lQuery = new StringBuilder();
+			lQuery.append("SELECT TOP 10 ");
+			lQuery.append(StringUtils.join(ORMLiteHelper.getProjectionFields(pABase.getTableInfo()), ","));
+			lQuery.append(" FROM ");
+			lQuery.append(pABase.getTableInfo().getTableName());
+			String lFullTextSearchWhereClause = ORMLiteHelper.getFullTextSearchWhereClause(pABase.getDataClass().newInstance().getFullTextSearchFieldNames() , pSearchText);
+			if (null !=lFullTextSearchWhereClause){
+				lQuery.append(" WHERE ");
+				lQuery.append(lFullTextSearchWhereClause);
+			}
+			return new ArrayList<M>(pABase.queryRaw(lQuery.toString(), pABase.getRawRowMapper()).getResults());
+		} catch (Exception exception) {
+			throw new Exception("Echec de chargement de la liste d'enregistrements depuis la base de données");
+		}
+	}
+	
 }

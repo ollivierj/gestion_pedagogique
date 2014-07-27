@@ -17,7 +17,6 @@ services.factory('ProfessionnelHomologuesFactory', function ($resource) {
         directions: ["DESC"]
 	};
 
-	
 	var page = $resource('/ng_gst_pdg/web/professionnelHomologues/page', {}, {
 		getData : { method: 'POST'}
 	});

@@ -42,6 +42,7 @@ angular.module('schemaForm').config(['schemaFormDecoratorsProvider',function(dec
     date: base+'default.html',
     password: base+'default.html',
     datepicker: base+'datepicker.html',
+    url: base+'url.html',
     input: base+'default.html',
     radios: base+'radios.html',
     radiobuttons: base+'radio-buttons.html',

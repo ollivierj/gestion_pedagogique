@@ -16,7 +16,6 @@ services.factory('TitreProfessionnelsFactory', function ($resource) {
         fields: ["code"],
         directions: ["DESC"]
 	};
-
 	
 	var page = $resource('/ng_gst_pdg/web/titreProfessionnels/page', {}, {
 		getData : { method: 'POST'}

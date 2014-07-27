@@ -85,7 +85,7 @@ services.factory('StagiaireFactory', function ($resource) {
 	//Enregsitrement du stagiaire sélectionné
 	var changeStagiaire = function (stagiaireSelected)  {
 		stagiaire = stagiaireSelected;
-	}
+	};
 	
 	//Retour de la factory avec ses variables
 	return {
@@ -95,7 +95,10 @@ services.factory('StagiaireFactory', function ($resource) {
 		sortOptions 	: sortOptions,
 		filterOptions	: filterOptions,
 		stagiaire		: stagiaire,
-		changeStagiaire : changeStagiaire
+		changeStagiaire : changeStagiaire,
+		dataAutocomplete : $resource('/ng_gst_pdg/web/stagiaires/autocomplete/:search', {}, {
+			getData : { method: 'GET', params: {search: '@search'}, isArray: true }
+		})
 	};
 	
 });

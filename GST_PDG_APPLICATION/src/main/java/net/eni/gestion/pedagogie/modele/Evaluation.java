@@ -64,7 +64,7 @@ public class Evaluation extends AModele<Integer> implements Serializable {
 		foreignAutoRefresh = true)
 	private Module module = null;
 
-	@Attributes(title = "Lien vers les énoncés", required = true, maxLength = 250)
+	@Attributes(title = "Lien vers les énoncés", required = true, maxLength = 250, format = "url")
 	@DatabaseField(
 		columnName = LIEN_SUJET_FIELD_NAME,
 		dataType = DataType.STRING,
@@ -72,7 +72,7 @@ public class Evaluation extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private String lienSujet = null;
 
-	@Attributes(title = "Lien vers les modèles de correction", required = true, maxLength = 250)
+	@Attributes(title = "Lien vers les modèles de correction", required = true, maxLength = 250, format = "url")
 	@DatabaseField(
 		columnName = LIEN_MODELE_CORRECTION_FIELD_NAME,
 		dataType = DataType.STRING,
@@ -80,7 +80,7 @@ public class Evaluation extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private String lienModeleCorrection = null;
 
-	@Attributes(title = "Lien vers la grille de correction", required = true, maxLength = 250)
+	@Attributes(title = "Lien vers la grille de correction", required = true, maxLength = 250, format = "url")
 	@DatabaseField(
 		columnName = LIEN_GRILLE_CORRECTION_FIELD_NAME,
 		dataType = DataType.STRING,

@@ -72,6 +72,13 @@ public class AResourceImpl <M extends AModele<ID>, ID, S extends AService<M,ID>>
         results.put("totalServerItems", page.second());
         return results;
     }
+    
+    @GET
+    @Path("/autocomplete/{search}")
+    @Produces(MediaType.APPLICATION_JSON)
+	public ArrayList<M> chargerForAutocompleteSearch(@PathParam("search") String pSearchText) throws GenericException {
+    	return service.chargerForAutocompleteSearch(pSearchText);
+	}
         
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.service.generique.CRUDService#chargerDetail(java.lang.Integer)

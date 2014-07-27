@@ -1,5 +1,9 @@
 package net.eni.gestion.pedagogie.resource;
 
+import java.util.ArrayList;
+import java.util.Date;
+
+import net.eni.gestion.pedagogie.commun.composant.GenericException;
 import net.eni.gestion.pedagogie.modele.Absence;
 
 /**
@@ -7,5 +11,7 @@ import net.eni.gestion.pedagogie.modele.Absence;
  * Interface service pour le module de suivi des absences
  */
 public interface AbsenceResource extends AResource<Absence, Integer> {
+	
+	public ArrayList<Absence> chargerAbsencesByDate(Date pDate) throws GenericException;
 
 }
