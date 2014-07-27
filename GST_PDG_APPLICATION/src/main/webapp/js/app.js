@@ -13,7 +13,12 @@ angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 'schemaForm','ui
 		}).	
 		when('/detailsStagiaire', {
 			templateUrl: 'partials/consultationStagiaires/detailsStagiaire.html',
-			controller: 'detailsStagiairesCtrl'
+			controller: 'detailsStagiairesCtrl',
+			resolve: {
+				detail: function (StagiaireFactory) {
+					return StagiaireFactory.getDetail();
+				}
+			}
 		}).
 		when('/gestionFichesSynthese', {
 			templateUrl: 'partials/gestionFichesSynthese/gestionFichesSynthese.html',

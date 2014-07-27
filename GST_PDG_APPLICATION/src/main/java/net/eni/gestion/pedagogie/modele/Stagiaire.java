@@ -16,6 +16,7 @@ import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -217,26 +218,29 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 		useGetSet = true)
 	private String historique = null;
 	
+	@JsonManagedReference
 	@ForeignCollectionField(eager = true, columnName = Echange.STAGIAIRE_FIELD_NAME)
 	private transient Collection<Echange> transientEchanges = null;
 
 	private ArrayList<Echange> echanges = new ArrayList<Echange>();
 
+	@JsonManagedReference
 	@ForeignCollectionField(eager = true, columnName = Avis.STAGIAIRE_FIELD_NAME)
 	private transient Collection<Avis> transientAvis = null;
 
 	private ArrayList<Avis> avis = new ArrayList<Avis>();
 	
-	@ForeignCollectionField(eager = true, columnName = Absence.STAGIAIRE_FIELD_NAME)
+	@ForeignCollectionField(eager = false, columnName = Absence.STAGIAIRE_FIELD_NAME)
+	@JsonManagedReference
 	private transient Collection<Absence> transientAbsences = null;
 
 	private ArrayList<Absence> absences = new ArrayList<Absence>();
 	
-	/*@ForeignCollectionField(eager = true, columnName = PlanningIndividuelFormation.CODE_STAGIAIRE_FIELD_NAME)
-	private transient Collection<PlanningIndividuelFormation> transientPlanningIndividuelFormations = null;
-
-	private ArrayList<PlanningIndividuelFormation> planningIndividuelFormations = new ArrayList<PlanningIndividuelFormation>();
-	 */
+//	@ForeignCollectionField(eager = true, columnName = PlanningIndividuelFormation.CODE_STAGIAIRE_FIELD_NAME)
+//	private transient Collection<PlanningIndividuelFormation> transientPlanningIndividuelFormations = null;
+//
+//	private ArrayList<PlanningIndividuelFormation> planningIndividuelFormations = new ArrayList<PlanningIndividuelFormation>();
+	
 	@ForeignCollectionField(eager = true, columnName = InstanceCoursStagiaire.STAGIAIRE_FIELD_NAME)
 	private transient Collection<InstanceCoursStagiaire> transientInstanceCoursStagiaires = null;
 
@@ -427,7 +431,7 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 	public void setHistorique(String historique) {
 		this.historique = historique;
 	}
-	
+
 	public ArrayList<Echange> getEchanges() {
 		if (null != transientEchanges) {
 			echanges.clear();
@@ -475,4 +479,13 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 		return instanceCours;
 	}
 
+//	private ArrayList<PlanningIndividuelFormation> getPlanningIndividuelFormations() {
+//		if (null != transientPlanningIndividuelFormations) {
+//			planningIndividuelFormations.clear();
+//			planningIndividuelFormations.addAll(transientPlanningIndividuelFormations);
+//			transientPlanningIndividuelFormations = null;
+//		}
+//		
+//		return planningIndividuelFormations;
+//	}
 }

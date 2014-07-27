@@ -1,6 +1,6 @@
 'use strict';
 
-services.factory('StagiairesFactory', function ($resource) {
+services.factory('StagiaireFactory', function ($resource) {
 	
 	var pagingOptions = {
 			pageSizes : [5,10,15,20,25,30],
@@ -18,14 +18,22 @@ services.factory('StagiairesFactory', function ($resource) {
 			useExternalFilter: false
 	};
 	
+	var stagiaire = {};
+	
 	//Création de la variable ressource qui appel le service REST
 	var data = $resource('/ng_gst_pdg/web/stagiaires/page', {}, {
 		load : {method:'POST'}
 	});
 	
-	//Création de la méthode de récupération des données
+//	var detail = $resource('/ng_gst_pdg/web/stagiaires/detail/:id', {}, {
+//		get : {method:'GET', isArray = false}
+//	});
+
+	var detail = $resource('/ng_gst_pdg/web/stagiaires/detail/:id');
+	
+	//Création de la méthode de récupération des données avec pagination
 	var getData = function (pagingOptionsIn, sortOptionsIn, filterOptionsIn) {
-		console.log(pagingOptionsIn);
+		//Si aucune donnée du scope n'a été modifiée, onconserve les données initiales du service
 		if (pagingOptionsIn != null && sortOptionsIn != null && filterOptionsIn != null) {
 			//Enregistrement des données
 			pagingOptions = pagingOptionsIn;
@@ -35,32 +43,59 @@ services.factory('StagiairesFactory', function ($resource) {
 		
 		//Création d'une promise qui sera utilisée dans le controller
 		//Utilisation de la variable qui contient l'appel au service
-		var promise = data.load(
+		var promise = data.load (
 				{
-					pagingOptions : pagingOptions, 
-					sortOptions : sortOptions, 
-					filterOptions : filterOptions
+					pagingOptions 	: pagingOptions, 
+					sortOptions 	: sortOptions, 
+					filterOptions 	: filterOptions
 				}
 			).$promise.then (
-					//Retour de la méthode dans un cas success
-					function (success) {
-						return success;
-					},
-					//Retour de la methode dans un cas error
-					function (error) {
-						return error;
-			});
+				//Retour de la méthode dans un cas success
+				function (success) {
+					return success;
+				},
+				//Retour de la methode dans un cas error
+				function (error) {
+					return error;
+				}
+			);
 		
 		//On retourne la promise
 		return promise;
 	};
 	
+	//Méthode de récupération des données d'un stagiaire
+	var getDetail = function () {
+		
+		var promise = detail.get({id : stagiaire.id}).$promise.then (
+				
+				//Retour de la méthode success
+				function(success) {
+					return success;
+				},
+				//Retour de la méthode error
+				function(error) {
+					return error;
+				}
+			);
+		
+		return promise;
+	};
 	
+	//Enregsitrement du stagiaire sélectionné
+	var changeStagiaire = function (stagiaireSelected)  {
+		stagiaire = stagiaireSelected;
+	}
+	
+	//Retour de la factory avec ses variables
 	return {
-		getData : getData,
-		pagingOptions: pagingOptions,
-		sortOptions : sortOptions,
-		filterOptions: filterOptions
+		getData 		: getData,
+		getDetail		: getDetail,
+		pagingOptions	: pagingOptions,
+		sortOptions 	: sortOptions,
+		filterOptions	: filterOptions,
+		stagiaire		: stagiaire,
+		changeStagiaire : changeStagiaire
 	};
 	
 });

@@ -11,7 +11,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -48,6 +50,7 @@ public class Absence extends AModele<Integer> implements Serializable {
 		useGetSet = true)
 	private Integer id = null;
 	
+	@JsonBackReference
 	@DatabaseField(
 		columnName = STAGIAIRE_FIELD_NAME,
 		foreign = true,
@@ -82,7 +85,8 @@ public class Absence extends AModele<Integer> implements Serializable {
 	@DatabaseField(
 		columnName = AUTEUR_FIELD_NAME,
 		foreign = true,
-		useGetSet = true)
+		useGetSet = true,
+		canBeNull = false)
 	private Utilisateur auteur = null;
 
 	@Override
