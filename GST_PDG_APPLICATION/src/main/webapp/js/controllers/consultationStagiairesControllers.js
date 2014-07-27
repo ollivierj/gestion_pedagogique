@@ -1,6 +1,9 @@
 'use strict';
 
-controllers.controller('consultationStagiairesCtrl', function($scope, $http, $location, stagiaireData, StagiairesFactory, $modal) {
+/**
+ * Controller de la page de l'affichage des stagiaires
+ */
+controllers.controller('consultationStagiairesCtrl', function($scope, $http, $location, stagiaireData, StagiaireFactory, $modal) {
 
     /*Variable contenant la sélection des données des tableaux de recherche*/
     var promotionSelected = [];
@@ -10,9 +13,9 @@ controllers.controller('consultationStagiairesCtrl', function($scope, $http, $lo
     var allStagiaire = [];
     
     $scope.totalServerItems = 0;
-    $scope.pagingOptions = StagiairesFactory.pagingOptions;
-    $scope.filterOptions = StagiairesFactory.filterOptions;
-    $scope.sortOptions = StagiairesFactory.sortOptions;
+    $scope.pagingOptions = StagiaireFactory.pagingOptions;
+    $scope.filterOptions = StagiaireFactory.filterOptions;
+    $scope.sortOptions = StagiaireFactory.sortOptions;
     
     /*Options des tableaux ng-grid*/
     $scope.gridOptionsStagiaire = {
@@ -23,7 +26,7 @@ controllers.controller('consultationStagiairesCtrl', function($scope, $http, $lo
                 {field:'photo', displayName:'Photo', cellTemplate: 'partials/templates/ng-grid_photo.html'},
                 {field:'nom', displayName:'Nom'},
                 {field:'prenom', displayName:'Prénom'},
-                {field:'formatedDateNaissance', displayName:'Date de naissance'},
+                {field:'dateNaissance', displayName:'Date de naissance'},
                 {field:'promotion', displayName:'Promotion', cellTemplate: 'partials/templates/ng-grid_detailsPromotion.html'},
                 {field:'details', displayName:'Actions', cellTemplate: 'partials/templates/ng-grid_details.html'}
         ],
@@ -48,8 +51,8 @@ controllers.controller('consultationStagiairesCtrl', function($scope, $http, $lo
         });
     };
     
-    $scope.viewDetails = function() {
-        stagiaireData.set($scope.stagiaireSelected[0]);
+    $scope.viewRow = function (entity) {
+    	StagiaireFactory.changeStagiaire(entity);
         $location.path('/detailsStagiaire');
     };
 
@@ -74,7 +77,7 @@ controllers.controller('consultationStagiairesCtrl', function($scope, $http, $lo
     $scope.refreshData = function () {
     	//Utilisation de la méthode du service permettant la récupération des données
     	//Cette méthode retourne une promise donc utilisation de .then()
-    	StagiairesFactory.getData($scope.pagingOptions, $scope.sortOptions, $scope.filterOptions).then(
+    	StagiaireFactory.getData($scope.pagingOptions, $scope.sortOptions, $scope.filterOptions).then(
 			function (success) {
 				$scope.stagiaires = success.data;
 		        $scope.totalServerItems = success.totalServerItems;
@@ -104,44 +107,33 @@ controllers.controller('consultationStagiairesCtrl', function($scope, $http, $lo
 
 });
 
-controllers.controller('detailsStagiairesCtrl', function($scope, stagiaireData) {
+/**
+ * Controller de la page detail stagiaire
+ */
+controllers.controller('detailsStagiairesCtrl', function($scope, stagiaireData, StagiaireFactory, detail) {
 
     $scope.planningSelected = [];
-
-    // $scope.stagiaireSelected = $routeParams.stagiaire;
-    $scope.stagiaireSelected = stagiaireData.get();
-
-    // $scope.stagiaireSelected = {"nom":"Tata","prenom":"Tata","age":50,"promotion":"Micro"};
+    
+    //Initialisation de la variabe stagiaire du scope avec la variable detail (resolve de la route)
+    $scope.stagiaire = detail;
 
     // Les absences ou retards du stagiaire
-    $scope.absences = [
-        {date:'20/12/2014', heure:'10:20:30', motif:'pas de réveil'},
-        {date:'13/01/2014', heure:'', motif:'malade'},
-        {date:'02/06/2011', heure:'23:39:30', motif:'Accident sur la route'}
-    ];
-
     $scope.gridOptionsAbsences = {
-        data: 'absences',
+        data: 'stagiaire.absences',
         // selectedItems: $scope.planningSelected,
         multiSelect: false,
         columnDefs : [
-                {field:'date', displayName:'Date'},
-                {field:'heure', displayName:'Heure'},
-                {displayName:'Auteur'},
-                {field:'motif', displayName:'Motif'},
+                {field:'dateArriveeMatin', displayName:'Date arrivée du matin'},
+                {field:'dateArriveeApresMidi', displayName:'Date arrivée de l\'après midi'},
+                {field:'auteur', displayName:'Auteur'},
+                {displayName:'Motif'},
                 {displayName:'Actions', cellTemplate: 'partials/templates/ng-grid_actions.html'}
         ]
     };
 
     // Les avis concernant le stagiaire
-    $scope.avis = [
-        {formateur:'Jean', date:'20/12/2012', avis:'Bon élément, attentif'},
-        {formateur:'Eric', date:'09/10/2016', avis:'Agité, non intéressé'},
-        {formateur:'Patrick', date:'12/08/2011', avis:'S\'intéresse et pose les bonnes questions'}
-    ];
-
     $scope.gridOptionsAvis = {
-        data: 'avis',
+        data: 'stagiaire.avis',
         // selectedItems: $scope.planningSelected,
         multiSelect: false,
         columnDefs : [
@@ -153,20 +145,14 @@ controllers.controller('detailsStagiairesCtrl', function($scope, stagiaireData) 
     };
 
     // Les échanges concernant le stagiaire
-    $scope.echanges = [
-        {auteur:'Jean', date:'20/12/2013', echange:'Entretien validé'},
-        {auteur:'Eric', date:'08/12/2013', echange:'En attente des réponses d\'entretien'},
-        {auteur:'Patrick', date:'28/06/2013', echange:'En recherche d\'entreprise'}
-    ];
-
     $scope.gridOptionsEchanges = {
-        data: 'echanges',
+        data: 'stagiaire.echanges',
         // selectedItems: $scope.planningSelected,
         multiSelect: false,
         columnDefs : [
-                {field:'date', displayName:'Date'},
+                {field:'dateSaisie', displayName:'Date'},
                 {field:"auteur", displayName:'Auteur'},
-                {field:'echange', displayName:'Echange'},
+                {field:'commentaire', displayName:'Commentaire'},
                 {displayName:'Actions', cellTemplate: 'partials/templates/ng-grid_actions.html'}
         ]
     };

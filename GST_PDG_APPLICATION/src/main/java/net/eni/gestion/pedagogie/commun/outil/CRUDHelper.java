@@ -48,6 +48,7 @@ public class CRUDHelper {
 			lQuery.append(String.valueOf(pPager.getPagingOptions().getCurrentPage()*pPager.getPagingOptions().getPageSize()-1));
 			return new Pair<ArrayList<M>, Long>(new ArrayList<M>(pABase.queryRaw(lQuery.toString(), pABase.getRawRowMapper()).getResults()), pABase.countOf());
 		} catch (Exception exception) {
+			System.out.println(exception.getMessage());
 			throw new Exception("Echec de chargement de la liste d'enregistrements depuis la base de données");
 		}
 	}
