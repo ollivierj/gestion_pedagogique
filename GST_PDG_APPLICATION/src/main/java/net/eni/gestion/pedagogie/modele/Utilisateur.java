@@ -13,6 +13,10 @@ import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.github.reinert.jjschema.Attributes;
+import com.github.reinert.jjschema.SchemaIgnore;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -36,7 +40,7 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public final static String ID_FIELD_NAME 				= "UTIL_ID";
+	public final static String ID_FIELD_NAME 				= "UTL_ID";
 	public final static String FONCTION_FIELD_NAME			= "UTIL_FONCTION";
 	public final static String CIVILITE_FIELD_NAME			= "UTIL_CIVILITE";
 	public final static String NOM_FIELD_NAME				= "UTIL_NOM";
@@ -48,6 +52,16 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 	public final static String MOT_PASSE_FIELD_NAME			= "UTIL_MOT_PASSE";
 	public final static String PROFIL_FIELD_NAME			= "UTIL_PROFIL";
 	
+	
+	public final static String[] FULL_TEXT_SEARCH_FIELDS		= {NOM_FIELD_NAME, PRENOM_FIELD_NAME};
+	
+	@JsonIgnore
+	@Override
+	public String[] getFullTextSearchFieldNames() {
+		return FULL_TEXT_SEARCH_FIELDS;
+	}
+	
+	@JsonIgnoreProperties
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
 		dataType = DataType.INTEGER_OBJ,
@@ -55,12 +69,14 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 		useGetSet = true)
 	private Integer id = null;
 	
+	@JsonIgnoreProperties
 	@DatabaseField(
 		columnName = FONCTION_FIELD_NAME,
 		foreign = true,
 		useGetSet = true)
 	private Fonction fonction = null;
 
+	@Attributes(title = "Civilité", required = true, maxLength = 3, enums={"M  ","Mme"})
 	@DatabaseField(
 		columnName = CIVILITE_FIELD_NAME,
 		dataType = DataType.STRING,
@@ -68,6 +84,7 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private String civilite = null;
 
+	@Attributes(title = "Nom", required = true, maxLength = 50)
 	@DatabaseField(
 		columnName = NOM_FIELD_NAME,
 		dataType = DataType.STRING,
@@ -75,6 +92,7 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private String nom = null;
 
+	@Attributes(title = "Nom", required = true, maxLength = 50)
 	@DatabaseField(
 		columnName = PRENOM_FIELD_NAME,
 		dataType = DataType.STRING,
@@ -82,18 +100,21 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private String prenom = null;
 
+	@Attributes(title = "Téléphone fixe", required = false, maxLength = 14, pattern = "^0[1-68][0-9]{8}$", validationMessage="Le numéro de téléphone respecter la forme suivante : \"XXXXXXXXXX\"")
 	@DatabaseField(
 		columnName = TELEPHONE_FIXE_FIELD_NAME,
 		dataType = DataType.STRING,
 		useGetSet = true)
 	private String telephoneFixe = null;
 
+	@Attributes(title = "Téléphone portable", required = false, maxLength = 14, pattern = "^0[1-68][0-9]{8}$", validationMessage="Le numéro de téléphone doit respecter la forme suivante : \"XXXXXXXXXX\"")
 	@DatabaseField(
 		columnName = TELEPHONE_PORTABLE_FIELD_NAME,
 		dataType = DataType.STRING,
 		useGetSet = true)
 	private String telephonePortable = null;
 
+	@Attributes(title = "Email", required = true, maxLength = 100, pattern = "^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$", validationMessage="L'adresse email doit respecter la forme suivante : \"xxxxx@xxxxx.xxx\"")
 	@DatabaseField(
 		columnName = EMAIL_FIELD_NAME,
 		dataType = DataType.STRING,
@@ -101,12 +122,14 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private String email = null;
 
+	@JsonIgnoreProperties
 	@DatabaseField(
 		columnName = PHOTO_FIELD_NAME,
 		dataType = DataType.STRING,
 		useGetSet = true)
 	private String photo = null;
 	
+	@JsonIgnoreProperties
 	@DatabaseField(
 		columnName = MOT_PASSE_FIELD_NAME,
 		dataType = DataType.STRING,
@@ -114,6 +137,7 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private String motPasse = null;
 
+	@JsonIgnoreProperties
 	@DatabaseField(
 		columnName = PROFIL_FIELD_NAME,
 		dataType = DataType.INTEGER_OBJ,
@@ -121,26 +145,36 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private Integer profil = null;
 	
+	@SchemaIgnore
+	@JsonIgnore
 	@ForeignCollectionField(eager = true, columnName = Echange.AUTEUR_FIELD_NAME)
 	private transient Collection<Echange> transientEchanges = null;
 
 	private ArrayList<Echange> echanges = new ArrayList<Echange>();
 
+	@SchemaIgnore
+	@JsonIgnore
 	@ForeignCollectionField(eager = true, columnName = Avis.AUTEUR_FIELD_NAME)
 	private transient Collection<Avis> transientAvis = null;
 
 	private ArrayList<Avis> avis = new ArrayList<Avis>();
 	
+	@SchemaIgnore
+	@JsonIgnore
 	@ForeignCollectionField(eager = true, columnName = InstanceEvaluation.CORRECTEUR_FIELD_NAME)
 	private transient Collection<InstanceEvaluation> transientInstanceEvaluationCorrections = null;
 
 	private ArrayList<InstanceEvaluation> instanceEvaluationCorrections = new ArrayList<InstanceEvaluation>();
 
+	@SchemaIgnore
+	@JsonIgnore
 	@ForeignCollectionField(eager = true, columnName = InstanceEvaluation.SURVEILLANT_FIELD_NAME)
 	private transient Collection<InstanceEvaluation> transientInstanceEvaluationSurveillances = null;
 
 	private ArrayList<InstanceEvaluation> instanceEvaluationSurveillances = new ArrayList<InstanceEvaluation>();
 
+	@SchemaIgnore
+	@JsonIgnore
 	@ForeignCollectionField(eager = true, columnName = InstanceCours.ANIMATEUR_FIELD_NAME)
 	private transient Collection<InstanceCours> transientInstanceCours = null;
 

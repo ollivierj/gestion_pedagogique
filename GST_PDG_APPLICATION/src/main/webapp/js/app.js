@@ -81,9 +81,13 @@ angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 'angularFileUplo
 			templateUrl: 'partials/fichiers.html',
 			controller: 'fichiersCtrl'
 		}).
-		when('/gestionDroit', {
+		when('/gestionProfils', {
 			templateUrl: 'partials/droit/gestionDroit.html',
 			controller: 'gestionDroitCtrl'
+		}).
+		when('/gestionUtilisateurs', {
+			templateUrl: 'partials/templates/list.html',
+			controller: 'gestionUtilisateursCtrl'
 		}).
 		otherwise({
 			redirectTo: '/accueil'
