@@ -38,15 +38,15 @@ public class InstanceEvaluation extends AModele<Integer> implements Serializable
 
 	private static final long serialVersionUID = 1L;
 
-	public final static String ID_FIELD_NAME 						= "INST_ECF_ID";
-	public final static String RESERVATION_SALLE_FIELD_NAME 		= "INST_ECF_RESERVATION_SALLE";
-	public final static String SURVEILLANT_FIELD_NAME 				= "INST_ECF_SURVELLANT";
-	public final static String CORRECTEUR_FIELD_NAME 				= "INST_ECF_CORRECTEUR";
-	public final static String EVALUATION_FIELD_NAME 				= "INST_ECF_EVALUATION";
-	public final static String LIEN_GRILLE_CORRECTION_FIELD_NAME 	= "INST_ECF_LIEN_GRILLE_CORRECTION";
-	public final static String LIEN_COPIES_IMMATERRIELLES_FIELD_NAME= "INST_ECF_LIEN_COPIES_IMMATERRIELLES";
-	public final static String DATE_DEBUT_PASSAGE_FIELD_NAME 		= "INST_ECF_DATE_DEBUT_PASSAGE";
-	public final static String DATE_FIN_PASSAGE_FIELD_NAME 			= "INST_ECF_DATE_FIN_PASSAGE";
+	public final static String ID_FIELD_NAME 						= "INST_EVAL_ID";
+	public final static String RESERVATION_SALLE_FIELD_NAME 		= "INST_EVAL_RESERVATION_SALLE";
+	public final static String SURVEILLANT_FIELD_NAME 				= "INST_EVAL_SURVEILLANT";
+	public final static String CORRECTEUR_FIELD_NAME 				= "INST_EVAL_CORRECTEUR";
+	public final static String EVALUATION_FIELD_NAME 				= "INST_EVAL_EVALUATION";
+	public final static String LIEN_GRILLE_CORRECTION_FIELD_NAME 	= "INST_EVAL_LIEN_GRILLE_CORRECTION";
+	public final static String LIEN_COPIES_IMMATERRIELLES_FIELD_NAME= "INST_EVAL_LIEN_COPIES_IMMATERRIELLES";
+	public final static String DATE_DEBUT_PASSAGE_FIELD_NAME 		= "INST_EVAL_DATE_DEBUT_PASSAGE";
+	public final static String DATE_FIN_PASSAGE_FIELD_NAME 			= "INST_EVAL_DATE_FIN_PASSAGE";
 
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,

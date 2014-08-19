@@ -453,6 +453,9 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 		if (null != transientAbsences) {
 			absences.clear();
 			absences.addAll(transientAbsences);
+			for (Absence abs : absences) {
+				abs.getAuteur();
+			}
 			transientAbsences = null;
 		}
 		return absences;

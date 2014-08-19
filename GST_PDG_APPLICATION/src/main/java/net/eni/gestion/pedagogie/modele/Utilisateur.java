@@ -13,6 +13,7 @@ import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -121,6 +122,7 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private Integer profil = null;
 	
+	@JsonManagedReference
 	@ForeignCollectionField(eager = true, columnName = Echange.AUTEUR_FIELD_NAME)
 	private transient Collection<Echange> transientEchanges = null;
 
@@ -130,6 +132,13 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 	private transient Collection<Avis> transientAvis = null;
 
 	private ArrayList<Avis> avis = new ArrayList<Avis>();
+	
+	@JsonManagedReference
+	@ForeignCollectionField(eager = true, columnName = Absence.AUTEUR_FIELD_NAME)
+	private transient Collection<Absence> transientAbsences = null;
+
+	private ArrayList<Absence> absences = new ArrayList<Absence>();
+	
 	
 	@ForeignCollectionField(eager = true, columnName = InstanceEvaluation.CORRECTEUR_FIELD_NAME)
 	private transient Collection<InstanceEvaluation> transientInstanceEvaluationCorrections = null;
@@ -141,8 +150,8 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 
 	private ArrayList<InstanceEvaluation> instanceEvaluationSurveillances = new ArrayList<InstanceEvaluation>();
 
-	@ForeignCollectionField(eager = true, columnName = InstanceCours.ANIMATEUR_FIELD_NAME)
-	private transient Collection<InstanceCours> transientInstanceCours = null;
+//	@ForeignCollectionField(eager = true, columnName = InstanceCours.ANIMATEUR_FIELD_NAME)
+//	private transient Collection<InstanceCours> transientInstanceCours = null;
 
 	private ArrayList<InstanceCours> instanceCours = new ArrayList<InstanceCours>();
 	
@@ -272,13 +281,22 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 		return instanceEvaluationSurveillances;
 	}
 	
-	public ArrayList<InstanceCours> getInstanceCours() {
-		if (null != transientInstanceCours) {
-			instanceCours.clear();
-			instanceCours.addAll(transientInstanceCours);
-			transientInstanceCours = null;
+//	public ArrayList<InstanceCours> getInstanceCours() {
+//		if (null != transientInstanceCours) {
+//			instanceCours.clear();
+//			instanceCours.addAll(transientInstanceCours);
+//			transientInstanceCours = null;
+//		}
+//		return instanceCours;
+//	}
+	
+	public ArrayList<Absence> getAbsences() {
+		if (null != transientAbsences) {
+			absences.clear();
+			absences.addAll(transientAbsences);
+			transientAbsences = null;
 		}
-		return instanceCours;
+		return absences;
 	}
 
 }
