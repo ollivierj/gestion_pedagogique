@@ -217,33 +217,34 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 		useGetSet = true)
 	private String historique = null;
 	
-	@JsonManagedReference
+	
 	@ForeignCollectionField(eager = true, columnName = Echange.STAGIAIRE_FIELD_NAME)
 	private transient Collection<Echange> transientEchanges = null;
 
+	@JsonManagedReference("stagiaire-echange")
 	private ArrayList<Echange> echanges = new ArrayList<Echange>();
 
-	@JsonManagedReference
 	@ForeignCollectionField(eager = true, columnName = Avis.STAGIAIRE_FIELD_NAME)
 	private transient Collection<Avis> transientAvis = null;
-
+	
+	@JsonManagedReference("stagiaire-avis")
 	private ArrayList<Avis> avis = new ArrayList<Avis>();
 	
-	@ForeignCollectionField(eager = false, columnName = Absence.STAGIAIRE_FIELD_NAME)
-	@JsonManagedReference
+	@ForeignCollectionField(eager = true, columnName = Absence.STAGIAIRE_FIELD_NAME)
 	private transient Collection<Absence> transientAbsences = null;
 
+	@JsonManagedReference("stagiaire-absence")
 	private ArrayList<Absence> absences = new ArrayList<Absence>();
-	
-//	@ForeignCollectionField(eager = true, columnName = PlanningIndividuelFormation.CODE_STAGIAIRE_FIELD_NAME)
-//	private transient Collection<PlanningIndividuelFormation> transientPlanningIndividuelFormations = null;
-//
-//	private ArrayList<PlanningIndividuelFormation> planningIndividuelFormations = new ArrayList<PlanningIndividuelFormation>();
 	
 	@ForeignCollectionField(eager = true, columnName = InstanceCoursStagiaire.STAGIAIRE_FIELD_NAME)
 	private transient Collection<InstanceCoursStagiaire> transientInstanceCoursStagiaires = null;
 
 	private ArrayList<InstanceCoursStagiaire> instanceCoursStagiaires = new ArrayList<InstanceCoursStagiaire>();
+	
+	@ForeignCollectionField(eager = true, columnName = PlanningIndividuelFormation.CODE_STAGIAIRE_FIELD_NAME)
+	private transient Collection<PlanningIndividuelFormation> transientPlanningIndividuelFormations = null;
+	
+	private ArrayList<PlanningIndividuelFormation> planningIndividuelFormations = new ArrayList<PlanningIndividuelFormation>();
 
 	@Override
 	public Integer getId() {
@@ -453,9 +454,6 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 		if (null != transientAbsences) {
 			absences.clear();
 			absences.addAll(transientAbsences);
-			for (Absence abs : absences) {
-				abs.getAuteur();
-			}
 			transientAbsences = null;
 		}
 		return absences;
@@ -480,8 +478,8 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 		}
 		return instanceCours;
 	}
-
-//	private ArrayList<PlanningIndividuelFormation> getPlanningIndividuelFormations() {
+	
+//	public ArrayList<PlanningIndividuelFormation> getPlanningIndividuelFormations() {
 //		if (null != transientPlanningIndividuelFormations) {
 //			planningIndividuelFormations.clear();
 //			planningIndividuelFormations.addAll(transientPlanningIndividuelFormations);

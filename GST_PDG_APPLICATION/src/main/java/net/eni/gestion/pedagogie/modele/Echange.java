@@ -48,7 +48,6 @@ public class Echange extends AModele<Integer> implements Serializable {
 		useGetSet = true)
 	private Integer id = null;
 	
-	@JsonBackReference
 	@DatabaseField(
 		columnName = AUTEUR_FIELD_NAME,
 		foreign = true,
@@ -56,7 +55,7 @@ public class Echange extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private Utilisateur auteur = null;
 
-	@JsonBackReference
+	@JsonBackReference("stagiaire-echange")
 	@DatabaseField(
 		columnName = STAGIAIRE_FIELD_NAME,
 		foreign = true,

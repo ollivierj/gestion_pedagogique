@@ -122,7 +122,6 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private Integer profil = null;
 	
-	@JsonManagedReference
 	@ForeignCollectionField(eager = true, columnName = Echange.AUTEUR_FIELD_NAME)
 	private transient Collection<Echange> transientEchanges = null;
 
@@ -133,8 +132,7 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 
 	private ArrayList<Avis> avis = new ArrayList<Avis>();
 	
-	@JsonManagedReference
-	@ForeignCollectionField(eager = true, columnName = Absence.AUTEUR_FIELD_NAME)
+	@ForeignCollectionField(eager = false, columnName = Absence.AUTEUR_FIELD_NAME)
 	private transient Collection<Absence> transientAbsences = null;
 
 	private ArrayList<Absence> absences = new ArrayList<Absence>();

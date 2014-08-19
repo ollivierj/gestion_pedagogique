@@ -33,7 +33,7 @@ public class StagiaireServiceImpl extends AServiceImpl<Stagiaire, Integer, Stagi
     @Override
     public Stagiaire chargerDetail(Integer pId) throws GenericException {
     	Stagiaire stagiaire = super.chargerDetail(pId);
-    	stagiaire.getAbsences();
+//    	stagiaire.getAbsences();
     	return stagiaire;
     }
 }

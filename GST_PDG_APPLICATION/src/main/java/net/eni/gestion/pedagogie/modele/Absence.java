@@ -59,7 +59,7 @@ public class Absence extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private Date date = null;
 	
-	@JsonBackReference
+	@JsonBackReference("stagiaire-absence")
 	@DatabaseField(
 		columnName = STAGIAIRE_FIELD_NAME,
 		foreign = true,
@@ -93,13 +93,10 @@ public class Absence extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private Date dateSaisie = null;
 	
-	@JsonBackReference
 	@DatabaseField(
 		columnName = AUTEUR_FIELD_NAME,
 		foreign = true,
 		useGetSet = true,
-		foreignAutoCreate = true,
-		foreignAutoRefresh = true,
 		canBeNull = false)
 	private Utilisateur auteur = null;
 
