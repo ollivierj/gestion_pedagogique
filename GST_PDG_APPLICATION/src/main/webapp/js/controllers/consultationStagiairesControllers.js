@@ -23,6 +23,7 @@ controllers.controller('consultationStagiairesCtrl', function($scope, $http, $lo
         rowHeight: 80,
         selectedItems: $scope.stagiaireSelected,
         columnDefs : [
+              	{field:'id', displayName:'Id'},  
                 {field:'photo', displayName:'Photo', cellTemplate: 'partials/templates/ng-grid_photo.html'},
                 {field:'nom', displayName:'Nom'},
                 {field:'prenom', displayName:'Prénom'},

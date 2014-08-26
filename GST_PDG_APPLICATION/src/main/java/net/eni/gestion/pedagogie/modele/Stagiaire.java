@@ -230,21 +230,23 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 	@JsonManagedReference("stagiaire-avis")
 	private ArrayList<Avis> avis = new ArrayList<Avis>();
 	
+	
 	@ForeignCollectionField(eager = true, columnName = Absence.STAGIAIRE_FIELD_NAME)
 	private transient Collection<Absence> transientAbsences = null;
 
 	@JsonManagedReference("stagiaire-absence")
 	private ArrayList<Absence> absences = new ArrayList<Absence>();
 	
+	
 	@ForeignCollectionField(eager = true, columnName = InstanceCoursStagiaire.STAGIAIRE_FIELD_NAME)
 	private transient Collection<InstanceCoursStagiaire> transientInstanceCoursStagiaires = null;
 
 	private ArrayList<InstanceCoursStagiaire> instanceCoursStagiaires = new ArrayList<InstanceCoursStagiaire>();
 	
-	@ForeignCollectionField(eager = true, columnName = PlanningIndividuelFormation.CODE_STAGIAIRE_FIELD_NAME)
+	/*@ForeignCollectionField(eager = true, columnName = PlanningIndividuelFormation.CODE_STAGIAIRE_FIELD_NAME)
 	private transient Collection<PlanningIndividuelFormation> transientPlanningIndividuelFormations = null;
 	
-	private ArrayList<PlanningIndividuelFormation> planningIndividuelFormations = new ArrayList<PlanningIndividuelFormation>();
+	private ArrayList<PlanningIndividuelFormation> planningIndividuelFormations = new ArrayList<PlanningIndividuelFormation>();*/
 
 	@Override
 	public Integer getId() {
@@ -467,6 +469,7 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 		}
 		return instanceCoursStagiaires;
 	}
+	
 	
 	public ArrayList<InstanceCours> getInstanceCours(){
 		ArrayList<InstanceCours> instanceCours = new ArrayList<InstanceCours>();

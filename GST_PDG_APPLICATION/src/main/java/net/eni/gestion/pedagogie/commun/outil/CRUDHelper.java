@@ -49,6 +49,7 @@ public class CRUDHelper {
 			return new Pair<ArrayList<M>, Long>(new ArrayList<M>(pABase.queryRaw(lQuery.toString(), pABase.getRawRowMapper()).getResults()), pABase.countOf());
 		} catch (Exception exception) {
 			System.out.println(exception.getMessage());
+			System.out.println(exception);
 			throw new Exception("Echec de chargement de la liste d'enregistrements depuis la base de données");
 		}
 	}
