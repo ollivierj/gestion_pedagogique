@@ -21,13 +21,9 @@ services.factory('StagiaireFactory', function ($resource) {
 	var stagiaire = {};
 	
 	//Création de la variable ressource qui appel le service REST
-	var data = $resource('/ng_gst_pdg/web/stagiaires/page', {}, {
+	var data = $resource('/ng_gst_pdg/web/stagiairesPromotions/page', {}, {
 		load : {method:'POST'}
 	});
-	
-//	var detail = $resource('/ng_gst_pdg/web/stagiaires/detail/:id', {}, {
-//		get : {method:'GET', isArray = false}
-//	});
 
 	var detail = $resource('/ng_gst_pdg/web/stagiaires/detail/:id');
 	
@@ -83,7 +79,7 @@ services.factory('StagiaireFactory', function ($resource) {
 	};
 	
 	//Enregsitrement du stagiaire sélectionné
-	var changeStagiaire = function (stagiaireSelected)  {
+	var keepStagiaire = function (stagiaireSelected)  {
 		stagiaire = stagiaireSelected;
 	};
 	
@@ -95,7 +91,7 @@ services.factory('StagiaireFactory', function ($resource) {
 		sortOptions 	: sortOptions,
 		filterOptions	: filterOptions,
 		stagiaire		: stagiaire,
-		changeStagiaire : changeStagiaire,
+		keepStagiaire : keepStagiaire,
 		dataAutocomplete : $resource('/ng_gst_pdg/web/stagiaires/autocomplete/:search', {}, {
 			getData : { method: 'GET', params: {search: '@search'}, isArray: true }
 		})

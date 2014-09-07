@@ -1,7 +1,9 @@
 'use strict';
-angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 
+angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 'ngAnimate',
 //                              'angularFileUpload', 
-                              'schemaForm','ui.bootstrap','ui.tree','ng_gst_pdg.filters','ng_gst_pdg.controllers','ng_gst_pdg.services', 'ng_gst_pdg.directives'])
+                              'schemaForm','ui.bootstrap','ui.tree','ng_gst_pdg.filters','ng_gst_pdg.controllers',
+                              'ng_gst_pdg.services', 'ng_gst_pdg.directives', 'mgcrea.ngStrap.timepicker',
+                              'mgcrea.ngStrap.datepicker'])
 
 .config(['$routeProvider', function($routeProvider) {
 	$routeProvider.
@@ -9,16 +11,19 @@ angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid',
 			templateUrl: 'partials/accueil.html',
 //			controller: 'consultationStagiairesCtrl'
 		}).
-		when('/consultationStagiaires', {
-			templateUrl: 'partials/consultationStagiaires/consultationStagiaires.html',
-			controller: 'consultationStagiairesCtrl'
+		when('/stagiaire', {
+			templateUrl: 'partials/stagiaire/stagiaire.html',
+			controller: 'stagiaireCtrl'
 		}).	
-		when('/detailsStagiaire', {
-			templateUrl: 'partials/consultationStagiaires/detailsStagiaire.html',
-			controller: 'detailsStagiairesCtrl',
+		when('/detailStagiaire', {
+			templateUrl: 'partials/stagiaire/detailStagiaire.html',
+			controller: 'detailStagiaireCtrl',
 			resolve: {
 				detail: function (StagiaireFactory) {
 					return StagiaireFactory.getDetail();
+				},
+				absences: function(SAbsenceFactory) {
+					return SAbsenceFactory.getAbsencesInit();
 				}
 			}
 		}).

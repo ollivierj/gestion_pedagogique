@@ -1,6 +1,6 @@
 'use strict';
 var absencesCtrl = function($scope, $modalInstance, $log, AbsencesFactory,
-		StagiairesFactory) {
+		StagiaireFactory) {
 	$scope.absences = [];
 	$scope.date = new Date();
 	$scope.hstep = 1;
@@ -24,7 +24,7 @@ var absencesCtrl = function($scope, $modalInstance, $log, AbsencesFactory,
 	$scope.periode = 'matin';
 
 	$scope.getStagiaires = function(search) {
-		return AbsencesFactory.test.getData().$promise.then(function(data) {
+		return AbsencesFactory.test.getData({search: search}).$promise.then(function(data) {
 			var stagiaires = [];
 			angular.forEach(data, function(item) {
 				stagiaires.push(item);

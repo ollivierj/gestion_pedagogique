@@ -43,4 +43,5 @@ public class ModeleMetier  {
 		public final static String UNITE_FORMATION_TABLE_NAME 							= "UniteFormation";
 		public final static String UNITE_PAR_FORMATION_TABLE_NAME 						= "UniteParFormation";
 		public final static String UTILISATEUR_TABLE_NAME 								= "UTILISATEUR";
+		public final static String STAGIAIREPROMO_VIEW_NAME 							= "STAGIAIRE_PROMOTION";
 }

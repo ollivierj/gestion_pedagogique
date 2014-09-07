@@ -11,6 +11,7 @@ public class Pager {
 	private PagingOptions pagingOptions;
 	private SortOptions sortOptions;
 	private FilterOptions filterOptions;
+	private Integer id;
 	
 	/**
 	 * Constructeur à vide nécéssaire pour la sérialisation
@@ -43,6 +44,12 @@ public class Pager {
 		this.filterOptions = filterOptions;
 	}
 
-	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	
 }

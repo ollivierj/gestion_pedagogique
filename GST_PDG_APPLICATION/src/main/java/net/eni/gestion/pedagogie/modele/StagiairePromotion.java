@@ -1,6 +1,3 @@
-/**
- * 
- */
 package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
@@ -11,30 +8,26 @@ import java.util.Iterator;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
-import net.eni.gestion.pedagogie.modele.generique.AModele;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
-/**
- * @author jollivier
- */
+import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
+import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 @XmlRootElement
-@DatabaseTable(tableName = ModeleMetier.STAGIAIRE_TABLE_NAME)
-public class Stagiaire extends AModele<Integer> implements Serializable {
+@DatabaseTable(tableName = ModeleMetier.STAGIAIREPROMO_VIEW_NAME)
+public class StagiairePromotion extends AModele<Integer> implements Serializable {
+
 	
-	public Stagiaire() {
+	public StagiairePromotion() {
 		super();
 	}
 
-	public Stagiaire(Integer pId) {
+	public StagiairePromotion(Integer pId) {
 		super();
 		setId(pId);
 	}
@@ -55,7 +48,7 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 	public final static String EMAIL_FIELD_NAME	 				= "Email";
 	public final static String DATE_NAISSANCE_FIELD_NAME	 	= "DateNaissance";
 	public final static String CODE_REGION_FIELD_NAME	 		= "CodeRegion";
-	public final static String CODE_NATIONALITE_FIELD_NAME	 		= "CodeNationalite";
+	public final static String CODE_NATIONALITE_FIELD_NAME	 	= "CodeNationalite";
 	public final static String CODE_ORIGINE_MEDIA_FIELD_NAME	= "CodeOrigineMedia";
 	public final static String DATE_DERNIER_ENVOI_DOC_FIELD_NAME= "DateDernierEnvoiDoc";
 	public final static String DATE_CREATION_FIELD_NAME	 		= "DateCreation";
@@ -64,15 +57,11 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 	public final static String PHOTO_FIELD_NAME	 				= "Photo";
 	public final static String ENVOI_DOC_EN_COURS_FIELD_NAME	= "EnvoiDocEnCours";
 	public final static String HISTORIQUE_FIELD_NAME			= "Historique";
-	
-	// Champ utilisant un index FTS
-	public final static String[] FULL_TEXT_SEARCH_FIELDS		= {NOM_FIELD_NAME, PRENOM_FIELD_NAME, VILLE_FIELD_NAME};
-	
-	@Override
-	public String[] getFullTextSearchFieldNames() {
-		return FULL_TEXT_SEARCH_FIELDS;
-	}
-	
+	public final static String ID_PROMO_NAME 					= "CodePromotion";
+	public final static String LIBELLE_FIELD_NAME				= "Libelle";
+	public final static String DEBUT_FIELD_NAME					= "Debut";
+	public final static String FIN_FIELD_NAME					= "Fin";
+		
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
 		dataType = DataType.INTEGER_OBJ,
@@ -218,39 +207,35 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 		useGetSet = true)
 	private String historique = null;
 	
-	@JsonIgnore
-	@ForeignCollectionField(eager = true, columnName = Echange.STAGIAIRE_FIELD_NAME)
-	private transient Collection<Echange> transientEchanges = null;
+	@DatabaseField(
+		columnName = ID_PROMO_NAME,
+		dataType = DataType.STRING,
+		useGetSet = true)
+	private String codePromotion = null;
+	
+	@DatabaseField(
+		columnName = LIBELLE_FIELD_NAME,
+		dataType = DataType.STRING,
+		useGetSet = true,
+		canBeNull = false)
+	private String libellePromotion = null;
 
-	@JsonIgnore
-	private ArrayList<Echange> echanges = new ArrayList<Echange>();
-	
-	@JsonIgnore
-	@ForeignCollectionField(eager = true, columnName = Avis.STAGIAIRE_FIELD_NAME)
-	private transient Collection<Avis> transientAvis = null;
-	
-	@JsonIgnore
-	private ArrayList<Avis> avis = new ArrayList<Avis>();
-	
-	@JsonIgnore
-	@ForeignCollectionField(eager = true, columnName = Absence.STAGIAIRE_FIELD_NAME)
-	private transient Collection<Absence> transientAbsences = null;
-	
-	@JsonIgnore
-	private ArrayList<Absence> absences = new ArrayList<Absence>();
-	
-	
-	@ForeignCollectionField(eager = true, columnName = InstanceCoursStagiaire.STAGIAIRE_FIELD_NAME)
-	private transient Collection<InstanceCoursStagiaire> transientInstanceCoursStagiaires = null;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy", timezone="CET")   
+	@DatabaseField(
+		columnName = DEBUT_FIELD_NAME,
+		dataType = DataType.DATE,
+		useGetSet = true,
+		canBeNull = false)
+	private Date debutPromotion = null;
 
-	private ArrayList<InstanceCoursStagiaire> instanceCoursStagiaires = new ArrayList<InstanceCoursStagiaire>();
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy", timezone="CET")   
+	@DatabaseField(
+		columnName = FIN_FIELD_NAME,
+		dataType = DataType.DATE,
+		useGetSet = true,
+		canBeNull = false)
+	private Date finPromotion = null;
 	
-	/*@ForeignCollectionField(eager = true, columnName = PlanningIndividuelFormation.CODE_STAGIAIRE_FIELD_NAME)
-	private transient Collection<PlanningIndividuelFormation> transientPlanningIndividuelFormations = null;
-	
-	private ArrayList<PlanningIndividuelFormation> planningIndividuelFormations = new ArrayList<PlanningIndividuelFormation>();*/
-	
-
 	@Override
 	public Integer getId() {
 		return id;
@@ -437,61 +422,36 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 		this.historique = historique;
 	}
 
-	public ArrayList<Echange> getEchanges() {
-		if (null != transientEchanges) {
-			echanges.clear();
-			echanges.addAll(transientEchanges);
-			transientEchanges = null;
-		}
-		return echanges;
+	public String getCodePromotion() {
+		return codePromotion;
 	}
-	
-	public ArrayList<Avis> getAvis() {
-		if (null != transientAvis) {
-			avis.clear();
-			avis.addAll(transientAvis);
-			transientAvis = null;
-		}
-		return avis;
+
+	public void setCodePromotion(String codePromotion) {
+		this.codePromotion = codePromotion;
 	}
-	
-	public ArrayList<Absence> getAbsences() {
-		if (null != transientAbsences) {
-			absences.clear();
-			absences.addAll(transientAbsences);
-			transientAbsences = null;
-		}
-		return absences;
+
+	public Date getDebutPromotion() {
+		return debutPromotion;
 	}
-	
-	private ArrayList<InstanceCoursStagiaire> getInstanceCoursStagiaires() {
-		if (null != transientInstanceCoursStagiaires) {
-			instanceCoursStagiaires.clear();
-			instanceCoursStagiaires.addAll(transientInstanceCoursStagiaires);
-			transientInstanceCoursStagiaires = null;
-		}
-		return instanceCoursStagiaires;
+
+	public void setDebutPromotion(Date debutPromotion) {
+		this.debutPromotion = debutPromotion;
 	}
-	
-	
-	public ArrayList<InstanceCours> getInstanceCours(){
-		ArrayList<InstanceCours> instanceCours = new ArrayList<InstanceCours>();
-		if (0 < getInstanceCoursStagiaires().size()) {
-			Iterator<InstanceCoursStagiaire> iterator = getInstanceCoursStagiaires().iterator();
-			while (iterator.hasNext()) {
-				instanceCours.add(iterator.next().getInstanceCours());
-			}
-		}
-		return instanceCours;
+
+	public Date getFinPromotion() {
+		return finPromotion;
 	}
-	
-//	public ArrayList<PlanningIndividuelFormation> getPlanningIndividuelFormations() {
-//		if (null != transientPlanningIndividuelFormations) {
-//			planningIndividuelFormations.clear();
-//			planningIndividuelFormations.addAll(transientPlanningIndividuelFormations);
-//			transientPlanningIndividuelFormations = null;
-//		}
-//		
-//		return planningIndividuelFormations;
-//	}
+
+	public void setFinPromotion(Date finPromotion) {
+		this.finPromotion = finPromotion;
+	}
+
+	public String getLibellePromotion() {
+		return libellePromotion;
+	}
+
+	public void setLibellePromotion(String libellePromotion) {
+		this.libellePromotion = libellePromotion;
+	}	
+
 }

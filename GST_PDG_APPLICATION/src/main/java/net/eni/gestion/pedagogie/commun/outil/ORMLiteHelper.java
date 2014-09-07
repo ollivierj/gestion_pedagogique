@@ -74,7 +74,7 @@ public class ORMLiteHelper {
 				lStrBuilder.append(orderSortDirectionBy);
 				orderByClauseArray.add(lStrBuilder.toString());
 			} else {
-				throw new GenericException("Le champ de tri fourni est vide.");
+				throw new GenericException("Le champ de tri fourni " + pSortOptions.getFields()[i] + " est vide.");
 			}
 		}
 		return (!orderByClauseArray.isEmpty()) ? StringUtils.join(

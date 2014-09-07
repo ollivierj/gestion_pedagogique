@@ -3,7 +3,7 @@
 /**
  * Controller de la page de l'affichage des stagiaires
  */
-controllers.controller('consultationStagiairesCtrl', function($scope, $http, $location, stagiaireData, StagiaireFactory, $modal) {
+controllers.controller('stagiaireCtrl', function($scope, $http, $location, stagiaireData, StagiaireFactory, $modal, SAbsenceFactory) {
 
     /*Variable contenant la sélection des données des tableaux de recherche*/
     var promotionSelected = [];
@@ -28,11 +28,12 @@ controllers.controller('consultationStagiairesCtrl', function($scope, $http, $lo
                 {field:'nom', displayName:'Nom'},
                 {field:'prenom', displayName:'Prénom'},
                 {field:'dateNaissance', displayName:'Date de naissance'},
-                {field:'promotion', displayName:'Promotion', cellTemplate: 'partials/templates/ng-grid_detailsPromotion.html'},
+                {field:'codePromotion', displayName:'Promotion', cellTemplate: 'partials/templates/ng-grid_detailsPromotion.html'},
                 {field:'details', displayName:'Actions', cellTemplate: 'partials/templates/ng-grid_details.html'}
         ],
         enablePaging: true,
         showFooter: true,
+        multiSelect: false,
         totalServerItems: 'totalServerItems',
         pagingOptions: $scope.pagingOptions,
         filterOptions: $scope.filterOptions,
@@ -40,21 +41,22 @@ controllers.controller('consultationStagiairesCtrl', function($scope, $http, $lo
     };
 
     // Affiche une fenêtre modal avec les informations de la promotion
-    $scope.displayPromotionDetails = function() {
+    $scope.displayPromotionDetails = function(entity) {
         var modalEdit = $modal.open({
-            templateUrl: 'partials/consultationStagiaires/detailsPromotion.html',
+            templateUrl: 'partials/stagiaire/detailPromotion.html',
             controller: ModalDisplayPromotionDetails,
             resolve: {
                 promotion: function() {
-                  return promotionSelected;
+                  return entity;
                 }
             }
         });
     };
     
     $scope.viewRow = function (entity) {
-    	StagiaireFactory.changeStagiaire(entity);
-        $location.path('/detailsStagiaire');
+    	StagiaireFactory.keepStagiaire(entity);
+    	SAbsenceFactory.keepStagiaire(entity);
+        $location.path('/detailStagiaire');
     };
 
     //Gestion du mode carte et du mode liste
@@ -106,81 +108,6 @@ controllers.controller('consultationStagiairesCtrl', function($scope, $http, $lo
     	}
     }, true);
 
-});
-
-/**
- * Controller de la page detail stagiaire
- */
-controllers.controller('detailsStagiairesCtrl', function($scope, stagiaireData, StagiaireFactory, detail) {
-
-    $scope.planningSelected = [];
-    
-    //Initialisation de la variabe stagiaire du scope avec la variable detail (resolve de la route)
-    $scope.stagiaire = detail;
-
-    // Les absences ou retards du stagiaire
-    $scope.gridOptionsAbsences = {
-        data: 'stagiaire.absences',
-        // selectedItems: $scope.planningSelected,
-        multiSelect: false,
-        columnDefs : [
-                {field:'dateArriveeMatin', displayName:'Date arrivée du matin'},
-                {field:'dateArriveeApresMidi', displayName:'Date arrivée de l\'après midi'},
-                {field:'auteur', displayName:'Auteur'},
-                {displayName:'Motif'},
-                {displayName:'Actions', cellTemplate: 'partials/templates/ng-grid_actions.html'}
-        ]
-    };
-
-    // Les avis concernant le stagiaire
-    $scope.gridOptionsAvis = {
-        data: 'stagiaire.avis',
-        // selectedItems: $scope.planningSelected,
-        multiSelect: false,
-        columnDefs : [
-                {field:'date', displayName:'Date'},
-                {field:"formateur", displayName:'Auteur'},
-                {field:'avis', displayName:'Avis'},
-                {displayName:'Actions', cellTemplate: 'partials/templates/ng-grid_actions.html'}
-        ]
-    };
-
-    // Les échanges concernant le stagiaire
-    $scope.gridOptionsEchanges = {
-        data: 'stagiaire.echanges',
-        // selectedItems: $scope.planningSelected,
-        multiSelect: false,
-        columnDefs : [
-                {field:'dateSaisie', displayName:'Date'},
-                {field:"auteur", displayName:'Auteur'},
-                {field:'commentaire', displayName:'Commentaire'},
-                {displayName:'Actions', cellTemplate: 'partials/templates/ng-grid_actions.html'}
-        ]
-    };
-
-    $scope.planning = [
-        {type:'Cours', libelle:'Java', date:'20/12/2013'},
-        {type:'ECF', libelle:'Java', date:'25/12/2013'},
-        {type:'Cours', libelle:'SQL', date:'03/02/2014'},
-        {type:'Cours', libelle:'C#', date:'12/05/2014'},
-        {type:'Cours', libelle:'Tomcat', date:'06/06/2014'},
-        {type:'ECF', libelle:'C#', date:'26/09/2014'},
-        {type:'Session de validation', libelle:'Examen final', date:'13/10/2014'}
-    ];
-
-     $scope.gridOptionsPlanning = {
-        data: 'planning',
-        selectedItems: $scope.planningSelected,
-        multiSelect: false,
-        columnDefs : [
-                {field:'type', displayName:'Type'},
-                {field:'libelle', displayName:'Libellé'},
-                {field:'date', displayName:'Date de début'},
-                {displayName:'Date de fin'},
-                {displayName:'Heure'},
-                {displayName:'Salle'}
-        ]
-    };
 });
 
 var ModalDisplayPromotionDetails = function($scope, $modalInstance, promotion) {

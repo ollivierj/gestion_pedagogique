@@ -70,7 +70,6 @@ public class ProfessionnelHomologue extends AModele<Integer> implements Serializ
 		return FULL_TEXT_SEARCH_FIELDS;
 	}
 	
-	@JsonIgnoreProperties
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
 		dataType = DataType.INTEGER_OBJ,

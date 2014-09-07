@@ -29,6 +29,7 @@ import net.eni.gestion.pedagogie.DAO.ReservationSalleDao;
 import net.eni.gestion.pedagogie.DAO.SalleDao;
 import net.eni.gestion.pedagogie.DAO.SessionValidationDao;
 import net.eni.gestion.pedagogie.DAO.StagiaireDao;
+import net.eni.gestion.pedagogie.DAO.StagiairePromotionDao;
 import net.eni.gestion.pedagogie.DAO.TitreProfessionnelDao;
 import net.eni.gestion.pedagogie.DAO.UniteFormationDao;
 import net.eni.gestion.pedagogie.DAO.UniteParFormationDao;
@@ -62,6 +63,7 @@ import net.eni.gestion.pedagogie.DAO.implementation.ReservationSalleDaoImpl;
 import net.eni.gestion.pedagogie.DAO.implementation.SalleDaoImpl;
 import net.eni.gestion.pedagogie.DAO.implementation.SessionValidationDaoImpl;
 import net.eni.gestion.pedagogie.DAO.implementation.StagiaireDaoImpl;
+import net.eni.gestion.pedagogie.DAO.implementation.StagiairePromotionDaoImpl;
 import net.eni.gestion.pedagogie.DAO.implementation.TitreProfessionnelDaoImpl;
 import net.eni.gestion.pedagogie.DAO.implementation.UniteFormationDaoImpl;
 import net.eni.gestion.pedagogie.DAO.implementation.UniteParFormationDaoImpl;
@@ -79,6 +81,7 @@ import net.eni.gestion.pedagogie.service.ProfessionnelHomologueService;
 import net.eni.gestion.pedagogie.service.ProfilService;
 import net.eni.gestion.pedagogie.service.ReservationSalleService;
 import net.eni.gestion.pedagogie.service.SessionValidationService;
+import net.eni.gestion.pedagogie.service.StagiairePromotionService;
 import net.eni.gestion.pedagogie.service.StagiaireService;
 import net.eni.gestion.pedagogie.service.TitreProfessionnelService;
 import net.eni.gestion.pedagogie.service.UtilisateurService;
@@ -95,6 +98,7 @@ import net.eni.gestion.pedagogie.service.implementation.ProfessionnelHomologueSe
 import net.eni.gestion.pedagogie.service.implementation.ProfilServiceImpl;
 import net.eni.gestion.pedagogie.service.implementation.ReservationSalleServiceImpl;
 import net.eni.gestion.pedagogie.service.implementation.SessionValidationServiceImpl;
+import net.eni.gestion.pedagogie.service.implementation.StagiairePromotionServiceImpl;
 import net.eni.gestion.pedagogie.service.implementation.StagiaireServiceImpl;
 import net.eni.gestion.pedagogie.service.implementation.TitreProfessionnelServiceImpl;
 import net.eni.gestion.pedagogie.service.implementation.UtilisateurServiceImpl;
@@ -138,6 +142,7 @@ public class ModuleConfiguration extends AbstractModule {
     	bind(SalleDao.class).to(SalleDaoImpl.class);
     	bind(SessionValidationDao.class).to(SessionValidationDaoImpl.class);
     	bind(StagiaireDao.class).to(StagiaireDaoImpl.class);
+    	bind(StagiairePromotionDao.class).to(StagiairePromotionDaoImpl.class);
     	bind(TitreProfessionnelDao.class).to(TitreProfessionnelDaoImpl.class);
     	bind(UniteFormationDao.class).to(UniteFormationDaoImpl.class);
     	bind(UniteParFormationDao.class).to(UniteParFormationDaoImpl.class);
@@ -158,6 +163,7 @@ public class ModuleConfiguration extends AbstractModule {
     	bind(ReservationSalleService.class).to(ReservationSalleServiceImpl.class);
     	bind(SessionValidationService.class).to(SessionValidationServiceImpl.class);
     	bind(StagiaireService.class).to(StagiaireServiceImpl.class);
+    	bind(StagiairePromotionService.class).to(StagiairePromotionServiceImpl.class);
     	bind(TitreProfessionnelService.class).to(TitreProfessionnelServiceImpl.class);
     	bind(UtilisateurService.class).to(UtilisateurServiceImpl.class);
     

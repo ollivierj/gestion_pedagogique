@@ -55,7 +55,6 @@ public class Echange extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private Utilisateur auteur = null;
 
-	@JsonBackReference("stagiaire-echange")
 	@DatabaseField(
 		columnName = STAGIAIRE_FIELD_NAME,
 		foreign = true,

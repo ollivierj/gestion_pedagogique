@@ -50,8 +50,8 @@ services.factory('AbsencesFactory', function ($resource) {
 		modify :  $resource('/ng_gst_pdg/web/absences/modification', {}, {
 			doAction : { method: 'PUT'}
 		}),
-		test :  $resource('/ng_gst_pdg/web/fichiers/list', {}, {
-			getData : { method: 'GET'}
+		test :  $resource('/ng_gst_pdg/web/stagiaires/autocomplete/:search', {}, {
+			getData : { method: 'GET', params: {search: '@search'}, isArray:true}
 		}),
 		delete :  $resource('/ng_gst_pdg/web/absences/suppression/:id', {}, {
 			doAction : { method: 'DELETE', params: {id: '@id'} }
