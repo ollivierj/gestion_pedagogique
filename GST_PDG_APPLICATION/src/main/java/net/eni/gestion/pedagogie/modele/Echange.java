@@ -13,6 +13,7 @@ import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.github.reinert.jjschema.SchemaIgnore;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -40,6 +41,7 @@ public class Echange extends AModele<Integer> implements Serializable {
 	public final static String STAGIAIRE_FIELD_NAME 	= "ECH_STAGIAIRE";
 	public final static String COMMENTAIRE_FIELD_NAME 	= "ECH_COMMENTAIRE";
 	public final static String DATE_SAISIE_FIELD_NAME 	= "ECH_DATE_SAISIE";
+	public final static String DATE_FIELD_NAME 	= "ECH_DATE";
 
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
@@ -48,6 +50,7 @@ public class Echange extends AModele<Integer> implements Serializable {
 		useGetSet = true)
 	private Integer id = null;
 	
+	@SchemaIgnore
 	@DatabaseField(
 		columnName = AUTEUR_FIELD_NAME,
 		foreign = true,
