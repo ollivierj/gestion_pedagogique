@@ -54,7 +54,7 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 	public final static String EMAIL_FIELD_NAME	 				= "Email";
 	public final static String DATE_NAISSANCE_FIELD_NAME	 	= "DateNaissance";
 	public final static String CODE_REGION_FIELD_NAME	 		= "CodeRegion";
-	public final static String CODE_NATIONALITE_FIELD_NAME	 		= "CodeNationalite";
+	public final static String CODE_NATIONALITE_FIELD_NAME	 	= "CodeNationalite";
 	public final static String CODE_ORIGINE_MEDIA_FIELD_NAME	= "CodeOrigineMedia";
 	public final static String DATE_DERNIER_ENVOI_DOC_FIELD_NAME= "DateDernierEnvoiDoc";
 	public final static String DATE_CREATION_FIELD_NAME	 		= "DateCreation";
