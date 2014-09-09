@@ -1,33 +1,22 @@
 package net.eni.gestion.pedagogie.DAO.implementation;
 
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
-
-import net.eni.gestion.pedagogie.DAO.ADao;
-import net.eni.gestion.pedagogie.DAO.AbsenceDao;
-import net.eni.gestion.pedagogie.DAO.AvisDao;
-import net.eni.gestion.pedagogie.DAO.EchangeDao;
 import net.eni.gestion.pedagogie.DAO.StagiaireDao;
 import net.eni.gestion.pedagogie.commun.composant.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.Pager;
 import net.eni.gestion.pedagogie.commun.composant.Pair;
 import net.eni.gestion.pedagogie.commun.outil.CRUDHelper;
-import net.eni.gestion.pedagogie.commun.outil.ORMLiteHelper;
 import net.eni.gestion.pedagogie.commun.outil.SQLHelper;
 import net.eni.gestion.pedagogie.modele.Absence;
 import net.eni.gestion.pedagogie.modele.Avis;
 import net.eni.gestion.pedagogie.modele.Echange;
 import net.eni.gestion.pedagogie.modele.Stagiaire;
-import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 import com.google.inject.Singleton;
-import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.dao.GenericRawResults;
-import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
 
 /**

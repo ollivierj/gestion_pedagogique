@@ -12,8 +12,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.github.reinert.jjschema.Attributes;
