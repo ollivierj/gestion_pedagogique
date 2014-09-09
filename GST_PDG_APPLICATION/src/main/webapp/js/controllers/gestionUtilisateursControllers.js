@@ -2,7 +2,7 @@
 controllers
 	.controller(
 		'gestionUtilisateursCtrl',
-		function($scope, $modal, $log, $timeout, UtilisateurFactory) {
+		function($scope, $modal, $log, $timeout, UtilisateurFactory, FonctionsFactory, ProfilsFactory) {
 			$scope.pagingOptions = UtilisateurFactory.pagingOptions;		
 			$scope.sortOptions = UtilisateurFactory.sortOptions;		
 			$scope.filterOptions = UtilisateurFactory.filterOptions;
@@ -24,7 +24,7 @@ controllers
 							displayName : 'Prénom'
 						},
 						{
-							field : 'fonction',
+							field : 'fonction.libelle',
 							displayName : 'Fonction'
 						},
 						
@@ -87,6 +87,12 @@ controllers
 								schema : function(UtilisateurFactory) {
 									return UtilisateurFactory.jsonschema.getData().$promise;
 								},
+								fonctions : function(FonctionsFactory){
+									return FonctionsFactory.titlemap.getData().$promise;
+								},
+								profils :  function(ProfilsFactory){
+									return ProfilsFactory.titlemap.getData().$promise;
+								},
 								okTitle : function() {return "Enregistrer";},
 								ok : function() { return function(item){ return UtilisateurFactory.create.doAction(item);}}
 							}
@@ -110,6 +116,12 @@ controllers
 								readonly : function() {return true;},
 								utilisateur : function(UtilisateurFactory) {
 									return UtilisateurFactory.detail.getData({id : utilisateurId}).$promise;
+								},
+								fonctions : function(FonctionsFactory){
+									return FonctionsFactory.titlemap.getData().$promise;
+								},
+								profils : function(ProfilsFactory){
+									return ProfilsFactory.titlemap.getData().$promise;
 								},
 								schema : function(UtilisateurFactory) {
 									return UtilisateurFactory.jsonschema.getData().$promise;
@@ -137,6 +149,12 @@ controllers
 								readonly : function() {return false;},
 								utilisateur : function(UtilisateurFactory) {
 									return UtilisateurFactory.detail.getData({id : utilisateurId}).$promise;
+								},
+								fonctions : function(FonctionsFactory){
+									return FonctionsFactory.titlemap.getData().$promise;
+								},
+								profils : function(ProfilsFactory){
+									return ProfilsFactory.titlemap.getData().$promise;
 								},
 								schema : function(UtilisateurFactory) {
 									return UtilisateurFactory.jsonschema.getData().$promise;
@@ -200,10 +218,14 @@ controllers
 		});
 
 var modalUtilisateurCtrl = function($scope, $modalInstance,
-UtilisateurFactory, title, readonly, utilisateur, schema, ok, okTitle) {
+UtilisateurFactory, onlyStringsFilter, onlyNumbersFilter, title, readonly, utilisateur, fonctions, profils, schema, ok, okTitle) {
 $scope.title = title;
 $scope.data = utilisateur;
 $scope.data.readonly = readonly;
+$scope.fonctionsTitleMap = fonctions;
+$scope.fonctionsEnum = onlyStringsFilter(Object.keys($scope.fonctionsTitleMap)),
+$scope.profilsTitleMap = profils;
+$scope.profilsEnum = onlyNumbersFilter(Object.keys($scope.profilsTitleMap)),
 $scope.okTitle = okTitle;
 $scope.ok = ok;
 $scope.schema = schema;
@@ -229,9 +251,13 @@ $scope.form =
 	             		disabled : $scope.data.readonly
 	             	},
 	             	{
-	             		key : "fonction",
-	             		disabled : $scope.data.readonly
-	             	}
+						title : "Fonction",
+						key: "fonction.id",
+						type : "select",
+						disabled : $scope.data.readonly,
+						schema : { enum : $scope.fonctionsEnum},
+						titleMap : $scope.fonctionsTitleMap
+					}
 		            ]
 	    },
 	    {
@@ -252,10 +278,19 @@ $scope.form =
 	            	]
 	    },
 	    {
-	        title: "Autre",
+	        title: "Mot de passe",
 	        items: 	[
 					{
-						key: "motpasse",
+						title : "Profil",
+						key: "profil.id",
+						type : "select",
+						disabled : $scope.data.readonly,
+						schema : { enum : $scope.profilsEnum},
+						titleMap : $scope.profilsTitleMap
+					},
+					{
+						key: "motPasse",
+						type : "password",
 						disabled : $scope.data.readonly
 					}			            	
 					]

@@ -95,7 +95,6 @@
               <ul class="dropdown-menu">
                 <li><a href="index.html#/gestionUtilisateurs"><i class="fa fa-gear"></i> Utilisateurs</a></li>
                 <li><a href="index.html#/gestionProfils"><i class="fa fa-gear"></i> Profils</a></li>
-                <li><a href="index.html#/gestionFichesSynthese"><i class="fa fa-gear"></i> Fiche de suivi</a></li>
                 <li><a href="index.html#/sujetsEvaluation"><i class="fa fa-gear"></i> Sujets d'évaluation</a></li>
                 <li><a href="index.html#/titreProfessionnels"><i class="fa fa-gear"></i> Titres professionnels</a></li>
                 <li><a href="index.html#/professionnelHomologues"><i class="fa fa-gear"></i> Professionnels homologués</a></li>
@@ -163,6 +162,7 @@
 	<script src="lib/angular-1.2.16/plugins/angular-schema-form/directives/decorators/bootstrap/datepicker/angular-pickadate.js"></script>
 	<script src="lib/angular-1.2.16/plugins/angular-schema-form/directives/decorators/bootstrap/datepicker/bootstrap-datepicker.js"></script>
 	<script src="lib/angular-1.2.16/plugins/angular-schema-form/directives/decorators/bootstrap/url/url.js"></script>
+	<script src="lib/angular-1.2.16/plugins/angular-schema-form/directives/decorators/bootstrap/password/password.js"></script>
 	
 	
     <script src="js/app.js"></script>
@@ -178,6 +178,8 @@
     <script src="js/services/absenceService.js"></script>
     <script src="js/services/professionnelHomologueServices.js"></script> 
     <script src="js/services/titreProfessionnelServices.js"></script> 
+    <script src="js/services/fonctionServices.js"></script> 
+    <script src="js/services/profilServices.js"></script> 
     <script src="js/services/moduleServices.js"></script> 
     <script src="js/services/sujetEvaluationServices.js"></script> 
     <script src="js/services/versionECFServices.js"></script>    
@@ -195,6 +197,7 @@
     <!-- filters -->
     <script src="js/filters/getByIdFilter.js"></script>
     <script src="js/filters/onlyNumbers.js"></script>
+    <script src="js/filters/onlyStrings.js"></script>
     
     <!-- Controllers js -->
      <script src="js/controllers/fichierControllers.js"></script>

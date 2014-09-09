@@ -4,8 +4,6 @@
 package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -13,12 +11,9 @@ import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.github.reinert.jjschema.Attributes;
-import com.github.reinert.jjschema.SchemaIgnore;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
@@ -60,7 +55,6 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 		return FULL_TEXT_SEARCH_FIELDS;
 	}
 	
-	@JsonIgnoreProperties
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
 		dataType = DataType.INTEGER_OBJ,
@@ -68,11 +62,11 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 		useGetSet = true)
 	private Integer id = null;
 	
-	@JsonIgnoreProperties
 	@DatabaseField(
 		columnName = FONCTION_FIELD_NAME,
 		foreign = true,
-		useGetSet = true)
+		useGetSet = true,
+		foreignAutoRefresh = true)
 	private Fonction fonction = null;
 
 	@Attributes(title = "Civilité", required = true, maxLength = 3, enums={"M  ","Mme"})
@@ -91,7 +85,7 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private String nom = null;
 
-	@Attributes(title = "Nom", required = true, maxLength = 50)
+	@Attributes(title = "Prénom", required = true, maxLength = 50)
 	@DatabaseField(
 		columnName = PRENOM_FIELD_NAME,
 		dataType = DataType.STRING,
@@ -121,14 +115,13 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private String email = null;
 
-	@JsonIgnoreProperties
 	@DatabaseField(
 		columnName = PHOTO_FIELD_NAME,
 		dataType = DataType.STRING,
 		useGetSet = true)
 	private String photo = null;
 	
-	@JsonIgnoreProperties
+	@Attributes(title = "Mot de passe", required = true, maxLength = 30, pattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\\W).{7,30}$", validationMessage="La syntaxe du mot de passe est incorrecte.<br>Les règles suivantes doivent être respectées :<br>&nbsp;Longueur minimale: 7 caractères;<br>&nbsp;Au moins un chiffre;<br>&nbsp;Au moins une lettre;<br>&nbsp;Au moins une majuscule et une minuscule.", format = "password")
 	@DatabaseField(
 		columnName = MOT_PASSE_FIELD_NAME,
 		dataType = DataType.STRING,
@@ -136,38 +129,42 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private String motPasse = null;
 
-	@JsonIgnoreProperties
 	@DatabaseField(
 		columnName = PROFIL_FIELD_NAME,
-		dataType = DataType.INTEGER_OBJ,
+		foreign = true,
 		useGetSet = true,
 		canBeNull = false)
-	private Integer profil = null;
+	private Profil profil = null;
 	
-	@SchemaIgnore
+	/*@SchemaIgnore
 	@JsonIgnore
 	@ForeignCollectionField(eager = true, columnName = Echange.AUTEUR_FIELD_NAME)
 	private transient Collection<Echange> transientEchanges = null;
 
-	private ArrayList<Echange> echanges = new ArrayList<Echange>();
+	private ArrayList<Echange> echanges = new ArrayList<Echange>();*/
 
-	@SchemaIgnore
+	/*@SchemaIgnore
 	@JsonIgnore
 	@ForeignCollectionField(eager = true, columnName = Avis.AUTEUR_FIELD_NAME)
-	private transient Collection<Avis> transientAvis = null;
+	private transient Collection<Avis> transientAvis = null;*/
 
-	private ArrayList<Avis> avis = new ArrayList<Avis>();
+	/*@SchemaIgnore
+	private ArrayList<Avis> avis = new ArrayList<Avis>();*/
 	
+	/*@SchemaIgnore
+	@JsonIgnore
 	@ForeignCollectionField(eager = false, columnName = Absence.AUTEUR_FIELD_NAME)
-	private transient Collection<Absence> transientAbsences = null;
+	private transient Collection<Absence> transientAbsences = null;*/
 
-	private ArrayList<Absence> absences = new ArrayList<Absence>();
+	/*@SchemaIgnore
+	private ArrayList<Absence> absences = new ArrayList<Absence>();*/
 	
-	@SchemaIgnore
+	/*@SchemaIgnore
 	@JsonIgnore
 	@ForeignCollectionField(eager = true, columnName = InstanceEvaluation.CORRECTEUR_FIELD_NAME)
-	private transient Collection<InstanceEvaluation> transientInstanceEvaluationCorrections = null;
+	private transient Collection<InstanceEvaluation> transientInstanceEvaluationCorrections = null;*/
 
+	/*@SchemaIgnore
 	private ArrayList<InstanceEvaluation> instanceEvaluationCorrections = new ArrayList<InstanceEvaluation>();
 
 	@SchemaIgnore
@@ -175,6 +172,7 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 	@ForeignCollectionField(eager = true, columnName = InstanceEvaluation.SURVEILLANT_FIELD_NAME)
 	private transient Collection<InstanceEvaluation> transientInstanceEvaluationSurveillances = null;
 
+	@SchemaIgnore
 	private ArrayList<InstanceEvaluation> instanceEvaluationSurveillances = new ArrayList<InstanceEvaluation>();
 
 	@SchemaIgnore
@@ -182,7 +180,8 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 	@ForeignCollectionField(eager = true, columnName = InstanceCours.ANIMATEUR_FIELD_NAME)
 	private transient Collection<InstanceCours> transientInstanceCours = null;
 
-	private ArrayList<InstanceCours> instanceCours = new ArrayList<InstanceCours>();
+	@SchemaIgnore
+	private ArrayList<InstanceCours> instanceCours = new ArrayList<InstanceCours>();*/
 	
 	@Override
 	public Integer getId() {
@@ -266,15 +265,15 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 		this.motPasse = motPasse;
 	}
 
-	public Integer getProfil() {
+	public Profil getProfil() {
 		return profil;
 	}
 
-	public void setProfil(Integer profil) {
+	public void setProfil(Profil profil) {
 		this.profil = profil;
 	}
 
-	public ArrayList<Echange> getEchanges() {
+	/*public ArrayList<Echange> getEchanges() {
 		if (null != transientEchanges) {
 			echanges.clear();
 			echanges.addAll(transientEchanges);
@@ -308,7 +307,7 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 			transientInstanceEvaluationSurveillances = null;
 		}
 		return instanceEvaluationSurveillances;
-	}
+	}*/
 	
 //	public ArrayList<InstanceCours> getInstanceCours() {
 //		if (null != transientInstanceCours) {
@@ -319,13 +318,13 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 //		return instanceCours;
 //	}
 	
-	public ArrayList<Absence> getAbsences() {
+	/*public ArrayList<Absence> getAbsences() {
 		if (null != transientAbsences) {
 			absences.clear();
 			absences.addAll(transientAbsences);
 			transientAbsences = null;
 		}
 		return absences;
-	}
+	}*/
 
 }
