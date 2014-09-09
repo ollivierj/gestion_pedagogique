@@ -39,7 +39,7 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public final static String ID_FIELD_NAME 				= "UTL_ID";
+	public final static String ID_FIELD_NAME 				= "UTIL_ID";
 	public final static String FONCTION_FIELD_NAME			= "UTIL_FONCTION";
 	public final static String CIVILITE_FIELD_NAME			= "UTIL_CIVILITE";
 	public final static String NOM_FIELD_NAME				= "UTIL_NOM";
