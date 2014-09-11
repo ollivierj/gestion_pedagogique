@@ -17,6 +17,10 @@ controllers
 											displayName : 'Module'
 										},
 										{
+											field : 'version',
+											displayName : 'Version'
+										},
+										{
 											field : 'lienSujet',
 											displayName : 'Lien vers les sujets'
 										},
@@ -218,6 +222,10 @@ var modalEditionSujetEvaluationCtrl = function($scope, $modalInstance,
 			titleMap : $scope.modulesTitleMap
 		},
 		{
+			key : "version",
+		 	disabled : $scope.data.readonly
+		},
+		{
 			key : "lienSujet",
 		 	disabled : $scope.data.readonly
 		},
@@ -226,7 +234,7 @@ var modalEditionSujetEvaluationCtrl = function($scope, $modalInstance,
 		 	disabled : $scope.data.readonly
 		},
 		{
-			key : "lienGrilleCorrection",
+			key : "lienModeleGrilleCorrection",
 		 	disabled : $scope.data.readonly
 		},
 		{

@@ -11,6 +11,7 @@ import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.commun.outil.ORMLiteHelper;
 import net.eni.gestion.pedagogie.modele.Evaluation;
 import net.eni.gestion.pedagogie.modele.Module;
+import net.eni.gestion.pedagogie.modele.SujetEvaluation;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -44,13 +45,13 @@ public class EvaluationDaoImpl extends ADaoImpl<Evaluation, Integer> implements 
 			lQuery.append(ORMLiteHelper.getOrderByClauseFromSortOptions(this.getTableInfo(), pPager.getSortOptions()));
 			lQuery.append(") AS RowNum ");
 			lQuery.append(" FROM ");
-			lQuery.append(ModeleMetier.EVALUATION_TABLE_NAME);
+			lQuery.append(ModeleMetier.SUJET_EVALUATION_TABLE_NAME);
 			lQuery.append(" INNER JOIN ");
 			lQuery.append(ModeleMetier.MODULE_TABLE_NAME);
 			lQuery.append(" ON ");
 			lQuery.append(ModeleMetier.EVALUATION_TABLE_NAME);
 			lQuery.append(".");
-			lQuery.append(Evaluation.MODULE_FIELD_NAME);
+			lQuery.append(SujetEvaluation.MODULE_FIELD_NAME);
 			lQuery.append("=");
 			lQuery.append(ModeleMetier.MODULE_TABLE_NAME);
 			lQuery.append(".");
