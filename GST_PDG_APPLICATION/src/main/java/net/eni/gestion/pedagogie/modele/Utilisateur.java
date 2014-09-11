@@ -46,8 +46,7 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 	public final static String MOT_PASSE_FIELD_NAME			= "UTIL_MOT_PASSE";
 	public final static String PROFIL_FIELD_NAME			= "UTIL_PROFIL";
 	
-	
-	public final static String[] FULL_TEXT_SEARCH_FIELDS		= {NOM_FIELD_NAME, PRENOM_FIELD_NAME};
+	public final static String[] FULL_TEXT_SEARCH_FIELDS		= {NOM_FIELD_NAME, PRENOM_FIELD_NAME, EMAIL_FIELD_NAME};
 	
 	@JsonIgnore
 	@Override

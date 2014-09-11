@@ -61,7 +61,7 @@ public class ProfessionnelHomologue extends AModele<Integer> implements Serializ
 	public final static String PERMIS_FIELD_NAME	 			= "PRF_HMG_PERMIS";
 	public final static String PHOTO_FIELD_NAME	 				= "PRF_HMG_PHOTO";
 	
-	public final static String[] FULL_TEXT_SEARCH_FIELDS		= {NOM_FIELD_NAME, PRENOM_FIELD_NAME, CODE_POSTAL_FIELD_NAME, VILLE_FIELD_NAME};
+	public final static String[] FULL_TEXT_SEARCH_FIELDS		= {NOM_FIELD_NAME, PRENOM_FIELD_NAME, EMAIL_FIELD_NAME, CODE_POSTAL_FIELD_NAME, VILLE_FIELD_NAME};
 	
 	@JsonIgnore
 	@Override

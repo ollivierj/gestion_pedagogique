@@ -65,7 +65,7 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 	public final static String HISTORIQUE_FIELD_NAME			= "Historique";
 	
 	// Champ utilisant un index FTS
-	public final static String[] FULL_TEXT_SEARCH_FIELDS		= {NOM_FIELD_NAME, PRENOM_FIELD_NAME, VILLE_FIELD_NAME};
+	public final static String[] FULL_TEXT_SEARCH_FIELDS		= {NOM_FIELD_NAME, PRENOM_FIELD_NAME, EMAIL_FIELD_NAME, CODE_POSTAL_FIELD_NAME, VILLE_FIELD_NAME};
 	
 	@Override
 	public String[] getFullTextSearchFieldNames() {
