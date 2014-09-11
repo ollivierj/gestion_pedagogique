@@ -2,7 +2,6 @@ package net.eni.gestion.pedagogie.service.implementation;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 import net.eni.gestion.pedagogie.DAO.AbsenceDao;
 import net.eni.gestion.pedagogie.DAO.AvisDao;
@@ -22,7 +21,6 @@ import net.eni.gestion.pedagogie.service.StagiaireService;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.j256.ormlite.dao.BaseDaoImpl;
 
 /**
  * @author jollivier

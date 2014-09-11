@@ -30,7 +30,7 @@ public class BlobServiceImpl implements BlobService {
 		try {
 			// if uploading form IE it get complete path
 			filename = FilenameUtils.getName(filename);
-			output = new FileWriter(new File(getDirctoryLoation() + filename));
+			output = new FileWriter(new File(getDirectoryLoation() + filename));
 			countingInputStream = new CountingInputStream(inputStream);
 			IOUtils.copy(countingInputStream, output);
 			filesize = countingInputStream.getByteCount();
@@ -47,7 +47,7 @@ public class BlobServiceImpl implements BlobService {
 		  * 
 		  */
 	public byte[] getBlob(String blobKey) {
-		File file = new File(getDirctoryLoation() + blobKey);
+		File file = new File(getDirectoryLoation() + blobKey);
 		byte[] docStream = null;
 		try {
 			docStream = FileUtils.readFileToByteArray(file);
@@ -58,7 +58,7 @@ public class BlobServiceImpl implements BlobService {
 	}
 
 	public void deleteBlob(String blobKey) {
-		FileUtils.deleteQuietly(new File(getDirctoryLoation() + blobKey));
+		FileUtils.deleteQuietly(new File(getDirectoryLoation() + blobKey));
 	}
 
 	/**
@@ -68,7 +68,7 @@ public class BlobServiceImpl implements BlobService {
 
 		List<FileBean> list = new ArrayList<FileBean>();
 		Iterator<File> files = FileUtils.iterateFiles(new File(
-				getDirctoryLoation()), getValidFileExtentions(), false);
+				getDirectoryLoation()), getValidFileExtentions(), false);
 
 		while (files.hasNext()) {
 			File file = files.next();
@@ -80,7 +80,7 @@ public class BlobServiceImpl implements BlobService {
 		return list;
 	}
 
-	public String getDirctoryLoation() {
+	public String getDirectoryLoation() {
 		return propertyFileLoader.getValue("directory.location");
 	}
 

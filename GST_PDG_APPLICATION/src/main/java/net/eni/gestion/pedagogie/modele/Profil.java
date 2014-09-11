@@ -7,9 +7,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+
 import javax.xml.bind.annotation.XmlRootElement;
+
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.github.reinert.jjschema.SchemaIgnore;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -58,9 +63,11 @@ public class Profil extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private String libelle = null;
 	
+	@SchemaIgnore
 	@ForeignCollectionField(eager = true, columnName = DroitProfil.PROFIL_FIELD_NAME)
 	private transient Collection<DroitProfil> transientDroitProfils = null;
 
+	@JsonManagedReference("profil-droitprofil")
 	private ArrayList<DroitProfil> droitProfils = new ArrayList<DroitProfil>();
 	
 	@Override
