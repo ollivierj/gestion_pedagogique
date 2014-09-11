@@ -1,15 +1,7 @@
 [
 	{"mainTitle" : "Stagiaires", "iconTitle":"fa fa-search", "url":"index.html#/stagiaire", "type":"single"},
-
-	{"mainTitle" : "Evaluations", "iconTitle":"fa fa-file-text", "url":"", "type":"multiple",
-		"titles":[
-					{"mainTitle" : "Liste des prochains ECFs", "iconTitle":"", "url":"index.html#/listeECF", "type":"single"},
-					{"mainTitle" : "Liste des ECFs à corriger", "iconTitle":"", "url":"index.html#/corrigerECF", "type":"single"}
-				]},
-
+	{"mainTitle" : "Evaluations", "iconTitle":"fa fa-file-text", "url":"index.html#/evaluation", "type":"single"},
 	{"mainTitle" : "Sessions de validation", "iconTitle":"fa fa-file-o", "url":"index.html#/gestionSessionsValidation", "type":"single"},
-
-
 	{"mainTitle" : "Salles", "iconTitle":"fa fa-building-o", "url":"index.html#/salle", "type":"single"},
 	{"mainTitle" : "Fichiers", "iconTitle":"fa fa-building-o", "url":"index.html#/fichiers", "type":"single"}
 ]

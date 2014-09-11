@@ -51,7 +51,8 @@ public class SujetEvaluation extends AModele<Integer> implements Serializable {
 		columnName = MODULE_FIELD_NAME,
 		foreign = true,
 		useGetSet = true,
-		canBeNull = false)
+		canBeNull = false,
+		foreignAutoRefresh = true)
 	private Module module = null;
 
 	@Attributes(title = "Lien vers les énoncés", required = true, maxLength = 250, format = "url")

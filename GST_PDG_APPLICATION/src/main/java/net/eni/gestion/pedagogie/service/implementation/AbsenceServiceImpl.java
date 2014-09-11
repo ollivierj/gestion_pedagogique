@@ -45,5 +45,5 @@ public class AbsenceServiceImpl extends AServiceImpl<Absence, Integer, AbsenceDa
 			throw new GenericException("Echec lors du chargement depuis la base de données.");
 		}
 	}
-    
+
 }

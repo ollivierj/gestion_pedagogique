@@ -30,22 +30,6 @@ angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 'ngAnimate','ang
 			templateUrl: 'partials/gestionFichesSynthese/gestionFichesSynthese.html',
 			controller: 'gestionFichesSyntheseCtrl'
 		}).
-		when('/versionECF', {
-			templateUrl: 'partials/gestionEvaluations/versionECF.html',
-			controller: 'versionECFCtrl'
-		}).
-		when('/listeECF', {
-			templateUrl: 'partials/gestionEvaluations/listeECF.html',
-			controller: 'listeECFCtrl'
-		}).
-		when('/corrigerECF', {
-			templateUrl: 'partials/gestionEvaluations/corrigerECF.html',
-			controller: 'corrigerECFCtrl'
-		}).
-		when('/editECF', {
-			templateUrl: 'partials/gestionEvaluations/editECF.html',
-			controller: 'editECFCtrl'
-		}).
 		when('/editCorrection', {
 			templateUrl: 'partials/gestionEvaluations/editCorrection.html',
 			controller: 'editCorrectionCtrl'
@@ -82,6 +66,10 @@ angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 'ngAnimate','ang
 		when('/sujetsEvaluation', {
 			templateUrl: 'partials/templates/list.html',
 			controller: 'sujetEvaluationsCtrl'
+		}).
+		when('/evaluation', {
+			templateUrl: 'partials/templates/list.html',
+			controller: 'evaluationsCtrl'
 		}).
 		when('/fichiers', {
 			templateUrl: 'partials/fichiers.html',

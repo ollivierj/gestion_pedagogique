@@ -81,6 +81,4 @@ public class StagiaireServiceImpl extends AServiceImpl<Stagiaire, Integer, Stagi
 		}
 	}
     
-    
-    
 }

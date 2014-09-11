@@ -1,8 +1,5 @@
 package net.eni.gestion.pedagogie.resource;
 
-import java.util.HashMap;
-
-import net.eni.gestion.pedagogie.commun.composant.GenericException;
 import net.eni.gestion.pedagogie.modele.TitreProfessionnel;
 
 /**
@@ -10,7 +7,5 @@ import net.eni.gestion.pedagogie.modele.TitreProfessionnel;
  * Interface service pour le module de gestion des titres professionnels
  */
 public interface TitreProfessionnelResource extends AResource<TitreProfessionnel, Integer> {
-
-	HashMap<String, String> getTitleMap() throws GenericException;
 
 }

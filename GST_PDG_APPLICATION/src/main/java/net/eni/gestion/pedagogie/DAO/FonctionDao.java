@@ -1,7 +1,5 @@
 package net.eni.gestion.pedagogie.DAO;
 
-import java.util.HashMap;
-
 import net.eni.gestion.pedagogie.modele.Fonction;
 
 /**
@@ -10,7 +8,5 @@ import net.eni.gestion.pedagogie.modele.Fonction;
  * pour la gestion des fonctions
  */
 public interface FonctionDao extends ADao<Fonction, String> {
-
-	public HashMap<String, String> getTitleMap() throws Exception;
 
 }

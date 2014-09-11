@@ -1,8 +1,5 @@
 package net.eni.gestion.pedagogie.resource;
 
-import java.util.HashMap;
-
-import net.eni.gestion.pedagogie.commun.composant.GenericException;
 import net.eni.gestion.pedagogie.modele.Profil;
 
 /**
@@ -11,6 +8,4 @@ import net.eni.gestion.pedagogie.modele.Profil;
  */
 public interface ProfilResource extends AResource<Profil, Integer> {
 
-	HashMap<String, String> getTitleMap() throws GenericException;
-	
 }

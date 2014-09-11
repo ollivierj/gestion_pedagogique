@@ -24,8 +24,4 @@ public class SujetEvaluationResourceImpl extends AResourceImpl<SujetEvaluation, 
     	super(SujetEvaluationService, SujetEvaluation.class);
     }
 
-
-
-	
-
 }

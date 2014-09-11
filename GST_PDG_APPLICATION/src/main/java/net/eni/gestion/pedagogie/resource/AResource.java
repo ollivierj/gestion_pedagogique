@@ -1,6 +1,7 @@
 package net.eni.gestion.pedagogie.resource;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
 import net.eni.gestion.pedagogie.commun.composant.NamedObjectMap;
@@ -72,4 +73,7 @@ public interface AResource<M extends AModele<ID>, ID> {
 	 * @throws GenericException
 	 */
 	public ID supprimer(ID pId)  throws GenericException;
+	
+	public HashMap<String, String> getTitleMap() throws GenericException;
+
 }

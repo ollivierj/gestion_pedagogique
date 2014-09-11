@@ -2,10 +2,10 @@
 controllers
 	.controller(
 		'gestionUtilisateursCtrl',
-		function($scope, $modal, $log, $timeout, UtilisateurFactory, FonctionsFactory, ProfilsFactory) {
-			$scope.pagingOptions = UtilisateurFactory.pagingOptions;		
-			$scope.sortOptions = UtilisateurFactory.sortOptions;		
-			$scope.filterOptions = UtilisateurFactory.filterOptions;
+		function($scope, $modal, $log, $timeout, UtilisateursFactory, FonctionsFactory, ProfilsFactory) {
+			$scope.pagingOptions = UtilisateursFactory.pagingOptions;		
+			$scope.sortOptions = UtilisateursFactory.sortOptions;		
+			$scope.filterOptions = UtilisateursFactory.filterOptions;
 			$scope.title = "Utilisateur";
 			$scope.gridOptions = {
 				data : 'utilisateur',
@@ -84,8 +84,8 @@ controllers
 								title : function() {return "Ajout d'un utilisateur";},
 								utilisateur : function(){ return {}},
 								readonly : function() {return false;},
-								schema : function(UtilisateurFactory) {
-									return UtilisateurFactory.jsonschema.getData().$promise;
+								schema : function(UtilisateursFactory) {
+									return UtilisateursFactory.jsonschema.getData().$promise;
 								},
 								fonctions : function(FonctionsFactory){
 									return FonctionsFactory.titlemap.getData().$promise;
@@ -94,12 +94,12 @@ controllers
 									return ProfilsFactory.titlemap.getData().$promise;
 								},
 								okTitle : function() {return "Enregistrer";},
-								ok : function() { return function(item){ return UtilisateurFactory.create.doAction(item);}}
+								ok : function() { return function(item){ return UtilisateursFactory.create.doAction(item);}}
 							}
 						});
 
 				modalAdd.result.then(function(selectedItem) {
-					UtilisateurFactory.refreshData($scope);
+					UtilisateursFactory.refreshData($scope);
 				}, function() {
 					$log.info('Modal dismissed at: ' + new Date());
 				});
@@ -114,8 +114,8 @@ controllers
 							resolve : {
 								title : function() {return "Visualisation d'un utilisateur";},
 								readonly : function() {return true;},
-								utilisateur : function(UtilisateurFactory) {
-									return UtilisateurFactory.detail.getData({id : utilisateurId}).$promise;
+								utilisateur : function(UtilisateursFactory) {
+									return UtilisateursFactory.detail.getData({id : utilisateurId}).$promise;
 								},
 								fonctions : function(FonctionsFactory){
 									return FonctionsFactory.titlemap.getData().$promise;
@@ -123,8 +123,8 @@ controllers
 								profils : function(ProfilsFactory){
 									return ProfilsFactory.titlemap.getData().$promise;
 								},
-								schema : function(UtilisateurFactory) {
-									return UtilisateurFactory.jsonschema.getData().$promise;
+								schema : function(UtilisateursFactory) {
+									return UtilisateursFactory.jsonschema.getData().$promise;
 								},
 								okTitle : function() {return "Fermer";},
 								ok : function() { return function(item){ return item;}}
@@ -132,7 +132,7 @@ controllers
 						});
 
 				modalEdit.result.then(function(selectedItem) {
-					UtilisateurFactory.refreshData($scope);
+					UtilisateursFactory.refreshData($scope);
 				}, function() {
 					$log.info('Modal dismissed at: ' + new Date());
 				});
@@ -147,8 +147,8 @@ controllers
 							resolve : {
 								title : function() {return "Edition d'un utilisateur";},
 								readonly : function() {return false;},
-								utilisateur : function(UtilisateurFactory) {
-									return UtilisateurFactory.detail.getData({id : utilisateurId}).$promise;
+								utilisateur : function(UtilisateursFactory) {
+									return UtilisateursFactory.detail.getData({id : utilisateurId}).$promise;
 								},
 								fonctions : function(FonctionsFactory){
 									return FonctionsFactory.titlemap.getData().$promise;
@@ -156,16 +156,16 @@ controllers
 								profils : function(ProfilsFactory){
 									return ProfilsFactory.titlemap.getData().$promise;
 								},
-								schema : function(UtilisateurFactory) {
-									return UtilisateurFactory.jsonschema.getData().$promise;
+								schema : function(UtilisateursFactory) {
+									return UtilisateursFactory.jsonschema.getData().$promise;
 								},
 								okTitle : function() {return "Enregistrer";},
-								ok : function() { return function(item){ return UtilisateurFactory.modify.doAction(item);}}
+								ok : function() { return function(item){ return UtilisateursFactory.modify.doAction(item);}}
 							}
 						});
 
 				modalEdit.result.then(function(selectedItem) {
-					UtilisateurFactory.refreshData($scope);
+					UtilisateursFactory.refreshData($scope);
 				}, function() {
 					$log.info('Modal dismissed at: ' + new Date());
 				});
@@ -181,11 +181,11 @@ controllers
 								id : function() {return utilisateurId},
 								title : function() {return "Suppression utilisateur";},
 								message : function() {return "Etes-vous sur de vouloir supprimer cet utilisateur ?";},
-								ok : function () { return function(id) {return UtilisateurFactory.delete.doAction({id : id});};}
+								ok : function () { return function(id) {return UtilisateursFactory.delete.doAction({id : id});};}
 							}
 						});
 				modalDelete.result.then(function(selectedItem) {
-					UtilisateurFactory.refreshData($scope);
+					UtilisateursFactory.refreshData($scope);
 				}, function() {
 					$log.info('Modal dismissed at: ' + new Date());
 				});
@@ -193,7 +193,7 @@ controllers
 			
 			$scope.$watch('pagingOptions', function (newVal, oldVal) {
 		        if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
-		        	UtilisateurFactory.refreshData($scope);
+		        	UtilisateursFactory.refreshData($scope);
 		        }
 		    }, true);
 
@@ -203,22 +203,22 @@ controllers
 	                    $timeout.cancel($scope.timer);
 	                }
 		        	$scope.timer = $timeout(function () {
-		        		UtilisateurFactory.refreshData($scope);
+		        		UtilisateursFactory.refreshData($scope);
 	                }, 500);
 		        }
 		    }, true);
 
 		    $scope.$watch('sortOptions', function (newVal, oldVal) {
 		        if (newVal !== oldVal) {
-		        	UtilisateurFactory.refreshData($scope);
+		        	UtilisateursFactory.refreshData($scope);
 		        }
 		    }, true);
 			
-		    UtilisateurFactory.refreshData($scope);
+		    UtilisateursFactory.refreshData($scope);
 		});
 
 var modalUtilisateurCtrl = function($scope, $modalInstance,
-UtilisateurFactory, onlyStringsFilter, onlyNumbersFilter, title, readonly, utilisateur, fonctions, profils, schema, ok, okTitle) {
+UtilisateursFactory, onlyStringsFilter, onlyNumbersFilter, title, readonly, utilisateur, fonctions, profils, schema, ok, okTitle) {
 $scope.title = title;
 $scope.data = utilisateur;
 $scope.data.readonly = readonly;
@@ -355,7 +355,7 @@ $modalInstance.dismiss('cancel');
 };
 
 var modalConfirmationDeleteUtilisateurCtrl = function($scope, $modalInstance, 
-UtilisateurFactory, id, title, message, ok) {
+UtilisateursFactory, id, title, message, ok) {
 $scope.title = title;
 $scope.message = message;
 $scope.ok =function(item){

@@ -1,6 +1,7 @@
 package net.eni.gestion.pedagogie.DAO.implementation;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import net.eni.gestion.pedagogie.DAO.ADao;
 import net.eni.gestion.pedagogie.commun.composant.Pager;
@@ -57,6 +58,10 @@ abstract class ADaoImpl<M extends AModele<ID>, ID> extends BaseDaoImpl<M,ID> imp
 	 */
 	public ID supprimer(ID pId) throws Exception {
 		return CRUDHelper.supprimer(this, pId);
+	}
+	
+	public HashMap<String, String> getTitleMap() throws Exception {
+		return null;
 	}
 
 

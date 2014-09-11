@@ -1,6 +1,7 @@
 package net.eni.gestion.pedagogie.resource.implementation;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -122,4 +123,14 @@ public class AResourceImpl <M extends AModele<ID>, ID, S extends AService<M,ID>>
 	public ID supprimer(@PathParam("id") ID pId) throws GenericException {
 		return this.service.supprimer(pId);
 	}
+	
+	/* (non-Javadoc)
+     * @see net.eni.gestion.pedagogie.service.contrat.generique.CRUDService#charger()
+     */
+    @GET
+    @Path("/titlemap")
+    @Produces(MediaType.APPLICATION_JSON)
+    public HashMap<String, String> getTitleMap() throws GenericException {
+        return service.getTitleMap();
+    }
 }
