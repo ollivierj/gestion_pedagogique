@@ -4,14 +4,12 @@
 package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.github.reinert.jjschema.SchemaIgnore;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
@@ -39,8 +37,7 @@ public class Echange extends AModele<Integer> implements Serializable {
 	public final static String AUTEUR_FIELD_NAME 		= "ECH_AUTEUR";
 	public final static String STAGIAIRE_FIELD_NAME 	= "ECH_STAGIAIRE";
 	public final static String COMMENTAIRE_FIELD_NAME 	= "ECH_COMMENTAIRE";
-	public final static String DATE_SAISIE_FIELD_NAME 	= "ECH_DATE_SAISIE";
-	public final static String DATE_FIELD_NAME 	= "ECH_DATE";
+	public final static String DATE_FIELD_NAME 			= "ECH_DATE";
 
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
@@ -71,14 +68,6 @@ public class Echange extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private String commentaire = null;
 	
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy H:mm:ss", timezone="CET")   
-	@DatabaseField(
-		columnName = DATE_SAISIE_FIELD_NAME,
-		dataType = DataType.DATE,
-		useGetSet = true,
-		canBeNull = false)
-	private Date dateSaisie = null;
-		
 	@Override
 	public Integer getId() {
 		return id;
@@ -111,14 +100,6 @@ public class Echange extends AModele<Integer> implements Serializable {
 
 	public void setCommentaire(String commentaire) {
 		this.commentaire = commentaire;
-	}
-
-	public Date getDateSaisie() {
-		return dateSaisie;
-	}
-	
-	public void setDateSaisie(Date dateSaisie) {
-		this.dateSaisie = dateSaisie;
 	}
 
 }

@@ -44,7 +44,6 @@ public class Absence extends AModele<Integer> implements Serializable {
 	public final static String STAGIAIRE_FIELD_NAME 				= "ABS_STAGIAIRE";
 	public final static String DATE_ARRIVEE_MATIN_FIELD_NAME		= "ABS_DATE_ARRIVEE_MATIN";
 	public final static String DATE_ARRIVEE_APRES_MIDI_FIELD_NAME	= "ABS_DATE_ARRIVEE_APRES_MIDI";
-	public final static String DATE_SAISIE_FIELD_NAME 				= "ABS_DATE_SAISIE";
 	public final static String AUTEUR_FIELD_NAME 					= "ABS_AUTEUR";
 	public final static String MOTIF_FIELD_NAME 					= "ABS_MOTIF";
 
@@ -74,14 +73,6 @@ public class Absence extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private Stagiaire stagiaire = null;
    
-	@JsonIgnore
-	@DatabaseField(
-		columnName = DATE_SAISIE_FIELD_NAME,
-		dataType = DataType.DATE,
-		useGetSet = true,
-		canBeNull = false)
-	private Date dateSaisie = null;
-	
 	@SchemaIgnore
 	@DatabaseField(
 		columnName = AUTEUR_FIELD_NAME,
@@ -131,14 +122,6 @@ public class Absence extends AModele<Integer> implements Serializable {
 
 	public void setStagiaire(Stagiaire stagiaire) {
 		this.stagiaire = stagiaire;
-	}
-
-	public Date getDateSaisie() {
-		return dateSaisie;
-	}
-	
-	public void setDateSaisie(Date dateSaisie) {
-		this.dateSaisie = dateSaisie;
 	}
 
 	public Utilisateur getAuteur() {

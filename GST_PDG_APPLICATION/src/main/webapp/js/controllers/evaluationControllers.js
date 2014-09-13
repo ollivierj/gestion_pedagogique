@@ -170,8 +170,8 @@ controllers
 									controller : modalConfirmationDeleteEvaluationCtrl,
 									resolve : {
 										id : function() {return evaluationId},
-										title : function() {return "Suppression sujet d'évaluation";},
-										message : function() {return "Etes-vous sur de vouloir supprimer ce sujet d'évaluation ?";},
+										title : function() {return "Suppression d'une évaluation";},
+										message : function() {return "Etes-vous sur de vouloir supprimer cette évaluation ?";},
 										ok : function () { return function(id) {return EvaluationsFactory.delete.doAction({id : id});};}
 									}
 								});
@@ -223,14 +223,6 @@ var modalEditionEvaluationCtrl = function($scope, $modalInstance,
 	$scope.form = 
 		[
 		{
-			key : "formatedDateHeureDebutPassage",
-			disabled : $scope.data.readonly
-		},
-		{
-			key : "formatedDateHeureFinPassage",
-			disabled : $scope.data.readonly
-		},
-		{
 			title : "Sujet d'évaluation",
 			key: "sujetEvaluation.id",
 			type : "select",
@@ -239,20 +231,28 @@ var modalEditionEvaluationCtrl = function($scope, $modalInstance,
 			titleMap : $scope.sujetEvaluationsTitleMap
 		}, 
 		{
-			key : "lienGrilleCorrection",
-		 	disabled : $scope.data.readonly
-		},
-		{
-			key : "LienCopiesImmaterielles",
-		 	disabled : $scope.data.readonly
-		},
-		{
-			title : "Correcteur",
+			title : "correcteur",
 			key: "correcteur.id",
 			type : "select",
 			disabled : $scope.data.readonly,
 			schema : { enum : $scope.utilisateursEnum},
 			titleMap : $scope.utilisateursTitleMap
+		},
+		{
+			key : "formatedDateHeureDebutPassage",
+			disabled : $scope.data.readonly
+		},
+		{
+			key : "formatedDateHeureFinPassage",
+			disabled : $scope.data.readonly
+		},
+		{
+			key : "lienGrilleCorrection",
+		 	disabled : $scope.data.readonly
+		},
+		{
+			key : "lienCopiesImmaterielles",
+		 	disabled : $scope.data.readonly
 		},
 		{
 	    	type: "conditional",

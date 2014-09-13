@@ -38,14 +38,13 @@ public class Evaluation extends AModele<Integer> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public final static String ID_FIELD_NAME 						= "EVAL_ID";
-	public final static String AUTEUR_FIELD_NAME 					= "EVAL_AUTEUR";
-	public final static String DATE_CREATION_FIELD_NAME 			= "EVAL_DATE_CREATION";
 	public final static String SUJET_EVALUATION_FIELD_NAME			= "EVAL_SUJET_EVALUATION";
 	public final static String DATE_HEURE_DEBUT_PASSAGE				= "EVAL_DATE_HEURE_DEBUT_PASSAGE";
 	public final static String DATE_HEURE_FIN_PASSAGE				= "EVAL_DATE_HEURE_FIN_PASSAGE";
 	public final static String LIEN_GRILLE_CORRECTION_FIELD_NAME	= "EVAL_LIEN_GRILLE_CORRECTION";
 	public final static String LIEN_COPIES_IMMATERIELLES_FIELD_NAME	= "EVAL_LIEN_COPIES_IMMATERIELLES";
 	public final static String CORRECTEUR_FIELD_NAME				= "EVAL_CORRECTEUR";
+	public final static String AUTEUR_FIELD_NAME 					= "EVAL_AUTEUR";
 	
 	public final static String[] FULL_TEXT_SEARCH_FIELDS		= null;
 	
@@ -61,26 +60,11 @@ public class Evaluation extends AModele<Integer> implements Serializable {
 		generatedId = true,
 		useGetSet = true)
 	private Integer id = null;
-	
-	@DatabaseField(
-		columnName = AUTEUR_FIELD_NAME,
-		foreign = true,
-		useGetSet = true,
-		canBeNull = false)
-	private Utilisateur auteur = null;
-
-	@JsonIgnore
-	@DatabaseField(
-		columnName = DATE_CREATION_FIELD_NAME,
-		dataType = DataType.DATE_TIME,
-		useGetSet = true,
-		canBeNull = false)
-	private Date dateCreation = null;
 
 	@JsonIgnore
 	@DatabaseField(
 		columnName = DATE_HEURE_DEBUT_PASSAGE,
-		dataType = DataType.DATE_TIME,
+		dataType = DataType.DATE,
 		useGetSet = true,
 		canBeNull = false)
 	private Date dateHeureDebutPassage = null;
@@ -91,7 +75,7 @@ public class Evaluation extends AModele<Integer> implements Serializable {
 	@JsonIgnore
 	@DatabaseField(
 		columnName = DATE_HEURE_FIN_PASSAGE,
-		dataType = DataType.DATE_TIME,
+		dataType = DataType.DATE,
 		useGetSet = true,
 		canBeNull = false)
 	private Date dateHeureFinPassage = null;
@@ -112,7 +96,7 @@ public class Evaluation extends AModele<Integer> implements Serializable {
 		columnName = LIEN_GRILLE_CORRECTION_FIELD_NAME,
 		dataType = DataType.STRING,
 		useGetSet = true,
-		canBeNull = false)
+		canBeNull = true)
 	private String lienGrilleCorrection = null;
 	
 	@Attributes(title = "Lien vers les énoncés", required = false, maxLength = 250, format = "url")
@@ -120,15 +104,22 @@ public class Evaluation extends AModele<Integer> implements Serializable {
 		columnName = LIEN_COPIES_IMMATERIELLES_FIELD_NAME,
 		dataType = DataType.STRING,
 		useGetSet = true,
-		canBeNull = false)
-	private String LienCopiesImmaterielles = null;
+		canBeNull = true)
+	private String lienCopiesImmaterielles = null;
 
 	@DatabaseField(
 		columnName = CORRECTEUR_FIELD_NAME,
 		foreign = true,
 		useGetSet = true,
-		canBeNull = false)
-	private Utilisateur Correcteur = null;
+		canBeNull = true)
+	private Utilisateur correcteur = null;
+	
+	@DatabaseField(
+		columnName = AUTEUR_FIELD_NAME,
+		foreign = true,
+		useGetSet = true,
+		canBeNull = true)
+	private Utilisateur auteur = null;
 	
 	public Date getDateHeureDebutPassage() {
 		return dateHeureDebutPassage;
@@ -184,14 +175,6 @@ public class Evaluation extends AModele<Integer> implements Serializable {
 		this.auteur = auteur;
 	}
 
-	public Date getDateCreation() {
-		return dateCreation;
-	}
-
-	public void setDateCreation(Date dateCreation) {
-		this.dateCreation = dateCreation;
-	}
-
 	public SujetEvaluation getSujetEvaluation() {
 		return sujetEvaluation;
 	}
@@ -209,19 +192,19 @@ public class Evaluation extends AModele<Integer> implements Serializable {
 	}
 
 	public String getLienCopiesImmaterielles() {
-		return LienCopiesImmaterielles;
+		return lienCopiesImmaterielles;
 	}
 
 	public void setLienCopiesImmaterielles(String lienCopiesImmaterielles) {
-		LienCopiesImmaterielles = lienCopiesImmaterielles;
+		this.lienCopiesImmaterielles = lienCopiesImmaterielles;
 	}
 
 	public Utilisateur getCorrecteur() {
-		return Correcteur;
+		return correcteur;
 	}
 
 	public void setCorrecteur(Utilisateur correcteur) {
-		Correcteur = correcteur;
+		this.correcteur = correcteur;
 	}
 
 	

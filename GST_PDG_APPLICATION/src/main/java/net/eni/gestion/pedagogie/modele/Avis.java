@@ -4,14 +4,12 @@
 package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -38,7 +36,6 @@ public class Avis extends AModele<Integer> implements Serializable {
 	public final static String STAGIAIRE_FIELD_NAME 		= "AVIS_STAGIAIRE";
 	public final static String INSTANCE_COURS_FIELD_NAME	= "AVIS_INSTANCE_COURS";
 	public final static String TEXTE_FIELD_NAME				= "AVIS_TEXTE";
-	public final static String DATE_SAISIE_FIELD_NAME 		= "AVIS_DATE_SAISIE";
 	public final static String AUTEUR_FIELD_NAME 			= "AVIS_AUTEUR";
 
 	@DatabaseField(
@@ -69,14 +66,6 @@ public class Avis extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private String texte = null;
 
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy H:mm:ss", timezone="CET")   
-	@DatabaseField(
-		columnName = DATE_SAISIE_FIELD_NAME,
-		dataType = DataType.DATE,
-		useGetSet = true,
-		canBeNull = false)
-	private Date dateSaisie = null;
-	
 	@DatabaseField(
 		columnName = AUTEUR_FIELD_NAME,
 		foreign = true,
@@ -115,14 +104,6 @@ public class Avis extends AModele<Integer> implements Serializable {
 
 	public void setTexte(String texte) {
 		this.texte = texte;
-	}
-
-	public Date getDateSaisie() {
-		return dateSaisie;
-	}
-	
-	public void setDateSaisie(Date dateSaisie) {
-		this.dateSaisie = dateSaisie;
 	}
 
 	public Utilisateur getAuteur() {

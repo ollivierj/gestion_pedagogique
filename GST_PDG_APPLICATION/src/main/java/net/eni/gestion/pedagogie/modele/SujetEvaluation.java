@@ -34,6 +34,7 @@ public class SujetEvaluation extends AModele<Integer> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public final static String ID_FIELD_NAME 							= "SUJ_EVAL_ID";
+	public final static String AUTEUR_FIELD_NAME 						= "SUJ_EVAL_AUTEUR";
 	public final static String MODULE_FIELD_NAME 						= "SUJ_EVAL_MODULE";
 	public final static String LIEN_SUJET_FIELD_NAME 					= "SUJ_EVAL_LIEN_SUJET";
 	public final static String LIEN_MODELE_CORRECTION_FIELD_NAME		= "SUJ_EVAL_LIEN_MODELE_CORRECTION";
@@ -46,6 +47,13 @@ public class SujetEvaluation extends AModele<Integer> implements Serializable {
 		generatedId = true,
 		useGetSet = true)
 	private Integer id = null;
+	
+	@DatabaseField(
+			columnName = AUTEUR_FIELD_NAME,
+			foreign = true,
+			useGetSet = true,
+			canBeNull = false)
+		private Utilisateur auteur = null;
 	
 	@DatabaseField(
 		columnName = MODULE_FIELD_NAME,
@@ -135,6 +143,14 @@ public class SujetEvaluation extends AModele<Integer> implements Serializable {
 
 	public void setVersion(String version) {
 		this.version = version;
+	}
+
+	public Utilisateur getAuteur() {
+		return auteur;
+	}
+
+	public void setAuteur(Utilisateur auteur) {
+		this.auteur = auteur;
 	}
 
 }
