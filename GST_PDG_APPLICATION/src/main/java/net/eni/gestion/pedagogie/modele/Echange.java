@@ -4,15 +4,18 @@
 package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
+import java.text.ParseException;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
+import net.eni.gestion.pedagogie.commun.outil.DateHelper;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.github.reinert.jjschema.Attributes;
 import com.github.reinert.jjschema.SchemaIgnore;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
@@ -58,6 +61,7 @@ public class Echange extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private Utilisateur auteur = null;
 
+	@SchemaIgnore
 	@DatabaseField(
 		columnName = STAGIAIRE_FIELD_NAME,
 		foreign = true,
@@ -65,21 +69,31 @@ public class Echange extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private Stagiaire stagiaire = null;
 
+	@Attributes(title = "Commentaire", required = true, maxLength = 255)
 	@DatabaseField(
 		columnName = COMMENTAIRE_FIELD_NAME,
 		dataType = DataType.STRING,
 		useGetSet = true,
 		canBeNull = false)
 	private String commentaire = null;
-	
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy H:mm:ss", timezone="CET")   
+	   
 	@DatabaseField(
 		columnName = DATE_SAISIE_FIELD_NAME,
 		dataType = DataType.DATE,
 		useGetSet = true,
 		canBeNull = false)
 	private Date dateSaisie = null;
-		
+	
+	@DatabaseField(
+		columnName = DATE_FIELD_NAME,
+		dataType = DataType.DATE,
+		useGetSet = true,
+		canBeNull = false)
+	private Date date = null;
+	
+	@Attributes(title = "Date", required = true, format = "date")
+	private String formatedDate;
+	
 	@Override
 	public Integer getId() {
 		return id;
@@ -120,6 +134,24 @@ public class Echange extends AModele<Integer> implements Serializable {
 	
 	public void setDateSaisie(Date dateSaisie) {
 		this.dateSaisie = dateSaisie;
+	}
+	
+	public Date getDate() {
+		return date;
+	}
+	
+	public void setDate(Date date) {
+		this.formatedDate=DateHelper.stringifyDate(date, "yyyy-MM-dd");
+		this.date = date;
+	}
+	
+	public String getFormatedDate() {
+		return formatedDate;
+	}
+
+	public void setFormatedDate(String formatedDate) throws ParseException {
+		this.date= DateHelper.datifyString(formatedDate, "yyyy-MM-dd");
+		this.formatedDate = formatedDate;
 	}
 
 }

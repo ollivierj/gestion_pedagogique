@@ -48,6 +48,7 @@ public class Absence extends AModele<Integer> implements Serializable {
 	public final static String DATE_SAISIE_FIELD_NAME 				= "ABS_DATE_SAISIE";
 	public final static String AUTEUR_FIELD_NAME 					= "ABS_AUTEUR";
 	public final static String MOTIF_FIELD_NAME 					= "ABS_MOTIF";
+	public final static String IS_ABSENCE_FIELD_NAME 				= "ABS_IS_ABSENCE";
 
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
@@ -67,7 +68,9 @@ public class Absence extends AModele<Integer> implements Serializable {
 	@JsonProperty
 	private String formatedDate;
 	
-	@SchemaIgnore
+	@JsonProperty
+	private String formatedTime;
+	
 	@DatabaseField(
 		columnName = STAGIAIRE_FIELD_NAME,
 		foreign = true,
@@ -83,7 +86,9 @@ public class Absence extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private Date dateSaisie = null;
 	
-	@SchemaIgnore
+	@JsonProperty
+	private String formatedDateSaisie;
+	
 	@DatabaseField(
 		columnName = AUTEUR_FIELD_NAME,
 		foreign = true,
@@ -91,12 +96,17 @@ public class Absence extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private Utilisateur auteur = null;
 	
-	@Attributes(title="Motif", required=false)
 	@DatabaseField(
 			columnName = MOTIF_FIELD_NAME,
 			useGetSet = true,
 			canBeNull = true)
 		private String motif = null;
+	
+	@DatabaseField(
+			columnName = IS_ABSENCE_FIELD_NAME,
+			useGetSet = true,
+			canBeNull = true)
+		private Boolean isAbsence = null;
 
 	@Override
 	public Integer getId() {
@@ -113,7 +123,8 @@ public class Absence extends AModele<Integer> implements Serializable {
 	}
 	
 	public void setDate(Date date) {
-		this.formatedDate=DateHelper.stringifyDate(date, "yyyy-MM-dd HH:mm:ss");
+		this.formatedDate=DateHelper.stringifyDate(date, "yyyy-MM-dd");
+		this.formatedTime=DateHelper.stringifyDate(date, "HH:mm");
 		this.date = date;
 	}
 	
@@ -122,8 +133,21 @@ public class Absence extends AModele<Integer> implements Serializable {
 	}
 
 	public void setFormatedDate(String formatedDate) throws ParseException {
-		this.date= DateHelper.datifyString(formatedDate, "yyyy-MM-dd HH:mm:ss");
+		if (this.getFormatedTime() != null)
+			this.date= DateHelper.datifyString(formatedDate + " " + this.getFormatedTime(), "dd/MM/yyyy HH:mm");
+		
 		this.formatedDate = formatedDate;
+	}
+
+	public String getFormatedTime() {
+		return formatedTime;
+	}
+
+	public void setFormatedTime(String formatedTime) {
+		if (this.getFormatedDate() != null)
+			this.date= DateHelper.datifyString(this.getFormatedDate() + " " + formatedTime, "dd/MM/yyyy HH:mm");
+		
+		this.formatedTime = formatedTime;
 	}
 
 	public Stagiaire getStagiaire() {
@@ -139,6 +163,7 @@ public class Absence extends AModele<Integer> implements Serializable {
 	}
 	
 	public void setDateSaisie(Date dateSaisie) {
+		this.formatedDateSaisie = DateHelper.stringifyDate(dateSaisie, "dd/MM/yyyy HH:mm");
 		this.dateSaisie = dateSaisie;
 	}
 
@@ -156,6 +181,23 @@ public class Absence extends AModele<Integer> implements Serializable {
 
 	public void setMotif(String motif) {
 		this.motif = motif;
+	}
+
+	public Boolean getIsAbsence() {
+		return isAbsence;
+	}
+
+	public void setIsAbsence(Boolean isAbsence) {
+		this.isAbsence = isAbsence;
+	}
+
+	public String getFormatedDateSaisie() {
+		return formatedDateSaisie;
+	}
+
+	public void setFormatedDateSaisie(String formatedDateSaisie) {
+		this.dateSaisie= DateHelper.datifyString(formatedDateSaisie, "dd/MM/yyyy HH:mm");
+		this.formatedDateSaisie = formatedDateSaisie;
 	}
 	
 }

@@ -1,0 +1,14 @@
+<center ng-hide="row.entity.editModeAbsence">
+	<button class="btn btn-danger btn-xs" ng-click="removeRowAbsence(row.entity)">
+		<span class="fa fa-times fa-lg"></span>
+	</button>
+</center>
+
+<center ng-show="row.entity.editModeAbsence">
+	<button class="btn btn-primary btn-xs" ng-click="okAbsence(row.entity)">
+		<span class="fa fa-check fa-lg"></span>
+	</button>
+	<button class="btn btn-primary btn-xs" ng-click="cancelAbsence(row.entity)">
+		<span class="fa fa-times fa-lg"></span>
+	</button>
+</center>

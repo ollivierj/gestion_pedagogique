@@ -1,83 +1,92 @@
 /**
  * Controller de la page detail stagiaire
  */
-controllers.controller('detailStagiaireCtrl', function($scope, detail, absences, SAbsenceFactory, $modal, $log) {
-
-    $scope.planningSelected = [];
+controllers.controller('detailStagiaireCtrl', function($scope, detail, absences, SAbsenceFactory, $modal, $log, SEchangeFactory, $filter) {
     
     //Initialisation de la variable stagiaire du scope avec la variable detail (resolve de la route)
     $scope.stagiaire = detail;
     
     $scope.absences = absences.data;
-
-    console.log($scope.absences);
     
     // Les absences ou retards du stagiaire
     $scope.gridOptionsAbsences = {
         data: 'absences',
-        multiSelect: false,
         columnDefs : [
-                {field:'formatedDate', displayName:'Date'},
-                {field:'auteur', displayName:'Auteur'},
-                {field:'motif', displayName:'Motif'},
-                {displayName:'Actions', cellTemplate: 'partials/templates/ng-grid_actions.html'}
+              	{displayName:'Absence / Retard', enableCellEdit: true,
+              		editableCellTemplate: 'partials/stagiaire/template/absenceRetardButton.html',
+          			cellTemplate: 'partials/stagiaire/template/absenceRetardButtonText.html'},
+                {field:'formatedDate', displayName:'Date', enableCellEdit: true,
+          			cellFilter: 'date : \'dd/MM/yyyy\'',
+                	editableCellTemplate: 'partials/stagiaire/template/datepicker.html'},
+            	{field:'formatedTime', displayName:'Heure', enableCellEdit: true,
+            		editableCellTemplate: 'partials/stagiaire/template/timepicker.html',
+                	cellTemplate: 'partials/stagiaire/template/timepickerText.html'},	
+                {field:'auteur', displayName:'Auteur', enableCellEdit: false},
+                {field:'motif', displayName:'Motif', enableCellEdit: true},
+                {displayName:'Actions', cellTemplate: 'partials/stagiaire/template/actionsAbsence.html'}
         ],
         enablePaging: true,
         showFooter: true,
         multiSelect: false
     };
 
+	//L'édition d'une des colonnes du tableau active le mode edition
+    $scope.editRowAbsence = function(entity) {
+    	entity.editModeAbsence = true;
+    };
+    
+    //Annule l'édition d'une ligne
+    $scope.cancelAbsence = function(entity) {
+    	entity.editModeAbsence = false;
+    };
+
     // Les avis concernant le stagiaire
     $scope.gridOptionsAvis = {
         data: 'stagiaire.avis',
-        // selectedItems: $scope.planningSelected,
-        multiSelect: false,
         columnDefs : [
                 {field:'date', displayName:'Date'},
                 {field:"formateur", displayName:'Auteur'},
                 {field:'avis', displayName:'Avis'},
                 {displayName:'Actions', cellTemplate: 'partials/templates/ng-grid_actions.html'}
-        ]
+        ],
+        enablePaging: true,
+        showFooter: true,
+        multiSelect: false
     };
-
+    
+    $scope.okAbsence = function (entity) {
+    	entity.formatedDate = $filter('date')(entity.formatedDate, 'dd/MM/yyyy');
+    	entity.formatedTime = $filter('date')(entity.formatedTime, 'HH:mm');
+    	//Mock de l'auteur
+    	entity.auteur = {};
+    	entity.auteur.id = 1;
+    	entity.dateSaisie = $filter('date')(new Date(), 'dd/MM/yyyy HH:mm');
+    	SAbsenceFactory.create(entity);
+    	entity.editModeAbsence = false;
+    	SAbsenceFactory.getAbsencesInit();
+    };
+    
+    $scope.removeRowAbsence = function(entity) {
+    	SAbsenceFactory.deleteLine.$delete
+    };
+    
     // Les échanges concernant le stagiaire
     $scope.gridOptionsEchanges = {
         data: 'stagiaire.echanges',
-        // selectedItems: $scope.planningSelected,
-        multiSelect: false,
         columnDefs : [
                 {field:'dateSaisie', displayName:'Date'},
                 {field:"auteur", displayName:'Auteur'},
                 {field:'commentaire', displayName:'Commentaire'},
                 {displayName:'Actions', cellTemplate: 'partials/templates/ng-grid_actions.html'}
-        ]
-    };
-
-    $scope.planning = [
-        {type:'Cours', libelle:'Java', date:'20/12/2013'},
-        {type:'ECF', libelle:'Java', date:'25/12/2013'},
-        {type:'Cours', libelle:'SQL', date:'03/02/2014'},
-        {type:'Cours', libelle:'C#', date:'12/05/2014'},
-        {type:'Cours', libelle:'Tomcat', date:'06/06/2014'},
-        {type:'ECF', libelle:'C#', date:'26/09/2014'},
-        {type:'Session de validation', libelle:'Examen final', date:'13/10/2014'}
-    ];
-
-     $scope.gridOptionsPlanning = {
-        data: 'planning',
-        selectedItems: $scope.planningSelected,
-        multiSelect: false,
-        columnDefs : [
-                {field:'type', displayName:'Type'},
-                {field:'libelle', displayName:'Libellé'},
-                {field:'date', displayName:'Date de début'},
-                {displayName:'Date de fin'},
-                {displayName:'Heure'},
-                {displayName:'Salle'}
-        ]
+        ],
+        enablePaging: true,
+        showFooter: true,
+        multiSelect: false
     };
      
     $scope.createAbsence = function() {
+    	$scope.absences.push({});
+    	/*
     	var modalAdd = $modal.open({
 			templateUrl : 'partials/stagiaire/modalEdition/absenceEdition.html',
 			controller : modalEditionStagiaireAbsenceCtrl,
@@ -102,7 +111,33 @@ controllers.controller('detailStagiaireCtrl', function($scope, detail, absences,
 		}, function() {
 			$log.info('Modal dismissed at: ' + new Date());
 		});
+		*/
     };
+    
+    
+    $scope.createEchange = function() {
+		var modalAdd = $modal.open({
+					templateUrl : 'partials/templates/form.html',
+					controller : modalEditionEchangeCtrl,
+					resolve : {
+						title : function() {return "Ajout d'un échange";},
+						readonly : function() {return false;},
+						echange : function(){ return {}},
+						schema : function(SEchangeFactory) {
+							return SEchangeFactory.jsonschema.get().$promise;
+						},
+						okTitle : function() {return "Enregistrer";},
+						ok : function() { return function(item){ return SEchangeFactory.createEchange.create(item);}}
+					}
+				});
+
+		modalAdd.result.then(function(selectedItem) {
+			
+		}, function() {
+			$log.info('Modal dismissed at: ' + new Date());
+		});
+	};
+
     
 });
 
@@ -198,6 +233,81 @@ var modalEditionStagiaireAbsenceCtrl = function($scope, $modalInstance, $filter,
 		SAbsenceFactory.create($scope.absence);
 	};
 	
+	$scope.cancel = function() {
+		$modalInstance.dismiss('cancel');
+	};
+};
+
+var modalEditionEchangeCtrl = function($scope, $modalInstance,
+		SEchangeFactory, title, readonly, echange, schema, ok, okTitle) {
+	$scope.title = title;
+	$scope.data = titreProfessionnel;
+	$scope.data.readonly = readonly;
+	$scope.okTitle = okTitle;
+	$scope.ok = ok;
+	$scope.schema = schema;
+	$scope.form = 
+		[
+			{
+				key : "formatedDate",
+				disabled : $scope.data.readonly
+			},
+			{
+	    		key : "commentaire",
+	    		disabled : $scope.data.readonly
+			},
+			{
+		    	type: "conditional",
+	            condition: "!data.readonly", 
+	            items: 
+	           	 [
+	           	 {
+	           	 type: "actions",
+	           	 items:	
+	           		 [
+			         {
+			         type: 'submit', 
+			         title: $scope.okTitle 
+			         },
+			         { 
+					 type: 'button', 
+					 title: 'Annuler', 
+					 onClick: "cancel()" 
+					 }
+			         ]
+	           	 }
+	           	 ]	
+			},
+			{
+		    	type: "conditional",
+	            condition: "data.readonly", 
+	            items: 
+	           	 [
+	           	 {
+	           	 type: "actions",
+	           	 items:	
+	           		 [
+			         {
+			         type: 'submit', 
+			         title: $scope.okTitle 
+			         }
+			         ]
+	           	 }
+	           	 ]	
+			}
+	    ];
+	$scope.decorator = 'bootstrap-decorator';
+	$scope.submit =function(){
+		$scope.ok($scope.data).$promise.then(
+					function(response) {
+						$modalInstance.close($scope.data);
+					}, 
+					function(reason) {
+						alert('Echec: ' + reason);
+					});
+		
+
+	};
 	$scope.cancel = function() {
 		$modalInstance.dismiss('cancel');
 	};

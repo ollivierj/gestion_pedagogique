@@ -63,4 +63,12 @@ public interface AService <M extends AModele<ID>, ID> {
 	 * @throws GenericException
 	 */
 	public ID supprimer(ID pId)  throws GenericException;
+	
+	/**
+	 * Ajoute ou supprime un modèle à l'aide d'un modèle passé en paramètre
+	 * @param pModel
+	 * @return
+	 * @throws GenericException
+	 */
+	public M addOrUpdate(M pModel) throws GenericException;
 }

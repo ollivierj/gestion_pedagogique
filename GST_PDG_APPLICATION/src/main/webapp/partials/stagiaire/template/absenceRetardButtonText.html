@@ -1,0 +1,8 @@
+<div class='ngCellText' ng-class="col.colIndex()">
+	<center>
+		<span ng-show="row.entity.isAbsence" ng-class="'colt' + col.index" 
+				class="label label-danger" ng-cell-text>Absence</span>
+		<span ng-hide="row.entity.isAbsence" ng-class="'colt' + col.index" 
+				class="label label-warning" ng-cell-text>Retard</span>
+	</center>
+</div>

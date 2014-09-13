@@ -1,0 +1,20 @@
+<center ng-hide="editModeEchange">
+	<button class="btn btn-primary btn-xs" ng-click="viewRowEchange(row.entity)">
+		<span class="fa fa-search fa-lg"></span>
+	</button>
+	<button class="btn btn-default btn-xs" ng-click="editRowEchange(row.entity)">
+		<span class="fa fa-pencil fa-lg"></span>
+	</button>
+	<button class="btn btn-danger btn-xs" ng-click="removeRowEchange(row.entity)">
+		<span class="fa fa-times fa-lg"></span>
+	</button>
+</center>
+
+<center ng-show="editModeEchange">
+	<button class="btn btn-success btn-xs" ng-click="okEchange(row.entity)">
+		<span class="fa fa-ok fa-lg"></span>
+	</button>
+	<button class="btn btn-error btn-xs" ng-click="cancelEchange(row.entity)">
+		<span class="fa fa-times fa-lg"></span>
+	</button>
+</center>

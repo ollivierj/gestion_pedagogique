@@ -122,4 +122,14 @@ public class AResourceImpl <M extends AModele<ID>, ID, S extends AService<M,ID>>
 	public ID supprimer(@PathParam("id") ID pId) throws GenericException {
 		return this.service.supprimer(pId);
 	}
+
+	@POST
+	@Path("/addOrUpdate")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public M addOrUpdate(M pModel) throws GenericException {
+		return this.service.addOrUpdate(pModel);
+	}
+	
+	
 }

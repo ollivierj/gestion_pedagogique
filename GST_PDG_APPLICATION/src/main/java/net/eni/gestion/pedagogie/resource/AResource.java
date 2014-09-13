@@ -72,4 +72,12 @@ public interface AResource<M extends AModele<ID>, ID> {
 	 * @throws GenericException
 	 */
 	public ID supprimer(ID pId)  throws GenericException;
+
+	/**
+	 * Ajoute ou met à jour un modèle à l'aide d'un moèle passé en paramètre
+	 * @param pModel Modèle à ajouter ou à mettre à jour
+	 * @return Modèle ajouté ou mis à jour 
+	 * @throws GenericException
+	 */
+	public M addOrUpdate(M pModel) throws GenericException;
 }

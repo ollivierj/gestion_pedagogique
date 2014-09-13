@@ -48,7 +48,7 @@
             <li ng-repeat="menu in menuTitles" ng-class="{dropdown : menu.type == 'multiple', active : menu.mainTitle == titleSelected}">
               
               <!-- 1 lien -->
-              <a href="{{menu.url}}" ng-if="menu.type == 'single'" ng-click="setActive(menu.mainTitle)">
+              <a ui-sref="{{menu.url}}" ng-if="menu.type == 'single'" ng-click="setActive(menu.mainTitle)">
                 <i class="{{menu.iconTitle}}"></i> {{menu.mainTitle}}
               </a>
               
@@ -58,7 +58,7 @@
               </a>
               <ul class="dropdown-menu">
                 <li ng-repeat="subMenu in menu.titles" ng-class="{active : subMenu.mainTitle == titleSelected}">
-                  <a href="{{subMenu.url}}" ng-click="setActive(subMenu.mainTitle)">
+                  <a ui-sref="{{subMenu.url}}" ng-click="setActive(subMenu.mainTitle)">
                     <i class="{{subMenu.iconTitle}}"></i> {{subMenu.mainTitle}}
                   </a>
                 </li>
@@ -74,7 +74,7 @@
             <li class="dropdown user-dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i><b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="index.html#/gestionDroit"><i class="fa fa-search"></i> Informations profil</a></li>
+                <li><a href="gestionDroit"><i class="fa fa-search"></i> Informations profil</a></li>
               </ul>
             </li>
 
@@ -93,12 +93,12 @@
             <li class="dropdown user-dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gear"></i> Administration <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="index.html#/gestionUtilisateurs"><i class="fa fa-gear"></i> Utilisateurs</a></li>
-                <li><a href="index.html#/gestionProfils"><i class="fa fa-gear"></i> Profils</a></li>
-                <li><a href="index.html#/gestionFichesSynthese"><i class="fa fa-gear"></i> Fiche de suivi</a></li>
-                <li><a href="index.html#/sujetsEvaluation"><i class="fa fa-gear"></i> Sujets d'évaluation</a></li>
-                <li><a href="index.html#/titreProfessionnels"><i class="fa fa-gear"></i> Titres professionnels</a></li>
-                <li><a href="index.html#/professionnelHomologues"><i class="fa fa-gear"></i> Professionnels homologués</a></li>
+                <li><a ui-sref="gestionUtilisateurs"><i class="fa fa-gear"></i> Utilisateurs</a></li>
+                <li><a ui-sref="gestionProfils"><i class="fa fa-gear"></i> Profils</a></li>
+                <li><a ui-sref="gestionFichesSynthese"><i class="fa fa-gear"></i> Fiche de suivi</a></li>
+                <li><a ui-sref="sujetsEvaluation"><i class="fa fa-gear"></i> Sujets d'évaluation</a></li>
+                <li><a ui-sref="titreProfessionnels"><i class="fa fa-gear"></i> Titres professionnels</a></li>
+                <li><a ui-sref="professionnelHomologues"><i class="fa fa-gear"></i> Professionnels homologués</a></li>
                
                 
                 
@@ -111,7 +111,7 @@
       </nav>
 
       <div id="page-wrapper">
-        <div ng-view></div>
+        <div ui-view></div>
         
       </div><!-- /#page-wrapper -->
 
@@ -141,14 +141,10 @@
     <script src="lib/angular-1.2.16/plugins/angular-file-upload.js"></script>
 	
 	<!-- Angular strap -->
-	<!-- <script src="lib/angular-1.2.16/plugins/angular-strap/dimensions.js"></script>
-	<script src="lib/angular-1.2.16/plugins/angular-strap/date-parser.js"></script>
-	<script src="lib/angular-1.2.16/plugins/angular-strap/tooltip.tpl.js"></script>
-	<script src="lib/angular-1.2.16/plugins/angular-strap/tooltip.js"></script>
-	<script src="lib/angular-1.2.16/plugins/angular-strap/timepicker.tpl.js"></script>
-	<script src="lib/angular-1.2.16/plugins/angular-strap/timepicker.js"></script> -->
 	<script src="lib/angular-1.2.16/plugins/angular-strap/angular-strap.js"></script>
 	<script src="lib/angular-1.2.16/plugins/angular-strap/angular-strap.tpl.js"></script>
+	
+	<script src="lib/angular-1.2.16/plugins/angular-ui-router.js"></script>
 	
 	<!-- angular-schema-form -->
 	<script src="lib/angular-1.2.16/plugins/angular-schema-form/module.js"></script>
@@ -175,6 +171,7 @@
     <script src="js/services/retardataire/retardatairesFactory.js"></script>
     <script src="js/services/stagiaire/stagiaireServices.js"></script>
     <script src="js/services/stagiaire/absenceServices.js"></script>
+    <script src="js/services/stagiaire/echangeServices.js"></script>
     <script src="js/services/absenceService.js"></script>
     <script src="js/services/professionnelHomologueServices.js"></script> 
     <script src="js/services/titreProfessionnelServices.js"></script> 

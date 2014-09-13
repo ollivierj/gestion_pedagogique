@@ -3,7 +3,7 @@
 /**
  * Controller de la page de l'affichage des stagiaires
  */
-controllers.controller('stagiaireCtrl', function($scope, $http, $location, stagiaireData, StagiaireFactory, $modal, SAbsenceFactory) {
+controllers.controller('stagiaireCtrl', function($scope, $http, $location, stagiaireData, StagiaireFactory, $modal, SAbsenceFactory, $state) {
 
     /*Variable contenant la sélection des données des tableaux de recherche*/
     var promotionSelected = [];
@@ -56,7 +56,7 @@ controllers.controller('stagiaireCtrl', function($scope, $http, $location, stagi
     $scope.viewRow = function (entity) {
     	StagiaireFactory.keepStagiaire(entity);
     	SAbsenceFactory.keepStagiaire(entity);
-        $location.path('/detailStagiaire');
+    	$state.go('detailStagiaire');
     };
 
     //Gestion du mode carte et du mode liste
@@ -114,6 +114,7 @@ var ModalDisplayPromotionDetails = function($scope, $modalInstance, promotion) {
     $scope.promotion = promotion;
 
     $scope.ok = function () {
+    	console.log($scope.selected.item);
         $modalInstance.close($scope.selected.item);
     };
 

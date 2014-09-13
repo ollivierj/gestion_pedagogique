@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.eni.gestion.pedagogie.DAO.ADao;
 import net.eni.gestion.pedagogie.DAO.AbsenceDao;
 import net.eni.gestion.pedagogie.DAO.AvisDao;
 import net.eni.gestion.pedagogie.DAO.EchangeDao;
@@ -18,6 +19,7 @@ import net.eni.gestion.pedagogie.modele.Absence;
 import net.eni.gestion.pedagogie.modele.Avis;
 import net.eni.gestion.pedagogie.modele.Echange;
 import net.eni.gestion.pedagogie.modele.Stagiaire;
+import net.eni.gestion.pedagogie.modele.generique.AModele;
 import net.eni.gestion.pedagogie.service.StagiaireService;
 
 import com.google.inject.Inject;
@@ -82,7 +84,38 @@ public class StagiaireServiceImpl extends AServiceImpl<Stagiaire, Integer, Stagi
 			throw new GenericException("Erreur lors du chargement des données avis du stagiaire.");
 		}
 	}
-    
-    
+
+	@Override
+	public Absence addOrUpdateAbsence(Absence absence) throws GenericException {
+		try {
+			// Si le modèle n'existe pas en base on fait un ajout...
+			if (absence.getId() != null && absenceDao.chargerDetail(absence.getId()) != null) {
+				return absenceDao.mettreAJour(absence);
+			// ... Sinon on le met à jour
+			} else {
+				return absenceDao.ajouter(absence);
+			}
+		} catch (Exception e) {
+			throw new GenericException("Echec lors de la mise à jour en base de données.");
+		}
+	}
+	
+	/*
+	private <M> M addOrUpdateStagiaire(M pModel, ADao<M, ID> dao) throws GenericException {
+		try {
+			AModele<ID> m = dao.chargerDetail(pModel.getId());
+			// Si le modèle n'existe pas en base on fait un ajout...
+			if (m == null) {
+				return dao.ajouter(pModel);
+			// ... Sinon on le met à jour
+			} else {
+				return dao.mettreAJour(pModel);
+			}
+		} catch (Exception e) {
+			throw new GenericException("Echec lors de la mise à jour en base de données.");
+		}
+	}
+	*/
+	
     
 }

@@ -1,21 +1,28 @@
 'use strict';
-angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 'ngAnimate',
+angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 'ngAnimate', 'ui.router',
 //                              'angularFileUpload', 
                               'schemaForm','ui.bootstrap','ui.tree','ng_gst_pdg.filters','ng_gst_pdg.controllers',
                               'ng_gst_pdg.services', 'ng_gst_pdg.directives', 'mgcrea.ngStrap.timepicker',
                               'mgcrea.ngStrap.datepicker'])
 
-.config(['$routeProvider', function($routeProvider) {
-	$routeProvider.
-		when('/accueil', {
+.config(function($stateProvider, $urlRouterProvider) {
+	
+	//	Url par défaut
+	$urlRouterProvider.otherwise("/accueil");
+	
+	//	Mapping des url
+	$stateProvider.
+		state('accueil', {
+			url: '/accueil',
 			templateUrl: 'partials/accueil.html',
-//			controller: 'consultationStagiairesCtrl'
 		}).
-		when('/stagiaire', {
+		state('stagiaire', {
+			url: '/stagiaire',
 			templateUrl: 'partials/stagiaire/stagiaire.html',
 			controller: 'stagiaireCtrl'
 		}).	
-		when('/detailStagiaire', {
+		state('detailStagiaire', {
+			url: '/detailStagiaire',
 			templateUrl: 'partials/stagiaire/detailStagiaire.html',
 			controller: 'detailStagiaireCtrl',
 			resolve: {
@@ -27,43 +34,53 @@ angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 'ngAnimate',
 				}
 			}
 		}).
-		when('/gestionFichesSynthese', {
+		state('gestionFichesSynthese', {
+			url: '/gestionFichesSynthese',
 			templateUrl: 'partials/gestionFichesSynthese/gestionFichesSynthese.html',
 			controller: 'gestionFichesSyntheseCtrl'
 		}).
-		when('/versionECF', {
+		state('versionECF', {
+			url: '/versionECF',
 			templateUrl: 'partials/gestionEvaluations/versionECF.html',
 			controller: 'versionECFCtrl'
 		}).
-		when('/listeECF', {
+		state('listeECF', {
+			url: '/listeECF',
 			templateUrl: 'partials/gestionEvaluations/listeECF.html',
 			controller: 'listeECFCtrl'
 		}).
-		when('/corrigerECF', {
+		state('corrigerECF', {
+			url: '/corrigerECF',
 			templateUrl: 'partials/gestionEvaluations/corrigerECF.html',
 			controller: 'corrigerECFCtrl'
 		}).
-		when('/editECF', {
+		state('editECF', {
+			url: '/editECF',
 			templateUrl: 'partials/gestionEvaluations/editECF.html',
 			controller: 'editECFCtrl'
 		}).
-		when('/editCorrection', {
+		state('editCorrection', {
+			url: '/editCorrection',
 			templateUrl: 'partials/gestionEvaluations/editCorrection.html',
 			controller: 'editCorrectionCtrl'
 		}).
-		when('/editVersion', {
+		state('editVersion', {
+			url: '/editVersion',
 			templateUrl: 'partials/gestionEvaluations/editVersion.html',
 			controller: 'editVersionCtrl'
 		}).
-		when('/salle', {
+		state('salle', {
+			url: '/salle',
 			templateUrl: 'partials/salle/planningReservationSalle.html',
 			controller: 'planningReservationSalleCtrl'
 		}).
-		when('/salle/editer/:id', {
+		state('editionSalle', {
+			url: '/salle/editer/:id',
 			templateUrl: 'partials/salle/formulaireReservationSalle.html',
 			controller: 'formulaireReservationSalleCtrl'
 		}).
-		when('/gestionSessionsValidation', {
+		state('gestionSessionsValidation', {
+			url: '/gestionSessionsValidation',
 			templateUrl: 'partials/gestionSessionsValidation/gestionSessionsValidation.html',
 			controller: 'gestionSessionsValidationCtrl',
 			resolve : {
@@ -72,34 +89,37 @@ angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 'ngAnimate',
 				}
 			}
 		}).
-		when('/professionnelHomologues', {
+		state('professionnelHomologues', {
+			url: '/professionnelHomologues',
 			templateUrl: 'partials/templates/list.html',
 			controller: 'professionelHomologuesCtrl'
 		}).
-		when('/titreProfessionnels', {
+		state('titreProfessionnels', {
+			url: '/titreProfessionnels',
 			templateUrl: 'partials/templates/list.html',
 			controller: 'titreProfessionnelsCtrl'
 		}).
-		when('/sujetsEvaluation', {
+		state('sujetsEvaluation', {
+			url: '/sujetsEvaluation',
 			templateUrl: 'partials/templates/list.html',
 			controller: 'sujetEvaluationsCtrl'
 		}).
-		when('/fichiers', {
+		state('fichiers', {
+			url: '/fichiers',
 			templateUrl: 'partials/fichiers.html',
 			controller: 'fichiersCtrl'
 		}).
-		when('/gestionProfils', {
+		state('gestionProfils', {
+			url: '/gestionProfils',
 			templateUrl: 'partials/droit/gestionDroit.html',
 			controller: 'gestionDroitCtrl'
 		}).
-		when('/gestionUtilisateurs', {
+		state('gestionUtilisateurs', {
+			url: '/gestionUtilisateurs',
 			templateUrl: 'partials/templates/list.html',
 			controller: 'gestionUtilisateursCtrl'
-		}).
-		otherwise({
-			redirectTo: '/accueil'
 		});
-}]);
+});
 
 var filters = angular.module('ng_gst_pdg.filters', []);
 var services = angular.module('ng_gst_pdg.services', ['ngResource']);
