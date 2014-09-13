@@ -69,7 +69,7 @@ public class Evaluation extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private Date dateHeureDebutPassage = null;
 	
-	@Attributes(title = "Date et heure de début", required = true, format = "date")
+	@Attributes(title = "Date et heure de début", required = true, format = "time")
 	private String formatedDateHeureDebutPassage;
 
 	@JsonIgnore
@@ -80,7 +80,7 @@ public class Evaluation extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private Date dateHeureFinPassage = null;
 	
-	@Attributes(title = "Date et heure de fin", required = true, format = "date")
+	@Attributes(title = "Date et heure de fin", required = true, format = "time")
 	private String formatedDateHeureFinPassage;
 
 	@DatabaseField(
@@ -126,7 +126,7 @@ public class Evaluation extends AModele<Integer> implements Serializable {
 	}
 
 	public void setDateHeureDebutPassage(Date dateHeureDebutPassage) {
-		this.formatedDateHeureDebutPassage=DateHelper.stringifyDate(dateHeureDebutPassage, "yyyy-MM-dd");
+		this.formatedDateHeureDebutPassage=DateHelper.stringifyDate(dateHeureDebutPassage, "yyyy-MM-dd'T'HH:mm:ss");
 		this.dateHeureDebutPassage = dateHeureDebutPassage;
 	}
 	
@@ -135,7 +135,7 @@ public class Evaluation extends AModele<Integer> implements Serializable {
 	}
 
 	public void setFormatedDateHeureDebutPassage(String formatedDateHeureDebutPassage) throws ParseException {
-		this.dateHeureDebutPassage=DateHelper.datifyString(formatedDateHeureDebutPassage, "yyyy-MM-dd");
+		this.dateHeureDebutPassage=DateHelper.datifyString(formatedDateHeureDebutPassage, "yyyy-MM-dd'T'HH:mm:ss");
 		this.formatedDateHeureDebutPassage = formatedDateHeureDebutPassage;
 	}
 
@@ -144,7 +144,7 @@ public class Evaluation extends AModele<Integer> implements Serializable {
 	}
 
 	public void setDateHeureFinPassage(Date dateHeureFinPassage) {
-		this.formatedDateHeureFinPassage=DateHelper.stringifyDate(dateHeureFinPassage, "yyyy-MM-dd");
+		this.formatedDateHeureFinPassage=DateHelper.stringifyDate(dateHeureFinPassage, "yyyy-MM-dd'T'HH:mm:ss");
 		this.dateHeureFinPassage = dateHeureFinPassage;
 	}
 	
@@ -153,7 +153,7 @@ public class Evaluation extends AModele<Integer> implements Serializable {
 	}
 
 	public void setFormatedDateHeureFinPassage(String formatedDateHeureFinPassage) throws ParseException {
-		this.dateHeureFinPassage=DateHelper.datifyString(formatedDateHeureFinPassage, "yyyy-MM-dd");
+		this.dateHeureFinPassage=DateHelper.datifyString(formatedDateHeureFinPassage, "yyyy-MM-dd'T'HH:mm:ss");
 		this.formatedDateHeureFinPassage = formatedDateHeureFinPassage;
 	}
 	

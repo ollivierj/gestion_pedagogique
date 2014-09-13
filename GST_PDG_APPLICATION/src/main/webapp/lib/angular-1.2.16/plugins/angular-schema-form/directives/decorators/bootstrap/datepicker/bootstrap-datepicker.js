@@ -1,5 +1,5 @@
 angular.module('schemaForm').config(
-       ['schemaFormProvider','schemaFormDecoratorsProvider',
+       ['schemaFormProvider','schemaFormDecoratorsProvider', 
 function(schemaFormProvider,  schemaFormDecoratorsProvider){
   var base = 'lib/angular-1.2.16/plugins/angular-schema-form/directives/decorators/bootstrap/';
 

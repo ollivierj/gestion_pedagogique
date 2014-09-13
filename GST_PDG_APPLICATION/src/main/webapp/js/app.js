@@ -3,8 +3,15 @@ angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 'ngAnimate','ang
                               'schemaForm','ui.bootstrap','ui.tree','ng_gst_pdg.filters','ng_gst_pdg.controllers',
                               'ng_gst_pdg.services', 'ng_gst_pdg.directives', 'mgcrea.ngStrap.timepicker',
                               'mgcrea.ngStrap.datepicker'])
-
-.config(['$routeProvider', function($routeProvider) {
+.config(['$routeProvider','$datepickerProvider', '$timepickerProvider', function($routeProvider, $datepickerProvider, $timepickerProvider) {
+	    angular.extend($datepickerProvider.defaults, {
+	        dateType: "string",
+	        modelDateFormat: "yyyy-MM-ddTHH:mm:ss",
+	    });
+	    angular.extend($timepickerProvider.defaults, {
+	        timeType: "string",
+	        modelTimeFormat: "yyyy-MM-ddTHH:mm:ss",
+	    });
 	$routeProvider.
 		when('/accueil', {
 			templateUrl: 'partials/accueil.html',
