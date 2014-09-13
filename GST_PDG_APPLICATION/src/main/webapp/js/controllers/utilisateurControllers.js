@@ -1,7 +1,7 @@
 ﻿'use strict';
 controllers
 	.controller(
-		'gestionUtilisateursCtrl',
+		'utilisateursCtrl',
 		function($scope, $modal, $log, $timeout, UtilisateursFactory, FonctionsFactory, ProfilsFactory) {
 			$scope.pagingOptions = UtilisateursFactory.pagingOptions;		
 			$scope.sortOptions = UtilisateursFactory.sortOptions;		

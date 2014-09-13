@@ -231,7 +231,7 @@ var modalEditionEvaluationCtrl = function($scope, $modalInstance,
 			titleMap : $scope.sujetEvaluationsTitleMap
 		}, 
 		{
-			title : "correcteur",
+			title : "Correcteur",
 			key: "correcteur.id",
 			type : "select",
 			disabled : $scope.data.readonly,

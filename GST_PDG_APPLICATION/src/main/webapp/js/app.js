@@ -15,9 +15,8 @@ angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 'ngAnimate','ang
 	$routeProvider.
 		when('/accueil', {
 			templateUrl: 'partials/accueil.html',
-//			controller: 'consultationStagiairesCtrl'
 		}).
-		when('/stagiaire', {
+		when('/stagiaires', {
 			templateUrl: 'partials/stagiaire/stagiaire.html',
 			controller: 'stagiaireCtrl'
 		}).	
@@ -33,34 +32,13 @@ angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 'ngAnimate','ang
 				}
 			}
 		}).
-		when('/gestionFichesSynthese', {
-			templateUrl: 'partials/gestionFichesSynthese/gestionFichesSynthese.html',
-			controller: 'gestionFichesSyntheseCtrl'
-		}).
-		when('/editCorrection', {
-			templateUrl: 'partials/gestionEvaluations/editCorrection.html',
-			controller: 'editCorrectionCtrl'
-		}).
-		when('/editVersion', {
-			templateUrl: 'partials/gestionEvaluations/editVersion.html',
-			controller: 'editVersionCtrl'
-		}).
-		when('/salle', {
+		when('/salles', {
 			templateUrl: 'partials/salle/planningReservationSalle.html',
 			controller: 'planningReservationSalleCtrl'
 		}).
 		when('/salle/editer/:id', {
 			templateUrl: 'partials/salle/formulaireReservationSalle.html',
 			controller: 'formulaireReservationSalleCtrl'
-		}).
-		when('/gestionSessionsValidation', {
-			templateUrl: 'partials/gestionSessionsValidation/gestionSessionsValidation.html',
-			controller: 'gestionSessionsValidationCtrl',
-			resolve : {
-				initializeData : function(professionnelHomologuesFactory){
-					professionnelHomologuesFactory.initializeData();
-				}
-			}
 		}).
 		when('/professionnelHomologues', {
 			templateUrl: 'partials/templates/list.html',
@@ -70,25 +48,29 @@ angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 'ngAnimate','ang
 			templateUrl: 'partials/templates/list.html',
 			controller: 'titreProfessionnelsCtrl'
 		}).
-		when('/sujetsEvaluation', {
+		when('/sujetsEvaluations', {
 			templateUrl: 'partials/templates/list.html',
 			controller: 'sujetEvaluationsCtrl'
 		}).
-		when('/evaluation', {
+		when('/evaluations', {
 			templateUrl: 'partials/templates/list.html',
 			controller: 'evaluationsCtrl'
+		}).
+		when('/sessionValidations', {
+			templateUrl: 'partials/templates/list.html',
+			controller: 'sessionValidationsCtrl'
+		}).
+		when('/utilisateurs', {
+			templateUrl: 'partials/templates/list.html',
+			controller: 'utilisateursCtrl'
 		}).
 		when('/fichiers', {
 			templateUrl: 'partials/fichiers.html',
 			controller: 'fichiersCtrl'
 		}).
-		when('/gestionProfils', {
+		when('/profils', {
 			templateUrl: 'partials/droit/gestionDroit.html',
 			controller: 'gestionDroitCtrl'
-		}).
-		when('/gestionUtilisateurs', {
-			templateUrl: 'partials/templates/list.html',
-			controller: 'gestionUtilisateursCtrl'
 		}).
 		otherwise({
 			redirectTo: '/accueil'
