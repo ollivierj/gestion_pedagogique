@@ -22,12 +22,12 @@ controllers
 										},
 										{
 											field : 'formatedDateHeureDebutPassage',
-											cellFilter: 'date:\'dd/MM/yyyy\'',
+											cellFilter: 'date:\'dd/MM/yyyy HH:mm\'',
 											displayName : 'Date et heure de début'
 										},
 										{
 											field : 'formatedDateHeureFinPassage',
-											cellFilter: 'date:\'dd/MM/yyyy\'',
+											cellFilter: 'date:\'dd/MM/yyyy HH:mm\'',
 											displayName : 'Date et heure de fin'
 										},
 										{										
