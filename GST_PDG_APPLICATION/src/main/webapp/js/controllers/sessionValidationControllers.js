@@ -65,7 +65,7 @@ controllers
 							sessionValidationId) {
 						var modalAdd = $modal
 								.open({
-									templateUrl : 'partials/templates/form.html',
+									templateUrl : 'partials/templates/inscription-form.html',
 									controller : modalEditionSessionValidationCtrl,
 									resolve : {
 										title : function() {return "Ajout d'une session de validation";},
@@ -93,7 +93,7 @@ controllers
 							sessionValidationId) {
 						var modalEdit = $modal
 								.open({
-									templateUrl : 'partials/templates/form.html',
+									templateUrl : 'partials/templates/inscription-form.html',
 									controller : modalEditionSessionValidationCtrl,
 									resolve : {
 										title : function() {return "Visualisation d'une session de validation";},
@@ -123,7 +123,7 @@ controllers
 							sessionValidationId) {
 						var modalEdit = $modal
 								.open({
-									templateUrl : 'partials/templates/form.html',
+									templateUrl : 'partials/templates/inscription-form.html',
 									controller : modalEditionSessionValidationCtrl,
 									resolve : {
 										title : function() {return "Edition d'une session de validation";},
@@ -234,47 +234,50 @@ var modalEditionSessionValidationCtrl = function($scope, $modalInstance,
 		{
 			key : "lienDocsCollectes",
 		 	disabled : $scope.data.readonly
-		},
+		}
+	    ];
+	$scope.form2 =
+		[
 		{
-	    	type: "conditional",
-            condition: "!data.readonly", 
-            items: 
-           	 [
-           	 {
-           	 type: "actions",
-           	 items:	
-           		 [
-		         {
-		         type: 'submit', 
-		         title: $scope.okTitle 
-		         },
-		         { 
-				 type: 'button', 
-				 title: 'Annuler', 
-				 onClick: "cancel()" 
+		type: "conditional",
+		condition: "!data.readonly", 
+		items: 
+		 [
+		 {
+		 type: "actions",
+		 items:	
+			 [
+		     {
+		     type: 'submit', 
+		     title: $scope.okTitle 
+		     },
+		     { 
+			 type: 'button', 
+			 title: 'Annuler', 
+			 onClick: "cancel()" 
 				 }
 		         ]
-           	 }
-           	 ]	
+		   	 }
+		   	 ]	
 		},
 		{
-	    	type: "conditional",
-            condition: "data.readonly", 
-            items: 
-           	 [
-           	 {
-           	 type: "actions",
-           	 items:	
-           		 [
-		         {
-		         type: 'submit', 
+		type: "conditional",
+		condition: "data.readonly", 
+		items: 
+		 [
+		 {
+		 type: "actions",
+		 items:	
+			 [
+		     {
+		     type: 'submit', 
 		         title: $scope.okTitle 
 		         }
 		         ]
-           	 }
-           	 ]	
+		   	 }
+		   	 ]	
 		}
-	    ];
+		];
 	$scope.decorator = 'bootstrap-decorator';
 	$scope.submit =function(){
 		$scope.ok($scope.data).$promise.then(

@@ -1,11 +1,11 @@
 var formulaireReservationSalleCtrl = function($scope, $modalInstance, $filter,
-		items, salles, sallesReservees, promotions, animateursLibres, getByIdFilter) {
+		items, salles, sallesReservees, promotions, getByIdFilter) {
 
 	$scope.info = "";
 	$scope.referentielSalles = salles;
 	$scope.promotions = promotions;
 	$scope.salles = sallesReservees;
-	$scope.animateursLibres = animateursLibres;
+	$scope.animateursLibres = [];
 	$scope.getClassName = function(id) {
 		return getByIdFilter($scope.referentielSalles, id).nom;
 	};
