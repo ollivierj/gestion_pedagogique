@@ -53,9 +53,9 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
                     sallesReservees : function (SallesReserveesFactory) {
                         return SallesReserveesFactory.query().$promise;
                     },
-                    animateursLibres : function (AnimateursLibresFactory) {
+                   /* animateursLibres : function (AnimateursLibresFactory) {
                         return AnimateursLibresFactory.query().$promise;
-                    },
+                    },*/
                     
                     
                 }

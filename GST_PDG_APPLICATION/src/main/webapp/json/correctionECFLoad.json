@@ -1,8 +1,0 @@
-[
-	{"module":"Java", "formation":"AL",  "date":"5 janvier 2014", "corrige":"Oui"},
-	{"module":"C++", "formation":"AL", "date":"12 janvier 2014", "corrige":"Non"},
-	{"module":".NET Java", "formation":"AL", "date":"19 janvier 2014", "corrige":"Oui"},
-	{"module":"SQL", "formation":"AL", "date":"26 janvier 2014", "corrige":"Non"},
-	{"module":"Linux", "formation":"MS2I", "date":"3 fevrier 2014", "corrige":"Oui"}
-]
-

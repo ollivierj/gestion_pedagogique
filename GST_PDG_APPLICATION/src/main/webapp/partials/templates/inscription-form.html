@@ -1,0 +1,28 @@
+<div class="modal-header">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<i class="fa fa-group"></i> {{title}}
+			</h3>
+		</div>
+	</div>
+</div>
+<div class="modal-body">
+	<form>
+		<tabset> <tab heading="Description">
+		<div name="generic" sf-schema="schema" sf-form="form" sf-model="data"
+			style="margin-top: 15px"></div>
+		</tab> <tab heading="Stagiaires">
+		<div ng-include src="'partials/templates/inscription-tree.html'"></div>
+		</tab> </tabset>
+		<div>
+			<div name="generic" sf-schema="schema" sf-form="form2"
+				sf-model="data" style="margin-top: 15px"></div>
+		</div>
+	</form>
+</div>
+
+
+
+
+

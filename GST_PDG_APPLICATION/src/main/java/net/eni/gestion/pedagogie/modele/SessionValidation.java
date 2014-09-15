@@ -4,19 +4,19 @@
 package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.text.ParseException;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
+import net.eni.gestion.pedagogie.commun.outil.DateHelper;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.github.reinert.jjschema.Attributes;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
@@ -39,7 +39,6 @@ public class SessionValidation extends AModele<Integer> implements Serializable 
 
 	public final static String ID_FIELD_NAME 						= "SES_VAL_ID";
 	public final static String AUTEUR_FIELD_NAME 					= "SES_VAL_AUTEUR";
-	public final static String DATE_CREATION_FIELD_NAME 			= "SES_VAL_DATE_CREATION";
 	public final static String TITRE_PROFESSIONNEL_FIELD_NAME		= "SES_VAL_TITRE_PROFESSIONNEL";
 	public final static String DATE_DEBUT_FIELD_NAME				= "SES_VAL_DATE_DEBUT";
 	public final static String DATE_FIN_FIELD_NAME					= "SES_VAL_DATE_FIN";
@@ -55,29 +54,7 @@ public class SessionValidation extends AModele<Integer> implements Serializable 
 		useGetSet = true)
 	private Integer id = null;
 
-	@DatabaseField(
-		columnName = AUTEUR_FIELD_NAME,
-		foreign = true,
-		useGetSet = true,
-		canBeNull = false)
-	private Utilisateur auteur = null;
-
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy H:mm:ss", timezone="CET")   
-	@DatabaseField(
-		columnName = DATE_CREATION_FIELD_NAME,
-		dataType = DataType.DATE,
-		useGetSet = true,
-		canBeNull = false)
-	private Date dateCreation = null;
-
-	@DatabaseField(
-		columnName = TITRE_PROFESSIONNEL_FIELD_NAME,
-		foreign = true,
-		useGetSet = true,
-		canBeNull = false)
-	private TitreProfessionnel titreProfessionnel = null;
-
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy", timezone="CET")   
+	@JsonIgnore
 	@DatabaseField(
 		columnName = DATE_DEBUT_FIELD_NAME,
 		dataType = DataType.DATE,
@@ -85,14 +62,36 @@ public class SessionValidation extends AModele<Integer> implements Serializable 
 		canBeNull = false)
 	private Date dateDebut = null;
 
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy", timezone="CET")   
+	@Attributes(title = "Date de début", required = true, format = "date")
+	private String formatedDateDebut;
+	
+	@JsonIgnore
 	@DatabaseField(
 		columnName = DATE_FIN_FIELD_NAME,
 		dataType = DataType.DATE,
 		useGetSet = true,
 		canBeNull = false)
 	private Date dateFin = null;
+
+	@Attributes(title = "Date de fin", required = true, format = "date")
+	private String formatedDateFin;
 	
+	@DatabaseField(
+		columnName = AUTEUR_FIELD_NAME,
+		foreign = true,
+		useGetSet = true,
+		canBeNull = false)
+	private Utilisateur auteur = null;
+
+	@DatabaseField(
+		columnName = TITRE_PROFESSIONNEL_FIELD_NAME,
+		foreign = true,
+		useGetSet = true,
+		canBeNull = false,
+		foreignAutoRefresh = true)
+	private TitreProfessionnel titreProfessionnel = null;
+
+	@Attributes(title = "Lien vers les modèles de document pour le publipostage", required = false, maxLength = 250, format = "url")
 	@DatabaseField(
 		columnName = LIEN_MODELES_PUBLIPOSTAGE_FIELD_NAME,
 		dataType = DataType.STRING,
@@ -100,6 +99,7 @@ public class SessionValidation extends AModele<Integer> implements Serializable 
 		canBeNull = false)
 	private String lienModelesPublipostage = null;
 	
+	@Attributes(title = "Lien vers les documents générés (publipostage)", required = false, maxLength = 250, format = "url")
 	@DatabaseField(
 			columnName = LIEN_DOCS_GENERES_FIELD_NAME,
 			dataType = DataType.STRING,
@@ -107,6 +107,7 @@ public class SessionValidation extends AModele<Integer> implements Serializable 
 			canBeNull = false)
 		private String lienDocsGeneres = null;
 	
+	@Attributes(title = "Lien vers les documents remis par les jurys", required = false, maxLength = 250, format = "url")
 	@DatabaseField(
 			columnName = LIEN_DOCS_COLLECTES_FIELD_NAME,
 			dataType = DataType.STRING,
@@ -114,11 +115,6 @@ public class SessionValidation extends AModele<Integer> implements Serializable 
 			canBeNull = false)
 		private String lienDocsCollectes = null;
 	
-	@ForeignCollectionField(eager = true, columnName = InstanceSessionValidation.SESSION_VALIDATION_FIELD_NAME)
-	private transient Collection<InstanceSessionValidation> transientInstanceSessionValidations = null;
-
-	private ArrayList<InstanceSessionValidation> instanceSessionValidations = new ArrayList<InstanceSessionValidation>();
-
 	@Override
 	public Integer getId() {
 		return id;
@@ -137,10 +133,6 @@ public class SessionValidation extends AModele<Integer> implements Serializable 
 		this.auteur = auteur;
 	}
 
-	public Date getDateCreation() {
-		return dateCreation;
-	}
-
 	public String getLienDocsGeneres() {
 		return lienDocsGeneres;
 	}
@@ -157,46 +149,12 @@ public class SessionValidation extends AModele<Integer> implements Serializable 
 		this.lienDocsCollectes = lienDocsCollectes;
 	}
 
-	public Collection<InstanceSessionValidation> getTransientInstanceSessionValidations() {
-		return transientInstanceSessionValidations;
-	}
-
-	public void setTransientInstanceSessionValidations(
-			Collection<InstanceSessionValidation> transientInstanceSessionValidations) {
-		this.transientInstanceSessionValidations = transientInstanceSessionValidations;
-	}
-
-	public void setInstanceSessionValidations(
-			ArrayList<InstanceSessionValidation> instanceSessionValidations) {
-		this.instanceSessionValidations = instanceSessionValidations;
-	}
-
-	public void setDateCreation(Date dateCreation) {
-		this.dateCreation = dateCreation;
-	}
-
 	public TitreProfessionnel getTitreProfessionnel() {
 		return titreProfessionnel;
 	}
 
 	public void setTitreProfessionnel(TitreProfessionnel titreProfessionnel) {
 		this.titreProfessionnel = titreProfessionnel;
-	}
-
-	public Date getDateDebut() {
-		return dateDebut;
-	}
-	
-	public void setDateDebut(Date dateDebut) {
-		this.dateDebut = dateDebut;
-	}
-
-	public Date getDateFin() {
-		return dateFin;
-	}
-	
-	public void setDateFin(Date dateFin) {
-		this.dateFin = dateFin;
 	}
 
 	public String getLienModelesPublipostage() {
@@ -207,13 +165,39 @@ public class SessionValidation extends AModele<Integer> implements Serializable 
 		this.lienModelesPublipostage = lienModelesPublipostage;
 	}
 
-	public ArrayList<InstanceSessionValidation> getInstanceSessionValidations() {
-		if (null != transientInstanceSessionValidations) {
-			instanceSessionValidations.clear();
-			instanceSessionValidations.addAll(transientInstanceSessionValidations);
-			transientInstanceSessionValidations = null;
-		}
-		return instanceSessionValidations;
+	public Date getDateDebut() {
+		return dateDebut;
 	}
 
+	public void setDateDebut(Date dateDebut) {
+		this.formatedDateDebut=DateHelper.stringifyDate(dateDebut, "yyyy-MM-dd'T'HH:mm:ss");
+		this.dateDebut = dateDebut;
+	}
+	
+	public String getFormatedDateDebut() {
+		return formatedDateDebut;
+	}
+
+	public void setFormatedDateDebut(String formatedDateDebut) throws ParseException {
+		this.dateDebut=DateHelper.datifyString(formatedDateDebut, "yyyy-MM-dd'T'HH:mm:ss");
+		this.formatedDateDebut = formatedDateDebut;
+	}
+
+	public Date getDateFin() {
+		return dateFin;
+	}
+
+	public void setDateFin(Date dateFin) {
+		this.formatedDateFin=DateHelper.stringifyDate(dateFin, "yyyy-MM-dd'T'HH:mm:ss");
+		this.dateFin = dateFin;
+	}
+	
+	public String getFormatedDateFin() {
+		return formatedDateFin;
+	}
+
+	public void setFormatedDateFin(String formatedDateFin) throws ParseException {
+		this.dateFin=DateHelper.datifyString(formatedDateFin, "yyyy-MM-dd'T'HH:mm:ss");
+		this.formatedDateFin = formatedDateFin;
+	}
 }

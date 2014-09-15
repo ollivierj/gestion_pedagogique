@@ -22,12 +22,12 @@ controllers
 										},
 										{
 											field : 'formatedDateHeureDebutPassage',
-											cellFilter: 'date:\'dd/MM/yyyy\'',
+											cellFilter: 'date:\'dd/MM/yyyy HH:mm\'',
 											displayName : 'Date et heure de début'
 										},
 										{
 											field : 'formatedDateHeureFinPassage',
-											cellFilter: 'date:\'dd/MM/yyyy\'',
+											cellFilter: 'date:\'dd/MM/yyyy HH:mm\'',
 											displayName : 'Date et heure de fin'
 										},
 										{										
@@ -69,7 +69,7 @@ controllers
 							evaluationId) {
 						var modalAdd = $modal
 								.open({
-									templateUrl : 'partials/templates/form.html',
+									templateUrl : 'partials/templates/inscription-form.html',
 									controller : modalEditionEvaluationCtrl,
 									resolve : {
 										title : function() {return "Ajout d'une évaluation";},
@@ -100,7 +100,7 @@ controllers
 							evaluationId) {
 						var modalEdit = $modal
 								.open({
-									templateUrl : 'partials/templates/form.html',
+									templateUrl : 'partials/templates/inscription-form.html',
 									controller : modalEditionEvaluationCtrl,
 									resolve : {
 										title : function() {return "Visualisation d'une évaluation";},
@@ -133,7 +133,7 @@ controllers
 							evaluationId) {
 						var modalEdit = $modal
 								.open({
-									templateUrl : 'partials/templates/form.html',
+									templateUrl : 'partials/templates/inscription-form.html',
 									controller : modalEditionEvaluationCtrl,
 									resolve : {
 										title : function() {return "Edition d'une évaluation";},
@@ -231,7 +231,7 @@ var modalEditionEvaluationCtrl = function($scope, $modalInstance,
 			titleMap : $scope.sujetEvaluationsTitleMap
 		}, 
 		{
-			title : "correcteur",
+			title : "Correcteur",
 			key: "correcteur.id",
 			type : "select",
 			disabled : $scope.data.readonly,
@@ -253,47 +253,50 @@ var modalEditionEvaluationCtrl = function($scope, $modalInstance,
 		{
 			key : "lienCopiesImmaterielles",
 		 	disabled : $scope.data.readonly
-		},
+		}
+	    ];
+	$scope.form2 =
+		[
 		{
-	    	type: "conditional",
-            condition: "!data.readonly", 
-            items: 
-           	 [
-           	 {
-           	 type: "actions",
-           	 items:	
-           		 [
-		         {
-		         type: 'submit', 
-		         title: $scope.okTitle 
-		         },
-		         { 
-				 type: 'button', 
-				 title: 'Annuler', 
-				 onClick: "cancel()" 
+		type: "conditional",
+		condition: "!data.readonly", 
+		items: 
+		 [
+		 {
+		 type: "actions",
+		 items:	
+			 [
+		     {
+		     type: 'submit', 
+		     title: $scope.okTitle 
+		     },
+		     { 
+			 type: 'button', 
+			 title: 'Annuler', 
+			 onClick: "cancel()" 
 				 }
 		         ]
-           	 }
-           	 ]	
+		   	 }
+		   	 ]	
 		},
 		{
-	    	type: "conditional",
-            condition: "data.readonly", 
-            items: 
-           	 [
-           	 {
-           	 type: "actions",
-           	 items:	
-           		 [
-		         {
-		         type: 'submit', 
+		type: "conditional",
+		condition: "data.readonly", 
+		items: 
+		 [
+		 {
+		 type: "actions",
+		 items:	
+			 [
+		     {
+		     type: 'submit', 
 		         title: $scope.okTitle 
 		         }
 		         ]
-           	 }
-           	 ]	
+		   	 }
+		   	 ]	
 		}
-	    ];
+		];
 	$scope.decorator = 'bootstrap-decorator';
 	$scope.submit =function(){
 		$scope.ok($scope.data).$promise.then(

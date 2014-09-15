@@ -305,7 +305,7 @@ public class ProfessionnelHomologue extends AModele<Integer> implements Serializ
 	}
 	
 	public void setDateNaissance(Date dateNaissance) {
-		this.formatedDateNaissance=DateHelper.stringifyDate(dateNaissance, "yyyy-MM-dd");
+		this.formatedDateNaissance=DateHelper.stringifyDate(dateNaissance, "yyyy-MM-dd'T'HH:mm:ss");
 		this.dateNaissance = dateNaissance;
 	}
 	
@@ -314,7 +314,7 @@ public class ProfessionnelHomologue extends AModele<Integer> implements Serializ
 	}
 
 	public void setFormatedDateNaissance(String formatedDateNaissance) throws ParseException {
-		this.dateNaissance= DateHelper.datifyString(formatedDateNaissance, "yyyy-MM-dd");
+		this.dateNaissance= DateHelper.datifyString(formatedDateNaissance, "yyyy-MM-dd'T'HH:mm:ss");
 		this.formatedDateNaissance = formatedDateNaissance;
 	}
 

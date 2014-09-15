@@ -5,7 +5,17 @@ angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 'ngAnimate', 'ui
                               'ng_gst_pdg.services', 'ng_gst_pdg.directives', 'mgcrea.ngStrap.timepicker',
                               'mgcrea.ngStrap.datepicker', 'toaster'])
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $datepickerProvider, $timepickerProvider) {
+	
+	angular.extend($datepickerProvider.defaults, {
+        dateType: "string",
+        modelDateFormat: "yyyy-MM-ddTHH:mm:ss",
+    });
+	
+    angular.extend($timepickerProvider.defaults, {
+        timeType: "string",
+        modelTimeFormat: "yyyy-MM-ddTHH:mm:ss",
+    });
 	
 	//	Url par défaut
 	$urlRouterProvider.otherwise("/accueil");
@@ -17,8 +27,8 @@ angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 'ngAnimate', 'ui
 			templateUrl: 'partials/accueil.html',
 		}).
 		// STAGIAIRE ************************************************* 
-		state('stagiaire', {
-			url: '/stagiaire',
+		state('stagiaires', {
+			url: '/stagiaires',
 			templateUrl: 'partials/stagiaire/stagiaire.html',
 			controller: 'stagiaireCtrl'
 		}).	
@@ -83,8 +93,8 @@ angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 'ngAnimate', 'ui
 			controller: 'editVersionCtrl'
 		}).
 		//PLANNING SALLE *************************************************
-		state('salle', {
-			url: '/salle',
+		state('salles', {
+			url: '/salles',
 			templateUrl: 'partials/salle/planningReservationSalle.html',
 			controller: 'planningReservationSalleCtrl'
 		}).
@@ -93,7 +103,7 @@ angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 'ngAnimate', 'ui
 			templateUrl: 'partials/salle/formulaireReservationSalle.html',
 			controller: 'formulaireReservationSalleCtrl'
 		}).
-		//SESSION DE VALIDATION *******************************************
+		//SESSIONS DE VALIDATION *******************************************
 		state('gestionSessionsValidation', {
 			url: '/gestionSessionsValidation',
 			templateUrl: 'partials/gestionSessionsValidation/gestionSessionsValidation.html',
@@ -104,47 +114,53 @@ angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 'ngAnimate', 'ui
 				}
 			}
 		}).
-		//PROFFESSIONNEL HOMOLOGUES *****************************************
+		//PROFFESSIONNELS HOMOLOGUES *****************************************
 		state('professionnelHomologues', {
 			url: '/professionnelHomologues',
 			templateUrl: 'partials/templates/list.html',
 			controller: 'professionelHomologuesCtrl'
 		}).
-		//TITRE PROFESSIONNEL ***********************************************
+		//TITRES PROFESSIONNELS ***********************************************
 		state('titreProfessionnels', {
 			url: '/titreProfessionnels',
 			templateUrl: 'partials/templates/list.html',
 			controller: 'titreProfessionnelsCtrl'
 		}).
-		//SUJET EVALUATION ***********************************************
-		state('sujetsEvaluation', {
-			url: '/sujetsEvaluation',
+		//SUJETS EVALUATIONS ***********************************************
+		state('sujetsEvaluations', {
+			url: '/sujetsEvaluations',
 			templateUrl: 'partials/templates/list.html',
 			controller: 'sujetEvaluationsCtrl'
 		}).
-		//EVALUATION ********************************************************
-		state('evaluation', {
-			url: '/evaluation',
+		//EVALUATIONS ********************************************************
+		state('evaluations', {
+			url: '/evaluations',
 			templateUrl: 'partials/templates/list.html',
 			controller: 'evaluationsCtrl'
 		}).
-		//FICHIER ***********************************************************
+		//FICHIERS ***********************************************************
 		state('fichiers', {
 			url: '/fichiers',
 			templateUrl: 'partials/fichiers.html',
 			controller: 'fichiersCtrl'
 		}).
-		//PROFIL *************************************************************
-		state('gestionProfils', {
-			url: '/gestionProfils',
+		//PROFILS *************************************************************
+		state('profils', {
+			url: '/profils',
 			templateUrl: 'partials/droit/gestionDroit.html',
 			controller: 'gestionDroitCtrl'
 		}).
 		//UTILISATEURS ******************************************************
-		state('gestionUtilisateurs', {
-			url: '/gestionUtilisateurs',
+		state('utilisateurs', {
+			url: '/utilisateurs',
 			templateUrl: 'partials/templates/list.html',
 			controller: 'gestionUtilisateursCtrl'
+		}).
+		//SESSION DE VALIDATION **********************************************
+		state('sessionValidations', {
+			url: '/sessionValidations',
+			templateUrl: 'partials/templates/list.html',
+			controller: 'sessionValidationsCtrl'
 		});
 });
 
