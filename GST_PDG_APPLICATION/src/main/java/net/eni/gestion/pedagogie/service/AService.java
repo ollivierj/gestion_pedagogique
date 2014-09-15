@@ -1,6 +1,7 @@
 package net.eni.gestion.pedagogie.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
 import net.eni.gestion.pedagogie.commun.composant.Pager;
@@ -71,4 +72,7 @@ public interface AService <M extends AModele<ID>, ID> {
 	 * @throws GenericException
 	 */
 	public M addOrUpdate(M pModel) throws GenericException;
+
+	public HashMap<String, String> getTitleMap() throws GenericException;
+
 }

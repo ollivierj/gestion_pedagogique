@@ -13,10 +13,10 @@ import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.commun.outil.DateHelper;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.github.reinert.jjschema.Attributes;
 import com.github.reinert.jjschema.SchemaIgnore;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
@@ -45,7 +45,6 @@ public class Absence extends AModele<Integer> implements Serializable {
 	public final static String STAGIAIRE_FIELD_NAME 				= "ABS_STAGIAIRE";
 	public final static String DATE_ARRIVEE_MATIN_FIELD_NAME		= "ABS_DATE_ARRIVEE_MATIN";
 	public final static String DATE_ARRIVEE_APRES_MIDI_FIELD_NAME	= "ABS_DATE_ARRIVEE_APRES_MIDI";
-	public final static String DATE_SAISIE_FIELD_NAME 				= "ABS_DATE_SAISIE";
 	public final static String AUTEUR_FIELD_NAME 					= "ABS_AUTEUR";
 	public final static String MOTIF_FIELD_NAME 					= "ABS_MOTIF";
 	public final static String IS_ABSENCE_FIELD_NAME 				= "ABS_IS_ABSENCE";
@@ -78,20 +77,11 @@ public class Absence extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private Stagiaire stagiaire = null;
    
-	@JsonIgnore
-	@DatabaseField(
-		columnName = DATE_SAISIE_FIELD_NAME,
-		dataType = DataType.DATE,
-		useGetSet = true,
-		canBeNull = false)
-	private Date dateSaisie = null;
-	
-	@JsonProperty
-	private String formatedDateSaisie;
-	
+	@JsonBackReference(value="absence-utilisateur")
 	@DatabaseField(
 		columnName = AUTEUR_FIELD_NAME,
 		foreign = true,
+		foreignAutoRefresh=true,
 		useGetSet = true,
 		canBeNull = false)
 	private Utilisateur auteur = null;
@@ -100,7 +90,7 @@ public class Absence extends AModele<Integer> implements Serializable {
 			columnName = MOTIF_FIELD_NAME,
 			useGetSet = true,
 			canBeNull = true)
-		private String motif = null;
+		private String commentaire = null;
 	
 	@DatabaseField(
 			columnName = IS_ABSENCE_FIELD_NAME,
@@ -158,15 +148,6 @@ public class Absence extends AModele<Integer> implements Serializable {
 		this.stagiaire = stagiaire;
 	}
 
-	public Date getDateSaisie() {
-		return dateSaisie;
-	}
-	
-	public void setDateSaisie(Date dateSaisie) {
-		this.formatedDateSaisie = DateHelper.stringifyDate(dateSaisie, "dd/MM/yyyy HH:mm");
-		this.dateSaisie = dateSaisie;
-	}
-
 	public Utilisateur getAuteur() {
 		return auteur;
 	}
@@ -175,12 +156,12 @@ public class Absence extends AModele<Integer> implements Serializable {
 		this.auteur = auteur;
 	}
 
-	public String getMotif() {
-		return motif;
+	public String getCommentaire() {
+		return commentaire;
 	}
 
-	public void setMotif(String motif) {
-		this.motif = motif;
+	public void setCommentaire(String commentaire) {
+		this.commentaire = commentaire;
 	}
 
 	public Boolean getIsAbsence() {
@@ -189,15 +170,6 @@ public class Absence extends AModele<Integer> implements Serializable {
 
 	public void setIsAbsence(Boolean isAbsence) {
 		this.isAbsence = isAbsence;
-	}
-
-	public String getFormatedDateSaisie() {
-		return formatedDateSaisie;
-	}
-
-	public void setFormatedDateSaisie(String formatedDateSaisie) {
-		this.dateSaisie= DateHelper.datifyString(formatedDateSaisie, "dd/MM/yyyy HH:mm");
-		this.formatedDateSaisie = formatedDateSaisie;
 	}
 	
 }

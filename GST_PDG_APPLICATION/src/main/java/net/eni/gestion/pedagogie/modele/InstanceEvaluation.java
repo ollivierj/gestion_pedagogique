@@ -4,20 +4,14 @@
 package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Iterator;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
@@ -41,12 +35,7 @@ public class InstanceEvaluation extends AModele<Integer> implements Serializable
 	public final static String ID_FIELD_NAME 						= "INST_EVAL_ID";
 	public final static String RESERVATION_SALLE_FIELD_NAME 		= "INST_EVAL_RESERVATION_SALLE";
 	public final static String SURVEILLANT_FIELD_NAME 				= "INST_EVAL_SURVEILLANT";
-	public final static String CORRECTEUR_FIELD_NAME 				= "INST_EVAL_CORRECTEUR";
 	public final static String EVALUATION_FIELD_NAME 				= "INST_EVAL_EVALUATION";
-	public final static String LIEN_GRILLE_CORRECTION_FIELD_NAME 	= "INST_EVAL_LIEN_GRILLE_CORRECTION";
-	public final static String LIEN_COPIES_IMMATERRIELLES_FIELD_NAME= "INST_EVAL_LIEN_COPIES_IMMATERRIELLES";
-	public final static String DATE_DEBUT_PASSAGE_FIELD_NAME 		= "INST_EVAL_DATE_DEBUT_PASSAGE";
-	public final static String DATE_FIN_PASSAGE_FIELD_NAME 			= "INST_EVAL_DATE_FIN_PASSAGE";
 
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
@@ -68,13 +57,6 @@ public class InstanceEvaluation extends AModele<Integer> implements Serializable
 		useGetSet = true,
 		canBeNull = false)
 	private Utilisateur surveillant = null;
-
-	@DatabaseField(
-		columnName = CORRECTEUR_FIELD_NAME,
-		foreign = true,
-		useGetSet = true,
-		canBeNull = false)
-	private Utilisateur correcteur = null;
 	
 	@DatabaseField(
 		columnName = EVALUATION_FIELD_NAME,
@@ -83,39 +65,6 @@ public class InstanceEvaluation extends AModele<Integer> implements Serializable
 		canBeNull = false)
 	private Evaluation evaluation = null;
 	
-	@DatabaseField(
-		columnName = LIEN_GRILLE_CORRECTION_FIELD_NAME,
-		dataType = DataType.STRING,
-		useGetSet = true)
-	private String lienGrilleCorrection = null;
-	
-	@DatabaseField(
-		columnName = LIEN_COPIES_IMMATERRIELLES_FIELD_NAME,
-		dataType = DataType.STRING,
-		useGetSet = true)
-	private String lienCopiesImmaterrielles = null;
-	
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy H:mm:ss", timezone="CET")   
-	@DatabaseField(
-		columnName = DATE_DEBUT_PASSAGE_FIELD_NAME,
-		dataType = DataType.DATE,
-		useGetSet = true,
-		canBeNull = false)
-	private Date dateDebutPassage = null;
-
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy H:mm:ss", timezone="CET")   
-	@DatabaseField(
-		columnName = DATE_FIN_PASSAGE_FIELD_NAME,
-		dataType = DataType.DATE,
-		useGetSet = true,
-		canBeNull = false)
-	private Date dateFinPassage = null;
-	
-	@ForeignCollectionField(eager = true, columnName = InstanceEvaluationStagiaire.ID2_FIELD_NAME)
-	private transient Collection<InstanceEvaluationStagiaire> transientInstanceEvaluationStagiaires = null;
-
-	private ArrayList<InstanceEvaluationStagiaire> instanceEvaluationStagiaires = new ArrayList<InstanceEvaluationStagiaire>();
-
 	@Override
 	public Integer getId() {
 		return id;
@@ -142,14 +91,6 @@ public class InstanceEvaluation extends AModele<Integer> implements Serializable
 		this.surveillant = surveillant;
 	}
 
-	public Utilisateur getCorrecteur() {
-		return correcteur;
-	}
-
-	public void setCorrecteur(Utilisateur correcteur) {
-		this.correcteur = correcteur;
-	}
-
 	public Evaluation getEvaluation() {
 		return evaluation;
 	}
@@ -158,56 +99,4 @@ public class InstanceEvaluation extends AModele<Integer> implements Serializable
 		this.evaluation = evaluation;
 	}
 
-	public String getLienGrilleCorrection() {
-		return lienGrilleCorrection;
-	}
-
-	public void setLienGrilleCorrection(String lienGrilleCorrection) {
-		this.lienGrilleCorrection = lienGrilleCorrection;
-	}
-
-	public String getLienCopiesImmaterrielles() {
-		return lienCopiesImmaterrielles;
-	}
-
-	public void setLienCopiesImmaterrielles(String lienCopiesImmaterrielles) {
-		this.lienCopiesImmaterrielles = lienCopiesImmaterrielles;
-	}
-
-	public Date getDateDebutPassage() {
-		return dateDebutPassage;
-	}
-	
-	public void setDateDebutPassage(Date dateDebutPassage) {
-		this.dateDebutPassage = dateDebutPassage;
-	}
-
-	public Date getDateFinPassage() {
-		return dateFinPassage;
-	}
-	
-	public void setDateFinPassage(Date dateFinPassage) {
-		this.dateFinPassage = dateFinPassage;
-	}
-
-	private ArrayList<InstanceEvaluationStagiaire> getInstanceEvaluationStagiaires() {
-		if (null != transientInstanceEvaluationStagiaires) {
-			instanceEvaluationStagiaires.clear();
-			instanceEvaluationStagiaires.addAll(transientInstanceEvaluationStagiaires);
-			transientInstanceEvaluationStagiaires = null;
-		}
-		return instanceEvaluationStagiaires;
-	}
-	
-	public ArrayList<Stagiaire> getStagiaires(){
-		ArrayList<Stagiaire> stagiaires = new ArrayList<Stagiaire>();
-		if (0 < getInstanceEvaluationStagiaires().size()) {
-			Iterator<InstanceEvaluationStagiaire> iterator = getInstanceEvaluationStagiaires().iterator();
-			while (iterator.hasNext()) {
-				stagiaires.add(iterator.next().getStagiaire());
-			}
-		}
-		return stagiaires;
-	}
-	
 }

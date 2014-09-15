@@ -1,9 +1,6 @@
 package net.eni.gestion.pedagogie.DAO;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import com.j256.ormlite.dao.BaseDaoImpl;
 
 import net.eni.gestion.pedagogie.DAO.implementation.AbsenceDaoImpl;
 import net.eni.gestion.pedagogie.DAO.implementation.AvisDaoImpl;
@@ -14,7 +11,6 @@ import net.eni.gestion.pedagogie.modele.Absence;
 import net.eni.gestion.pedagogie.modele.Avis;
 import net.eni.gestion.pedagogie.modele.Echange;
 import net.eni.gestion.pedagogie.modele.Stagiaire;
-import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 /**
  * @author jollivier

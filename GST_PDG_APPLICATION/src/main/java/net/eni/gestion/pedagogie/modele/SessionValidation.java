@@ -44,6 +44,9 @@ public class SessionValidation extends AModele<Integer> implements Serializable 
 	public final static String DATE_DEBUT_FIELD_NAME				= "SES_VAL_DATE_DEBUT";
 	public final static String DATE_FIN_FIELD_NAME					= "SES_VAL_DATE_FIN";
 	public final static String LIEN_MODELES_PUBLIPOSTAGE_FIELD_NAME	= "SES_VAL_LIEN_MODELES_PUBLIPOSTAGE";
+	public final static String LIEN_DOCS_GENERES_FIELD_NAME			= "SES_VAL_LIEN_DOCS_GENERES";
+	public final static String LIEN_DOCS_COLLECTES_FIELD_NAME		= "SES_VAL_LIEN_DOCS_COLLECTES";
+	
 	
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
@@ -97,6 +100,20 @@ public class SessionValidation extends AModele<Integer> implements Serializable 
 		canBeNull = false)
 	private String lienModelesPublipostage = null;
 	
+	@DatabaseField(
+			columnName = LIEN_DOCS_GENERES_FIELD_NAME,
+			dataType = DataType.STRING,
+			useGetSet = true,
+			canBeNull = false)
+		private String lienDocsGeneres = null;
+	
+	@DatabaseField(
+			columnName = LIEN_DOCS_COLLECTES_FIELD_NAME,
+			dataType = DataType.STRING,
+			useGetSet = true,
+			canBeNull = false)
+		private String lienDocsCollectes = null;
+	
 	@ForeignCollectionField(eager = true, columnName = InstanceSessionValidation.SESSION_VALIDATION_FIELD_NAME)
 	private transient Collection<InstanceSessionValidation> transientInstanceSessionValidations = null;
 
@@ -122,6 +139,36 @@ public class SessionValidation extends AModele<Integer> implements Serializable 
 
 	public Date getDateCreation() {
 		return dateCreation;
+	}
+
+	public String getLienDocsGeneres() {
+		return lienDocsGeneres;
+	}
+
+	public void setLienDocsGeneres(String lienDocsGeneres) {
+		this.lienDocsGeneres = lienDocsGeneres;
+	}
+
+	public String getLienDocsCollectes() {
+		return lienDocsCollectes;
+	}
+
+	public void setLienDocsCollectes(String lienDocsCollectes) {
+		this.lienDocsCollectes = lienDocsCollectes;
+	}
+
+	public Collection<InstanceSessionValidation> getTransientInstanceSessionValidations() {
+		return transientInstanceSessionValidations;
+	}
+
+	public void setTransientInstanceSessionValidations(
+			Collection<InstanceSessionValidation> transientInstanceSessionValidations) {
+		this.transientInstanceSessionValidations = transientInstanceSessionValidations;
+	}
+
+	public void setInstanceSessionValidations(
+			ArrayList<InstanceSessionValidation> instanceSessionValidations) {
+		this.instanceSessionValidations = instanceSessionValidations;
 	}
 
 	public void setDateCreation(Date dateCreation) {

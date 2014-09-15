@@ -1,6 +1,7 @@
 package net.eni.gestion.pedagogie.service.implementation;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.ws.rs.PathParam;
 
@@ -108,4 +109,14 @@ abstract class AServiceImpl <M extends AModele<ID>, ID, D extends ADao<M, ID>> i
 			throw new GenericException("Echec lors de la mise à jour en base de données.");
 		}
 	}
+
+	public HashMap<String, String> getTitleMap() throws GenericException {
+		try {
+			return dao.getTitleMap();
+		} catch (Exception e) {
+			throw new GenericException(
+					"Echec lors du chargement depuis la base de données.");
+		}
+	}
+
 }

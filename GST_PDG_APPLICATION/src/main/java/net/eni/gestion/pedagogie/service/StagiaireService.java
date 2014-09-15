@@ -1,7 +1,6 @@
 package net.eni.gestion.pedagogie.service;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
 import net.eni.gestion.pedagogie.commun.composant.Pager;
@@ -22,6 +21,4 @@ public interface StagiaireService extends AService<Stagiaire, Integer> {
 	public Pair<ArrayList<Echange>, Long> chargerEchanges(Pager pPager) throws GenericException;
 	
 	public Pair<ArrayList<Avis>, Long> chargerAvis(Pager pPager) throws GenericException;	
-	
-	public Absence addOrUpdateAbsence(Absence absence) throws GenericException;
 }

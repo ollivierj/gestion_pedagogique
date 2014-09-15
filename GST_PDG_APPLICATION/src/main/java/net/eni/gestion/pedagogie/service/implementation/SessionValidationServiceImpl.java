@@ -25,5 +25,5 @@ public class SessionValidationServiceImpl extends AServiceImpl<SessionValidation
     public SessionValidationServiceImpl(SessionValidationDao pSessionValidationDao) throws SQLException {
         super(pSessionValidationDao);
     }
-    
+
 }

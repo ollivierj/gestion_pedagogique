@@ -9,6 +9,4 @@ import net.eni.gestion.pedagogie.modele.Profil;
  */
 public interface ProfilDao extends ADao<Profil, Integer> {
 
-	
-
 }

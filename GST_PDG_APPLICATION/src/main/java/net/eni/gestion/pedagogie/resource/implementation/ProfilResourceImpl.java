@@ -23,5 +23,5 @@ public class ProfilResourceImpl extends AResourceImpl<Profil, Integer, ProfilSer
     public ProfilResourceImpl(ProfilService profilService) {
     	super(profilService, Profil.class);
     }
-
+    
 }

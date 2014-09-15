@@ -9,6 +9,4 @@ import net.eni.gestion.pedagogie.modele.Fonction;
  */
 public interface FonctionDao extends ADao<Fonction, String> {
 
-	
-
 }

@@ -26,5 +26,5 @@ public class CoursServiceImpl extends AServiceImpl<Cours, UUID, CoursDao> implem
     public CoursServiceImpl(CoursDao pCoursDao) throws SQLException {
         super(pCoursDao);
     }
-    
+
 }

@@ -25,5 +25,5 @@ public class UtilisateurServiceImpl extends AServiceImpl<Utilisateur, Integer, U
     public UtilisateurServiceImpl(UtilisateurDao pUtilisateurDao) throws SQLException {
         super(pUtilisateurDao);
     }
-    
+
 }

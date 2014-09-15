@@ -1,10 +1,8 @@
 package net.eni.gestion.pedagogie.service.implementation;
 
 import java.sql.SQLException;
-import java.util.HashMap;
 
 import net.eni.gestion.pedagogie.DAO.TitreProfessionnelDao;
-import net.eni.gestion.pedagogie.commun.composant.GenericException;
 import net.eni.gestion.pedagogie.modele.TitreProfessionnel;
 import net.eni.gestion.pedagogie.service.TitreProfessionnelService;
 
@@ -31,15 +29,6 @@ public class TitreProfessionnelServiceImpl extends
 	public TitreProfessionnelServiceImpl(
 			TitreProfessionnelDao pTitreProfessionnelDao) throws SQLException {
 		super(pTitreProfessionnelDao);
-	}
-
-	public HashMap<String, String> getTitleMap() throws GenericException {
-		try {
-			return dao.getTitleMap();
-		} catch (Exception e) {
-			throw new GenericException(
-					"Echec lors du chargement depuis la base de données.");
-		}
 	}
 
 }

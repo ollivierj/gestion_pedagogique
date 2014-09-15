@@ -1,38 +1,38 @@
 'use strict';
 
-services.factory('SAbsenceFactory', function ($resource) {
+services.factory('SAbsenceFactory', function ($resource, StagiaireFactory) {
 		
 	var factory = {};
 	
 	factory.stagiaire = {};
+		
+	factory.pager = {
+			pagingOptions : {
+					pageSizes : [5,10,15,20,25,30],
+					pageSize : 10,
+					currentPage : 1
+			},
+			sortOptions : {
+					fields: ["date"],
+					directions: ["ASC"]
+			},
+			filterOptions : {
+					filterText: "",
+					useExternalFilter: false
+			},
+			id : StagiaireFactory.stagiaire.id
+	}; 
 	
-	//Absences ************************	
-	factory.pagingOptions = {
-			pageSizes : [5,10,15,20,25,30],
-			pageSize : 10,
-			currentPage : 1
-	};
-	
-	factory.sortOptions = {
-			fields: ["date"],
-			directions: ["ASC"]
-	};
-	
-	factory.filterOptions = {
-			filterText: "",
-			useExternalFilter: false
-	};
-	
-	factory.createAbsenceRess = $resource('/ng_gst_pdg/web/absences/addOrUpdate', {}, {
+	factory.createLine = $resource('/ng_gst_pdg/web/absences/addOrUpdate', {}, {
 		create : {method:'POST'}
-	})
+	});
 	
 	factory.detailAbsences = $resource('/ng_gst_pdg/web/stagiaires/absences', {}, {
 		load : {method:'POST'}
 	});
 	
-	factory.deleteLine = $resource('/ng_gst_pdg/web/absences/addOrUpdate/:id', {}, {
-		delete : {method:'DELETE', params : {id:'@idS'}}
+	factory.deleteLine = $resource('/ng_gst_pdg/web/absences/suppression/:id', {}, {
+		delete : {method:'DELETE', params : {id:'@id'}}
 	});
 	
 	// Méthode de récupération des absences d'un stagiaire	
@@ -52,7 +52,7 @@ services.factory('SAbsenceFactory', function ($resource) {
 					pagingOptions 	: factory.pagingOptions, 
 					sortOptions 	: factory.sortOptions, 
 					filterOptions 	: factory.filterOptions,
-					id				: factory.idStagiaire
+					id				: StagiaireFactory.stagiaire.idStagiaire
 				}
 			).$promise.then (
 				//Retour de la méthode dans un cas success
@@ -70,21 +70,17 @@ services.factory('SAbsenceFactory', function ($resource) {
 	}
 	
 	factory.getAbsencesInit = function() {
-		return factory.getAbsences(factory.stagiaire.id, factory.pagingOptions, factory.sortOptions, factory.filterOptions);
-	}
-	
-	factory.create = function (absence) {
-		var promise = factory.createAbsenceRess.create(absence).$promise.then(
+		return factory.detailAbsences.load (
+				factory.pager,
+				//Retour de la méthode dans un cas success
 				function (success) {
 					return success;
 				},
-				
+				//Retour de la methode dans un cas error
 				function (error) {
 					return error;
 				}
-		);
-		
-		return promise;
+			).$promise;
 	}
 	
 	//Enregsitrement du stagiaire sélectionné

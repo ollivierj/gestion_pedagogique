@@ -13,8 +13,6 @@ import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.commun.outil.DateHelper;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.github.reinert.jjschema.Attributes;
 import com.github.reinert.jjschema.SchemaIgnore;
 import com.j256.ormlite.field.DataType;
@@ -43,7 +41,6 @@ public class Avis extends AModele<Integer> implements Serializable {
 	public final static String STAGIAIRE_FIELD_NAME 		= "AVIS_STAGIAIRE";
 	public final static String INSTANCE_COURS_FIELD_NAME	= "AVIS_INSTANCE_COURS";
 	public final static String TEXTE_FIELD_NAME				= "AVIS_TEXTE";
-	public final static String DATE_SAISIE_FIELD_NAME 		= "AVIS_DATE_SAISIE";
 	public final static String AUTEUR_FIELD_NAME 			= "AVIS_AUTEUR";
 	public final static String DATE_FIELD_NAME 				= "AVIS_DATE";
 
@@ -77,13 +74,6 @@ public class Avis extends AModele<Integer> implements Serializable {
 		useGetSet = true,
 		canBeNull = false)
 	private String texte = null;
-   
-	@DatabaseField(
-		columnName = DATE_SAISIE_FIELD_NAME,
-		dataType = DataType.DATE,
-		useGetSet = true,
-		canBeNull = false)
-	private Date dateSaisie = null;
 	
 	@SchemaIgnore
 	@DatabaseField(
@@ -134,14 +124,6 @@ public class Avis extends AModele<Integer> implements Serializable {
 
 	public void setTexte(String texte) {
 		this.texte = texte;
-	}
-
-	public Date getDateSaisie() {
-		return dateSaisie;
-	}
-	
-	public void setDateSaisie(Date dateSaisie) {
-		this.dateSaisie = dateSaisie;
 	}
 
 	public Utilisateur getAuteur() {

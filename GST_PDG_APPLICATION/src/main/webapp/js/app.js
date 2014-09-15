@@ -1,9 +1,9 @@
 'use strict';
-angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 'ngAnimate', 'ui.router',
-//                              'angularFileUpload', 
+
+angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 'ngAnimate', 'ui.router', 'angularFileUpload', 
                               'schemaForm','ui.bootstrap','ui.tree','ng_gst_pdg.filters','ng_gst_pdg.controllers',
                               'ng_gst_pdg.services', 'ng_gst_pdg.directives', 'mgcrea.ngStrap.timepicker',
-                              'mgcrea.ngStrap.datepicker'])
+                              'mgcrea.ngStrap.datepicker', 'toaster'])
 
 .config(function($stateProvider, $urlRouterProvider) {
 	
@@ -16,6 +16,7 @@ angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 'ngAnimate', 'ui
 			url: '/accueil',
 			templateUrl: 'partials/accueil.html',
 		}).
+		// STAGIAIRE ************************************************* 
 		state('stagiaire', {
 			url: '/stagiaire',
 			templateUrl: 'partials/stagiaire/stagiaire.html',
@@ -23,22 +24,34 @@ angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 'ngAnimate', 'ui
 		}).	
 		state('detailStagiaire', {
 			url: '/detailStagiaire',
-			templateUrl: 'partials/stagiaire/detailStagiaire.html',
-			controller: 'detailStagiaireCtrl',
-			resolve: {
-				detail: function (StagiaireFactory) {
-					return StagiaireFactory.getDetail();
+			views : {
+				'': {
+					templateUrl: 'partials/stagiaire/detailStagiaire.html',
+					controller: 'detailStagiaireCtrl',
+					resolve: {
+						detail: function (StagiaireFactory) {
+							return StagiaireFactory.getDetail();
+						}
+					}
 				},
-				absences: function(SAbsenceFactory) {
-					return SAbsenceFactory.getAbsencesInit();
-				}
+				'absences@detailStagiaire': {
+					templateUrl: 'partials/stagiaire/detailAbsence.html',
+					controller: 'detailAbsenceCtrl',
+					resolve: {
+						absences: function(SAbsenceFactory) {
+							return SAbsenceFactory.getAbsencesInit();
+						}
+					}
+				} 
 			}
 		}).
+		//FICHE DE SYNTHESE ********************************************
 		state('gestionFichesSynthese', {
 			url: '/gestionFichesSynthese',
 			templateUrl: 'partials/gestionFichesSynthese/gestionFichesSynthese.html',
 			controller: 'gestionFichesSyntheseCtrl'
 		}).
+		//EVALUATION ****************************************************
 		state('versionECF', {
 			url: '/versionECF',
 			templateUrl: 'partials/gestionEvaluations/versionECF.html',
@@ -69,6 +82,7 @@ angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 'ngAnimate', 'ui
 			templateUrl: 'partials/gestionEvaluations/editVersion.html',
 			controller: 'editVersionCtrl'
 		}).
+		//PLANNING SALLE *************************************************
 		state('salle', {
 			url: '/salle',
 			templateUrl: 'partials/salle/planningReservationSalle.html',
@@ -79,6 +93,7 @@ angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 'ngAnimate', 'ui
 			templateUrl: 'partials/salle/formulaireReservationSalle.html',
 			controller: 'formulaireReservationSalleCtrl'
 		}).
+		//SESSION DE VALIDATION *******************************************
 		state('gestionSessionsValidation', {
 			url: '/gestionSessionsValidation',
 			templateUrl: 'partials/gestionSessionsValidation/gestionSessionsValidation.html',
@@ -89,31 +104,43 @@ angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 'ngAnimate', 'ui
 				}
 			}
 		}).
+		//PROFFESSIONNEL HOMOLOGUES *****************************************
 		state('professionnelHomologues', {
 			url: '/professionnelHomologues',
 			templateUrl: 'partials/templates/list.html',
 			controller: 'professionelHomologuesCtrl'
 		}).
+		//TITRE PROFESSIONNEL ***********************************************
 		state('titreProfessionnels', {
 			url: '/titreProfessionnels',
 			templateUrl: 'partials/templates/list.html',
 			controller: 'titreProfessionnelsCtrl'
 		}).
+		//SUJET EVALUATION ***********************************************
 		state('sujetsEvaluation', {
 			url: '/sujetsEvaluation',
 			templateUrl: 'partials/templates/list.html',
 			controller: 'sujetEvaluationsCtrl'
 		}).
+		//EVALUATION ********************************************************
+		state('evaluation', {
+			url: '/evaluation',
+			templateUrl: 'partials/templates/list.html',
+			controller: 'evaluationsCtrl'
+		}).
+		//FICHIER ***********************************************************
 		state('fichiers', {
 			url: '/fichiers',
 			templateUrl: 'partials/fichiers.html',
 			controller: 'fichiersCtrl'
 		}).
+		//PROFIL *************************************************************
 		state('gestionProfils', {
 			url: '/gestionProfils',
 			templateUrl: 'partials/droit/gestionDroit.html',
 			controller: 'gestionDroitCtrl'
 		}).
+		//UTILISATEURS ******************************************************
 		state('gestionUtilisateurs', {
 			url: '/gestionUtilisateurs',
 			templateUrl: 'partials/templates/list.html',

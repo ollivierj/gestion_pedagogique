@@ -7,7 +7,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.Iterator;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -16,7 +15,6 @@ import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -55,7 +53,7 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 	public final static String EMAIL_FIELD_NAME	 				= "Email";
 	public final static String DATE_NAISSANCE_FIELD_NAME	 	= "DateNaissance";
 	public final static String CODE_REGION_FIELD_NAME	 		= "CodeRegion";
-	public final static String CODE_NATIONALITE_FIELD_NAME	 		= "CodeNationalite";
+	public final static String CODE_NATIONALITE_FIELD_NAME	 	= "CodeNationalite";
 	public final static String CODE_ORIGINE_MEDIA_FIELD_NAME	= "CodeOrigineMedia";
 	public final static String DATE_DERNIER_ENVOI_DOC_FIELD_NAME= "DateDernierEnvoiDoc";
 	public final static String DATE_CREATION_FIELD_NAME	 		= "DateCreation";
@@ -66,7 +64,7 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 	public final static String HISTORIQUE_FIELD_NAME			= "Historique";
 	
 	// Champ utilisant un index FTS
-	public final static String[] FULL_TEXT_SEARCH_FIELDS		= {NOM_FIELD_NAME, PRENOM_FIELD_NAME, VILLE_FIELD_NAME};
+	public final static String[] FULL_TEXT_SEARCH_FIELDS		= {NOM_FIELD_NAME, PRENOM_FIELD_NAME, EMAIL_FIELD_NAME, CODE_POSTAL_FIELD_NAME, VILLE_FIELD_NAME};
 	
 	@Override
 	public String[] getFullTextSearchFieldNames() {
@@ -239,18 +237,6 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 	@JsonIgnore
 	private ArrayList<Absence> absences = new ArrayList<Absence>();
 	
-	
-	@ForeignCollectionField(eager = true, columnName = InstanceCoursStagiaire.STAGIAIRE_FIELD_NAME)
-	private transient Collection<InstanceCoursStagiaire> transientInstanceCoursStagiaires = null;
-
-	private ArrayList<InstanceCoursStagiaire> instanceCoursStagiaires = new ArrayList<InstanceCoursStagiaire>();
-	
-	/*@ForeignCollectionField(eager = true, columnName = PlanningIndividuelFormation.CODE_STAGIAIRE_FIELD_NAME)
-	private transient Collection<PlanningIndividuelFormation> transientPlanningIndividuelFormations = null;
-	
-	private ArrayList<PlanningIndividuelFormation> planningIndividuelFormations = new ArrayList<PlanningIndividuelFormation>();*/
-	
-
 	@Override
 	public Integer getId() {
 		return id;
@@ -464,34 +450,4 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 		return absences;
 	}
 	
-	private ArrayList<InstanceCoursStagiaire> getInstanceCoursStagiaires() {
-		if (null != transientInstanceCoursStagiaires) {
-			instanceCoursStagiaires.clear();
-			instanceCoursStagiaires.addAll(transientInstanceCoursStagiaires);
-			transientInstanceCoursStagiaires = null;
-		}
-		return instanceCoursStagiaires;
-	}
-	
-	
-	public ArrayList<InstanceCours> getInstanceCours(){
-		ArrayList<InstanceCours> instanceCours = new ArrayList<InstanceCours>();
-		if (0 < getInstanceCoursStagiaires().size()) {
-			Iterator<InstanceCoursStagiaire> iterator = getInstanceCoursStagiaires().iterator();
-			while (iterator.hasNext()) {
-				instanceCours.add(iterator.next().getInstanceCours());
-			}
-		}
-		return instanceCours;
-	}
-	
-//	public ArrayList<PlanningIndividuelFormation> getPlanningIndividuelFormations() {
-//		if (null != transientPlanningIndividuelFormations) {
-//			planningIndividuelFormations.clear();
-//			planningIndividuelFormations.addAll(transientPlanningIndividuelFormations);
-//			transientPlanningIndividuelFormations = null;
-//		}
-//		
-//		return planningIndividuelFormations;
-//	}
 }

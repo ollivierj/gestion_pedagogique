@@ -1,0 +1,27 @@
+package net.eni.gestion.pedagogie.resource.implementation;
+
+import javax.ws.rs.Path;
+
+import net.eni.gestion.pedagogie.modele.Fonction;
+import net.eni.gestion.pedagogie.resource.FonctionResource;
+import net.eni.gestion.pedagogie.service.FonctionService;
+
+import com.google.inject.Inject;
+
+/**
+ * @author jollivier
+ * Classe d'implémentation pour le module de gestion des titreProfessionnels
+ */
+@Path("/fonctions")
+public class FonctionResourceImpl extends AResourceImpl<Fonction, String, FonctionService> implements FonctionResource {
+
+    /**
+     * Constructeur
+     * @param titreProfessionnelService
+     */
+    @Inject
+    public FonctionResourceImpl(FonctionService titreProfessionnelService) {
+    	super(titreProfessionnelService, Fonction.class);
+    }
+    
+}
