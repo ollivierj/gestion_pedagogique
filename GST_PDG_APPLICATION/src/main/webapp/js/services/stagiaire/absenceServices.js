@@ -27,7 +27,7 @@ services.factory('SAbsenceFactory', function ($resource, StagiaireFactory) {
 		create : {method:'POST'}
 	});
 	
-	factory.detailAbsences = $resource('/ng_gst_pdg/web/stagiaires/absences', {}, {
+	factory.getAbsences = $resource('/ng_gst_pdg/web/absences/page', {}, {
 		load : {method:'POST'}
 	});
 	
@@ -47,7 +47,7 @@ services.factory('SAbsenceFactory', function ($resource, StagiaireFactory) {
 		
 		//Création d'une promise qui sera utilisée dans le controller
 		//Utilisation de la variable qui contient l'appel au service
-		var promise = factory.detailAbsences.load (
+		var promise = factory.getAbsences.load (
 				{
 					pagingOptions 	: factory.pagingOptions, 
 					sortOptions 	: factory.sortOptions, 
@@ -70,7 +70,7 @@ services.factory('SAbsenceFactory', function ($resource, StagiaireFactory) {
 	}
 	
 	factory.getAbsencesInit = function() {
-		return factory.detailAbsences.load (
+		return factory.getAbsences.load (
 				factory.pager,
 				//Retour de la méthode dans un cas success
 				function (success) {
@@ -81,11 +81,6 @@ services.factory('SAbsenceFactory', function ($resource, StagiaireFactory) {
 					return error;
 				}
 			).$promise;
-	}
-	
-	//Enregsitrement du stagiaire sélectionné
-	factory.keepStagiaire = function (stagiaireSelected)  {
-		factory.stagiaire = stagiaireSelected;
 	}
 	
 	//Retour de la factory avec ses variables

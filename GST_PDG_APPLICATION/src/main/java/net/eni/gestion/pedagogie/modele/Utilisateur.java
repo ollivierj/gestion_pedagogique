@@ -156,6 +156,7 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 	/*@SchemaIgnore
 	private ArrayList<Avis> avis = new ArrayList<Avis>();*/
 	
+	/*
 	@SchemaIgnore
 	@JsonManagedReference(value="absence-utilisateur")
 	@ForeignCollectionField(eager = false, columnName = Absence.AUTEUR_FIELD_NAME)
@@ -163,6 +164,7 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 
 	@SchemaIgnore
 	private ArrayList<Absence> absences = new ArrayList<Absence>();
+	*/
 	
 	/*@SchemaIgnore
 	@JsonIgnore
@@ -323,6 +325,7 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 //		return instanceCours;
 //	}
 	
+	/*
 	public ArrayList<Absence> getAbsences() {
 		if (null != transientAbsences) {
 			absences.clear();
@@ -330,6 +333,6 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 			transientAbsences = null;
 		}
 		return absences;
-	}
+	}*/
 
 }

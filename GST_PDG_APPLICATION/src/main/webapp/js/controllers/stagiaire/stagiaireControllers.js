@@ -3,7 +3,7 @@
 /**
  * Controller de la page de l'affichage des stagiaires
  */
-controllers.controller('stagiaireCtrl', function($scope, $http, $location, stagiaireData, StagiaireFactory, $modal, SAbsenceFactory, $state) {
+controllers.controller('stagiaireCtrl', function($scope, $http, $location, stagiaireData, StagiaireFactory, $modal, $state) {
 
     /*Variable contenant la sélection des données des tableaux de recherche*/
     var promotionSelected = [];
@@ -54,7 +54,6 @@ controllers.controller('stagiaireCtrl', function($scope, $http, $location, stagi
     
     $scope.viewRow = function (entity) {
     	StagiaireFactory.keepStagiaire(entity);
-    	SAbsenceFactory.keepStagiaire(entity);
     	$state.go('detailStagiaire');
     };
 

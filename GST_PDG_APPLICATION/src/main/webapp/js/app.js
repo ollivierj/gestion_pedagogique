@@ -52,7 +52,16 @@ angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 'ngAnimate', 'ui
 							return SAbsenceFactory.getAbsencesInit();
 						}
 					}
-				} 
+				},
+				'echanges@detailStagiaire': {
+					templateUrl: 'partials/stagiaire/detailEchange.html',
+					controller: 'detailEchangeCtrl',
+					resolve: {
+						echanges: function(SEchangeFactory) {
+							return SEchangeFactory.getEchangesInit();
+						}
+					}
+				}
 			}
 		}).
 		//FICHE DE SYNTHESE ********************************************

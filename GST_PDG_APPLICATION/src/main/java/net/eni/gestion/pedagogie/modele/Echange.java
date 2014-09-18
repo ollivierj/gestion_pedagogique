@@ -13,7 +13,8 @@ import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.commun.outil.DateHelper;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
-import com.github.reinert.jjschema.Attributes;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.reinert.jjschema.SchemaIgnore;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
@@ -50,10 +51,10 @@ public class Echange extends AModele<Integer> implements Serializable {
 		useGetSet = true)
 	private Integer id = null;
 	
-	@SchemaIgnore
 	@DatabaseField(
 		columnName = AUTEUR_FIELD_NAME,
 		foreign = true,
+		foreignAutoRefresh = true,
 		useGetSet = true,
 		canBeNull = false)
 	private Utilisateur auteur = null;
@@ -66,7 +67,6 @@ public class Echange extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private Stagiaire stagiaire = null;
 
-	@Attributes(title = "Commentaire", required = true, maxLength = 255)
 	@DatabaseField(
 		columnName = COMMENTAIRE_FIELD_NAME,
 		dataType = DataType.STRING,
@@ -74,6 +74,7 @@ public class Echange extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private String commentaire = null;
 	
+	@JsonIgnore
 	@DatabaseField(
 		columnName = DATE_FIELD_NAME,
 		dataType = DataType.DATE,
@@ -81,8 +82,11 @@ public class Echange extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private Date date = null;
 	
-	@Attributes(title = "Date", required = true, format = "date")
+	@JsonProperty
 	private String formatedDate;
+	
+	@JsonProperty
+	private String formatedTime;
 
 	
 	@Override
@@ -125,6 +129,7 @@ public class Echange extends AModele<Integer> implements Serializable {
 	
 	public void setDate(Date date) {
 		this.formatedDate=DateHelper.stringifyDate(date, "yyyy-MM-dd");
+		this.formatedTime=DateHelper.stringifyDate(date, "HH:mm");
 		this.date = date;
 	}
 	
@@ -133,8 +138,22 @@ public class Echange extends AModele<Integer> implements Serializable {
 	}
 
 	public void setFormatedDate(String formatedDate) throws ParseException {
-		this.date= DateHelper.datifyString(formatedDate, "yyyy-MM-dd");
+		if (this.getFormatedTime() != null)
+			this.date= DateHelper.datifyString(formatedDate + " " + this.getFormatedTime(), "dd/MM/yyyy HH:mm");
+		
 		this.formatedDate = formatedDate;
 	}
+
+	public String getFormatedTime() {
+		return formatedTime;
+	}
+
+	public void setFormatedTime(String formatedTime) {
+		if (this.getFormatedDate() != null)
+			this.date= DateHelper.datifyString(this.getFormatedDate() + " " + formatedTime, "dd/MM/yyyy HH:mm");
+		
+		this.formatedTime = formatedTime;
+	}
+
 
 }

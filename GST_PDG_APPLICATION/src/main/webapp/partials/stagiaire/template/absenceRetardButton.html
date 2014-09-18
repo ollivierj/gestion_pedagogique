@@ -1,10 +1,10 @@
 <center>
 	<button ng-class="'colt' + col.index" ng-input="COL_FIELD" 
 		type="button" ng-show="row.entity.isAbsence" ng-model="row.entity.isAbsence"
-		ng-click="row.entity.isAbsence = !row.entity.isAbsence;editRowAbsence(row.entity)"
+		ng-click="row.entity.isAbsence = !row.entity.isAbsence;editRow(row.entity)"
 		class="btn btn-danger btn-xs">Absence</button>
 	<button ng-class="'colt' + col.index" ng-input="COL_FIELD"
 		type="button" ng-hide="row.entity.isAbsence" ng-model="row.entity.isAbsence"
-		ng-click="row.entity.isAbsence = !row.entity.isAbsence;editRowAbsence(row.entity)" 
+		ng-click="row.entity.isAbsence = !row.entity.isAbsence;editRow(row.entity)" 
 		class="btn btn-warning btn-xs">Retard</button>
 </center>

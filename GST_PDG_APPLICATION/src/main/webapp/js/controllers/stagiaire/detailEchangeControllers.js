@@ -1,17 +1,16 @@
 /**
  * Controller de la page detail stagiaire
  */
-controllers.controller('detailAbsenceCtrl', function($scope, absences, SAbsenceFactory, $filter, toaster, StagiaireFactory) {
+controllers.controller('detailEchangeCtrl', function($scope, echanges, SEchangeFactory, $filter, toaster, StagiaireFactory) {
     
-    $scope.absences = absences.data;
+    $scope.echanges = echanges.data;
     
-    // Les absences ou retards du stagiaire
-    $scope.gridOptionsAbsences = {
-        data: 'absences',
+    console.log($scope.echanges);
+    
+    // Les echanges ou retards du stagiaire
+    $scope.gridOptionsEchanges = {
+        data: 'echanges',
         columnDefs : [
-              	{displayName:'Absence / Retard', enableCellEdit: true,
-              		editableCellTemplate: 'partials/stagiaire/template/absenceRetardButton.html',
-          			cellTemplate: 'partials/stagiaire/template/absenceRetardButtonText.html'},
                 {field:'formatedDate', displayName:'Date', enableCellEdit: true,
           			cellFilter: 'date : \'dd/MM/yyyy\'',
                 	editableCellTemplate: 'partials/stagiaire/template/datepicker.html'},
@@ -47,13 +46,13 @@ controllers.controller('detailAbsenceCtrl', function($scope, absences, SAbsenceF
     	//Mock de l'auteur
     	entity.auteur = {};
     	entity.auteur.id = 1;
-    	SAbsenceFactory.createLine.create(entity,
+    	SEchangeFactory.createLine.create(entity,
     			function (success) {
     				entity.editMode = false;
-			    	SAbsenceFactory.getAbsences.load(SAbsenceFactory.pager, function(success) {
-			    		$scope.absences = success.data;
+			    	SEchangeFactory.detailEchanges.load(SEchangeFactory.pager, function(success) {
+			    		$scope.echanges = success.data;
 			    	});
-			    	toaster.pop('success', null, "Enregistrement de l'absence effectuée");
+			    	toaster.pop('success', null, "Enregistrement de l'échange effectuée");
 				},
 				
 				function (error) {
@@ -62,17 +61,17 @@ controllers.controller('detailAbsenceCtrl', function($scope, absences, SAbsenceF
 		);
     };
     
-    $scope.createAbsence = function() {
-    	$scope.absences.push({isAbsence:true, stagiaire: StagiaireFactory.stagiaire});
+    $scope.createEchange = function() {
+    	$scope.echanges.push({isEchange:true, stagiaire: StagiaireFactory.stagiaire});
     };
     
     $scope.removeRow = function(entity) {
-    	SAbsenceFactory.deleteLine.delete({id: entity.id},
+    	SEchangeFactory.deleteLine.delete({id: entity.id},
     			function(success) {
-		    		SAbsenceFactory.getAbsences.load(SAbsenceFactory.pager, function(success) {
-		    			$scope.absences = success.data;
+		    		SEchangeFactory.detailEchanges.load(SEchangeFactory.pager, function(success) {
+		    			$scope.echanges = success.data;
 		    		});
-		    		toaster.pop('success', null, "Suppression de l'absence effectuée");
+		    		toaster.pop('success', null, "Suppression de l'échange effectuée");
 		    	},
     			function(error) {
 		    		toaster.pop('error', null, error.message);

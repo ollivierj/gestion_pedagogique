@@ -1,9 +1,11 @@
 /**
  * Controller de la page detail stagiaire
  */
-controllers.controller('detailAbsenceCtrl', function($scope, absences, SAbsenceFactory, $filter, toaster, StagiaireFactory) {
+controllers.controller('detailAbsenceCtrl', function($scope, absences, SAbsenceFactory, $filter, toaster) {
     
     $scope.absences = absences.data;
+    
+    console.log($scope.absences);
     
     // Les absences ou retards du stagiaire
     $scope.gridOptionsAbsences = {
@@ -50,7 +52,7 @@ controllers.controller('detailAbsenceCtrl', function($scope, absences, SAbsenceF
     	SAbsenceFactory.createLine.create(entity,
     			function (success) {
     				entity.editMode = false;
-			    	SAbsenceFactory.getAbsences.load(SAbsenceFactory.pager, function(success) {
+			    	SAbsenceFactory.detailAbsences.load(SAbsenceFactory.pager, function(success) {
 			    		$scope.absences = success.data;
 			    	});
 			    	toaster.pop('success', null, "Enregistrement de l'absence effectuée");
@@ -63,13 +65,13 @@ controllers.controller('detailAbsenceCtrl', function($scope, absences, SAbsenceF
     };
     
     $scope.createAbsence = function() {
-    	$scope.absences.push({isAbsence:true, stagiaire: StagiaireFactory.stagiaire});
+    	$scope.absences.push({isAbsence:true, stagiaire: SAbsenceFactory.stagiaire});
     };
     
     $scope.removeRow = function(entity) {
     	SAbsenceFactory.deleteLine.delete({id: entity.id},
     			function(success) {
-		    		SAbsenceFactory.getAbsences.load(SAbsenceFactory.pager, function(success) {
+		    		SAbsenceFactory.detailAbsences.load(SAbsenceFactory.pager, function(success) {
 		    			$scope.absences = success.data;
 		    		});
 		    		toaster.pop('success', null, "Suppression de l'absence effectuée");

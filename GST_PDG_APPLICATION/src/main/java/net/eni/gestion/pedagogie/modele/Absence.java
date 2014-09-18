@@ -13,11 +13,8 @@ import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.commun.outil.DateHelper;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.github.reinert.jjschema.SchemaIgnore;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -77,7 +74,6 @@ public class Absence extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private Stagiaire stagiaire = null;
    
-	@JsonBackReference(value="absence-utilisateur")
 	@DatabaseField(
 		columnName = AUTEUR_FIELD_NAME,
 		foreign = true,
