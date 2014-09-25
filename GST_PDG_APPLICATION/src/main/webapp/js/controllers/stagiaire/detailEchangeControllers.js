@@ -5,8 +5,6 @@ controllers.controller('detailEchangeCtrl', function($scope, echanges, SEchangeF
     
     $scope.echanges = echanges.data;
     
-    console.log($scope.echanges);
-    
     // Les echanges ou retards du stagiaire
     $scope.gridOptionsEchanges = {
         data: 'echanges',
@@ -49,7 +47,7 @@ controllers.controller('detailEchangeCtrl', function($scope, echanges, SEchangeF
     	SEchangeFactory.createLine.create(entity,
     			function (success) {
     				entity.editMode = false;
-			    	SEchangeFactory.detailEchanges.load(SEchangeFactory.pager, function(success) {
+			    	SEchangeFactory.getEchanges.load(SEchangeFactory.pager, function(success) {
 			    		$scope.echanges = success.data;
 			    	});
 			    	toaster.pop('success', null, "Enregistrement de l'échange effectuée");
@@ -68,10 +66,10 @@ controllers.controller('detailEchangeCtrl', function($scope, echanges, SEchangeF
     $scope.removeRow = function(entity) {
     	SEchangeFactory.deleteLine.delete({id: entity.id},
     			function(success) {
-		    		SEchangeFactory.detailEchanges.load(SEchangeFactory.pager, function(success) {
+		    		SEchangeFactory.getEchanges.load(SEchangeFactory.pager, function(success) {
 		    			$scope.echanges = success.data;
 		    		});
-		    		toaster.pop('success', null, "Suppression de l'échange effectuée");
+		    		toaster.pop('warning', null, "Suppression de l'échange effectuée");
 		    	},
     			function(error) {
 		    		toaster.pop('error', null, error.message);

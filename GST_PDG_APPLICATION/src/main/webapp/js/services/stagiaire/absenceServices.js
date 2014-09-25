@@ -3,8 +3,6 @@
 services.factory('SAbsenceFactory', function ($resource, StagiaireFactory) {
 		
 	var factory = {};
-	
-	factory.stagiaire = {};
 		
 	factory.pager = {
 			pagingOptions : {
@@ -36,7 +34,7 @@ services.factory('SAbsenceFactory', function ($resource, StagiaireFactory) {
 	});
 	
 	// Méthode de récupération des absences d'un stagiaire	
-	factory.getAbsences = function (idStagiaire, pagingOptionsIn, sortOptionsIn, filterOptionsIn) {
+	factory.getAbsencesOld = function (idStagiaire, pagingOptionsIn, sortOptionsIn, filterOptionsIn) {
 		//Si aucune donnée du scope n'a été modifiée, onconserve les données initiales du service
 		if (pagingOptionsIn != null && sortOptionsIn != null && filterOptionsIn != null) {
 			//Enregistrement des données
@@ -70,8 +68,13 @@ services.factory('SAbsenceFactory', function ($resource, StagiaireFactory) {
 	}
 	
 	factory.getAbsencesInit = function() {
-		return factory.getAbsences.load (
-				factory.pager,
+		return factory.getAbsences.load(
+				{
+					pagingOptions 	: factory.pager.pagingOptions, 
+					sortOptions 	: factory.pager.sortOptions, 
+					filterOptions 	: factory.pager.filterOptions,
+					id				: 1844
+				},
 				//Retour de la méthode dans un cas success
 				function (success) {
 					return success;

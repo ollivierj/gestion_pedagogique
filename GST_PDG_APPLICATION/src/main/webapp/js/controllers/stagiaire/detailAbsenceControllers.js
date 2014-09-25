@@ -63,6 +63,8 @@ controllers.controller('detailAbsenceCtrl', function($scope, absences, SAbsenceF
     };
     
     $scope.createAbsence = function() {
+    	console.log($scope.absences);
+    	console.log(StagiaireFactory.stagiaire);
     	$scope.absences.push({isAbsence:true, stagiaire: StagiaireFactory.stagiaire});
     };
     
@@ -72,7 +74,7 @@ controllers.controller('detailAbsenceCtrl', function($scope, absences, SAbsenceF
 		    		SAbsenceFactory.getAbsences.load(SAbsenceFactory.pager, function(success) {
 		    			$scope.absences = success.data;
 		    		});
-		    		toaster.pop('success', null, "Suppression de l'absence effectuée");
+		    		toaster.pop('warning', null, "Suppression de l'absence effectuée");
 		    	},
     			function(error) {
 		    		toaster.pop('error', null, error.message);

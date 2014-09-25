@@ -63,7 +63,7 @@ services.factory('StagiaireFactory', function ($resource) {
 	//Méthode de récupération des données d'un stagiaire
 	var getDetail = function () {
 		
-		var promise = detail.get({id : stagiaire.id}).$promise.then (
+		var promise = detail.get({id : this.stagiaire.id},
 				
 				//Retour de la méthode success
 				function(success) {

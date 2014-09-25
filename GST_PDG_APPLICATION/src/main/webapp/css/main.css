@@ -220,7 +220,7 @@ textarea {
 
 }
 
-/*Angular strap*/
+/*Améliore le css du datepicker*/
 .datepicker.dropdown-menu {
   width: 250px;
   height: 250px;
@@ -239,6 +239,7 @@ textarea {
   height: 65px;
 }
 
+/* Améliore le css du timepicker */
 .timepicker.dropdown-menu {
   padding: 0 4px;
 }
@@ -248,4 +249,10 @@ textarea {
 }
 .timepicker.dropdown-menu tbody button {
   padding: 6px;
+}
+
+/* Gerer la pagination bootstrap */
+.navbar-form>.pagination {
+	margin: 0px;
+	padding: 0px;
 }

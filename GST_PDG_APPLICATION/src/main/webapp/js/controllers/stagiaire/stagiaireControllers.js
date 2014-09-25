@@ -53,7 +53,7 @@ controllers.controller('stagiaireCtrl', function($scope, $http, $location, stagi
     };
     
     $scope.viewRow = function (entity) {
-    	StagiaireFactory.keepStagiaire(entity);
+    	StagiaireFactory.stagiaire = entity;
     	$state.go('detailStagiaire');
     };
 
@@ -110,11 +110,6 @@ controllers.controller('stagiaireCtrl', function($scope, $http, $location, stagi
 
 var ModalDisplayPromotionDetails = function($scope, $modalInstance, promotion) {
     $scope.promotion = promotion;
-
-    $scope.ok = function () {
-    	console.log($scope.selected.item);
-        $modalInstance.close($scope.selected.item);
-    };
 
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');

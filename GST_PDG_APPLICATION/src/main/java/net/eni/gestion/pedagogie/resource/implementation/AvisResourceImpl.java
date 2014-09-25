@@ -12,7 +12,7 @@ import com.google.inject.Inject;
  * @author jollivier
  * Classe d'implémentation pour le module de gestion des aviss
  */
-@Path("/aviss")
+@Path("/avis")
 public class AvisResourceImpl extends AResourceImpl<Avis, Integer, AvisService> implements AvisResource {
 
     /**

@@ -3,9 +3,11 @@
 angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 'ngAnimate', 'ui.router', 'angularFileUpload', 
                               'schemaForm','ui.bootstrap','ui.tree','ng_gst_pdg.filters','ng_gst_pdg.controllers',
                               'ng_gst_pdg.services', 'ng_gst_pdg.directives', 'mgcrea.ngStrap.timepicker',
-                              'mgcrea.ngStrap.datepicker', 'toaster'])
+                              'mgcrea.ngStrap.datepicker', 'toaster', 'angular-loading-bar'])
 
-.config(function($stateProvider, $urlRouterProvider, $datepickerProvider, $timepickerProvider) {
+.config(function($stateProvider, $urlRouterProvider, $datepickerProvider, $timepickerProvider, cfpLoadingBarProvider) {
+	
+	cfpLoadingBarProvider.includeSpinner = false;
 	
 	angular.extend($datepickerProvider.defaults, {
         dateType: "string",
@@ -59,6 +61,15 @@ angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 'ngAnimate', 'ui
 					resolve: {
 						echanges: function(SEchangeFactory) {
 							return SEchangeFactory.getEchangesInit();
+						}
+					}
+				},
+				'avis@detailStagiaire': {
+					templateUrl: 'partials/stagiaire/detailAvis.html',
+					controller: 'detailAvisCtrl',
+					resolve: {
+						avis: function(SAvisFactory) {
+							return SAvisFactory.getAvisInit();
 						}
 					}
 				}
