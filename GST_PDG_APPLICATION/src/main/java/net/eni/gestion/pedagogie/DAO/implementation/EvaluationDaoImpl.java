@@ -41,7 +41,7 @@ public class EvaluationDaoImpl extends ADaoImpl<Evaluation, Integer> implements 
 			lQuery.append(StringUtils.join(ORMLiteHelper.getProjectionFields(this.getTableInfo()), ","));
 			lQuery.append(" FROM ( ");
 			lQuery.append(" SELECT *, ");
-			lQuery.append(" ROW_NUMBER() OVER (ORDER BY ");
+			lQuery.append(" ROW_NUMBER() OVER (");
 			lQuery.append(ORMLiteHelper.getOrderByClauseFromSortOptions(this.getTableInfo(), pPager.getSortOptions()));
 			lQuery.append(") AS RowNum ");
 			lQuery.append(" FROM ");

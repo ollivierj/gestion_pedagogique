@@ -81,37 +81,6 @@ angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 'ngAnimate', 'ui
 			templateUrl: 'partials/gestionFichesSynthese/gestionFichesSynthese.html',
 			controller: 'gestionFichesSyntheseCtrl'
 		}).
-		//EVALUATION ****************************************************
-		state('versionECF', {
-			url: '/versionECF',
-			templateUrl: 'partials/gestionEvaluations/versionECF.html',
-			controller: 'versionECFCtrl'
-		}).
-		state('listeECF', {
-			url: '/listeECF',
-			templateUrl: 'partials/gestionEvaluations/listeECF.html',
-			controller: 'listeECFCtrl'
-		}).
-		state('corrigerECF', {
-			url: '/corrigerECF',
-			templateUrl: 'partials/gestionEvaluations/corrigerECF.html',
-			controller: 'corrigerECFCtrl'
-		}).
-		state('editECF', {
-			url: '/editECF',
-			templateUrl: 'partials/gestionEvaluations/editECF.html',
-			controller: 'editECFCtrl'
-		}).
-		state('editCorrection', {
-			url: '/editCorrection',
-			templateUrl: 'partials/gestionEvaluations/editCorrection.html',
-			controller: 'editCorrectionCtrl'
-		}).
-		state('editVersion', {
-			url: '/editVersion',
-			templateUrl: 'partials/gestionEvaluations/editVersion.html',
-			controller: 'editVersionCtrl'
-		}).
 		//PLANNING SALLE *************************************************
 		state('salles', {
 			url: '/salles',
@@ -122,17 +91,6 @@ angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 'ngAnimate', 'ui
 			url: '/salle/editer/:id',
 			templateUrl: 'partials/salle/formulaireReservationSalle.html',
 			controller: 'formulaireReservationSalleCtrl'
-		}).
-		//SESSIONS DE VALIDATION *******************************************
-		state('gestionSessionsValidation', {
-			url: '/gestionSessionsValidation',
-			templateUrl: 'partials/gestionSessionsValidation/gestionSessionsValidation.html',
-			controller: 'gestionSessionsValidationCtrl',
-			resolve : {
-				initializeData : function(professionnelHomologuesFactory){
-					professionnelHomologuesFactory.initializeData();
-				}
-			}
 		}).
 		//PROFFESSIONNELS HOMOLOGUES *****************************************
 		state('professionnelHomologues', {

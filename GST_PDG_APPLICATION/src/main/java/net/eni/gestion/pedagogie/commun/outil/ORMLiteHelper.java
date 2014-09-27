@@ -55,8 +55,11 @@ public class ORMLiteHelper {
 	public static <M extends AModele<ID>, ID> String getOrderByClauseFromSortOptions(
 			TableInfo<M, ID> tableInfo, SortOptions pSortOptions)
 			throws GenericException {
+		StringBuilder lOrderStrBuilder= new StringBuilder();
+		lOrderStrBuilder.append(" ORDER BY ");
 		if (null == pSortOptions) {
-			throw new GenericException("Le champ de tri fourni est vide.");
+			lOrderStrBuilder.append(tableInfo.getIdField().getColumnName());
+			return lOrderStrBuilder.toString();
 		}
 		ArrayList<String> orderByClauseArray = new ArrayList<String>();
 		for (int i = 0; i < pSortOptions.getFields().length
@@ -74,11 +77,16 @@ public class ORMLiteHelper {
 				lStrBuilder.append(orderSortDirectionBy);
 				orderByClauseArray.add(lStrBuilder.toString());
 			} else {
-				throw new GenericException("Le champ de tri fourni " + pSortOptions.getFields()[i] + " est vide.");
+				lOrderStrBuilder.append(tableInfo.getIdField().getColumnName());
+				return lOrderStrBuilder.toString();
 			}
 		}
-		return (!orderByClauseArray.isEmpty()) ? StringUtils.join(
-				orderByClauseArray, ", ") : "1";
+		return 
+			(!orderByClauseArray.isEmpty())
+			?
+			lOrderStrBuilder.append(StringUtils.join(orderByClauseArray, ", ")).toString()
+			:
+			lOrderStrBuilder.append(tableInfo.getIdField()).toString();	
 	}
 
 	public static String getFullTextSearchWhereClause(
