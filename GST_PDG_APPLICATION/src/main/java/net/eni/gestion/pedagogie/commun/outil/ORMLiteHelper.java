@@ -86,7 +86,7 @@ public class ORMLiteHelper {
 			?
 			lOrderStrBuilder.append(StringUtils.join(orderByClauseArray, ", ")).toString()
 			:
-			lOrderStrBuilder.append(tableInfo.getIdField()).toString();	
+			lOrderStrBuilder.append(tableInfo.getIdField().getColumnName()).toString();	
 	}
 
 	public static String getFullTextSearchWhereClause(
