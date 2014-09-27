@@ -25,5 +25,5 @@ public class EchangeServiceImpl extends AServiceImpl<Echange, Integer, EchangeDa
     public EchangeServiceImpl(EchangeDao pEchangeDao) throws SQLException {
         super(pEchangeDao);
     }
-    
+
 }

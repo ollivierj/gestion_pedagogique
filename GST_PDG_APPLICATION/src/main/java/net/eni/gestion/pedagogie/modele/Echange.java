@@ -4,14 +4,17 @@
 package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
+import java.text.ParseException;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
+import net.eni.gestion.pedagogie.commun.outil.DateHelper;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.reinert.jjschema.SchemaIgnore;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
@@ -39,8 +42,7 @@ public class Echange extends AModele<Integer> implements Serializable {
 	public final static String AUTEUR_FIELD_NAME 		= "ECH_AUTEUR";
 	public final static String STAGIAIRE_FIELD_NAME 	= "ECH_STAGIAIRE";
 	public final static String COMMENTAIRE_FIELD_NAME 	= "ECH_COMMENTAIRE";
-	public final static String DATE_SAISIE_FIELD_NAME 	= "ECH_DATE_SAISIE";
-	public final static String DATE_FIELD_NAME 	= "ECH_DATE";
+	public final static String DATE_FIELD_NAME 			= "ECH_DATE";
 
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
@@ -49,14 +51,15 @@ public class Echange extends AModele<Integer> implements Serializable {
 		useGetSet = true)
 	private Integer id = null;
 	
-	@SchemaIgnore
 	@DatabaseField(
 		columnName = AUTEUR_FIELD_NAME,
 		foreign = true,
+		foreignAutoRefresh = true,
 		useGetSet = true,
 		canBeNull = false)
 	private Utilisateur auteur = null;
 
+	@SchemaIgnore
 	@DatabaseField(
 		columnName = STAGIAIRE_FIELD_NAME,
 		foreign = true,
@@ -71,14 +74,21 @@ public class Echange extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private String commentaire = null;
 	
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy H:mm:ss", timezone="CET")   
+	@JsonIgnore
 	@DatabaseField(
-		columnName = DATE_SAISIE_FIELD_NAME,
+		columnName = DATE_FIELD_NAME,
 		dataType = DataType.DATE,
 		useGetSet = true,
 		canBeNull = false)
-	private Date dateSaisie = null;
-		
+	private Date date = null;
+	
+	@JsonProperty
+	private String formatedDate;
+	
+	@JsonProperty
+	private String formatedTime;
+
+	
 	@Override
 	public Integer getId() {
 		return id;
@@ -112,13 +122,38 @@ public class Echange extends AModele<Integer> implements Serializable {
 	public void setCommentaire(String commentaire) {
 		this.commentaire = commentaire;
 	}
-
-	public Date getDateSaisie() {
-		return dateSaisie;
+	
+	public Date getDate() {
+		return date;
 	}
 	
-	public void setDateSaisie(Date dateSaisie) {
-		this.dateSaisie = dateSaisie;
+	public void setDate(Date date) {
+		this.formatedDate=DateHelper.stringifyDate(date, "yyyy-MM-dd");
+		this.formatedTime=DateHelper.stringifyDate(date, "HH:mm");
+		this.date = date;
 	}
+	
+	public String getFormatedDate() {
+		return formatedDate;
+	}
+
+	public void setFormatedDate(String formatedDate) throws ParseException {
+		if (this.getFormatedTime() != null)
+			this.date= DateHelper.datifyString(formatedDate + " " + this.getFormatedTime(), "dd/MM/yyyy HH:mm");
+		
+		this.formatedDate = formatedDate;
+	}
+
+	public String getFormatedTime() {
+		return formatedTime;
+	}
+
+	public void setFormatedTime(String formatedTime) {
+		if (this.getFormatedDate() != null)
+			this.date= DateHelper.datifyString(this.getFormatedDate() + " " + formatedTime, "dd/MM/yyyy HH:mm");
+		
+		this.formatedTime = formatedTime;
+	}
+
 
 }

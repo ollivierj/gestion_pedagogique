@@ -4,16 +4,22 @@
 package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.github.reinert.jjschema.Attributes;
+import com.github.reinert.jjschema.SchemaIgnore;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
@@ -150,13 +156,15 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 	/*@SchemaIgnore
 	private ArrayList<Avis> avis = new ArrayList<Avis>();*/
 	
-	/*@SchemaIgnore
-	@JsonIgnore
+	/*
+	@SchemaIgnore
+	@JsonManagedReference(value="absence-utilisateur")
 	@ForeignCollectionField(eager = false, columnName = Absence.AUTEUR_FIELD_NAME)
-	private transient Collection<Absence> transientAbsences = null;*/
+	private transient Collection<Absence> transientAbsences = null;
 
-	/*@SchemaIgnore
-	private ArrayList<Absence> absences = new ArrayList<Absence>();*/
+	@SchemaIgnore
+	private ArrayList<Absence> absences = new ArrayList<Absence>();
+	*/
 	
 	/*@SchemaIgnore
 	@JsonIgnore
@@ -317,7 +325,8 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 //		return instanceCours;
 //	}
 	
-	/*public ArrayList<Absence> getAbsences() {
+	/*
+	public ArrayList<Absence> getAbsences() {
 		if (null != transientAbsences) {
 			absences.clear();
 			absences.addAll(transientAbsences);

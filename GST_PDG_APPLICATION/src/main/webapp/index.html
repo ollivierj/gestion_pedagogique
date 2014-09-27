@@ -11,12 +11,14 @@
     <!-- Angular css -->
     <link rel="stylesheet" href="css/angular/ng-table.css">
     <link rel="stylesheet" href="css/angular/ng-grid_2.0.11/ng-grid.css">
+    <link rel="stylesheet" href="css/angular/toaster.css">
+    <link rel="stylesheet" href="css/angular/loading-bar.css">
     <!-- Perso -->
     <link rel="stylesheet" href="css/fullcalendar.css">
-    	<link rel="stylesheet" href="css/angular-ui-tree.min.css">
+   	<link rel="stylesheet" href="css/angular-ui-tree.min.css">
 	<link rel="stylesheet" href="css/demo.css">
     <link rel="stylesheet" href="css/main.css">
-	
+    <link rel="stylesheet" href="css/bootstrap-datetimepicker-0.2.4.css">
   </head>
 
   <body>
@@ -48,7 +50,7 @@
             <li ng-repeat="menu in menuTitles" ng-class="{dropdown : menu.type == 'multiple', active : menu.mainTitle == titleSelected}">
               
               <!-- 1 lien -->
-              <a href="{{menu.url}}" ng-if="menu.type == 'single'" ng-click="setActive(menu.mainTitle)">
+              <a ui-sref="{{menu.url}}" ng-if="menu.type == 'single'" ng-click="setActive(menu.mainTitle)">
                 <i class="{{menu.iconTitle}}"></i> {{menu.mainTitle}}
               </a>
               
@@ -58,7 +60,7 @@
               </a>
               <ul class="dropdown-menu">
                 <li ng-repeat="subMenu in menu.titles" ng-class="{active : subMenu.mainTitle == titleSelected}">
-                  <a href="{{subMenu.url}}" ng-click="setActive(subMenu.mainTitle)">
+                  <a ui-sref="{{subMenu.url}}" ng-click="setActive(subMenu.mainTitle)">
                     <i class="{{subMenu.iconTitle}}"></i> {{subMenu.mainTitle}}
                   </a>
                 </li>
@@ -74,7 +76,7 @@
             <li class="dropdown user-dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i><b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="index.html#/gestionDroit"><i class="fa fa-search"></i> Informations profil</a></li>
+                <li><a href="gestionDroit"><i class="fa fa-search"></i> Informations profil</a></li>
               </ul>
             </li>
 
@@ -93,13 +95,12 @@
             <li class="dropdown user-dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gear"></i> Administration <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="index.html#/gestionUtilisateurs"><i class="fa fa-gear"></i> Utilisateurs</a></li>
-                <li><a href="index.html#/gestionProfils"><i class="fa fa-gear"></i> Profils</a></li>
-                <li><a href="index.html#/sujetsEvaluation"><i class="fa fa-gear"></i> Sujets d'évaluation</a></li>
-                <li><a href="index.html#/titreProfessionnels"><i class="fa fa-gear"></i> Titres professionnels</a></li>
-                <li><a href="index.html#/professionnelHomologues"><i class="fa fa-gear"></i> Professionnels homologués</a></li>
-               
-                
+
+                <li><a ui-sref="utilisateurs"><i class="fa fa-gear"></i> Utilisateurs</a></li>
+                <li><a ui-sref="profils"><i class="fa fa-gear"></i> Profils</a></li>
+                <li><a ui-sref="sujetsEvaluations"><i class="fa fa-gear"></i> Sujets d'évaluation</a></li>
+                <li><a ui-sref="titreProfessionnels"><i class="fa fa-gear"></i> Titres professionnels</a></li>
+                <li><a ui-sref="professionnelHomologues"><i class="fa fa-gear"></i> Professionnels homologués</a></li>             
                 
                 <li class="divider"></li>
                 <li><a href="index.html#/authentification" ng-click="afficherModalConnexion()"><i class="fa fa-power-off"></i> Se déconnecter</a></li>
@@ -110,14 +111,15 @@
       </nav>
 
       <div id="page-wrapper">
-        <div ng-view></div>
+        <div ui-view></div>
         
       </div><!-- /#page-wrapper -->
 
     </div><!-- /#wrapper -->
 
     <!-- Librairies js -->
-    <script src="lib/jquery-1.10.2.js"></script>
+    <script src="lib/jquery-2.0.3.min.js"></script>
+    <script src="lib/moment-2.8.3.js"></script>
     <script src="lib/tv4.min.js"></script>
     <script src="lib/tv4-fr-language.js"></script>
     <script src="lib/tv4-custom-validators.js"></script>
@@ -126,10 +128,13 @@
     <script src="lib/bootstrap-3.1.1.js"></script>
     <!--Angular officiel -->
     <script src="lib/angular-1.2.16/angular.js"></script>
+    <script src="lib/angular-1.2.16/angular-locale_fr-fr.js"></script>
     <script src="lib/angular-1.2.16/angular-route.js"></script>
     <script src="lib/angular-1.2.16/angular-animate.js"></script>
     <script src="lib/angular-1.2.16/angular-resource.js"></script>
     <script src="lib/angular-1.2.16/angular-sanitize.js"></script>
+    
+    
     
     <!--Angular plugins-->
      <!-- <script src="lib/angular-1.2.16/plugins/angular-strap-2.0.0.min.js"></script> -->
@@ -138,16 +143,16 @@
     <script src="lib/angular-1.2.16/plugins/angular-ui-tree-2.1.3.js"></script>
     <script src="lib/angular-1.2.16/plugins/ui-calendar.js"></script>
     <script src="lib/angular-1.2.16/plugins/angular-file-upload.js"></script>
+    <script src="lib/angular-1.2.16/plugins/toaster.js"></script>
+    <script src="lib/angular-1.2.16/plugins/loading-bar.min.js"></script>
 	
 	<!-- Angular strap -->
-	<!-- <script src="lib/angular-1.2.16/plugins/angular-strap/dimensions.js"></script>
-	<script src="lib/angular-1.2.16/plugins/angular-strap/date-parser.js"></script>
-	<script src="lib/angular-1.2.16/plugins/angular-strap/tooltip.tpl.js"></script>
-	<script src="lib/angular-1.2.16/plugins/angular-strap/tooltip.js"></script>
-	<script src="lib/angular-1.2.16/plugins/angular-strap/timepicker.tpl.js"></script>
-	<script src="lib/angular-1.2.16/plugins/angular-strap/timepicker.js"></script> -->
 	<script src="lib/angular-1.2.16/plugins/angular-strap/angular-strap.js"></script>
 	<script src="lib/angular-1.2.16/plugins/angular-strap/angular-strap.tpl.js"></script>
+	<script src="lib/bootstrap-datetimepicker-0.2.4.js"></script>
+    
+	
+	<script src="lib/angular-1.2.16/plugins/angular-ui-router.js"></script>
 	
 	<!-- angular-schema-form -->
 	<script src="lib/angular-1.2.16/plugins/angular-schema-form/module.js"></script>
@@ -159,8 +164,8 @@
 	<script src="lib/angular-1.2.16/plugins/angular-schema-form/directives/changed.js"></script>
 	<script src="lib/angular-1.2.16/plugins/angular-schema-form/directives/schema-form.js"></script>
 	<script src="lib/angular-1.2.16/plugins/angular-schema-form/directives/schema-validate.js"></script>
-	<script src="lib/angular-1.2.16/plugins/angular-schema-form/directives/decorators/bootstrap/datepicker/angular-pickadate.js"></script>
 	<script src="lib/angular-1.2.16/plugins/angular-schema-form/directives/decorators/bootstrap/datepicker/bootstrap-datepicker.js"></script>
+	<script src="lib/angular-1.2.16/plugins/angular-schema-form/directives/decorators/bootstrap/timepicker/bootstrap-timepicker.js"></script>
 	<script src="lib/angular-1.2.16/plugins/angular-schema-form/directives/decorators/bootstrap/url/url.js"></script>
 	<script src="lib/angular-1.2.16/plugins/angular-schema-form/directives/decorators/bootstrap/password/password.js"></script>
 	
@@ -171,10 +176,13 @@
     <script src="js/services/salle/sallesFactory.js"></script>
     <script src="js/services/promotion/promotionsFactory.js"></script>
     <script src="js/services/salle/sallesReserveesFactory.js"></script>
+    <script src="js/services/evaluationServices.js"></script>
     <script src="js/services/animateur/animateursLibresFactory.js"></script>
     <script src="js/services/retardataire/retardatairesFactory.js"></script>
     <script src="js/services/stagiaire/stagiaireServices.js"></script>
     <script src="js/services/stagiaire/absenceServices.js"></script>
+    <script src="js/services/stagiaire/echangeServices.js"></script>
+    <script src="js/services/stagiaire/avisServices.js"></script>
     <script src="js/services/absenceService.js"></script>
     <script src="js/services/professionnelHomologueServices.js"></script> 
     <script src="js/services/titreProfessionnelServices.js"></script> 
@@ -182,10 +190,6 @@
     <script src="js/services/profilServices.js"></script> 
     <script src="js/services/moduleServices.js"></script> 
     <script src="js/services/sujetEvaluationServices.js"></script> 
-    <script src="js/services/versionECFServices.js"></script>    
-    <script src="js/services/modeleFicheSyntheseServices.js"></script>          
-    <script src="js/services/listeECFServices.js"></script>        
-    <script src="js/services/correctionECFServices.js"></script> 
     <script src="js/services/profilServices.js"></script>      
     <script src="js/services/droitServices.js"></script>            
     <script src="js/services/wrapperService.js"></script>
@@ -200,27 +204,25 @@
     <script src="js/filters/onlyStrings.js"></script>
     
     <!-- Controllers js -->
-     <script src="js/controllers/fichierControllers.js"></script>
+    <script src="js/controllers/fichierControllers.js"></script>
     <script src="js/controllers/stagiaire/stagiaireControllers.js"></script>
     <script src="js/controllers/stagiaire/detailStagiaireControllers.js"></script>
+    <script src="js/controllers/stagiaire/detailAbsenceControllers.js"></script>
+    <script src="js/controllers/stagiaire/detailEchangeControllers.js"></script>
+    <script src="js/controllers/stagiaire/detailAvisControllers.js"></script>
     <script src="js/controllers/authentificationControllers.js"></script>
     <script src="js/controllers/gestionFichesSyntheseControllers.js"></script>
     <script src="js/controllers/absenceControllers.js"></script>    
-    <script src="js/controllers/versionECFControllers.js"></script>    
-    <script src="js/controllers/listeECFControllers.js"></script>    
-    <script src="js/controllers/corrigerECFControllers.js"></script>    
-    <script src="js/controllers/editECFControllers.js"></script>    
-    <script src="js/controllers/editVersionControllers.js"></script>    
-    <script src="js/controllers/editCorrectionControllers.js"></script> 
+    <script src="js/controllers/evaluationControllers.js"></script>    
     <script src="js/controllers/salle/planningReservationSalleController.js"></script>   
     <script src="js/controllers/salle/formulaireReservationSalleController.js"></script>  
-    <script src="js/controllers/gestionSessionsValidationControllers.js"></script>  
+    <script src="js/controllers/sessionValidationControllers.js"></script>  
     <script src="js/controllers/professionnelHomologueControllers.js"></script>
     <script src="js/controllers/titreProfessionnelControllers.js"></script>
     <script src="js/controllers/sujetEvaluationControllers.js"></script>
     <script src="js/controllers/wrapperControllers.js"></script>
     <script src="js/controllers/gestionDroitControllers.js"></script>
-     <script src="js/controllers/utilisateursControllers.js"></script>
+     <script src="js/controllers/utilisateurControllers.js"></script>
     <!--  Directives js -->
     
   </body>

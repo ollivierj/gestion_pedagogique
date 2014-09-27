@@ -32,7 +32,8 @@ public class AbsenceServiceImpl extends AServiceImpl<Absence, Integer, AbsenceDa
 	public ArrayList<Absence> chargerRetardatairesByDate(Date pDate)
 			throws GenericException {
 		try {
-			return dao.chargerAbsencesByDate(pDate);
+			return null;
+			//return dao.chargerAbsencesByDate(pDate);
 		} catch (Exception e) {
 			throw new GenericException("Echec lors du chargement depuis la base de données.");
 		}
@@ -40,10 +41,11 @@ public class AbsenceServiceImpl extends AServiceImpl<Absence, Integer, AbsenceDa
 
 	public ArrayList<Absence> chargerAbsencesByDate(Date pDate) throws GenericException {
 		try {
-			return dao.chargerAbsencesByDate(pDate);
+			//return dao.chargerAbsencesByDate(pDate);
+			return null;
 		} catch (Exception e) {
 			throw new GenericException("Echec lors du chargement depuis la base de données.");
 		}
 	}
-    
+
 }

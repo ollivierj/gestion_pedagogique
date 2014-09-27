@@ -15,8 +15,6 @@ import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.github.reinert.jjschema.Attributes;
-import com.github.reinert.jjschema.SchemaIgnore;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -44,9 +42,9 @@ public class Absence extends AModele<Integer> implements Serializable {
 	public final static String STAGIAIRE_FIELD_NAME 				= "ABS_STAGIAIRE";
 	public final static String DATE_ARRIVEE_MATIN_FIELD_NAME		= "ABS_DATE_ARRIVEE_MATIN";
 	public final static String DATE_ARRIVEE_APRES_MIDI_FIELD_NAME	= "ABS_DATE_ARRIVEE_APRES_MIDI";
-	public final static String DATE_SAISIE_FIELD_NAME 				= "ABS_DATE_SAISIE";
 	public final static String AUTEUR_FIELD_NAME 					= "ABS_AUTEUR";
 	public final static String MOTIF_FIELD_NAME 					= "ABS_MOTIF";
+	public final static String IS_ABSENCE_FIELD_NAME 				= "ABS_IS_ABSENCE";
 
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
@@ -66,7 +64,9 @@ public class Absence extends AModele<Integer> implements Serializable {
 	@JsonProperty
 	private String formatedDate;
 	
-	@SchemaIgnore
+	@JsonProperty
+	private String formatedTime;
+	
 	@DatabaseField(
 		columnName = STAGIAIRE_FIELD_NAME,
 		foreign = true,
@@ -74,28 +74,25 @@ public class Absence extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private Stagiaire stagiaire = null;
    
-	@JsonIgnore
-	@DatabaseField(
-		columnName = DATE_SAISIE_FIELD_NAME,
-		dataType = DataType.DATE,
-		useGetSet = true,
-		canBeNull = false)
-	private Date dateSaisie = null;
-	
-	@SchemaIgnore
 	@DatabaseField(
 		columnName = AUTEUR_FIELD_NAME,
 		foreign = true,
+		foreignAutoRefresh=true,
 		useGetSet = true,
 		canBeNull = false)
 	private Utilisateur auteur = null;
 	
-	@Attributes(title="Motif", required=false)
 	@DatabaseField(
 			columnName = MOTIF_FIELD_NAME,
 			useGetSet = true,
 			canBeNull = true)
-		private String motif = null;
+		private String commentaire = null;
+	
+	@DatabaseField(
+			columnName = IS_ABSENCE_FIELD_NAME,
+			useGetSet = true,
+			canBeNull = true)
+		private Boolean isAbsence = null;
 
 	@Override
 	public Integer getId() {
@@ -112,7 +109,8 @@ public class Absence extends AModele<Integer> implements Serializable {
 	}
 	
 	public void setDate(Date date) {
-		this.formatedDate=DateHelper.stringifyDate(date, "yyyy-MM-dd HH:mm:ss");
+		this.formatedDate=DateHelper.stringifyDate(date, "yyyy-MM-dd");
+		this.formatedTime=DateHelper.stringifyDate(date, "HH:mm");
 		this.date = date;
 	}
 	
@@ -121,8 +119,21 @@ public class Absence extends AModele<Integer> implements Serializable {
 	}
 
 	public void setFormatedDate(String formatedDate) throws ParseException {
-		this.date= DateHelper.datifyString(formatedDate, "yyyy-MM-dd HH:mm:ss");
+		if (this.getFormatedTime() != null)
+			this.date= DateHelper.datifyString(formatedDate + " " + this.getFormatedTime(), "dd/MM/yyyy HH:mm");
+		
 		this.formatedDate = formatedDate;
+	}
+
+	public String getFormatedTime() {
+		return formatedTime;
+	}
+
+	public void setFormatedTime(String formatedTime) {
+		if (this.getFormatedDate() != null)
+			this.date= DateHelper.datifyString(this.getFormatedDate() + " " + formatedTime, "dd/MM/yyyy HH:mm");
+		
+		this.formatedTime = formatedTime;
 	}
 
 	public Stagiaire getStagiaire() {
@@ -133,14 +144,6 @@ public class Absence extends AModele<Integer> implements Serializable {
 		this.stagiaire = stagiaire;
 	}
 
-	public Date getDateSaisie() {
-		return dateSaisie;
-	}
-	
-	public void setDateSaisie(Date dateSaisie) {
-		this.dateSaisie = dateSaisie;
-	}
-
 	public Utilisateur getAuteur() {
 		return auteur;
 	}
@@ -149,12 +152,20 @@ public class Absence extends AModele<Integer> implements Serializable {
 		this.auteur = auteur;
 	}
 
-	public String getMotif() {
-		return motif;
+	public String getCommentaire() {
+		return commentaire;
 	}
 
-	public void setMotif(String motif) {
-		this.motif = motif;
+	public void setCommentaire(String commentaire) {
+		this.commentaire = commentaire;
+	}
+
+	public Boolean getIsAbsence() {
+		return isAbsence;
+	}
+
+	public void setIsAbsence(Boolean isAbsence) {
+		this.isAbsence = isAbsence;
 	}
 	
 }

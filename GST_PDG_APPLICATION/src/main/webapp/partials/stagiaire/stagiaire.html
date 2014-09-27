@@ -17,9 +17,6 @@
                 <button type="submit" class="btn btn-primary" ng-click="changeDisplayMode(DisplayModeEnum.Card)">
                   <span class="fa fa-th"></span> Vue carte
                 </button>
-                <button type="submit" class="btn btn-primary" ng-click="changeDisplayMode(DisplayModeEnum.Card)">
-                  <span class="fa fa-file"></span> Exporter
-                </button>
               </form>
               <form class="navbar-form navbar-left">
                 <input type="text" class="form-control" placeholder="Recherche" ng-model="filterOptions.filterText">  
@@ -38,6 +35,7 @@
           <div class="row col-lg-12">
             <div class="col-lg-3" data-ng-repeat="stagiaire in stagiaires">
               <div class="panel panel-info">
+              
                 <div class="panel-heading">
                   <div class="row">
                     <div class="col-xs-6">
@@ -47,26 +45,48 @@
                     <p class="announcement-text">{{stagiaire.prenom + ' ' + stagiaire.nom}}</p>
                     </div>
                   </div>
-                </div>
+                </div><!-- panel-heading -->
 
                 <a href="" ng-click="viewDetails()">
                   <div class="panel-footer announcement-bottom">
                     <div class="row">
-                      <div class="col-xs-6">Détails</div>
+                      <div class="col-xs-6">D&eacute;tails</div>
                       <div class="col-xs-6 text-right">
                         <i class="fa fa-arrow-circle-right"></i>
                       </div>
                     </div>
                   </div>
                 </a>
-              </div>
-            </div>
-          </div>
-<!--           Pagination pour le mode d'affichage carte du stagiaire -->
-          <div class="col-lg-12">
-            <pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages"></pagination>  
-          </div>
-        </div>
+                
+              </div><!-- panel -->
+            </div><!-- col lg ng-repeat -->
+          </div><!-- row col-lg -->
+        </div><!-- row ng-hide -->
+        
+        <!-- Pagination pour le mode d'affichage carte du stagiaire -->
+        <div class="row" ng-hide="listDisplayModeEnabled">
+          	<nav class="navbar navbar-default" role="navigation">
+            	<div class="container-fluid">   
+            		<form class="navbar-form navbar-left">
+			          	Nombre d'&eacute;l&eacute;ments : {{totalServerItems}}
+		          	</form>
+		          	
+		          	<form class="navbar-form navbar-right">  	
+			            <pagination total-items="totalServerItems" ng-model="pagingOptions.currentPage" max-size="5" boundary-links="true"
+			            			previous-text="Pr&eacute;c&eacute;dent" next-text="Suivant" first-text="Premier" last-text="Dernier"></pagination>
+ 
+           			</form>
+		          	
+		          	<form class="navbar-form navbar-right">
+		          		Taille de la page : 
+						<select class="form-control" ng-model="pagingOptions.pageSize" ng-options="ps for ps in pagingOptions.pageSizes">
+			          		<option value=""></option>
+			          	</select>
+			        </form>
+			        
+	            </div><!-- Container fluid -->
+          	</nav>
+   	  	</div><!-- row -->
 
       </div> <!-- panel-body -->
     </div> <!-- panel -->

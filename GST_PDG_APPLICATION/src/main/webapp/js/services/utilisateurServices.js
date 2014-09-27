@@ -1,6 +1,6 @@
 'use strict';
 
-services.factory('UtilisateurFactory', function ($resource) {
+services.factory('UtilisateursFactory', function ($resource) {
 	var	pagingOptions = {
 		pageSizes : [ 5, 10, 15, 25 ],
 		pageSize : 10,
@@ -38,6 +38,9 @@ services.factory('UtilisateurFactory', function ($resource) {
 		         });			
 			},
 		page : page,
+		titlemap : $resource('/ng_gst_pdg/web/utilisateurs/titlemap', {}, {
+			getData : { method: 'GET', isArray: false}
+		}),
 		jsonschema :  $resource('/ng_gst_pdg/web/utilisateurs/jsonschema', {}, {
 			getData : { method: 'GET'}
 		}),

@@ -1,7 +1,5 @@
 package net.eni.gestion.pedagogie.DAO;
 
-import java.util.HashMap;
-
 import net.eni.gestion.pedagogie.modele.Module;
 
 /**
@@ -10,7 +8,5 @@ import net.eni.gestion.pedagogie.modele.Module;
  * pour la gestion des modules
  */
 public interface ModuleDao extends ADao<Module, Integer> {
-
-	public HashMap<String, String> getTitleMap() throws Exception;
 
 }

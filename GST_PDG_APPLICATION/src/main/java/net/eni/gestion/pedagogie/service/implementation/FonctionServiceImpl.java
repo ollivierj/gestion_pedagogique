@@ -1,10 +1,8 @@
 package net.eni.gestion.pedagogie.service.implementation;
 
 import java.sql.SQLException;
-import java.util.HashMap;
 
 import net.eni.gestion.pedagogie.DAO.FonctionDao;
-import net.eni.gestion.pedagogie.commun.composant.GenericException;
 import net.eni.gestion.pedagogie.modele.Fonction;
 import net.eni.gestion.pedagogie.service.FonctionService;
 
@@ -31,15 +29,6 @@ public class FonctionServiceImpl extends
 	public FonctionServiceImpl(
 			FonctionDao pFonctionDao) throws SQLException {
 		super(pFonctionDao);
-	}
-
-	public HashMap<String, String> getTitleMap() throws GenericException {
-		try {
-			return dao.getTitleMap();
-		} catch (Exception e) {
-			throw new GenericException(
-					"Echec lors du chargement depuis la base de données.");
-		}
 	}
 
 }

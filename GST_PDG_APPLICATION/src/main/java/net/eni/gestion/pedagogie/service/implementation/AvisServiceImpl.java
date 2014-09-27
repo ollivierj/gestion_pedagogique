@@ -25,5 +25,5 @@ public class AvisServiceImpl extends AServiceImpl<Avis, Integer, AvisDao> implem
     public AvisServiceImpl(AvisDao pAvisDao) throws SQLException {
         super(pAvisDao);
     }
-    
+
 }

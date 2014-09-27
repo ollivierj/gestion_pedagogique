@@ -1,0 +1,36 @@
+<!-- Liste des avis d'un stagiaire -->
+<div class="row">
+  <div class="col-lg-12">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <div class="row">
+            <div class="col-lg-6"><i class="fa fa-group"></i> Avis</div>
+          </div>
+        </h3>
+      </div><!-- /panel-heading -->
+      <div class="panel-body">
+
+        <!-- Bouton edition d'un avis -->
+        <div class="row">
+          <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">     
+              <form class="navbar-form navbar-left" role="search">
+                <input type="text" class="form-control" placeholder="Recherche">
+              </form>
+              <form class="navbar-form navbar-right" role="search">
+                <button class="btn btn-primary">
+                  <span class="fa fa-plus"></span>
+                </button>
+              </form>
+            </div>
+          </nav>
+        </div>
+
+        <div class="col-lg-12">
+          <div class='gridStyle' ng-grid="gridOptionsAvis"></div>
+        </div>
+      </div><!-- /panel-body -->
+    </div><!-- /panel -->
+  </div><!-- /col-lg -->
+</div> <!-- /row -->

@@ -6,7 +6,6 @@ package net.eni.gestion.pedagogie.modele;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.Iterator;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -14,7 +13,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -41,9 +39,6 @@ public class InstanceSessionValidation extends AModele<Integer> implements Seria
 	public final static String ID_FIELD_NAME 					= "INST_SES_VAL_ID";
 	public final static String SESSION_VALIDATION_FIELD_NAME	= "INST_SES_SESSION_VALIDATION";
 	public final static String RESERVATION_SALLE_FIELD_NAME		= "INST_SES_RESERVATION_SALLE";
-	public final static String DATE_FIELD_NAME					= "INST_SES_DATE";
-	public final static String LIEN_DOCS_GENERES_FIELD_NAME		= "INST_SES_LIEN_DOCS_GENERES";
-	public final static String LIEN_DOCS_COLLECTES_FIELD_NAME	= "INST_SES_LIEN_DOCS_COLLECTES";
 	
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
@@ -65,31 +60,6 @@ public class InstanceSessionValidation extends AModele<Integer> implements Seria
 		useGetSet = true)
 	private ReservationSalle reservationSalle = null;
 	
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy", timezone="CET")   
-	@DatabaseField(
-		columnName = DATE_FIELD_NAME,
-		dataType = DataType.DATE,
-		useGetSet = true,
-		canBeNull = false)
-	private Date date= null;
-	
-	@DatabaseField(
-		columnName = LIEN_DOCS_GENERES_FIELD_NAME,
-		dataType = DataType.STRING,
-		useGetSet = true)
-	private String lienDocsGeneres = null;
-
-	@DatabaseField(
-		columnName = LIEN_DOCS_COLLECTES_FIELD_NAME,
-		dataType = DataType.STRING,
-		useGetSet = true)
-	private String lienDocsCollectes = null;
-
-	@ForeignCollectionField(eager = true, columnName = InstanceSessionValidationStagiaire.INSTANCE_SESSION_VALIDATION_FIELD_NAME)
-	private transient Collection<InstanceSessionValidationStagiaire> transientInstanceSessionValidationStagiaires = null;
-
-	private ArrayList<InstanceSessionValidationStagiaire> instanceSessionValidationStagiaires = new ArrayList<InstanceSessionValidationStagiaire>();
-
 	@ForeignCollectionField(eager = true, columnName = Jury.INSTANCE_SESSION_VALIDATION_FIELD_NAME)
 	private transient Collection<Jury> transientJurys = null;
 
@@ -121,50 +91,6 @@ public class InstanceSessionValidation extends AModele<Integer> implements Seria
 		this.reservationSalle = reservationSalle;
 	}
 
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date= date;
-	}
-
-	public String getLienDocsGeneres() {
-		return lienDocsGeneres;
-	}
-
-	public void setLienDocsGeneres(String lienDocsGeneres) {
-		this.lienDocsGeneres = lienDocsGeneres;
-	}
-
-	public String getLienDocsCollectes() {
-		return lienDocsCollectes;
-	}
-
-	public void setLienDocsCollectes(String lienDocsCollectes) {
-		this.lienDocsCollectes = lienDocsCollectes;
-	}
-	
-	public ArrayList<InstanceSessionValidationStagiaire> getInstanceSessionValidationStagiaires() {
-		if (null != transientInstanceSessionValidationStagiaires) {
-			instanceSessionValidationStagiaires.clear();
-			instanceSessionValidationStagiaires.addAll(transientInstanceSessionValidationStagiaires);
-			transientInstanceSessionValidationStagiaires = null;
-		}
-		return instanceSessionValidationStagiaires;
-	}
-	
-	public ArrayList<Stagiaire> getStagiaires(){
-		ArrayList<Stagiaire> stagiaires = new ArrayList<Stagiaire>();
-		if (0 < getInstanceSessionValidationStagiaires().size()) {
-			Iterator<InstanceSessionValidationStagiaire> iterator = getInstanceSessionValidationStagiaires().iterator();
-			while (iterator.hasNext()) {
-				stagiaires.add(iterator.next().getStagiaire());
-			}
-		}
-		return stagiaires;
-	}
-	
 	private ArrayList<Jury> getJurys() {
 		if (null != transientJurys) {
 			jurys.clear();

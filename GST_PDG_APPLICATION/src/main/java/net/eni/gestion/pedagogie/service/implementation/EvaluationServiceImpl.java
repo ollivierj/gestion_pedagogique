@@ -25,5 +25,5 @@ public class EvaluationServiceImpl extends AServiceImpl<Evaluation, Integer, Eva
     public EvaluationServiceImpl(EvaluationDao pEvaluationDao) throws SQLException {
         super(pEvaluationDao);
     }
-    
+
 }

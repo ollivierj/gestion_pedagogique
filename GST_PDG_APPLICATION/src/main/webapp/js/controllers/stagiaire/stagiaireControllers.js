@@ -3,7 +3,7 @@
 /**
  * Controller de la page de l'affichage des stagiaires
  */
-controllers.controller('stagiaireCtrl', function($scope, $http, $location, stagiaireData, StagiaireFactory, $modal, SAbsenceFactory) {
+controllers.controller('stagiaireCtrl', function($scope, $http, $location, stagiaireData, StagiaireFactory, $modal, $state) {
 
     /*Variable contenant la sélection des données des tableaux de recherche*/
     var promotionSelected = [];
@@ -23,7 +23,6 @@ controllers.controller('stagiaireCtrl', function($scope, $http, $location, stagi
         rowHeight: 80,
         selectedItems: $scope.stagiaireSelected,
         columnDefs : [
-              	{field:'id', displayName:'Id'},  
                 {field:'photo', displayName:'Photo', cellTemplate: 'partials/templates/ng-grid_photo.html'},
                 {field:'nom', displayName:'Nom'},
                 {field:'prenom', displayName:'Prénom'},
@@ -54,9 +53,8 @@ controllers.controller('stagiaireCtrl', function($scope, $http, $location, stagi
     };
     
     $scope.viewRow = function (entity) {
-    	StagiaireFactory.keepStagiaire(entity);
-    	SAbsenceFactory.keepStagiaire(entity);
-        $location.path('/detailStagiaire');
+    	StagiaireFactory.stagiaire = entity;
+    	$state.go('detailStagiaire');
     };
 
     //Gestion du mode carte et du mode liste
@@ -112,10 +110,6 @@ controllers.controller('stagiaireCtrl', function($scope, $http, $location, stagi
 
 var ModalDisplayPromotionDetails = function($scope, $modalInstance, promotion) {
     $scope.promotion = promotion;
-
-    $scope.ok = function () {
-        $modalInstance.close($scope.selected.item);
-    };
 
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');

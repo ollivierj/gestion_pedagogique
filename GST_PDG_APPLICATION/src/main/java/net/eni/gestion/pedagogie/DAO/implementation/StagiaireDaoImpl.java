@@ -1,18 +1,12 @@
 package net.eni.gestion.pedagogie.DAO.implementation;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import net.eni.gestion.pedagogie.DAO.StagiaireDao;
 import net.eni.gestion.pedagogie.commun.composant.Connexion;
-import net.eni.gestion.pedagogie.commun.composant.Pager;
-import net.eni.gestion.pedagogie.commun.composant.Pair;
 import net.eni.gestion.pedagogie.commun.outil.CRUDHelper;
 import net.eni.gestion.pedagogie.commun.outil.SQLHelper;
-import net.eni.gestion.pedagogie.modele.Absence;
-import net.eni.gestion.pedagogie.modele.Avis;
-import net.eni.gestion.pedagogie.modele.Echange;
 import net.eni.gestion.pedagogie.modele.Stagiaire;
 
 import com.google.inject.Singleton;
@@ -78,22 +72,5 @@ public class StagiaireDaoImpl extends ADaoImpl<Stagiaire, Integer> implements
 		updateRaw(lDeleteQuery2.toString());
 		updateRaw(lDeleteQuery3.toString());
 		return CRUDHelper.supprimer(this, pId);
-	}
-
-	@Override
-	public Pair<ArrayList<Absence>, Long> chargerAbsences(AbsenceDaoImpl dao, Pager pPager)
-			throws Exception {
-		return CRUDHelper.charger(dao, pPager);
-	}
-
-	@Override
-	public Pair<ArrayList<Echange>, Long> chargerEchanges(EchangeDaoImpl dao, Pager pPager)
-			throws Exception {
-		return CRUDHelper.charger(dao, pPager);
-	}
-
-	@Override
-	public Pair<ArrayList<Avis>, Long> chargerAvis(AvisDaoImpl dao, Pager pPager) throws Exception {
-		return CRUDHelper.charger(dao, pPager);
 	}
 }

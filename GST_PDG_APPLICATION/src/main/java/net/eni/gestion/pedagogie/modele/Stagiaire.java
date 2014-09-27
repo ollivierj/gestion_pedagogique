@@ -7,7 +7,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.Iterator;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -238,18 +237,6 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 	@JsonIgnore
 	private ArrayList<Absence> absences = new ArrayList<Absence>();
 	
-	
-	@ForeignCollectionField(eager = true, columnName = InstanceCoursStagiaire.STAGIAIRE_FIELD_NAME)
-	private transient Collection<InstanceCoursStagiaire> transientInstanceCoursStagiaires = null;
-
-	private ArrayList<InstanceCoursStagiaire> instanceCoursStagiaires = new ArrayList<InstanceCoursStagiaire>();
-	
-	/*@ForeignCollectionField(eager = true, columnName = PlanningIndividuelFormation.CODE_STAGIAIRE_FIELD_NAME)
-	private transient Collection<PlanningIndividuelFormation> transientPlanningIndividuelFormations = null;
-	
-	private ArrayList<PlanningIndividuelFormation> planningIndividuelFormations = new ArrayList<PlanningIndividuelFormation>();*/
-	
-
 	@Override
 	public Integer getId() {
 		return id;
@@ -463,34 +450,4 @@ public class Stagiaire extends AModele<Integer> implements Serializable {
 		return absences;
 	}
 	
-	private ArrayList<InstanceCoursStagiaire> getInstanceCoursStagiaires() {
-		if (null != transientInstanceCoursStagiaires) {
-			instanceCoursStagiaires.clear();
-			instanceCoursStagiaires.addAll(transientInstanceCoursStagiaires);
-			transientInstanceCoursStagiaires = null;
-		}
-		return instanceCoursStagiaires;
-	}
-	
-	
-	public ArrayList<InstanceCours> getInstanceCours(){
-		ArrayList<InstanceCours> instanceCours = new ArrayList<InstanceCours>();
-		if (0 < getInstanceCoursStagiaires().size()) {
-			Iterator<InstanceCoursStagiaire> iterator = getInstanceCoursStagiaires().iterator();
-			while (iterator.hasNext()) {
-				instanceCours.add(iterator.next().getInstanceCours());
-			}
-		}
-		return instanceCours;
-	}
-	
-//	public ArrayList<PlanningIndividuelFormation> getPlanningIndividuelFormations() {
-//		if (null != transientPlanningIndividuelFormations) {
-//			planningIndividuelFormations.clear();
-//			planningIndividuelFormations.addAll(transientPlanningIndividuelFormations);
-//			transientPlanningIndividuelFormations = null;
-//		}
-//		
-//		return planningIndividuelFormations;
-//	}
 }

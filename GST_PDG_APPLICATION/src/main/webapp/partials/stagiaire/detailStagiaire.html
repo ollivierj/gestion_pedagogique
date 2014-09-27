@@ -1,5 +1,5 @@
 <div class="panel">
-  <a class="btn btn-primary fa fa-arrow-left" href="#/stagiaire">&nbsp;Retour Recherche stagiaire</a>
+  <a class="btn btn-primary fa fa-arrow-left" ui-sref="stagiaires">&nbsp;Retour Recherche stagiaire</a>
 </div>
 
 <!-- Detail du stagiaire, informations générales -->
@@ -99,139 +99,10 @@
   </div> <!-- /col-lg -->
 </div> <!-- /row -->
 
-<!-- Liste des absences du stagiaire -->
-<div class="row">
-  <div class="col-lg-12">
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">
-          <div class="row">
-            <div class="col-lg-6"><i class="fa fa-calendar"></i> Absences</div>
-          </div>
-        </h3>
-      </div><!-- /panel-heading -->
-      <div class="panel-body">
-        <!-- Bouton edition d'une absence -->
-        <div class="row">
-          <nav class="navbar navbar-default" role="navigation">
-            <div class="container-fluid">     
-              <form class="navbar-form navbar-left" role="search">
-                <input type="text" class="form-control" placeholder="Recherche">
-              </form>
-              <form class="navbar-form navbar-right" role="search">
-                <button class="btn btn-primary" ng-click="createAbsence()">
-                  <span class="fa fa-plus"></span>
-                </button>
-              </form>
-            </div>
-          </nav>
-        </div>
+<div ui-view="absences"></div>
 
-        <div class="col-lg-12">
-          <div class='gridStyle' ng-grid="gridOptionsAbsences"></div>
-        </div>
-      </div><!-- /panel-body -->
-    </div><!-- /panel -->
-  </div><!-- /col-lg -->
-</div> <!-- /row -->
+<div ui-view="avis"></div>
 
-<!-- Liste des avis d'un stagiaire -->
-<div class="row">
-  <div class="col-lg-12">
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">
-          <div class="row">
-            <div class="col-lg-6"><i class="fa fa-group"></i> Avis</div>
-          </div>
-        </h3>
-      </div><!-- /panel-heading -->
-      <div class="panel-body">
+<div ui-view="echanges"></div>
 
-        <!-- Bouton edition d'un avis -->
-        <div class="row">
-          <nav class="navbar navbar-default" role="navigation">
-            <div class="container-fluid">     
-              <form class="navbar-form navbar-left" role="search">
-                <input type="text" class="form-control" placeholder="Recherche">
-              </form>
-              <form class="navbar-form navbar-right" role="search">
-                <button class="btn btn-primary">
-                  <span class="fa fa-plus"></span>
-                </button>
-              </form>
-            </div>
-          </nav>
-        </div>
-
-        <div class="col-lg-12">
-          <div class='gridStyle' ng-grid="gridOptionsAvis"></div>
-        </div>
-      </div><!-- /panel-body -->
-    </div><!-- /panel -->
-  </div><!-- /col-lg -->
-</div> <!-- /row -->
-
-<!-- Liste des échanges d'un stagiaire -->
-<div class="row">
-  <div class="col-lg-12">
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">
-          <i class="fa fa-group"></i> Historiques des &Eacute;changes
-        </h3>
-      </div><!-- /panel-heading -->
-      <div class="panel-body">
-
-        <!-- Bouton edition d'un échange -->
-        <div class="row">
-          <nav class="navbar navbar-default" role="navigation">
-            <div class="container-fluid">     
-              <form class="navbar-form navbar-left" role="search">
-                <input type="text" class="form-control" placeholder="Recherche">
-              </form>
-              <form class="navbar-form navbar-right" role="search">
-                <button class="btn btn-primary">
-                  <span class="fa fa-plus"></span>
-                </button>
-              </form>
-            </div>
-          </nav>
-        </div>
-
-        <div class="col-lg-12">
-          <div class='gridStyle' ng-grid="gridOptionsEchanges"></div>
-        </div>
-      </div><!-- /panel-body -->
-    </div><!-- /panel -->
-  </div><!-- /col-lg -->
-</div> <!-- /row -->
-
-<!-- Planning individuel du stagiaire sous forme de tableau -->
-<div class="row">
-  <div class="col-lg-12">
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">
-          <i class="fa fa-file-text"></i> Planning individuel
-        </h3>
-      </div><!-- /panel-heading -->
-      <div class="panel-body">
-
-        <div class="row">
-          <nav class="navbar navbar-default" role="navigation">
-            <div class="container-fluid">     
-              <form class="navbar-form navbar-left" role="search">
-                <input type="text" class="form-control" placeholder="Recherche">
-              </form>
-            </div>
-          </nav>
-        </div>
-
-        <div class="col-lg-12">
-          <div class='gridStyle' ng-grid="gridOptionsPlanning"></div>
-        </div>
-      </div><!-- /panel-body -->
-    </div><!-- /panel -->
-  </div><!-- /col-lg -->
-</div> <!-- /row -->
+<toaster-container toaster-options="{'time-out':5000, 'close-button':true, 'position-class': 'toast-top-left'}"></toaster-container>

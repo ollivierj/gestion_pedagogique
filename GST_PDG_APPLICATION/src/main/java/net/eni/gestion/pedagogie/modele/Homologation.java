@@ -124,7 +124,7 @@ public class Homologation extends AModele<Integer> implements Serializable {
 	}
 
 	public void setDateDebut(Date dateDebut) {
-		this.formatedDateDebut=DateHelper.stringifyDate(dateDebut, "yyyy-MM-dd");
+		this.formatedDateDebut=DateHelper.stringifyDate(dateDebut, "yyyy-MM-dd'T'HH:mm:ss");
 		this.dateDebut = dateDebut;
 	}
 	
@@ -133,7 +133,7 @@ public class Homologation extends AModele<Integer> implements Serializable {
 	}
 
 	public void setFormatedDateDebut(String formatedDateDebut) throws ParseException {
-		this.dateDebut=DateHelper.datifyString(formatedDateDebut, "yyyy-MM-dd");
+		this.dateDebut=DateHelper.datifyString(formatedDateDebut, "yyyy-MM-dd'T'HH:mm:ss");
 		this.formatedDateDebut = formatedDateDebut;
 	}
 
@@ -142,7 +142,7 @@ public class Homologation extends AModele<Integer> implements Serializable {
 	}
 
 	public void setDateFin(Date dateFin) {
-		this.formatedDateFin=DateHelper.stringifyDate(dateFin, "yyyy-MM-dd");
+		this.formatedDateFin=DateHelper.stringifyDate(dateFin, "yyyy-MM-dd'T'HH:mm:ss");
 		this.dateFin = dateFin;
 	}
 	
@@ -151,7 +151,7 @@ public class Homologation extends AModele<Integer> implements Serializable {
 	}
 
 	public void setFormatedDateFin(String formatedDateFin) throws ParseException {
-		this.dateFin=DateHelper.datifyString(formatedDateFin, "yyyy-MM-dd");
+		this.dateFin=DateHelper.datifyString(formatedDateFin, "yyyy-MM-dd'T'HH:mm:ss");
 		this.formatedDateFin = formatedDateFin;
 	}
 
