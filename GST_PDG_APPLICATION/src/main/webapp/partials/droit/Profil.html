@@ -3,7 +3,7 @@
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">
-					<i class="fa fa-list-alt"></i> Droits
+					<i class="fa fa-list-alt"></i> Gestion des profils
 				</h3>
 			</div>
 			<div class="panel-body">
@@ -12,20 +12,12 @@
 					<h2>Profils</h2>
 				</div>
 				<div class="row">
-					<div class='gridStyle' ng-grid="gridDroitFormateur"></div>
+					<div class='gridStyle' ng-grid="gridProfil"></div>
 				</div>
 				<div class="row">
 					<button class="btn btn-primary"
 						ng-click="afficherModalAjoutProfil()">Ajouter Profil</button>
 				</div>
-				<br />
-				<div class="row">
-					<h2>Utilisateurs</h2>
-				</div>
-				<div class="row">
-					<div class='gridStyle' ng-grid="gridDroitAdmin"></div>
-				</div>
-				
 
 			</div>
 		</div>
