@@ -196,7 +196,7 @@ controllers
 				});
 
 var modalEditionSessionValidationCtrl = function($scope, $modalInstance,
-		SessionValidationsFactory, onlyNumbersFilter, title, readonly, sessionValidation, titreProfessionnels, schema, ok, okTitle) {
+		SessionValidationsFactory, StagiaireFactory, onlyNumbersFilter, title, readonly, sessionValidation, titreProfessionnels, schema, ok, okTitle) {
 	$scope.title = title;
 	$scope.data = sessionValidation;
 	$scope.data.readonly = readonly;
@@ -280,6 +280,29 @@ var modalEditionSessionValidationCtrl = function($scope, $modalInstance,
 		   	 ]	
 		}
 		];
+	$scope.stagiaires=[];
+	$scope.gridOptions = {
+        data: 'stagiaires',
+        rowHeight: 80,
+        selectedItems: $scope.stagiaireSelected,
+        columnDefs : [
+                {field:'nom', displayName:'Nom'},
+                {field:'prenom', displayName:'Prénom'},
+                {field:'codePromotion', displayName:'Promotion', cellTemplate: 'partials/templates/ng-grid_detailsPromotion.html'},
+        ],
+        enablePaging: false,
+        showFooter: false,
+        multiSelect: false
+    };
+	$scope.getStagiaires = function(search) {
+		return StagiaireFactory.dataAutocomplete.getData({search: search}).$promise.then(function(data) {
+			var stagiaires = [];
+			angular.forEach(data, function(item) {
+				stagiaires.push(item);
+			});
+			return stagiaires;
+		});
+	};
 	$scope.decorator = 'bootstrap-decorator';
 	$scope.submit =function(){
 		$scope.ok($scope.data).$promise.then(
