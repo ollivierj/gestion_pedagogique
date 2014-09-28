@@ -31,7 +31,7 @@ public class CRUDHelper {
 			lQuery.append(StringUtils.join(ORMLiteHelper.getProjectionFields(pABase.getTableInfo()), ","));
 			lQuery.append(" FROM ( ");
 			lQuery.append(" SELECT *, ");
-			lQuery.append(" ROW_NUMBER() OVER (ORDER BY ");
+			lQuery.append(" ROW_NUMBER() OVER (");
 			lQuery.append(ORMLiteHelper.getOrderByClauseFromSortOptions(pABase.getTableInfo(), pPager.getSortOptions()));
 			lQuery.append(") AS RowNum ");
 			lQuery.append(" FROM ");

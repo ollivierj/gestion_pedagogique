@@ -46,6 +46,7 @@ public class SessionValidation extends AModele<Integer> implements Serializable 
 	public final static String LIEN_DOCS_GENERES_FIELD_NAME			= "SES_VAL_LIEN_DOCS_GENERES";
 	public final static String LIEN_DOCS_COLLECTES_FIELD_NAME		= "SES_VAL_LIEN_DOCS_COLLECTES";
 	
+	public final static String[] FULL_TEXT_SEARCH_FIELDS		= null;
 	
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,

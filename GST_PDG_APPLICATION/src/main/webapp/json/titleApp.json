@@ -1,7 +1,7 @@
 [
 	{"mainTitle" : "Stagiaires", "iconTitle":"fa fa-search", "url":"stagiaires", "type":"single"},
 	{"mainTitle" : "Evaluations", "iconTitle":"fa fa-file-text", "url":"evaluations", "type":"single"},
-	{"mainTitle" : "Sessions de validation", "iconTitle":"fa fa-file-o", "url":"sessionsValidation", "type":"single"},
+	{"mainTitle" : "Sessions de validation", "iconTitle":"fa fa-file-o", "url":"sessionValidations", "type":"single"},
 	{"mainTitle" : "Salles", "iconTitle":"fa fa-building-o", "url":"salles", "type":"single"},
 	{"mainTitle" : "Fichiers", "iconTitle":"fa fa-building-o", "url":"fichiers", "type":"single"}	
 ]
