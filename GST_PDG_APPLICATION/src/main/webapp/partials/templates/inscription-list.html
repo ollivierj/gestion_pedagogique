@@ -1,0 +1,31 @@
+<div class="panel-body">
+	<!-- Filtre de recherche -->
+	<div class="row">
+		<nav class="navbar navbar-default" role="navigation">
+			<div class="container-fluid" style="padding-top: 7px;">
+				<form class="navbar-form navbar-left" role="search">
+					<div class="row">
+						<div class="col-xs-11">
+							<input type="text" ng-model="stagiaire" class="form-control"
+								placeholder="Recherche"
+								typeahead="stagiaire as (stagiaire.prenom +' '+stagiaire.nom) for stagiaire in getStagiaires($viewValue)"
+								typeahead-loading="chargementStagiaires" class="form-control">
+							<i ng-show="chargementStagiaires"
+								class="glyphicon glyphicon-refresh"></i>
+						</div>
+						<div class="col-xs-1">
+							<a href="" style="margin-top: 6px;"
+								class="btn btn-danger btn-xs pull-right" data-nodrag
+								ng-click="addAbsence(stagiaire)"><i
+								class="glyphicon glyphicon-plus"></i></a>
+						</div>
+					</div>
+
+				</form>
+			</div>
+		</nav>
+	</div>
+	<div class="row form-group">
+		<div class='gridStyle' ng-grid="gridOptions"></div>
+	</div>
+</div>
