@@ -125,14 +125,14 @@ angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 'ngAnimate', 'ui
 		//PROFILS *************************************************************
 		state('profils', {
 			url: '/profils',
-			templateUrl: 'partials/droit/gestionDroit.html',
-			controller: 'gestionDroitCtrl'
+			templateUrl: 'partials/templates/list.html',
+			controller: 'profilsCtrl'
 		}).
 		//UTILISATEURS ******************************************************
 		state('utilisateurs', {
 			url: '/utilisateurs',
 			templateUrl: 'partials/templates/list.html',
-			controller: 'gestionUtilisateursCtrl'
+			controller: 'utilisateursCtrl'
 		}).
 		//SESSION DE VALIDATION **********************************************
 		state('sessionValidations', {
