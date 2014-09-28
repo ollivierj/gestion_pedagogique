@@ -12,6 +12,9 @@ controllers.
 				multiSelect : false,
 				columnDefs : [
 						{
+							field : 'code',
+							displayName : 'code'
+						},{
 							field : 'libelle',
 							displayName : 'Libelle'
 						},
@@ -194,58 +197,66 @@ var modalProfilCtrl = function($scope, $modalInstance,
 		$scope.ok = ok;
 		$scope.schema = schema;
 		$scope.form = 
-		[
-		{
-		    type: "tabs",
-		    tabs: 
-		    	[
-			    {
-			      title: "Droits",
-			      
-			    }   
-			  
-			    ]
-		},	
-		{
-			type: "conditional",
-		    condition: "!data.readonly", 
-		    items: 
-		   	 [
-		   	 {
-		   	 type: "actions",
-		   	 items:	
-		   		 [
-		         {
-		         type: 'submit', 
-		         title: $scope.okTitle 
-		         },
-		         { 
-				 type: 'button', 
-				 title: 'Annuler', 
-				 onClick: "cancel()" 
-				 }
-		         ]
-		   	 }
-		   	 ]	
-		},
-		{
-			type: "conditional",
-		    condition: "data.readonly", 
-		    items: 
-		   	 [
-		   	 {
-		   	 type: "actions",
-		   	 items:	
-		   		 [
-		         {
-		         type: 'submit', 
-		         title: $scope.okTitle 
-		         }
-		         ]
-		   	 }
-		   	 ]	
-		}
-		];
+			[
+			{
+			    type: "tabs",
+			    tabs: 
+			    	[
+				    {
+				      title: "Profil",
+				      items: 	[
+				             	{
+				             		key : "code",
+				             		disabled : $scope.data.readonly
+				             	},
+				             	{
+				             		key : "libelle",
+				             		disabled : $scope.data.readonly
+				             	}
+					            ]
+				    }
+				    ]
+			},	
+			{
+				type: "conditional",
+			    condition: "!data.readonly", 
+			    items: 
+			   	 [
+			   	 {
+			   	 type: "actions",
+			   	 items:	
+			   		 [
+			         {
+			         type: 'submit', 
+			         title: $scope.okTitle 
+			         },
+			         { 
+					 type: 'button', 
+					 title: 'Annuler', 
+					 onClick: "cancel()" 
+					 }
+			         ]
+			   	 }
+			   	 ]	
+			},
+			{
+				type: "conditional",
+			    condition: "data.readonly", 
+			    items: 
+			   	 [
+			   	 {
+			   	 type: "actions",
+			   	 items:	
+			   		 [
+			         {
+			         type: 'submit', 
+			         title: $scope.okTitle 
+			         }
+			         ]
+			   	 }
+			   	 ]	
+			}
+			];
 		$scope.decorator = 'bootstrap-decorator';
 		$scope.submit =function(){
 		$scope.ok($scope.data).$promise.then(
