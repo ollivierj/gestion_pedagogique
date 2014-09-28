@@ -39,10 +39,10 @@ public class Evaluation extends AModele<Integer> implements Serializable {
 
 	public final static String ID_FIELD_NAME 						= "EVAL_ID";
 	public final static String SUJET_EVALUATION_FIELD_NAME			= "EVAL_SUJET_EVALUATION";
-	public final static String DATE_HEURE_DEBUT_PASSAGE				= "EVAL_DATE_DEBUT_PASSAGE";
-	public final static String DATE_HEURE_FIN_PASSAGE				= "EVAL_DATE_FIN_PASSAGE";
+	public final static String DATE_HEURE_DEBUT_PASSAGE				= "EVAL_DATE_HEURE_DEBUT_PASSAGE";
+	public final static String DATE_HEURE_FIN_PASSAGE				= "EVAL_DATE_HEURE_FIN_PASSAGE";
 	public final static String LIEN_GRILLE_CORRECTION_FIELD_NAME	= "EVAL_LIEN_GRILLE_CORRECTION";
-	public final static String LIEN_COPIES_IMMATERIELLES_FIELD_NAME	= "EVAL_LIEN_COPIES_IMMATERRIELLES";
+	public final static String LIEN_COPIES_IMMATERIELLES_FIELD_NAME	= "EVAL_LIEN_COPIES_IMMATERIELLES";
 	public final static String CORRECTEUR_FIELD_NAME				= "EVAL_CORRECTEUR";
 	public final static String AUTEUR_FIELD_NAME 					= "EVAL_AUTEUR";
 	
