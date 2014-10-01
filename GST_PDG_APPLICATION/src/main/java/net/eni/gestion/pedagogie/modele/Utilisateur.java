@@ -141,6 +141,9 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private Profil profil = null;
 	
+	@SchemaIgnore
+	private String login = null;
+	
 	/*@SchemaIgnore
 	@JsonIgnore
 	@ForeignCollectionField(eager = true, columnName = Echange.AUTEUR_FIELD_NAME)
@@ -280,6 +283,14 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 		this.profil = profil;
 	}
 
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
 	/*public ArrayList<Echange> getEchanges() {
 		if (null != transientEchanges) {
 			echanges.clear();
@@ -334,5 +345,7 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 		}
 		return absences;
 	}*/
+	
+	
 
 }

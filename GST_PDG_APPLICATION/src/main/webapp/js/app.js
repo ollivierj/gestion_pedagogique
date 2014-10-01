@@ -28,6 +28,12 @@ angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 'ngAnimate', 'ui
 			url: '/accueil',
 			templateUrl: 'partials/accueil.html',
 		}).
+		// LOGIN ************************************************* 
+		state('login', {
+			url: '/login',
+			templateUrl: 'partials/authentification/authentification.html',
+			controller: 'authentificationCtrl'
+		}).	
 		// STAGIAIRE ************************************************* 
 		state('stagiaires', {
 			url: '/stagiaires',
