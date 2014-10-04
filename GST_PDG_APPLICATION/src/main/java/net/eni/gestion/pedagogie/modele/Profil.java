@@ -14,6 +14,7 @@ import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.github.reinert.jjschema.Attributes;
 import com.github.reinert.jjschema.SchemaIgnore;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
@@ -42,6 +43,7 @@ public class Profil extends AModele<Integer> implements Serializable {
 	public final static String CODE_FIELD_NAME		= "PRF_CODE";
 	public final static String LIBELLE_FIELD_NAME	= "PRF_LIBELLE";
 	
+	
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
 		dataType = DataType.INTEGER_OBJ,
@@ -49,6 +51,7 @@ public class Profil extends AModele<Integer> implements Serializable {
 		useGetSet = true)
 	private Integer id = null;
 	
+	@Attributes(title = "Code", required = true, maxLength = 10)
 	@DatabaseField(
 		columnName = CODE_FIELD_NAME,
 		dataType = DataType.STRING,
@@ -56,6 +59,7 @@ public class Profil extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private String code = null;
 
+	@Attributes(title = "Libelle", required = true, maxLength = 50)
 	@DatabaseField(
 		columnName = LIBELLE_FIELD_NAME,
 		dataType = DataType.STRING,
