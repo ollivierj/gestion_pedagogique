@@ -51,6 +51,7 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 	public final static String PHOTO_FIELD_NAME				= "UTIL_PHOTO";
 	public final static String MOT_PASSE_FIELD_NAME			= "UTIL_MOT_PASSE";
 	public final static String PROFIL_FIELD_NAME			= "UTIL_PROFIL";
+	public final static String LOGIN_FIELD_NAME				= "UTIL_LOGIN";
 	
 	public final static String[] FULL_TEXT_SEARCH_FIELDS		= {NOM_FIELD_NAME, PRENOM_FIELD_NAME, EMAIL_FIELD_NAME};
 	
@@ -141,7 +142,13 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private Profil profil = null;
 	
-	@SchemaIgnore
+	
+	@Attributes(title = "Login", required = true, maxLength = 50)
+	@DatabaseField(
+		columnName = LOGIN_FIELD_NAME,
+		dataType = DataType.STRING,
+		useGetSet = true,
+		canBeNull = false)
 	private String login = null;
 	
 	/*@SchemaIgnore
