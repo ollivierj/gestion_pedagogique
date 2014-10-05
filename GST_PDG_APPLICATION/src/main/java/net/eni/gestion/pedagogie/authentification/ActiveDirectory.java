@@ -91,7 +91,6 @@ public class ActiveDirectory {
  
  
         String ldapURL = "ldap://" + serverName + '/';
-        System.out.println(ldapURL);
         props.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
         props.put(Context.PROVIDER_URL, ldapURL);
         try{
