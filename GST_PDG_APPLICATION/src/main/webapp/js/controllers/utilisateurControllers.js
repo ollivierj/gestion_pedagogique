@@ -278,8 +278,12 @@ $scope.form =
 	            	]
 	    },
 	    {
-	        title: "Mot de passe",
+	        title: "Authentification",
 	        items: 	[
+					{
+						key: "login",
+						disabled : $scope.data.readonly
+					},
 					{
 						title : "Profil",
 						key: "profil.id",

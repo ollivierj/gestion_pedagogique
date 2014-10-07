@@ -1,7 +1,14 @@
 package net.eni.gestion.pedagogie.resource.implementation;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
+import net.eni.gestion.pedagogie.commun.composant.GenericException;
 import net.eni.gestion.pedagogie.modele.Utilisateur;
 import net.eni.gestion.pedagogie.resource.UtilisateurResource;
 import net.eni.gestion.pedagogie.service.UtilisateurService;
@@ -24,4 +31,13 @@ public class UtilisateurResourceImpl extends AResourceImpl<Utilisateur, Integer,
     	super(utilisateurService, Utilisateur.class);
     }
 
+    @POST
+    @Path("/login")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+	public Utilisateur getAuthentification(Utilisateur utilisateur)
+			throws GenericException {
+    	
+    	return service.checkLogin(utilisateur);
+	}
 }

@@ -7,8 +7,10 @@ controllers.
 			$scope.sortOptions = ProfilsFactory.sortOptions;		
 			$scope.filterOptions = ProfilsFactory.filterOptions;
 			$scope.title = "Profil";
+			
+			
 			$scope.gridOptions = {
-				data : 'profil',
+				data : 'profils',
 				multiSelect : false,
 				columnDefs : [
 						{

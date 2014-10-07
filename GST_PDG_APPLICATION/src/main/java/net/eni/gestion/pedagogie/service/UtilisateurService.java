@@ -1,5 +1,6 @@
 package net.eni.gestion.pedagogie.service;
 
+import net.eni.gestion.pedagogie.commun.composant.GenericException;
 import net.eni.gestion.pedagogie.modele.Utilisateur;
 
 /**
@@ -8,6 +9,7 @@ import net.eni.gestion.pedagogie.modele.Utilisateur;
  */
 public interface UtilisateurService extends AService<Utilisateur, Integer> {
 
-	
+	Utilisateur checkLogin(Utilisateur utilisateur) throws GenericException;
+
 
 }

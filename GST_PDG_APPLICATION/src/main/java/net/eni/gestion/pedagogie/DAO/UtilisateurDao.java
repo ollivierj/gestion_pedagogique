@@ -11,4 +11,5 @@ public interface UtilisateurDao extends ADao<Utilisateur, Integer> {
 
 	
 
+	public String checkConnection(Utilisateur utilisateur, boolean loginOnly ) throws Exception;
 }
