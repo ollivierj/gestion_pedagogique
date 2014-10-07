@@ -4,22 +4,16 @@
 package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.github.reinert.jjschema.Attributes;
-import com.github.reinert.jjschema.SchemaIgnore;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**

@@ -59,7 +59,7 @@ controllers
 					
 					$scope.afficherFenetreEdition = function(){
 						$scope.ajouterSessionValidation();
-					}
+					};
 					
 					$scope.ajouterSessionValidation = function(
 							sessionValidationId) {
@@ -289,18 +289,33 @@ var modalEditionSessionValidationCtrl = function($scope, $modalInstance,
                 {field:'nom', displayName:'Nom'},
                 {field:'prenom', displayName:'Prénom'},
                 {field:'codePromotion', displayName:'Promotion', cellTemplate: 'partials/templates/ng-grid_detailsPromotion.html'},
-        ],
+                {										
+					displayName : 'Actions',
+					cellTemplate : 'partials/templates/ng-grid_remove_action.html'
+				}
+                ],
         enablePaging: false,
         showFooter: false,
         multiSelect: false
     };
-	$scope.getStagiaires = function(search) {
-		return StagiaireFactory.dataAutocomplete.getData({search: search}).$promise.then(function(data) {
-			var stagiaires = [];
+	$scope.removeRow = function(stagiaire) {
+		var index = $scope.stagiaires.indexOf(stagiaire);
+		 $scope.stagiaires.splice(index, 1);     
+	};
+	$scope.chargerStagiairesOrPromotions = function(search) {
+		return StagiaireFactory.stagiaireOrPromotionAutocomplete.getData({search: search}).$promise.then(function(data) {
+			var stagiairesOrPromotions = [];
 			angular.forEach(data, function(item) {
-				stagiaires.push(item);
+				stagiairesOrPromotions.push(item);
 			});
-			return stagiaires;
+			return stagiairesOrPromotions;
+		});
+	};
+	$scope.addItem = function(item) {
+		StagiaireFactory.stagiaireOrPromotion.getData({type: item.type, id : item.id}).$promise.then(function(data) {
+			angular.forEach(data, function(stagiaire) {
+				$scope.stagiaires.push(stagiaire);
+			});
 		});
 	};
 	$scope.decorator = 'bootstrap-decorator';

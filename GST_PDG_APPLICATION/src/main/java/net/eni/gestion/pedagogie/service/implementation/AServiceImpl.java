@@ -53,7 +53,7 @@ abstract class AServiceImpl <M extends AModele<ID>, ID, D extends ADao<M, ID>> i
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.service.generique.CRUDService#chargerDetail(java.lang.Integer)
 	 */
-   public M chargerDetail(@PathParam("id") ID pId) throws GenericException {
+   public M chargerDetail(ID pId) throws GenericException {
 		try {
 			return dao.chargerDetail(pId);
 		} catch (Exception e) {

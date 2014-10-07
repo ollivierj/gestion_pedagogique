@@ -14,6 +14,7 @@ import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -47,6 +48,14 @@ public class Promotion extends AModele<String> implements Serializable {
 	public final static String DATE_CREATION_FIELD_NAME			= "DateCreation";
 	public final static String PRIX_PEC_AFFECTE_FIELD_NAME		= "PrixPECAffecte";
 	public final static String PRIX_FINANCE_AFFECTE_FIELD_NAME	= "PrixFinanceAffecte";
+	
+	public final static String[] FULL_TEXT_SEARCH_FIELDS		= {ID_FIELD_NAME};
+	
+	@JsonIgnore
+	@Override
+	public String[] getFullTextSearchFieldNames() {
+		return FULL_TEXT_SEARCH_FIELDS;
+	}
 	
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
@@ -118,6 +127,8 @@ public class Promotion extends AModele<String> implements Serializable {
 	private transient Collection<Cours> transientCours = null;
 
 	private ArrayList<Cours> cours = new ArrayList<Cours>();
+	
+	private ArrayList<StagiairePromotion> stagiaires = new ArrayList<StagiairePromotion>();
 	
 	@Override
 	public String getId() {
@@ -201,5 +212,19 @@ public class Promotion extends AModele<String> implements Serializable {
 		}
 		return cours;
 	}
+
+	public ArrayList<StagiairePromotion> getStagiaires() {
+		return stagiaires;
+	}
+
+	public void setStagiaires(ArrayList<StagiairePromotion> stagiaires) {
+		this.stagiaires = stagiaires;
+	}
+
+	
+
+
+	
+
 
 }

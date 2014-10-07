@@ -48,6 +48,12 @@ public class SessionValidation extends AModele<Integer> implements Serializable 
 	
 	public final static String[] FULL_TEXT_SEARCH_FIELDS		= null;
 	
+	@JsonIgnore
+	@Override
+	public String[] getFullTextSearchFieldNames() {
+		return FULL_TEXT_SEARCH_FIELDS;
+	}
+	
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
 		dataType = DataType.INTEGER_OBJ,

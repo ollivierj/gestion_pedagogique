@@ -6,21 +6,20 @@
 				<form class="navbar-form navbar-left" role="search">
 					<div class="row">
 						<div class="col-xs-11">
-							<input type="text" ng-model="stagiaire" class="form-control"
+							<input type="text" ng-model="item" class="form-control"
 								placeholder="Recherche"
-								typeahead="stagiaire as (stagiaire.prenom +' '+stagiaire.nom) for stagiaire in getStagiaires($viewValue)"
-								typeahead-loading="chargementStagiaires" class="form-control">
-							<i ng-show="chargementStagiaires"
+								typeahead="item as (item.libelle) for item in chargerStagiairesOrPromotions($viewValue)"
+								typeahead-loading="chargementItem" class="form-control">
+							<i ng-show="chargementItem"
 								class="glyphicon glyphicon-refresh"></i>
 						</div>
 						<div class="col-xs-1">
 							<a href="" style="margin-top: 6px;"
 								class="btn btn-danger btn-xs pull-right" data-nodrag
-								ng-click="addAbsence(stagiaire)"><i
+								ng-click="addItem(item)"><i
 								class="glyphicon glyphicon-plus"></i></a>
 						</div>
 					</div>
-
 				</form>
 			</div>
 		</nav>
