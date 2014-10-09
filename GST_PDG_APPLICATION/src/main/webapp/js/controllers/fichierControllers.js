@@ -1,6 +1,46 @@
 'use strict';
 
-controllers.controller('fichiersCtrl', function($scope, FileUploader) {
+controllers.controller('fichiersCtrl', function($scope, $timeout, $filter, FileUploader, fichiers, FichiersFactory) {
+	$scope.title="Fichiers"
+	$scope.fichiers = fichiers;
+	$scope.results = fichiers;
+	$scope.filterOptions = FichiersFactory.filterOptions;
+	$scope.gridOptions = {
+		data : 'results',
+		multiSelect : false,
+		columnDefs : 	[
+						{
+							field : 'filename',
+							displayName : 'Nom'
+						},
+						{
+							field : 'size',
+							displayName : 'Taille'
+						},
+						{
+							field : 'url',
+							displayName : 'Chemin'
+						}
+						],
+		enablePaging : false,
+		showFooter : false,
+		keepLastSelected: true,
+		enableColumnResize: true,
+		enableColumnReordering : true,
+		filterOptions : $scope.filterOptions,
+		useExternalSorting : true,
+		showColumnMenu : true,
+		i18n : 'fr'
+	};
+	
+	$scope.$watch('filterOptions', function (newVal, oldVal) {
+		if (newVal.filterText){
+	        $scope.results=$filter('filter')($scope.fichiers, {filename:newVal.filterText}, false);
+		}else{
+			$scope.results=$scope.fichiers;
+		}
+    }, true);
+	
 	var uploader = $scope.uploader = new FileUploader({
 		url : '/ng_gst_pdg/web/fichiers/deposer'
 	});
