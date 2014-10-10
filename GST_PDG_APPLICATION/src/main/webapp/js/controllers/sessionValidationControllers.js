@@ -8,7 +8,7 @@ controllers
 					$scope.pagingOptions = SessionValidationsFactory.pagingOptions;		
 					$scope.sortOptions = SessionValidationsFactory.sortOptions;		
 					$scope.filterOptions = SessionValidationsFactory.filterOptions;
-					$scope.title = "SessionValidations";
+					$scope.title = "Sessions de validation";
 					$scope.gridOptions = {
 						data : 'sessionValidations',
 
@@ -379,6 +379,8 @@ var modalEditionSessionValidationCtrl = function($scope, $modalInstance,
 		StagiaireFactory.stagiaireOrPromotion.getData({type: item.type, id : item.id}).$promise.then(function(data) {
 			angular.forEach(data, function(stagiaire) {
 				var sessionValidation = {id : $scope.data.id};
+				//TODO decommenter quand lodash ok
+				//if(-1>_.findIndex(characters, { 'CodeStagiaire': stagiaire.codeStagiare })
 				$scope.data.sessionValidationStagiaires.push({sessionValidation : sessionValidation, stagiaire : stagiaire});
 			});
 		});
