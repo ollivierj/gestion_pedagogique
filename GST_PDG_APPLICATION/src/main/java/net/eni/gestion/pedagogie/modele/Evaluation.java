@@ -5,6 +5,8 @@ package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -14,9 +16,12 @@ import net.eni.gestion.pedagogie.commun.outil.DateHelper;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.github.reinert.jjschema.Attributes;
+import com.github.reinert.jjschema.SchemaIgnore;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
@@ -121,6 +126,43 @@ public class Evaluation extends AModele<Integer> implements Serializable {
 		canBeNull = true)
 	private Utilisateur auteur = null;
 	
+	@SchemaIgnore
+	@JsonIgnore
+	@ForeignCollectionField(eager = true, columnName = EvaluationStagiaire.STAGIAIRE_FIELD_NAME)
+	private transient Collection<EvaluationStagiaire> transientEvaluationStagiaires = null;
+	
+	@SchemaIgnore
+	@JsonManagedReference("EvaluationStagiaire-Evaluation")
+	public Collection<EvaluationStagiaire> getTransientEvaluationStagiaire() {
+		return transientEvaluationStagiaires;
+	}
+
+	@JsonIgnore
+	@SchemaIgnore
+	public void setTransientEvaluationStagiaire(
+			Collection<EvaluationStagiaire> transientEvaluationStagiaires) {
+		this.transientEvaluationStagiaires = transientEvaluationStagiaires;
+	}
+
+	@SchemaIgnore
+	@Attributes(id = "evaluationStagiaires")
+	private ArrayList<EvaluationStagiaire> evaluationStagiaires= new ArrayList<EvaluationStagiaire>();
+	
+	@SchemaIgnore
+	public ArrayList<EvaluationStagiaire> getEvaluationStagiaires() {
+		if (null != transientEvaluationStagiaires) {
+			evaluationStagiaires.clear();
+			evaluationStagiaires.addAll(transientEvaluationStagiaires);
+			transientEvaluationStagiaires = null;
+		}
+		return evaluationStagiaires;
+	}
+
+	@SchemaIgnore
+	public void setEvaluationStagiaires(ArrayList<EvaluationStagiaire> evaluationStagiaires) {
+		this.evaluationStagiaires = evaluationStagiaires;
+	}
+	
 	public Date getDateHeureDebutPassage() {
 		return dateHeureDebutPassage;
 	}
@@ -207,5 +249,4 @@ public class Evaluation extends AModele<Integer> implements Serializable {
 		this.correcteur = correcteur;
 	}
 
-	
 }

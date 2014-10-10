@@ -10,6 +10,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.github.reinert.jjschema.SchemaIgnore;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -37,6 +39,7 @@ public class EvaluationStagiaire extends AModele<Integer> implements Serializabl
 	public final static String STAGIAIRE_FIELD_NAME 			= "EVAL_STG_STAGIAIRE";
 	public final static String INSTANCE_EVALUATION_FIELD_NAME	= "EVAL_STG_INSTANCE_EVALUATION";
 	
+	
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
 		dataType = DataType.INTEGER_OBJ,
@@ -44,25 +47,31 @@ public class EvaluationStagiaire extends AModele<Integer> implements Serializabl
 		useGetSet = true)
 	private Integer id = null;
 	
+	@SchemaIgnore
+	
+	@JsonBackReference("EvaluationStagiaire-Evaluation")
 	@DatabaseField(
 		columnName = EVALUATION_FIELD_NAME,
 		foreign = true,
 		useGetSet = true,
 		canBeNull = false)
 	private Evaluation evaluation = null;
-
+	
+	@SchemaIgnore
 	@DatabaseField(
 		columnName = STAGIAIRE_FIELD_NAME,
 		foreign = true,
 		useGetSet = true,
-		canBeNull = false)
-	private Stagiaire stagiaire = null;
+		canBeNull = false,
+		foreignAutoRefresh = true)
+	private StagiairePromotion stagiaire = null;
 
+	@SchemaIgnore
 	@DatabaseField(
 			columnName = INSTANCE_EVALUATION_FIELD_NAME,
 			foreign = true,
 			useGetSet = true,
-			canBeNull = false)
+			canBeNull = true)
 		private InstanceEvaluation instanceEvaluation = null;
 
 	@Override
@@ -83,11 +92,11 @@ public class EvaluationStagiaire extends AModele<Integer> implements Serializabl
 		this.evaluation = evaluation;
 	}
 
-	public Stagiaire getStagiaire() {
+	public StagiairePromotion getStagiaire() {
 		return stagiaire;
 	}
 
-	public void setStagiaire(Stagiaire stagiaire) {
+	public void setStagiaire(StagiairePromotion stagiaire) {
 		this.stagiaire = stagiaire;
 	}
 

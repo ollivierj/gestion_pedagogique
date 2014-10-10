@@ -1,21 +1,14 @@
 package net.eni.gestion.pedagogie.DAO.implementation;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
-
-import org.apache.commons.lang3.StringUtils;
 
 import net.eni.gestion.pedagogie.DAO.UtilisateurDao;
 import net.eni.gestion.pedagogie.commun.composant.Connexion;
-import net.eni.gestion.pedagogie.commun.composant.Pair;
-import net.eni.gestion.pedagogie.commun.outil.ORMLiteHelper;
 import net.eni.gestion.pedagogie.modele.Utilisateur;
 
 import com.google.inject.Singleton;
-import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.dao.GenericRawResults;
 
 /**

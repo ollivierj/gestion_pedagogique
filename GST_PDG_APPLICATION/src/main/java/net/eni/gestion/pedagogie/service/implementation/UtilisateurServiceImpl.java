@@ -2,22 +2,20 @@ package net.eni.gestion.pedagogie.service.implementation;
 
 import java.sql.SQLException;
 
-import net.eni.gestion.pedagogie.DAO.AvisDao;
+import javax.naming.ldap.LdapContext;
+
 import net.eni.gestion.pedagogie.DAO.ProfilDao;
 import net.eni.gestion.pedagogie.DAO.UtilisateurDao;
+import net.eni.gestion.pedagogie.authentification.ActiveDirectory;
+import net.eni.gestion.pedagogie.authentification.ActiveDirectory.User;
+import net.eni.gestion.pedagogie.commun.composant.GenericException;
+import net.eni.gestion.pedagogie.configuration.LDAPConfiguration;
 import net.eni.gestion.pedagogie.modele.Profil;
 import net.eni.gestion.pedagogie.modele.Utilisateur;
 import net.eni.gestion.pedagogie.service.UtilisateurService;
-import net.eni.gestion.pedagogie.commun.composant.GenericException;
-import net.eni.gestion.pedagogie.configuration.LDAPConfiguration;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-
-import javax.naming.ldap.LdapContext;
-
-import net.eni.gestion.pedagogie.authentification.ActiveDirectory;
-import net.eni.gestion.pedagogie.authentification.ActiveDirectory.User;
 
 /**
  * @author jollivier

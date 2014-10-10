@@ -5,6 +5,8 @@ package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -14,9 +16,12 @@ import net.eni.gestion.pedagogie.commun.outil.DateHelper;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.github.reinert.jjschema.Attributes;
+import com.github.reinert.jjschema.SchemaIgnore;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
@@ -121,6 +126,43 @@ public class SessionValidation extends AModele<Integer> implements Serializable 
 			useGetSet = true,
 			canBeNull = false)
 		private String lienDocsCollectes = null;
+	
+	@SchemaIgnore
+	@JsonIgnore
+	@ForeignCollectionField(eager = true, columnName = SessionValidationStagiaire.STAGIAIRE_FIELD_NAME)
+	private transient Collection<SessionValidationStagiaire> transientSessionValidationStagiaires = null;
+	
+	@SchemaIgnore
+	@JsonManagedReference("SessionValidationStagiaire-SessionValidation")
+	public Collection<SessionValidationStagiaire> getTransientSessionValidationStagiaire() {
+		return transientSessionValidationStagiaires;
+	}
+
+	@JsonIgnore
+	@SchemaIgnore
+	public void setTransientSessionValidationStagiaire(
+			Collection<SessionValidationStagiaire> transientSessionValidationStagiaires) {
+		this.transientSessionValidationStagiaires = transientSessionValidationStagiaires;
+	}
+	
+	@SchemaIgnore
+	@Attributes(id = "sessionValidationStagiaires")
+	private ArrayList<SessionValidationStagiaire> sessionValidationStagiaires= new ArrayList<SessionValidationStagiaire>();
+	
+	@SchemaIgnore
+	public ArrayList<SessionValidationStagiaire> getSessionValidationStagiaires() {
+		if (null != transientSessionValidationStagiaires) {
+			sessionValidationStagiaires.clear();
+			sessionValidationStagiaires.addAll(transientSessionValidationStagiaires);
+			transientSessionValidationStagiaires = null;
+		}
+		return sessionValidationStagiaires;
+	}
+
+	@SchemaIgnore
+	public void setSessionValidationStagiaires(ArrayList<SessionValidationStagiaire> sessionValidationStagiaires) {
+		this.sessionValidationStagiaires = sessionValidationStagiaires;
+	}
 	
 	@Override
 	public Integer getId() {

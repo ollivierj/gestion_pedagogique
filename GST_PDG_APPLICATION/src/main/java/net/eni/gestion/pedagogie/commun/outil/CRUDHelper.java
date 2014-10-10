@@ -152,4 +152,42 @@ public class CRUDHelper {
 		}
 	}
 	
+	@SuppressWarnings("unused")
+	public static <M extends AModele<ID>,ID, M2 extends AModele<ID2>,ID2> ArrayList<M2> mettreAJourCollection(
+			BaseDaoImpl<M2, ID2> pABase,
+			M pM,
+			ArrayList<M2> pM2, String MField,
+			SearchCallable<M2,ID2> pSearchFunction) throws Exception {
+		ArrayList<M2> lM2sEnBase = null;
+		try {
+
+			lM2sEnBase = new ArrayList<M2>(pABase.queryForEq(
+					MField,
+					pM.getId()));
+			if (null != lM2sEnBase) {
+				pSearchFunction.setItemList(pM2);
+				for (M2 lM2EnBase : lM2sEnBase) {
+					// L'homologation référencée précédemment est-elle absente
+					// des nouvelles homologations référencées ?
+					pSearchFunction.setSearchItem(lM2EnBase);
+					if (null == pSearchFunction.call()) {
+						// Si oui, suppression de l'ancienne homologation référencée
+						pABase.delete(lM2EnBase);
+					}
+				}
+				// Pour toutes les homologations à sauvegarder en base ....
+				for (M2 lM2 : pM2) {
+					// Et on on sauvegarde
+					pABase.createOrUpdate(lM2);
+				}
+				return pM2;
+			}
+		} catch (Exception e) {
+			throw new Exception(
+					"Echec de mise à jour des associations des homologations du professionnel homologués");
+		}
+		return null;
+		
+	}
+	
 }
