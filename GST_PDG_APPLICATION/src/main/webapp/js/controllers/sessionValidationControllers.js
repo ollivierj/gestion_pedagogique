@@ -3,6 +3,7 @@
 controllers
 		.controller(
 				'sessionValidationsCtrl',
+
 				function($scope, $modal, $log, $timeout, SessionValidationsFactory, TitreProfessionnelsFactory) {
 					$scope.pagingOptions = SessionValidationsFactory.pagingOptions;		
 					$scope.sortOptions = SessionValidationsFactory.sortOptions;		
@@ -10,22 +11,31 @@ controllers
 					$scope.title = "SessionValidations";
 					$scope.gridOptions = {
 						data : 'sessionValidations',
+
 						multiSelect : false,
 						columnDefs : 	[
 										{
 											field : 'titreProfessionnel.code',
+
 											displayName : 'Module'
 										},
 										{
 											field : 'formatedDateDebut',
 											cellFilter: 'date:\'dd/MM/yyyy\'',
+
 											displayName : 'Date de début'
 										},
 										{
 											field : 'formatedDateFin',
+
 											cellFilter: 'date:\'dd/MM/yyyy\'',
 											displayName : 'Date de fin'
 										},
+
+
+
+
+
 										{										
 											displayName : 'Actions',
 											cellTemplate : 'partials/templates/ng-grid_actions.html'
@@ -47,36 +57,48 @@ controllers
 
 					$scope.editRow = function(sessionValidation) {
 						$scope.editerSessionValidation(sessionValidation.id);
+
 					};
 
 					$scope.viewRow = function(sessionValidation) {
 						$scope.visualiserSessionValidation(sessionValidation.id);
+
 					};
 					
 					$scope.removeRow = function(sessionValidation) {
 						$scope.supprimerSessionValidation(sessionValidation.id);
+
 					};
 					
 					$scope.afficherFenetreEdition = function(){
 						$scope.ajouterSessionValidation();
 					};
+
+
 					
 					$scope.ajouterSessionValidation = function(
 							sessionValidationId) {
+
 						var modalAdd = $modal
 								.open({
 									templateUrl : 'partials/templates/inscription-form.html',
 									controller : modalEditionSessionValidationCtrl,
+
 									resolve : {
 										title : function() {return "Ajout d'une session de validation";},
 										readonly : function() {return false;},
 										sessionValidation : function(){ return {}},
 										titreProfessionnels : function(TitreProfessionnelsFactory){
+
 											return TitreProfessionnelsFactory.titlemap.getData().$promise;
 										},
 										schema : function(SessionValidationsFactory) {
+
 											return SessionValidationsFactory.jsonschema.getData().$promise;
 										},
+
+
+
 										okTitle : function() {return "Enregistrer";},
 										ok : function() { return function(item){ return SessionValidationsFactory.create.doAction(item);}}
 									}
@@ -91,20 +113,29 @@ controllers
 
 					$scope.visualiserSessionValidation = function(
 							sessionValidationId) {
+
+
 						var modalEdit = $modal
 								.open({
 									templateUrl : 'partials/templates/inscription-form.html',
 									controller : modalEditionSessionValidationCtrl,
+
 									resolve : {
 										title : function() {return "Visualisation d'une session de validation";},
 										readonly : function() {return true;},
 										sessionValidation : function(SessionValidationsFactory) {
+
 											return SessionValidationsFactory.detail.getData({id : sessionValidationId}).$promise;
 										},
 										titreProfessionnels : function(TitreProfessionnelsFactory){
+
 											return TitreProfessionnelsFactory.titlemap.getData().$promise;
 										},
 										schema : function(SessionValidationsFactory) {
+
+
+
+
 											return SessionValidationsFactory.jsonschema.getData().$promise;
 										},
 										okTitle : function() {return "Fermer";},
@@ -121,20 +152,28 @@ controllers
 					
 					$scope.editerSessionValidation = function(
 							sessionValidationId) {
+
 						var modalEdit = $modal
 								.open({
 									templateUrl : 'partials/templates/inscription-form.html',
 									controller : modalEditionSessionValidationCtrl,
+
 									resolve : {
 										title : function() {return "Edition d'une session de validation";},
 										readonly : function() {return false;},
 										sessionValidation : function(SessionValidationsFactory) {
+
 											return SessionValidationsFactory.detail.getData({id : sessionValidationId}).$promise;
 										},
 										titreProfessionnels : function(TitreProfessionnelsFactory){
+
 											return TitreProfessionnelsFactory.titlemap.getData().$promise;
 										},
 										schema : function(SessionValidationsFactory) {
+
+
+
+
 											return SessionValidationsFactory.jsonschema.getData().$promise;
 										},
 										okTitle : function() {return "Enregistrer";},
@@ -151,10 +190,12 @@ controllers
 					
 					$scope.supprimerSessionValidation = function(
 							sessionValidationId) {
+
 						var modalDelete = $modal
 								.open({
 									templateUrl : 'partials/templates/dialog.html',
 									controller : modalConfirmationDeleteSessionValidationCtrl,
+
 									resolve : {
 										id : function() {return sessionValidationId},
 										title : function() {return "Suppression d'une session de validation";},
@@ -182,6 +223,7 @@ controllers
 			                }
 				        	$scope.timer = $timeout(function () {
 			                    SessionValidationsFactory.refreshData($scope);
+
 			                }, 500);
 				        }
 				    }, true);
@@ -199,11 +241,15 @@ var modalEditionSessionValidationCtrl = function($scope, $modalInstance,
 		SessionValidationsFactory, StagiaireFactory, onlyNumbersFilter, title, readonly, sessionValidation, titreProfessionnels, schema, ok, okTitle) {
 	$scope.title = title;
 	$scope.data = sessionValidation;
+	$scope.data.sessionValidationStagiaires=($scope.data.sessionValidationStagiaires)?$scope.data.sessionValidationStagiaires:[];
 	$scope.data.readonly = readonly;
 	$scope.titreProfessionnelsTitleMap = titreProfessionnels;
+
 	$scope.titreProfessionnelsEnum = onlyNumbersFilter(Object.keys($scope.titreProfessionnelsTitleMap)),
 	$scope.promotions=[];
 	$scope.stagiaire={};
+
+
 	$scope.okTitle = okTitle;
 	$scope.ok = ok;
 	$scope.schema = schema;
@@ -212,29 +258,43 @@ var modalEditionSessionValidationCtrl = function($scope, $modalInstance,
 		{
 			title : "Titre professionnel",
 			key: "titreProfessionnel.id",
+
+
 			type : "select",
 			disabled : $scope.data.readonly,
 			schema : { enum : $scope.titreProfessionnelsEnum},
 			titleMap : $scope.titreProfessionnelsTitleMap
+
 		}, 
 		{
 			key : "formatedDateDebut",
 			disabled : $scope.data.readonly
+
+
+
+
+
+
 		},
 		{
 			key : "formatedDateFin",
+
 			disabled : $scope.data.readonly
 		},
 		{
 			key : "lienModelesPublipostage",
 		 	disabled : $scope.data.readonly
+
+
 		},
 		{
 			key : "lienDocsGeneres",
+
 		 	disabled : $scope.data.readonly
 		},
 		{
 			key : "lienDocsCollectes",
+
 		 	disabled : $scope.data.readonly
 		}
 	    ];
@@ -280,27 +340,31 @@ var modalEditionSessionValidationCtrl = function($scope, $modalInstance,
 		   	 ]	
 		}
 		];
-	$scope.stagiaires=[];
 	$scope.gridOptions = {
-        data: 'stagiaires',
-        rowHeight: 80,
+        data: 'data.sessionValidationStagiaires',
+
         selectedItems: $scope.stagiaireSelected,
         columnDefs : [
-                {field:'nom', displayName:'Nom'},
-                {field:'prenom', displayName:'Prénom'},
-                {field:'codePromotion', displayName:'Promotion', cellTemplate: 'partials/templates/ng-grid_detailsPromotion.html'},
+                {field:'stagiaire.nom', displayName:'Nom'},
+                {field:'stagiaire.prenom', displayName:'Prénom'},
+                {field:'stagiaire.codePromotion', displayName:'Promotion', cellTemplate: 'partials/templates/ng-grid_detailsPromotion.html'},
                 {										
+
 					displayName : 'Actions',
 					cellTemplate : 'partials/templates/ng-grid_remove_action.html'
 				}
                 ],
+
+
         enablePaging: false,
         showFooter: false,
         multiSelect: false
     };
+
 	$scope.removeRow = function(stagiaire) {
-		var index = $scope.stagiaires.indexOf(stagiaire);
-		 $scope.stagiaires.splice(index, 1);     
+		var index = $scope.sessionValidationStagiaires.indexOf(sessionValidationStagiaire);
+
+		 $scope.sessionValidationStagiaires.splice(index, 1);     
 	};
 	$scope.chargerStagiairesOrPromotions = function(search) {
 		return StagiaireFactory.stagiaireOrPromotionAutocomplete.getData({search: search}).$promise.then(function(data) {
@@ -314,7 +378,8 @@ var modalEditionSessionValidationCtrl = function($scope, $modalInstance,
 	$scope.addItem = function(item) {
 		StagiaireFactory.stagiaireOrPromotion.getData({type: item.type, id : item.id}).$promise.then(function(data) {
 			angular.forEach(data, function(stagiaire) {
-				$scope.stagiaires.push(stagiaire);
+				var sessionValidation = {id : $scope.data.id};
+				$scope.data.sessionValidationStagiaires.push({sessionValidation : sessionValidation, stagiaire : stagiaire});
 			});
 		});
 	};

@@ -151,7 +151,7 @@ controllers
 											return EvaluationsFactory.jsonschema.getData().$promise;
 										},
 										okTitle : function() {return "Enregistrer";},
-										ok : function() { return function(item){ return EvaluationsFactory.modify.doAction(item);}}
+										ok : function() { return function(item){return EvaluationsFactory.modify.doAction(item);}}
 									}
 								});
 
@@ -212,6 +212,7 @@ var modalEditionEvaluationCtrl = function($scope, $modalInstance,
 		EvaluationsFactory, StagiaireFactory, onlyNumbersFilter, title, readonly, evaluation, sujetEvaluations, utilisateurs, schema, ok, okTitle) {
 	$scope.title = title;
 	$scope.data = evaluation;
+	$scope.data.evaluationStagiaires=($scope.data.evaluationStagiaires)?$scope.data.evaluationStagiaires:[];
 	$scope.data.readonly = readonly;
 	$scope.sujetEvaluationsTitleMap = sujetEvaluations;
 	$scope.sujetEvaluationsEnum = onlyNumbersFilter(Object.keys($scope.sujetEvaluationsTitleMap)),
@@ -297,15 +298,13 @@ var modalEditionEvaluationCtrl = function($scope, $modalInstance,
 		   	 ]	
 		}
 		];
-	 $scope.stagiaires=[];
 	 $scope.gridOptions = {
-		        data: 'stagiaires',
-		        rowHeight: 80,
+		        data: 'data.evaluationStagiaires',
 		        selectedItems: $scope.stagiaireSelected,
 		        columnDefs : [
-		                {field:'nom', displayName:'Nom'},
-		                {field:'prenom', displayName:'Prénom'},
-		                {field:'codePromotion', displayName:'Promotion', cellTemplate: 'partials/templates/ng-grid_detailsPromotion.html'},
+		                {field:'stagiaire.nom', displayName:'Nom'},
+		                {field:'stagiaire.prenom', displayName:'Prénom'},
+		                {field:'stagiaire.codePromotion', displayName:'Promotion', cellTemplate: 'partials/templates/ng-grid_detailsPromotion.html'},
 		                {										
 							displayName : 'Actions',
 							cellTemplate : 'partials/templates/ng-grid_remove_action.html'
@@ -315,9 +314,9 @@ var modalEditionEvaluationCtrl = function($scope, $modalInstance,
 		        showFooter: false,
 		        multiSelect: false
 		    };
-	$scope.removeRow = function(stagiaire) {
-		var index = $scope.stagiaires.indexOf(stagiaire);
-		 $scope.stagiaires.splice(index, 1);     
+	$scope.removeRow = function(evaluationStagiaire) {
+		var index = $scope.data.evaluationStagiaires.indexOf(evaluationStagiaire);
+		 $scope.data.evaluationStagiaires.splice(index, 1);     
 	};
 	$scope.chargerStagiairesOrPromotions = function(search) {
 		return StagiaireFactory.stagiaireOrPromotionAutocomplete.getData({search: search}).$promise.then(function(data) {
@@ -331,7 +330,8 @@ var modalEditionEvaluationCtrl = function($scope, $modalInstance,
 	$scope.addItem = function(item) {
 		StagiaireFactory.stagiaireOrPromotion.getData({type: item.type, id : item.id}).$promise.then(function(data) {
 			angular.forEach(data, function(stagiaire) {
-				$scope.stagiaires.push(stagiaire);
+				var evaluation = {id : $scope.data.id};
+				$scope.data.evaluationStagiaires.push({evaluation : evaluation, stagiaire : stagiaire});
 			});
 		});
 	};
