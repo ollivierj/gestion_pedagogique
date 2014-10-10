@@ -126,7 +126,12 @@ angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 'ngAnimate', 'ui
 		state('fichiers', {
 			url: '/fichiers',
 			templateUrl: 'partials/fichiers.html',
-			controller: 'fichiersCtrl'
+			controller: 'fichiersCtrl',
+			resolve : {
+				fichiers : function(FichiersFactory) {
+					return FichiersFactory.fichiers.getData().$promise;
+				}
+			},
 		}).
 		//PROFILS *************************************************************
 		state('profils', {

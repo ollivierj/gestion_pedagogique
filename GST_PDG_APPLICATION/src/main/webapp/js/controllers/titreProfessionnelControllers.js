@@ -15,11 +15,11 @@ controllers
 								{
 									field : 'code',
 									displayName : 'Code'
-								},
+								}/*,
 								{
 									field : 'lienDocReferences',
 									displayName : 'Documents de référence'
-								},
+								}*/,
 								{
 									displayName : 'Actions',
 									cellTemplate : 'partials/templates/ng-grid_actions.html'
@@ -64,6 +64,9 @@ controllers
 										title : function() {return "Ajout d'un titre professionnel";},
 										readonly : function() {return false;},
 										titreProfessionnel : function(){ return {}},
+										fichiers : function() {
+											return null;
+										},
 										schema : function(TitreProfessionnelsFactory) {
 											return TitreProfessionnelsFactory.jsonschema.getData().$promise;
 										},
@@ -110,13 +113,16 @@ controllers
 							titreProfessionnelId) {
 						var modalEdit = $modal
 								.open({
-									templateUrl : 'partials/templates/form.html',
+									templateUrl : 'partials/titreProfessionnel.html',
 									controller : modalEditionTitreProfessionnelCtrl,
 									resolve : {
 										title : function() {return "Edition d'un titre professionnel";},
 										readonly : function() {return false;},
 										titreProfessionnel : function(TitreProfessionnelsFactory) {
 											return TitreProfessionnelsFactory.detail.getData({id : titreProfessionnelId}).$promise;
+										},
+										fichiers : function(FichiersFactory) {
+											return FichiersFactory.fichiers.getData().$promise;
 										},
 										schema : function(TitreProfessionnelsFactory) {
 											return TitreProfessionnelsFactory.jsonschema.getData().$promise;
@@ -179,8 +185,8 @@ controllers
 					TitreProfessionnelsFactory.refreshData($scope);
 				});
 
-var modalEditionTitreProfessionnelCtrl = function($scope, $modalInstance,
-		TitreProfessionnelsFactory, title, readonly, titreProfessionnel, schema, ok, okTitle) {
+var modalEditionTitreProfessionnelCtrl = function($scope, $modalInstance, $filter, FileUploader, fichiers,
+		TitreProfessionnelsFactory, FichiersFactory, title, readonly, titreProfessionnel, schema, ok, okTitle) {
 	$scope.title = title;
 	$scope.data = titreProfessionnel;
 	$scope.data.readonly = readonly;
@@ -192,7 +198,7 @@ var modalEditionTitreProfessionnelCtrl = function($scope, $modalInstance,
 			{
 				key : "code",
 				disabled : $scope.data.readonly
-			},
+			}/*,
 			{
 	    		key : "lienDocReferences",
 	    		disabled : $scope.data.readonly
@@ -235,8 +241,50 @@ var modalEditionTitreProfessionnelCtrl = function($scope, $modalInstance,
 			         ]
 	           	 }
 	           	 ]	
-			}
+			}*/
 	    ];
+	$scope.form2 =
+		[
+		{
+		type: "conditional",
+		condition: "!data.readonly", 
+		items: 
+		 [
+		 {
+		 type: "actions",
+		 items:	
+			 [
+		     {
+		     type: 'submit', 
+		     title: $scope.okTitle 
+		     },
+		     { 
+			 type: 'button', 
+			 title: 'Annuler', 
+			 onClick: "cancel()" 
+				 }
+		         ]
+		   	 }
+		   	 ]	
+		},
+		{
+		type: "conditional",
+		condition: "data.readonly", 
+		items: 
+		 [
+		 {
+		 type: "actions",
+		 items:	
+			 [
+		     {
+		     type: 'submit', 
+		         title: $scope.okTitle 
+		         }
+		         ]
+		   	 }
+		   	 ]	
+		}
+		];
 	$scope.decorator = 'bootstrap-decorator';
 	$scope.submit =function(){
 		$scope.ok($scope.data).$promise.then(
@@ -252,6 +300,96 @@ var modalEditionTitreProfessionnelCtrl = function($scope, $modalInstance,
 	$scope.cancel = function() {
 		$modalInstance.dismiss('cancel');
 	};
+	$scope.fichiers = fichiers;
+	$scope.results = fichiers;
+	$scope.filterOptions = FichiersFactory.filterOptions;
+	$scope.gridOptions = {
+		data : 'results',
+		multiSelect : false,
+		columnDefs : 	[
+						{
+							field : 'filename',
+							displayName : 'Nom'
+						},
+						{
+							field : 'size',
+							displayName : 'Taille'
+						},
+						{
+							field : 'url',
+							displayName : 'Chemin'
+						}
+						],
+		enablePaging : false,
+		showFooter : false,
+		keepLastSelected: true,
+		enableColumnResize: true,
+		enableColumnReordering : true,
+		filterOptions : $scope.filterOptions,
+		useExternalSorting : true,
+		showColumnMenu : true,
+		i18n : 'fr'
+	};
+		
+	$scope.$watch('filterOptions', function (newVal, oldVal) {
+		if (newVal.filterText){
+	        $scope.results=$filter('filter')($scope.fichiers, {filename:newVal.filterText}, false);
+		}else{
+			$scope.results=$scope.fichiers;
+		}
+    }, true);
+	
+	var uploader = $scope.uploader = new FileUploader({
+		url : '/ng_gst_pdg/web/fichiers/deposer'
+	});
+
+	// FILTERS
+
+	uploader.filters.push({
+		name : 'customFilter',
+		fn : function(item /* {File|FileLikeObject} */, options) {
+			return this.queue.length < 10;
+		}
+	});
+
+	// CALLBACKS
+
+	uploader.onWhenAddingFileFailed = function(item /* {File|FileLikeObject} */,
+			filter, options) {
+		console.info('onWhenAddingFileFailed', item, filter, options);
+	};
+	uploader.onAfterAddingFile = function(fileItem) {
+		console.info('onAfterAddingFile', fileItem);
+	};
+	uploader.onAfterAddingAll = function(addedFileItems) {
+		console.info('onAfterAddingAll', addedFileItems);
+	};
+	uploader.onBeforeUploadItem = function(item) {
+		console.info('onBeforeUploadItem', item);
+	};
+	uploader.onProgressItem = function(fileItem, progress) {
+		console.info('onProgressItem', fileItem, progress);
+	};
+	uploader.onProgressAll = function(progress) {
+		console.info('onProgressAll', progress);
+	};
+	uploader.onSuccessItem = function(fileItem, response, status, headers) {
+		console.info('onSuccessItem', fileItem, response, status, headers);
+	};
+	uploader.onErrorItem = function(fileItem, response, status, headers) {
+		console.info('onErrorItem', fileItem, response, status, headers);
+	};
+	uploader.onCancelItem = function(fileItem, response, status, headers) {
+		console.info('onCancelItem', fileItem, response, status, headers);
+	};
+	uploader.onCompleteItem = function(fileItem, response, status, headers) {
+		console.info('onCompleteItem', fileItem, response, status, headers);
+	};
+	uploader.onCompleteAll = function() {
+		console.info('onCompleteAll');
+	};
+
+	console.info('uploader', uploader);
 };
 
 var modalConfirmationDeleteTitreProfessionnelCtrl = function($scope, $modalInstance, 
