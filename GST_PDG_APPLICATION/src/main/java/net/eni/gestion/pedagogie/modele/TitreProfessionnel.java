@@ -36,7 +36,6 @@ public class TitreProfessionnel extends AModele<Integer> implements Serializable
 
 	public final static String ID_FIELD_NAME 					= "TR_PRF_ID";
 	public final static String INTITULE_FIELD_NAME				= "TR_PRF_INTITULE";
-	public final static String LIEN_DOC_REFERENCES_FIELD_NAME	= "TR_PRF_LIEN_DOC_REFERENCES";
 	
 	public final static String[] FULL_TEXT_SEARCH_FIELDS		= {INTITULE_FIELD_NAME};
 	
@@ -46,6 +45,7 @@ public class TitreProfessionnel extends AModele<Integer> implements Serializable
 		return FULL_TEXT_SEARCH_FIELDS;
 	}
 	
+	@Attributes(title = "Titre professionnel", required = true)
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
 		dataType = DataType.INTEGER_OBJ,
@@ -61,13 +61,6 @@ public class TitreProfessionnel extends AModele<Integer> implements Serializable
 		canBeNull = false)
 	private String code = null;
 
-	@Attributes(title = "Lien vers les documents associés au titre professionnel", required = false, maxLength = 100, format="url")
-	@DatabaseField(
-		columnName = LIEN_DOC_REFERENCES_FIELD_NAME,
-		dataType = DataType.STRING,
-		useGetSet = true)
-	private String lienDocReferences = null;
-	
 	@Override
 	public Integer getId() {
 		return id;
@@ -86,12 +79,4 @@ public class TitreProfessionnel extends AModele<Integer> implements Serializable
 		this.code = code;
 	}
 
-	public String getLienDocReferences() {
-		return lienDocReferences;
-	}
-
-	public void setLienDocReferences(String lienDocReferences) {
-		this.lienDocReferences = lienDocReferences;
-	}
-	
 }
