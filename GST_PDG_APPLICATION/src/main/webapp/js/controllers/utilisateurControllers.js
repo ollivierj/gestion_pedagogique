@@ -6,7 +6,7 @@ controllers
 			$scope.pagingOptions = UtilisateursFactory.pagingOptions;		
 			$scope.sortOptions = UtilisateursFactory.sortOptions;		
 			$scope.filterOptions = UtilisateursFactory.filterOptions;
-			$scope.title = "Utilisateur";
+			$scope.title = "Utilisateurs";
 			$scope.gridOptions = {
 				data : 'utilisateur',
 				multiSelect : false,

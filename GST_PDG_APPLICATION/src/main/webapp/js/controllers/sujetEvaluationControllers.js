@@ -7,7 +7,7 @@ controllers
 					$scope.pagingOptions = SujetEvaluationsFactory.pagingOptions;		
 					$scope.sortOptions = SujetEvaluationsFactory.sortOptions;		
 					$scope.filterOptions = SujetEvaluationsFactory.filterOptions;
-					$scope.title = "Sujets evaluations";
+					$scope.title = "Sujets d'évaluation";
 					$scope.gridOptions = {
 						data : 'sujetEvaluations',
 						multiSelect : false,
@@ -19,19 +19,7 @@ controllers
 										{
 											field : 'version',
 											displayName : 'Version'
-										}/*,
-										{
-											field : 'lienSujet',
-											displayName : 'Lien vers les sujets'
 										},
-										{
-											field : 'lienModeleCorrection',
-											displayName : 'Lien vers les modèles de correction'
-										},
-										{
-											field : 'lienGrilleCorrection',
-											displayName : 'Lien vers la grille de correction'
-										}*/,
 										{
 											displayName : 'Actions',
 											cellTemplate : 'partials/templates/ng-grid_actions.html'
@@ -65,17 +53,19 @@ controllers
 					
 					$scope.afficherFenetreEdition = function(){
 						$scope.ajouterSujetEvaluation();
-					}
+					};
 					
 					$scope.ajouterSujetEvaluation = function(
 							sujetEvaluationId) {
 						var modalAdd = $modal
 								.open({
-									templateUrl : 'partials/templates/form.html',
-									controller : modalEditionSujetEvaluationCtrl,
+									templateUrl : 'partials/sujetEvaluation.html',
+									controller : 'modalEditionSujetEvaluationCtrl',
 									resolve : {
 										title : function() {return "Ajout d'un sujet d'évaluation";},
 										readonly : function() {return false;},
+										affFichiers : function() {return false;},
+										affTelech : function() {return false;},
 										sujetEvaluation : function(){ return {}},
 										modules : function(ModulesFactory){
 											return ModulesFactory.titlemap.getData().$promise;
@@ -102,13 +92,18 @@ controllers
 							sujetEvaluationId) {
 						var modalEdit = $modal
 								.open({
-									templateUrl : 'partials/templates/form.html',
-									controller : modalEditionSujetEvaluationCtrl,
+									templateUrl : 'partials/sujetEvaluation.html',
+									controller : 'modalEditionSujetEvaluationCtrl',
 									resolve : {
 										title : function() {return "Visualisation d'un sujet d'évaluation";},
 										readonly : function() {return true;},
+										affFichiers : function() {return true;},
+										affTelech : function() {return false;},
 										sujetEvaluation : function(SujetEvaluationsFactory) {
 											return SujetEvaluationsFactory.detail.getData({id : sujetEvaluationId}).$promise;
+										},
+										fichiers : function(FichiersFactory) {
+											return FichiersFactory.fichiers.getData({entite_type : "SujetEvaluation", entite_id : sujetEvaluationId}).$promise;
 										},
 										modules : function(ModulesFactory){
 											return ModulesFactory.titlemap.getData().$promise;
@@ -133,15 +128,17 @@ controllers
 						var modalEdit = $modal
 								.open({
 									templateUrl : 'partials/sujetEvaluation.html',
-									controller : modalEditionSujetEvaluationCtrl,
+									controller : 'modalEditionSujetEvaluationCtrl',
 									resolve : {
 										title : function() {return "Edition d'un sujet d'évaluation";},
 										readonly : function() {return false;},
+										affFichiers : function() {return true;},
+										affTelech : function() {return true;},
 										sujetEvaluation : function(SujetEvaluationsFactory) {
 											return SujetEvaluationsFactory.detail.getData({id : sujetEvaluationId}).$promise;
 										},
 										fichiers : function(FichiersFactory) {
-											return FichiersFactory.fichiers.getData().$promise;
+											return FichiersFactory.fichiers.getData({entite_type : "SujetEvaluation", entite_id : sujetEvaluationId}).$promise;
 										},
 										modules : function(ModulesFactory){
 											return ModulesFactory.titlemap.getData().$promise;
@@ -205,10 +202,10 @@ controllers
 				    }, true);
 					
 					SujetEvaluationsFactory.refreshData($scope);
-				});
-
-var modalEditionSujetEvaluationCtrl = function($scope, $modalInstance, $filter, FileUploader, fichiers,
-		SujetEvaluationsFactory, FichiersFactory, onlyNumbersFilter, title, readonly, sujetEvaluation, modules, schema, ok, okTitle) {
+				}).controller('modalEditionSujetEvaluationCtrl', function($scope, $modalInstance, $filter, $modal, FileUploader, fichiers,
+		SujetEvaluationsFactory, FichiersFactory, onlyNumbersFilter, title, readonly, affFichiers, affTelech, sujetEvaluation, modules, schema, ok, okTitle) {
+	$scope.affFichiers=affFichiers;
+	$scope.affTelech=affTelech;
 	$scope.title = title;
 	$scope.data = sujetEvaluation;
 	$scope.data.readonly = readonly;
@@ -230,19 +227,7 @@ var modalEditionSujetEvaluationCtrl = function($scope, $modalInstance, $filter, 
 		{
 			key : "version",
 		 	disabled : $scope.data.readonly
-		}/*,
-		{
-			key : "lienSujet",
-		 	disabled : $scope.data.readonly
-		},
-		{
-			key : "lienModeleCorrection",
-		 	disabled : $scope.data.readonly
-		},
-		{
-			key : "lienModeleGrilleCorrection",
-		 	disabled : $scope.data.readonly
-		}*/
+		}
 	    ];
 	$scope.form2 =
 		[
@@ -302,8 +287,10 @@ var modalEditionSujetEvaluationCtrl = function($scope, $modalInstance, $filter, 
 	
 	$scope.fichiers = fichiers;
 	$scope.results = fichiers;
-	$scope.filterOptions = FichiersFactory.filterOptions;
-	$scope.gridOptions = {
+	$scope.fichiersFilterOptions = {
+			filterText: ''
+		};
+	$scope.fichiersGridOptions = {
 		data : 'results',
 		multiSelect : false,
 		columnDefs : 	[
@@ -316,8 +303,8 @@ var modalEditionSujetEvaluationCtrl = function($scope, $modalInstance, $filter, 
 							displayName : 'Taille'
 						},
 						{
-							field : 'url',
-							displayName : 'Chemin'
+							displayName : 'Actions',
+							cellTemplate : 'partials/templates/ng-grid_view_remove_action.html'
 						}
 						],
 		enablePaging : false,
@@ -325,72 +312,64 @@ var modalEditionSujetEvaluationCtrl = function($scope, $modalInstance, $filter, 
 		keepLastSelected: true,
 		enableColumnResize: true,
 		enableColumnReordering : true,
-		filterOptions : $scope.filterOptions,
+		filterOptions : $scope.fichiersFilterOptions,
 		useExternalSorting : true,
 		showColumnMenu : true,
 		i18n : 'fr'
 	};
-		
-	$scope.$watch('filterOptions', function (newVal, oldVal) {
-		if (newVal.filterText){
-	        $scope.results=$filter('filter')($scope.fichiers, {filename:newVal.filterText}, false);
-		}else{
-			$scope.results=$scope.fichiers;
-		}
-    }, true);
 	
+	$scope.downloadFile = function(fichier) {
+		var downloadPath = '/ng_gst_pdg/web/fichiers/telecharger/SujetEvaluation/'+$scope.data.id+'/'+fichier.filename;
+		window.open(downloadPath,'_blank');  
+	};
+	
+	$scope.removeFile = function(fichier) {
+		var modalDelete = $modal
+		.open({
+			templateUrl : 'partials/templates/dialog.html',
+			controller : modalConfirmationDeleteSujetEvaluationCtrl,
+			resolve : {
+				id : function() {return fichier.filename;},
+				title : function() {return "Suppression d'un fichier";},
+				message : function() {return "Etes-vous sur de vouloir supprimer ce fichier ?";},
+				ok : function () { return function(id) { return FichiersFactory.delete.doAction({entite_type: 'SujetEvaluation', entite_id: $scope.data.id, filename : id });}}
+			}
+		});	
+		modalDelete.result.then(function(selectedItem) {
+			FichiersFactory.fichiers.getData({entite_type : "SujetEvaluation", entite_id : $scope.data.id})
+				.$promise.then(function(data){
+					$scope.fichiers = data;
+					$scope.results = data;
+				}
+			);
+		}, function() {
+			$log.info('Modal dismissed at: ' + new Date());
+		});
+	}
+		
 	var uploader = $scope.uploader = new FileUploader({
 		url : '/ng_gst_pdg/web/fichiers/deposer'
 	});
 
-	// FILTERS
-
 	uploader.filters.push({
 		name : 'customFilter',
-		fn : function(item /* {File|FileLikeObject} */, options) {
+		fn : function(item, options) {
 			return this.queue.length < 10;
 		}
 	});
 
-	// CALLBACKS
-
-	uploader.onWhenAddingFileFailed = function(item /* {File|FileLikeObject} */,
-			filter, options) {
-		console.info('onWhenAddingFileFailed', item, filter, options);
-	};
-	uploader.onAfterAddingFile = function(fileItem) {
-		console.info('onAfterAddingFile', fileItem);
-	};
-	uploader.onAfterAddingAll = function(addedFileItems) {
-		console.info('onAfterAddingAll', addedFileItems);
-	};
 	uploader.onBeforeUploadItem = function(item) {
-		console.info('onBeforeUploadItem', item);
-	};
-	uploader.onProgressItem = function(fileItem, progress) {
-		console.info('onProgressItem', fileItem, progress);
-	};
-	uploader.onProgressAll = function(progress) {
-		console.info('onProgressAll', progress);
-	};
-	uploader.onSuccessItem = function(fileItem, response, status, headers) {
-		console.info('onSuccessItem', fileItem, response, status, headers);
-	};
-	uploader.onErrorItem = function(fileItem, response, status, headers) {
-		console.info('onErrorItem', fileItem, response, status, headers);
-	};
-	uploader.onCancelItem = function(fileItem, response, status, headers) {
-		console.info('onCancelItem', fileItem, response, status, headers);
-	};
-	uploader.onCompleteItem = function(fileItem, response, status, headers) {
-		console.info('onCompleteItem', fileItem, response, status, headers);
+		item.formData.push({entite_type : "SujetEvaluation"});
+		item.formData.push({entite_id : $scope.data.id});
 	};
 	uploader.onCompleteAll = function() {
-		console.info('onCompleteAll');
+		FichiersFactory.fichiers.getData({entite_type : "SujetEvaluation", entite_id : $scope.data.id})
+		.$promise.then(function(data){
+			$scope.fichiers = data;
+			$scope.results = data;
+		});
 	};
-
-	console.info('uploader', uploader);
-};
+});
 
 
 

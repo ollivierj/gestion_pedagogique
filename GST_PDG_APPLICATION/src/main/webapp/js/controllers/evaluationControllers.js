@@ -69,12 +69,17 @@ controllers
 							evaluationId) {
 						var modalAdd = $modal
 								.open({
-									templateUrl : 'partials/templates/inscription-form.html',
+									templateUrl : 'partials/evaluation.html',
 									controller : modalEditionEvaluationCtrl,
 									resolve : {
 										title : function() {return "Ajout d'une évaluation";},
 										readonly : function() {return false;},
+										affFichiers : function() {return false;},
+										affTelech : function() {return false;},
 										evaluation : function(){ return {}},
+										fichiers : function() {
+											return null;
+										},
 										sujetEvaluations : function(SujetEvaluationsFactory){
 											return SujetEvaluationsFactory.titlemap.getData().$promise;
 										},
@@ -100,13 +105,18 @@ controllers
 							evaluationId) {
 						var modalEdit = $modal
 								.open({
-									templateUrl : 'partials/templates/inscription-form.html',
+									templateUrl : 'partials/evaluation.html',
 									controller : modalEditionEvaluationCtrl,
 									resolve : {
 										title : function() {return "Visualisation d'une évaluation";},
 										readonly : function() {return true;},
+										affFichiers : function() {return true;},
+										affTelech : function() {return false;},
 										evaluation : function(EvaluationsFactory) {
 											return EvaluationsFactory.detail.getData({id : evaluationId}).$promise;
+										},
+										fichiers : function(FichiersFactory) {
+											return FichiersFactory.fichiers.getData({entite_type : "Evaluation", entite_id : evaluationId}).$promise;
 										},
 										sujetEvaluations : function(SujetEvaluationsFactory){
 											return SujetEvaluationsFactory.titlemap.getData().$promise;
@@ -133,13 +143,18 @@ controllers
 							evaluationId) {
 						var modalEdit = $modal
 								.open({
-									templateUrl : 'partials/templates/inscription-form.html',
+									templateUrl : 'partials/evaluation.html',
 									controller : modalEditionEvaluationCtrl,
 									resolve : {
 										title : function() {return "Edition d'une évaluation";},
 										readonly : function() {return false;},
+										affFichiers : function() {return true;},
+										affTelech : function() {return true;},
 										evaluation : function(EvaluationsFactory) {
 											return EvaluationsFactory.detail.getData({id : evaluationId}).$promise;
+										},
+										fichiers : function(FichiersFactory) {
+											return FichiersFactory.fichiers.getData({entite_type : "Evaluation", entite_id : evaluationId}).$promise;
 										},
 										sujetEvaluations : function(SujetEvaluationsFactory){
 											return SujetEvaluationsFactory.titlemap.getData().$promise;
@@ -208,8 +223,10 @@ controllers
 					EvaluationsFactory.refreshData($scope);
 				});
 
-var modalEditionEvaluationCtrl = function($scope, $modalInstance,
-		EvaluationsFactory, StagiaireFactory, onlyNumbersFilter, title, readonly, evaluation, sujetEvaluations, utilisateurs, schema, ok, okTitle) {
+var modalEditionEvaluationCtrl = function($scope, $modalInstance, $filter, $modal, FileUploader ,
+		EvaluationsFactory, StagiaireFactory, onlyNumbersFilter, title, FichiersFactory, fichiers, readonly, affFichiers, affTelech, evaluation, sujetEvaluations, utilisateurs, schema, ok, okTitle) {
+	$scope.affFichiers=affFichiers;
+	$scope.affTelech=affTelech;
 	$scope.title = title;
 	$scope.data = evaluation;
 	$scope.data.evaluationStagiaires=($scope.data.evaluationStagiaires)?$scope.data.evaluationStagiaires:[];
@@ -246,14 +263,6 @@ var modalEditionEvaluationCtrl = function($scope, $modalInstance,
 		{
 			key : "formatedDateHeureFinPassage",
 			disabled : $scope.data.readonly
-		},
-		{
-			key : "lienGrilleCorrection",
-		 	disabled : $scope.data.readonly
-		},
-		{
-			key : "lienCopiesImmaterielles",
-		 	disabled : $scope.data.readonly
 		}
 	    ];
 	$scope.form2 =
@@ -298,7 +307,7 @@ var modalEditionEvaluationCtrl = function($scope, $modalInstance,
 		   	 ]	
 		}
 		];
-	 $scope.gridOptions = {
+	 $scope.stagiairesGridOptions = {
 		        data: 'data.evaluationStagiaires',
 		        selectedItems: $scope.stagiaireSelected,
 		        columnDefs : [
@@ -351,6 +360,90 @@ var modalEditionEvaluationCtrl = function($scope, $modalInstance,
 	};
 	$scope.cancel = function() {
 		$modalInstance.dismiss('cancel');
+	};
+	$scope.fichiers = fichiers;
+	$scope.results = fichiers;
+	$scope.fichiersFilterOptions = {
+			filterText: ''
+		};
+	$scope.fichiersGridOptions = {
+		data : 'results',
+		multiSelect : false,
+		columnDefs : 	[
+						{
+							field : 'filename',
+							displayName : 'Nom'
+						},
+						{
+							field : 'size',
+							displayName : 'Taille'
+						},
+						{
+							displayName : 'Actions',
+							cellTemplate : 'partials/templates/ng-grid_view_remove_action.html'
+						}
+						],
+		enablePaging : false,
+		showFooter : false,
+		keepLastSelected: true,
+		enableColumnResize: true,
+		enableColumnReordering : true,
+		filterOptions : $scope.fichiersFilterOptions,
+		useExternalSorting : true,
+		showColumnMenu : true,
+		i18n : 'fr'
+	};
+	
+	$scope.downloadFile = function(fichier) {
+		var downloadPath = '/ng_gst_pdg/web/fichiers/telecharger/Evaluation/'+$scope.data.id+'/'+fichier.filename;
+		window.open(downloadPath,'_blank');  
+	};
+	
+	$scope.removeFile = function(fichier) {
+		var modalDelete = $modal
+		.open({
+			templateUrl : 'partials/templates/dialog.html',
+			controller : modalConfirmationDeleteEvaluationCtrl,
+			resolve : {
+				id : function() {return fichier.filename;},
+				title : function() {return "Suppression d'un fichier";},
+				message : function() {return "Etes-vous sur de vouloir supprimer ce fichier ?";},
+				ok : function () { return function(id) { return FichiersFactory.delete.doAction({entite_type: 'Evaluation', entite_id: $scope.data.id, filename : id });}}
+			}
+		});	
+		modalDelete.result.then(function(selectedItem) {
+			FichiersFactory.fichiers.getData({entite_type : "Evaluation", entite_id : $scope.data.id})
+				.$promise.then(function(data){
+					$scope.fichiers = data;
+					$scope.results = data;
+				}
+			);
+		}, function() {
+			$log.info('Modal dismissed at: ' + new Date());
+		});
+	}
+		
+	var uploader = $scope.uploader = new FileUploader({
+		url : '/ng_gst_pdg/web/fichiers/deposer'
+	});
+
+	uploader.filters.push({
+		name : 'customFilter',
+		fn : function(item, options) {
+			return this.queue.length < 10;
+		}
+	});
+
+	uploader.onBeforeUploadItem = function(item) {
+		item.formData.push({entite_type : "Evaluation"});
+		item.formData.push({entite_id : $scope.data.id});
+	};
+	uploader.onCompleteAll = function() {
+		FichiersFactory.fichiers.getData({entite_type : "Evaluation", entite_id : $scope.data.id})
+		.$promise.then(function(data){
+			$scope.fichiers = data;
+			$scope.results = data;
+		});
 	};
 };
 

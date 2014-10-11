@@ -6,7 +6,7 @@ controllers.
 			$scope.pagingOptions = ProfilsFactory.pagingOptions;		
 			$scope.sortOptions = ProfilsFactory.sortOptions;		
 			$scope.filterOptions = ProfilsFactory.filterOptions;
-			$scope.title = "Profil";
+			$scope.title = "Profils";
 			
 			
 			$scope.gridOptions = {
