@@ -9,25 +9,19 @@
 </div>
 <div class="modal-body">
 	
-		<tabset> <tab heading="Description"><form ng-submit="submit()">
-		<div name="generic" sf-schema="schema" sf-form="form" sf-model="data"
-			style="margin-top: 15px"></div></form>
+		<tabset> <tab heading="Description"><form name="form.evaluation" sf-schema="schema" sf-form="form" sf-model="data"
+			style="margin-top: 15px"></form>
 		</tab> <tab heading="Stagiaires">
-		<form ng-submit="submit()">
 		<div ng-include src="'partials/templates/inscription-list.html'"></div>
-		</form>
 		</tab> <tab heading="Fichiers" ng-if="affFichiers">
 		<div ng-include src="'partials/templates/fichiers.html'"></div>
 		</tab> <tab heading="T&eacute;l&eacute;chargement" ng-if="affTelech">
 		<div ng-include src="'partials/templates/telechargement.html'"></div>
 		</tab> </tabset>
 		<div>
-		<form ng-submit="submit()">
-			<div name="generic" sf-schema="schema" sf-form="form2"
-				sf-model="data" style="margin-top: 15px"></div>
-				</form>
+			<form name="generic" sf-schema="schema" sf-form="form2"
+				sf-model="data" style="margin-top: 15px" ng-submit="submit()" ></form>
 		</div>
-	</form>
 </div>
 
 
