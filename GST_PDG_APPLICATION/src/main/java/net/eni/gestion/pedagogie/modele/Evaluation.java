@@ -46,8 +46,6 @@ public class Evaluation extends AModele<Integer> implements Serializable {
 	public final static String SUJET_EVALUATION_FIELD_NAME			= "EVAL_SUJET_EVALUATION";
 	public final static String DATE_HEURE_DEBUT_PASSAGE				= "EVAL_DATE_HEURE_DEBUT_PASSAGE";
 	public final static String DATE_HEURE_FIN_PASSAGE				= "EVAL_DATE_HEURE_FIN_PASSAGE";
-	public final static String LIEN_GRILLE_CORRECTION_FIELD_NAME	= "EVAL_LIEN_GRILLE_CORRECTION";
-	public final static String LIEN_COPIES_IMMATERIELLES_FIELD_NAME	= "EVAL_LIEN_COPIES_IMMATERIELLES";
 	public final static String CORRECTEUR_FIELD_NAME				= "EVAL_CORRECTEUR";
 	public final static String AUTEUR_FIELD_NAME 					= "EVAL_AUTEUR";
 	
@@ -95,22 +93,6 @@ public class Evaluation extends AModele<Integer> implements Serializable {
 		canBeNull = false,
 		foreignAutoRefresh = true)
 	private SujetEvaluation sujetEvaluation = null;
-
-	@Attributes(title = "Lien vers la grille de correction", required = false, maxLength = 250, format = "url")
-	@DatabaseField(
-		columnName = LIEN_GRILLE_CORRECTION_FIELD_NAME,
-		dataType = DataType.STRING,
-		useGetSet = true,
-		canBeNull = true)
-	private String lienGrilleCorrection = null;
-	
-	@Attributes(title = "Lien vers les énoncés", required = false, maxLength = 250, format = "url")
-	@DatabaseField(
-		columnName = LIEN_COPIES_IMMATERIELLES_FIELD_NAME,
-		dataType = DataType.STRING,
-		useGetSet = true,
-		canBeNull = true)
-	private String lienCopiesImmaterielles = null;
 
 	@DatabaseField(
 		columnName = CORRECTEUR_FIELD_NAME,
@@ -223,22 +205,6 @@ public class Evaluation extends AModele<Integer> implements Serializable {
 
 	public void setSujetEvaluation(SujetEvaluation sujetEvaluation) {
 		this.sujetEvaluation = sujetEvaluation;
-	}
-
-	public String getLienGrilleCorrection() {
-		return lienGrilleCorrection;
-	}
-
-	public void setLienGrilleCorrection(String lienGrilleCorrection) {
-		this.lienGrilleCorrection = lienGrilleCorrection;
-	}
-
-	public String getLienCopiesImmaterielles() {
-		return lienCopiesImmaterielles;
-	}
-
-	public void setLienCopiesImmaterielles(String lienCopiesImmaterielles) {
-		this.lienCopiesImmaterielles = lienCopiesImmaterielles;
 	}
 
 	public Utilisateur getCorrecteur() {

@@ -36,9 +36,6 @@ public class SujetEvaluation extends AModele<Integer> implements Serializable {
 	public final static String ID_FIELD_NAME 							= "SUJ_EVAL_ID";
 	public final static String AUTEUR_FIELD_NAME 						= "SUJ_EVAL_AUTEUR";
 	public final static String MODULE_FIELD_NAME 						= "SUJ_EVAL_MODULE";
-	public final static String LIEN_SUJET_FIELD_NAME 					= "SUJ_EVAL_LIEN_SUJET";
-	public final static String LIEN_MODELE_CORRECTION_FIELD_NAME		= "SUJ_EVAL_LIEN_MODELE_CORRECTION";
-	public final static String LIEN_MODELE_GRILLE_CORRECTION_FIELD_NAME	= "SUJ_EVAL_LIEN_MODELE_GRILLE_CORRECTION";
 	public final static String VERSION_FIELD_NAME						= "SUJ_EVAL_VERSION";
 	
 	@DatabaseField(
@@ -63,29 +60,6 @@ public class SujetEvaluation extends AModele<Integer> implements Serializable {
 		foreignAutoRefresh = true)
 	private Module module = null;
 
-	@Attributes(title = "Lien vers les énoncés", required = true, maxLength = 250, format = "url")
-	@DatabaseField(
-		columnName = LIEN_SUJET_FIELD_NAME,
-		dataType = DataType.STRING,
-		useGetSet = true,
-		canBeNull = false)
-	private String lienSujet = null;
-
-	@Attributes(title = "Lien vers les modèles de correction", required = true, maxLength = 250, format = "url")
-	@DatabaseField(
-		columnName = LIEN_MODELE_CORRECTION_FIELD_NAME,
-		dataType = DataType.STRING,
-		useGetSet = true,
-		canBeNull = false)
-	private String lienModeleCorrection = null;
-
-	@Attributes(title = "Lien vers la grille de correction", required = true, maxLength = 250, format = "url")
-	@DatabaseField(
-		columnName = LIEN_MODELE_GRILLE_CORRECTION_FIELD_NAME,
-		dataType = DataType.STRING,
-		useGetSet = true,
-		canBeNull = false)
-	private String lienModeleGrilleCorrection = null;
 	
 	@Attributes(title = "Version", required = false, maxLength = 10)
 	@DatabaseField(
@@ -111,30 +85,6 @@ public class SujetEvaluation extends AModele<Integer> implements Serializable {
 
 	public void setModule(Module module) {
 		this.module = module;
-	}
-
-	public String getLienSujet() {
-		return lienSujet;
-	}
-
-	public void setLienSujet(String lienSujet) {
-		this.lienSujet = lienSujet;
-	}
-
-	public String getLienModeleCorrection() {
-		return lienModeleCorrection;
-	}
-
-	public void setLienModeleCorrection(String lienModeleCorrection) {
-		this.lienModeleCorrection = lienModeleCorrection;
-	}
-
-	public String getLienModeleGrilleCorrection() {
-		return lienModeleGrilleCorrection;
-	}
-
-	public void setLienModeleGrilleCorrection(String lienModeleGrilleCorrection) {
-		this.lienModeleGrilleCorrection = lienModeleGrilleCorrection;
 	}
 
 	public String getVersion() {
