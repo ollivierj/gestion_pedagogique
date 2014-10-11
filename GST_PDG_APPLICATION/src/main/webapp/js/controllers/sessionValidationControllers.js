@@ -245,6 +245,7 @@ var modalEditionSessionValidationCtrl = function($scope, $modalInstance, $filter
 			title : "Titre professionnel",
 			key: "titreProfessionnel.id",
 			type : "select",
+			required : true,
 			disabled : $scope.data.readonly,
 			schema : { enum : $scope.titreProfessionnelsEnum},
 			titleMap : $scope.titreProfessionnelsTitleMap
@@ -342,13 +343,16 @@ var modalEditionSessionValidationCtrl = function($scope, $modalInstance, $filter
 	};
 	$scope.decorator = 'bootstrap-decorator';
 	$scope.submit =function(){
-	$scope.ok($scope.data).$promise.then(
-					function(response) {
-						$modalInstance.close($scope.data);
-					}, 
-					function(reason) {
-						alert('Echec: ' + reason);
-					});
+		 $scope.$broadcast('schemaFormValidate');
+		if ($scope.form.sessionValidation.$valid) {
+			$scope.ok($scope.data).$promise.then(
+				function(response) {
+					$modalInstance.close($scope.data);
+				}, 
+				function(reason) {
+					alert('Echec: ' + reason);
+				});
+		}
 	};
 	$scope.cancel = function() {
 		$modalInstance.dismiss('cancel');

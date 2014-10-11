@@ -251,15 +251,16 @@ var modalEditionTitreProfessionnelCtrl = function($scope, $modalInstance, $modal
 		];
 	$scope.decorator = 'bootstrap-decorator';
 	$scope.submit =function(){
-		$scope.ok($scope.data).$promise.then(
-					function(response) {
-						$modalInstance.close($scope.data);
-					}, 
-					function(reason) {
-						alert('Echec: ' + reason);
-					});
-		
-
+		 $scope.$broadcast('schemaFormValidate');
+		if ($scope.form.titreProfessionnel.$valid) {
+			$scope.ok($scope.data).$promise.then(
+				function(response) {
+					$modalInstance.close($scope.data);
+				}, 
+				function(reason) {
+					alert('Echec: ' + reason);
+				});
+		}
 	};
 	$scope.cancel = function() {
 		$modalInstance.dismiss('cancel');

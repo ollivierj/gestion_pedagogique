@@ -220,6 +220,7 @@ controllers
 			title : "Module",
 			key: "module.id",
 			type : "select",
+			required : true,
 			disabled : $scope.data.readonly,
 			schema : { enum : $scope.modulesEnum},
 			titleMap : $scope.modulesTitleMap
@@ -273,13 +274,16 @@ controllers
 		];
 	$scope.decorator = 'bootstrap-decorator';
 	$scope.submit =function(){
-		$scope.ok($scope.data).$promise.then(
-					function(response) {
-						$modalInstance.close($scope.data);
-					}, 
-					function(reason) {
-						alert('Echec: ' + reason);
-					});
+		 $scope.$broadcast('schemaFormValidate');
+		if ($scope.form.sujetEvaluation.$valid) {
+			$scope.ok($scope.data).$promise.then(
+				function(response) {
+					$modalInstance.close($scope.data);
+				}, 
+				function(reason) {
+					alert('Echec: ' + reason);
+				});
+		}
 	};
 	$scope.cancel = function() {
 		$modalInstance.dismiss('cancel');

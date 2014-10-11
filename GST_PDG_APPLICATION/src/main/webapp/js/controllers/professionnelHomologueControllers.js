@@ -309,6 +309,7 @@ var modalProfessionnelHomologueCtrl = function($scope, $modalInstance,
 							title : "Titre professionnel",
 							key: "homologations[].titreProfessionnel.id",
 							type : "select",
+							required : true,
 							disabled : $scope.data.readonly,
 							schema : { enum : $scope.titreProfessionnelsEnum},
 							titleMap : $scope.titreProfessionnelsTitleMap

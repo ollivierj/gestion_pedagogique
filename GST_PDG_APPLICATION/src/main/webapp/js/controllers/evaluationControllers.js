@@ -244,6 +244,7 @@ var modalEditionEvaluationCtrl = function($scope, $modalInstance, $filter, $moda
 			title : "Sujet d'évaluation",
 			key: "sujetEvaluation.id",
 			type : "select",
+			required : true,
 			disabled : $scope.data.readonly,
 			schema : { enum : $scope.sujetEvaluationsEnum},
 			titleMap : $scope.sujetEvaluationsTitleMap
@@ -278,7 +279,7 @@ var modalEditionEvaluationCtrl = function($scope, $modalInstance, $filter, $moda
 			 [
 		     {
 		     type: 'submit', 
-		     title: $scope.okTitle 
+		     title: $scope.okTitle
 		     },
 		     { 
 			 type: 'button', 
@@ -348,15 +349,16 @@ var modalEditionEvaluationCtrl = function($scope, $modalInstance, $filter, $moda
 	};
 	$scope.decorator = 'bootstrap-decorator';
 	$scope.submit =function(){
-		$scope.ok($scope.data).$promise.then(
-					function(response) {
-						$modalInstance.close($scope.data);
-					}, 
-					function(reason) {
-						alert('Echec: ' + reason);
-					});
-		
-
+		 $scope.$broadcast('schemaFormValidate');
+		if ($scope.form.evaluation.$valid) {
+			$scope.ok($scope.data).$promise.then(
+				function(response) {
+					$modalInstance.close($scope.data);
+				}, 
+				function(reason) {
+					alert('Echec: ' + reason);
+				});
+		}
 	};
 	$scope.cancel = function() {
 		$modalInstance.dismiss('cancel');
