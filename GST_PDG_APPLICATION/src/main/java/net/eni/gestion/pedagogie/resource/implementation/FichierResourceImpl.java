@@ -1,116 +1,77 @@
 package net.eni.gestion.pedagogie.resource.implementation;
 
-import java.io.InputStream;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DefaultValue;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import net.eni.gestion.pedagogie.commun.composant.FileBean;
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
-import net.eni.gestion.pedagogie.commun.outil.FileHelper;
 import net.eni.gestion.pedagogie.resource.FichierResource;
-import net.eni.gestion.pedagogie.service.BlobService;
+import net.eni.gestion.pedagogie.service.FichierService;
 
 import com.google.inject.Inject;
-import com.sun.jersey.api.NotFoundException;
-import com.sun.jersey.api.client.ClientResponse.Status;
-import com.sun.jersey.core.header.FormDataContentDisposition;
+import com.sun.jersey.multipart.FormDataMultiPart;
 
 @Path("/fichiers")
 public class FichierResourceImpl implements FichierResource {
 
-	private final BlobService blobService;
-    
-    /**
-     * Constructeur
-     * @param MService
-     */
-    @Inject
-    public FichierResourceImpl(BlobService pBlobService) {
-    	blobService = pBlobService;
-    }
-	
+	/**
+	 * Service de gestion des fichiers
+	 */
+	private final FichierService fichierService;
+
+	@Inject
+	public FichierResourceImpl(FichierService pFichierService) {
+		fichierService = pFichierService;
+	}
+
 	/* (non-Javadoc)
-	 * @see net.eni.gestion.pedagogie.resource.implementation.FichierResource#uploadFile(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 * @see net.eni.gestion.pedagogie.resource.implementation.test#deposer(com.sun.jersey.multipart.FormDataMultiPart)
 	 */
 	@POST
-	@Path("deposer")
+	@Path("/deposer")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	@Produces(MediaType.TEXT_PLAIN)
-	public Response uploadFile(@Context HttpServletRequest request,
-			@Context HttpServletResponse res) throws Exception {
-		String response = "Unable to attach files";
-		FileBean bean = FileHelper.parseMultipart(request, blobService);
-		if (null != bean) {
-			response = "{\"name\":\"" + bean.getFilename() + "\",\"type\":\""
-					+ bean.getContentType() + "\",\"size\":\"" + bean.getSize()
-					+ "\"}";
-		}
-		return Response.ok(response).build();
-	}
-
-	/* (non-Javadoc)
-	 * @see net.eni.gestion.pedagogie.resource.implementation.FichierResource#downloadFile(java.lang.String)
-	 */
-	@GET
-	@Path("telecharger")
-	@Produces(MediaType.APPLICATION_OCTET_STREAM)
-	public Response downloadFile(
-			@DefaultValue("empty") @QueryParam(value = "blobKey") String blobKey)
-			throws Exception {
-		if (blobKey.equals("empty"))
-			throw new NotFoundException("blobKey cannot be empty!");
-
-		byte[] docStream = blobService.getBlob(blobKey);
-		return Response
-				.ok(docStream, MediaType.APPLICATION_OCTET_STREAM)
-				.header("content-disposition",
-						"attachment; filename = " + blobKey).build();
-	}
-
-	/* (non-Javadoc)
-	 * @see net.eni.gestion.pedagogie.resource.implementation.FichierResource#listFiles()
-	 */
-	@GET
-	@Path("charger")
 	@Produces(MediaType.APPLICATION_JSON)
-    public List<FileBean> listFiles() throws GenericException {
-		return blobService.getBlobs();
+	public String deposer(FormDataMultiPart form) {
+		return fichierService.deposer(form);
 	}
-
+	
 	/* (non-Javadoc)
-	 * @see net.eni.gestion.pedagogie.resource.implementation.FichierResource#deleteFile(java.lang.String)
+	 * @see net.eni.gestion.pedagogie.resource.implementation.test#telecharger(java.lang.String, java.lang.String, java.lang.String)
 	 */
 	@GET
-	@Path("supprimer")
-	@Produces(MediaType.TEXT_PLAIN)
-	public Response deleteFile(
-			@DefaultValue("empty") @QueryParam(value = "blobKey") String blobKey) {
-
-		if (blobKey.equals("empty"))
-			throw new NotFoundException("blobKey cannot be empty!");
-
-		blobService.deleteBlob(blobKey);
-		return Response.status(Status.OK).build();
+	@Path("telecharger/{entite_type}/{entite_id}/{filename}")
+	@Produces(MediaType.APPLICATION_OCTET_STREAM)
+	public Response telecharger(@PathParam("entite_type") String pType, @PathParam("entite_id") String pId, @PathParam("filename") String filename) throws Exception {
+		return fichierService.telecharger(pType, pId, filename);
 	}
 
 	/* (non-Javadoc)
-	 * @see net.eni.gestion.pedagogie.resource.implementation.FichierResource#uploadFile(java.io.InputStream, com.sun.jersey.core.header.FormDataContentDisposition)
+	 * @see net.eni.gestion.pedagogie.resource.implementation.test#charger(java.lang.String, java.lang.String)
 	 */
-	public Response uploadFile(InputStream fileInputStream,
-			FormDataContentDisposition contentDispositionHeader) {
-		// TODO Auto-generated method stub
-		return null;
+	@GET
+	@Path("charger/{entite_type}/{entite_id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<FileBean> charger(@PathParam("entite_type") String pType, @PathParam("entite_id") String pId) throws GenericException {
+		return fichierService.charger(pType, pId);
 	}
+
+	/* (non-Javadoc)
+	 * @see net.eni.gestion.pedagogie.resource.implementation.test#supprimer(java.lang.String, java.lang.String, java.lang.String)
+	 */
+	@DELETE
+	@Path("supprimer/{entite_type}/{entite_id}/{filename}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String supprimer(@PathParam("entite_type") String pType, @PathParam("entite_id") String pId, @PathParam("filename") String filename){
+		return fichierService.supprimer(pType, pId, filename);
+	}
+
 }

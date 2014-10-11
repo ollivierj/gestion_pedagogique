@@ -72,7 +72,6 @@ import net.eni.gestion.pedagogie.DAO.implementation.UniteParFormationDaoImpl;
 import net.eni.gestion.pedagogie.DAO.implementation.UtilisateurDaoImpl;
 import net.eni.gestion.pedagogie.service.AbsenceService;
 import net.eni.gestion.pedagogie.service.AvisService;
-import net.eni.gestion.pedagogie.service.BlobService;
 import net.eni.gestion.pedagogie.service.CoursService;
 import net.eni.gestion.pedagogie.service.EchangeService;
 import net.eni.gestion.pedagogie.service.EvaluationService;
@@ -91,7 +90,6 @@ import net.eni.gestion.pedagogie.service.TitreProfessionnelService;
 import net.eni.gestion.pedagogie.service.UtilisateurService;
 import net.eni.gestion.pedagogie.service.implementation.AbsenceServiceImpl;
 import net.eni.gestion.pedagogie.service.implementation.AvisServiceImpl;
-import net.eni.gestion.pedagogie.service.implementation.BlobServiceImpl;
 import net.eni.gestion.pedagogie.service.implementation.CoursServiceImpl;
 import net.eni.gestion.pedagogie.service.implementation.EchangeServiceImpl;
 import net.eni.gestion.pedagogie.service.implementation.EvaluationServiceImpl;
@@ -158,7 +156,6 @@ public class ModuleConfiguration extends AbstractModule {
     	// Binding des services
     	bind(AbsenceService.class).to(AbsenceServiceImpl.class);
     	bind(AvisService.class).to(AvisServiceImpl.class);
-    	bind(BlobService.class).to(BlobServiceImpl.class);
     	bind(CoursService.class).to(CoursServiceImpl.class);
     	bind(EchangeService.class).to(EchangeServiceImpl.class);
     	bind(EvaluationService.class).to(EvaluationServiceImpl.class);
