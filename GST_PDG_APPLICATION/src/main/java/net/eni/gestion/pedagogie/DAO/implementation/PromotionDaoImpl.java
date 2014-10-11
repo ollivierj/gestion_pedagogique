@@ -28,9 +28,10 @@ public class PromotionDaoImpl extends ADaoImpl<Promotion, String> implements Pro
 	public ArrayList<Promotion> chargerForAutocompleteSearch(String pSearchText) throws Exception {
 		try {
 			StringBuilder lQuery = new StringBuilder();
-			lQuery.append(" SELECT TOP 10  CodePromotion FROM Promotion WHERE CONTAINS((Promotion.CodePromotion), '\"");
+			lQuery.append(" SELECT TOP 10  Promotion.CodePromotion FROM Promotion INNER JOIN STAGIAIRE_PROMOTION ON STAGIAIRE_PROMOTION.CodePromotion = Promotion.CodePromotion WHERE CONTAINS((Promotion.CodePromotion), '\"");
 			lQuery.append(pSearchText);
 			lQuery.append("*\"')");
+			lQuery.append(" GROUP BY Promotion.CodePromotion ORDER BY Promotion.CodePromotion ASC");
 			return new ArrayList<Promotion>(
 				this.queryRaw(lQuery.toString(), 
 				new RawRowMapper<Promotion>() {

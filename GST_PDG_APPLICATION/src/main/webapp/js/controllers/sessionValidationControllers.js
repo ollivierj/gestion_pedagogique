@@ -301,21 +301,32 @@ var modalEditionSessionValidationCtrl = function($scope, $modalInstance, $filter
 		   	 ]	
 		}
 		];
+	var columnDefs =  		
+		[
+		{field:'stagiaire.nom', displayName:'Nom'},
+		{field:'stagiaire.prenom', displayName:'Prénom'},
+		{field:'stagiaire.codePromotion', displayName:'Promotion', cellTemplate: 'partials/templates/ng-grid_detailsPromotion.html'}
+		];
+	
+	if (!$scope.data.readonly){
+		columnDefs.push(
+		{										
+			displayName : 'Actions',
+			cellTemplate : 'partials/templates/ng-grid_remove_action.html'
+		}
+		);
+	}
+	$scope.stagiairesFilterOptions = {
+			filterText: ''
+		};
 	$scope.stagiairesGridOptions = {
         data: 'data.sessionValidationStagiaires',
         selectedItems: $scope.stagiaireSelected,
-        columnDefs : [
-                {field:'stagiaire.nom', displayName:'Nom'},
-                {field:'stagiaire.prenom', displayName:'Prénom'},
-                {field:'stagiaire.codePromotion', displayName:'Promotion', cellTemplate: 'partials/templates/ng-grid_detailsPromotion.html'},
-                {										
-					displayName : 'Actions',
-					cellTemplate : 'partials/templates/ng-grid_remove_action.html'
-				}
-                ],
+        columnDefs : columnDefs,
         enablePaging: false,
         showFooter: false,
-        multiSelect: false
+        multiSelect: false,
+        filterOptions : $scope.stagiairesFilterOptions
     };
 
 	$scope.removeRow = function(stagiaire) {
@@ -335,9 +346,10 @@ var modalEditionSessionValidationCtrl = function($scope, $modalInstance, $filter
 		StagiaireFactory.stagiaireOrPromotion.getData({type: item.type, id : item.id}).$promise.then(function(data) {
 			angular.forEach(data, function(stagiaire) {
 				var sessionValidation = {id : $scope.data.id};
-				//TODO decommenter quand lodash ok
-				//if(-1>_.findIndex(characters, { 'CodeStagiaire': stagiaire.codeStagiare })
-				$scope.data.sessionValidationStagiaires.push({sessionValidation : sessionValidation, stagiaire : stagiaire});
+				var test = $filter('filter')($scope.data.sessionValidationStagiaires, {stagiaire : {id:stagiaire.id}});
+				if (0==test.length){
+					$scope.data.sessionValidationStagiaires.push({sessionValidation : sessionValidation, stagiaire : stagiaire});
+				}
 			});
 		});
 	};

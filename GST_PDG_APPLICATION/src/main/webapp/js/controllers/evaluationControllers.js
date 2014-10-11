@@ -308,21 +308,32 @@ var modalEditionEvaluationCtrl = function($scope, $modalInstance, $filter, $moda
 		   	 ]	
 		}
 		];
+	var columnDefs =  		
+		[
+		{field:'stagiaire.nom', displayName:'Nom'},
+		{field:'stagiaire.prenom', displayName:'Prénom'},
+		{field:'stagiaire.codePromotion', displayName:'Promotion', cellTemplate: 'partials/templates/ng-grid_detailsPromotion.html'}
+		];
+	
+	if (!$scope.data.readonly){
+		columnDefs.push(
+		{										
+			displayName : 'Actions',
+			cellTemplate : 'partials/templates/ng-grid_remove_action.html'
+		}
+		);
+	}
+	$scope.stagiairesFilterOptions = {
+			filterText: ''
+		};
 	 $scope.stagiairesGridOptions = {
 		        data: 'data.evaluationStagiaires',
 		        selectedItems: $scope.stagiaireSelected,
-		        columnDefs : [
-		                {field:'stagiaire.nom', displayName:'Nom'},
-		                {field:'stagiaire.prenom', displayName:'Prénom'},
-		                {field:'stagiaire.codePromotion', displayName:'Promotion', cellTemplate: 'partials/templates/ng-grid_detailsPromotion.html'},
-		                {										
-							displayName : 'Actions',
-							cellTemplate : 'partials/templates/ng-grid_remove_action.html'
-						}
-		                ],
+		        columnDefs : columnDefs,
 		        enablePaging: false,
 		        showFooter: false,
-		        multiSelect: false
+		        multiSelect: false,
+		        filterOptions : $scope.stagiairesFilterOptions
 		    };
 	$scope.removeRow = function(evaluationStagiaire) {
 		var index = $scope.data.evaluationStagiaires.indexOf(evaluationStagiaire);
@@ -341,9 +352,10 @@ var modalEditionEvaluationCtrl = function($scope, $modalInstance, $filter, $moda
 		StagiaireFactory.stagiaireOrPromotion.getData({type: item.type, id : item.id}).$promise.then(function(data) {
 			angular.forEach(data, function(stagiaire) {
 				var evaluation = {id : $scope.data.id};
-				//TODO decommenter quand lodash ok
-				//if(-1>_.findIndex(characters, { 'CodeStagiaire': stagiaire.codeStagiare })
-				$scope.data.evaluationStagiaires.push({evaluation : evaluation, stagiaire : stagiaire});
+				var test = $filter('filter')($scope.data.evaluationStagiaires, {stagiaire : {id:stagiaire.id}});
+				if (0==test.length){
+					$scope.data.evaluationStagiaires.push({evaluation : evaluation, stagiaire : stagiaire});
+				}
 			});
 		});
 	};
