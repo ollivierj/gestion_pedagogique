@@ -259,10 +259,13 @@ var modalEditionEvaluationCtrl = function($scope, $modalInstance, $filter, $moda
 		},
 		{
 			key : "formatedDateHeureDebutPassage",
+			maxdate : "formatedDateHeureFinPassage",
 			disabled : $scope.data.readonly
+			
 		},
 		{
 			key : "formatedDateHeureFinPassage",
+			mindate : "formatedDateHeureDebutPassage",
 			disabled : $scope.data.readonly
 		}
 	    ];

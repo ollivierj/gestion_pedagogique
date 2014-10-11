@@ -5,7 +5,7 @@
 		<div class="form-group">
 		<input type="text" class="form-control" ng-required="form.required"
 				ng-disabled="form.disabled" ng-model="$$value$$" name="date"
-				bs-datepicker>
+				bs-datepicker data-min-date="{{$$mindate$$}}" data-max-date="{{$$maxdate$$}}">
 		</div>
 	</div>
 	<span class="help-block">{{ (hasError() &&

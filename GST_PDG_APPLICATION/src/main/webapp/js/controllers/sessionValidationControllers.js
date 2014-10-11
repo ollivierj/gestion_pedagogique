@@ -252,12 +252,14 @@ var modalEditionSessionValidationCtrl = function($scope, $modalInstance, $filter
 		}, 
 		{
 			key : "formatedDateDebut",
+			maxdate : "formatedDateFin",
 			disabled : $scope.data.readonly
 		},
 		{
 			key : "formatedDateFin",
+			mindate : "formatedDateDebut",
 			disabled : $scope.data.readonly
-		}	    
+		}	   
 		];
 	$scope.form2 =
 		[

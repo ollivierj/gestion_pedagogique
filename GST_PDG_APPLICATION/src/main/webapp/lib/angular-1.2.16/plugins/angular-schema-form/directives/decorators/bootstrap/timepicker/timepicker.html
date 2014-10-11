@@ -6,13 +6,13 @@
 			<input type="text" size="10" class="form-control"
 				ng-required="form.required" ng-disabled="form.disabled"
 				ng-model="$$value$$" data-autoclose="1" placeholder="Date"
-				bs-datepicker>
+				bs-datepicker data-min-date="{{$$mindate$$}}" data-max-date="{{$$maxdate$$}}">
 		</div>
 		<div class="form-group">
 			<input type="text" size="8" class="form-control"
 				ng-required="form.required" ng-disabled="form.disabled"
 				ng-model="$$value$$" data-autoclose="1" placeholder="Time"
-				bs-timepicker>
+				bs-timepicker data-min-time="{{$$mintime$$}}" data-max-time="{{$$maxtime$$}}">
 		</div>
 	</div>
 	<span class="help-block">{{ (hasError() &&
