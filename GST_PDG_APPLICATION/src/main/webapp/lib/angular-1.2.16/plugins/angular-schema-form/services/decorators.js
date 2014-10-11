@@ -30,8 +30,8 @@ angular.module('schemaForm').provider('schemaFormDecorators',['$compileProvider'
 
 
   var createDirective = function(name){
-    $compileProvider.directive(name,['$parse','$compile','$http','$templateCache',
-      function($parse,  $compile,  $http,  $templateCache){
+    $compileProvider.directive(name,['$parse','$compile','$http', '$filter', '$templateCache',
+      function($parse,  $compile,  $http, $filter,  $templateCache){
 
         return {
           restrict: 'AE',
@@ -52,6 +52,20 @@ angular.module('schemaForm').provider('schemaFormDecorators',['$compileProvider'
                 var url = templateUrl(name,form);
                 $http.get(url,{ cache: $templateCache }).then(function(res){
                   var template = res.data.replace(/\$\$value\$\$/g,'model.'+(form.key || ""));
+                  if (form.mindate){
+                	  template = template.replace(/\$\$mintime\$\$/g,"((model."+(form.key)+"| date:'dd/MM/yyyy')===(model."+form.mindate+"| date:'dd/MM/yyyy')) && (model."+form.mindate+ " | date:'HH:mm') || '00:00'");
+                	  template = template.replace(/\$\$mindate\$\$/g,"setMinDay(model."+form.mindate+ ")");
+                  }else{
+                	  template = template.replace(/\$\$mintime\$\$/g,"'00:00'");
+                	  template = template.replace(/\$\$mindate\$\$/g,'');
+                  }
+                  if (form.maxdate){
+                	  template = template.replace(/\$\$maxtime\$\$/g,"((model."+(form.key)+"| date:'dd/MM/yyyy')===(model."+form.maxdate+"| date:'dd/MM/yyyy')) && (model."+form.maxdate+ " | date:'HH:mm') || '23:59'");
+                	  template = template.replace(/\$\$maxdate\$\$/g,'model.'+form.maxdate);
+                  }else{
+                	  template = template.replace(/\$\$maxtime\$\$/g,"'23:59'");
+                	  template = template.replace(/\$\$maxdate\$\$/g,'');
+                  }
                   $compile(template)(scope,function(clone){
                     element.replaceWith(clone);
                   });
@@ -60,6 +74,11 @@ angular.module('schemaForm').provider('schemaFormDecorators',['$compileProvider'
               }
             });
 
+            scope.setMinDay= function(date){
+            	date = new Date(date);
+            	date.setDate(date.getDate()-1);
+            	return date;
+            };
             //Keep error prone logic from the template
             scope.showTitle = function() {
               return scope.form && scope.form.notitle !== true && scope.form.title;
