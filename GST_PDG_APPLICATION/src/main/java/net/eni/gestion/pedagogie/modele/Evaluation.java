@@ -5,6 +5,8 @@ package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -14,9 +16,12 @@ import net.eni.gestion.pedagogie.commun.outil.DateHelper;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.github.reinert.jjschema.Attributes;
+import com.github.reinert.jjschema.SchemaIgnore;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
@@ -41,8 +46,6 @@ public class Evaluation extends AModele<Integer> implements Serializable {
 	public final static String SUJET_EVALUATION_FIELD_NAME			= "EVAL_SUJET_EVALUATION";
 	public final static String DATE_HEURE_DEBUT_PASSAGE				= "EVAL_DATE_HEURE_DEBUT_PASSAGE";
 	public final static String DATE_HEURE_FIN_PASSAGE				= "EVAL_DATE_HEURE_FIN_PASSAGE";
-	public final static String LIEN_GRILLE_CORRECTION_FIELD_NAME	= "EVAL_LIEN_GRILLE_CORRECTION";
-	public final static String LIEN_COPIES_IMMATERIELLES_FIELD_NAME	= "EVAL_LIEN_COPIES_IMMATERIELLES";
 	public final static String CORRECTEUR_FIELD_NAME				= "EVAL_CORRECTEUR";
 	public final static String AUTEUR_FIELD_NAME 					= "EVAL_AUTEUR";
 	
@@ -91,22 +94,6 @@ public class Evaluation extends AModele<Integer> implements Serializable {
 		foreignAutoRefresh = true)
 	private SujetEvaluation sujetEvaluation = null;
 
-	@Attributes(title = "Lien vers la grille de correction", required = false, maxLength = 250, format = "url")
-	@DatabaseField(
-		columnName = LIEN_GRILLE_CORRECTION_FIELD_NAME,
-		dataType = DataType.STRING,
-		useGetSet = true,
-		canBeNull = true)
-	private String lienGrilleCorrection = null;
-	
-	@Attributes(title = "Lien vers les énoncés", required = false, maxLength = 250, format = "url")
-	@DatabaseField(
-		columnName = LIEN_COPIES_IMMATERIELLES_FIELD_NAME,
-		dataType = DataType.STRING,
-		useGetSet = true,
-		canBeNull = true)
-	private String lienCopiesImmaterielles = null;
-
 	@DatabaseField(
 		columnName = CORRECTEUR_FIELD_NAME,
 		foreign = true,
@@ -120,6 +107,43 @@ public class Evaluation extends AModele<Integer> implements Serializable {
 		useGetSet = true,
 		canBeNull = true)
 	private Utilisateur auteur = null;
+	
+	@SchemaIgnore
+	@JsonIgnore
+	@ForeignCollectionField(eager = true, columnName = EvaluationStagiaire.STAGIAIRE_FIELD_NAME)
+	private transient Collection<EvaluationStagiaire> transientEvaluationStagiaires = null;
+	
+	@SchemaIgnore
+	@JsonManagedReference("EvaluationStagiaire-Evaluation")
+	public Collection<EvaluationStagiaire> getTransientEvaluationStagiaire() {
+		return transientEvaluationStagiaires;
+	}
+
+	@JsonIgnore
+	@SchemaIgnore
+	public void setTransientEvaluationStagiaire(
+			Collection<EvaluationStagiaire> transientEvaluationStagiaires) {
+		this.transientEvaluationStagiaires = transientEvaluationStagiaires;
+	}
+
+	@SchemaIgnore
+	@Attributes(id = "evaluationStagiaires")
+	private ArrayList<EvaluationStagiaire> evaluationStagiaires= new ArrayList<EvaluationStagiaire>();
+	
+	@SchemaIgnore
+	public ArrayList<EvaluationStagiaire> getEvaluationStagiaires() {
+		if (null != transientEvaluationStagiaires) {
+			evaluationStagiaires.clear();
+			evaluationStagiaires.addAll(transientEvaluationStagiaires);
+			transientEvaluationStagiaires = null;
+		}
+		return evaluationStagiaires;
+	}
+
+	@SchemaIgnore
+	public void setEvaluationStagiaires(ArrayList<EvaluationStagiaire> evaluationStagiaires) {
+		this.evaluationStagiaires = evaluationStagiaires;
+	}
 	
 	public Date getDateHeureDebutPassage() {
 		return dateHeureDebutPassage;
@@ -183,22 +207,6 @@ public class Evaluation extends AModele<Integer> implements Serializable {
 		this.sujetEvaluation = sujetEvaluation;
 	}
 
-	public String getLienGrilleCorrection() {
-		return lienGrilleCorrection;
-	}
-
-	public void setLienGrilleCorrection(String lienGrilleCorrection) {
-		this.lienGrilleCorrection = lienGrilleCorrection;
-	}
-
-	public String getLienCopiesImmaterielles() {
-		return lienCopiesImmaterielles;
-	}
-
-	public void setLienCopiesImmaterielles(String lienCopiesImmaterielles) {
-		this.lienCopiesImmaterielles = lienCopiesImmaterielles;
-	}
-
 	public Utilisateur getCorrecteur() {
 		return correcteur;
 	}
@@ -207,5 +215,4 @@ public class Evaluation extends AModele<Integer> implements Serializable {
 		this.correcteur = correcteur;
 	}
 
-	
 }

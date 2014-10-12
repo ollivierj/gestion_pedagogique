@@ -94,6 +94,12 @@ services.factory('StagiaireFactory', function ($resource) {
 		keepStagiaire : keepStagiaire,
 		dataAutocomplete : $resource('/ng_gst_pdg/web/stagiaires/autocomplete/:search', {}, {
 			getData : { method: 'GET', params: {search: '@search'}, isArray: true }
+		}),
+		stagiaireOrPromotionAutocomplete : $resource('/ng_gst_pdg/web/stagiaires/stagiaireOrPromotionAutocomplete/:search', {}, {
+			getData : { method: 'GET', params: {search: '@search'}, isArray: true }
+		}),
+		stagiaireOrPromotion : $resource('/ng_gst_pdg/web/stagiairesPromotions/stagiaires/:type/:id', {}, {
+			getData : { method: 'GET', params: {type: '@type', id : '@id'}, isArray: true }
 		})
 	};
 	
@@ -116,9 +122,7 @@ services.factory('stagiaireData', function($resource) {
 		return $resource('json/stagiairesLoad.json', {}, {
 	 		query: { method: 'GET', isArray: true}
 		 });
-	}
-	
-
+	};
 
 	return stagiaireFactory;
 });

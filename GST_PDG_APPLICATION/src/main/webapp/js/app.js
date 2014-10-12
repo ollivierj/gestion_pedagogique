@@ -28,6 +28,12 @@ var ng_gst_pdg = angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid',
 			url: '/accueil',
 			templateUrl: 'partials/accueil.html',
 		}).
+		// LOGIN ************************************************* 
+		state('login', {
+			url: '/login',
+			templateUrl: 'partials/authentification/authentification.html',
+			controller: 'authentificationCtrl'
+		}).	
 		// STAGIAIRE ************************************************* 
 		state('stagiaires', {
 			url: '/stagiaires',
@@ -115,12 +121,6 @@ var ng_gst_pdg = angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid',
 			url: '/evaluations',
 			templateUrl: 'partials/templates/list.html',
 			controller: 'evaluationsCtrl'
-		}).
-		//FICHIERS ***********************************************************
-		state('fichiers', {
-			url: '/fichiers',
-			templateUrl: 'partials/fichiers.html',
-			controller: 'fichiersCtrl'
 		}).
 		//PROFILS *************************************************************
 		state('profils', {

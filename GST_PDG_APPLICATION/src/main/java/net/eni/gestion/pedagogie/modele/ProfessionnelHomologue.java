@@ -202,6 +202,19 @@ public class ProfessionnelHomologue extends AModele<Integer> implements Serializ
 	@Attributes(id = "homologations")
 	private ArrayList<Homologation> homologations = new ArrayList<Homologation>();
 	
+	public ArrayList<Homologation> getHomologations() {
+		if (null != transientHomologations) {
+			homologations.clear();
+			homologations.addAll(transientHomologations);
+			transientHomologations = null;
+		}
+		return homologations;
+	}
+
+	public void setHomologations(ArrayList<Homologation> homologations) {
+		this.homologations = homologations;
+	}
+	
 	@Override
 	public Integer getId() {
 		return id;
@@ -342,17 +355,6 @@ public class ProfessionnelHomologue extends AModele<Integer> implements Serializ
 		this.permis = permis;
 	}
 
-	public ArrayList<Homologation> getHomologations() {
-		if (null != transientHomologations) {
-			homologations.clear();
-			homologations.addAll(transientHomologations);
-			transientHomologations = null;
-		}
-		return homologations;
-	}
 
-	public void setHomologations(ArrayList<Homologation> homologations) {
-		this.homologations = homologations;
-	}
 
 }

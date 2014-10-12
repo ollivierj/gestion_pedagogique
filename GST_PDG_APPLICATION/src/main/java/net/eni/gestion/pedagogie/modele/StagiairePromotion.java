@@ -209,6 +209,13 @@ public class StagiairePromotion extends AModele<Integer> implements Serializable
 	private String codePromotion = null;
 	
 	@DatabaseField(
+			columnName = ID_PROMO_NAME,
+			foreign = true,
+			useGetSet = true,
+			canBeNull = false)
+		private Promotion promotion = null;
+	
+	@DatabaseField(
 		columnName = LIBELLE_FIELD_NAME,
 		dataType = DataType.STRING,
 		useGetSet = true,
@@ -447,6 +454,14 @@ public class StagiairePromotion extends AModele<Integer> implements Serializable
 
 	public void setLibellePromotion(String libellePromotion) {
 		this.libellePromotion = libellePromotion;
+	}
+
+	public Promotion getPromotion() {
+		return promotion;
+	}
+
+	public void setPromotion(Promotion promotion) {
+		this.promotion = promotion;
 	}	
 
 }

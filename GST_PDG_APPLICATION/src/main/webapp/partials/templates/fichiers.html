@@ -1,0 +1,18 @@
+<div class="panel-body">
+	<!-- Filtre de recherche -->
+	<div class="row">
+		<nav class="navbar navbar-default" role="navigation">
+			<div class="container-fluid" style="padding-top: 7px;">
+				<div class="row">
+					<div class="col-xs-12">
+						<input type="text" ng-model="fichiersFilterOptions.filterText"
+							class="form-control" placeholder="Recherche" class="form-control">
+					</div>
+				</div>
+			</div>
+		</nav>
+	</div>
+	<div class="row form-group">
+		<div class='gridStyle' ng-grid="fichiersGridOptions"></div>
+	</div>
+</div>

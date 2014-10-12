@@ -1,48 +1,50 @@
 package net.eni.gestion.pedagogie.resource;
 
-import java.io.InputStream;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Response;
 
 import net.eni.gestion.pedagogie.commun.composant.FileBean;
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
 
-import com.sun.jersey.core.header.FormDataContentDisposition;
+import com.sun.jersey.multipart.FormDataMultiPart;
 
 public interface FichierResource {
 
-	public abstract Response uploadFile(HttpServletRequest request,
-			HttpServletResponse res) throws Exception;
+	/**
+	 * Ressource pour le depot de fichier
+	 * @param form
+	 * @return
+	 */
+	public abstract String deposer(FormDataMultiPart form);
 
 	/**
-	 * In Memory solution
-	 * 
-	 * @param blobKey
+	 * Ressource pour le telechargement de fichier
+	 * @param pType
+	 * @param pId
+	 * @param filename
 	 * @return
 	 * @throws Exception
 	 */
-	public abstract Response downloadFile(String blobKey) throws Exception;
+	public abstract Response telecharger(String pType, String pId,
+			String filename) throws Exception;
 
 	/**
-	 * list all valid files in a directory
-	 * 
+	 * Ressource pour le chargement d'une liste de propriétés de fichiers
+	 * @param pType
+	 * @param pId
 	 * @return
 	 * @throws GenericException
 	 */
-	public abstract List<FileBean> listFiles() throws GenericException;
+	public abstract List<FileBean> charger(String pType, String pId)
+			throws GenericException;
 
 	/**
-	 * remove file from directory
-	 * 
-	 * @param blobKey
+	 * Ressource pour la suppression de fichier
+	 * @param pType
+	 * @param pId
+	 * @param filename
 	 * @return
 	 */
-	public abstract Response deleteFile(String blobKey);
-
-	public abstract Response uploadFile(InputStream fileInputStream,
-			FormDataContentDisposition contentDispositionHeader);
-
+	public abstract String supprimer(String pType, String pId, String filename);
 }

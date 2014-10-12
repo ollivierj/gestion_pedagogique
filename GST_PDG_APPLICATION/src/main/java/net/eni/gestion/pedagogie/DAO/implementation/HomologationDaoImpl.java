@@ -5,9 +5,12 @@ import java.util.ArrayList;
 
 import net.eni.gestion.pedagogie.DAO.HomologationDao;
 import net.eni.gestion.pedagogie.commun.composant.Connexion;
-import net.eni.gestion.pedagogie.commun.outil.ORMLiteHelper;
+import net.eni.gestion.pedagogie.commun.outil.CRUDHelper;
+import net.eni.gestion.pedagogie.commun.outil.SearchCallable;
 import net.eni.gestion.pedagogie.modele.Homologation;
 import net.eni.gestion.pedagogie.modele.ProfessionnelHomologue;
+
+import org.apache.commons.collections.CollectionUtils;
 
 import com.google.inject.Singleton;
 
@@ -27,43 +30,42 @@ public class HomologationDaoImpl extends ADaoImpl<Homologation, Integer>
 		super(Connexion.getConnexion(), Homologation.class);
 	}
 
-	@SuppressWarnings("unused")
 	public ArrayList<Homologation> mettreAJourCollectionHomologationForProfessionnelHomologue(
 			ProfessionnelHomologue pProfessionnelHomologue,
 			ArrayList<Homologation> pHomologations) throws Exception {
-		ArrayList<Homologation> lHomologationsEnBase = null;
-		try {
-
-			lHomologationsEnBase = new ArrayList<Homologation>(this.queryForEq(
-					Homologation.PROFESSIONNEL_HOMOLOGUE_FIELD_NAME,
-					pProfessionnelHomologue.getId()));
-			if (null != lHomologationsEnBase) {
-				for (Homologation lHomologationEnBase : lHomologationsEnBase) {
-					// L'homologation référencée précédemment est-elle absente
-					// des nouvelles homologations référencées ?
-					if (null == ORMLiteHelper.findItemInList(lHomologationEnBase, pHomologations)) {
-						// Si oui, suppression de l'ancienne homologation référencée
-						this.delete(lHomologationEnBase);
-					}
-				}
-				// Pour toutes les homologations à sauvegarder en base ....
-				for (Homologation lHomologation : pHomologations) {
-					// Et on on sauvegarde
-					if (null != lHomologation.getDateFin() && null != lHomologation.getDateFin() && null != lHomologation.getTitreProfessionnel() && null != lHomologation.getProfessionnelHomologue()){
-						this.createOrUpdate(lHomologation);
-					}
-					
-				}
-				return pHomologations;
-			}
-		} catch (Exception e) {
-			throw new Exception(
-					"Echec de mise à jour des associations des homologations du professionnel homologués");
-		}
-		return null;
+		return CRUDHelper.mettreAJourCollection(this, pProfessionnelHomologue, pHomologations, Homologation.PROFESSIONNEL_HOMOLOGUE_FIELD_NAME, new findHomologationByProfessionnelHomologue());
+	}	
+	
+	public class findHomologationByProfessionnelHomologue implements SearchCallable<Homologation,Integer> {
+		Homologation searchItem;
+		ArrayList<Homologation> itemList;
 		
+		public findHomologationByProfessionnelHomologue(){
+		}
+		
+		@Override
+		public void setSearchItem(Homologation pSearchItem) {
+			this.searchItem = pSearchItem;
+		}
+
+		@Override
+		public void setItemList(
+				ArrayList<Homologation> pItemList) {
+			this.itemList = pItemList;
+		}
+
+		@Override
+		public Homologation call() throws Exception {
+			final Homologation pFinalSearchItem = this.searchItem;
+			return (Homologation) CollectionUtils.find(this.itemList,
+					new org.apache.commons.collections.Predicate() {
+						public boolean evaluate(Object object) {
+							return ((Homologation) object).getId() == pFinalSearchItem.getId();
+						}
+					});
+		}
+
+
 	}
-
-
 
 }

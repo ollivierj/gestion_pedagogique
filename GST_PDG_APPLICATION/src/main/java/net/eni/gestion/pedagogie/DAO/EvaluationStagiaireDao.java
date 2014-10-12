@@ -1,5 +1,8 @@
 package net.eni.gestion.pedagogie.DAO;
 
+import java.util.ArrayList;
+
+import net.eni.gestion.pedagogie.modele.Evaluation;
 import net.eni.gestion.pedagogie.modele.EvaluationStagiaire;
 
 /**
@@ -9,6 +12,8 @@ import net.eni.gestion.pedagogie.modele.EvaluationStagiaire;
  */
 public interface EvaluationStagiaireDao extends ADao<EvaluationStagiaire, Integer> {
 
-	
+	public ArrayList<EvaluationStagiaire> mettreAJourCollectionStagiaireForEvaluation(
+			Evaluation pEvaluation,
+			ArrayList<EvaluationStagiaire> pEvaluationStagiaires) throws Exception;
 
 }

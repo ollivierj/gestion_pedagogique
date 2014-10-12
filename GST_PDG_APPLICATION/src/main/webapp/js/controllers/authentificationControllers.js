@@ -1,22 +1,20 @@
 'use strict';
+controllers
+	.controller(
+		'authentificationCtrl',
+		function($scope, AuthentificationFactory) {
+			
+			$scope.ok = function() {
+			
+				AuthentificationFactory.connect.doAction({login : $scope.login, motPasse : $scope.password},
+					function(sucess) {
+					AuthentificationFactory.user = sucess;
+					}, 
+					
+					function (errResponse){
+						console.log("fail");
+					}
+				);
 
-var ModalAuthentificationCtrl = function($scope, $modalInstance, items) {
-	var loginBase = 'kjamin', passwordBase = '333';
-
-	$scope.connexionTest = function() {
-		if ($scope.login == loginBase && $scope.password == passwordBase) {
-			console.log('connexion ok');
-		} else {
-			console.log('connexion nok');
-		}
-	};
-
-	//Bouton d'action de la fenêtre modal
-	$scope.ok = function () {
-		$modalInstance.close($scope.selected.item);
-	};
-
-	$scope.cancel = function () {
-		$modalInstance.dismiss('cancel');
-	};
-};
+			};
+		});

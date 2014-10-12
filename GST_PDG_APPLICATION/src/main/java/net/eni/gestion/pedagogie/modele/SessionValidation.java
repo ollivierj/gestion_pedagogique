@@ -5,6 +5,8 @@ package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -14,9 +16,12 @@ import net.eni.gestion.pedagogie.commun.outil.DateHelper;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.github.reinert.jjschema.Attributes;
+import com.github.reinert.jjschema.SchemaIgnore;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
@@ -42,11 +47,14 @@ public class SessionValidation extends AModele<Integer> implements Serializable 
 	public final static String TITRE_PROFESSIONNEL_FIELD_NAME		= "SES_VAL_TITRE_PROFESSIONNEL";
 	public final static String DATE_DEBUT_FIELD_NAME				= "SES_VAL_DATE_DEBUT";
 	public final static String DATE_FIN_FIELD_NAME					= "SES_VAL_DATE_FIN";
-	public final static String LIEN_MODELES_PUBLIPOSTAGE_FIELD_NAME	= "SES_VAL_LIEN_MODELES_PUBLIPOSTAGE";
-	public final static String LIEN_DOCS_GENERES_FIELD_NAME			= "SES_VAL_LIEN_DOCS_GENERES";
-	public final static String LIEN_DOCS_COLLECTES_FIELD_NAME		= "SES_VAL_LIEN_DOCS_COLLECTES";
 	
 	public final static String[] FULL_TEXT_SEARCH_FIELDS		= null;
+	
+	@JsonIgnore
+	@Override
+	public String[] getFullTextSearchFieldNames() {
+		return FULL_TEXT_SEARCH_FIELDS;
+	}
 	
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
@@ -92,29 +100,43 @@ public class SessionValidation extends AModele<Integer> implements Serializable 
 		foreignAutoRefresh = true)
 	private TitreProfessionnel titreProfessionnel = null;
 
-	@Attributes(title = "Lien vers les modèles de document pour le publipostage", required = false, maxLength = 250, format = "url")
-	@DatabaseField(
-		columnName = LIEN_MODELES_PUBLIPOSTAGE_FIELD_NAME,
-		dataType = DataType.STRING,
-		useGetSet = true,
-		canBeNull = false)
-	private String lienModelesPublipostage = null;
 	
-	@Attributes(title = "Lien vers les documents générés (publipostage)", required = false, maxLength = 250, format = "url")
-	@DatabaseField(
-			columnName = LIEN_DOCS_GENERES_FIELD_NAME,
-			dataType = DataType.STRING,
-			useGetSet = true,
-			canBeNull = false)
-		private String lienDocsGeneres = null;
+	@SchemaIgnore
+	@JsonIgnore
+	@ForeignCollectionField(eager = true, columnName = SessionValidationStagiaire.STAGIAIRE_FIELD_NAME)
+	private transient Collection<SessionValidationStagiaire> transientSessionValidationStagiaires = null;
 	
-	@Attributes(title = "Lien vers les documents remis par les jurys", required = false, maxLength = 250, format = "url")
-	@DatabaseField(
-			columnName = LIEN_DOCS_COLLECTES_FIELD_NAME,
-			dataType = DataType.STRING,
-			useGetSet = true,
-			canBeNull = false)
-		private String lienDocsCollectes = null;
+	@SchemaIgnore
+	@JsonManagedReference("SessionValidationStagiaire-SessionValidation")
+	public Collection<SessionValidationStagiaire> getTransientSessionValidationStagiaire() {
+		return transientSessionValidationStagiaires;
+	}
+
+	@JsonIgnore
+	@SchemaIgnore
+	public void setTransientSessionValidationStagiaire(
+			Collection<SessionValidationStagiaire> transientSessionValidationStagiaires) {
+		this.transientSessionValidationStagiaires = transientSessionValidationStagiaires;
+	}
+	
+	@SchemaIgnore
+	@Attributes(id = "sessionValidationStagiaires")
+	private ArrayList<SessionValidationStagiaire> sessionValidationStagiaires= new ArrayList<SessionValidationStagiaire>();
+	
+	@SchemaIgnore
+	public ArrayList<SessionValidationStagiaire> getSessionValidationStagiaires() {
+		if (null != transientSessionValidationStagiaires) {
+			sessionValidationStagiaires.clear();
+			sessionValidationStagiaires.addAll(transientSessionValidationStagiaires);
+			transientSessionValidationStagiaires = null;
+		}
+		return sessionValidationStagiaires;
+	}
+
+	@SchemaIgnore
+	public void setSessionValidationStagiaires(ArrayList<SessionValidationStagiaire> sessionValidationStagiaires) {
+		this.sessionValidationStagiaires = sessionValidationStagiaires;
+	}
 	
 	@Override
 	public Integer getId() {
@@ -134,36 +156,12 @@ public class SessionValidation extends AModele<Integer> implements Serializable 
 		this.auteur = auteur;
 	}
 
-	public String getLienDocsGeneres() {
-		return lienDocsGeneres;
-	}
-
-	public void setLienDocsGeneres(String lienDocsGeneres) {
-		this.lienDocsGeneres = lienDocsGeneres;
-	}
-
-	public String getLienDocsCollectes() {
-		return lienDocsCollectes;
-	}
-
-	public void setLienDocsCollectes(String lienDocsCollectes) {
-		this.lienDocsCollectes = lienDocsCollectes;
-	}
-
 	public TitreProfessionnel getTitreProfessionnel() {
 		return titreProfessionnel;
 	}
 
 	public void setTitreProfessionnel(TitreProfessionnel titreProfessionnel) {
 		this.titreProfessionnel = titreProfessionnel;
-	}
-
-	public String getLienModelesPublipostage() {
-		return lienModelesPublipostage;
-	}
-
-	public void setLienModelesPublipostage(String lienModelesPublipostage) {
-		this.lienModelesPublipostage = lienModelesPublipostage;
 	}
 
 	public Date getDateDebut() {

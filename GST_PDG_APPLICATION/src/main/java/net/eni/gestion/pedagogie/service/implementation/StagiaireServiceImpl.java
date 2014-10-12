@@ -1,12 +1,15 @@
 package net.eni.gestion.pedagogie.service.implementation;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import net.eni.gestion.pedagogie.DAO.AbsenceDao;
 import net.eni.gestion.pedagogie.DAO.AvisDao;
 import net.eni.gestion.pedagogie.DAO.EchangeDao;
+import net.eni.gestion.pedagogie.DAO.PromotionDao;
 import net.eni.gestion.pedagogie.DAO.StagiaireDao;
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
+import net.eni.gestion.pedagogie.modele.Promotion;
 import net.eni.gestion.pedagogie.modele.Stagiaire;
 import net.eni.gestion.pedagogie.service.StagiaireService;
 
@@ -23,6 +26,7 @@ public class StagiaireServiceImpl extends AServiceImpl<Stagiaire, Integer, Stagi
 	protected final AbsenceDao absenceDao;
 	protected final EchangeDao echangeDao;
 	protected final AvisDao avisDao;
+	protected final PromotionDao promotionDao;
 	
 	/**
      * Constructeur
@@ -30,11 +34,12 @@ public class StagiaireServiceImpl extends AServiceImpl<Stagiaire, Integer, Stagi
      * @throws SQLException
      */
     @Inject
-    public StagiaireServiceImpl(StagiaireDao pStagiaireDao, AbsenceDao absenceDao, EchangeDao echangeDao, AvisDao avisDao) throws SQLException {
+    public StagiaireServiceImpl(StagiaireDao pStagiaireDao, AbsenceDao absenceDao, EchangeDao echangeDao, AvisDao avisDao, PromotionDao promotionDao) throws SQLException {
         super(pStagiaireDao);
         this.absenceDao = absenceDao;
         this.echangeDao = echangeDao;
         this.avisDao = avisDao;
+        this.promotionDao = promotionDao;
     }
     
     @Override
@@ -42,4 +47,14 @@ public class StagiaireServiceImpl extends AServiceImpl<Stagiaire, Integer, Stagi
     	Stagiaire stagiaire = super.chargerDetail(pId);
     	return stagiaire;
     }
+
+	@Override
+	public ArrayList<Promotion> chargerPromotionForAutocompleteSearch(
+			String pSearchText) throws GenericException {
+		try {
+			return this.promotionDao.chargerForAutocompleteSearch(pSearchText);
+		} catch (Exception e) {
+			throw new GenericException("Echec lors du chargement depuis la base de données.");
+		}
+	}
 }

@@ -6,7 +6,7 @@ controllers
 			$scope.pagingOptions = UtilisateursFactory.pagingOptions;		
 			$scope.sortOptions = UtilisateursFactory.sortOptions;		
 			$scope.filterOptions = UtilisateursFactory.filterOptions;
-			$scope.title = "Utilisateur";
+			$scope.title = "Utilisateurs";
 			$scope.gridOptions = {
 				data : 'utilisateur',
 				multiSelect : false,
@@ -278,8 +278,12 @@ $scope.form =
 	            	]
 	    },
 	    {
-	        title: "Mot de passe",
+	        title: "Authentification",
 	        items: 	[
+					{
+						key: "login",
+						disabled : $scope.data.readonly
+					},
 					{
 						title : "Profil",
 						key: "profil.id",
@@ -339,13 +343,18 @@ $scope.form =
 ];
 $scope.decorator = 'bootstrap-decorator';
 $scope.submit =function(){
-$scope.ok($scope.data).$promise.then(
-			function(response) {
-				$modalInstance.close($scope.data);
-			}, 
-			function(reason) {
-				alert('Echec: ' + reason);
-			});
+	 $scope.$broadcast('schemaFormValidate');
+		if ($scope.form.generic.$valid) {
+			$scope.ok($scope.data).$promise.then(
+				function(response) {
+					$modalInstance.close($scope.data);
+				}, 
+				function(reason) {
+					alert('Echec: ' + reason);
+				});
+		}else{
+			$('.ng-invalid')[1].focus();
+		}
 
 
 };

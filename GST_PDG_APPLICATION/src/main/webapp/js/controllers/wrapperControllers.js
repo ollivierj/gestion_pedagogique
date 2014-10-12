@@ -24,23 +24,4 @@ controllers.controller('wrapperCtrl', function($scope, $modal, modalService, $lo
 		});
 	};
 
-	// Afficher une fenêtre modal pour la connexion utilisateur
-	$scope.afficherModalConnexion = function() {
-		var modalConnexion = {
-			backdrop : true,
-			keyboard : true,
-			modalFade : true,
-			templateUrl : 'partials/authentification/authentification.html',
-			controller : ModalAuthentificationCtrl,
-			resolve : {
-				items : function() {
-					return $scope.items;
-				}
-			}
-		};
-		modalService.showModal(modalConnexion, {}).then(function(result) {
-			$scope.selected = result;
-		});
-	};
-
 });

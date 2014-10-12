@@ -309,6 +309,7 @@ var modalProfessionnelHomologueCtrl = function($scope, $modalInstance,
 							title : "Titre professionnel",
 							key: "homologations[].titreProfessionnel.id",
 							type : "select",
+							required : true,
 							disabled : $scope.data.readonly,
 							schema : { enum : $scope.titreProfessionnelsEnum},
 							titleMap : $scope.titreProfessionnelsTitleMap
@@ -378,13 +379,18 @@ var modalProfessionnelHomologueCtrl = function($scope, $modalInstance,
 		];
 	$scope.decorator = 'bootstrap-decorator';
 	$scope.submit =function(){
-		$scope.ok($scope.data).$promise.then(
+		 $scope.$broadcast('schemaFormValidate');
+			if ($scope.form.generic.$valid) {
+				$scope.ok($scope.data).$promise.then(
 					function(response) {
 						$modalInstance.close($scope.data);
 					}, 
 					function(reason) {
 						alert('Echec: ' + reason);
 					});
+			}else{
+				$('.ng-invalid')[1].focus();
+			}
 		
 
 	};

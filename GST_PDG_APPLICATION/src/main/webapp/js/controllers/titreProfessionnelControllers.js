@@ -17,10 +17,6 @@ controllers
 									displayName : 'Code'
 								},
 								{
-									field : 'lienDocReferences',
-									displayName : 'Documents de référence'
-								},
-								{
 									displayName : 'Actions',
 									cellTemplate : 'partials/templates/ng-grid_actions.html'
 								} ],
@@ -58,12 +54,17 @@ controllers
 							titreProfessionnelId) {
 						var modalAdd = $modal
 								.open({
-									templateUrl : 'partials/templates/form.html',
+									templateUrl : 'partials/titreProfessionnel.html',
 									controller : modalEditionTitreProfessionnelCtrl,
 									resolve : {
 										title : function() {return "Ajout d'un titre professionnel";},
 										readonly : function() {return false;},
+										affFichiers : function() {return false;},
+										affTelech : function() {return false;},
 										titreProfessionnel : function(){ return {}},
+										fichiers : function() {
+											return null;
+										},
 										schema : function(TitreProfessionnelsFactory) {
 											return TitreProfessionnelsFactory.jsonschema.getData().$promise;
 										},
@@ -83,13 +84,18 @@ controllers
 							titreProfessionnelId) {
 						var modalEdit = $modal
 								.open({
-									templateUrl : 'partials/templates/form.html',
+									templateUrl : 'partials/titreProfessionnel.html',
 									controller : modalEditionTitreProfessionnelCtrl,
 									resolve : {
 										title : function() {return "Visualisation d'un titre professionnel";},
 										readonly : function() {return true;},
+										affFichiers : function() {return true;},
+										affTelech : function() {return false;},
 										titreProfessionnel : function(TitreProfessionnelsFactory) {
 											return TitreProfessionnelsFactory.detail.getData({id : titreProfessionnelId}).$promise;
+										},
+										fichiers : function(FichiersFactory) {
+											return FichiersFactory.fichiers.getData({entite_type : "TitreProfessionnel", entite_id : titreProfessionnelId}).$promise;
 										},
 										schema : function(TitreProfessionnelsFactory) {
 											return TitreProfessionnelsFactory.jsonschema.getData().$promise;
@@ -110,13 +116,18 @@ controllers
 							titreProfessionnelId) {
 						var modalEdit = $modal
 								.open({
-									templateUrl : 'partials/templates/form.html',
+									templateUrl : 'partials/titreProfessionnel.html',
 									controller : modalEditionTitreProfessionnelCtrl,
 									resolve : {
 										title : function() {return "Edition d'un titre professionnel";},
 										readonly : function() {return false;},
+										affFichiers : function() {return true;},
+										affTelech : function() {return true;},
 										titreProfessionnel : function(TitreProfessionnelsFactory) {
 											return TitreProfessionnelsFactory.detail.getData({id : titreProfessionnelId}).$promise;
+										},
+										fichiers : function(FichiersFactory) {
+											return FichiersFactory.fichiers.getData({entite_type : "TitreProfessionnel", entite_id : titreProfessionnelId}).$promise;
 										},
 										schema : function(TitreProfessionnelsFactory) {
 											return TitreProfessionnelsFactory.jsonschema.getData().$promise;
@@ -179,8 +190,10 @@ controllers
 					TitreProfessionnelsFactory.refreshData($scope);
 				});
 
-var modalEditionTitreProfessionnelCtrl = function($scope, $modalInstance,
-		TitreProfessionnelsFactory, title, readonly, titreProfessionnel, schema, ok, okTitle) {
+var modalEditionTitreProfessionnelCtrl = function($scope, $modalInstance, $modal, $filter, FileUploader, fichiers,
+		TitreProfessionnelsFactory, FichiersFactory, title, readonly, affFichiers, affTelech, titreProfessionnel, schema, ok, okTitle) {
+	$scope.affFichiers=affFichiers;
+	$scope.affTelech=affTelech;
 	$scope.title = title;
 	$scope.data = titreProfessionnel;
 	$scope.data.readonly = readonly;
@@ -192,65 +205,151 @@ var modalEditionTitreProfessionnelCtrl = function($scope, $modalInstance,
 			{
 				key : "code",
 				disabled : $scope.data.readonly
-			},
-			{
-	    		key : "lienDocReferences",
-	    		disabled : $scope.data.readonly
-			},
-			{
-		    	type: "conditional",
-	            condition: "!data.readonly", 
-	            items: 
-	           	 [
-	           	 {
-	           	 type: "actions",
-	           	 items:	
-	           		 [
-			         {
-			         type: 'submit', 
-			         title: $scope.okTitle 
-			         },
-			         { 
-					 type: 'button', 
-					 title: 'Annuler', 
-					 onClick: "cancel()" 
-					 }
-			         ]
-	           	 }
-	           	 ]	
-			},
-			{
-		    	type: "conditional",
-	            condition: "data.readonly", 
-	            items: 
-	           	 [
-	           	 {
-	           	 type: "actions",
-	           	 items:	
-	           		 [
-			         {
-			         type: 'submit', 
-			         title: $scope.okTitle 
-			         }
-			         ]
-	           	 }
-	           	 ]	
 			}
 	    ];
+	$scope.form2 =
+		[
+		{
+		type: "conditional",
+		condition: "!data.readonly", 
+		items: 
+		 [
+		 {
+		 type: "actions",
+		 items:	
+			 [
+		     {
+		     type: 'submit', 
+		     title: $scope.okTitle 
+		     },
+		     { 
+			 type: 'button', 
+			 title: 'Annuler', 
+			 onClick: "cancel()" 
+				 }
+		         ]
+		   	 }
+		   	 ]	
+		},
+		{
+		type: "conditional",
+		condition: "data.readonly", 
+		items: 
+		 [
+		 {
+		 type: "actions",
+		 items:	
+			 [
+		     {
+		     type: 'submit', 
+		         title: $scope.okTitle 
+		         }
+		         ]
+		   	 }
+		   	 ]	
+		}
+		];
 	$scope.decorator = 'bootstrap-decorator';
 	$scope.submit =function(){
-		$scope.ok($scope.data).$promise.then(
-					function(response) {
-						$modalInstance.close($scope.data);
-					}, 
-					function(reason) {
-						alert('Echec: ' + reason);
-					});
-		
-
+		 $scope.$broadcast('schemaFormValidate');
+		if ($scope.form.titreProfessionnel.$valid) {
+			$scope.ok($scope.data).$promise.then(
+				function(response) {
+					$modalInstance.close($scope.data);
+				}, 
+				function(reason) {
+					alert('Echec: ' + reason);
+				});
+		}else{
+			$('.ng-invalid')[1].focus();
+		}
 	};
 	$scope.cancel = function() {
 		$modalInstance.dismiss('cancel');
+	};
+	$scope.fichiers = fichiers;
+	$scope.results = fichiers;
+	$scope.fichiersFilterOptions = {
+		filterText: ''
+	};
+	$scope.fichiersGridOptions = {
+		data : 'results',
+		multiSelect : false,
+		columnDefs : 	[
+						{
+							field : 'filename',
+							displayName : 'Nom'
+						},
+						{
+							field : 'size',
+							displayName : 'Taille'
+						},
+						{
+							displayName : 'Actions',
+							cellTemplate : 'partials/templates/ng-grid_view_remove_action.html'
+						}
+						],
+		enablePaging : false,
+		showFooter : false,
+		keepLastSelected: true,
+		enableColumnResize: true,
+		enableColumnReordering : true,
+		filterOptions : $scope.fichiersFilterOptions,
+		useExternalSorting : true,
+		showColumnMenu : true,
+		i18n : 'fr'
+	};
+	
+	$scope.downloadFile = function(fichier) {
+		var downloadPath = '/ng_gst_pdg/web/fichiers/telecharger/TitreProfessionnel/'+$scope.data.id+'/'+fichier.filename;
+		window.open(downloadPath,'_blank');  
+	};
+	
+	$scope.removeFile = function(fichier) {
+		var modalDelete = $modal
+		.open({
+			templateUrl : 'partials/templates/dialog.html',
+			controller : modalConfirmationDeleteTitreProfessionnelCtrl,
+			resolve : {
+				id : function() {return fichier.filename;},
+				title : function() {return "Suppression d'un fichier";},
+				message : function() {return "Etes-vous sur de vouloir supprimer ce fichier ?";},
+				ok : function () { return function(id) { return FichiersFactory.delete.doAction({entite_type: 'TitreProfessionnel', entite_id: $scope.data.id, filename : id });}}
+			}
+		});	
+		modalDelete.result.then(function(selectedItem) {
+			FichiersFactory.fichiers.getData({entite_type : "TitreProfessionnel", entite_id : $scope.data.id})
+				.$promise.then(function(data){
+					$scope.fichiers = data;
+					$scope.results = data;
+				}
+			);
+		}, function() {
+			$log.info('Modal dismissed at: ' + new Date());
+		});
+	};
+	
+	var uploader = $scope.uploader = new FileUploader({
+		url : '/ng_gst_pdg/web/fichiers/deposer'
+	});
+
+	uploader.filters.push({
+		name : 'customFilter',
+		fn : function(item, options) {
+			return this.queue.length < 10;
+		}
+	});
+
+	uploader.onBeforeUploadItem = function(item) {
+		item.formData.push({entite_type : "TitreProfessionnel"});
+		item.formData.push({entite_id : $scope.data.id});
+	};
+	uploader.onCompleteAll = function() {
+		FichiersFactory.fichiers.getData({entite_type : "TitreProfessionnel", entite_id : $scope.data.id})
+		.$promise.then(function(data){
+			$scope.fichiers = data;
+			$scope.results = data;
+		});
 	};
 };
 

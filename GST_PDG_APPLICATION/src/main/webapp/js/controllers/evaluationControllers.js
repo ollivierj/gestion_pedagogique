@@ -69,12 +69,17 @@ controllers
 							evaluationId) {
 						var modalAdd = $modal
 								.open({
-									templateUrl : 'partials/templates/inscription-form.html',
+									templateUrl : 'partials/evaluation.html',
 									controller : modalEditionEvaluationCtrl,
 									resolve : {
 										title : function() {return "Ajout d'une évaluation";},
 										readonly : function() {return false;},
+										affFichiers : function() {return false;},
+										affTelech : function() {return false;},
 										evaluation : function(){ return {}},
+										fichiers : function() {
+											return null;
+										},
 										sujetEvaluations : function(SujetEvaluationsFactory){
 											return SujetEvaluationsFactory.titlemap.getData().$promise;
 										},
@@ -100,13 +105,18 @@ controllers
 							evaluationId) {
 						var modalEdit = $modal
 								.open({
-									templateUrl : 'partials/templates/inscription-form.html',
+									templateUrl : 'partials/evaluation.html',
 									controller : modalEditionEvaluationCtrl,
 									resolve : {
 										title : function() {return "Visualisation d'une évaluation";},
 										readonly : function() {return true;},
+										affFichiers : function() {return true;},
+										affTelech : function() {return false;},
 										evaluation : function(EvaluationsFactory) {
 											return EvaluationsFactory.detail.getData({id : evaluationId}).$promise;
+										},
+										fichiers : function(FichiersFactory) {
+											return FichiersFactory.fichiers.getData({entite_type : "Evaluation", entite_id : evaluationId}).$promise;
 										},
 										sujetEvaluations : function(SujetEvaluationsFactory){
 											return SujetEvaluationsFactory.titlemap.getData().$promise;
@@ -133,13 +143,18 @@ controllers
 							evaluationId) {
 						var modalEdit = $modal
 								.open({
-									templateUrl : 'partials/templates/inscription-form.html',
+									templateUrl : 'partials/evaluation.html',
 									controller : modalEditionEvaluationCtrl,
 									resolve : {
 										title : function() {return "Edition d'une évaluation";},
 										readonly : function() {return false;},
+										affFichiers : function() {return true;},
+										affTelech : function() {return true;},
 										evaluation : function(EvaluationsFactory) {
 											return EvaluationsFactory.detail.getData({id : evaluationId}).$promise;
+										},
+										fichiers : function(FichiersFactory) {
+											return FichiersFactory.fichiers.getData({entite_type : "Evaluation", entite_id : evaluationId}).$promise;
 										},
 										sujetEvaluations : function(SujetEvaluationsFactory){
 											return SujetEvaluationsFactory.titlemap.getData().$promise;
@@ -151,7 +166,7 @@ controllers
 											return EvaluationsFactory.jsonschema.getData().$promise;
 										},
 										okTitle : function() {return "Enregistrer";},
-										ok : function() { return function(item){ return EvaluationsFactory.modify.doAction(item);}}
+										ok : function() { return function(item){return EvaluationsFactory.modify.doAction(item);}}
 									}
 								});
 
@@ -208,10 +223,13 @@ controllers
 					EvaluationsFactory.refreshData($scope);
 				});
 
-var modalEditionEvaluationCtrl = function($scope, $modalInstance,
-		EvaluationsFactory, onlyNumbersFilter, title, readonly, evaluation, sujetEvaluations, utilisateurs, schema, ok, okTitle) {
+var modalEditionEvaluationCtrl = function($scope, $modalInstance, $filter, $modal, FileUploader ,
+		EvaluationsFactory, StagiaireFactory, onlyNumbersFilter, title, FichiersFactory, fichiers, readonly, affFichiers, affTelech, evaluation, sujetEvaluations, utilisateurs, schema, ok, okTitle) {
+	$scope.affFichiers=affFichiers;
+	$scope.affTelech=affTelech;
 	$scope.title = title;
 	$scope.data = evaluation;
+	$scope.data.evaluationStagiaires=($scope.data.evaluationStagiaires)?$scope.data.evaluationStagiaires:[];
 	$scope.data.readonly = readonly;
 	$scope.sujetEvaluationsTitleMap = sujetEvaluations;
 	$scope.sujetEvaluationsEnum = onlyNumbersFilter(Object.keys($scope.sujetEvaluationsTitleMap)),
@@ -226,6 +244,7 @@ var modalEditionEvaluationCtrl = function($scope, $modalInstance,
 			title : "Sujet d'évaluation",
 			key: "sujetEvaluation.id",
 			type : "select",
+			required : true,
 			disabled : $scope.data.readonly,
 			schema : { enum : $scope.sujetEvaluationsEnum},
 			titleMap : $scope.sujetEvaluationsTitleMap
@@ -240,19 +259,14 @@ var modalEditionEvaluationCtrl = function($scope, $modalInstance,
 		},
 		{
 			key : "formatedDateHeureDebutPassage",
+			maxdate : "formatedDateHeureFinPassage",
 			disabled : $scope.data.readonly
+			
 		},
 		{
 			key : "formatedDateHeureFinPassage",
+			mindate : "formatedDateHeureDebutPassage",
 			disabled : $scope.data.readonly
-		},
-		{
-			key : "lienGrilleCorrection",
-		 	disabled : $scope.data.readonly
-		},
-		{
-			key : "lienCopiesImmaterielles",
-		 	disabled : $scope.data.readonly
 		}
 	    ];
 	$scope.form2 =
@@ -268,7 +282,7 @@ var modalEditionEvaluationCtrl = function($scope, $modalInstance,
 			 [
 		     {
 		     type: 'submit', 
-		     title: $scope.okTitle 
+		     title: $scope.okTitle
 		     },
 		     { 
 			 type: 'button', 
@@ -297,20 +311,158 @@ var modalEditionEvaluationCtrl = function($scope, $modalInstance,
 		   	 ]	
 		}
 		];
+	var columnDefs =  		
+		[
+		{field:'stagiaire.nom', displayName:'Nom'},
+		{field:'stagiaire.prenom', displayName:'Prénom'},
+		{field:'stagiaire.codePromotion', displayName:'Promotion', cellTemplate: 'partials/templates/ng-grid_detailsPromotion.html'}
+		];
+	
+	if (!$scope.data.readonly){
+		columnDefs.push(
+		{										
+			displayName : 'Actions',
+			cellTemplate : 'partials/templates/ng-grid_remove_action.html'
+		}
+		);
+	}
+	$scope.stagiairesFilterOptions = {
+			filterText: ''
+		};
+	 $scope.stagiairesGridOptions = {
+		        data: 'data.evaluationStagiaires',
+		        selectedItems: $scope.stagiaireSelected,
+		        columnDefs : columnDefs,
+		        enablePaging: false,
+		        showFooter: false,
+		        multiSelect: false,
+		        filterOptions : $scope.stagiairesFilterOptions
+		    };
+	$scope.removeRow = function(evaluationStagiaire) {
+		var index = $scope.data.evaluationStagiaires.indexOf(evaluationStagiaire);
+		 $scope.data.evaluationStagiaires.splice(index, 1);     
+	};
+	$scope.chargerStagiairesOrPromotions = function(search) {
+		return StagiaireFactory.stagiaireOrPromotionAutocomplete.getData({search: search}).$promise.then(function(data) {
+			var stagiairesOrPromotions = [];
+			angular.forEach(data, function(item) {
+				stagiairesOrPromotions.push(item);
+			});
+			return stagiairesOrPromotions;
+		});
+	};
+	$scope.addItem = function(item) {
+		StagiaireFactory.stagiaireOrPromotion.getData({type: item.type, id : item.id}).$promise.then(function(data) {
+			angular.forEach(data, function(stagiaire) {
+				var evaluation = {id : $scope.data.id};
+				var test = $filter('filter')($scope.data.evaluationStagiaires, {stagiaire : {id:stagiaire.id}});
+				if (0==test.length){
+					$scope.data.evaluationStagiaires.push({evaluation : evaluation, stagiaire : stagiaire});
+				}
+			});
+		});
+	};
 	$scope.decorator = 'bootstrap-decorator';
 	$scope.submit =function(){
-		$scope.ok($scope.data).$promise.then(
-					function(response) {
-						$modalInstance.close($scope.data);
-					}, 
-					function(reason) {
-						alert('Echec: ' + reason);
-					});
-		
-
+		 $scope.$broadcast('schemaFormValidate');
+		if ($scope.form.evaluation.$valid) {
+			$scope.ok($scope.data).$promise.then(
+				function(response) {
+					$modalInstance.close($scope.data);
+				}, 
+				function(reason) {
+					alert('Echec: ' + reason);
+				});
+		}else{
+			$('.ng-invalid')[1].focus();
+		}
 	};
 	$scope.cancel = function() {
 		$modalInstance.dismiss('cancel');
+	};
+	$scope.fichiers = fichiers;
+	$scope.results = fichiers;
+	$scope.fichiersFilterOptions = {
+			filterText: ''
+		};
+	$scope.fichiersGridOptions = {
+		data : 'results',
+		multiSelect : false,
+		columnDefs : 	[
+						{
+							field : 'filename',
+							displayName : 'Nom'
+						},
+						{
+							field : 'size',
+							displayName : 'Taille'
+						},
+						{
+							displayName : 'Actions',
+							cellTemplate : 'partials/templates/ng-grid_view_remove_action.html'
+						}
+						],
+		enablePaging : false,
+		showFooter : false,
+		keepLastSelected: true,
+		enableColumnResize: true,
+		enableColumnReordering : true,
+		filterOptions : $scope.fichiersFilterOptions,
+		useExternalSorting : true,
+		showColumnMenu : true,
+		i18n : 'fr'
+	};
+	
+	$scope.downloadFile = function(fichier) {
+		var downloadPath = '/ng_gst_pdg/web/fichiers/telecharger/Evaluation/'+$scope.data.id+'/'+fichier.filename;
+		window.open(downloadPath,'_blank');  
+	};
+	
+	$scope.removeFile = function(fichier) {
+		var modalDelete = $modal
+		.open({
+			templateUrl : 'partials/templates/dialog.html',
+			controller : modalConfirmationDeleteEvaluationCtrl,
+			resolve : {
+				id : function() {return fichier.filename;},
+				title : function() {return "Suppression d'un fichier";},
+				message : function() {return "Etes-vous sur de vouloir supprimer ce fichier ?";},
+				ok : function () { return function(id) { return FichiersFactory.delete.doAction({entite_type: 'Evaluation', entite_id: $scope.data.id, filename : id });}}
+			}
+		});	
+		modalDelete.result.then(function(selectedItem) {
+			FichiersFactory.fichiers.getData({entite_type : "Evaluation", entite_id : $scope.data.id})
+				.$promise.then(function(data){
+					$scope.fichiers = data;
+					$scope.results = data;
+				}
+			);
+		}, function() {
+			$log.info('Modal dismissed at: ' + new Date());
+		});
+	}
+		
+	var uploader = $scope.uploader = new FileUploader({
+		url : '/ng_gst_pdg/web/fichiers/deposer'
+	});
+
+	uploader.filters.push({
+		name : 'customFilter',
+		fn : function(item, options) {
+			return this.queue.length < 10;
+		}
+	});
+
+	uploader.onBeforeUploadItem = function(item) {
+		item.formData.push({entite_type : "Evaluation"});
+		item.formData.push({entite_id : $scope.data.id});
+	};
+	uploader.onCompleteAll = function() {
+		FichiersFactory.fichiers.getData({entite_type : "Evaluation", entite_id : $scope.data.id})
+		.$promise.then(function(data){
+			$scope.fichiers = data;
+			$scope.results = data;
+		});
 	};
 };
 
