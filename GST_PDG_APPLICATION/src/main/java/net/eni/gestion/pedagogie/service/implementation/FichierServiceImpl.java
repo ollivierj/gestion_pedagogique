@@ -102,7 +102,7 @@ public class FichierServiceImpl implements FichierService {
 		}
 		File lFile = new File(repertoire);
 		if(lFile.exists() && lFile.isDirectory()){
-			Iterator<File> files = FileUtils.iterateFiles(lFile, propertyFileLoader.getValue("valid.file.extentions").split("\\|"), false);
+			Iterator<File> files = FileUtils.iterateFiles(lFile, null/*propertyFileLoader.getValue("valid.file.extentions").split("\\|")*/, false);
 			while (files.hasNext()) {
 				File file = files.next();
 				FileBean fileBean = new FileBean(file.getName(), file.length(),
