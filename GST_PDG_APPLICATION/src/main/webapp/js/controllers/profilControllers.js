@@ -261,14 +261,18 @@ var modalProfilCtrl = function($scope, $modalInstance,
 			];
 		$scope.decorator = 'bootstrap-decorator';
 		$scope.submit =function(){
-		$scope.ok($scope.data).$promise.then(
-					function(response) {
-						$modalInstance.close($scope.data);
-					}, 
-					function(reason) {
-						alert('Echec: ' + reason);
-					});
-
+			 $scope.$broadcast('schemaFormValidate');
+				if ($scope.form.generic.$valid) {
+					$scope.ok($scope.data).$promise.then(
+						function(response) {
+							$modalInstance.close($scope.data);
+						}, 
+						function(reason) {
+							alert('Echec: ' + reason);
+						});
+				}else{
+					$('.ng-invalid')[1].focus();
+				}
 
 		};
 		$scope.cancel = function() {

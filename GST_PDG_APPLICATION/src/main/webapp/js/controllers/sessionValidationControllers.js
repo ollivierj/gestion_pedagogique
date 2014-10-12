@@ -366,6 +366,8 @@ var modalEditionSessionValidationCtrl = function($scope, $modalInstance, $filter
 				function(reason) {
 					alert('Echec: ' + reason);
 				});
+		}else{
+			$('.ng-invalid')[1].focus();
 		}
 	};
 	$scope.cancel = function() {

@@ -283,6 +283,8 @@ controllers
 				function(reason) {
 					alert('Echec: ' + reason);
 				});
+		}else{
+			$('.ng-invalid')[1].focus();
 		}
 	};
 	$scope.cancel = function() {

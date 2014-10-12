@@ -373,6 +373,8 @@ var modalEditionEvaluationCtrl = function($scope, $modalInstance, $filter, $moda
 				function(reason) {
 					alert('Echec: ' + reason);
 				});
+		}else{
+			$('.ng-invalid')[1].focus();
 		}
 	};
 	$scope.cancel = function() {
