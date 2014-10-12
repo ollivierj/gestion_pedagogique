@@ -3,7 +3,7 @@
 /**
  * Controller de la page de l'affichage des stagiaires
  */
-controllers.controller('stagiaireCtrl', function($scope, $http, $location, stagiaireData, StagiaireFactory, $modal, $state) {
+controllers.controller('stagiaireCtrl', function($scope, $http, $location, stagiaireData, StagiaireFactory, $modal, $state, $timeout) {
 
     /*Variable contenant la sélection des données des tableaux de recherche*/
     var promotionSelected = [];
@@ -33,6 +33,8 @@ controllers.controller('stagiaireCtrl', function($scope, $http, $location, stagi
         enablePaging: true,
         showFooter: true,
         multiSelect: false,
+        i18n : 'fr',
+        useExternalSorting : true,
         totalServerItems: 'totalServerItems',
         pagingOptions: $scope.pagingOptions,
         filterOptions: $scope.filterOptions,
@@ -102,8 +104,19 @@ controllers.controller('stagiaireCtrl', function($scope, $http, $location, stagi
     //Surveillance de la variable filterOptions
     $scope.$watch('filterOptions', function (newVal, oldVal) {
     	if (newVal !== oldVal) {
-    		$scope.refreshData();
+    		if ($scope.timer) {
+                $timeout.cancel($scope.timer);
+            }
+        	$scope.timer = $timeout(function () {
+        		$scope.refreshData();
+            }, 500);
     	}
+    }, true);
+    
+    $scope.$watch('sortOptions', function (newVal, oldVal) {
+        if (newVal !== oldVal) {
+        	$scope.refreshData();
+        }
     }, true);
 
 });

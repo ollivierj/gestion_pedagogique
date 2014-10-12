@@ -9,6 +9,5 @@ import net.eni.gestion.pedagogie.modele.Evaluation;
  */
 public interface EvaluationDao extends ADao<Evaluation, Integer> {
 
-	
 
 }

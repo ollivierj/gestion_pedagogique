@@ -33,48 +33,10 @@ services.factory('SAbsenceFactory', function ($resource, StagiaireFactory) {
 		delete : {method:'DELETE', params : {id:'@id'}}
 	});
 	
-	// Méthode de récupération des absences d'un stagiaire	
-	factory.getAbsencesOld = function (idStagiaire, pagingOptionsIn, sortOptionsIn, filterOptionsIn) {
-		//Si aucune donnée du scope n'a été modifiée, onconserve les données initiales du service
-		if (pagingOptionsIn != null && sortOptionsIn != null && filterOptionsIn != null) {
-			//Enregistrement des données
-			factory.pagingOptions = pagingOptionsIn;
-			factory.sortOptions = sortOptionsIn;
-			factory.filterOptions = filterOptionsIn;
-		}
+	factory.getAbsencesInit = function(pagerIn) {
 		
-		//Création d'une promise qui sera utilisée dans le controller
-		//Utilisation de la variable qui contient l'appel au service
-		var promise = factory.getAbsences.load (
-				{
-					pagingOptions 	: factory.pagingOptions, 
-					sortOptions 	: factory.sortOptions, 
-					filterOptions 	: factory.filterOptions,
-					id				: StagiaireFactory.stagiaire.idStagiaire
-				}
-			).$promise.then (
-				//Retour de la méthode dans un cas success
-				function (success) {
-					return success;
-				},
-				//Retour de la methode dans un cas error
-				function (error) {
-					return error;
-				}
-			);
-		
-		//On retourne la promise
-		return promise;
-	}
-	
-	factory.getAbsencesInit = function() {
 		return factory.getAbsences.load(
-				{
-					pagingOptions 	: factory.pager.pagingOptions, 
-					sortOptions 	: factory.pager.sortOptions, 
-					filterOptions 	: factory.pager.filterOptions,
-					id				: 1844
-				},
+				factory.pager,
 				//Retour de la méthode dans un cas success
 				function (success) {
 					return success;

@@ -2,114 +2,142 @@
 
 /* App Module */
 
-controllers.controller('planningReservationSalleCtrl', function($scope, $location, modalService, SallesFactory, PromotionsFactory, SallesReserveesFactory, AnimateursLibresFactory) {
+controllers.controller('planningReservationSalleCtrl', function($scope, $location, modalService, SallesFactory, PromotionsFactory, SallesReserveesFactory, AnimateursLibresFactory, PlanningFactory, $filter, PLANNING_ELEMENTS) {
 	var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
     var y = date.getFullYear();
     
-   
-    $scope.reservationSalle103 = {
-       color: '#f00',
-       //textColor: 'yellow',
-       events: [ 
-                {id:5, salleid : 2, animateurid :2,coursid:1,  title: 'Salle 103 - Cours Reseaux animé par Henri Vincent',start: new Date(y, m, 1)},
-                {id:6, salleid : 2, animateurid :2,coursid:2, title: 'Salle 103 - Cours Algo animé par Henri Vincent',start: new Date(y, m, d - 5),end: new Date(y, m, d - 2)},
-                {id:7, salleid : 2, animateurid :2,coursid:3, title: 'Salle 103 - Cours Projet animé par Henri Vincent',start: new Date(y, m, d + 1, 19, 0),end: new Date(y, m, d + 1, 22, 30),allDay: false},
-                {id:8, salleid : 2, animateurid :2,coursid:4, title: 'Salle 103 - Cours SOA animé par Henri Vincent',start: new Date(y, m, 28),end: new Date(y, m, 29)/*,url: 'http://google.com/'*/}
-        ]
+    //Assignation des couleur pour les 3 types d'éléments
+    $scope.sessionsValidation = {color: '#70B200'};
+    $scope.evaluations = {color: '#FF4219'};
+    $scope.cours = {color: '#1242B2'};
+    //Construction d'un tableau contenant les constantes de types d'éléments (Affichage de la combo box)
+    $scope.typeElements = [{typeName: PLANNING_ELEMENTS.SESSION}, {typeName: PLANNING_ELEMENTS.EVALUATION}, {typeName: PLANNING_ELEMENTS.COURS}];
+    
+    //Récupère les éléments du planning en fonction d'une date
+    $scope.getPlanningElements = function(date) {
+    	//Transformation de la date courante en date de début et de fin
+    	var debut = $filter('date')(date, 'yyyy-dd-MM');
+    	date.setMonth(date.getMonth() + 1);
+    	var fin = $filter('date')(date, 'yyyy-dd-MM');
+    	
+    	//Appel au service pour récupérer les éléments du planning 
+    	//en fonction de la date de début et de fin
+    	PlanningFactory.elements.query({debut: debut, fin: fin}, function(result) {
+    		var resultElements = [];
+    		//Parcours des résultats pour les parse sur le bon format
+    		_(result).forEach(function (res) {
+    			//Création des éléments du planning
+    			resultElements.push({
+    				id: res.id, 
+    				type: res.type, 
+    				title: res.libelle + ' - ' + (res.salles != null ? res.salles : 'Aucune salle'), 
+    				start: new Date(res.debut),
+    				end: new Date(res.fin)
+    			});
+    		});
+    		
+    		//Ajout des élements dans les tableaux correpondants.
+    		$scope.evaluations.events = _.filter(resultElements, {type:'Evaluation'});
+    	    $scope.sessionsValidation.events = _.filter(resultElements, {type:'Session'});
+    		$scope.cours.events = _.filter(resultElements, {type:'Cours'});
+    		
+    		// Rafraichissement de la vue
+    		if(!$scope.$$phase) {
+    			$scope.$digest();
+    		}
+    	});
     };
     
-    $scope.reservationSalle104 = {
-    	       color: '#a8ed13',
-    	       //textColor: 'yellow',
-    	       events: [ 
-    	                {id:1,salleid : 10, animateurid :1, coursid:5,title: 'Salle 104 - Cours JAVA animé par Jean Brouette',start: new Date(y, m, 1)},
-    	                {id:2,salleid : 10, animateurid :1, coursid:6,title: 'Salle 104 - Cours PHP animé par Jean Brouette',start: new Date(y, m, d - 5),end: new Date(y, m, d - 4)},
-    	                {id:3,salleid : 10, animateurid :1, coursid:7,title: 'Salle 104 - Cours SQL animé par Jean Brouette',start: new Date(y, m, d + 4, 19, 0),end: new Date(y, m, d + 7, 22, 30),allDay: false},
-    	                {id:4,salleid : 10, animateurid :1, coursid:8,title: 'Salle 104 - Cours Math animé par Jean Brouette',start: new Date(y, m, 28),end: new Date(y, m, 29)/*,url: 'http://google.com/'*/}
-    	        ]
-    	    };
-    /* alert on eventClick */
+    //Affichage de la fenêtre modale correspodant à l'élément sélectionné.
+    var modalEditionInstance = {
+        backdrop: true,
+        keyboard: true,
+        size : 'lg',
+        modalFade: true,
+        templateUrl: '',
+        controller: '',
+        resolve: {
+            items: function () {
+              return event;
+            },
+            salles: function (SallesFactory) {
+                return SallesFactory.query().$promise;
+            },
+            promotions: function (PromotionsFactory) {
+                return PromotionsFactory.query().$promise;
+            },
+            sallesReservees : function (SallesReserveesFactory) {
+                return SallesReserveesFactory.query().$promise;
+            },
+           /* animateursLibres : function (AnimateursLibresFactory) {
+                return AnimateursLibresFactory.query().$promise;
+            },*/
+            
+            
+        }
+    };
+    
+    // Evènement sur le clic d'un élément
     $scope.alertOnEventClick = function( event, allDay, jsEvent, view ){
         $scope.alertMessage = (event.title + ' was clicked ');
-        var modalDefaults = {
-                backdrop: true,
-                keyboard: true,
-                size : 'lg',
-                modalFade: true,
-                templateUrl: 'partials/salle/formulaireReservationSalle.html',
-                controller: formulaireReservationSalleCtrl,
-                resolve: {
-                    items: function () {
-                      return event;
-                    },
-                    salles: function (SallesFactory) {
-                        return SallesFactory.query().$promise;
-                    },
-                    promotions: function (PromotionsFactory) {
-                        return PromotionsFactory.query().$promise;
-                    },
-                    sallesReservees : function (SallesReserveesFactory) {
-                        return SallesReserveesFactory.query().$promise;
-                    },
-                   /* animateursLibres : function (AnimateursLibresFactory) {
-                        return AnimateursLibresFactory.query().$promise;
-                    },*/
-                    
-                    
-                }
-            };
-       
-            modalService.showModal(modalDefaults, {}).then(function (result) {
-                //dataService.deleteCustomer($scope.customer.id).then(function () {
-                    $location.path('/salle');
-                //}, processError);
-            });
-    };
-    /* alert on Drop */
-     $scope.alertOnDrop = function(event, dayDelta, minuteDelta, allDay, revertFunc, jsEvent, ui, view){
-       $scope.alertMessage = ('Event Droped to make dayDelta ' + dayDelta);
-    };
-    /* alert on Resize */
-    $scope.alertOnResize = function(event, dayDelta, minuteDelta, revertFunc, jsEvent, ui, view ){
-       $scope.alertMessage = ('Event Resized to make dayDelta ' + minuteDelta);
-    };
-    /* add and removes an event source of choice */
-    $scope.addRemoveEventSource = function(sources,source) {
-      var canAdd = 0;
-      angular.forEach(sources,function(value, key){
-        if(sources[key] === source){
-          sources.splice(key,1);
-          canAdd = 1;
+        
+        //En fonction un type de l'élément une fenêtre modale différente sera créée
+        //Pour chaque type une vue et un controller sont associés.
+        switch(event.type) {
+        
+        	case PLANNING_ELEMENTS.SESSION: modalEditionInstance.templateUrl = 'partials/salle/instance/sessionsValidation.html';
+        						modalEditionInstance.controller = 'formulaireReservationSalleCtrl';
+        						break;
+        						
+        	case PLANNING_ELEMENTS.EVALUATION: modalEditionInstance.templateUrl = 'partials/salle/instance/evaluations.html';
+        						modalEditionInstance.controller = 'formulaireReservationSalleCtrl';
+								break;
+								
+        	case PLANNING_ELEMENTS.COURS: modalEditionInstance.templateUrl = 'partials/salle/instance/cours.html';
+        						modalEditionInstance.controller = 'formulaireReservationSalleCtrl';
+								break;
         }
-      });
-      if(canAdd === 0){
-        sources.push(source);
-      }
+        
+       //Affichage de la fenêtre modale
+        modalService.showModal(modalEditionInstance, {}).then(function (result) {
+            //dataService.deleteCustomer($scope.customer.id).then(function () {
+                $location.path('/salle');
+            //}, processError);
+        });
     };
-    /* add custom event*/
-    $scope.addEvent = function() {
-      $scope.events.push({
-        title: 'Open Sesame',
-        start: new Date(y, m, 28),
-        end: new Date(y, m, 29),
-        className: ['openSesame']
-      });
-    };
-    /* remove event */
-    $scope.remove = function(index) {
-      $scope.events.splice(index,1);
-    };
-    /* Change View */
+    
+    //Evènement sur le clic du bouton next
+    $scope.next = function(calendar) {
+    	//Appel l'évènement next du calendrier
+    	calendar.fullCalendar('next');
+    	//Récupère la date courante du calendrier
+    	var moment = calendar.fullCalendar('getDate');
+    	$scope.getPlanningElements(moment);
+    }
+    
+    //Evènement sur le clic du bouton previous
+    $scope.previous = function(calendar) {
+    	calendar.fullCalendar('prev');
+    	var moment = calendar.fullCalendar('getDate');
+    	$scope.getPlanningElements(moment);
+    }
+    
+    //Evènement sur le clic du bouton today
+    $scope.today = function(calendar) {
+    	calendar.fullCalendar('today');
+    	var moment = calendar.fullCalendar('getDate');
+    	$scope.getPlanningElements(moment);
+    }
+    
+    
+    /* Change View (day, week, month)*/
     $scope.changeView = function(view,calendar) {
       calendar.fullCalendar('changeView',view);
     };
-    /* Change View */
-    $scope.renderCalender = function(calendar) {
-      calendar.fullCalendar('render');
-    };
-    /* config object */
+    
+    //Configuration du calendrier
     $scope.uiConfig = {
       calendar:{
     	  monthNames:['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
@@ -119,17 +147,17 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
     	  titleFormat: {
     	      month: 'MMMM yyyy',
     	      week: "d[ MMMM][ yyyy]{ - d MMMM yyyy}",
-    	  day: 'dddd d MMMM yyyy'
+    	      day: 'dddd d MMMM yyyy'
     	  },
     	  columnFormat: {
     	      month: 'ddd',
-    	  week: 'ddd d',
-    	  day: ''
+    	      week: 'ddd d',
+    	      day: ''
     	  },
     	  axisFormat: 'H:mm', 
     	  timeFormat: {
     	      '': 'H:mm', 
-    	  agenda: 'H:mm{ - H:mm}'
+    	      agenda: 'H:mm{ - H:mm}'
     	  },
     	  firstDay:1,
     	  buttonText: {
@@ -139,25 +167,22 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
     	      month:'mois'
     	  }, 
     	  allDayText : 'toute la journée',
-        
-    	height: 450,
-        editable: true,
-        header:{
-          left: 'today prev,next',
-          center: 'title',
-          right: ''
-        },
-        eventClick: $scope.alertOnEventClick,
-        eventDrop: $scope.alertOnDrop,
-        eventResize: $scope.alertOnResize
+    	  height: 450,
+    	  editable: false,
+    	  //Ne pas faire apparaitre les week end
+    	  weekends: false,
+    	  header:{
+    		  left: '',
+    		  center: 'title',
+    		  right: ''
+    	  },
+    	  eventClick: $scope.alertOnEventClick,
+    	  next: $scope.next
       }
     };
-    
-
-
    
-    /* event sources array*/
-    $scope.eventSources = [$scope.reservationSalle103, $scope.reservationSalle104];
+    //Contient tous les élements du tableaux
+    $scope.eventSources = [$scope.sessionsValidation, $scope.evaluations, $scope.cours];
     
 
 });

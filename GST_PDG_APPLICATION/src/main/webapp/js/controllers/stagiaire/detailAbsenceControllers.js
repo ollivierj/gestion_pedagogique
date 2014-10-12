@@ -5,6 +5,15 @@ controllers.controller('detailAbsenceCtrl', function($scope, absences, SAbsenceF
     
     $scope.absences = absences.data;
     
+    $scope.totalServerItems = absences.totalServerItems;
+    $scope.pager = SAbsenceFactory.pager;
+    
+    /*Permet d'alimenter le scope avec le résultat des requetes charger*/
+    var initPager = function (pageLoad) {
+    	$scope.totalServerItems = pageLoad.totalServerItems;
+    	$scope.absences = pageLoad.data;
+    }
+    
     // Les absences ou retards du stagiaire
     $scope.gridOptionsAbsences = {
         data: 'absences',
@@ -28,7 +37,11 @@ controllers.controller('detailAbsenceCtrl', function($scope, absences, SAbsenceF
         multiSelect: false,
         enableColumnResize: true,
 		enableColumnReordering : true,
-		showColumnMenu : true
+		showColumnMenu : true,
+		totalServerItems: 'totalServerItems',
+        pagingOptions: $scope.pager.pagingOptions,
+        filterOptions: $scope.pager.filterOptions,
+        sortInfo: $scope.pager.sortOptions
     };
 
 	//L'édition d'une des colonnes du tableau active le mode edition
@@ -51,7 +64,7 @@ controllers.controller('detailAbsenceCtrl', function($scope, absences, SAbsenceF
     			function (success) {
     				entity.editMode = false;
 			    	SAbsenceFactory.getAbsences.load(SAbsenceFactory.pager, function(success) {
-			    		$scope.absences = success.data;
+			    		initPager(success);
 			    	});
 			    	toaster.pop('success', null, "Enregistrement de l'absence effectuée");
 				},
@@ -72,7 +85,7 @@ controllers.controller('detailAbsenceCtrl', function($scope, absences, SAbsenceF
     	SAbsenceFactory.deleteLine.delete({id: entity.id},
     			function(success) {
 		    		SAbsenceFactory.getAbsences.load(SAbsenceFactory.pager, function(success) {
-		    			$scope.absences = success.data;
+		    			initPager(success);
 		    		});
 		    		toaster.pop('warning', null, "Suppression de l'absence effectuée");
 		    	},
@@ -81,5 +94,37 @@ controllers.controller('detailAbsenceCtrl', function($scope, absences, SAbsenceF
 		    	}
     	);
     };
+    
+  //Watch equality permet de comparer toutes les données de l'objet aini que ses attributs. Avec la valeur true
+    //Surveillance de la variable pagingOptions
+    $scope.$watch('pager.pagingOptions', function (newVal, oldVal) {
+        if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
+        	SAbsenceFactory.getAbsences.load(SAbsenceFactory.pager, function(success) {
+        		initPager(success);
+    		});
+        }
+    }, true);
+    
+    //Surveillance de la variable filterOptions
+    $scope.$watch('pager.filterOptions', function (newVal, oldVal) {
+    	if (newVal !== oldVal) {
+    		if ($scope.timer) {
+                $timeout.cancel($scope.timer);
+            }
+        	$scope.timer = $timeout(function () {
+        		SAbsenceFactory.getAbsences.load(SAbsenceFactory.pager, function(success) {
+            		initPager(success);
+        		});
+            }, 500);
+    	}
+    }, true);
+    
+    $scope.$watch('pager.sortOptions', function (newVal, oldVal) {
+        if (newVal !== oldVal) {
+        	SAbsenceFactory.getAbsences.load(SAbsenceFactory.pager, function(success) {
+        		initPager(success);
+    		});
+        }
+    }, true);
     
 });
