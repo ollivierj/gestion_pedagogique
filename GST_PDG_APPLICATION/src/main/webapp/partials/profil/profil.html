@@ -1,0 +1,22 @@
+<div class="modal-header">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<i class="fa fa-group"></i> {{title}}
+			</h3>
+		</div>
+	</div>
+</div>
+<div class="modal-body">
+
+	<tabset> <tab heading="Description">
+	<form name="form.profil" sf-schema="schema" sf-form="form" sf-model="data"
+		style="margin-top: 15px"></form>
+	</tab> <tab heading="Droit" ng-if="affprofilList">
+	<div ng-include src="'partials/templates/profilList.html'"></div>
+</div>
+
+
+
+
+
