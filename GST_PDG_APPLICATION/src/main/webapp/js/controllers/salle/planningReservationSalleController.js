@@ -29,9 +29,11 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
     		//Parcours des résultats pour les parse sur le bon format
     		_(result).forEach(function (res) {
     			//Création des éléments du planning
+    			console.log(res);
     			resultElements.push({
     				id: res.id, 
     				type: res.type, 
+    				entityId: res.elementId,
     				title: res.libelle + ' - ' + (res.salles != null ? res.salles : 'Aucune salle'), 
     				start: new Date(res.debut),
     				end: new Date(res.fin)
@@ -43,10 +45,12 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
     	    $scope.sessionsValidation.events = _.filter(resultElements, {type:'Session'});
     		$scope.cours.events = _.filter(resultElements, {type:'Cours'});
     		
+    		
     		// Rafraichissement de la vue
     		if(!$scope.$$phase) {
     			$scope.$digest();
     		}
+		
     	});
     };
     
@@ -56,8 +60,6 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
         keyboard: true,
         size : 'lg',
         modalFade: true,
-        templateUrl: '',
-        controller: '',
         resolve: {
             items: function () {
               return event;
@@ -70,7 +72,7 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
             },
             sallesReservees : function (SallesReserveesFactory) {
                 return SallesReserveesFactory.query().$promise;
-            },
+            }
            /* animateursLibres : function (AnimateursLibresFactory) {
                 return AnimateursLibresFactory.query().$promise;
             },*/
@@ -88,11 +90,17 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
         switch(event.type) {
         
         	case PLANNING_ELEMENTS.SESSION: modalEditionInstance.templateUrl = 'partials/salle/instance/sessionsValidation.html';
-        						modalEditionInstance.controller = 'formulaireReservationSalleCtrl';
+        						modalEditionInstance.controller = 'formSessionSalleCtrl';
+        						modalEditionInstance.resolve.data = function (SessionValidationsFactory) {
+        							return SessionValidationsFactory.detail.getData({id:event.entityId});
+        						};
         						break;
         						
         	case PLANNING_ELEMENTS.EVALUATION: modalEditionInstance.templateUrl = 'partials/salle/instance/evaluations.html';
-        						modalEditionInstance.controller = 'formulaireReservationSalleCtrl';
+        						modalEditionInstance.controller = 'formEvaluationSalleCtrl';
+        						modalEditionInstance.resolve.data = function (EvaluationsFactory) {
+        							return EvaluationsFactory.detail.getData({id:event.entityId});
+        						};
 								break;
 								
         	case PLANNING_ELEMENTS.COURS: modalEditionInstance.templateUrl = 'partials/salle/instance/cours.html';
@@ -135,6 +143,8 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
     /* Change View (day, week, month)*/
     $scope.changeView = function(view,calendar) {
       calendar.fullCalendar('changeView',view);
+      var moment = calendar.fullCalendar('getDate');
+	  $scope.getPlanningElements(moment);
     };
     
     //Configuration du calendrier
@@ -176,14 +186,36 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
     		  center: 'title',
     		  right: ''
     	  },
-    	  eventClick: $scope.alertOnEventClick,
-    	  next: $scope.next
+    	  eventClick: $scope.alertOnEventClick
       }
     };
    
     //Contient tous les élements du tableaux
     $scope.eventSources = [$scope.sessionsValidation, $scope.evaluations, $scope.cours];
     
-
+    $scope.$watch('typeElement', function (newVal, oldVal) {
+        if (newVal == null) {
+        	$scope.eventSources = [$scope.sessionsValidation, $scope.evaluations, $scope.cours];
+        } else {
+        	switch(newVal.typeName) {
+	        	case PLANNING_ELEMENTS.SESSION:
+	        						$scope.eventSources = [$scope.sessionsValidation];
+	        						break;
+	        						
+	        	case PLANNING_ELEMENTS.EVALUATION:
+	        						$scope.eventSources = [$scope.evaluations];
+									break;
+									
+	        	case PLANNING_ELEMENTS.COURS:
+	        						$scope.eventSources = [$scope.cours];
+									break;
+        	}
+        }
+        // Rafraichissement de la vue
+		if(!$scope.$$phase) {
+			$scope.$digest();
+		}
+    }, true);
+    
 });
 
