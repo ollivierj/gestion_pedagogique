@@ -60,6 +60,26 @@ public class StagiaireResourceImpl extends AResourceImpl<Stagiaire, Integer, Sta
     	}
     	return lResultList;
 	}
+    
+    @GET
+    @Path("/stagiaireAutocomplete/{search}")
+    @Produces(MediaType.APPLICATION_JSON)
+	public ArrayList<NamedObjectMap> chargerStagiaireAutocomplete(@PathParam("search") String pSearchText) throws GenericException {
+    	ArrayList<NamedObjectMap> lResultList = new ArrayList<NamedObjectMap>();
+    	ArrayList<Stagiaire> lStagiaireList = service.chargerForAutocompleteSearch(pSearchText);
+    	for (Stagiaire lStagiaire : lStagiaireList) {
+			NamedObjectMap lResult = new NamedObjectMap();
+			lResult.put("type", "Stagiaire");
+			lResult.put("id", lStagiaire.getId());
+			StringBuilder lStrBuilder = new StringBuilder();
+			lStrBuilder.append(lStagiaire.getPrenom());
+			lStrBuilder.append(" ");
+			lStrBuilder.append(lStagiaire.getNom());
+			lResult.put("libelle", lStrBuilder.toString());
+			lResultList.add(lResult);
+    	}
+    	return lResultList;
+	}
 
 
 

@@ -139,7 +139,14 @@ angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 'ngAnimate', 'ui
 			url: '/sessionValidations',
 			templateUrl: 'partials/templates/list.html',
 			controller: 'sessionValidationsCtrl'
+		}).
+		// SAISIE DES ABSENCES ***********************************************
+		state('absences', {
+			url: '/absences',
+			templateUrl: 'partials/absence.html',
+			controller: 'absencesCtrl'
 		});
+	
 });
 
 var filters = angular.module('ng_gst_pdg.filters', []);

@@ -98,6 +98,9 @@ services.factory('StagiaireFactory', function ($resource) {
 		stagiaireOrPromotionAutocomplete : $resource('/ng_gst_pdg/web/stagiaires/stagiaireOrPromotionAutocomplete/:search', {}, {
 			getData : { method: 'GET', params: {search: '@search'}, isArray: true }
 		}),
+		stagiaireAutocomplete : $resource('/ng_gst_pdg/web/stagiaires/stagiaireAutocomplete/:search', {}, {
+			getData : { method: 'GET', params: {search: '@search'}, isArray: true }
+		}),
 		stagiaireOrPromotion : $resource('/ng_gst_pdg/web/stagiairesPromotions/stagiaires/:type/:id', {}, {
 			getData : { method: 'GET', params: {type: '@type', id : '@id'}, isArray: true }
 		})

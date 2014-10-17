@@ -1,5 +1,8 @@
 package net.eni.gestion.pedagogie.DAO;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 import net.eni.gestion.pedagogie.modele.Absence;
 
 /**
@@ -9,7 +12,7 @@ import net.eni.gestion.pedagogie.modele.Absence;
  */
 public interface AbsenceDao extends ADao<Absence,Integer> {
 
-	/*ArrayList<Absence> chargerAbsencesByDate(Date pDate) throws Exception;*/
+	ArrayList<Absence> chargerAbsencesByDate(Date pDate, Date pMaxDate) throws Exception;
 
 	
 

@@ -1,90 +1,132 @@
 'use strict';
-var absencesCtrl = function($scope, $modalInstance, $log, AbsencesFactory,
-		StagiaireFactory) {
-	$scope.absences = [];
-	$scope.date = new Date();
-	$scope.hstep = 1;
-	$scope.mstep = 15;
-	$scope.options = {
-		hstep : [ 1, 2, 3 ],
-		mstep : [ 1, 5, 10, 15, 25, 30 ]
-	};
-	$scope.ismeridian = true;
-	$scope.toggleMode = function() {
-		$scope.ismeridian = !$scope.ismeridian;
-	};
-	$scope.disabled = function(date, mode) {
-		return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6));
-	};
-
-	$scope.editAbsence = function(absence) {
-		absence.editing = true;
-	};
-
-	$scope.periode = 'matin';
-
-	$scope.getStagiaires = function(search) {
-		return AbsencesFactory.test.getData({search: search}).$promise.then(function(data) {
-			var stagiaires = [];
-			angular.forEach(data, function(item) {
-				stagiaires.push(item);
-			});
-			return stagiaires;
-		});
-	};
-
-	$scope.getAbsences = function(day) {
-		return AbsencesFactory.jour.getData({
-			jour : day
-		}).$promise.then(function(data) {
-			$scope.absences = data;
-		});
-		;
-	};
-
-	$scope.checkModel = {
-		matin : true,
-		soir : false
-	};
-
-	$scope.cancelEditingAbsence = function(absence) {
-		absence.editing = false;
-	};
-
-	$scope.addAbsence = function(stagiaire) {
-		if (null != stagiaire){
-			$scope.absences.push({
-				stagiaire : stagiaire,
-				date : $scope.date,
-				dateArriveeMatin : null,
-				dateArriveeApresMidi : null,
-				dateSaisie : null,
-				auteur : null,
-				editing : false
-			});
-		}
-
-	};
+var absencesCtrl = function($scope, $log, $filter, toaster, AbsencesFactory, StagiaireFactory) {
+	 $scope.title = "Absences";
+	 $scope.absences = [];
+	 $scope.$watch('date', 
+		function (newVal, oldVal) {
+	        if (newVal !== oldVal) {
+	        	if (null != newVal){
+	        		var date = new Date(newVal);
+		        	$scope.refreshData(date);
+	        	}else{
+	        		$scope.absences = [];
+	        	}
+	        }
+	    }, true
+	 );
+	 $scope.date = new Date();
+	 
+	 $scope.refreshData= function(date){
+		AbsencesFactory.jour.getData({year:date.getUTCFullYear(), month : date.getUTCMonth(), day : date.getUTCDate()}, function(data) {
+	    	$scope.absences = data;
+	    });
+	 };
+	 $scope.refreshData($scope.date);
 	
-	$scope.removeAbsence = function(absence) {
-		return null;
-	};
+	 $scope.gridOptionsAbsences = {
+		        data: 'absences',
+		        columnDefs : [
+		              	{displayName:'Absence/\nRetard', enableCellEdit: false,
+		              		cellTemplate: 'partials/stagiaire/template/absenceRetardButton.html'},
+		            	{field:'formatedTime', displayName:'Heure', enableCellEdit: true,
+		            		editableCellTemplate: 'partials/stagiaire/template/timepicker.html',
+		                	cellTemplate: 'partials/stagiaire/template/timepickerText.html'},	
+		                	 {field:'stagiaire.prenom', displayName:'Prénom', enableCellEdit: false},
+		                	 {field:'stagiaire.nom', displayName:'Nom', enableCellEdit: false},
+		                {field:'commentaire', displayName:'Motif', enableCellEdit: true,
+		                	editableCellTemplate: 'partials/stagiaire/template/textEdit.html'},
+		                {displayName:'Actions', cellTemplate: 'partials/stagiaire/template/actions.html'}
+		        ],
+		        enablePaging: false,
+		        showFooter: false,
+		        multiSelect: false,
+		        enableColumnResize: true,
+				enableColumnReordering : true,
+				showColumnMenu : true
+		    };
 
-	$scope.saveAbsence = function(absence) {
-		absence.editing = false;
-	};
-
-	$scope.open = function($event) {
-		$event.preventDefault();
-		$event.stopPropagation();
-		$scope.opened = true;
-	};
-
-	$scope.ok = function() {
-		$modalInstance.close(null);
-	};
-
-	$scope.cancel = function() {
-		$modalInstance.dismiss('cancel');
-	};
+			//L'édition d'une des colonnes du tableau active le mode edition
+		    $scope.editRow = function(absence) {
+		    	var test = $filter('filter')($scope.absences, {editMode : true});
+				if (0==test.length){
+					absence.editMode = true;
+				}
+				return absence.editMode;
+		    };
+		    
+		    //Annule l'édition d'une ligne
+		    $scope.cancel = function(absence) {
+		    	absence.editMode = false;
+		    };
+		    
+		    $scope.ok = function (absence) {
+		    	absence.formatedDate = $filter('date')(absence.formatedDate, 'dd/MM/yyyy');
+		    	absence.formatedTime = $filter('date')(absence.formatedTime, 'HH:mm');
+		    	//Mock de l'auteur
+		    	absence.auteur = {};
+		    	absence.auteur.id = 1;
+		    	if (null==absence.id){
+		    		AbsencesFactory.create.doAction(absence,
+			    			function (success) {
+			    				absence.editMode = false;
+			    				var date = new Date($scope.date);
+			    	        	$scope.refreshData(date);
+						    	toaster.pop('success', null, "Enregistrement de l'absence effectuée");
+							},
+							
+							function (error) {
+								toaster.pop('error', null, error.message);
+							}
+					);
+		    	}else {
+		    		AbsencesFactory.modify.doAction(absence,
+			    			function (success) {
+			    				absence.editMode = false;
+			    				var date = new Date($scope.date);
+			    	        	$scope.refreshData(date);
+						    	toaster.pop('success', null, "Enregistrement de l'absence effectuée");
+							},
+							
+							function (error) {
+								toaster.pop('error', null, error.message);
+							}
+					);
+		    	}
+		    	
+		    };
+		    
+		    $scope.chargerStagiaires = function(search) {
+				return StagiaireFactory.stagiaireAutocomplete.getData({search: search}).$promise.then(function(data) {
+					var stagiaires = [];
+					angular.forEach(data, function(item) {
+						stagiaires.push(item);
+					});
+					return stagiaires;
+				});
+			};
+		    
+		    $scope.createAbsence = function(item) {
+		    	StagiaireFactory.stagiaireOrPromotion.getData({type: item.type, id : item.id}).$promise.then(function(data) {
+					angular.forEach(data, function(stagiaire) {
+						var test = $filter('filter')($scope.absences, {stagiaire : {id:stagiaire.id}});
+						if (0==test.length){
+							$scope.absences.push({isAbsence:true, stagiaire: stagiaire, formatedDate : $scope.date})
+						}
+					});
+				});
+		    	;
+		    };
+		    
+		    $scope.removeRow = function(absence) {
+		    	AbsencesFactory.delete.doAction({id: absence.id},
+		    			function(success) {
+				    		var date = new Date($scope.date);
+		    	        	$scope.refreshData(date);
+				    		toaster.pop('warning', null, "Suppression de l'absence effectuée");
+				    	},
+		    			function(error) {
+				    		toaster.pop('error', null, error.message);
+				    	}
+		    	);
+		    };
 };
