@@ -1,7 +1,7 @@
 'use strict';
-var absencesCtrl = function($scope, $log, $filter, toaster, AbsencesFactory, StagiaireFactory) {
+var absencesCtrl = function($scope, $log, $filter, absences, toaster, AbsencesFactory, StagiaireFactory) {
 	 $scope.title = "Absences";
-	 $scope.absences = [];
+	 $scope.absences = absences;
 	 $scope.$watch('date', 
 		function (newVal, oldVal) {
 	        if (newVal !== oldVal) {
@@ -15,19 +15,16 @@ var absencesCtrl = function($scope, $log, $filter, toaster, AbsencesFactory, Sta
 	    }, true
 	 );
 	 $scope.date = new Date();
-	 
 	 $scope.refreshData= function(date){
 		AbsencesFactory.jour.getData({year:date.getUTCFullYear(), month : date.getUTCMonth(), day : date.getUTCDate()}, function(data) {
 	    	$scope.absences = data;
 	    });
 	 };
-	 $scope.refreshData($scope.date);
-	
 	 $scope.gridOptionsAbsences = {
 		        data: 'absences',
 		        columnDefs : [
 		              	{displayName:'Absence/\nRetard', enableCellEdit: false,
-		              		cellTemplate: 'partials/stagiaire/template/absenceRetardButton.html'},
+		              		cellTemplate: 'partials/absence/absence-bouton-retard-absence.html'},
 		            	{field:'formatedTime', displayName:'Heure', enableCellEdit: true,
 		            		editableCellTemplate: 'partials/stagiaire/template/timepicker.html',
 		                	cellTemplate: 'partials/stagiaire/template/timepickerText.html'},	
@@ -35,7 +32,7 @@ var absencesCtrl = function($scope, $log, $filter, toaster, AbsencesFactory, Sta
 		                	 {field:'stagiaire.nom', displayName:'Nom', enableCellEdit: false},
 		                {field:'commentaire', displayName:'Motif', enableCellEdit: true,
 		                	editableCellTemplate: 'partials/stagiaire/template/textEdit.html'},
-		                {displayName:'Actions', cellTemplate: 'partials/stagiaire/template/actions.html'}
+		                {displayName:'Actions', cellTemplate: 'partials/absence/absence-actions.html'}
 		        ],
 		        enablePaging: false,
 		        showFooter: false,
@@ -45,8 +42,7 @@ var absencesCtrl = function($scope, $log, $filter, toaster, AbsencesFactory, Sta
 				showColumnMenu : true
 		    };
 
-			//L'édition d'une des colonnes du tableau active le mode edition
-		    $scope.editRow = function(absence) {
+		    $scope.editAbsence = function(absence) {
 		    	var test = $filter('filter')($scope.absences, {editMode : true});
 				if (0==test.length){
 					absence.editMode = true;
@@ -54,12 +50,11 @@ var absencesCtrl = function($scope, $log, $filter, toaster, AbsencesFactory, Sta
 				return absence.editMode;
 		    };
 		    
-		    //Annule l'édition d'une ligne
-		    $scope.cancel = function(absence) {
+		    $scope.cancelAbsence = function(absence) {
 		    	absence.editMode = false;
 		    };
 		    
-		    $scope.ok = function (absence) {
+		    $scope.saveAbsence = function (absence) {
 		    	absence.formatedDate = $filter('date')(absence.formatedDate, 'dd/MM/yyyy');
 		    	absence.formatedTime = $filter('date')(absence.formatedTime, 'HH:mm');
 		    	//Mock de l'auteur
@@ -105,7 +100,7 @@ var absencesCtrl = function($scope, $log, $filter, toaster, AbsencesFactory, Sta
 				});
 			};
 		    
-		    $scope.createAbsence = function(item) {
+		    $scope.addAbsence = function(item) {
 		    	StagiaireFactory.stagiaireOrPromotion.getData({type: item.type, id : item.id}).$promise.then(function(data) {
 					angular.forEach(data, function(stagiaire) {
 						var test = $filter('filter')($scope.absences, {stagiaire : {id:stagiaire.id}});
@@ -117,7 +112,7 @@ var absencesCtrl = function($scope, $log, $filter, toaster, AbsencesFactory, Sta
 		    	;
 		    };
 		    
-		    $scope.removeRow = function(absence) {
+		    $scope.removeAbsence = function(absence) {
 		    	AbsencesFactory.delete.doAction({id: absence.id},
 		    			function(success) {
 				    		var date = new Date($scope.date);

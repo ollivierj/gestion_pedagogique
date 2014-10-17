@@ -143,8 +143,14 @@ angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 'ngAnimate', 'ui
 		// SAISIE DES ABSENCES ***********************************************
 		state('absences', {
 			url: '/absences',
-			templateUrl: 'partials/absence.html',
-			controller: 'absencesCtrl'
+			templateUrl: 'partials/absence/absence.html',
+			controller: 'absencesCtrl',
+			resolve: {
+				absences: function(AbsencesFactory) {
+					var date = new Date();
+					return  AbsencesFactory.jour.getData({year:date.getUTCFullYear(), month : date.getUTCMonth(), day : date.getUTCDate()}).$promise;
+				}
+			}
 		});
 	
 });
