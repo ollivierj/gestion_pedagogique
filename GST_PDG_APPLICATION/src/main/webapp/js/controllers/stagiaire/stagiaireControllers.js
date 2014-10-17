@@ -59,23 +59,32 @@ controllers.controller('stagiaireCtrl', function($scope, $http, $location, stagi
     	$state.go('detailStagiaire');
     };
 
-    //Gestion du mode carte et du mode liste
-    $scope.listDisplayModeEnabled = true;
     $scope.DisplayModeEnum = {
         Card: 0,
         List: 1
     };
-
-    $scope.changeDisplayMode = function(displayMode) {
-        switch (displayMode) {
-            case $scope.DisplayModeEnum.Card:
-                $scope.listDisplayModeEnabled = false;
-                break;
-            case $scope.DisplayModeEnum.List:
-                $scope.listDisplayModeEnabled = true;
-                break;
-        }
+    $scope.displayMode= $scope.DisplayModeEnum.List;
+    $scope.ngGridHeight=null;
+    $scope.changeMode = function(mode){
+    	$scope.displayMode=mode;
+    	switch(mode) {
+	        case $scope.DisplayModeEnum.Card:
+	        	$('.ngHeaderContainer').hide();
+	        	$('.ngViewport').hide();
+	        	$('.ngTopPanel').hide();
+	        	$('.ngGrid').removeClass("gridStyle");
+	            break;
+	        case $scope.DisplayModeEnum.List:
+	        	$('.ngHeaderContainer').show();
+	        	$('.ngViewport').show();
+	        	$('.ngTopPanel').show();
+	        	$('.ngGrid').addClass("gridStyle");
+	            break;
+	        default:
+	        	break;
+    	}
     };
+    
 
     $scope.refreshData = function () {
     	//Utilisation de la méthode du service permettant la récupération des données
