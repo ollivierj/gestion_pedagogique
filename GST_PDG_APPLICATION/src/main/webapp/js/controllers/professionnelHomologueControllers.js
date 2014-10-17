@@ -3,7 +3,7 @@
 controllers
 		.controller(
 				'professionelHomologuesCtrl',
-				function($scope, $modal, $log, $timeout, ProfessionnelHomologuesFactory, TitreProfessionnelsFactory) {
+				function($scope, $modal, $log, $timeout, toaster, ProfessionnelHomologuesFactory, TitreProfessionnelsFactory) {
 					$scope.pagingOptions = ProfessionnelHomologuesFactory.pagingOptions;		
 					$scope.sortOptions = ProfessionnelHomologuesFactory.sortOptions;		
 					$scope.filterOptions = ProfessionnelHomologuesFactory.filterOptions;
@@ -96,7 +96,19 @@ controllers
 											return ProfessionnelHomologuesFactory.jsonschema.getData().$promise;
 										},
 										okTitle : function() {return "Enregistrer";},
-										ok : function() { return function(item){ return ProfessionnelHomologuesFactory.create.doAction(item);}}
+										ok : function() {
+											return function(item){ 
+												return ProfessionnelHomologuesFactory.create.doAction(
+													item,
+													function(success) {
+														toaster.pop('success', null, "Enregistrement d'un professionnel homologué effectué");
+													},
+													function(error) {
+														toaster.pop('error', null, error.message);
+													}	
+												);
+											};
+										}
 									}
 								});
 
@@ -156,7 +168,19 @@ controllers
 											return ProfessionnelHomologuesFactory.jsonschema.getData().$promise;
 										},
 										okTitle : function() {return "Enregistrer";},
-										ok : function() { return function(item){ return ProfessionnelHomologuesFactory.modify.doAction(item);}}
+										ok : function() { 
+											return function(item){ 
+												return ProfessionnelHomologuesFactory.modify.doAction(
+													item,
+													function(success) {
+														toaster.pop('success', null, "Enregistrement d'un professionnel homologué effectué");
+													},
+													function(error) {
+														toaster.pop('error', null, error.message);
+													}	
+												);
+											};
+										}
 									}
 								});
 
@@ -177,7 +201,19 @@ controllers
 										id : function() {return professionnelHomologueId},
 										title : function() {return "Suppression professionnel homologué";},
 										message : function() {return "Etes-vous sur de vouloir supprimer ce professionnel homologué ?";},
-										ok : function () { return function(id) {return ProfessionnelHomologuesFactory.delete.doAction({id : id});};}
+										ok : function () { 
+											return function(id) {
+												return ProfessionnelHomologuesFactory.delete.doAction(
+													{id : id},
+													function(success) {
+														toaster.pop('warning', null, "Suppression d'un professionnel homologué effectuée");
+													},
+													function(error) {
+														toaster.pop('error', null, error.message);
+													}	
+												);
+											};
+										}
 									}
 								});
 						modalDelete.result.then(function(selectedItem) {

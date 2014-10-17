@@ -3,7 +3,7 @@
 controllers
 		.controller(
 				'titreProfessionnelsCtrl',
-				function($scope, $modal, $log, $timeout, TitreProfessionnelsFactory) {
+				function($scope, $modal, $log, $timeout, toaster, TitreProfessionnelsFactory) {
 					$scope.pagingOptions = TitreProfessionnelsFactory.pagingOptions;		
 					$scope.sortOptions = TitreProfessionnelsFactory.sortOptions;		
 					$scope.filterOptions = TitreProfessionnelsFactory.filterOptions;
@@ -69,7 +69,16 @@ controllers
 											return TitreProfessionnelsFactory.jsonschema.getData().$promise;
 										},
 										okTitle : function() {return "Enregistrer";},
-										ok : function() { return function(item){ return TitreProfessionnelsFactory.create.doAction(item);}}
+										ok : function() { return function(item){ 
+											return TitreProfessionnelsFactory.create.doAction(
+												item,
+												function(success) {
+													toaster.pop('success', null, "Enregistrement d'un titre prfessionnel effectué");
+												},
+												function(error) {
+													toaster.pop('error', null, error.message);
+												}		
+											);}}
 									}
 								});
 
@@ -133,7 +142,16 @@ controllers
 											return TitreProfessionnelsFactory.jsonschema.getData().$promise;
 										},
 										okTitle : function() {return "Enregistrer";},
-										ok : function() { return function(item){ return TitreProfessionnelsFactory.modify.doAction(item);}}
+										ok : function() { return function(item){ 
+											return TitreProfessionnelsFactory.modify.doAction(
+												item,
+												function(success) {
+													toaster.pop('success', null, "Enregistrement d'un titre prfessionnel effectué");
+												},
+												function(error) {
+													toaster.pop('error', null, error.message);
+												}	
+											);};}
 									}
 								});
 
@@ -154,7 +172,15 @@ controllers
 										id : function() {return titreProfessionnelId},
 										title : function() {return "Suppression titre professionnel";},
 										message : function() {return "Etes-vous sur de vouloir supprimer ce titre professionnel ?";},
-										ok : function () { return function(id) {return TitreProfessionnelsFactory.delete.doAction({id : id});};}
+										ok : function () { return function(id) {return TitreProfessionnelsFactory.delete.doAction(
+											{id : id},
+											function(success) {
+												toaster.pop('warning', null, "Suppression d'un titre prfessionnel effectuée");
+											},
+											function(error) {
+												toaster.pop('error', null, error.message);
+											}	
+										);};}
 									}
 								});
 						modalDelete.result.then(function(selectedItem) {

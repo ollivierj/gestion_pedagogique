@@ -23,7 +23,7 @@ var absencesCtrl = function($scope, $log, $filter, absences, toaster, AbsencesFa
 	 $scope.gridOptionsAbsences = {
 		        data: 'absences',
 		        columnDefs : [
-		              	{displayName:'Absence/\nRetard', enableCellEdit: false,
+		              	{displayName:'Absence/Retard', enableCellEdit: false,
 		              		cellTemplate: 'partials/absence/absence-bouton-retard-absence.html'},
 		            	{field:'formatedTime', displayName:'Heure', enableCellEdit: true,
 		            		editableCellTemplate: 'partials/stagiaire/template/timepicker.html',

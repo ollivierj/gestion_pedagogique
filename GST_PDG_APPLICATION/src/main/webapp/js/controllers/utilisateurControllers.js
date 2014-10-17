@@ -2,7 +2,7 @@
 controllers
 	.controller(
 		'utilisateursCtrl',
-		function($scope, $modal, $log, $timeout, UtilisateursFactory, FonctionsFactory, ProfilsFactory) {
+		function($scope, $modal, $log, $timeout, toaster, UtilisateursFactory, FonctionsFactory, ProfilsFactory) {
 			$scope.pagingOptions = UtilisateursFactory.pagingOptions;		
 			$scope.sortOptions = UtilisateursFactory.sortOptions;		
 			$scope.filterOptions = UtilisateursFactory.filterOptions;
@@ -94,7 +94,15 @@ controllers
 									return ProfilsFactory.titlemap.getData().$promise;
 								},
 								okTitle : function() {return "Enregistrer";},
-								ok : function() { return function(item){ return UtilisateursFactory.create.doAction(item);}}
+								ok : function() { return function(item){ return UtilisateursFactory.create.doAction(
+									item,
+									function(success) {
+										toaster.pop('warning', null, "Enregistrement d'un utilisateur effectué");
+									},
+									function(error) {
+										toaster.pop('error', null, error.message);
+									}		
+								);};}
 							}
 						});
 
@@ -160,7 +168,16 @@ controllers
 									return UtilisateursFactory.jsonschema.getData().$promise;
 								},
 								okTitle : function() {return "Enregistrer";},
-								ok : function() { return function(item){ return UtilisateursFactory.modify.doAction(item);}}
+								ok : function() { return function(item){ 
+									return UtilisateursFactory.modify.doAction(
+										item,
+										function(success) {
+											toaster.pop('success', null, "Enregistrement d'un utilisateur effectué");
+										},
+										function(error) {
+											toaster.pop('error', null, error.message);
+										}		
+									);};}
 							}
 						});
 
@@ -181,7 +198,17 @@ controllers
 								id : function() {return utilisateurId},
 								title : function() {return "Suppression utilisateur";},
 								message : function() {return "Etes-vous sur de vouloir supprimer cet utilisateur ?";},
-								ok : function () { return function(id) {return UtilisateursFactory.delete.doAction({id : id});};}
+								ok : function () { 
+									return function(id) {
+										return UtilisateursFactory.delete.doAction(
+											{id : id},
+											function(success) {
+												toaster.pop('success', null, "Suppression d'un utilisateur effectuée");
+											},
+											function(error) {
+												toaster.pop('error', null, error.message);
+											}	
+										);};}
 							}
 						});
 				modalDelete.result.then(function(selectedItem) {

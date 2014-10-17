@@ -4,7 +4,7 @@ controllers
 		.controller(
 				'sessionValidationsCtrl',
 
-				function($scope, $modal, $log, $timeout, SessionValidationsFactory, TitreProfessionnelsFactory) {
+				function($scope, $modal, $log, $timeout, toaster, SessionValidationsFactory, TitreProfessionnelsFactory) {
 					$scope.pagingOptions = SessionValidationsFactory.pagingOptions;		
 					$scope.sortOptions = SessionValidationsFactory.sortOptions;		
 					$scope.filterOptions = SessionValidationsFactory.filterOptions;
@@ -91,7 +91,16 @@ controllers
 											return SessionValidationsFactory.jsonschema.getData().$promise;
 										},
 										okTitle : function() {return "Enregistrer";},
-										ok : function() { return function(item){ return SessionValidationsFactory.create.doAction(item);}}
+										ok : function() { return function(item){ 
+											return SessionValidationsFactory.create.doAction(
+												item,
+												function(success) {
+													toaster.pop('success', null, "Enregistrement d'une session de validation effectué");
+												},
+												function(error) {
+													toaster.pop('error', null, error.message);
+												}		
+											);};}
 									}
 								});
 
@@ -108,7 +117,6 @@ controllers
 								.open({
 									templateUrl : 'partials/sessionValidation.html',
 									controller : modalEditionSessionValidationCtrl,
-
 									resolve : {
 										title : function() {return "Visualisation d'une session de validation";},
 										readonly : function() {return true;},
@@ -165,7 +173,16 @@ controllers
 											return SessionValidationsFactory.jsonschema.getData().$promise;
 										},
 										okTitle : function() {return "Enregistrer";},
-										ok : function() { return function(item){ return SessionValidationsFactory.modify.doAction(item);}}
+										ok : function() { return function(item){ 
+											return SessionValidationsFactory.modify.doAction(
+												item,
+												function(success) {
+													toaster.pop('success', null, "Enregistrement d'une session de validation effectué");
+												},
+												function(error) {
+													toaster.pop('error', null, error.message);
+												}			
+											);};}
 									}
 								});
 
@@ -187,7 +204,17 @@ controllers
 										id : function() {return sessionValidationId},
 										title : function() {return "Suppression d'une session de validation";},
 										message : function() {return "Etes-vous sur de vouloir supprimer cette session de validation ?";},
-										ok : function () { return function(id) {return SessionValidationsFactory.delete.doAction({id : id});};}
+										ok : function () { return function(id) {
+											return SessionValidationsFactory.delete.doAction(
+												{id : id},
+												function(success) {
+													toaster.pop('success', null, "Suppression d'une session de validation effectuée");
+												},
+												function(error) {
+													toaster.pop('error', null, error.message);
+												}			
+											
+											);};}
 									}
 								});
 						modalDelete.result.then(function(selectedItem) {
