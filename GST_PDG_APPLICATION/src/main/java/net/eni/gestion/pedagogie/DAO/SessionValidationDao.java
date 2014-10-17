@@ -9,6 +9,4 @@ import net.eni.gestion.pedagogie.modele.SessionValidation;
  */
 public interface SessionValidationDao extends ADao<SessionValidation, Integer> {
 
-	
-
 }

@@ -9,6 +9,7 @@ controllers.
 			$scope.title = "Profils";
 			
 			
+			
 			$scope.gridOptions = {
 				data : 'profils',
 				multiSelect : false,
@@ -37,6 +38,10 @@ controllers.
 				sortInfo : $scope.sortOptions,
 				pagingOptions : $scope.pagingOptions
 			};
+			
+			$scope.droit = function(droit) {
+				console.log(droit);
+			};
 
 			$scope.editRow = function(profil) {
 				$scope.editerProfil(profil.id);
@@ -58,12 +63,13 @@ controllers.
 					profilId) {
 				var modalAdd = $modal
 						.open({
-							templateUrl : 'partials/templates/form.html',
+							templateUrl : 'partials/profil/profil.html',
 							controller : modalProfilCtrl,
 							resolve : {
 								title : function() {return "Ajout d'un profil";},
 								profil : function(){ return {}},
 								readonly : function() {return false;},
+								affprofilList : function() {return false;},
 								schema : function(ProfilsFactory) {
 									return ProfilsFactory.jsonschema.getData().$promise;
 								},
@@ -86,11 +92,12 @@ controllers.
 					profilId) {
 				var modalEdit = $modal
 						.open({
-							templateUrl : 'partials/templates/form.html',
+							templateUrl : 'partials/profil/profil.html',
 							controller : modalProfilCtrl,
 							resolve : {
 								title : function() {return "Visualisation d'un profil";},
 								readonly : function() {return true;},
+								affprofilList : function() {return false;},
 								profil : function(ProfilsFactory) {
 									return ProfilsFactory.detail.getData({id : profilId}).$promise;
 								},
@@ -116,11 +123,12 @@ controllers.
 					profilId) {
 				var modalEdit = $modal
 						.open({
-							templateUrl : 'partials/templates/form.html',
+							templateUrl : 'partials/profil/profil.html',
 							controller : modalProfilCtrl,
 							resolve : {
 								title : function() {return "Edition d'un profil";},
 								readonly : function() {return false;},
+								affprofilList : function() {return true;},
 								profil : function(ProfilsFactory) {
 									return ProfilsFactory.detail.getData({id : profilId}).$promise;
 								},
@@ -189,10 +197,11 @@ controllers.
 		});
 
 var modalProfilCtrl = function($scope, $modalInstance,
-		ProfilsFactory, onlyStringsFilter, onlyNumbersFilter, title, readonly, profil, profils, schema, ok, okTitle) {
+		ProfilsFactory, onlyStringsFilter, onlyNumbersFilter, title, readonly, affprofilList, profil, profils, schema, ok, okTitle) {
 		$scope.title = title;
 		$scope.data = profil;
 		$scope.data.readonly = readonly;
+		$scope.affprofilList=affprofilList;
 		$scope.profilsTitleMap = profils;
 		$scope.profilsEnum = onlyNumbersFilter(Object.keys($scope.profilsTitleMap)),
 		$scope.okTitle = okTitle;
@@ -200,25 +209,15 @@ var modalProfilCtrl = function($scope, $modalInstance,
 		$scope.schema = schema;
 		$scope.form = 
 			[
-			{
-			    type: "tabs",
-			    tabs: 
-			    	[
-				    {
-				      title: "Profil",
-				      items: 	[
-				             	{
-				             		key : "code",
-				             		disabled : $scope.data.readonly
-				             	},
-				             	{
-				             		key : "libelle",
-				             		disabled : $scope.data.readonly
-				             	}
-					            ]
-				    }
-				    ]
-			},	
+			    
+         	{
+         		key : "code",
+         		disabled : $scope.data.readonly
+         	},
+         	{
+         		key : "libelle",
+         		disabled : $scope.data.readonly
+         	},
 			{
 				type: "conditional",
 			    condition: "!data.readonly", 

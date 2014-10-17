@@ -87,6 +87,5 @@ public class EvaluationDaoImpl extends ADaoImpl<Evaluation, Integer> implements 
 		} catch (Exception exception) {
 			throw new Exception("Echec de chargement de la liste d'enregistrements depuis la base de données");
 		}
-	}
-
+	}	
 }

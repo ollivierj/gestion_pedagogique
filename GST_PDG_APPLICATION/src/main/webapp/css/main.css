@@ -7,7 +7,12 @@ body {
 
 .gridStyle {
     border: 1px solid rgb(212,212,212);
-    height: 300px
+    min-height: 550px !important;
+}
+
+.gridStyleDetail {
+	border: 1px solid rgb(212,212,212);
+    height: 300px;
 }
 
 textarea {
@@ -255,4 +260,9 @@ textarea {
 .navbar-form>.pagination {
 	margin: 0px;
 	padding: 0px;
+}
+
+/* Affichage du pointer sur les évènement du planning */
+.fc-event:hover {
+	cursor: pointer;
 }

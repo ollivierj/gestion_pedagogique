@@ -11,6 +11,4 @@ import net.eni.gestion.pedagogie.modele.Cours;
  */
 public interface CoursDao extends ADao<Cours, UUID> {
 
-	
-
 }

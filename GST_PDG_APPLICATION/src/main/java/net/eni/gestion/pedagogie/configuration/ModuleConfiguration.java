@@ -19,6 +19,7 @@ import net.eni.gestion.pedagogie.DAO.JuryDao;
 import net.eni.gestion.pedagogie.DAO.ModuleDao;
 import net.eni.gestion.pedagogie.DAO.ModuleParUniteDao;
 import net.eni.gestion.pedagogie.DAO.ParametreDao;
+import net.eni.gestion.pedagogie.DAO.PlanningDao;
 import net.eni.gestion.pedagogie.DAO.PlanningIndividuelDetailDao;
 import net.eni.gestion.pedagogie.DAO.PlanningIndividuelFormationDao;
 import net.eni.gestion.pedagogie.DAO.ProfessionnelHomologueDao;
@@ -54,6 +55,7 @@ import net.eni.gestion.pedagogie.DAO.implementation.JuryDaoImpl;
 import net.eni.gestion.pedagogie.DAO.implementation.ModuleDaoImpl;
 import net.eni.gestion.pedagogie.DAO.implementation.ModuleParUniteDaoImpl;
 import net.eni.gestion.pedagogie.DAO.implementation.ParametreDaoImpl;
+import net.eni.gestion.pedagogie.DAO.implementation.PlanningDaoImpl;
 import net.eni.gestion.pedagogie.DAO.implementation.PlanningIndividuelDetailDaoImpl;
 import net.eni.gestion.pedagogie.DAO.implementation.PlanningIndividuelFormationDaoImpl;
 import net.eni.gestion.pedagogie.DAO.implementation.ProfessionnelHomologueDaoImpl;
@@ -79,6 +81,7 @@ import net.eni.gestion.pedagogie.service.FichierService;
 import net.eni.gestion.pedagogie.service.FonctionService;
 import net.eni.gestion.pedagogie.service.ModuleService;
 import net.eni.gestion.pedagogie.service.ParametreService;
+import net.eni.gestion.pedagogie.service.PlanningService;
 import net.eni.gestion.pedagogie.service.ProfessionnelHomologueService;
 import net.eni.gestion.pedagogie.service.ProfilService;
 import net.eni.gestion.pedagogie.service.ReservationSalleService;
@@ -97,6 +100,7 @@ import net.eni.gestion.pedagogie.service.implementation.FichierServiceImpl;
 import net.eni.gestion.pedagogie.service.implementation.FonctionServiceImpl;
 import net.eni.gestion.pedagogie.service.implementation.ModuleServiceImpl;
 import net.eni.gestion.pedagogie.service.implementation.ParametreServiceImpl;
+import net.eni.gestion.pedagogie.service.implementation.PlanningServiceImpl;
 import net.eni.gestion.pedagogie.service.implementation.ProfessionnelHomologueServiceImpl;
 import net.eni.gestion.pedagogie.service.implementation.ProfilServiceImpl;
 import net.eni.gestion.pedagogie.service.implementation.ReservationSalleServiceImpl;
@@ -137,6 +141,7 @@ public class ModuleConfiguration extends AbstractModule {
     	bind(ModuleDao.class).to(ModuleDaoImpl.class);
     	bind(ModuleParUniteDao.class).to(ModuleParUniteDaoImpl.class);
     	bind(ParametreDao.class).to(ParametreDaoImpl.class);
+    	bind(PlanningDao.class).to(PlanningDaoImpl.class);
     	bind(PlanningIndividuelDetailDao.class).to(PlanningIndividuelDetailDaoImpl.class);
     	bind(PlanningIndividuelFormationDao.class).to(PlanningIndividuelFormationDaoImpl.class);
     	bind(ProfessionnelHomologueDao.class).to(ProfessionnelHomologueDaoImpl.class);
@@ -172,6 +177,6 @@ public class ModuleConfiguration extends AbstractModule {
     	bind(StagiairePromotionService.class).to(StagiairePromotionServiceImpl.class);
     	bind(TitreProfessionnelService.class).to(TitreProfessionnelServiceImpl.class);
     	bind(UtilisateurService.class).to(UtilisateurServiceImpl.class);
-    
+    	bind(PlanningService.class).to(PlanningServiceImpl.class);
     }
 }
