@@ -228,12 +228,6 @@ var modalProfilCtrl = function($scope, $modalInstance,
 		$scope.okTitle = okTitle;
 		$scope.ok = ok;
 		$scope.schema = schema;
-		if($scope.data.readonly){
-			$('.btn-group button').attr('disabled','disabled');
-		}else{
-			$('.btn-group button').removeAttr('disabled');
-		}
-		
 		if (null==$scope.data.droits){
 			$scope.data.droits=
 				[
