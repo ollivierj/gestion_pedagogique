@@ -81,7 +81,7 @@ controllers
 											return SujetEvaluationsFactory.create.doAction(
 												item,
 												function(success) {
-													toaster.pop('success', null, "Enregistrement d'un sujet d'évaluation effectué");
+													toaster.pop('success', null, "Sujet d'évaluation enregistré");
 												},
 												function(error) {
 													toaster.pop('error', null, error.message);
@@ -160,7 +160,7 @@ controllers
 											return SujetEvaluationsFactory.modify.doAction(
 												item,
 												function(success) {
-													toaster.pop('success', null, "Enregistrement d'un sujet d'évaluation effectué");
+													toaster.pop('success', null, "Sujet d'évaluation enregistré");
 												},
 												function(error) {
 													toaster.pop('error', null, error.message);
@@ -190,7 +190,7 @@ controllers
 											return SujetEvaluationsFactory.delete.doAction(
 												{id : id},
 												function(success) {
-													toaster.pop('warning', null, "Suppression d'un sujet d'évaluation effectuée");
+													toaster.pop('warning', null, "Sujet d'évaluation supprimé");
 												},
 												function(error) {
 													toaster.pop('error', null, error.message);

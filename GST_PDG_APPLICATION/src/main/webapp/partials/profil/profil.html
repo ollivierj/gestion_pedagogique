@@ -8,12 +8,16 @@
 	</div>
 </div>
 <div class="modal-body">
-
 	<tabset> <tab heading="Description">
-	<form name="form.profil" sf-schema="schema" sf-form="form" sf-model="data"
-		style="margin-top: 15px"></form>
-	</tab> <tab heading="Droit" ng-if="affprofilList">
-	<div ng-include src="'partials/templates/profilList.html'"></div>
+	<form name="form.profil" sf-schema="schema" sf-form="form"
+		sf-model="data" style="margin-top: 15px"></form>
+	</tab> <tab heading="Droits">
+	<div ng-include src="'partials/profil/profil-list.html'"></div>
+	</tab> </tabset>
+	<div>
+		<form name="generic" sf-schema="schema" sf-form="form2"
+			sf-model="data" style="margin-top: 15px" ng-submit="submit()"></form>
+	</div>
 </div>
 
 

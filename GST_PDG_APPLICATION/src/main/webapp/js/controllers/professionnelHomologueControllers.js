@@ -101,7 +101,7 @@ controllers
 												return ProfessionnelHomologuesFactory.create.doAction(
 													item,
 													function(success) {
-														toaster.pop('success', null, "Enregistrement d'un professionnel homologué effectué");
+														toaster.pop('success', null, "Professionnel homologué enregistré");
 													},
 													function(error) {
 														toaster.pop('error', null, error.message);
@@ -173,7 +173,7 @@ controllers
 												return ProfessionnelHomologuesFactory.modify.doAction(
 													item,
 													function(success) {
-														toaster.pop('success', null, "Enregistrement d'un professionnel homologué effectué");
+														toaster.pop('success', null, "Professionnel homologué enregistré");
 													},
 													function(error) {
 														toaster.pop('error', null, error.message);
@@ -206,7 +206,7 @@ controllers
 												return ProfessionnelHomologuesFactory.delete.doAction(
 													{id : id},
 													function(success) {
-														toaster.pop('warning', null, "Suppression d'un professionnel homologué effectuée");
+														toaster.pop('warning', null, "Professionnel homologué supprimé");
 													},
 													function(error) {
 														toaster.pop('error', null, error.message);

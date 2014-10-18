@@ -95,7 +95,7 @@ controllers
 												return EvaluationsFactory.create.doAction(
 													item,
 													function(success) {
-														toaster.pop('success', null, "Enregistrement de l'évaluation effectué");
+														toaster.pop('success', null, "Evaluation enregistrée");
 													},
 													function(error) {
 														toaster.pop('error', null, error.message);
@@ -181,7 +181,7 @@ controllers
 										ok : function() { return function(item){return EvaluationsFactory.modify.doAction(
 											item,
 											function(success) {
-									    		toaster.pop('success', null, "Enregistrement de l'évaluation effectué");
+									    		toaster.pop('success', null, "Evaluation enregistrée");
 											},
 											function(error) {
 												toaster.pop('error', null, error.message);
@@ -211,7 +211,7 @@ controllers
 												return EvaluationsFactory.delete.doAction(
 													{id : id},
 													function(success) {
-											    		toaster.pop('warning', null, "Suppression de l'évaluation effectuée");
+											    		toaster.pop('warning', null, "Evaluation enregistrée");
 													},
 													function(error) {
 														toaster.pop('error', null, error.message);

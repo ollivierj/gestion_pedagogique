@@ -97,7 +97,7 @@ controllers
 								ok : function() { return function(item){ return UtilisateursFactory.create.doAction(
 									item,
 									function(success) {
-										toaster.pop('warning', null, "Enregistrement d'un utilisateur effectué");
+										toaster.pop('warning', null, "Utilisateur enregistré");
 									},
 									function(error) {
 										toaster.pop('error', null, error.message);
@@ -172,7 +172,7 @@ controllers
 									return UtilisateursFactory.modify.doAction(
 										item,
 										function(success) {
-											toaster.pop('success', null, "Enregistrement d'un utilisateur effectué");
+											toaster.pop('success', null, "Utilisateur enregistré");
 										},
 										function(error) {
 											toaster.pop('error', null, error.message);
@@ -203,7 +203,7 @@ controllers
 										return UtilisateursFactory.delete.doAction(
 											{id : id},
 											function(success) {
-												toaster.pop('success', null, "Suppression d'un utilisateur effectuée");
+												toaster.pop('success', null, "Utilisateur supprimé");
 											},
 											function(error) {
 												toaster.pop('error', null, error.message);

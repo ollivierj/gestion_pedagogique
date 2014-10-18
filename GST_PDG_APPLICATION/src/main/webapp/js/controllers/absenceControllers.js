@@ -66,7 +66,7 @@ var absencesCtrl = function($scope, $log, $filter, absences, toaster, AbsencesFa
 			    				absence.editMode = false;
 			    				var date = new Date($scope.date);
 			    	        	$scope.refreshData(date);
-						    	toaster.pop('success', null, "Enregistrement de l'absence effectuée");
+						    	toaster.pop('success', null, "Absence enregistrée");
 							},
 							
 							function (error) {
@@ -79,7 +79,7 @@ var absencesCtrl = function($scope, $log, $filter, absences, toaster, AbsencesFa
 			    				absence.editMode = false;
 			    				var date = new Date($scope.date);
 			    	        	$scope.refreshData(date);
-						    	toaster.pop('success', null, "Enregistrement de l'absence effectuée");
+						    	toaster.pop('success', null, "Absence enregistrée");
 							},
 							
 							function (error) {
@@ -117,7 +117,7 @@ var absencesCtrl = function($scope, $log, $filter, absences, toaster, AbsencesFa
 		    			function(success) {
 				    		var date = new Date($scope.date);
 		    	        	$scope.refreshData(date);
-				    		toaster.pop('warning', null, "Suppression de l'absence effectuée");
+				    		toaster.pop('warning', null, "Absence supprimée");
 				    	},
 		    			function(error) {
 				    		toaster.pop('error', null, error.message);

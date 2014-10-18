@@ -5,20 +5,15 @@ package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.github.reinert.jjschema.Attributes;
-import com.github.reinert.jjschema.SchemaIgnore;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
@@ -67,17 +62,13 @@ public class Profil extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private String libelle = null;
 	
-	@SchemaIgnore
-	@ForeignCollectionField(eager = true, columnName = DroitProfil.PROFIL_FIELD_NAME)
-	private transient Collection<DroitProfil> transientDroitProfils = null;
-
-	@JsonManagedReference("profil-droitprofil")
-	private ArrayList<DroitProfil> droitProfils = new ArrayList<DroitProfil>();
-	
 	@Override
 	public Integer getId() {
 		return id;
 	}
+	
+	private ArrayList<String> droits;
+	
 
 	@Override
 	public void setId(Integer pId) {
@@ -100,27 +91,11 @@ public class Profil extends AModele<Integer> implements Serializable {
 		this.libelle = libelle;
 	}
 
-	public void setDroitProfils(ArrayList<DroitProfil> droitProfils) {
-		this.droitProfils = droitProfils;
+	public void setDroits(ArrayList<String> droits) {
+		this.droits = droits;
 	}
 
-	private ArrayList<DroitProfil> getDroitProfils() {
-		if (null != transientDroitProfils) {
-			droitProfils.clear();
-			droitProfils.addAll(transientDroitProfils);
-			transientDroitProfils = null;
-		}
-		return droitProfils;
-	}
-	
-	public ArrayList<Droit> getDroits() {
-		ArrayList<Droit> droits = new ArrayList<Droit>();
-		if (0 < getDroitProfils().size()) {
-			Iterator<DroitProfil> iterator = getDroitProfils().iterator();
-			while (iterator.hasNext()) {
-				droits.add(iterator.next().getDroit());
-			}
-		}
+	public ArrayList<String> getDroits() {
 		return droits;
 	}	
 	

@@ -73,7 +73,7 @@ controllers
 											return TitreProfessionnelsFactory.create.doAction(
 												item,
 												function(success) {
-													toaster.pop('success', null, "Enregistrement d'un titre prfessionnel effectué");
+													toaster.pop('success', null, "Titre prfessionnel enregistré");
 												},
 												function(error) {
 													toaster.pop('error', null, error.message);
@@ -146,7 +146,7 @@ controllers
 											return TitreProfessionnelsFactory.modify.doAction(
 												item,
 												function(success) {
-													toaster.pop('success', null, "Enregistrement d'un titre prfessionnel effectué");
+													toaster.pop('success', null, "Titre prfessionnel enregistré");
 												},
 												function(error) {
 													toaster.pop('error', null, error.message);
@@ -175,7 +175,7 @@ controllers
 										ok : function () { return function(id) {return TitreProfessionnelsFactory.delete.doAction(
 											{id : id},
 											function(success) {
-												toaster.pop('warning', null, "Suppression d'un titre prfessionnel effectuée");
+												toaster.pop('warning', null, "Titre prfessionnel supprimé");
 											},
 											function(error) {
 												toaster.pop('error', null, error.message);

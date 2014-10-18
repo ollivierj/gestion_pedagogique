@@ -50,7 +50,7 @@ controllers.controller('detailEchangeCtrl', function($scope, echanges, SEchangeF
 			    	SEchangeFactory.getEchanges.load(SEchangeFactory.pager, function(success) {
 			    		$scope.echanges = success.data;
 			    	});
-			    	toaster.pop('success', null, "Enregistrement de l'échange effectuée");
+			    	toaster.pop('success', null, "Echange enregistré");
 				},
 				
 				function (error) {
@@ -69,7 +69,7 @@ controllers.controller('detailEchangeCtrl', function($scope, echanges, SEchangeF
 		    		SEchangeFactory.getEchanges.load(SEchangeFactory.pager, function(success) {
 		    			$scope.echanges = success.data;
 		    		});
-		    		toaster.pop('warning', null, "Suppression de l'échange effectuée");
+		    		toaster.pop('warning', null, "Echange supprimé");
 		    	},
     			function(error) {
 		    		toaster.pop('error', null, error.message);

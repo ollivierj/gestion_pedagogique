@@ -95,7 +95,7 @@ controllers
 											return SessionValidationsFactory.create.doAction(
 												item,
 												function(success) {
-													toaster.pop('success', null, "Enregistrement d'une session de validation effectué");
+													toaster.pop('success', null, "Session de validation enregistrée");
 												},
 												function(error) {
 													toaster.pop('error', null, error.message);
@@ -177,7 +177,7 @@ controllers
 											return SessionValidationsFactory.modify.doAction(
 												item,
 												function(success) {
-													toaster.pop('success', null, "Enregistrement d'une session de validation effectué");
+													toaster.pop('success', null, "Session de validation enregistrée");
 												},
 												function(error) {
 													toaster.pop('error', null, error.message);
@@ -208,7 +208,7 @@ controllers
 											return SessionValidationsFactory.delete.doAction(
 												{id : id},
 												function(success) {
-													toaster.pop('success', null, "Suppression d'une session de validation effectuée");
+													toaster.pop('success', null, "Session de validation supprimée");
 												},
 												function(error) {
 													toaster.pop('error', null, error.message);
