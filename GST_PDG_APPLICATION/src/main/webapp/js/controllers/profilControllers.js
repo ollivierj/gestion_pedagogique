@@ -75,6 +75,7 @@ controllers.
 								},
 								okTitle : function() {return "Enregistrer";},
 								ok : function() { return function(item){ return ProfilsFactory.create.doAction(
+										item,
 										function(success) {
 								    		toaster.pop('success', null, "Profil enregistré");
 										},
@@ -227,6 +228,12 @@ var modalProfilCtrl = function($scope, $modalInstance,
 		$scope.okTitle = okTitle;
 		$scope.ok = ok;
 		$scope.schema = schema;
+		if($scope.data.readonly){
+			$('.btn-group button').attr('disabled','disabled');
+		}else{
+			$('.btn-group button').removeAttr('disabled');
+		}
+		
 		if (null==$scope.data.droits){
 			$scope.data.droits=
 				[
