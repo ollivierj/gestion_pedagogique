@@ -58,10 +58,7 @@ var ng_gst_pdg = angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid',
 					resolve: {
 						fichiers : function(FichiersFactory, StagiaireFactory) {
 							return FichiersFactory.fichiers.getData({entite_type : "Stagiaire", entite_id : StagiaireFactory.stagiaire.id}).$promise;
-						},
-						readonly : function() {return true;},
-						affFichiers : function() {return true;},
-						affTelech : function() {return true;}
+						}
 					}
 				},
 				'absences@detailStagiaire': {

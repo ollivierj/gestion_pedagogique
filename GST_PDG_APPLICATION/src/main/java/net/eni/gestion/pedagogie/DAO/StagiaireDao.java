@@ -1,5 +1,7 @@
 package net.eni.gestion.pedagogie.DAO;
 
+import java.sql.SQLException;
+
 import net.eni.gestion.pedagogie.modele.Stagiaire;
 
 /**
@@ -8,5 +10,5 @@ import net.eni.gestion.pedagogie.modele.Stagiaire;
  * pour la gestion des stagiaires
  */
 public interface StagiaireDao extends ADao<Stagiaire, Integer> {
-
+	public String getPhoto(Integer pId) throws SQLException;
 }

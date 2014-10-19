@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import net.eni.gestion.pedagogie.DAO.StagiaireDao;
 import net.eni.gestion.pedagogie.commun.composant.FileBean;
 import net.eni.gestion.pedagogie.commun.composant.PropertyFileLoader;
 import net.eni.gestion.pedagogie.service.FichierService;
@@ -19,11 +21,20 @@ import net.eni.gestion.pedagogie.service.FichierService;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
+import com.google.inject.Inject;
 import com.sun.jersey.core.header.ContentDisposition;
 import com.sun.jersey.multipart.FormDataBodyPart;
 import com.sun.jersey.multipart.FormDataMultiPart;
 
 public class FichierServiceImpl implements FichierService {
+	
+	@Inject
+	public FichierServiceImpl(StagiaireDao stagiaireDao) {
+		super();
+		this.stagiaireDao = stagiaireDao;
+	}
+
+	protected final StagiaireDao stagiaireDao;
 	
 	private PropertyFileLoader propertyFileLoader = PropertyFileLoader
 			.getInstance("fichiers");
@@ -111,6 +122,16 @@ public class FichierServiceImpl implements FichierService {
 			}
 		}
 		return list;
+	}
+	
+	public File getStagiairePhoto(Integer pStagiaireId){
+		String ImagePath;
+		try {
+			ImagePath = stagiaireDao.getPhoto(pStagiaireId);
+			return new File(ImagePath);
+		} catch (SQLException e) {}
+		
+		return null;
 	}
 	
 	/**

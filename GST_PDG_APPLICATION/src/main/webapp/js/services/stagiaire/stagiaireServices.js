@@ -20,6 +20,8 @@ services.factory('StagiaireFactory', function ($resource) {
 	
 	var stagiaire = {};
 	
+	var readonly=true;
+	
 	//Création de la variable ressource qui appel le service REST
 	var data = $resource('/ng_gst_pdg/web/stagiairesPromotions/page', {}, {
 		load : {method:'POST'}
@@ -91,6 +93,7 @@ services.factory('StagiaireFactory', function ($resource) {
 		sortOptions 	: sortOptions,
 		filterOptions	: filterOptions,
 		stagiaire		: stagiaire,
+		readonly		: readonly,
 		keepStagiaire : keepStagiaire,
 		dataAutocomplete : $resource('/ng_gst_pdg/web/stagiaires/autocomplete/:search', {}, {
 			getData : { method: 'GET', params: {search: '@search'}, isArray: true }

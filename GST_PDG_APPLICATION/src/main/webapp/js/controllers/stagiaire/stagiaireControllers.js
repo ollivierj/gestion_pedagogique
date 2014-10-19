@@ -57,6 +57,13 @@ controllers.controller('stagiaireCtrl', function($scope, $http, $location, stagi
     $scope.viewRow = function (entity) {
     	StagiaireFactory.stagiaire = entity;
     	$state.go('detailStagiaire');
+    	StagiaireFactory.readonly=true;
+    };
+    
+    $scope.editRow = function (entity) {
+    	StagiaireFactory.stagiaire = entity;
+    	$state.go('detailStagiaire');
+    	StagiaireFactory.readonly=false;
     };
 
     $scope.DisplayModeEnum = {

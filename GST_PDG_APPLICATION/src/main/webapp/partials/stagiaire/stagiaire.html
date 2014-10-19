@@ -40,7 +40,9 @@
 									<div class="panel-heading">
 										<div class="row">
 											<div class="col-xs-6">
-												<img data-ng-src="img" class="cardImage" />
+												<!-- <img data-ng-src="img" class="cardImage" />-->
+												<img ng-src="/ng_gst_pdg/web/fichiers/image/{{stagiaire.id}}"
+												err-src="img/anonymous.png" width="64" height="64"  />
 											</div>
 											<div class="col-xs-6 text-right">
 												<p class="announcement-text">{{stagiaire.prenom + ' ' +

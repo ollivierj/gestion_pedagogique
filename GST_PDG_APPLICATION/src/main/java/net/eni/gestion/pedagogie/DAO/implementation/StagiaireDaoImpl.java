@@ -73,4 +73,8 @@ public class StagiaireDaoImpl extends ADaoImpl<Stagiaire, Integer> implements
 		updateRaw(lDeleteQuery3.toString());
 		return CRUDHelper.supprimer(this, pId);
 	}
+	
+	public String getPhoto(Integer pId) throws SQLException {
+		return this.queryBuilder().selectColumns(Stagiaire.PHOTO_FIELD_NAME).where().eq(Stagiaire.ID_FIELD_NAME, pId).queryForFirst().getPhoto();
+	}
 }
