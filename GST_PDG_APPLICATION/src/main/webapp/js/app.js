@@ -52,6 +52,18 @@ var ng_gst_pdg = angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid',
 						}
 					}
 				},
+				'fichiers@detailStagiaire': {
+					templateUrl: 'partials/stagiaire/detailFichier.html',
+					controller: 'detailFichierCtrl',
+					resolve: {
+						fichiers : function(FichiersFactory, StagiaireFactory) {
+							return FichiersFactory.fichiers.getData({entite_type : "Stagiaire", entite_id : StagiaireFactory.stagiaire.id}).$promise;
+						},
+						readonly : function() {return true;},
+						affFichiers : function() {return true;},
+						affTelech : function() {return true;}
+					}
+				},
 				'absences@detailStagiaire': {
 					templateUrl: 'partials/stagiaire/detailAbsence.html',
 					controller: 'detailAbsenceCtrl',
@@ -80,12 +92,6 @@ var ng_gst_pdg = angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid',
 					}
 				}
 			}
-		}).
-		//FICHE DE SYNTHESE ********************************************
-		state('gestionFichesSynthese', {
-			url: '/gestionFichesSynthese',
-			templateUrl: 'partials/gestionFichesSynthese/gestionFichesSynthese.html',
-			controller: 'gestionFichesSyntheseCtrl'
 		}).
 		//PLANNING SALLE *************************************************
 		state('salles', {

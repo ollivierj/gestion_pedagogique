@@ -1,0 +1,21 @@
+<!-- Liste des échanges d'un stagiaire -->
+<div class="row">
+  <div class="col-lg-12">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <i class="fa fa-file-o"></i> Fichiers
+        </h3>
+      </div><!-- /panel-heading -->
+      <div class="panel-body">
+        <!-- Bouton edition d'un échange -->
+        <tabset> 
+		<tab heading="Fichiers" ng-if="affFichiers">
+		<div ng-include src="'partials/templates/fichiers.html'"></div>
+		</tab> <tab heading="T&eacute;l&eacute;chargement" ng-if="affTelech">
+		<div ng-include src="'partials/templates/telechargement.html'"></div>
+		</tab> </tabset>
+      </div><!-- /panel-body -->
+    </div><!-- /panel -->
+  </div><!-- /col-lg -->
+</div> <!-- /row -->

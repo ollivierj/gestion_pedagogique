@@ -1,5 +1,6 @@
 'use strict';
-var absencesCtrl = function($scope, $log, $filter, absences, toaster, AbsencesFactory, StagiaireFactory) {
+controllers
+	.controller('absencesCtrl', function($scope, $log, $filter, absences, toaster, AbsencesFactory, StagiaireFactory) {
 	 $scope.title = "Absences";
 	 $scope.absences = absences;
 	 $scope.$watch('date', 
@@ -57,7 +58,7 @@ var absencesCtrl = function($scope, $log, $filter, absences, toaster, AbsencesFa
 		    $scope.saveAbsence = function (absence) {
 		    	absence.formatedDate = $filter('date')(absence.formatedDate, 'dd/MM/yyyy');
 		    	absence.formatedTime = $filter('date')(absence.formatedTime, 'HH:mm');
-		    	//Mock de l'auteur
+		    	// Mock de l'auteur
 		    	absence.auteur = {};
 		    	absence.auteur.id = 1;
 		    	if (null==absence.id){
@@ -124,4 +125,4 @@ var absencesCtrl = function($scope, $log, $filter, absences, toaster, AbsencesFa
 				    	}
 		    	);
 		    };
-};
+});
