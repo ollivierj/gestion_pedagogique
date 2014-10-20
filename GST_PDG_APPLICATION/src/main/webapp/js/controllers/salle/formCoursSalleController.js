@@ -1,6 +1,10 @@
-var formulaireReservationSalleCtrl = function($scope, $modalInstance, $filter,
-		items, salles, sallesReservees, promotions, getByIdFilter) {
+var formCoursSalleCtrl = function($scope, $modalInstance, $filter,
+		items, salles, sallesReservees, promotions, getByIdFilter, data) {
 
+	
+	console.log('data cours');	
+	console.log(data);
+	
 	$scope.info = "";
 	$scope.referentielSalles = salles;
 	$scope.promotions = promotions;

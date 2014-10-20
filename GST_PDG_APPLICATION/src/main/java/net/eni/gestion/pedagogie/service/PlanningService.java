@@ -1,6 +1,5 @@
 package net.eni.gestion.pedagogie.service;
 
-import java.util.Date;
 import java.util.List;
 
 import net.eni.gestion.pedagogie.commun.composant.GenericException;

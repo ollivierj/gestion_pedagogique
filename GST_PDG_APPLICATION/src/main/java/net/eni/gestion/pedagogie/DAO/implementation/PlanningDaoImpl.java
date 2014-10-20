@@ -37,7 +37,6 @@ public class PlanningDaoImpl extends ADaoImpl<Planning, Long> implements Plannin
 				lQuery.append(" < '");
 				lQuery.append(dateFin);
 				lQuery.append("'");
-				System.out.println(lQuery.toString());
 				return new ArrayList<Planning>(this.queryRaw(lQuery.toString(), this.getRawRowMapper()).getResults());
 
 			} else {

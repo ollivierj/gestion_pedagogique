@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Properties;
+
 import net.eni.gestion.pedagogie.commun.outil.ObjectHelper;
 import net.eni.gestion.pedagogie.commun.outil.StringHelper;
 

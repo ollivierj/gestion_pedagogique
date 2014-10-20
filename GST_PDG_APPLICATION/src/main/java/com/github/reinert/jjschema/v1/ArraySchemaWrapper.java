@@ -18,11 +18,11 @@
 
 package com.github.reinert.jjschema.v1;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.github.reinert.jjschema.ManagedReference;
-
 import java.util.Collection;
 import java.util.Set;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.github.reinert.jjschema.ManagedReference;
 
 /**
  * @author Danilo Reinert

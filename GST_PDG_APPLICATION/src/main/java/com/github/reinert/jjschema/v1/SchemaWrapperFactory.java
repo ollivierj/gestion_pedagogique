@@ -18,12 +18,12 @@
 
 package com.github.reinert.jjschema.v1;
 
+import java.util.AbstractCollection;
+import java.util.Set;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.reinert.jjschema.ManagedReference;
 import com.github.reinert.jjschema.SimpleTypeMappings;
-
-import java.util.AbstractCollection;
-import java.util.Set;
 
 /**
  * @author Danilo Reinert

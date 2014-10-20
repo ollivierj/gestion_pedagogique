@@ -18,9 +18,9 @@
 
 package com.github.reinert.jjschema.v1;
 
-import com.fasterxml.jackson.databind.JsonNode;
-
 import java.util.Collection;
+
+import com.fasterxml.jackson.databind.JsonNode;
 
 /**
  * @author Danilo Reinert

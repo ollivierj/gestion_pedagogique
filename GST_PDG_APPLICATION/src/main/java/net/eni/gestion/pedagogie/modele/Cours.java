@@ -7,7 +7,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.UUID;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -102,13 +101,13 @@ public class Cours extends AModele<UUID> implements Serializable {
 		canBeNull = false)
 	private Date dateCreation = null;
 
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy H:mm:ss", timezone="CET")   
-	@DatabaseField(
-		columnName = DATE_MODIF_FIELD_NAME,
-		dataType = DataType.DATE,
-		useGetSet = true,
-		canBeNull = false)
-	private Date dateModif = null;
+//	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy H:mm:ss", timezone="CET")   
+//	@DatabaseField(
+//		columnName = DATE_MODIF_FIELD_NAME,
+//		dataType = DataType.DATE,
+//		useGetSet = true,
+//		canBeNull = false)
+//	private Date datesModif = null;
 
 	@DatabaseField(
 		columnName = ID_MODULE_FIELD_NAME,
@@ -131,12 +130,13 @@ public class Cours extends AModele<UUID> implements Serializable {
 		canBeNull = false)
 	private Integer dureePrevueEnHeures = null;
 
-	@ForeignCollectionField(eager = true, columnName = PlanningIndividuelDetail.ID2_FIELD_NAME)
-	private transient Collection<PlanningIndividuelDetail> transientPlanningIndividuelDetails = null;
+	//@JsonManagedReference("cours-planning")
+//	@ForeignCollectionField(eager = false, columnName = PlanningIndividuelDetail.ID2_FIELD_NAME)
+//	private transient Collection<PlanningIndividuelDetail> transientPlanningIndividuelDetails = null;
+//
+//	private ArrayList<PlanningIndividuelDetail> planningIndividuelDetails = new ArrayList<PlanningIndividuelDetail>();
 
-	private ArrayList<PlanningIndividuelDetail> planningIndividuelDetails = new ArrayList<PlanningIndividuelDetail>();
-
-	@ForeignCollectionField(eager = true, columnName = InstanceCours.COURS_FIELD_NAME)
+	@ForeignCollectionField(eager = false, columnName = InstanceCours.COURS_FIELD_NAME)
 	private transient Collection<InstanceCours> transientInstanceCours = null;
 
 	private ArrayList<InstanceCours> instanceCours = new ArrayList<InstanceCours>();
@@ -199,13 +199,13 @@ public class Cours extends AModele<UUID> implements Serializable {
 		this.dateCreation = dateCreation;
 	}
 
-	public Date getDateModif() {
-		return dateModif;
-	}
-
-	public void setDateModif(Date dateModif) {
-		this.dateModif = dateModif;
-	}
+//	public Date getDateModif() {
+//		return dateModif;
+//	}
+//
+//	public void setDateModif(Date dateModif) {
+//		this.dateModif = dateModif;
+//	}
 
 	public Integer getIdModule() {
 		return idModule;
@@ -231,25 +231,25 @@ public class Cours extends AModele<UUID> implements Serializable {
 		this.dureePrevueEnHeures = dureePrevueEnHeures;
 	}
 	
-	private ArrayList<PlanningIndividuelDetail> getPlanningIndividuelDetails() {
-		if (null != transientPlanningIndividuelDetails) {
-			planningIndividuelDetails.clear();
-			planningIndividuelDetails.addAll(transientPlanningIndividuelDetails);
-			transientPlanningIndividuelDetails = null;
-		}
-		return planningIndividuelDetails;
-	}
-	
-	public ArrayList<Stagiaire> getStagiaires(){
-		ArrayList<Stagiaire> stagiaires = new ArrayList<Stagiaire>();
-		if (0 < getPlanningIndividuelDetails().size()) {
-			Iterator<PlanningIndividuelDetail> iterator = getPlanningIndividuelDetails().iterator();
-			while (iterator.hasNext()) {
-				stagiaires.add(iterator.next().getPlanningIndividuelFormation().getStagiaire());
-			}
-		}
-		return stagiaires;
-	}
+//	private ArrayList<PlanningIndividuelDetail> getPlanningIndividuelDetails() {
+//		if (null != transientPlanningIndividuelDetails) {
+//			planningIndividuelDetails.clear();
+//			planningIndividuelDetails.addAll(transientPlanningIndividuelDetails);
+//			transientPlanningIndividuelDetails = null;
+//		}
+//		return planningIndividuelDetails;
+//	}
+//	
+//	public ArrayList<Stagiaire> getStagiaires(){
+//		ArrayList<Stagiaire> stagiaires = new ArrayList<Stagiaire>();
+//		if (0 < getPlanningIndividuelDetails().size()) {
+//			Iterator<PlanningIndividuelDetail> iterator = getPlanningIndividuelDetails().iterator();
+//			while (iterator.hasNext()) {
+//				stagiaires.add(iterator.next().getPlanningIndividuelFormation().getStagiaire());
+//			}
+//		}
+//		return stagiaires;
+//	}
 	
 	public ArrayList<InstanceCours> getInstanceCours() {
 		if (null != transientInstanceCours) {
