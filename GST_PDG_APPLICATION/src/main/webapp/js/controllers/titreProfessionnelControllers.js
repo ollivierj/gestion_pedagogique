@@ -3,7 +3,7 @@
 controllers
 		.controller(
 				'titreProfessionnelsCtrl',
-				function($scope, $modal, $log, $timeout, toaster, TitreProfessionnelsFactory) {
+				function($scope, $modal, $log, $timeout, toaster, TitreProfessionnelsFactory, FichiersFactory) {
 					$scope.pagingOptions = TitreProfessionnelsFactory.pagingOptions;		
 					$scope.sortOptions = TitreProfessionnelsFactory.sortOptions;		
 					$scope.filterOptions = TitreProfessionnelsFactory.filterOptions;
@@ -48,7 +48,11 @@ controllers
 					
 					$scope.afficherFenetreEdition = function(){
 						$scope.ajouterTitreProfessionnel();
-					}
+					};
+					
+					$scope.exporter = function(){
+						FichiersFactory.exporter('/ng_gst_pdg/web/titreProfessionnels/csv', $scope.pagingOptions, $scope.filterOptions, $scope.sortOptions);
+					};
 					
 					$scope.ajouterTitreProfessionnel = function(
 							titreProfessionnelId) {

@@ -151,4 +151,22 @@ public class Avis extends AModele<Integer> implements Serializable {
 		this.date= DateHelper.datifyString(formatedDate, "yyyy-MM-dd");
 		this.formatedDate = formatedDate;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder lStrStringBuilder = new StringBuilder();
+		lStrStringBuilder.append((null!=getFormatedDate())?getFormatedDate():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getStagiaire())?(null!= getStagiaire().getPrenom())?getStagiaire().getPrenom():"":"");
+		lStrStringBuilder.append(" ");
+		lStrStringBuilder.append((null!=getStagiaire())?(null!= getStagiaire().getNom())?getStagiaire().getNom():"":"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getTexte())?getTexte():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getAuteur())?(null!=getAuteur().getPrenom())?getAuteur().getPrenom():"":"");
+		lStrStringBuilder.append(" ");
+		lStrStringBuilder.append((null!=getAuteur())?(null!=getAuteur().getPrenom())?getAuteur().getPrenom():"":"");
+		lStrStringBuilder.append(";");
+		return lStrStringBuilder.toString();
+	}
 }

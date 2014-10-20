@@ -11,7 +11,9 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
 import net.eni.gestion.pedagogie.commun.composant.NamedObjectMap;
@@ -72,6 +74,34 @@ public class AResourceImpl <M extends AModele<ID>, ID, S extends AService<M,ID>>
         results.put("data", page.first());
         results.put("totalServerItems", page.second());
         return results;
+    }
+    
+    
+    
+    /* (non-Javadoc)
+     * @see net.eni.gestion.pedagogie.service.contrat.generique.CRUDService#charger()
+     */
+    @POST
+	@Path("/csv")
+    @Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response exporter(Pager pPager) throws GenericException {
+    	pPager.setPagingOptions(null);
+    	Pair<ArrayList<M>, Long> page = service.charger(pPager);
+    	StringBuilder lStrBuilder = new StringBuilder();
+    	for (M lObject : page.first()) {
+			lStrBuilder.append(lObject.toString());
+			lStrBuilder.append("\n");
+		}
+		try {
+			return Response
+					.ok(lStrBuilder.toString().getBytes(), MediaType.APPLICATION_OCTET_STREAM)
+					.header("content-disposition",
+							"attachment; filename=export.csv").build();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		}
+		throw new WebApplicationException(404);
     }
     
     @GET

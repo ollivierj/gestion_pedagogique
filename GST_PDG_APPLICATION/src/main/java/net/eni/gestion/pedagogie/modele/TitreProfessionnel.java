@@ -78,5 +78,13 @@ public class TitreProfessionnel extends AModele<Integer> implements Serializable
 	public void setCode(String code) {
 		this.code = code;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder lStrStringBuilder = new StringBuilder();
+		lStrStringBuilder.append((null!=getCode())?getCode():"");
+		lStrStringBuilder.append(";");
+		return lStrStringBuilder.toString();
+	}
 
 }

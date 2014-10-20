@@ -154,6 +154,24 @@ public class Echange extends AModele<Integer> implements Serializable {
 		
 		this.formatedTime = formatedTime;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder lStrStringBuilder = new StringBuilder();
+		lStrStringBuilder.append((null!=getFormatedDate())?getFormatedDate():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getStagiaire())?(null!= getStagiaire().getPrenom())?getStagiaire().getPrenom():"":"");
+		lStrStringBuilder.append(" ");
+		lStrStringBuilder.append((null!=getStagiaire())?(null!= getStagiaire().getNom())?getStagiaire().getNom():"":"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getCommentaire())?getCommentaire():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getAuteur())?(null!=getAuteur().getPrenom())?getAuteur().getPrenom():"":"");
+		lStrStringBuilder.append(" ");
+		lStrStringBuilder.append((null!=getAuteur())?(null!=getAuteur().getPrenom())?getAuteur().getPrenom():"":"");
+		lStrStringBuilder.append(";");
+		return lStrStringBuilder.toString();
+	}
 
 
 }

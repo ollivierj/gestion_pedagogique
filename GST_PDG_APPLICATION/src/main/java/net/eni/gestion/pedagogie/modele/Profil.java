@@ -99,4 +99,14 @@ public class Profil extends AModele<Integer> implements Serializable {
 		return droits;
 	}	
 	
+	@Override
+	public String toString() {
+		StringBuilder lStrStringBuilder = new StringBuilder();
+		lStrStringBuilder.append((null!=getCode())?getCode():"");
+		lStrStringBuilder.append(" ");
+		lStrStringBuilder.append((null!=getLibelle())?getLibelle():"");
+		lStrStringBuilder.append(" ");
+		return lStrStringBuilder.toString();
+	}
+	
 }

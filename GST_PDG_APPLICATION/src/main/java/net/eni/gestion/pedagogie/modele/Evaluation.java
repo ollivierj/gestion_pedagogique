@@ -215,4 +215,26 @@ public class Evaluation extends AModele<Integer> implements Serializable {
 		this.correcteur = correcteur;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder lStrStringBuilder = new StringBuilder();
+		lStrStringBuilder.append((null!=getSujetEvaluation())?(null!=getSujetEvaluation().getModule())?getSujetEvaluation().getModule().getLibelle():"":"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getSujetEvaluation())?getSujetEvaluation().getVersion():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append(getFormatedDateHeureDebutPassage());
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append(getFormatedDateHeureFinPassage());
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getAuteur())?getAuteur().getPrenom():"");
+		lStrStringBuilder.append(" ");
+		lStrStringBuilder.append((null!=getAuteur())?getAuteur().getNom():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getCorrecteur())?getCorrecteur().getPrenom():"");
+		lStrStringBuilder.append(" ");
+		lStrStringBuilder.append((null!=getCorrecteur())?getCorrecteur().getNom():"");
+		lStrStringBuilder.append(";");
+		return lStrStringBuilder.toString();
+	}
+
 }

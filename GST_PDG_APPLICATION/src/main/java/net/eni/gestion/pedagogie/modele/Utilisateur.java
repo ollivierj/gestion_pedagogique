@@ -292,61 +292,31 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 		this.login = login;
 	}
 
-	/*public ArrayList<Echange> getEchanges() {
-		if (null != transientEchanges) {
-			echanges.clear();
-			echanges.addAll(transientEchanges);
-			transientEchanges = null;
-		}
-		return echanges;
-	}
-	
-	public ArrayList<Avis> getAvis() {
-		if (null != transientAvis) {
-			avis.clear();
-			avis.addAll(transientAvis);
-			transientAvis = null;
-		}
-		return avis;
-	}
-	
-	public ArrayList<InstanceEvaluation> getInstanceEvaluationCorrections() {
-		if (null != transientInstanceEvaluationCorrections) {
-			instanceEvaluationCorrections.clear();
-			instanceEvaluationCorrections.addAll(transientInstanceEvaluationCorrections);
-			transientInstanceEvaluationCorrections = null;
-		}
-		return instanceEvaluationCorrections;
-	}
-	
-	public ArrayList<InstanceEvaluation> getInstanceEvaluationSurveillances() {
-		if (null != transientInstanceEvaluationSurveillances) {
-			instanceEvaluationSurveillances.clear();
-			instanceEvaluationSurveillances.addAll(transientInstanceEvaluationSurveillances);
-			transientInstanceEvaluationSurveillances = null;
-		}
-		return instanceEvaluationSurveillances;
-	}*/
-	
-//	public ArrayList<InstanceCours> getInstanceCours() {
-//		if (null != transientInstanceCours) {
-//			instanceCours.clear();
-//			instanceCours.addAll(transientInstanceCours);
-//			transientInstanceCours = null;
-//		}
-//		return instanceCours;
-//	}
-	
-	/*
-	public ArrayList<Absence> getAbsences() {
-		if (null != transientAbsences) {
-			absences.clear();
-			absences.addAll(transientAbsences);
-			transientAbsences = null;
-		}
-		return absences;
-	}*/
-	
+	@Override
+	public String toString() {
+		StringBuilder lStrStringBuilder = new StringBuilder();
+		lStrStringBuilder.append((null!=getLogin())?getLogin():"");
+		lStrStringBuilder.append(" ");
+		lStrStringBuilder.append((null!=getProfil())?(null!=getProfil().getLibelle())?getProfil().getLibelle():"":"");
+		lStrStringBuilder.append(" ");
+		lStrStringBuilder.append((null!=getFonction())?(null!=getFonction().getLibelle())?getFonction().getLibelle():"":"");
+		lStrStringBuilder.append(" ");
+		lStrStringBuilder.append((null!=getCivilite())?getCivilite():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getPrenom())?getPrenom():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getNom())?getNom():"");
+		lStrStringBuilder.append(" ");
+		lStrStringBuilder.append((null!=getEmail())?getEmail():"");
+		lStrStringBuilder.append(" ");
+		lStrStringBuilder.append((null!=getTelephoneFixe())?getTelephoneFixe():"");
+		lStrStringBuilder.append(" ");
+		lStrStringBuilder.append((null!=getTelephonePortable())?getTelephonePortable():"");
+		lStrStringBuilder.append(" ");
+		lStrStringBuilder.append((null!=getPhoto())?getPhoto():"");
+		lStrStringBuilder.append(" ");
+		return lStrStringBuilder.toString();
+	}	
 	
 
 }

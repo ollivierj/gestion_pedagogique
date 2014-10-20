@@ -42,10 +42,12 @@ public class CRUDHelper {
 				lQuery.append(lFullTextSearchWhereClause);
 			}
 			lQuery.append(") AS sub ");
-			lQuery.append(" WHERE sub.RowNum BETWEEN ");
-			lQuery.append(String.valueOf(((pPager.getPagingOptions().getCurrentPage()-1)*pPager.getPagingOptions().getPageSize()) + 1));
-			lQuery.append(" AND ");
-			lQuery.append(String.valueOf(pPager.getPagingOptions().getCurrentPage()*pPager.getPagingOptions().getPageSize()));
+			if (null!=pPager.getPagingOptions()){
+				lQuery.append(" WHERE sub.RowNum BETWEEN ");
+				lQuery.append(String.valueOf(((pPager.getPagingOptions().getCurrentPage()-1)*pPager.getPagingOptions().getPageSize()) + 1));
+				lQuery.append(" AND ");
+				lQuery.append(String.valueOf(pPager.getPagingOptions().getCurrentPage()*pPager.getPagingOptions().getPageSize()));
+			}
 			return new Pair<ArrayList<M>, Long>(new ArrayList<M>(pABase.queryRaw(lQuery.toString(), pABase.getRawRowMapper()).getResults()), pABase.countOf());
 		} catch (Exception exception) {
 			throw new Exception("Echec de chargement de la liste d'enregistrements depuis la base de données");

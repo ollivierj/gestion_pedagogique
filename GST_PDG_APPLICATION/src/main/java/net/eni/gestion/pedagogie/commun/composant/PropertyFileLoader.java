@@ -29,8 +29,10 @@ public class PropertyFileLoader {
 
 	public void loadProperties(String name) {
 		properties = new Properties();
-		InputStream in = this.getClass().getResourceAsStream(
-				name + PROPERTIES_FILE);
+		StringBuilder lStrBuilder = new StringBuilder();
+		lStrBuilder.append("/net/eni/gestion/pedagogie/configuration/");
+		lStrBuilder.append(name + PROPERTIES_FILE);
+		InputStream in = this.getClass().getResourceAsStream(lStrBuilder.toString());
 		try {
 			properties.load(in);
 		} catch (IOException e) {

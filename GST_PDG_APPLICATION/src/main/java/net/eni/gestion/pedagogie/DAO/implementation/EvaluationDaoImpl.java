@@ -79,10 +79,12 @@ public class EvaluationDaoImpl extends ADaoImpl<Evaluation, Integer> implements 
 				lQuery.append(lFullTextSearchWhereClause);
 			}
 			lQuery.append(") AS sub ");
-			lQuery.append(" WHERE sub.RowNum BETWEEN ");
-			lQuery.append(String.valueOf((pPager.getPagingOptions().getCurrentPage()-1)*pPager.getPagingOptions().getPageSize()));
-			lQuery.append(" AND ");
-			lQuery.append(String.valueOf(pPager.getPagingOptions().getCurrentPage()*pPager.getPagingOptions().getPageSize()-1));
+			if (null!=pPager.getPagingOptions()){
+				lQuery.append(" WHERE sub.RowNum BETWEEN ");
+				lQuery.append(String.valueOf(((pPager.getPagingOptions().getCurrentPage()-1)*pPager.getPagingOptions().getPageSize()) + 1));
+				lQuery.append(" AND ");
+				lQuery.append(String.valueOf(pPager.getPagingOptions().getCurrentPage()*pPager.getPagingOptions().getPageSize()));
+			}
 			return new Pair<ArrayList<Evaluation>, Long>(new ArrayList<Evaluation>(this.queryRaw(lQuery.toString(), this.getRawRowMapper()).getResults()), this.countOf());
 		} catch (Exception exception) {
 			throw new Exception("Echec de chargement de la liste d'enregistrements depuis la base de données");

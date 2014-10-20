@@ -4,7 +4,7 @@ controllers
 		.controller(
 				'sessionValidationsCtrl',
 
-				function($scope, $modal, $log, $timeout, toaster, SessionValidationsFactory, TitreProfessionnelsFactory) {
+				function($scope, $modal, $log, $timeout, toaster, SessionValidationsFactory, TitreProfessionnelsFactory, FichiersFactory) {
 					$scope.pagingOptions = SessionValidationsFactory.pagingOptions;		
 					$scope.sortOptions = SessionValidationsFactory.sortOptions;		
 					$scope.filterOptions = SessionValidationsFactory.filterOptions;
@@ -64,6 +64,10 @@ controllers
 					
 					$scope.afficherFenetreEdition = function(){
 						$scope.ajouterSessionValidation();
+					};
+					
+					$scope.exporter = function(){
+						FichiersFactory.exporter('/ng_gst_pdg/web/sessionValidations/csv', $scope.pagingOptions, $scope.filterOptions, $scope.sortOptions);
 					};
 					
 					$scope.ajouterSessionValidation = function(
