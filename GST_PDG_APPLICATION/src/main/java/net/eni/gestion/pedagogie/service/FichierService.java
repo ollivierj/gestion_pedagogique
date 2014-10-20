@@ -1,5 +1,6 @@
 package net.eni.gestion.pedagogie.service;
 
+import java.io.File;
 import java.util.List;
 
 import javax.ws.rs.core.Response;
@@ -45,5 +46,5 @@ public interface FichierService {
 	 */
 	public abstract List<FileBean> charger(String pType, String pId);
 	  
-	 
+	public File getStagiairePhoto(Integer pStagiaireId);
 }

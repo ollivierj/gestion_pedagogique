@@ -2,7 +2,7 @@
  * Controller de la page detail stagiaire
  */
 controllers.controller('detailStagiaireCtrl', function($scope, detail, $modal, $log, SEchangeFactory, $filter, toaster) {
-    
+		
     //Initialisation de la variable stagiaire du scope avec la variable detail (resolve de la route)
     $scope.stagiaire = detail;
         

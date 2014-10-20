@@ -12,7 +12,8 @@
       <div class="panel-body">
 
         <div class="col-lg-2">
-            <img src="http://placehold.it/200x200">
+            <img ng-src="/ng_gst_pdg/web/fichiers/image/{{stagiaire.id}}"
+												err-src="img/anonymous.png" width="200" height="200" />
         </div>
 
         <div class="col-lg-5">
@@ -81,23 +82,13 @@
             <div class="col-lg-6">E-mail :</div>
             <div class="col-lg-6">{{stagiaire.email}}</div>
           </div>
-
-          <div class="row">
-            <div class="col-lg-6">R&eacute;pertoire :</div>
-            <div class="col-lg-6"><a href="">{{stagiaire.repertoire}}</a></div>
-          </div>
-
-          <div class="row">
-            <div class="col-lg-6">Synth&egrave;se des comp&eacute;tences :</div>
-            <div class="col-lg-6"><button class="btn btn-primary btn-xs fa fa-pencil fa-lg"></button> <a href="">Fiches de synth&egrave;ses</a></div>
-          </div>
-
         </div>
 
       </div> <!-- /panel-body -->
     </div> <!-- /panel -->
   </div> <!-- /col-lg -->
 </div> <!-- /row -->
+<div ui-view="fichiers"></div>
 
 <div ui-view="absences"></div>
 

@@ -3,7 +3,7 @@
 controllers
 		.controller(
 				'evaluationsCtrl',
-				function($scope, $modal, $log, $timeout, EvaluationsFactory, SujetEvaluationsFactory, UtilisateursFactory) {
+				function($scope, $modal, $log, $timeout, toaster, EvaluationsFactory, SujetEvaluationsFactory, UtilisateursFactory) {
 					$scope.pagingOptions = EvaluationsFactory.pagingOptions;		
 					$scope.sortOptions = EvaluationsFactory.sortOptions;		
 					$scope.filterOptions = EvaluationsFactory.filterOptions;
@@ -90,7 +90,19 @@ controllers
 											return EvaluationsFactory.jsonschema.getData().$promise;
 										},
 										okTitle : function() {return "Enregistrer";},
-										ok : function() { return function(item){ return EvaluationsFactory.create.doAction(item);}}
+										ok : function() { 
+											return function(item){ 
+												return EvaluationsFactory.create.doAction(
+													item,
+													function(success) {
+														toaster.pop('success', null, "Evaluation enregistrée");
+													},
+													function(error) {
+														toaster.pop('error', null, error.message);
+													}
+												);
+											};
+										}
 									}
 								});
 
@@ -166,10 +178,17 @@ controllers
 											return EvaluationsFactory.jsonschema.getData().$promise;
 										},
 										okTitle : function() {return "Enregistrer";},
-										ok : function() { return function(item){return EvaluationsFactory.modify.doAction(item);}}
+										ok : function() { return function(item){return EvaluationsFactory.modify.doAction(
+											item,
+											function(success) {
+									    		toaster.pop('success', null, "Evaluation enregistrée");
+											},
+											function(error) {
+												toaster.pop('error', null, error.message);
+											});};}
 									}
 								});
-
+						
 						modalEdit.result.then(function(selectedItem) {
 							EvaluationsFactory.refreshData($scope);
 						}, function() {
@@ -187,7 +206,19 @@ controllers
 										id : function() {return evaluationId},
 										title : function() {return "Suppression d'une évaluation";},
 										message : function() {return "Etes-vous sur de vouloir supprimer cette évaluation ?";},
-										ok : function () { return function(id) {return EvaluationsFactory.delete.doAction({id : id});};}
+										ok : function () { 
+											return function(id) {
+												return EvaluationsFactory.delete.doAction(
+													{id : id},
+													function(success) {
+											    		toaster.pop('warning', null, "Evaluation enregistrée");
+													},
+													function(error) {
+														toaster.pop('error', null, error.message);
+													}
+												);
+											};
+										}
 									}
 								});
 						modalDelete.result.then(function(selectedItem) {

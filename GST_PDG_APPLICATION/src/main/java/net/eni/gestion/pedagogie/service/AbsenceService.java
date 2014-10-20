@@ -12,7 +12,7 @@ import net.eni.gestion.pedagogie.modele.Absence;
  */
 public interface AbsenceService extends AService<Absence,Integer> {
 
-	public ArrayList<Absence> chargerAbsencesByDate(Date pDate)  throws GenericException;
+	public ArrayList<Absence> chargerAbsencesByDate(Date pMinDate, Date pMaxDate)  throws GenericException;
 
 	
 

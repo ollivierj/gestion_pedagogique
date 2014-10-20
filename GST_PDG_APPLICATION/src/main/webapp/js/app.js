@@ -52,6 +52,15 @@ var ng_gst_pdg = angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid',
 						}
 					}
 				},
+				'fichiers@detailStagiaire': {
+					templateUrl: 'partials/stagiaire/detailFichier.html',
+					controller: 'detailFichierCtrl',
+					resolve: {
+						fichiers : function(FichiersFactory, StagiaireFactory) {
+							return FichiersFactory.fichiers.getData({entite_type : "Stagiaire", entite_id : StagiaireFactory.stagiaire.id}).$promise;
+						}
+					}
+				},
 				'absences@detailStagiaire': {
 					templateUrl: 'partials/stagiaire/detailAbsence.html',
 					controller: 'detailAbsenceCtrl',
@@ -80,12 +89,6 @@ var ng_gst_pdg = angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid',
 					}
 				}
 			}
-		}).
-		//FICHE DE SYNTHESE ********************************************
-		state('gestionFichesSynthese', {
-			url: '/gestionFichesSynthese',
-			templateUrl: 'partials/gestionFichesSynthese/gestionFichesSynthese.html',
-			controller: 'gestionFichesSyntheseCtrl'
 		}).
 		//PLANNING SALLE *************************************************
 		state('salles', {
@@ -139,7 +142,20 @@ var ng_gst_pdg = angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid',
 			url: '/sessionValidations',
 			templateUrl: 'partials/templates/list.html',
 			controller: 'sessionValidationsCtrl'
+		}).
+		// SAISIE DES ABSENCES ***********************************************
+		state('absences', {
+			url: '/absences',
+			templateUrl: 'partials/absence/absence.html',
+			controller: 'absencesCtrl',
+			resolve: {
+				absences: function(AbsencesFactory) {
+					var date = new Date();
+					return  AbsencesFactory.jour.getData({year:date.getUTCFullYear(), month : date.getUTCMonth(), day : date.getUTCDate()}).$promise;
+				}
+			}
 		});
+	
 });
 
 var filters = angular.module('ng_gst_pdg.filters', []);

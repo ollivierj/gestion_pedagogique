@@ -1,7 +1,9 @@
 package net.eni.gestion.pedagogie.resource.implementation;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -32,12 +34,19 @@ public class AbsenceResourceImpl extends AResourceImpl<Absence, Integer, Absence
     	super(AbsenceService, Absence.class);
     }
 
-    @GET
-    @Path("/jour/{jour}")
+	@GET
+    @Path("/jour/{year}/{month}/{day}")
     @Produces(MediaType.APPLICATION_JSON)
-	public ArrayList<Absence> chargerAbsencesByDate(@PathParam("jour") Date pDate)
+	public ArrayList<Absence> chargerAbsencesByDate(@PathParam("year") int year,
+			@PathParam("month") int month, 
+			@PathParam("day") int day)
 			throws GenericException {
-		return service.chargerAbsencesByDate(pDate);
+    	Calendar lCalendar = GregorianCalendar.getInstance();
+    	lCalendar.set(year,month,day, lCalendar.getMinimum(GregorianCalendar.HOUR_OF_DAY), lCalendar.getMinimum(GregorianCalendar.MINUTE), lCalendar.getMinimum(GregorianCalendar.SECOND));
+    	Date lMinDate = lCalendar.getTime();
+    	lCalendar.set(year,month,day, lCalendar.getMaximum(GregorianCalendar.HOUR_OF_DAY), lCalendar.getMaximum(GregorianCalendar.MINUTE), lCalendar.getMaximum(GregorianCalendar.SECOND));
+		Date lMaxDate = lCalendar.getTime();
+    	return service.chargerAbsencesByDate(lMinDate, lMaxDate);
 	}
 
 }

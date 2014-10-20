@@ -29,20 +29,11 @@ public class AbsenceServiceImpl extends AServiceImpl<Absence, Integer, AbsenceDa
         super(pAbsenceDao);
     }
 
-	public ArrayList<Absence> chargerRetardatairesByDate(Date pDate)
+	@Override
+	public ArrayList<Absence> chargerAbsencesByDate(Date pMinDate, Date pMaxDate)
 			throws GenericException {
 		try {
-			return null;
-			//return dao.chargerAbsencesByDate(pDate);
-		} catch (Exception e) {
-			throw new GenericException("Echec lors du chargement depuis la base de données.");
-		}
-	}
-
-	public ArrayList<Absence> chargerAbsencesByDate(Date pDate) throws GenericException {
-		try {
-			//return dao.chargerAbsencesByDate(pDate);
-			return null;
+			return dao.chargerAbsencesByDate(pMinDate, pMaxDate);
 		} catch (Exception e) {
 			throw new GenericException("Echec lors du chargement depuis la base de données.");
 		}

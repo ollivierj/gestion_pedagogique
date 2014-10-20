@@ -50,7 +50,7 @@ controllers.controller('detailAvisCtrl', function($scope, avis, SAvisFactory, $f
 			    	SAvisFactory.getAvis.load(SAvisFactory.pager, function(success) {
 			    		$scope.avis = success.data;
 			    	});
-			    	toaster.pop('success', null, "Enregistrement de l'absence effectuée");
+			    	toaster.pop('success', null, "Absence enregistrée");
 				},
 				
 				function (error) {
@@ -69,7 +69,7 @@ controllers.controller('detailAvisCtrl', function($scope, avis, SAvisFactory, $f
 		    		SAvisFactory.getAvis.load(SAvisFactory.pager, function(success) {
 		    			$scope.avis = success.data;
 		    		});
-		    		toaster.pop('success', null, "Suppression de l'absence effectuée");
+		    		toaster.pop('success', null, "Absence supprimée");
 		    	},
     			function(error) {
 		    		toaster.pop('error', null, error.message);

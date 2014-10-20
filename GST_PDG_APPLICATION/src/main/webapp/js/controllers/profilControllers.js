@@ -2,13 +2,11 @@
 controllers.
 	controller(
 		'profilsCtrl', 
-		function($scope, $modal, $log, $timeout, ProfilsFactory) {
+		function($scope, $modal, $log, $timeout, toaster, ProfilsFactory) {
 			$scope.pagingOptions = ProfilsFactory.pagingOptions;		
 			$scope.sortOptions = ProfilsFactory.sortOptions;		
 			$scope.filterOptions = ProfilsFactory.filterOptions;
 			$scope.title = "Profils";
-			
-			
 			$scope.gridOptions = {
 				data : 'profils',
 				multiSelect : false,
@@ -37,6 +35,10 @@ controllers.
 				sortInfo : $scope.sortOptions,
 				pagingOptions : $scope.pagingOptions
 			};
+			
+			$scope.droit = function(droit) {
+				console.log(droit);
+			};
 
 			$scope.editRow = function(profil) {
 				$scope.editerProfil(profil.id);
@@ -58,12 +60,13 @@ controllers.
 					profilId) {
 				var modalAdd = $modal
 						.open({
-							templateUrl : 'partials/templates/form.html',
+							templateUrl : 'partials/profil/profil.html',
 							controller : modalProfilCtrl,
 							resolve : {
 								title : function() {return "Ajout d'un profil";},
 								profil : function(){ return {}},
 								readonly : function() {return false;},
+								affprofilList : function() {return false;},
 								schema : function(ProfilsFactory) {
 									return ProfilsFactory.jsonschema.getData().$promise;
 								},
@@ -71,7 +74,15 @@ controllers.
 									return ProfilsFactory.titlemap.getData().$promise;
 								},
 								okTitle : function() {return "Enregistrer";},
-								ok : function() { return function(item){ return ProfilsFactory.create.doAction(item);}}
+								ok : function() { return function(item){ return ProfilsFactory.create.doAction(
+										item,
+										function(success) {
+								    		toaster.pop('success', null, "Profil enregistré");
+										},
+										function(error) {
+											toaster.pop('error', null, error.message);
+										}
+								);}}
 							}
 						});
 
@@ -86,11 +97,12 @@ controllers.
 					profilId) {
 				var modalEdit = $modal
 						.open({
-							templateUrl : 'partials/templates/form.html',
+							templateUrl : 'partials/profil/profil.html',
 							controller : modalProfilCtrl,
 							resolve : {
 								title : function() {return "Visualisation d'un profil";},
 								readonly : function() {return true;},
+								affprofilList : function() {return false;},
 								profil : function(ProfilsFactory) {
 									return ProfilsFactory.detail.getData({id : profilId}).$promise;
 								},
@@ -116,11 +128,12 @@ controllers.
 					profilId) {
 				var modalEdit = $modal
 						.open({
-							templateUrl : 'partials/templates/form.html',
+							templateUrl : 'partials/profil/profil.html',
 							controller : modalProfilCtrl,
 							resolve : {
 								title : function() {return "Edition d'un profil";},
 								readonly : function() {return false;},
+								affprofilList : function() {return true;},
 								profil : function(ProfilsFactory) {
 									return ProfilsFactory.detail.getData({id : profilId}).$promise;
 								},
@@ -131,7 +144,15 @@ controllers.
 									return ProfilsFactory.jsonschema.getData().$promise;
 								},
 								okTitle : function() {return "Enregistrer";},
-								ok : function() { return function(item){ return ProfilsFactory.modify.doAction(item);}}
+								ok : function() { return function(item){ return ProfilsFactory.modify.doAction(
+										item,
+										function(success) {
+								    		toaster.pop('success', null, "Profil enregistré");
+										},
+										function(error) {
+											toaster.pop('error', null, error.message);
+										}		
+								);}}
 							}
 						});
 
@@ -152,7 +173,15 @@ controllers.
 								id : function() {return profilId},
 								title : function() {return "Suppression profil";},
 								message : function() {return "Etes-vous sur de vouloir supprimer ce profil ?";},
-								ok : function () { return function(id) {return ProfilsFactory.delete.doAction({id : id});};}
+								ok : function () { return function(id) {return ProfilsFactory.delete.doAction(
+										{id : id},
+										function(success) {
+								    		toaster.pop('warning', null, "Profil supprimé");
+										},
+										function(error) {
+											toaster.pop('error', null, error.message);
+										}
+								);};}
 							}
 						});
 				modalDelete.result.then(function(selectedItem) {
@@ -189,69 +218,80 @@ controllers.
 		});
 
 var modalProfilCtrl = function($scope, $modalInstance,
-		ProfilsFactory, onlyStringsFilter, onlyNumbersFilter, title, readonly, profil, profils, schema, ok, okTitle) {
+		ProfilsFactory, onlyStringsFilter, onlyNumbersFilter, title, readonly, affprofilList, profil, profils, schema, ok, okTitle) {
 		$scope.title = title;
 		$scope.data = profil;
 		$scope.data.readonly = readonly;
+		$scope.affprofilList=affprofilList;
 		$scope.profilsTitleMap = profils;
 		$scope.profilsEnum = onlyNumbersFilter(Object.keys($scope.profilsTitleMap)),
 		$scope.okTitle = okTitle;
 		$scope.ok = ok;
 		$scope.schema = schema;
+		if (null==$scope.data.droits){
+			$scope.data.droits=
+				[
+				'STG_A',
+				'EVAL_A',
+				'SES_VAL_A',
+				'RES_SALLE_A',
+				'ABS_A',
+				'ECH_A',
+				'AVIS_A',
+				'UTIL_A',
+				'PRF_A',
+				'SUJ_EVAL_A',
+				'PRF_HMG_A',
+				'TR_PRF_A',
+				];
+		}
 		$scope.form = 
 			[
+			    
+         	{
+         		key : "code",
+         		disabled : $scope.data.readonly
+         	},
+         	{
+         		key : "libelle",
+         		disabled : $scope.data.readonly
+         	}
+         	];
+		$scope.form2 =
+			[
 			{
-			    type: "tabs",
-			    tabs: 
-			    	[
-				    {
-				      title: "Profil",
-				      items: 	[
-				             	{
-				             		key : "code",
-				             		disabled : $scope.data.readonly
-				             	},
-				             	{
-				             		key : "libelle",
-				             		disabled : $scope.data.readonly
-				             	}
-					            ]
-				    }
-				    ]
-			},	
-			{
-				type: "conditional",
-			    condition: "!data.readonly", 
-			    items: 
-			   	 [
-			   	 {
-			   	 type: "actions",
-			   	 items:	
-			   		 [
-			         {
-			         type: 'submit', 
-			         title: $scope.okTitle 
-			         },
-			         { 
-					 type: 'button', 
-					 title: 'Annuler', 
-					 onClick: "cancel()" 
+			type: "conditional",
+			condition: "!data.readonly", 
+			items: 
+			 [
+			 {
+			 type: "actions",
+			 items:	
+				 [
+			     {
+			     type: 'submit', 
+			     title: $scope.okTitle
+			     },
+			     { 
+				 type: 'button', 
+				 title: 'Annuler', 
+				 onClick: "cancel()" 
 					 }
 			         ]
 			   	 }
 			   	 ]	
 			},
 			{
-				type: "conditional",
-			    condition: "data.readonly", 
-			    items: 
-			   	 [
-			   	 {
-			   	 type: "actions",
-			   	 items:	
-			   		 [
-			         {
-			         type: 'submit', 
+			type: "conditional",
+			condition: "data.readonly", 
+			items: 
+			 [
+			 {
+			 type: "actions",
+			 items:	
+				 [
+			     {
+			     type: 'submit', 
 			         title: $scope.okTitle 
 			         }
 			         ]
@@ -262,7 +302,7 @@ var modalProfilCtrl = function($scope, $modalInstance,
 		$scope.decorator = 'bootstrap-decorator';
 		$scope.submit =function(){
 			 $scope.$broadcast('schemaFormValidate');
-				if ($scope.form.generic.$valid) {
+				if ($scope.form.profil.$valid) {
 					$scope.ok($scope.data).$promise.then(
 						function(response) {
 							$modalInstance.close($scope.data);

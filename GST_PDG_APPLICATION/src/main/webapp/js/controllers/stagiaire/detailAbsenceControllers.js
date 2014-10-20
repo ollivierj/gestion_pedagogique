@@ -66,7 +66,7 @@ controllers.controller('detailAbsenceCtrl', function($scope, absences, SAbsenceF
 			    	SAbsenceFactory.getAbsences.load(SAbsenceFactory.pager, function(success) {
 			    		initPager(success);
 			    	});
-			    	toaster.pop('success', null, "Enregistrement de l'absence effectuée");
+			    	toaster.pop('success', null, "Absence enregistrée");
 				},
 				
 				function (error) {
@@ -87,7 +87,7 @@ controllers.controller('detailAbsenceCtrl', function($scope, absences, SAbsenceF
 		    		SAbsenceFactory.getAbsences.load(SAbsenceFactory.pager, function(success) {
 		    			initPager(success);
 		    		});
-		    		toaster.pop('warning', null, "Suppression de l'absence effectuée");
+		    		toaster.pop('warning', null, "Absence supprimée");
 		    	},
     			function(error) {
 		    		toaster.pop('error', null, error.message);

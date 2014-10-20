@@ -56,8 +56,8 @@ services.factory('AbsencesFactory', function ($resource) {
 		delete :  $resource('/ng_gst_pdg/web/absences/suppression/:id', {}, {
 			doAction : { method: 'DELETE', params: {id: '@id'} }
 		}),
-		jour :  $resource('/ng_gst_pdg/web/absences/jour/:jour', {}, {
-			getData : { method: 'GET', params: {id: '@jour'}, isArray: false }
+		jour :  $resource('/ng_gst_pdg/web/absences/jour/:year/:month/:day', {}, {
+			getData : { method: 'GET', params: {year : '@year', month : '@month', day : '@day'}, isArray: true }
 		})
 	}
 });

@@ -1,0 +1,160 @@
+<div class="panel-body">
+	<div class="panel-body">
+		<div class="row" style="padding-bottom:3px;">
+			<div class="col-lg-5">Stagiaires :</div>
+			<div class="col-lg-7">
+				<div class="btn-group" ng-if="!data.readonly">
+					<label class="btn btn-default" ng-model="data.droits[0]" btn-radio="'STG_E'">Edition</label> 
+					<label class="btn btn-default" ng-model="data.droits[0]" btn-radio="'STG_L'">Lecture</label> 
+					<label class="btn btn-default" ng-model="data.droits[0]" btn-radio="'STG_A'">Aucun</label>
+				</div>
+				<label ng-if="data.readonly && data.droits[0]=='STG_E'">Edition</label> 
+				<label ng-if="data.readonly && data.droits[0]=='STG_L'">Lecture</label> 
+				<label ng-if="data.readonly && data.droits[0]=='STG_A'">Aucun</label> 	
+			</div>
+		</div>
+		<div class="row" style="padding-bottom:3px;">
+			<div class="col-lg-5">Evaluations :</div>
+			<div class="col-lg-7">
+				<div class="btn-group" ng-if="!data.readonly">
+				    <label class="btn btn-default" ng-model="data.droits[1]" btn-radio="'EVAL_E'">Edition</label> 
+					<label class="btn btn-default" ng-model="data.droits[1]" btn-radio="'EVAL_L'">Lecture</label> 
+					<label class="btn btn-default" ng-model="data.droits[1]" btn-radio="'EVAL_A'">Aucun</label> 
+				</div>
+				<label ng-if="data.readonly && data.droits[1]=='EVAL_E'">Edition</label> 
+				<label ng-if="data.readonly && data.droits[1]=='EVAL_L'">Lecture</label> 
+				<label ng-if="data.readonly && data.droits[1]=='EVAL_A'">Aucun</label> 	
+			</div>
+		</div>
+		<div class="row" style="padding-bottom:3px;">
+			<div class="col-lg-5">Sessions de validation :</div>
+			<div class="col-lg-7">
+				<div class="btn-group" ng-if="!data.readonly">
+ 					<label class="btn btn-default" ng-model="data.droits[2]" btn-radio="'SES_VAL_E'">Edition</label> 
+					<label class="btn btn-default" ng-model="data.droits[2]" btn-radio="'SES_VAL_L'">Lecture</label> 
+					<label class="btn btn-default" ng-model="data.droits[2]" btn-radio="'SES_VAL_A'">Aucun</label> 
+				</div>
+				<label ng-if="data.readonly && data.droits[2]=='SES_VAL_E'">Edition</label> 
+				<label ng-if="data.readonly && data.droits[2]=='SES_VAL_L'">Lecture</label> 
+				<label ng-if="data.readonly && data.droits[2]=='SES_VAL_A'">Aucun</label> 	
+			</div>
+		</div>
+		<div class="row" style="padding-bottom:3px;">
+			<div class="col-lg-5">Réservations de salles :</div>
+			<div class="col-lg-7">
+				<div class="btn-group" ng-if="!data.readonly">
+					<label class="btn btn-default" ng-model="data.droits[3]" btn-radio="'RES_SALLE_E'">Edition</label> 
+					<label class="btn btn-default" ng-model="data.droits[3]" btn-radio="'RES_SALLE_L'">Lecture</label> 
+					<label class="btn btn-default" ng-model="data.droits[3]" btn-radio="'RES_SALLE_A'">Aucun</label> 
+				</div>
+				<label ng-if="data.readonly && data.droits[3]=='RES_SALLE_E'">Edition</label> 
+				<label ng-if="data.readonly && data.droits[3]=='RES_SALLE_L'">Lecture</label> 
+				<label ng-if="data.readonly && data.droits[3]=='RES_SALLE_A'">Aucun</label> 	
+			</div>
+		</div>
+		<div class="row" style="padding-bottom:3px;">
+			<div class="col-lg-5">Absences :</div>
+			<div class="col-lg-7">
+				<div class="btn-group" ng-if="!data.readonly">
+					<label class="btn btn-default" ng-model="data.droits[4]" btn-radio="'ABS_E'">Edition</label> 
+					<label class="btn btn-default" ng-model="data.droits[4]" btn-radio="'ABS_L'">Lecture</label> 
+					<label class="btn btn-default" ng-model="data.droits[4]" btn-radio="'ABS_A'">Aucun</label> 
+				</div>
+				<label ng-if="data.readonly && data.droits[4]=='ABS_E'">Edition</label> 
+				<label ng-if="data.readonly && data.droits[4]=='ABS_L'">Lecture</label> 
+				<label ng-if="data.readonly && data.droits[4]=='ABS_A'">Aucun</label> 	
+			</div>
+		</div>
+		<div class="row" style="padding-bottom:3px;">
+			<div class="col-lg-5">Echanges :</div>
+			<div class="col-lg-7">
+				<div class="btn-group" ng-if="!data.readonly">
+					<label class="btn btn-default" ng-model="data.droits[5]" btn-radio="'ECH_E'">Edition</label> 
+					<label class="btn btn-default" ng-model="data.droits[5]" btn-radio="'ECH_L'">Lecture</label> 
+					<label class="btn btn-default" ng-model="data.droits[5]" btn-radio="'ECH_A'">Aucun</label> 
+				</div>
+				<label ng-if="data.readonly && data.droits[5]=='ECH_E'">Edition</label> 
+				<label ng-if="data.readonly && data.droits[5]=='ECH_L'">Lecture</label> 
+				<label ng-if="data.readonly && data.droits[5]=='ECH_A'">Aucun</label> 
+			</div>
+		</div>
+		<div class="row" style="padding-bottom:3px;">
+			<div class="col-lg-5">Avis :</div>
+			<div class="col-lg-7">
+				<div class="btn-group" ng-if="!data.readonly">
+					<label class="btn btn-default" ng-model="data.droits[6]" btn-radio="'AVIS_E'">Edition</label> 
+					<label class="btn btn-default" ng-model="data.droits[6]" btn-radio="'AVIS_L'">Lecture</label> 
+					<label class="btn btn-default" ng-model="data.droits[6]" btn-radio="'AVIS_A'">Aucun</label> 
+				</div>
+				<label ng-if="data.readonly && data.droits[6]=='AVIS_E'">Edition</label> 
+				<label ng-if="data.readonly && data.droits[6]=='AVIS_L'">Lecture</label> 
+				<label ng-if="data.readonly && data.droits[6]=='AVIS_A'">Aucun</label> 
+			</div>
+		</div>
+		<div class="row" style="padding-bottom:3px;">
+			<div class="col-lg-5">Utilisateurs :</div>
+			<div class="col-lg-7">
+				<div class="btn-group" ng-if="!data.readonly">
+					<label class="btn btn-default" ng-model="data.droits[7]" btn-radio="'UTIL_E'">Edition</label> 
+					<label class="btn btn-default" ng-model="data.droits[7]" btn-radio="'UTIL_L'">Lecture</label> 
+					<label class="btn btn-default" ng-model="data.droits[7]" btn-radio="'UTIL_A'">Aucun</label> 
+				</div>
+				<label ng-if="data.readonly && data.droits[7]=='UTIL_E'">Edition</label> 
+				<label ng-if="data.readonly && data.droits[7]=='UTIL_L'">Lecture</label> 
+				<label ng-if="data.readonly && data.droits[7]=='UTIL_A'">Aucun</label> 
+			</div>
+		</div>
+		<div class="row" style="padding-bottom:3px;">
+			<div class="col-lg-5">Profils :</div>
+			<div class="col-lg-7">
+				<div class="btn-group" ng-if="!data.readonly">
+					<label class="btn btn-default" ng-model="data.droits[8]" btn-radio="'PRF_E'">Edition</label> 
+					<label class="btn btn-default" ng-model="data.droits[8]" btn-radio="'PRF_L'">Lecture</label> 
+					<label class="btn btn-default" ng-model="data.droits[8]" btn-radio="'PRF_A'">Aucun</label> 
+				</div>
+				<label ng-if="data.readonly && data.droits[8]=='PRF_E'">Edition</label> 
+				<label ng-if="data.readonly && data.droits[8]=='PRF_L'">Lecture</label> 
+				<label ng-if="data.readonly && data.droits[8]=='PRF_A'">Aucun</label> 
+			</div>
+		</div>
+		<div class="row" style="padding-bottom:3px;">
+			<div class="col-lg-5">Sujets d'évaluation :</div>
+			<div class="col-lg-7">
+				<div class="btn-group" ng-if="!data.readonly">
+					<label class="btn btn-default" ng-model="data.droits[9]" btn-radio="'SUJ_EVAL_E'">Edition</label> 
+					<label class="btn btn-default" ng-model="data.droits[9]" btn-radio="'SUJ_EVAL_L'">Lecture</label> 
+					<label class="btn btn-default" ng-model="data.droits[9]" btn-radio="'SUJ_EVAL_A'">Aucun</label> 
+				</div>
+				<label ng-if="data.readonly && data.droits[9]=='SUJ_EVAL_E'">Edition</label> 
+				<label ng-if="data.readonly && data.droits[9]=='SUJ_EVAL_L'">Lecture</label> 
+				<label ng-if="data.readonly && data.droits[9]=='SUJ_EVAL_A'">Aucun</label> 
+			</div>
+		</div>
+		<div class="row" style="padding-bottom:3px;">
+			<div class="col-lg-5">Professionnels homologués :</div>
+			<div class="col-lg-7">
+				<div class="btn-group" ng-if="!data.readonly">
+					<label class="btn btn-default" ng-model="data.droits[10]" btn-radio="'PRF_HMG_E'">Edition</label> 
+					<label class="btn btn-default" ng-model="data.droits[10]" btn-radio="'PRF_HMG_L'">Lecture</label> 
+					<label class="btn btn-default" ng-model="data.droits[10]" btn-radio="'PRF_HMG_A'">Aucun</label> 
+				</div>
+				<label ng-if="data.readonly && data.droits[10]=='PRF_HMG_E'">Edition</label> 
+				<label ng-if="data.readonly && data.droits[10]=='PRF_HMG_L'">Lecture</label> 
+				<label ng-if="data.readonly && data.droits[10]=='PRF_HMG_A'">Aucun</label> 
+			</div>
+		</div>
+		<div class="row" style="padding-bottom:3px;">
+			<div class="col-lg-5">Titres professionnels :</div>
+			<div class="col-lg-7">
+				<div class="btn-group" ng-if="!data.readonly">
+					<label class="btn btn-default" ng-model="data.droits[11]" btn-radio="'TR_PRF_E'">Edition</label> 
+					<label class="btn btn-default" ng-model="data.droits[11]" btn-radio="'TR_PRF_L'">Lecture</label> 
+					<label class="btn btn-default" ng-model="data.droits[11]" btn-radio="'TR_PRF_A'">Aucun</label> 
+				</div>
+				<label ng-if="data.readonly && data.droits[11]=='TR_PRF_E'">Edition</label> 
+				<label ng-if="data.readonly && data.droits[11]=='TR_PRF_L'">Lecture</label> 
+				<label ng-if="data.readonly && data.droits[11]=='TR_PRF_A'">Aucun</label> 
+			</div>
+		</div>
+	</div>
+</div>

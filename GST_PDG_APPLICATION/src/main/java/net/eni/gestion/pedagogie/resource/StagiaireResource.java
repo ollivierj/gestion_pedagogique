@@ -13,4 +13,7 @@ import net.eni.gestion.pedagogie.modele.Stagiaire;
 public interface StagiaireResource extends AResource<Stagiaire, Integer> {
 	public ArrayList<NamedObjectMap> chargerStagiaireOrPromotionAutocomplete(
 			String pSearchText) throws GenericException;
+	
+	public ArrayList<NamedObjectMap> chargerStagiaireAutocomplete(
+			String pSearchText) throws GenericException;
 }

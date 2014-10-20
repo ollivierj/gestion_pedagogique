@@ -15,13 +15,4 @@ controllers.controller('wrapperCtrl', function($scope, $modal, modalService, $lo
 		$scope.titleSelected = title;
 	};
 	
-	// Afficher une fenêtre modal pour la saisie d'absences
-	$scope.afficherModalAbsence = function() {
-		var modalAbsences = $modal
-		.open({
-			templateUrl : 'partials/absence/formulaireAbsence.html',
-			controller : absencesCtrl
-		});
-	};
-
 });

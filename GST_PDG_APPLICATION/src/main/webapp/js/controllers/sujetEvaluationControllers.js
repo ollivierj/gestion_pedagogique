@@ -3,7 +3,7 @@
 controllers
 		.controller(
 				'sujetEvaluationsCtrl',
-				function($scope, $modal, $log, $timeout, SujetEvaluationsFactory, ModulesFactory) {
+				function($scope, $modal, $log, $timeout, toaster, SujetEvaluationsFactory, ModulesFactory) {
 					$scope.pagingOptions = SujetEvaluationsFactory.pagingOptions;		
 					$scope.sortOptions = SujetEvaluationsFactory.sortOptions;		
 					$scope.filterOptions = SujetEvaluationsFactory.filterOptions;
@@ -77,7 +77,16 @@ controllers
 											return SujetEvaluationsFactory.jsonschema.getData().$promise;
 										},
 										okTitle : function() {return "Enregistrer";},
-										ok : function() { return function(item){ return SujetEvaluationsFactory.create.doAction(item);}}
+										ok : function() { return function(item){
+											return SujetEvaluationsFactory.create.doAction(
+												item,
+												function(success) {
+													toaster.pop('success', null, "Sujet d'évaluation enregistré");
+												},
+												function(error) {
+													toaster.pop('error', null, error.message);
+												}		
+											);};}
 									}
 								});
 
@@ -147,7 +156,16 @@ controllers
 											return SujetEvaluationsFactory.jsonschema.getData().$promise;
 										},
 										okTitle : function() {return "Enregistrer";},
-										ok : function() { return function(item){ return SujetEvaluationsFactory.modify.doAction(item);}}
+										ok : function() { return function(item){ 
+											return SujetEvaluationsFactory.modify.doAction(
+												item,
+												function(success) {
+													toaster.pop('success', null, "Sujet d'évaluation enregistré");
+												},
+												function(error) {
+													toaster.pop('error', null, error.message);
+												}	
+											);};}
 									}
 								});
 
@@ -168,7 +186,16 @@ controllers
 										id : function() {return sujetEvaluationId},
 										title : function() {return "Suppression sujet d'évaluation";},
 										message : function() {return "Etes-vous sur de vouloir supprimer ce sujet d'évaluation ?";},
-										ok : function () { return function(id) {return SujetEvaluationsFactory.delete.doAction({id : id});};}
+										ok : function () { return function(id) {
+											return SujetEvaluationsFactory.delete.doAction(
+												{id : id},
+												function(success) {
+													toaster.pop('warning', null, "Sujet d'évaluation supprimé");
+												},
+												function(error) {
+													toaster.pop('error', null, error.message);
+												}	
+											);};}
 									}
 								});
 						modalDelete.result.then(function(selectedItem) {

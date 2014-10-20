@@ -71,7 +71,8 @@ public class Absence extends AModele<Integer> implements Serializable {
 		columnName = STAGIAIRE_FIELD_NAME,
 		foreign = true,
 		useGetSet = true,
-		canBeNull = false)
+		canBeNull = false,
+		foreignAutoRefresh = true)
 	private Stagiaire stagiaire = null;
    
 	@DatabaseField(
