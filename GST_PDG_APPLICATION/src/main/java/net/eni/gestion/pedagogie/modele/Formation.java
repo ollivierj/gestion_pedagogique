@@ -11,10 +11,10 @@ import java.util.Iterator;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang3.time.DateFormatUtils;
-
 import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
+
+import org.apache.commons.lang3.time.DateFormatUtils;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.j256.ormlite.field.DataType;

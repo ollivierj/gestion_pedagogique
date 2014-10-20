@@ -25,12 +25,8 @@ public class PlanningResourceImpl extends AResourceImpl<Planning, Long, Planning
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Planning> getElements(@QueryParam("debut")String dateDebut, @QueryParam("fin")String dateFin) throws GenericException {
-		System.out.println(dateDebut);
-		System.out.println(dateFin);
-		
+	public List<Planning> getElements(@QueryParam("debut")String dateDebut, @QueryParam("fin")String dateFin) throws GenericException {		
 		List<Planning> planningElements = service.getPlanningElement(dateDebut, dateFin);
-		System.out.println("planning " + planningElements);
 		return planningElements;
 	}
 

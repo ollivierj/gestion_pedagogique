@@ -29,7 +29,6 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
     		//Parcours des résultats pour les parse sur le bon format
     		_(result).forEach(function (res) {
     			//Création des éléments du planning
-    			console.log(res);
     			resultElements.push({
     				id: res.id, 
     				type: res.type, 
@@ -104,7 +103,10 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
 								break;
 								
         	case PLANNING_ELEMENTS.COURS: modalEditionInstance.templateUrl = 'partials/salle/instance/cours.html';
-        						modalEditionInstance.controller = 'formulaireReservationSalleCtrl';
+        						modalEditionInstance.controller = 'formCoursSalleCtrl';
+        						modalEditionInstance.resolve.data = function (CoursFactory) {
+        							return CoursFactory.detail.getData({id:event.entityId});
+        						};
 								break;
         }
         

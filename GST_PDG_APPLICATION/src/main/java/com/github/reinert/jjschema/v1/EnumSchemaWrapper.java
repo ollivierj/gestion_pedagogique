@@ -18,10 +18,10 @@
 
 package com.github.reinert.jjschema.v1;
 
+import java.math.BigDecimal;
+
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.github.reinert.jjschema.Nullable;
-
-import java.math.BigDecimal;
 
 /**
  * @author Danilo Reinert
