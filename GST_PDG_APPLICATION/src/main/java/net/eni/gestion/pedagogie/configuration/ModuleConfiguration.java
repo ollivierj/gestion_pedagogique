@@ -93,7 +93,7 @@ import net.eni.gestion.pedagogie.service.SujetEvaluationService;
 import net.eni.gestion.pedagogie.service.TitreProfessionnelService;
 import net.eni.gestion.pedagogie.service.UtilisateurService;
 import net.eni.gestion.pedagogie.service.implementation.AbsenceServiceImpl;
-import net.eni.gestion.pedagogie.service.implementation.AuthentificationImpl;
+import net.eni.gestion.pedagogie.service.implementation.AuthentificationServiceImpl;
 import net.eni.gestion.pedagogie.service.implementation.AvisServiceImpl;
 import net.eni.gestion.pedagogie.service.implementation.CoursServiceImpl;
 import net.eni.gestion.pedagogie.service.implementation.EchangeServiceImpl;
@@ -180,6 +180,6 @@ public class ModuleConfiguration extends AbstractModule {
     	bind(TitreProfessionnelService.class).to(TitreProfessionnelServiceImpl.class);
     	bind(UtilisateurService.class).to(UtilisateurServiceImpl.class);
     	bind(PlanningService.class).to(PlanningServiceImpl.class);
-    	bind(Authentification.class).to(AuthentificationImpl.class);
+    	bind(Authentification.class).to(AuthentificationServiceImpl.class);
     }
 }

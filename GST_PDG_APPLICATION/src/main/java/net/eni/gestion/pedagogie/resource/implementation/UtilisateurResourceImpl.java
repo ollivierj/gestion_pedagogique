@@ -35,7 +35,6 @@ public class UtilisateurResourceImpl extends AResourceImpl<Utilisateur, Integer,
     @Consumes(MediaType.APPLICATION_JSON)
 	public Utilisateur getAuthentification(Utilisateur utilisateur)
 			throws GenericException {
-    	
     	return service.checkLogin(utilisateur);
 	}
 }

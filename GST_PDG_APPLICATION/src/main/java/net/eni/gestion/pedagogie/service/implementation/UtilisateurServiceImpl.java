@@ -7,6 +7,7 @@ import java.util.List;
 import javax.naming.ldap.LdapContext;
 
 import net.eni.gestion.pedagogie.DAO.DroitDao;
+import net.eni.gestion.pedagogie.DAO.DroitProfilDao;
 import net.eni.gestion.pedagogie.DAO.ProfilDao;
 import net.eni.gestion.pedagogie.DAO.UtilisateurDao;
 import net.eni.gestion.pedagogie.authentification.ActiveDirectory;
@@ -29,17 +30,18 @@ public class UtilisateurServiceImpl extends AServiceImpl<Utilisateur, Integer, U
 
 	
 	protected final ProfilDao profilDao;
-	protected final DroitDao droitDao;
+	protected final DroitProfilDao droitProfilDao;
+	
        /**
      * Constructeur
      * @param DAO utilisateur
      * @throws SQLException
      */
     @Inject
-    public UtilisateurServiceImpl(UtilisateurDao pUtilisateurDao, ProfilDao profilDao, DroitDao droitDao) throws SQLException {
+    public UtilisateurServiceImpl(UtilisateurDao pUtilisateurDao, ProfilDao profilDao, DroitProfilDao droitProfilDao) throws SQLException {
         super(pUtilisateurDao);
         this.profilDao = profilDao;
-        this.droitDao = droitDao;
+        this.droitProfilDao = droitProfilDao;
         
     }
 
@@ -50,7 +52,6 @@ public class UtilisateurServiceImpl extends AServiceImpl<Utilisateur, Integer, U
 		boolean BDDauth = false;
 		Utilisateur utilBDD = null;
 		User userLDAP = null;
-		List<String[]> listeDroit = null;
 		
 		// --------------- AUTHENTIFICATION LDAP --------------- //
 		try{
@@ -125,15 +126,8 @@ public class UtilisateurServiceImpl extends AServiceImpl<Utilisateur, Integer, U
 		try {
 			utilBDD = dao.chargerDetail(IDutilBDD);
 			Profil p = this.profilDao.chargerDetail(utilBDD.getProfil().getId());
-			List<String[]> listeDroit = this.droitDao.chargerParIdProfil(utilBDD.getProfil().getId());
-			
-			ArrayList<String> droitList = new ArrayList<String>();
-			for(int i=0;i<listeDroit.size();i++){
-				for(int y=0;y<(listeDroit.get(i).length);y++){
-				    droitList.add(listeDroit.get(i)[y]);
-				} 
-			} 
-			p.setDroits(droitList);
+			ArrayList<String> listeDroit = this.droitProfilDao.getListeDroits(utilBDD.getProfil().getId());
+			p.setDroits(listeDroit);
 			utilBDD.setProfil(p);
 		} catch (Exception e) {
 			e.printStackTrace();
