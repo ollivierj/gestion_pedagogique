@@ -1,6 +1,9 @@
 package net.eni.gestion.pedagogie.DAO;
 
+import java.util.List;
+
 import net.eni.gestion.pedagogie.modele.Droit;
+import net.eni.gestion.pedagogie.modele.Utilisateur;
 
 /**
  * @author jollivier
@@ -10,5 +13,5 @@ import net.eni.gestion.pedagogie.modele.Droit;
 public interface DroitDao extends ADao<Droit, Integer> {
 
 	
-
+	public List<String[]> chargerParIdProfil(Integer id) throws Exception;
 }

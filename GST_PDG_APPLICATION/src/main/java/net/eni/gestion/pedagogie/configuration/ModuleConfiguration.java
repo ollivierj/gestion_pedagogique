@@ -73,6 +73,7 @@ import net.eni.gestion.pedagogie.DAO.implementation.UniteFormationDaoImpl;
 import net.eni.gestion.pedagogie.DAO.implementation.UniteParFormationDaoImpl;
 import net.eni.gestion.pedagogie.DAO.implementation.UtilisateurDaoImpl;
 import net.eni.gestion.pedagogie.service.AbsenceService;
+import net.eni.gestion.pedagogie.service.Authentification;
 import net.eni.gestion.pedagogie.service.AvisService;
 import net.eni.gestion.pedagogie.service.CoursService;
 import net.eni.gestion.pedagogie.service.EchangeService;
@@ -92,6 +93,7 @@ import net.eni.gestion.pedagogie.service.SujetEvaluationService;
 import net.eni.gestion.pedagogie.service.TitreProfessionnelService;
 import net.eni.gestion.pedagogie.service.UtilisateurService;
 import net.eni.gestion.pedagogie.service.implementation.AbsenceServiceImpl;
+import net.eni.gestion.pedagogie.service.implementation.AuthentificationImpl;
 import net.eni.gestion.pedagogie.service.implementation.AvisServiceImpl;
 import net.eni.gestion.pedagogie.service.implementation.CoursServiceImpl;
 import net.eni.gestion.pedagogie.service.implementation.EchangeServiceImpl;
@@ -178,5 +180,6 @@ public class ModuleConfiguration extends AbstractModule {
     	bind(TitreProfessionnelService.class).to(TitreProfessionnelServiceImpl.class);
     	bind(UtilisateurService.class).to(UtilisateurServiceImpl.class);
     	bind(PlanningService.class).to(PlanningServiceImpl.class);
+    	bind(Authentification.class).to(AuthentificationImpl.class);
     }
 }

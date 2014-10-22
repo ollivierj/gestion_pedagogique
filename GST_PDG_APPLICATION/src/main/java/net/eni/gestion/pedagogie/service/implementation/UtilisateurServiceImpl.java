@@ -1,9 +1,12 @@
 package net.eni.gestion.pedagogie.service.implementation;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.ldap.LdapContext;
 
+import net.eni.gestion.pedagogie.DAO.DroitDao;
 import net.eni.gestion.pedagogie.DAO.ProfilDao;
 import net.eni.gestion.pedagogie.DAO.UtilisateurDao;
 import net.eni.gestion.pedagogie.authentification.ActiveDirectory;
@@ -26,15 +29,17 @@ public class UtilisateurServiceImpl extends AServiceImpl<Utilisateur, Integer, U
 
 	
 	protected final ProfilDao profilDao;
+	protected final DroitDao droitDao;
        /**
      * Constructeur
      * @param DAO utilisateur
      * @throws SQLException
      */
     @Inject
-    public UtilisateurServiceImpl(UtilisateurDao pUtilisateurDao, ProfilDao profilDao) throws SQLException {
+    public UtilisateurServiceImpl(UtilisateurDao pUtilisateurDao, ProfilDao profilDao, DroitDao droitDao) throws SQLException {
         super(pUtilisateurDao);
         this.profilDao = profilDao;
+        this.droitDao = droitDao;
         
     }
 
@@ -45,7 +50,7 @@ public class UtilisateurServiceImpl extends AServiceImpl<Utilisateur, Integer, U
 		boolean BDDauth = false;
 		Utilisateur utilBDD = null;
 		User userLDAP = null;
-		
+		List<String[]> listeDroit = null;
 		
 		// --------------- AUTHENTIFICATION LDAP --------------- //
 		try{
@@ -60,7 +65,6 @@ public class UtilisateurServiceImpl extends AServiceImpl<Utilisateur, Integer, U
 			System.out.println("identifiant MDP incorrect LDAP");
 		}
 		
-		
 		// --------------- AUTHENTIFICATION BDD --------------- //
 		try {
 			//check avec login only si identification LDAP ok
@@ -68,8 +72,8 @@ public class UtilisateurServiceImpl extends AServiceImpl<Utilisateur, Integer, U
 			if(sIDutilBDD != null){
 				//authentification BDD OK
 				BDDauth = true;
-				Integer IDutilBDD  = Integer.parseInt(sIDutilBDD);
-				utilBDD = dao.chargerDetail(IDutilBDD);
+				utilBDD = chargeLoginInfo(sIDutilBDD);
+				
 				//mise a jour du mot de passe en BDD
 				utilBDD.setMotPasse(utilisateur.getMotPasse());
 				dao.mettreAJour(utilBDD);
@@ -100,11 +104,40 @@ public class UtilisateurServiceImpl extends AServiceImpl<Utilisateur, Integer, U
 			newUtil.setLogin(utilisateur.getLogin());
 			try {
 				dao.ajouter(newUtil);
+				String sIDutilBDD = dao.checkConnection(newUtil, true);
+				utilBDD = chargeLoginInfo(sIDutilBDD);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		
+		return utilBDD;
+	}
+
+	/**
+	 * 
+	 * @param sIDutilBDD
+	 * @return
+	 */
+	private Utilisateur chargeLoginInfo(String sIDutilBDD) {
+		Integer IDutilBDD  = Integer.parseInt(sIDutilBDD);
+		Utilisateur utilBDD = null;
+		try {
+			utilBDD = dao.chargerDetail(IDutilBDD);
+			Profil p = this.profilDao.chargerDetail(utilBDD.getProfil().getId());
+			List<String[]> listeDroit = this.droitDao.chargerParIdProfil(utilBDD.getProfil().getId());
+			
+			ArrayList<String> droitList = new ArrayList<String>();
+			for(int i=0;i<listeDroit.size();i++){
+				for(int y=0;y<(listeDroit.get(i).length);y++){
+				    droitList.add(listeDroit.get(i)[y]);
+				} 
+			} 
+			p.setDroits(droitList);
+			utilBDD.setProfil(p);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return utilBDD;
 	}
 
