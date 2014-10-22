@@ -2,11 +2,9 @@ package net.eni.gestion.pedagogie.service.implementation;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.naming.ldap.LdapContext;
 
-import net.eni.gestion.pedagogie.DAO.DroitDao;
 import net.eni.gestion.pedagogie.DAO.DroitProfilDao;
 import net.eni.gestion.pedagogie.DAO.ProfilDao;
 import net.eni.gestion.pedagogie.DAO.UtilisateurDao;
