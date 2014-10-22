@@ -1,4 +1,4 @@
-package net.eni.gestion.pedagogie.resource.implementation;
+package net.eni.gestion.pedagogie.commun.composant;
 
 import java.util.Arrays;
 import java.util.List;
