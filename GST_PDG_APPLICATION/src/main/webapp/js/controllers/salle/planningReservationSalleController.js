@@ -2,54 +2,56 @@
 
 /* App Module */
 
-controllers.controller('planningReservationSalleCtrl', function($scope, $location, modalService, SallesFactory, PromotionsFactory, SallesReserveesFactory, AnimateursLibresFactory, PlanningFactory, $filter, PLANNING_ELEMENTS) {
-	var date = new Date();
-    var d = date.getDate();
-    var m = date.getMonth();
-    var y = date.getFullYear();
-    
-    //Assignation des couleur pour les 3 types d'éléments
+controllers.controller('planningReservationSalleCtrl', function($scope, $location, 
+		modalService, SallesFactory, PromotionsFactory, SallesReserveesFactory, AnimateursLibresFactory, 
+		PlanningFactory, $filter, PLANNING_ELEMENTS, planningElements) {
+
+	
+	//Assignation des couleur pour les 3 types d'éléments
     $scope.sessionsValidation = {color: '#70B200'};
     $scope.evaluations = {color: '#FF4219'};
     $scope.cours = {color: '#1242B2'};
     //Construction d'un tableau contenant les constantes de types d'éléments (Affichage de la combo box)
     $scope.typeElements = [{typeName: PLANNING_ELEMENTS.SESSION}, {typeName: PLANNING_ELEMENTS.EVALUATION}, {typeName: PLANNING_ELEMENTS.COURS}];
     
+    
+	//Transforme le résultat des éléments en éléments graphique correspondant à ui calendar.
+	var initElements = function (results) {
+    	var elements = [];
+		//Parcours des résultats pour les parse sur le bon format
+		_(results).forEach(function (res) {
+			//Création des éléments du planning
+			elements.push({
+				id: res.id, 
+				type: res.type, 
+				entityId: res.elementId,
+				title: res.libelle + ' - ' + (res.salles != null ? res.salles : 'Aucune salle'), 
+				start: new Date(res.debut),
+				end: new Date(res.fin)
+			});
+		});
+		
+		//Ajout des élements dans les tableaux correpondants.
+		$scope.evaluations.events = _.filter(elements, {type:'Evaluation'});
+	    $scope.sessionsValidation.events = _.filter(elements, {type:'Session'});
+		$scope.cours.events = _.filter(elements, {type:'Cours'});
+		
+		
+		// Rafraichissement de la vue
+		if(!$scope.$$phase) {
+			$scope.$digest();
+		}
+    };
+    
+    //Utilisé lors de l'affichage du planning la première fois
+    initElements(planningElements)
+    
     //Récupère les éléments du planning en fonction d'une date
     $scope.getPlanningElements = function(date) {
-    	//Transformation de la date courante en date de début et de fin
-    	var debut = $filter('date')(date, 'yyyy-dd-MM');
-    	date.setMonth(date.getMonth() + 1);
-    	var fin = $filter('date')(date, 'yyyy-dd-MM');
-    	
     	//Appel au service pour récupérer les éléments du planning 
     	//en fonction de la date de début et de fin
-    	PlanningFactory.elements.query({debut: debut, fin: fin}, function(result) {
-    		var resultElements = [];
-    		//Parcours des résultats pour les parse sur le bon format
-    		_(result).forEach(function (res) {
-    			//Création des éléments du planning
-    			resultElements.push({
-    				id: res.id, 
-    				type: res.type, 
-    				entityId: res.elementId,
-    				title: res.libelle + ' - ' + (res.salles != null ? res.salles : 'Aucune salle'), 
-    				start: new Date(res.debut),
-    				end: new Date(res.fin)
-    			});
-    		});
-    		
-    		//Ajout des élements dans les tableaux correpondants.
-    		$scope.evaluations.events = _.filter(resultElements, {type:'Evaluation'});
-    	    $scope.sessionsValidation.events = _.filter(resultElements, {type:'Session'});
-    		$scope.cours.events = _.filter(resultElements, {type:'Cours'});
-    		
-    		
-    		// Rafraichissement de la vue
-    		if(!$scope.$$phase) {
-    			$scope.$digest();
-    		}
-		
+    	PlanningFactory.initElements(date).then(function(result) {
+    		initElements(result);
     	});
     };
     
@@ -65,9 +67,6 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
             },
             salles: function (SallesFactory) {
                 return SallesFactory.query().$promise;
-            },
-            promotions: function (PromotionsFactory) {
-                return PromotionsFactory.query().$promise;
             },
             sallesReservees : function (SallesReserveesFactory) {
                 return SallesReserveesFactory.query().$promise;
@@ -91,21 +90,21 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
         	case PLANNING_ELEMENTS.SESSION: modalEditionInstance.templateUrl = 'partials/salle/instance/sessionsValidation.html';
         						modalEditionInstance.controller = 'formSessionSalleCtrl';
         						modalEditionInstance.resolve.data = function (SessionValidationsFactory) {
-        							return SessionValidationsFactory.detail.getData({id:event.entityId});
+        							return SessionValidationsFactory.detail.getData({id:event.entityId}).$promise;
         						};
         						break;
         						
         	case PLANNING_ELEMENTS.EVALUATION: modalEditionInstance.templateUrl = 'partials/salle/instance/evaluations.html';
         						modalEditionInstance.controller = 'formEvaluationSalleCtrl';
         						modalEditionInstance.resolve.data = function (EvaluationsFactory) {
-        							return EvaluationsFactory.detail.getData({id:event.entityId});
+        							return EvaluationsFactory.detail.getData({id:event.entityId}).$promise;
         						};
 								break;
 								
         	case PLANNING_ELEMENTS.COURS: modalEditionInstance.templateUrl = 'partials/salle/instance/cours.html';
         						modalEditionInstance.controller = 'formCoursSalleCtrl';
         						modalEditionInstance.resolve.data = function (CoursFactory) {
-        							return CoursFactory.detail.getData({id:event.entityId});
+        							return CoursFactory.detail.getData({id:event.entityId}).$promise;
         						};
 								break;
         }

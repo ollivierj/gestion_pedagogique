@@ -1,24 +1,33 @@
 var formSessionSalleCtrl = function($scope, $modalInstance, $filter,
-		items, salles, sallesReservees, promotions, getByIdFilter, data) {
+		items, salles, sallesReservees, getByIdFilter, data) {
 
-	
-	console.log('data session');
-	console.log(data);
+
+	//Créé une map avec le libelle de la formation
+	$scope.promotions = _.transform(data.sessionValidationStagiaires, function(result, num) {
+		if (_.find(result, {'name' : num.stagiaire.promotion.libelle})) {
+			_.find(result, {'name' : num.stagiaire.promotion.libelle}).stagiaires.push(num.stagiaire);
+		} else {
+			result.push({name : num.stagiaire.promotion.libelle, stagiaires : [num.stagiaire]});
+		}
+	});
 	
 	$scope.info = "";
 	$scope.referentielSalles = salles;
-	$scope.promotions = promotions;
+	
 	$scope.salles = sallesReservees;
 	$scope.animateursLibres = [];
 	$scope.getClassName = function(id) {
 		return getByIdFilter($scope.referentielSalles, id).nom;
 	};
-	$scope.promotions.sort(function(promotion1, promotion2) {
+	
+	/*$scope.promotions.sort(function(promotion1, promotion2) {
 		return promotion1.sortOrder - promotion2.sortOrder;
-	});
+	});*/
+	
 	$scope.togglePromotion = function(promotion) {
 		promotion.collapsed = !promotion.collapsed;
 	};
+	
 	$scope.toggleSalle = function(salle) {
 		salle.collapsed = !salle.collapsed;
 	};
@@ -64,20 +73,16 @@ var formSessionSalleCtrl = function($scope, $modalInstance, $filter,
 		return array;
 	};
 
-	$scope.promotions.sort(function(promotion1, promotion2) {
-		return promotion1.sortOrder - promotion2.sortOrder;
-	});
-
 	$scope.addSalle = function() {
-$scope.salles.push( {
-    "sortOrder": salles.length,
-    "type": "salle",
-    "id": salles.length,
-    "editing": true,
-    "collapsed" : true,
-    "stagiaires": [
-          ]
-  });
+		$scope.salles.push( {
+		    "sortOrder": salles.length,
+		    "type": "salle",
+		    "id": salles.length,
+		    "editing": true,
+		    "collapsed" : true,
+		    "stagiaires": [
+		          ]
+		  });
 	};
 
 	$scope.editSalle = function(salle) {

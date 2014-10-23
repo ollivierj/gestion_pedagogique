@@ -38,15 +38,17 @@
 					
 				</li>
 			</ol>
-		</div>
+		</div><!-- ui-tree stagiaire -->
 
 
 		<div class="col-xs-6" ui-tree="options">
-			<label>Salles réservées</label><a href="" style="margin-left:5px;"  class="btn btn-danger btn-xs" data-nodrag
-								ng-click="addSalle()"><i
-								class="glyphicon glyphicon-plus" ></i></a>
+			<label>Salles réservées</label>
+			<a href="" style="margin-left:5px;" class="btn btn-primary btn-xs" data-nodrag ng-click="addSalle()">
+				<i class="glyphicon glyphicon-plus" ></i>
+			</a>
 			<ol ui-tree-nodes ng-model="salles" class="node" data-type="salle">
 				<li ng-repeat="salle in salles" class="node" ui-tree-node>
+				
 					<div class="group-title angular-ui-tree-handle"
 						ng-show="!salle.editing">
 						<a href="" class="btn btn-danger btn-xs pull-right" data-nodrag
@@ -58,11 +60,13 @@
 						<div class="tree-node-content">
 						<a class="btn btn-success btn-xs" data-nodrag ng-click="toggleSalle(salle)"><span class="glyphicon" ng-class="{'glyphicon-chevron-right': salle.collapsed, 'glyphicon-chevron-down': !salle.collapsed}"></span></a>
 						&nbsp;{{getClassName(salle.id)}}</div>
-					</div>
+					</div><!-- grouptitle -->
+					
 					<div class="group-title angular-ui-tree-handle" data-nodrag
 						ng-show="salle.editing">
 						<form class="form-inline" role="form">
 							<div class="form-group">
+								
 								<div class="row">
 									<div class="col-xs-6">
 										<label for="salleSelectionnee">Salle</label> <span
@@ -76,9 +80,9 @@
 											class="form-control" required>
 											<option value=""></option>
 										</select>
-
 									</div>
-								</div>
+								</div><!-- row salle -->
+								
 								<div class="top-buffer">
 									<div class="row">
 										<div class="col-xs-6">
@@ -95,21 +99,20 @@
 											</select>
 										</div>
 									</div>
-								</div>
-							</div>
+								</div><!-- animateur -->
+								
+							</div><!-- form group -->
 
 							<div class="modal-footer-node">
 								<button type="submit" class="btn btn-default"
 									ng-click="cancelEditingSalle(salle)">Annuler</button>
 								<button type="submit" class="btn btn-default"
 									ng-click="saveSalle(salle)">Enregistrer</button>
-
-							</div>
-
+							</div><!-- modal footer node -->
 						</form>
-					</div>
-					<ol ng-hide="salle.collapsed" ui-tree-nodes ng-model="salle.stagiaires" data-type="stagiaire"
-						class="node">
+					</div><!-- edition de l'onglet -->
+					
+					<ol ng-hide="salle.collapsed" ui-tree-nodes ng-model="salle.stagiaires" data-type="stagiaire" class="node">
 						<li ng-repeat="stagiaire in salle.stagiaires" ui-tree-node
 							class="node">
 							<div class="category-title angular-ui-tree-handle">
@@ -118,13 +121,15 @@
 									class="glyphicon glyphicon-remove"></i></a>
 								<div>&nbsp;{{stagiaire.name}}</div>
 							</div>
-						</li>
-					</ol>
-				</li>
-			</ol>
-		</div>
-	</div>
-</div>
+						</li><!-- repeat -->
+					</ol><!-- Element enfant -->
+					
+				</li><!-- ui-tree-node repeat salle -->
+			</ol><!-- ui-tree-nodes salles -->
+			
+		</div><!-- ui-tree -->
+	</div><!-- panel-body -->
+</div><!-- modal body -->
 
 <div class="modal-footer">
 	<button name="annulerSubmit" data-ng-disabled="progress.active()"
