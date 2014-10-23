@@ -42,9 +42,10 @@
 
 
 		<div class="col-xs-6" ui-tree="options">
-			<label>Salles réservées</label><a href="" style="margin-left:5px;"  class="btn btn-danger btn-xs" data-nodrag
-								ng-click="addSalle()"><i
-								class="glyphicon glyphicon-plus" ></i></a>
+			<label>Salles réservées</label>
+			<a href="" style="margin-left:5px;" class="btn btn-primary btn-xs" data-nodrag ng-click="addSalle()">
+				<i class="glyphicon glyphicon-plus" ></i>
+			</a>
 			<ol ui-tree-nodes ng-model="salles" class="node" data-type="salle">
 				<li ng-repeat="salle in salles" class="node" ui-tree-node>
 					<div class="group-title angular-ui-tree-handle"

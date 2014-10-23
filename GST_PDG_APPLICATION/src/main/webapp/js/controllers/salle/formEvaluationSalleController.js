@@ -1,5 +1,5 @@
 var formEvaluationSalleCtrl = function($scope, $modalInstance, $filter,
-		items, salles, sallesReservees, promotions, getByIdFilter, data) {
+		items, salles, sallesReservees, getByIdFilter, data) {
 
 	
 	console.log('data eval');	

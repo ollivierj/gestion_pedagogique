@@ -91,7 +91,12 @@ var ng_gst_pdg = angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid',
 		state('salles', {
 			url: '/salles',
 			templateUrl: 'partials/salle/planningReservationSalle.html',
-			controller: 'planningReservationSalleCtrl'
+			controller: 'planningReservationSalleCtrl',
+			resolve: {
+				planningElements : function(PlanningFactory) {
+					return PlanningFactory.initElements(new Date());
+				} 
+			}
 		}).
 		state('editionSalle', {
 			url: '/salle/editer/:id',

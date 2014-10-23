@@ -12,17 +12,17 @@
 
 		<div class="col-xs-6" ui-tree="options">
 			<label>Stagiaires inscrits au cours</label>
-			<ol ui-tree-nodes ng-model="promotions" class="node"
-				data-type="promotion">
+			<ol ui-tree-nodes ng-model="promotions" class="node" data-type="promotion">
 				<li ng-repeat="promotion in promotions" class="node" ui-tree-node>
+					
 					<div class="group-title angular-ui-tree-handle"
 						ng-show="!promotion.editing">
-
-        
 						<div class="tree-node-content">
-						<a class="btn btn-success btn-xs" data-nodrag ng-click="togglePromotion(promotion)"><span class="glyphicon" ng-class="{'glyphicon-chevron-right': promotion.collapsed, 'glyphicon-chevron-down': !promotion.collapsed}"></span></a>
-						
-						&nbsp;Promotion {{promotion.name}}</div>
+							<a class="btn btn-success btn-xs" data-nodrag ng-click="togglePromotion(promotion)">
+								<span class="glyphicon" ng-class="{'glyphicon-chevron-right': promotion.collapsed, 'glyphicon-chevron-down': !promotion.collapsed}"></span>
+							</a>
+							&nbsp;Promotion {{promotion.name}}
+						</div>
 					</div>
 					
 					<ol ng-hide="promotion.collapsed" ui-tree-nodes ng-model="promotion.stagiaires" class="node"
@@ -31,20 +31,21 @@
 							ui-tree-node>
 							<div class="category-title angular-ui-tree-handle">
 
-								<div>&nbsp;{{stagiaire.name}}</div>
+								<div>&nbsp;{{stagiaire.nom}}&nbsp;{{stagiaire.prenom}}</div>
 							</div>
 						</li>
 					</ol>
 					
-				</li>
-			</ol>
-		</div>
+				</li><!-- ng-repeat promotion -->
+			</ol><!-- ui-tree-nodes promotion -->
+		</div><!-- ui-tree promotion -->
 
 
 		<div class="col-xs-6" ui-tree="options">
-			<label>Salles réservées</label><a href="" style="margin-left:5px;"  class="btn btn-danger btn-xs" data-nodrag
-								ng-click="addSalle()"><i
-								class="glyphicon glyphicon-plus" ></i></a>
+			<label>Salles réservées</label>
+			<a href="" style="margin-left:5px;" class="btn btn-primary btn-xs" data-nodrag ng-click="addSalle()">
+				<i class="glyphicon glyphicon-plus"></i>
+			</a>
 			<ol ui-tree-nodes ng-model="salles" class="node" data-type="salle">
 				<li ng-repeat="salle in salles" class="node" ui-tree-node>
 					<div class="group-title angular-ui-tree-handle"
@@ -82,9 +83,10 @@
 								<div class="top-buffer">
 									<div class="row">
 										<div class="col-xs-6">
-											<label for="animateurSelectionne">Animateur</label> <span
-												class="label label-danger"
-												data-ng-show="submitted && helpForm.activitesPlanifiees.$error.required">Required!</span>
+											<label for="animateurSelectionne">Animateur</label> 
+											<span class="label label-danger" data-ng-show="submitted && helpForm.activitesPlanifiees.$error.required">
+												Required!
+											</span>
 										</div>
 										<div class="col-xs-6">
 											<select name="animateurSelectionne"
@@ -121,10 +123,11 @@
 						</li>
 					</ol>
 				</li>
-			</ol>
-		</div>
-	</div>
-</div>
+			</ol><!-- ui-tree-nodes salle -->
+		</div><!-- ui-tree salle -->
+		
+	</div><!-- panel-body -->
+</div><!-- modal-body -->
 
 <div class="modal-footer">
 	<button name="annulerSubmit" data-ng-disabled="progress.active()"
