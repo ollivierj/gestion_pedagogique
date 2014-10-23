@@ -24,5 +24,4 @@ public class DroitDaoImpl extends ADaoImpl<Droit, Integer> implements DroitDao{
 		super(Connexion.getConnexion(), Droit.class);
 	}
 
-
 }

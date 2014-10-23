@@ -354,6 +354,42 @@ public class ProfessionnelHomologue extends AModele<Integer> implements Serializ
 	public void setPermis(Boolean permis) {
 		this.permis = permis;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder lStrStringBuilder = new StringBuilder();
+		lStrStringBuilder.append((null!=getCivilite())?getCivilite():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getPrenom())?getPrenom():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getNom())?getNom():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getFormatedDateNaissance())?getFormatedDateNaissance():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getCodeNationalite())?getCodeNationalite():"");
+		lStrStringBuilder.append(" ");
+		lStrStringBuilder.append((null!=getAdresse1())?getAdresse1():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getAdresse2())?getAdresse2():"");
+		lStrStringBuilder.append(" ");
+		lStrStringBuilder.append((null!=getAdresse3())?getAdresse3():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getVille())?getVille():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getCodePostal())?getCodePostal():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getCodeRegion())?getCodeRegion():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getEmail())?getEmail():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getPermis())?(true==getPermis())?"Oui":"Non":"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getTelephoneFixe())?getTelephoneFixe():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getTelephonePortable())?getTelephonePortable():"");
+		lStrStringBuilder.append(";");
+		return lStrStringBuilder.toString();
+	}
 
 
 

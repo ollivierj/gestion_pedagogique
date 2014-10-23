@@ -2,7 +2,7 @@
 controllers.
 	controller(
 		'profilsCtrl', 
-		function($scope, $modal, $log, $timeout, toaster, ProfilsFactory) {
+		function($scope, $modal, $log, $timeout, toaster, ProfilsFactory, FichiersFactory) {
 			$scope.pagingOptions = ProfilsFactory.pagingOptions;		
 			$scope.sortOptions = ProfilsFactory.sortOptions;		
 			$scope.filterOptions = ProfilsFactory.filterOptions;
@@ -55,6 +55,10 @@ controllers.
 			$scope.afficherFenetreEdition = function(){
 				$scope.ajouterProfil();
 			}
+			
+			$scope.exporter = function(){
+				FichiersFactory.exporter('/ng_gst_pdg/web/profils/csv', $scope.pagingOptions, $scope.filterOptions, $scope.sortOptions);
+			};
 			
 			$scope.ajouterProfil = function(
 					profilId) {

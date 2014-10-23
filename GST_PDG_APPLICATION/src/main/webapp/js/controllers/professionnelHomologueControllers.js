@@ -3,7 +3,7 @@
 controllers
 		.controller(
 				'professionelHomologuesCtrl',
-				function($scope, $modal, $log, $timeout, toaster, ProfessionnelHomologuesFactory, TitreProfessionnelsFactory) {
+				function($scope, $modal, $log, $timeout, toaster, ProfessionnelHomologuesFactory, TitreProfessionnelsFactory, FichiersFactory) {
 					$scope.pagingOptions = ProfessionnelHomologuesFactory.pagingOptions;		
 					$scope.sortOptions = ProfessionnelHomologuesFactory.sortOptions;		
 					$scope.filterOptions = ProfessionnelHomologuesFactory.filterOptions;
@@ -78,6 +78,10 @@ controllers
 					$scope.afficherFenetreEdition = function(){
 						$scope.ajouterProfessionnelHomologue();
 					}
+					
+					$scope.exporter = function(){
+						FichiersFactory.exporter('/ng_gst_pdg/web/professionnelHomologues/csv', $scope.pagingOptions, $scope.filterOptions, $scope.sortOptions);
+					};
 					
 					$scope.ajouterProfessionnelHomologue = function(
 							professionnelHomologueId) {

@@ -463,5 +463,57 @@ public class StagiairePromotion extends AModele<Integer> implements Serializable
 	public void setPromotion(Promotion promotion) {
 		this.promotion = promotion;
 	}	
+	
+	@Override
+	public String toString() {
+		StringBuilder lStrStringBuilder = new StringBuilder();
+		lStrStringBuilder.append((null!=getPhoto())?getPhoto():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getDateDernierEnvoiDoc())?getDateDernierEnvoiDoc():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getCodePromotion())?getCodePromotion():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getLibellePromotion())?getLibellePromotion():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getDebutPromotion())?getDebutPromotion():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getFinPromotion())?getFinPromotion():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getHistorique())?getHistorique():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getRepertoire())?getRepertoire():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getCivilite())?getCivilite():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getPrenom())?getPrenom():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getNom())?getNom():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getDateNaissance())?getDateNaissance():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getCodeNationalite())?getCodeNationalite():"");
+		lStrStringBuilder.append(" ");
+		lStrStringBuilder.append((null!=getAdresse1())?getAdresse1():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getAdresse2())?getAdresse2():"");
+		lStrStringBuilder.append(" ");
+		lStrStringBuilder.append((null!=getAdresse3())?getAdresse3():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getVille())?getVille():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getCodePostal())?getCodePostal():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getCodeRegion())?getCodeRegion():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getEmail())?getEmail():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getPermis())?(true==getPermis())?"Oui":"Non":"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getTelephoneFixe())?getTelephoneFixe():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getTelephonePortable())?getTelephonePortable():"");
+		lStrStringBuilder.append(";");
+		return lStrStringBuilder.toString();
+	}
 
 }

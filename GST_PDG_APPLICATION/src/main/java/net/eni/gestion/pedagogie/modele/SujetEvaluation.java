@@ -102,5 +102,19 @@ public class SujetEvaluation extends AModele<Integer> implements Serializable {
 	public void setAuteur(Utilisateur auteur) {
 		this.auteur = auteur;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder lStrStringBuilder = new StringBuilder();
+		lStrStringBuilder.append((null!=getModule())?(null!=getModule().getLibelle())?getModule().getLibelle():"":"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getVersion())?getVersion():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getAuteur())?(null!=getAuteur().getPrenom())?getAuteur().getPrenom():"":"");
+		lStrStringBuilder.append(" ");
+		lStrStringBuilder.append((null!=getAuteur())?(null!=getAuteur().getNom())?getAuteur().getNom():"":"");
+		lStrStringBuilder.append(" ");
+		return lStrStringBuilder.toString();
+	}
 
 }

@@ -199,4 +199,20 @@ public class SessionValidation extends AModele<Integer> implements Serializable 
 		this.dateFin=DateHelper.datifyString(formatedDateFin, "yyyy-MM-dd'T'HH:mm:ss");
 		this.formatedDateFin = formatedDateFin;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder lStrStringBuilder = new StringBuilder();
+		lStrStringBuilder.append((null!=getTitreProfessionnel())?(null!=getTitreProfessionnel().getCode())?getTitreProfessionnel().getCode():"":"");
+		lStrStringBuilder.append(" ");
+		lStrStringBuilder.append((null!=getFormatedDateDebut())?getFormatedDateDebut():"");
+		lStrStringBuilder.append(" ");
+		lStrStringBuilder.append((null!=getFormatedDateFin())?getFormatedDateFin():"");
+		lStrStringBuilder.append(" ");
+		lStrStringBuilder.append((null!=getAuteur())?(null!=getAuteur().getPrenom())?getAuteur().getPrenom():"":"");
+		lStrStringBuilder.append(" ");
+		lStrStringBuilder.append((null!=getAuteur())?(null!=getAuteur().getNom())?getAuteur().getNom():"":"");
+		lStrStringBuilder.append(";");
+		return lStrStringBuilder.toString();
+	}
 }

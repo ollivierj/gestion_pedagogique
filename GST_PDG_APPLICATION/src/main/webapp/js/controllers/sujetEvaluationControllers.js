@@ -3,7 +3,7 @@
 controllers
 		.controller(
 				'sujetEvaluationsCtrl',
-				function($scope, $modal, $log, $timeout, toaster, SujetEvaluationsFactory, ModulesFactory) {
+				function($scope, $modal, $log, $timeout, toaster, SujetEvaluationsFactory, ModulesFactory, FichiersFactory) {
 					$scope.pagingOptions = SujetEvaluationsFactory.pagingOptions;		
 					$scope.sortOptions = SujetEvaluationsFactory.sortOptions;		
 					$scope.filterOptions = SujetEvaluationsFactory.filterOptions;
@@ -53,6 +53,10 @@ controllers
 					
 					$scope.afficherFenetreEdition = function(){
 						$scope.ajouterSujetEvaluation();
+					};
+					
+					$scope.exporter = function(){
+						FichiersFactory.exporter('/ng_gst_pdg/web/sujetEvaluations/csv', $scope.pagingOptions, $scope.filterOptions, $scope.sortOptions);
 					};
 					
 					$scope.ajouterSujetEvaluation = function(

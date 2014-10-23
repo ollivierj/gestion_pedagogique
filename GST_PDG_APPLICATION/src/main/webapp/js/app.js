@@ -3,7 +3,7 @@
 var ng_gst_pdg = angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 'ngAnimate', 'ui.router', 'angularFileUpload', 
                               'schemaForm','ui.bootstrap','ui.tree','ng_gst_pdg.filters','ng_gst_pdg.controllers',
                               'ng_gst_pdg.services', 'ng_gst_pdg.directives', 'mgcrea.ngStrap.timepicker',
-                              'mgcrea.ngStrap.datepicker', 'toaster', 'angular-loading-bar'])
+                              'mgcrea.ngStrap.datepicker', 'toaster', 'angular-loading-bar', 'ngCookies'])
 
 .config(function($stateProvider, $urlRouterProvider, $datepickerProvider, $timepickerProvider, cfpLoadingBarProvider) {
 	
@@ -52,15 +52,6 @@ var ng_gst_pdg = angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid',
 						}
 					}
 				},
-				'fichiers@detailStagiaire': {
-					templateUrl: 'partials/stagiaire/detailFichier.html',
-					controller: 'detailFichierCtrl',
-					resolve: {
-						fichiers : function(FichiersFactory, StagiaireFactory) {
-							return FichiersFactory.fichiers.getData({entite_type : "Stagiaire", entite_id : StagiaireFactory.stagiaire.id}).$promise;
-						}
-					}
-				},
 				'absences@detailStagiaire': {
 					templateUrl: 'partials/stagiaire/detailAbsence.html',
 					controller: 'detailAbsenceCtrl',
@@ -89,6 +80,12 @@ var ng_gst_pdg = angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid',
 					}
 				}
 			}
+		}).
+		//FICHE DE SYNTHESE ********************************************
+		state('gestionFichesSynthese', {
+			url: '/gestionFichesSynthese',
+			templateUrl: 'partials/gestionFichesSynthese/gestionFichesSynthese.html',
+			controller: 'gestionFichesSyntheseCtrl'
 		}).
 		//PLANNING SALLE *************************************************
 		state('salles', {

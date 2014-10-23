@@ -28,16 +28,15 @@ import com.sun.jersey.multipart.FormDataMultiPart;
 
 public class FichierServiceImpl implements FichierService {
 	
-	@Inject
-	public FichierServiceImpl(StagiaireDao stagiaireDao) {
-		super();
-		this.stagiaireDao = stagiaireDao;
-	}
-
 	protected final StagiaireDao stagiaireDao;
 	
+	@Inject
+	public FichierServiceImpl(StagiaireDao stagiaireDao) {
+		this.stagiaireDao = stagiaireDao;
+	}
+	
 	private PropertyFileLoader propertyFileLoader = PropertyFileLoader
-			.getInstance("fichiers");
+			.getInstance("configuration");
 	
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.service.implementation.testa#deposer(com.sun.jersey.multipart.FormDataMultiPart)

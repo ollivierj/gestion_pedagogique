@@ -169,4 +169,29 @@ public class Absence extends AModele<Integer> implements Serializable {
 		this.isAbsence = isAbsence;
 	}
 	
+	@Override
+	public String toString() {
+		StringBuilder lStrStringBuilder = new StringBuilder();
+		lStrStringBuilder.append((null!=getFormatedDate())?getFormatedDate():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getStagiaire())?(null!= getStagiaire().getPrenom())?getStagiaire().getPrenom():"":"");
+		lStrStringBuilder.append(" ");
+		lStrStringBuilder.append((null!=getStagiaire())?(null!= getStagiaire().getNom())?getStagiaire().getNom():"":"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getFormatedDate())?getFormatedDate():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getFormatedTime())?getFormatedTime():"");
+		lStrStringBuilder.append(";");
+		
+		
+		
+		
+		lStrStringBuilder.append((null!=getCommentaire())?getCommentaire():"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getAuteur())?(null!=getAuteur().getPrenom())?getAuteur().getPrenom():"":"");
+		lStrStringBuilder.append(" ");
+		lStrStringBuilder.append((null!=getAuteur())?(null!=getAuteur().getNom())?getAuteur().getNom():"":"");
+		lStrStringBuilder.append(";");
+		return lStrStringBuilder.toString();
+	}
 }

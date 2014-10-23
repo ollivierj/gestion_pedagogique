@@ -2,7 +2,7 @@
 controllers
 	.controller(
 		'utilisateursCtrl',
-		function($scope, $modal, $log, $timeout, toaster, UtilisateursFactory, FonctionsFactory, ProfilsFactory) {
+		function($scope, $modal, $log, $timeout, toaster, UtilisateursFactory, FonctionsFactory, ProfilsFactory, FichiersFactory) {
 			$scope.pagingOptions = UtilisateursFactory.pagingOptions;		
 			$scope.sortOptions = UtilisateursFactory.sortOptions;		
 			$scope.filterOptions = UtilisateursFactory.filterOptions;
@@ -72,7 +72,11 @@ controllers
 			
 			$scope.afficherFenetreEdition = function(){
 				$scope.ajouterUtilisateur();
-			}
+			};
+			
+			$scope.exporter = function(){
+				FichiersFactory.exporter('/ng_gst_pdg/web/utilisateurs/csv', $scope.pagingOptions, $scope.filterOptions, $scope.sortOptions);
+			};
 			
 			$scope.ajouterUtilisateur = function(
 					utilisateurId) {

@@ -9,6 +9,4 @@ import net.eni.gestion.pedagogie.modele.Droit;
  */
 public interface DroitDao extends ADao<Droit, Integer> {
 
-	
-
 }
