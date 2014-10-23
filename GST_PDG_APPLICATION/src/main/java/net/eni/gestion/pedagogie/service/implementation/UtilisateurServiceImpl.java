@@ -42,10 +42,9 @@ public class UtilisateurServiceImpl extends AServiceImpl<Utilisateur, Integer, U
         this.droitProfilDao = droitProfilDao;
         
     }
-
+    
 	@Override
-	public Utilisateur checkLogin(Utilisateur utilisateur) throws GenericException {
-		
+	public Utilisateur authentifier(Utilisateur utilisateur) throws GenericException {
 		boolean LDAPauth = false;
 		boolean BDDauth = false;
 		Utilisateur utilBDD = null;

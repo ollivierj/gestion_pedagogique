@@ -9,7 +9,6 @@ import net.eni.gestion.pedagogie.modele.Utilisateur;
  */
 public interface UtilisateurService extends AService<Utilisateur, Integer> {
 
-	Utilisateur checkLogin(Utilisateur utilisateur) throws GenericException;
-
+	public Utilisateur authentifier(Utilisateur utilisateur) throws GenericException;
 
 }

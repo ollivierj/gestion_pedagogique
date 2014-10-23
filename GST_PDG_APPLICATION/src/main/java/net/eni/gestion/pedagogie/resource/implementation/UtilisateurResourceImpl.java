@@ -30,11 +30,12 @@ public class UtilisateurResourceImpl extends AResourceImpl<Utilisateur, Integer,
     }
 
     @POST
+    @AuthenticationNotRequired
     @Path("/login")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
 	public Utilisateur getAuthentification(Utilisateur utilisateur)
 			throws GenericException {
-    	return service.checkLogin(utilisateur);
+    	return service.authentifier(utilisateur);
 	}
 }

@@ -12,7 +12,7 @@ public class UnauthorizedException extends WebApplicationException
  
     public UnauthorizedException()
     {
-        this("Please authenticate.", "Name of your web service");
+        this("Vous devez vous authentifier.", "ENI Ecole");
     }
  
     public UnauthorizedException(String message, String realm)
