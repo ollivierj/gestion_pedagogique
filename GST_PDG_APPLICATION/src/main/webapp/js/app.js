@@ -20,7 +20,7 @@ var ng_gst_pdg = angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid',
     });
 	
 	//	Url par défaut
-	$urlRouterProvider.otherwise("/accueil");
+	$urlRouterProvider.otherwise("/login");
 	
 	//	Mapping des url
 	$stateProvider.
@@ -32,7 +32,8 @@ var ng_gst_pdg = angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid',
 		state('login', {
 			url: '/login',
 			templateUrl: 'partials/authentification/authentification.html',
-			controller: 'authentificationCtrl'
+			controller: 'authentificationCtrl',
+			hideMenus: true
 		}).	
 		// STAGIAIRE ************************************************* 
 		state('stagiaires', {
@@ -158,6 +159,20 @@ var ng_gst_pdg = angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid',
 			}
 		});
 	
+}).run(function ($rootScope, $location, $cookieStore, $http) {
+    // keep user logged in after page refresh
+    $rootScope.globals = $cookieStore.get('globals') || {};
+    if ($rootScope.globals.currentUser) {
+        $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
+    }
+
+    $rootScope.$on('$routeChangeStart', function (event, next, current) {
+        // redirect to login page if not logged in
+        var area = $location.url().split('/')[1];
+        if ($location.path() !== '/login' && !$rootScope.globals) {
+            $location.path('/login');
+        }
+    });
 });
 
 var filters = angular.module('ng_gst_pdg.filters', []);

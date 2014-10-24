@@ -145,55 +145,6 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private String login = null;
 	
-	/*@SchemaIgnore
-	@JsonIgnore
-	@ForeignCollectionField(eager = true, columnName = Echange.AUTEUR_FIELD_NAME)
-	private transient Collection<Echange> transientEchanges = null;
-
-	private ArrayList<Echange> echanges = new ArrayList<Echange>();*/
-
-	/*@SchemaIgnore
-	@JsonIgnore
-	@ForeignCollectionField(eager = true, columnName = Avis.AUTEUR_FIELD_NAME)
-	private transient Collection<Avis> transientAvis = null;*/
-
-	/*@SchemaIgnore
-	private ArrayList<Avis> avis = new ArrayList<Avis>();*/
-	
-	/*
-	@SchemaIgnore
-	@JsonManagedReference(value="absence-utilisateur")
-	@ForeignCollectionField(eager = false, columnName = Absence.AUTEUR_FIELD_NAME)
-	private transient Collection<Absence> transientAbsences = null;
-
-	@SchemaIgnore
-	private ArrayList<Absence> absences = new ArrayList<Absence>();
-	*/
-	
-	/*@SchemaIgnore
-	@JsonIgnore
-	@ForeignCollectionField(eager = true, columnName = InstanceEvaluation.CORRECTEUR_FIELD_NAME)
-	private transient Collection<InstanceEvaluation> transientInstanceEvaluationCorrections = null;*/
-
-	/*@SchemaIgnore
-	private ArrayList<InstanceEvaluation> instanceEvaluationCorrections = new ArrayList<InstanceEvaluation>();
-
-	@SchemaIgnore
-	@JsonIgnore
-	@ForeignCollectionField(eager = true, columnName = InstanceEvaluation.SURVEILLANT_FIELD_NAME)
-	private transient Collection<InstanceEvaluation> transientInstanceEvaluationSurveillances = null;
-
-	@SchemaIgnore
-	private ArrayList<InstanceEvaluation> instanceEvaluationSurveillances = new ArrayList<InstanceEvaluation>();
-
-	@SchemaIgnore
-	@JsonIgnore
-	@ForeignCollectionField(eager = true, columnName = InstanceCours.ANIMATEUR_FIELD_NAME)
-	private transient Collection<InstanceCours> transientInstanceCours = null;
-
-	@SchemaIgnore
-	private ArrayList<InstanceCours> instanceCours = new ArrayList<InstanceCours>();*/
-	
 	@Override
 	public Integer getId() {
 		return id;
