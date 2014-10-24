@@ -8,7 +8,5 @@ import net.eni.gestion.pedagogie.modele.Utilisateur;
  * Interface métier pour le module de gestion des comptes utilisateurs
  */
 public interface UtilisateurService extends AService<Utilisateur, Integer> {
-
 	public Utilisateur authentifier(Utilisateur utilisateur) throws GenericException;
-
 }

@@ -18,6 +18,9 @@ import com.sun.jersey.guice.spi.container.servlet.GuiceContainer;
  */
 public class ApplicationConfiguration extends GuiceServletContextListener {
 
+	public final static String DEV_MODE 						= "DEV";
+	public final static String PROD_MODE 						= "PROD";
+	
     @Override
     protected Injector getInjector() {
         return Guice.createInjector(new ServletModule() {
@@ -27,7 +30,7 @@ public class ApplicationConfiguration extends GuiceServletContextListener {
 
                 super.configureServlets();
 
-                ResourceConfig resourceConfig = new PackagesResourceConfig("net.eni.gestion.pedagogie.resource");
+                ResourceConfig resourceConfig = new PackagesResourceConfig("net.eni.gestion.pedagogie.authentification","net.eni.gestion.pedagogie.resource");
                 
                 for (Class<?> resource : resourceConfig.getClasses()) {
                     bind(resource);

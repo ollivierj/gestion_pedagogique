@@ -40,11 +40,9 @@ public class UtilisateurServiceImpl extends AServiceImpl<Utilisateur, Integer, U
         super(pUtilisateurDao);
         this.profilDao = profilDao;
         this.droitProfilDao = droitProfilDao;
-        
     }
-    
-	@Override
-	public Utilisateur authentifier(Utilisateur utilisateur) throws GenericException {
+
+    public Utilisateur authentifier(Utilisateur utilisateur) throws GenericException {
 		boolean LDAPauth = false;
 		boolean BDDauth = false;
 		Utilisateur utilBDD = null;
@@ -66,7 +64,7 @@ public class UtilisateurServiceImpl extends AServiceImpl<Utilisateur, Integer, U
 		// --------------- AUTHENTIFICATION BDD --------------- //
 		try {
 			//check avec login only si identification LDAP ok
-			String sIDutilBDD = dao.checkConnection(utilisateur, LDAPauth);
+			String sIDutilBDD = this.dao.checkConnection(utilisateur, LDAPauth);
 			if(sIDutilBDD != null){
 				//authentification BDD OK
 				BDDauth = true;
@@ -74,7 +72,7 @@ public class UtilisateurServiceImpl extends AServiceImpl<Utilisateur, Integer, U
 				
 				//mise a jour du mot de passe en BDD
 				utilBDD.setMotPasse(utilisateur.getMotPasse());
-				dao.mettreAJour(utilBDD);
+				this.dao.mettreAJour(utilBDD);
 			} else {
 				//identifiant MDP incorrect
 				System.out.println("identifiant MDP incorrect");
@@ -101,8 +99,8 @@ public class UtilisateurServiceImpl extends AServiceImpl<Utilisateur, Integer, U
 			newUtil.setProfil(profilDefault);
 			newUtil.setLogin(utilisateur.getLogin());
 			try {
-				dao.ajouter(newUtil);
-				String sIDutilBDD = dao.checkConnection(newUtil, true);
+				this.dao.ajouter(newUtil);
+				String sIDutilBDD = this.dao.checkConnection(newUtil, true);
 				utilBDD = chargeLoginInfo(sIDutilBDD);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -111,7 +109,7 @@ public class UtilisateurServiceImpl extends AServiceImpl<Utilisateur, Integer, U
 		
 		return utilBDD;
 	}
-
+	
 	/**
 	 * 
 	 * @param sIDutilBDD
@@ -121,7 +119,7 @@ public class UtilisateurServiceImpl extends AServiceImpl<Utilisateur, Integer, U
 		Integer IDutilBDD  = Integer.parseInt(sIDutilBDD);
 		Utilisateur utilBDD = null;
 		try {
-			utilBDD = dao.chargerDetail(IDutilBDD);
+			utilBDD = this.dao.chargerDetail(IDutilBDD);
 			Profil p = this.profilDao.chargerDetail(utilBDD.getProfil().getId());
 			ArrayList<String> listeDroit = this.droitProfilDao.getListeDroits(utilBDD.getProfil().getId());
 			p.setDroits(listeDroit);
@@ -131,5 +129,4 @@ public class UtilisateurServiceImpl extends AServiceImpl<Utilisateur, Integer, U
 		}
 		return utilBDD;
 	}
-
 }
