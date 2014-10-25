@@ -1,10 +1,11 @@
 /**
  * Controller de la page detail stagiaire
  */
-controllers.controller('detailAvisCtrl', function($scope, avis, SAvisFactory, $filter, toaster) {
+controllers.controller('detailAvisCtrl', function($scope, $rootScope, avis, SAvisFactory, $filter, toaster) {
     
     $scope.avis = avis.data;
-    
+    $scope.canEdit=SAvisFactory.canEdit;
+	$scope.canView=SAvisFactory.canView;
     // Les avis ou retards du stagiaire
     $scope.gridOptionsAvis = {
         data: 'avis',

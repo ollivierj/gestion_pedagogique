@@ -20,7 +20,6 @@ import net.eni.gestion.pedagogie.DAO.implementation.UtilisateurDaoImpl;
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
 import net.eni.gestion.pedagogie.commun.composant.PropertyFileLoader;
 import net.eni.gestion.pedagogie.commun.composant.UnauthorizedException;
-import net.eni.gestion.pedagogie.configuration.ApplicationConfiguration;
 import net.eni.gestion.pedagogie.modele.Utilisateur;
 import net.eni.gestion.pedagogie.service.implementation.UtilisateurServiceImpl;
 
@@ -48,11 +47,7 @@ public class AuthentificationFilter implements Filter {
 			String auth = request.getHeader("Authorization");
 			Utilisateur lUtilisateurAuthentifie = null;
 			String[] urlTokens = request.getServletPath().split("/");
-			if (!urlTokens[1].equals("web")){
-				filterChain.doFilter(request, response);
-				return;
-			}
-			if (urlTokens[1].equals("web")&&urlTokens[2].equals("utilisateurs")&&urlTokens[3].equals("login")){
+			if (0==urlTokens.length||!urlTokens[1].equals("web")||(3<urlTokens.length&&urlTokens[1].equals("web")&&urlTokens[2].equals("utilisateurs")&&urlTokens[3].equals("login"))){
 				filterChain.doFilter(request, response);
 				return;
 			}
@@ -64,15 +59,14 @@ public class AuthentificationFilter implements Filter {
 				for (int i = 0; i < cookies.length; i++) {
 					if (cookies[i].getName().equals(
 							propertyFileLoader
-									.getValue("authentication.cookie.name"))) {
+									.getValue("authentication.cookie.nom"))) {
 						cookie = cookies[i];
 					}
 				}
 				if (cookie == null) {
 					throw new UnauthorizedException();
 				}
-				String token = cookie.getValue();
-				lUtilisateurAuthentifie = allowUser(token);
+				lUtilisateurAuthentifie = allowUser(cookie.getValue());
 			} else {
 				lUtilisateurAuthentifie = allowUser(auth);
 			}
@@ -115,15 +109,8 @@ public class AuthentificationFilter implements Filter {
 				new UtilisateurDaoImpl(), new ProfilDaoImpl(),
 				new DroitProfilDaoImpl());
 		Utilisateur lUtilisateurAuthentifie = null;
-		if (ApplicationConfiguration.DEV_MODE.equals(propertyFileLoader
-				.getValue("application.mode"))) {
-			lUtilisateurAuthentifie = lUtilisateurService.chargerDetail(Integer
-					.valueOf(propertyFileLoader
-							.getValue("authentication.default.user.id")));
-		} else {
-			lUtilisateurAuthentifie = lUtilisateurService
+		lUtilisateurAuthentifie = lUtilisateurService
 					.authentifier(lUtilisateurAAuthentifier);
-		}
 		return lUtilisateurAuthentifie;
 	}
 

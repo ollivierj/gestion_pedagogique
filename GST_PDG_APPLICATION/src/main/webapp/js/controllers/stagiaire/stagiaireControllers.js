@@ -3,12 +3,13 @@
 /**
  * Controller de la page de l'affichage des stagiaires
  */
-controllers.controller('stagiaireCtrl', function($scope, $http, $location, stagiaireData, StagiaireFactory, $modal, $state, $timeout, FichiersFactory) {
+controllers.controller('stagiaireCtrl', function($scope, $rootScope, $http, $location, stagiaireData, StagiaireFactory, $modal, $state, $timeout, FichiersFactory) {
 
     /*Variable contenant la sélection des données des tableaux de recherche*/
     var promotionSelected = [];
     $scope.stagiaireSelected = [];
-
+    $scope.canEdit=StagiaireFactory.canEdit;
+	$scope.canView=StagiaireFactory.canView;
     /*Liste de tous les stagiaires utilisée pour effectuer le filtre*/
     var allStagiaire = [];
     

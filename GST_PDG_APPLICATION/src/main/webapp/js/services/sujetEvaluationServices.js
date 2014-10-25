@@ -1,6 +1,6 @@
 'use strict';
 
-services.factory('SujetEvaluationsFactory', function ($resource) {
+services.factory('SujetEvaluationsFactory', function ($resource, $rootScope) {
 	var	pagingOptions = {
 		pageSizes : [ 5, 10, 15, 25 ],
 		pageSize : 10,
@@ -22,7 +22,12 @@ services.factory('SujetEvaluationsFactory', function ($resource) {
 		getData : { method: 'POST'}
 	});
 	
+	var canEdit = ($rootScope.utilisateurConnecte.profil.droits[9]=='SUJ_EVAL_E');
+	var canView = ($rootScope.utilisateurConnecte.profil.droits[9]=='SUJ_EVAL_L'||canEdit);
+	
 	return {
+		canEdit : canEdit,
+		canView : canView,
 		pagingOptions : pagingOptions,
 		filterOptions : filterOptions,
 		sortOptions : sortOptions,

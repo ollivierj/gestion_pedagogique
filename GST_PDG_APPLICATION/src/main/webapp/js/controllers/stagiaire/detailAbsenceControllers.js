@@ -1,10 +1,11 @@
 /**
  * Controller de la page detail stagiaire
  */
-controllers.controller('detailAbsenceCtrl', function($scope, absences, SAbsenceFactory, $filter, toaster, StagiaireFactory) {
+controllers.controller('detailAbsenceCtrl', function($scope, $rootScope, absences, SAbsenceFactory, $filter, toaster, StagiaireFactory) {
     
     $scope.absences = absences.data;
-    
+    $scope.canEdit=SAbsenceFactory.canEdit;
+	$scope.canView=SAbsenceFactory.canView;
     $scope.totalServerItems = absences.totalServerItems;
     $scope.pager = SAbsenceFactory.pager;
     

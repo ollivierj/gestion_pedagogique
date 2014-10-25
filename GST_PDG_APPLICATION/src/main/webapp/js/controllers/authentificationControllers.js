@@ -1,17 +1,15 @@
 'use strict';
 controllers.controller('authentificationCtrl',
-    function ($scope, $rootScope, $location, AuthentificationFactory) {
-        // reset login status
+    function ($scope, $location, $route, $state, $rootScope, AuthentificationFactory) {
 		$rootScope.hideMenus = true;
-        AuthentificationFactory.ClearCredentials();
- 
+        AuthentificationFactory.clearCredentials();
         $scope.login = function () {
             $scope.dataLoading = true;
             AuthentificationFactory.Login($scope.username, $scope.password)
                 .success(function (data) {
                 	$rootScope.hideMenus = false;
-                    AuthentificationFactory.SetCredentials($scope.username, $scope.password);
-                    $location.path('/accueil');
+                    AuthentificationFactory.setCredentials(data);
+                    $state.go('accueil');
                 })
                 .error(function (data) {
                 	$rootScope.hideMenus = true;

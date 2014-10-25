@@ -3,11 +3,13 @@
 controllers
 		.controller(
 				'sujetEvaluationsCtrl',
-				function($scope, $modal, $log, $timeout, toaster, SujetEvaluationsFactory, ModulesFactory, FichiersFactory) {
+				function($scope, $rootScope, $modal, $log, $timeout, toaster, SujetEvaluationsFactory, ModulesFactory, FichiersFactory) {
 					$scope.pagingOptions = SujetEvaluationsFactory.pagingOptions;		
 					$scope.sortOptions = SujetEvaluationsFactory.sortOptions;		
 					$scope.filterOptions = SujetEvaluationsFactory.filterOptions;
 					$scope.title = "Sujets d'évaluation";
+					$scope.canEdit=SujetEvaluationsFactory.canEdit;
+					$scope.canView=SujetEvaluationsFactory.canView;
 					$scope.gridOptions = {
 						data : 'sujetEvaluations',
 						multiSelect : false,

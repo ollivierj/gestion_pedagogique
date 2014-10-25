@@ -92,15 +92,9 @@
             <li class="dropdown user-dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gear"></i> Administration <b class="caret"></b></a>
               <ul class="dropdown-menu">
-
-                <li><a ui-sref="utilisateurs"><i class="fa fa-gear"></i> Utilisateurs</a></li>
-                <li><a ui-sref="profils"><i class="fa fa-gear"></i> Profils</a></li>
-                <li><a ui-sref="sujetsEvaluations"><i class="fa fa-gear"></i> Sujets d'évaluation</a></li>
-                <li><a ui-sref="titreProfessionnels"><i class="fa fa-gear"></i> Titres professionnels</a></li>
-                <li><a ui-sref="professionnelHomologues"><i class="fa fa-gear"></i> Professionnels homologués</a></li>             
-                
+				<li ng-repeat="menu in menuParametres"><a ui-sref="{{menu.sref}}"><i class="fa fa-gear"></i>{{menu.item}}</a></li>
                 <li class="divider"></li>
-                <li><a ui-sref="login"><i class="fa fa-gear"></i> Se connecter</a></li>
+                <li><a ui-sref="login"><i class="fa fa-gear"></i> Se déconnecter</a></li>
               </ul>
             </li>
           </ul>
@@ -195,8 +189,6 @@
     <script src="js/services/moduleServices.js"></script> 
     <script src="js/services/sujetEvaluationServices.js"></script> 
     <script src="js/services/profilServices.js"></script>      
-    <script src="js/services/droitServices.js"></script>            
-    <script src="js/services/wrapperService.js"></script>
     <script src="js/services/homologationsService.js"></script>  
     <script src="js/services/sessionsValidationService.js"></script>
     <script src="js/services/jurysSallesService.js"></script>

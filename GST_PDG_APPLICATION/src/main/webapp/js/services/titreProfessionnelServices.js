@@ -1,6 +1,6 @@
 'use strict';
 
-services.factory('TitreProfessionnelsFactory', function ($resource) {
+services.factory('TitreProfessionnelsFactory', function ($resource, $rootScope) {
 	var	pagingOptions = {
 		pageSizes : [ 5, 10, 15, 25 ],
 		pageSize : 10,
@@ -21,7 +21,12 @@ services.factory('TitreProfessionnelsFactory', function ($resource) {
 		getData : { method: 'POST'}
 	});
 	
+	var canEdit = ($rootScope.utilisateurConnecte.profil.droits[11]=='TR_PRF_E');
+	var canView = ($rootScope.utilisateurConnecte.profil.droits[11]=='TR_PRF_L'||canEdit);
+	
 	return {
+		canEdit : canEdit,
+		canView : canView,
 		pagingOptions : pagingOptions,
 		filterOptions : filterOptions,
 		sortOptions : sortOptions,

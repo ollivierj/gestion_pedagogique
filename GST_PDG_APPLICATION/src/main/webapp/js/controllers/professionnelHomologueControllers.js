@@ -3,11 +3,13 @@
 controllers
 		.controller(
 				'professionelHomologuesCtrl',
-				function($scope, $modal, $log, $timeout, toaster, ProfessionnelHomologuesFactory, TitreProfessionnelsFactory, FichiersFactory) {
+				function($scope, $modal, $log, $timeout, $rootScope, toaster, ProfessionnelHomologuesFactory, TitreProfessionnelsFactory, FichiersFactory) {
 					$scope.pagingOptions = ProfessionnelHomologuesFactory.pagingOptions;		
 					$scope.sortOptions = ProfessionnelHomologuesFactory.sortOptions;		
 					$scope.filterOptions = ProfessionnelHomologuesFactory.filterOptions;
 					$scope.title = "Professionnels homologués";
+					$scope.canEdit=ProfessionnelHomologuesFactory.canEdit;
+					$scope.canView=ProfessionnelHomologuesFactory.canView;
 					$scope.gridOptions = {
 						data : 'professionnelHomologues',
 						multiSelect : false,

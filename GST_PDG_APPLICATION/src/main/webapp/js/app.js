@@ -159,20 +159,28 @@ var ng_gst_pdg = angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid',
 			}
 		});
 	
-}).run(function ($rootScope, $location, $cookieStore, $http) {
-    // keep user logged in after page refresh
-    $rootScope.globals = $cookieStore.get('globals') || {};
-    if ($rootScope.globals.currentUser) {
-        $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
+}).run(function ($rootScope, $location, $cookieStore, $http, $state) {
+    $rootScope.utilisateurConnecte = $cookieStore.get('utilisateurConnecte') || {};
+    $rootScope.authtoken = $cookieStore.get('authtoken') || {};
+    if (!$rootScope.utilisateurConnecte.id || !$rootScope.utilisateurConnecte.profil || !$rootScope.utilisateurConnecte.profil.droits || !$rootScope.utilisateurConnecte.profil.droits.length>0){
+    	$rootScope.utilisateurConnecte=null;
     }
-
-    $rootScope.$on('$routeChangeStart', function (event, next, current) {
-        // redirect to login page if not logged in
-        var area = $location.url().split('/')[1];
-        if ($location.path() !== '/login' && !$rootScope.globals) {
-            $location.path('/login');
-        }
-    });
+    if (typeof $rootScope.authtoken != "string"){
+    	 $rootScope.authtoken=null;
+    }
+    if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken){
+    	$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
+    }
+    $rootScope.$on('$stateChangeStart', 
+    		function(event, toState, toParams, fromState, fromParams){ 
+    			if (toState.name !== 'login' && !$rootScope.utilisateurConnecte && !$rootScope.authtoken) {
+    	        	event.preventDefault(); 
+    	        	$state.go('login');
+    	        }
+    	        $rootScope.getMenuTitles();
+    	        $rootScope.getMenuParametres();
+				$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
+    		});
 });
 
 var filters = angular.module('ng_gst_pdg.filters', []);

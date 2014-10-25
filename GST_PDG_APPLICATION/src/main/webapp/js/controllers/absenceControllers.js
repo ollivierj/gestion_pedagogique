@@ -1,7 +1,9 @@
 'use strict';
 controllers
-	.controller('absencesCtrl', function($scope, $log, $filter, absences, toaster, AbsencesFactory, StagiaireFactory) {
+	.controller('absencesCtrl', function($scope, $log, $filter, $rootScope, absences, toaster, AbsencesFactory, StagiaireFactory) {
 	 $scope.title = "Absences";
+	 $scope.canEdit=AbsencesFactory.canEdit;
+	 $scope.canView=AbsencesFactory.canView;
 	 $scope.absences = absences;
 	 $scope.$watch('date', 
 		function (newVal, oldVal) {

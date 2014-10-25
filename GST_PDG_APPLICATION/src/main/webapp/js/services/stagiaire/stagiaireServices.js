@@ -1,6 +1,6 @@
 'use strict';
 
-services.factory('StagiaireFactory', function ($resource) {
+services.factory('StagiaireFactory', function ($resource, $rootScope) {
 	
 	var pagingOptions = {
 			pageSizes : [5,10,15,20,25,30],
@@ -85,8 +85,13 @@ services.factory('StagiaireFactory', function ($resource) {
 		stagiaire = stagiaireSelected;
 	};
 	
+	var canEdit = ($rootScope.utilisateurConnecte.profil.droits[0]=='STG_E');
+	var canView = ($rootScope.utilisateurConnecte.profil.droits[0]=='STG_L'||canEdit);
+	
 	//Retour de la factory avec ses variables
 	return {
+		canEdit : canEdit,
+		canView : canView,
 		getData 		: getData,
 		getDetail		: getDetail,
 		pagingOptions	: pagingOptions,

@@ -1,10 +1,12 @@
 /**
  * Controller de la page detail stagiaire
  */
-controllers.controller('detailFichierCtrl', function($scope, $modal, $filter, $modal, FileUploader, StagiaireFactory, FichiersFactory, fichiers) {
+controllers.controller('detailFichierCtrl', function($scope, $rootScope, $modal, $filter, $modal, FileUploader, StagiaireFactory, FichiersFactory, fichiers) {
 	$scope.fichiers = fichiers;
 	$scope.results = fichiers;
 	$scope.affFichiers=true;
+	$scope.canEdit=StagiaireFactory.canEdit;
+	$scope.canView=StagiaireFactory.canView;
 	$scope.affTelech=!StagiaireFactory.readonly;
 	$scope.fichiersFilterOptions = {
 			filterText: ''

@@ -2,11 +2,13 @@
 controllers
 	.controller(
 		'utilisateursCtrl',
-		function($scope, $modal, $log, $timeout, toaster, UtilisateursFactory, FonctionsFactory, ProfilsFactory, FichiersFactory) {
+		function($scope, $modal, $rootScope, $log, $timeout, toaster, UtilisateursFactory, FonctionsFactory, ProfilsFactory, FichiersFactory) {
 			$scope.pagingOptions = UtilisateursFactory.pagingOptions;		
 			$scope.sortOptions = UtilisateursFactory.sortOptions;		
 			$scope.filterOptions = UtilisateursFactory.filterOptions;
 			$scope.title = "Utilisateurs";
+			$scope.canEdit=UtilisateursFactory.canEdit;
+			$scope.canView=UtilisateursFactory.canView;
 			$scope.gridOptions = {
 				data : 'utilisateur',
 				multiSelect : false,

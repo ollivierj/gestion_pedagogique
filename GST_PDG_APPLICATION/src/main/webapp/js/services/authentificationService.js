@@ -6,17 +6,29 @@ services.factory('AuthentificationFactory',
         service.Login = function (username, password) {
             return $http.post('/ng_gst_pdg/web/utilisateurs/login', { login : username, motPasse: password });
         };
-        service.SetCredentials = function (username, password) {
-            var authdata = Base64.encode(username + ':' + password);
-            $rootScope.globals=authdata;
-            $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata;
-            $cookieStore.put('globals', $rootScope.globals);
+
+        service.setCredentials = function (data) {
+            var authTokenData= Base64.encode(data.login + ':' + data.motPasse);
+            var utilisateurConnecteData =
+    			{
+    			id : data.id,
+    			prenom : data.prenom,
+    			nom : data.nom,
+    			profil : {droits : data.profil.droits},
+    			};
+            $http.defaults.headers.common.Authorization =  'Basic ' + authTokenData;
+            $cookieStore.put('authtoken', authTokenData);
+            $cookieStore.put('utilisateurConnecte', utilisateurConnecteData);
+        	$rootScope.authtoken = authTokenData;
+        	$rootScope.utilisateurConnecte = utilisateurConnecteData;
         };
  
-        service.ClearCredentials = function () {
-            delete $rootScope.globals;
-            $cookieStore.remove('globals');
-            $http.defaults.headers.common.Authorization = 'Basic ';
+        service.clearCredentials = function () {
+            delete $rootScope.authtoken;
+            delete $rootScope.utilisateurConnecte;
+            $cookieStore.remove('authtoken');
+            $cookieStore.remove('utilisateurConnecte');
+            $http.defaults.headers.common.Authorization =  'Basic ';
         };
         return service;
     })
@@ -63,14 +75,11 @@ services.factory('AuthentificationFactory',
             var chr1, chr2, chr3 = "";
             var enc1, enc2, enc3, enc4 = "";
             var i = 0;
- 
-            // remove all characters that are not A-Z, a-z, 0-9, +, /, or =
             var base64test = /[^A-Za-z0-9\+\/\=]/g;
             if (base64test.exec(input)) {
                 window.alert("Les login/mode de passe ne peuvent pas être encodés en Base64");
             }
             input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
- 
             do {
                 enc1 = keyStr.indexOf(input.charAt(i++));
                 enc2 = keyStr.indexOf(input.charAt(i++));

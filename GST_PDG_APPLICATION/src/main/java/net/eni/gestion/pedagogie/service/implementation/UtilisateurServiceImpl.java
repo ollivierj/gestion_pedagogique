@@ -11,6 +11,8 @@ import net.eni.gestion.pedagogie.DAO.UtilisateurDao;
 import net.eni.gestion.pedagogie.authentification.ActiveDirectory;
 import net.eni.gestion.pedagogie.authentification.ActiveDirectory.User;
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
+import net.eni.gestion.pedagogie.commun.composant.PropertyFileLoader;
+import net.eni.gestion.pedagogie.configuration.ApplicationConfiguration;
 import net.eni.gestion.pedagogie.configuration.LDAPConfiguration;
 import net.eni.gestion.pedagogie.modele.Profil;
 import net.eni.gestion.pedagogie.modele.Utilisateur;
@@ -26,7 +28,9 @@ import com.google.inject.Singleton;
 @Singleton
 public class UtilisateurServiceImpl extends AServiceImpl<Utilisateur, Integer, UtilisateurDao> implements UtilisateurService {
 
-	
+	private PropertyFileLoader propertyFileLoader = PropertyFileLoader
+			.getInstance("configuration");
+
 	protected final ProfilDao profilDao;
 	protected final DroitProfilDao droitProfilDao;
 	
@@ -43,6 +47,18 @@ public class UtilisateurServiceImpl extends AServiceImpl<Utilisateur, Integer, U
     }
 
     public Utilisateur authentifier(Utilisateur utilisateur) throws GenericException {
+    	if (ApplicationConfiguration.DEV_MODE.equals(propertyFileLoader
+				.getValue("application.mode"))) {
+			try {
+				Utilisateur lUtilisateur = this.dao.chargerDetail(1);
+				lUtilisateur.getProfil().setDroits(droitProfilDao.getListeDroits(lUtilisateur.getProfil().getId()));
+				return lUtilisateur;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
+    	 
 		boolean LDAPauth = false;
 		boolean BDDauth = false;
 		Utilisateur utilBDD = null;
@@ -106,7 +122,6 @@ public class UtilisateurServiceImpl extends AServiceImpl<Utilisateur, Integer, U
 				e.printStackTrace();
 			}
 		}
-		
 		return utilBDD;
 	}
 	

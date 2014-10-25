@@ -1,6 +1,6 @@
 'use strict';
 
-services.factory('ProfessionnelHomologuesFactory', function ($resource) {
+services.factory('ProfessionnelHomologuesFactory', function ($resource, $rootScope) {
 	var	pagingOptions = {
 		pageSizes : [ 5, 10, 15, 25 ],
 		pageSize : 10,
@@ -21,7 +21,12 @@ services.factory('ProfessionnelHomologuesFactory', function ($resource) {
 		getData : { method: 'POST'}
 	});
 	
+	var canEdit = ($rootScope.utilisateurConnecte.profil.droits[10]=='PRF_HMG_E');
+	var canView = ($rootScope.utilisateurConnecte.profil.droits[10]=='PRF_HMG_L'||canEdit);
+	
 	return {
+		canEdit : canEdit,
+		canView : canView,
 		pagingOptions : pagingOptions,
 		filterOptions : filterOptions,
 		sortOptions : sortOptions,

@@ -2,7 +2,7 @@
 
 /* App Module */
 
-controllers.controller('planningReservationSalleCtrl', function($scope, $location, 
+controllers.controller('planningReservationSalleCtrl', function($scope, $location, $rootScope,
 		modalService, SallesFactory, PromotionsFactory, SallesReserveesFactory, AnimateursLibresFactory, 
 		PlanningFactory, $filter, PLANNING_ELEMENTS, planningElements) {
 

@@ -3,11 +3,13 @@
 controllers
 		.controller(
 				'titreProfessionnelsCtrl',
-				function($scope, $modal, $log, $timeout, toaster, TitreProfessionnelsFactory, FichiersFactory) {
+				function($scope, $rootScope, $modal, $log, $timeout, toaster, TitreProfessionnelsFactory, FichiersFactory) {
 					$scope.pagingOptions = TitreProfessionnelsFactory.pagingOptions;		
 					$scope.sortOptions = TitreProfessionnelsFactory.sortOptions;		
 					$scope.filterOptions = TitreProfessionnelsFactory.filterOptions;
 					$scope.title = "Titres professionnels";
+					$scope.canEdit=TitreProfessionnelsFactory.canEdit;
+					$scope.canView=TitreProfessionnelsFactory.canView;
 					$scope.gridOptions = {
 						data : 'titreProfessionnels',
 						multiSelect : false,

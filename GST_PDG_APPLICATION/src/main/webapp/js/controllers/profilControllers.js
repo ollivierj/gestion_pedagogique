@@ -2,11 +2,13 @@
 controllers.
 	controller(
 		'profilsCtrl', 
-		function($scope, $modal, $log, $timeout, toaster, ProfilsFactory, FichiersFactory) {
+		function($scope, $modal, $log, $timeout, $rootScope, toaster, ProfilsFactory, FichiersFactory) {
 			$scope.pagingOptions = ProfilsFactory.pagingOptions;		
 			$scope.sortOptions = ProfilsFactory.sortOptions;		
 			$scope.filterOptions = ProfilsFactory.filterOptions;
 			$scope.title = "Profils";
+			$scope.canEdit=ProfilsFactory.canEdit;
+			$scope.canView=ProfilsFactory.canView;
 			$scope.gridOptions = {
 				data : 'profils',
 				multiSelect : false,

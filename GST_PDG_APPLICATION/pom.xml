@@ -46,6 +46,12 @@
 		</plugins>
 	</build>
 	<dependencies>
+		<dependency>
+			<groupId>org.codehaus.jettison</groupId>
+			<artifactId>jettison</artifactId>
+			<version>1.2</version>
+		</dependency>
+
 		<!-- GUAVA ============================================================= -->
 		<dependency>
 			<groupId>com.google.guava</groupId>

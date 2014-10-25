@@ -1,4 +1,4 @@
-var formSessionSalleCtrl = function($scope, $modalInstance, $filter,
+var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope, AnimateursLibresFactory,
 		items, salles, sallesReservees, getByIdFilter, data) {
 
 

@@ -1,6 +1,6 @@
 'use strict';
 
-services.factory('AbsencesFactory', function ($resource) {
+services.factory('AbsencesFactory', function ($resource, $rootScope) {
 	var	pagingOptions = {
 		pageSizes : [ 5, 10, 15, 25 ],
 		pageSize : 10,
@@ -21,7 +21,13 @@ services.factory('AbsencesFactory', function ($resource) {
 		getData : { method: 'POST'}
 	});
 	
+	var canEdit = ($rootScope.utilisateurConnecte.profil.droits[4]=='ABS_E');
+	var canView = ($rootScope.utilisateurConnecte.profil.droits[4]=='ABS_L'||canEdit);
+	
+	
 	return {
+		canEdit : canEdit,
+		canView : canView,
 		pagingOptions : pagingOptions,
 		filterOptions : filterOptions,
 		sortOptions : sortOptions,

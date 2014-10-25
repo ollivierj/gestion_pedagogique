@@ -4,11 +4,13 @@ controllers
 		.controller(
 				'sessionValidationsCtrl',
 
-				function($scope, $modal, $log, $timeout, toaster, SessionValidationsFactory, TitreProfessionnelsFactory, FichiersFactory) {
+				function($scope, $modal, $log, $timeout, $rootScope, toaster, SessionValidationsFactory, TitreProfessionnelsFactory, FichiersFactory) {
 					$scope.pagingOptions = SessionValidationsFactory.pagingOptions;		
 					$scope.sortOptions = SessionValidationsFactory.sortOptions;		
 					$scope.filterOptions = SessionValidationsFactory.filterOptions;
 					$scope.title = "Sessions de validation";
+					$scope.canEdit=SessionValidationsFactory.canEdit;
+					$scope.canView=SessionValidationsFactory.canView;
 					$scope.gridOptions = {
 						data : 'sessionValidations',
 

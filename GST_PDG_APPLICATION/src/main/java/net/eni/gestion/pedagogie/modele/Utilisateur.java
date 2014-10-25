@@ -121,7 +121,7 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 		useGetSet = true)
 	private String photo = null;
 	
-	@Attributes(title = "Mot de passe", required = true, maxLength = 30, pattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\\W).{7,30}$", validationMessage="La syntaxe du mot de passe est incorrecte.<br>Les règles suivantes doivent être respectées :<br>&nbsp;Longueur minimale: 7 caractères;<br>&nbsp;Au moins un chiffre;<br>&nbsp;Au moins une lettre;<br>&nbsp;Au moins une majuscule et une minuscule.", format = "password")
+	@Attributes(title = "Mot de passe", required = true, maxLength = 30, pattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!\"#$%&'()*+,-.\\/;?@[\\\\\\]_`{|}~]).{7,30}$", validationMessage="La syntaxe du mot de passe est incorrecte.<br>Les règles suivantes doivent être respectées :<br>&nbsp;Longueur minimale: 7 caractères;<br>&nbsp;Au moins un chiffre;<br>&nbsp;Au moins une lettre;<br>&nbsp;Au moins une majuscule et une minuscule.", format = "password")
 	@DatabaseField(
 		columnName = MOT_PASSE_FIELD_NAME,
 		dataType = DataType.STRING,
