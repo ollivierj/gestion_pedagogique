@@ -1,6 +1,9 @@
 'use strict';
 controllers
-	.controller('absencesCtrl', function($scope, $log, $filter, $rootScope, absences, toaster, AbsencesFactory, StagiaireFactory) {
+	.controller('absencesCtrl', function($scope, $log, $filter, $rootScope, $http, absences, toaster, AbsencesFactory, StagiaireFactory) {
+	 if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken){
+	   	$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
+     }
 	 $scope.title = "Absences";
 	 $scope.canEdit=AbsencesFactory.canEdit;
 	 $scope.canView=AbsencesFactory.canView;

@@ -3,8 +3,10 @@
 /**
  * Controller de la page de l'affichage des stagiaires
  */
-controllers.controller('stagiaireCtrl', function($scope, $rootScope, $http, $location, stagiaireData, StagiaireFactory, $modal, $state, $timeout, FichiersFactory) {
-
+controllers.controller('stagiaireCtrl', function($scope, $rootScope, $rootScope, $http, $location, stagiaireData, StagiaireFactory, $modal, $state, $timeout, FichiersFactory) {
+	if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken){
+		$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
+	}
     /*Variable contenant la sélection des données des tableaux de recherche*/
     var promotionSelected = [];
     $scope.stagiaireSelected = [];

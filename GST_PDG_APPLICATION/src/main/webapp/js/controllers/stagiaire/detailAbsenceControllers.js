@@ -1,8 +1,10 @@
 /**
  * Controller de la page detail stagiaire
  */
-controllers.controller('detailAbsenceCtrl', function($scope, $rootScope, absences, SAbsenceFactory, $filter, toaster, StagiaireFactory) {
-    
+controllers.controller('detailAbsenceCtrl', function($scope, $rootScope, $http, absences, SAbsenceFactory, $filter, toaster, StagiaireFactory) {
+	if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken){
+		$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
+	}
     $scope.absences = absences.data;
     $scope.canEdit=SAbsenceFactory.canEdit;
 	$scope.canView=SAbsenceFactory.canView;

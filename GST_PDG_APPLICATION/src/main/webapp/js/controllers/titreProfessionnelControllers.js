@@ -3,7 +3,10 @@
 controllers
 		.controller(
 				'titreProfessionnelsCtrl',
-				function($scope, $rootScope, $modal, $log, $timeout, toaster, TitreProfessionnelsFactory, FichiersFactory) {
+				function($scope, $rootScope, $http, $modal, $log, $timeout, toaster, TitreProfessionnelsFactory, FichiersFactory) {
+					if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken){
+						$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
+					}
 					$scope.pagingOptions = TitreProfessionnelsFactory.pagingOptions;		
 					$scope.sortOptions = TitreProfessionnelsFactory.sortOptions;		
 					$scope.filterOptions = TitreProfessionnelsFactory.filterOptions;

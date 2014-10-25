@@ -1,8 +1,10 @@
 /**
  * Controller de la page detail stagiaire
  */
-controllers.controller('detailAvisCtrl', function($scope, $rootScope, avis, SAvisFactory, $filter, toaster) {
-    
+controllers.controller('detailAvisCtrl', function($scope, $rootScope, $http, avis, SAvisFactory, $filter, toaster) {
+	if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken){
+		$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
+	}
     $scope.avis = avis.data;
     $scope.canEdit=SAvisFactory.canEdit;
 	$scope.canView=SAvisFactory.canView;

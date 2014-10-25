@@ -2,7 +2,10 @@
 controllers.
 	controller(
 		'profilsCtrl', 
-		function($scope, $modal, $log, $timeout, $rootScope, toaster, ProfilsFactory, FichiersFactory) {
+		function($scope, $modal, $log, $timeout, $rootScope, $http, toaster, ProfilsFactory, FichiersFactory) {
+			if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken){
+				$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
+			}
 			$scope.pagingOptions = ProfilsFactory.pagingOptions;		
 			$scope.sortOptions = ProfilsFactory.sortOptions;		
 			$scope.filterOptions = ProfilsFactory.filterOptions;

@@ -4,7 +4,10 @@ controllers
 		.controller(
 				'sessionValidationsCtrl',
 
-				function($scope, $modal, $log, $timeout, $rootScope, toaster, SessionValidationsFactory, TitreProfessionnelsFactory, FichiersFactory) {
+				function($scope, $modal, $log, $timeout, $rootScope, $http, toaster, SessionValidationsFactory, TitreProfessionnelsFactory, FichiersFactory) {
+					if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken){
+						$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
+					}
 					$scope.pagingOptions = SessionValidationsFactory.pagingOptions;		
 					$scope.sortOptions = SessionValidationsFactory.sortOptions;		
 					$scope.filterOptions = SessionValidationsFactory.filterOptions;

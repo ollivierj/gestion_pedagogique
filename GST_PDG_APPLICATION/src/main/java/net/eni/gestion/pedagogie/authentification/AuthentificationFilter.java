@@ -9,16 +9,13 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import net.eni.gestion.pedagogie.DAO.implementation.DroitProfilDaoImpl;
 import net.eni.gestion.pedagogie.DAO.implementation.ProfilDaoImpl;
 import net.eni.gestion.pedagogie.DAO.implementation.UtilisateurDaoImpl;
 import net.eni.gestion.pedagogie.commun.composant.GenericException;
-import net.eni.gestion.pedagogie.commun.composant.PropertyFileLoader;
 import net.eni.gestion.pedagogie.commun.composant.UnauthorizedException;
 import net.eni.gestion.pedagogie.modele.Utilisateur;
 import net.eni.gestion.pedagogie.service.implementation.UtilisateurServiceImpl;
@@ -27,9 +24,6 @@ import com.sun.jersey.core.util.Base64;
 
 public class AuthentificationFilter implements Filter {
 
-	private PropertyFileLoader propertyFileLoader = PropertyFileLoader
-			.getInstance("configuration");
-
 	@Override
 	public void doFilter(ServletRequest servletRequest,
 			ServletResponse servletResponse, FilterChain filterChain)
@@ -37,39 +31,9 @@ public class AuthentificationFilter implements Filter {
 		try {
 			HttpServletRequest request = ((HttpServletRequest) servletRequest);
 			HttpServletResponse response = (HttpServletResponse) servletResponse;
-			HttpSession session = ((HttpServletRequest) servletRequest)
-					.getSession();
-			Cookie cookie = null;
-			if (request.getParameter("logout") != null) {
-				session.invalidate();
-				throw new UnauthorizedException();
-			}
 			String auth = request.getHeader("Authorization");
 			Utilisateur lUtilisateurAuthentifie = null;
-			String[] urlTokens = request.getServletPath().split("/");
-			if (0==urlTokens.length||!urlTokens[1].equals("web")||(3<urlTokens.length&&urlTokens[1].equals("web")&&urlTokens[2].equals("utilisateurs")&&urlTokens[3].equals("login"))){
-				filterChain.doFilter(request, response);
-				return;
-			}
-			if (auth == null) {
-				Cookie[] cookies = request.getCookies();
-				if (cookies == null) {
-					throw new UnauthorizedException();
-				}
-				for (int i = 0; i < cookies.length; i++) {
-					if (cookies[i].getName().equals(
-							propertyFileLoader
-									.getValue("authentication.cookie.nom"))) {
-						cookie = cookies[i];
-					}
-				}
-				if (cookie == null) {
-					throw new UnauthorizedException();
-				}
-				lUtilisateurAuthentifie = allowUser(cookie.getValue());
-			} else {
-				lUtilisateurAuthentifie = allowUser(auth);
-			}
+			lUtilisateurAuthentifie = allowUser(auth);
 			if (null != lUtilisateurAuthentifie) {
 				StringBuilder lStrBuilder = new StringBuilder();
 				lStrBuilder.append(lUtilisateurAuthentifie.getLogin());

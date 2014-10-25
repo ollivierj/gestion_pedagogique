@@ -1,8 +1,10 @@
 /**
  * Controller de la page detail stagiaire
  */
-controllers.controller('detailStagiaireCtrl', function($scope, $rootScope, detail, $modal, $log, SEchangeFactory, $filter, toaster) {
-		
+controllers.controller('detailStagiaireCtrl', function($scope, $rootScope, $http, detail, $modal, $log, SEchangeFactory, $filter, toaster) {
+	if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken){
+		$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
+	}	
     //Initialisation de la variable stagiaire du scope avec la variable detail (resolve de la route)
     $scope.stagiaire = detail;
     $scope.canEdit=StagiaireFactory.canEdit;
