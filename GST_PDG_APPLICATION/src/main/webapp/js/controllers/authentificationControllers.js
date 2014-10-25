@@ -1,6 +1,6 @@
 'use strict';
 controllers.controller('authentificationCtrl',
-    function ($scope, $location, $route, $state, $rootScope, AuthentificationFactory) {
+    function ($scope, $location, $route, $state, $rootScope, $http, AuthentificationFactory) {
 		$rootScope.hideMenus = true;
         AuthentificationFactory.clearCredentials();
         $scope.login = function () {
