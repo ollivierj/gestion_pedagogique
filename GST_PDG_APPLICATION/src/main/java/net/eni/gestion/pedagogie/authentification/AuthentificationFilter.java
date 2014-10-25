@@ -53,14 +53,11 @@ public class AuthentificationFilter implements Filter {
 
 	protected Utilisateur allowUser(String auth) throws IOException,
 			SQLException, GenericException {
-		if (auth == null) {
+		if (auth == null || !auth.toUpperCase().startsWith("BASIC ")) {
 			return null;
 		}
-		if (!auth.toUpperCase().startsWith("BASIC "))
-			return null; 
 		String userpassEncoded = auth.substring(6);
-		String[] loginEtMotDePasse = new String(Base64.decode(userpassEncoded))
-				.split(":");
+		String[] loginEtMotDePasse = new String(Base64.decode(userpassEncoded)).split(":");
 		if (2 != loginEtMotDePasse.length) {
 			return null;
 		}
@@ -69,12 +66,13 @@ public class AuthentificationFilter implements Filter {
 		Utilisateur lUtilisateurAAuthentifier = new Utilisateur();
 		lUtilisateurAAuthentifier.setLogin(lLogin);
 		lUtilisateurAAuthentifier.setMotPasse(lMotDePasse);
-		UtilisateurServiceImpl lUtilisateurService = new UtilisateurServiceImpl(
+		UtilisateurServiceImpl lUtilisateurService = 
+			new UtilisateurServiceImpl(
 				new UtilisateurDaoImpl(), new ProfilDaoImpl(),
-				new DroitProfilDaoImpl());
+				new DroitProfilDaoImpl()
+			);
 		Utilisateur lUtilisateurAuthentifie = null;
-		lUtilisateurAuthentifie = lUtilisateurService
-					.authentifier(lUtilisateurAAuthentifier);
+		lUtilisateurAuthentifie = lUtilisateurService.authentifier(lUtilisateurAAuthentifier);
 		return lUtilisateurAuthentifie;
 	}
 
