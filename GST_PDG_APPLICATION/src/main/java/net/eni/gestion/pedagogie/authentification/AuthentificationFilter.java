@@ -32,16 +32,8 @@ public class AuthentificationFilter implements Filter {
 			HttpServletRequest request = ((HttpServletRequest) servletRequest);
 			HttpServletResponse response = (HttpServletResponse) servletResponse;
 			String auth = request.getHeader("Authorization");
-			Utilisateur lUtilisateurAuthentifie = null;
-			lUtilisateurAuthentifie = allowUser(auth);
-			if (null != lUtilisateurAuthentifie) {
-				StringBuilder lStrBuilder = new StringBuilder();
-				lStrBuilder.append(lUtilisateurAuthentifie.getLogin());
-				lStrBuilder.append(":");
-				lStrBuilder.append(lUtilisateurAuthentifie.getMotPasse());
-				String token = new String(Base64.encode(lStrBuilder.toString()
-						.getBytes()));
-				response.addHeader("Authorization", token);
+			if (allowUser(auth)) {
+				response.addHeader("Authorization", auth);
 				filterChain.doFilter(request, response);
 			} else {
 				throw new UnauthorizedException();
@@ -51,15 +43,15 @@ public class AuthentificationFilter implements Filter {
 		}
 	}
 
-	protected Utilisateur allowUser(String auth) throws IOException,
+	protected boolean allowUser(String auth) throws IOException,
 			SQLException, GenericException {
 		if (auth == null || !auth.toUpperCase().startsWith("BASIC ")) {
-			return null;
+			return false;
 		}
 		String userpassEncoded = auth.substring(6);
 		String[] loginEtMotDePasse = new String(Base64.decode(userpassEncoded)).split(":");
 		if (2 != loginEtMotDePasse.length) {
-			return null;
+			return false;
 		}
 		String lLogin = loginEtMotDePasse[0];
 		String lMotDePasse = loginEtMotDePasse[1];
@@ -71,9 +63,7 @@ public class AuthentificationFilter implements Filter {
 				new UtilisateurDaoImpl(), new ProfilDaoImpl(),
 				new DroitProfilDaoImpl()
 			);
-		Utilisateur lUtilisateurAuthentifie = null;
-		lUtilisateurAuthentifie = lUtilisateurService.authentifier(lUtilisateurAAuthentifier);
-		return lUtilisateurAuthentifie;
+		return lUtilisateurService.checkConnection(lUtilisateurAAuthentifier, false);
 	}
 
 	@Override

@@ -124,6 +124,8 @@ public class UtilisateurServiceImpl extends AServiceImpl<Utilisateur, Integer, U
 		}
 		return utilBDD;
 	}
+    
+    
 	
 	/**
 	 * 
@@ -143,5 +145,15 @@ public class UtilisateurServiceImpl extends AServiceImpl<Utilisateur, Integer, U
 			e.printStackTrace();
 		}
 		return utilBDD;
+	}
+
+	@Override
+	public boolean checkConnection(Utilisateur utilisateur, boolean loginOnly)
+			throws GenericException {
+		try {
+			return (null != this.dao.checkConnection(utilisateur, true));
+		} catch (Exception e) {
+			throw new GenericException("Utilisateur invalide");
+		}
 	}
 }

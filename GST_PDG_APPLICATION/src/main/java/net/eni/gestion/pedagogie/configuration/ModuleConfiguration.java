@@ -112,6 +112,7 @@ import net.eni.gestion.pedagogie.service.implementation.TitreProfessionnelServic
 import net.eni.gestion.pedagogie.service.implementation.UtilisateurServiceImpl;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.Scopes;
 
 /**
  * @author jollivier
@@ -121,62 +122,62 @@ public class ModuleConfiguration extends AbstractModule {
     @Override
     protected void configure() {
     	// Binding des daos
-    	bind(AbsenceDao.class).to(AbsenceDaoImpl.class);
-    	bind(AvisDao.class).to(AvisDaoImpl.class);
-    	bind(CoursDao.class).to(CoursDaoImpl.class);
-    	bind(DroitDao.class).to(DroitDaoImpl.class);
-    	bind(DroitProfilDao.class).to(DroitProfilDaoImpl.class);
-    	bind(EchangeDao.class).to(EchangeDaoImpl.class);
-    	bind(EvaluationDao.class).to(EvaluationDaoImpl.class);
-    	bind(FonctionDao.class).to(FonctionDaoImpl.class);
-    	bind(FormationDao.class).to(FormationDaoImpl.class);
-    	bind(HomologationDao.class).to(HomologationDaoImpl.class);
-    	bind(InstanceCoursDao.class).to(InstanceCoursDaoImpl.class);
-    	bind(CoursStagiaireDao.class).to(CoursStagiaireDaoImpl.class);
-    	bind(InstanceEvaluationDao.class).to(InstanceEvaluationDaoImpl.class);
-    	bind(EvaluationStagiaireDao.class).to(EvaluationStagiaireDaoImpl.class);
-    	bind(InstanceSessionValidationDao.class).to(InstanceSessionValidationDaoImpl.class);
-    	bind(SessionValidationStagiaireDao.class).to(SessionValidationStagiaireDaoImpl.class);
-    	bind(JuryDao.class).to(JuryDaoImpl.class);
-    	bind(ModuleDao.class).to(ModuleDaoImpl.class);
-    	bind(ModuleParUniteDao.class).to(ModuleParUniteDaoImpl.class);
-    	bind(ParametreDao.class).to(ParametreDaoImpl.class);
-    	bind(PlanningDao.class).to(PlanningDaoImpl.class);
-    	bind(PlanningIndividuelDetailDao.class).to(PlanningIndividuelDetailDaoImpl.class);
-    	bind(PlanningIndividuelFormationDao.class).to(PlanningIndividuelFormationDaoImpl.class);
-    	bind(ProfessionnelHomologueDao.class).to(ProfessionnelHomologueDaoImpl.class);
-    	bind(ProfilDao.class).to(ProfilDaoImpl.class);
-    	bind(PromotionDao.class).to(PromotionDaoImpl.class);
-    	bind(ReservationSalleDao.class).to(ReservationSalleDaoImpl.class);
-    	bind(SalleDao.class).to(SalleDaoImpl.class);
-    	bind(SessionValidationDao.class).to(SessionValidationDaoImpl.class);
-    	bind(SujetEvaluationDao.class).to(SujetEvaluationDaoImpl.class);
-    	bind(StagiaireDao.class).to(StagiaireDaoImpl.class);
-    	bind(StagiairePromotionDao.class).to(StagiairePromotionDaoImpl.class);
-    	bind(TitreProfessionnelDao.class).to(TitreProfessionnelDaoImpl.class);
-    	bind(UniteFormationDao.class).to(UniteFormationDaoImpl.class);
-    	bind(UniteParFormationDao.class).to(UniteParFormationDaoImpl.class);
-    	bind(UtilisateurDao.class).to(UtilisateurDaoImpl.class);
+    	bind(AbsenceDao.class).to(AbsenceDaoImpl.class).in(Scopes.SINGLETON);
+    	bind(AvisDao.class).to(AvisDaoImpl.class).in(Scopes.SINGLETON);
+    	bind(CoursDao.class).to(CoursDaoImpl.class).in(Scopes.SINGLETON);
+    	bind(DroitDao.class).to(DroitDaoImpl.class).in(Scopes.SINGLETON);
+    	bind(DroitProfilDao.class).to(DroitProfilDaoImpl.class).in(Scopes.SINGLETON);
+    	bind(EchangeDao.class).to(EchangeDaoImpl.class).in(Scopes.SINGLETON);
+    	bind(EvaluationDao.class).to(EvaluationDaoImpl.class).in(Scopes.SINGLETON);
+    	bind(FonctionDao.class).to(FonctionDaoImpl.class).in(Scopes.SINGLETON);
+    	bind(FormationDao.class).to(FormationDaoImpl.class).in(Scopes.SINGLETON);
+    	bind(HomologationDao.class).to(HomologationDaoImpl.class).in(Scopes.SINGLETON);
+    	bind(InstanceCoursDao.class).to(InstanceCoursDaoImpl.class).in(Scopes.SINGLETON);
+    	bind(CoursStagiaireDao.class).to(CoursStagiaireDaoImpl.class).in(Scopes.SINGLETON);
+    	bind(InstanceEvaluationDao.class).to(InstanceEvaluationDaoImpl.class).in(Scopes.SINGLETON);
+    	bind(EvaluationStagiaireDao.class).to(EvaluationStagiaireDaoImpl.class).in(Scopes.SINGLETON);
+    	bind(InstanceSessionValidationDao.class).to(InstanceSessionValidationDaoImpl.class).in(Scopes.SINGLETON);
+    	bind(SessionValidationStagiaireDao.class).to(SessionValidationStagiaireDaoImpl.class).in(Scopes.SINGLETON);
+    	bind(JuryDao.class).to(JuryDaoImpl.class).in(Scopes.SINGLETON);
+    	bind(ModuleDao.class).to(ModuleDaoImpl.class).in(Scopes.SINGLETON);
+    	bind(ModuleParUniteDao.class).to(ModuleParUniteDaoImpl.class).in(Scopes.SINGLETON);
+    	bind(ParametreDao.class).to(ParametreDaoImpl.class).in(Scopes.SINGLETON);
+    	bind(PlanningDao.class).to(PlanningDaoImpl.class).in(Scopes.SINGLETON);
+    	bind(PlanningIndividuelDetailDao.class).to(PlanningIndividuelDetailDaoImpl.class).in(Scopes.SINGLETON);
+    	bind(PlanningIndividuelFormationDao.class).to(PlanningIndividuelFormationDaoImpl.class).in(Scopes.SINGLETON);
+    	bind(ProfessionnelHomologueDao.class).to(ProfessionnelHomologueDaoImpl.class).in(Scopes.SINGLETON);
+    	bind(ProfilDao.class).to(ProfilDaoImpl.class).in(Scopes.SINGLETON);
+    	bind(PromotionDao.class).to(PromotionDaoImpl.class).in(Scopes.SINGLETON);
+    	bind(ReservationSalleDao.class).to(ReservationSalleDaoImpl.class).in(Scopes.SINGLETON);
+    	bind(SalleDao.class).to(SalleDaoImpl.class).in(Scopes.SINGLETON);
+    	bind(SessionValidationDao.class).to(SessionValidationDaoImpl.class).in(Scopes.SINGLETON);
+    	bind(SujetEvaluationDao.class).to(SujetEvaluationDaoImpl.class).in(Scopes.SINGLETON);
+    	bind(StagiaireDao.class).to(StagiaireDaoImpl.class).in(Scopes.SINGLETON);
+    	bind(StagiairePromotionDao.class).to(StagiairePromotionDaoImpl.class).in(Scopes.SINGLETON);
+    	bind(TitreProfessionnelDao.class).to(TitreProfessionnelDaoImpl.class).in(Scopes.SINGLETON);
+    	bind(UniteFormationDao.class).to(UniteFormationDaoImpl.class).in(Scopes.SINGLETON);
+    	bind(UniteParFormationDao.class).to(UniteParFormationDaoImpl.class).in(Scopes.SINGLETON);
+    	bind(UtilisateurDao.class).to(UtilisateurDaoImpl.class).in(Scopes.SINGLETON);
     	
     	// Binding des services
-    	bind(AbsenceService.class).to(AbsenceServiceImpl.class);
-    	bind(AvisService.class).to(AvisServiceImpl.class);
-    	bind(CoursService.class).to(CoursServiceImpl.class);
-    	bind(EchangeService.class).to(EchangeServiceImpl.class);
-    	bind(EvaluationService.class).to(EvaluationServiceImpl.class);
-    	bind(FichierService.class).to(FichierServiceImpl.class);
-    	bind(FonctionService.class).to(FonctionServiceImpl.class);
-    	bind(ModuleService.class).to(ModuleServiceImpl.class);
-    	bind(ParametreService.class).to(ParametreServiceImpl.class);
-    	bind(ProfessionnelHomologueService.class).to(ProfessionnelHomologueServiceImpl.class);
-    	bind(ProfilService.class).to(ProfilServiceImpl.class);
-    	bind(ReservationSalleService.class).to(ReservationSalleServiceImpl.class);
-    	bind(SessionValidationService.class).to(SessionValidationServiceImpl.class);
-    	bind(SujetEvaluationService.class).to(SujetEvaluationServiceImpl.class);
-    	bind(StagiaireService.class).to(StagiaireServiceImpl.class);
-    	bind(StagiairePromotionService.class).to(StagiairePromotionServiceImpl.class);
-    	bind(TitreProfessionnelService.class).to(TitreProfessionnelServiceImpl.class);
-    	bind(UtilisateurService.class).to(UtilisateurServiceImpl.class);
-    	bind(PlanningService.class).to(PlanningServiceImpl.class);
+    	bind(AbsenceService.class).to(AbsenceServiceImpl.class).in(Scopes.SINGLETON);
+    	bind(AvisService.class).to(AvisServiceImpl.class).in(Scopes.SINGLETON);
+    	bind(CoursService.class).to(CoursServiceImpl.class).in(Scopes.SINGLETON);
+    	bind(EchangeService.class).to(EchangeServiceImpl.class).in(Scopes.SINGLETON);
+    	bind(EvaluationService.class).to(EvaluationServiceImpl.class).in(Scopes.SINGLETON);
+    	bind(FichierService.class).to(FichierServiceImpl.class).in(Scopes.SINGLETON);
+    	bind(FonctionService.class).to(FonctionServiceImpl.class).in(Scopes.SINGLETON);
+    	bind(ModuleService.class).to(ModuleServiceImpl.class).in(Scopes.SINGLETON);
+    	bind(ParametreService.class).to(ParametreServiceImpl.class).in(Scopes.SINGLETON);
+    	bind(ProfessionnelHomologueService.class).to(ProfessionnelHomologueServiceImpl.class).in(Scopes.SINGLETON);
+    	bind(ProfilService.class).to(ProfilServiceImpl.class).in(Scopes.SINGLETON);
+    	bind(ReservationSalleService.class).to(ReservationSalleServiceImpl.class).in(Scopes.SINGLETON);
+    	bind(SessionValidationService.class).to(SessionValidationServiceImpl.class).in(Scopes.SINGLETON);
+    	bind(SujetEvaluationService.class).to(SujetEvaluationServiceImpl.class).in(Scopes.SINGLETON);
+    	bind(StagiaireService.class).to(StagiaireServiceImpl.class).in(Scopes.SINGLETON);
+    	bind(StagiairePromotionService.class).to(StagiairePromotionServiceImpl.class).in(Scopes.SINGLETON);
+    	bind(TitreProfessionnelService.class).to(TitreProfessionnelServiceImpl.class).in(Scopes.SINGLETON);
+    	bind(UtilisateurService.class).to(UtilisateurServiceImpl.class).in(Scopes.SINGLETON);
+    	bind(PlanningService.class).to(PlanningServiceImpl.class).in(Scopes.SINGLETON);
     }
 }
