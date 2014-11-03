@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import net.eni.gestion.pedagogie.DAO.EvaluationDao;
 import net.eni.gestion.pedagogie.DAO.EvaluationStagiaireDao;
-import net.eni.gestion.pedagogie.commun.composant.GenericException;
+import net.eni.gestion.pedagogie.errorhandling.ApplicationException;
 import net.eni.gestion.pedagogie.modele.Evaluation;
 import net.eni.gestion.pedagogie.modele.EvaluationStagiaire;
 import net.eni.gestion.pedagogie.service.EvaluationService;
@@ -35,7 +35,7 @@ public class EvaluationServiceImpl extends AServiceImpl<Evaluation, Integer, Eva
     
     @Override
 	public Evaluation chargerDetail(Integer pId)
-			throws GenericException {
+			throws ApplicationException {
 		Evaluation lEvaluation = super
 				.chargerDetail(pId);
 		lEvaluation.getEvaluationStagiaires();
@@ -44,7 +44,7 @@ public class EvaluationServiceImpl extends AServiceImpl<Evaluation, Integer, Eva
     
     @Override
 	public Evaluation ajouter(Evaluation pModel)
-			throws GenericException {
+			throws ApplicationException {
 		Evaluation lUpdatedModel = super.ajouter(pModel);
 		try {
 			ArrayList<EvaluationStagiaire> lEvaluationStagiaires = lUpdatedModel.getEvaluationStagiaires();
@@ -56,14 +56,14 @@ public class EvaluationServiceImpl extends AServiceImpl<Evaluation, Integer, Eva
 			this.evaluationStagiaireDao.mettreAJourCollectionStagiaireForEvaluation(lUpdatedModel, lEvaluationStagiaires);
 			return lUpdatedModel;
 		} catch (Exception e) {
-			throw new GenericException(
+			throw new ApplicationException(
 					"Echec lors de la mise à jour en base de données.");
 		}
 	}
 
 	@Override
 	public Evaluation mettreAJour(Evaluation pModel)
-			throws GenericException {
+			throws ApplicationException {
 		Evaluation lUpdatedModel = super.mettreAJour(pModel);
 		try {
 			ArrayList<EvaluationStagiaire> lEvaluationStagiaires = lUpdatedModel.getEvaluationStagiaires();
@@ -75,7 +75,7 @@ public class EvaluationServiceImpl extends AServiceImpl<Evaluation, Integer, Eva
 			this.evaluationStagiaireDao.mettreAJourCollectionStagiaireForEvaluation(lUpdatedModel, lEvaluationStagiaires);
 			return lUpdatedModel;
 		} catch (Exception e) {
-			throw new GenericException(
+			throw new ApplicationException(
 					"Echec lors de la mise à jour en base de données.");
 		}
 	}

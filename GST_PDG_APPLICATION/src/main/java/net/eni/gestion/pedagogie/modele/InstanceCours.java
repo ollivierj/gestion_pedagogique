@@ -17,7 +17,7 @@ import com.j256.ormlite.table.DatabaseTable;
 /**
  * @author jollivier
  */
-@DatabaseTable(tableName = ModeleMetier.HOMOLOGATION_TABLE_NAME)
+@DatabaseTable(tableName = ModeleMetier.INSTANCE_COURS_TABLE_NAME)
 @XmlRootElement
 public class InstanceCours extends AModele<Integer> implements Serializable {
 
@@ -62,7 +62,8 @@ public class InstanceCours extends AModele<Integer> implements Serializable {
 		columnName = COURS_FIELD_NAME,
 		foreign = true,
 		useGetSet = true,
-		canBeNull = false)
+		canBeNull = false,
+		foreignAutoRefresh = true)
 	private Cours cours = null;
 
 	@Override

@@ -8,7 +8,7 @@ import net.eni.gestion.pedagogie.DAO.AvisDao;
 import net.eni.gestion.pedagogie.DAO.EchangeDao;
 import net.eni.gestion.pedagogie.DAO.PromotionDao;
 import net.eni.gestion.pedagogie.DAO.StagiaireDao;
-import net.eni.gestion.pedagogie.commun.composant.GenericException;
+import net.eni.gestion.pedagogie.errorhandling.ApplicationException;
 import net.eni.gestion.pedagogie.modele.Promotion;
 import net.eni.gestion.pedagogie.modele.Stagiaire;
 import net.eni.gestion.pedagogie.service.StagiaireService;
@@ -43,18 +43,18 @@ public class StagiaireServiceImpl extends AServiceImpl<Stagiaire, Integer, Stagi
     }
     
     @Override
-    public Stagiaire chargerDetail(Integer pId) throws GenericException {
+    public Stagiaire chargerDetail(Integer pId) throws ApplicationException {
     	Stagiaire stagiaire = super.chargerDetail(pId);
     	return stagiaire;
     }
 
 	@Override
 	public ArrayList<Promotion> chargerPromotionForAutocompleteSearch(
-			String pSearchText) throws GenericException {
+			String pSearchText) throws ApplicationException {
 		try {
 			return this.promotionDao.chargerForAutocompleteSearch(pSearchText);
 		} catch (Exception e) {
-			throw new GenericException("Echec lors du chargement depuis la base de données.");
+			throw new ApplicationException("Echec lors du chargement depuis la base de données.");
 		}
 	}
 }

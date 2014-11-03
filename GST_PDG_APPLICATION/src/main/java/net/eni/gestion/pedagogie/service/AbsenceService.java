@@ -3,7 +3,7 @@ package net.eni.gestion.pedagogie.service;
 import java.util.ArrayList;
 import java.util.Date;
 
-import net.eni.gestion.pedagogie.commun.composant.GenericException;
+import net.eni.gestion.pedagogie.errorhandling.ApplicationException;
 import net.eni.gestion.pedagogie.modele.Absence;
 
 /**
@@ -12,7 +12,7 @@ import net.eni.gestion.pedagogie.modele.Absence;
  */
 public interface AbsenceService extends AService<Absence,Integer> {
 
-	public ArrayList<Absence> chargerAbsencesByDate(Date pMinDate, Date pMaxDate)  throws GenericException;
+	public ArrayList<Absence> chargerAbsencesByDate(Date pMinDate, Date pMaxDate)  throws ApplicationException;
 
 	
 

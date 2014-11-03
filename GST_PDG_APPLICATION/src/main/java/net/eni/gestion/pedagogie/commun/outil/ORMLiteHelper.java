@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
-import net.eni.gestion.pedagogie.commun.composant.GenericException;
 import net.eni.gestion.pedagogie.commun.composant.PropertyPredicate;
 import net.eni.gestion.pedagogie.commun.composant.SortOptions;
+import net.eni.gestion.pedagogie.errorhandling.ApplicationException;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -54,7 +54,7 @@ public class ORMLiteHelper {
 
 	public static <M extends AModele<ID>, ID> String getOrderByClauseFromSortOptions(
 			TableInfo<M, ID> tableInfo, SortOptions pSortOptions)
-			throws GenericException {
+			throws ApplicationException {
 		StringBuilder lOrderStrBuilder= new StringBuilder();
 		lOrderStrBuilder.append(" ORDER BY ");
 		if (null == pSortOptions) {
@@ -91,7 +91,7 @@ public class ORMLiteHelper {
 
 	public static String getFullTextSearchWhereClause(
 			String[] pFullTextSearchFields, String pSearchText)
-			throws GenericException {
+			throws ApplicationException {
 		if (null == pSearchText || pSearchText.isEmpty() || null == pFullTextSearchFields) {
 			return null;
 		}

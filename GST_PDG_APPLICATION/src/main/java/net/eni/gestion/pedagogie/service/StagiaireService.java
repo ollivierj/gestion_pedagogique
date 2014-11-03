@@ -2,7 +2,7 @@ package net.eni.gestion.pedagogie.service;
 
 import java.util.ArrayList;
 
-import net.eni.gestion.pedagogie.commun.composant.GenericException;
+import net.eni.gestion.pedagogie.errorhandling.ApplicationException;
 import net.eni.gestion.pedagogie.modele.Promotion;
 import net.eni.gestion.pedagogie.modele.Stagiaire;
 
@@ -15,7 +15,7 @@ public interface StagiaireService extends AService<Stagiaire, Integer> {
 	 * Chargement d'une liste de modèle pour les contrôles autocomplete
 	 * @param pSearchText
 	 * @return
-	 * @throws GenericException
+	 * @throws ApplicationException
 	 */
-	public ArrayList<Promotion> chargerPromotionForAutocompleteSearch(String pSearchText) throws GenericException;
+	public ArrayList<Promotion> chargerPromotionForAutocompleteSearch(String pSearchText) throws ApplicationException;
 }

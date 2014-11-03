@@ -30,14 +30,15 @@ public class ApplicationConfiguration extends GuiceServletContextListener {
 
                 super.configureServlets();
 
-                ResourceConfig resourceConfig = new PackagesResourceConfig("net.eni.gestion.pedagogie.authentification","net.eni.gestion.pedagogie.resource");
+                ResourceConfig resourceConfig = new PackagesResourceConfig("net.eni.gestion.pedagogie.authentification","net.eni.gestion.pedagogie.resource","net.eni.gestion.pedagogie.errorhandling");
                 
                 for (Class<?> resource : resourceConfig.getClasses()) {
                     bind(resource);
                 }
                 bind(ResourceConfiguration.class).in(Scopes.SINGLETON);
                 bind(JacksonJsonProvider.class).in(Scopes.SINGLETON);
-
+                //bind(ApplicationExceptionMapper.class);
+            	//bind(GenericExceptionMapper.class);
                 serve("/web/*").with(GuiceContainer.class);
             }
         }, new ModuleConfiguration());

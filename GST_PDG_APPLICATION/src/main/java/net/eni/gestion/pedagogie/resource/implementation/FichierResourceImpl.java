@@ -16,7 +16,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import net.eni.gestion.pedagogie.commun.composant.FileBean;
-import net.eni.gestion.pedagogie.commun.composant.GenericException;
+import net.eni.gestion.pedagogie.errorhandling.ApplicationException;
 import net.eni.gestion.pedagogie.resource.FichierResource;
 import net.eni.gestion.pedagogie.service.FichierService;
 
@@ -78,7 +78,7 @@ public class FichierResourceImpl implements FichierResource {
 	@Path("charger/{entite_type}/{entite_id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<FileBean> charger(@PathParam("entite_type") String pType,
-			@PathParam("entite_id") String pId) throws GenericException {
+			@PathParam("entite_id") String pId) throws ApplicationException {
 		return fichierService.charger(pType, pId);
 	}
 

@@ -2,7 +2,7 @@ package net.eni.gestion.pedagogie.service;
 
 import java.util.HashMap;
 
-import net.eni.gestion.pedagogie.commun.composant.GenericException;
+import net.eni.gestion.pedagogie.errorhandling.ApplicationException;
 import net.eni.gestion.pedagogie.modele.Fonction;
 
 /**
@@ -11,6 +11,6 @@ import net.eni.gestion.pedagogie.modele.Fonction;
  */
 public interface FonctionService extends AService<Fonction, String> {
 
-	HashMap<String, String> getTitleMap() throws GenericException;
+	HashMap<String, String> getTitleMap() throws ApplicationException;
 
 }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import net.eni.gestion.pedagogie.DAO.AbsenceDao;
-import net.eni.gestion.pedagogie.commun.composant.GenericException;
+import net.eni.gestion.pedagogie.errorhandling.ApplicationException;
 import net.eni.gestion.pedagogie.modele.Absence;
 import net.eni.gestion.pedagogie.service.AbsenceService;
 
@@ -31,11 +31,11 @@ public class AbsenceServiceImpl extends AServiceImpl<Absence, Integer, AbsenceDa
 
 	@Override
 	public ArrayList<Absence> chargerAbsencesByDate(Date pMinDate, Date pMaxDate)
-			throws GenericException {
+			throws ApplicationException {
 		try {
 			return dao.chargerAbsencesByDate(pMinDate, pMaxDate);
 		} catch (Exception e) {
-			throw new GenericException("Echec lors du chargement depuis la base de données.");
+			throw new ApplicationException("Echec lors du chargement depuis la base de données.");
 		}
 	}
 

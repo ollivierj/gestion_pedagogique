@@ -2,6 +2,8 @@ package net.eni.gestion.pedagogie.commun.composant;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import net.eni.gestion.pedagogie.modele.Utilisateur;
+
 @XmlRootElement
 public class Pager {
 	
@@ -12,6 +14,7 @@ public class Pager {
 	private SortOptions sortOptions;
 	private FilterOptions filterOptions;
 	private Integer id;
+	private Utilisateur connectedUser;
 	
 	/**
 	 * Constructeur à vide nécéssaire pour la sérialisation
@@ -42,6 +45,14 @@ public class Pager {
 
 	public void setFilterOptions(FilterOptions filterOptions) {
 		this.filterOptions = filterOptions;
+	}
+
+	public Utilisateur getConnectedUser() {
+		return connectedUser;
+	}
+
+	public void setConnectedUser(Utilisateur connectedUser) {
+		this.connectedUser = connectedUser;
 	}
 
 	public Integer getId() {

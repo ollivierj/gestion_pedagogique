@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import net.eni.gestion.pedagogie.DAO.implementation.DroitProfilDaoImpl;
 import net.eni.gestion.pedagogie.DAO.implementation.ProfilDaoImpl;
 import net.eni.gestion.pedagogie.DAO.implementation.UtilisateurDaoImpl;
-import net.eni.gestion.pedagogie.commun.composant.GenericException;
 import net.eni.gestion.pedagogie.commun.composant.UnauthorizedException;
+import net.eni.gestion.pedagogie.errorhandling.ApplicationException;
 import net.eni.gestion.pedagogie.modele.Utilisateur;
 import net.eni.gestion.pedagogie.service.implementation.UtilisateurServiceImpl;
 
@@ -38,13 +38,13 @@ public class AuthentificationFilter implements Filter {
 			} else {
 				throw new UnauthorizedException();
 			}
-		} catch (SQLException | GenericException e) {
+		} catch (SQLException | ApplicationException e) {
 			throw new UnauthorizedException();
 		}
 	}
 
 	protected boolean allowUser(String auth) throws IOException,
-			SQLException, GenericException {
+			SQLException, ApplicationException {
 		if (auth == null || !auth.toUpperCase().startsWith("BASIC ")) {
 			return false;
 		}

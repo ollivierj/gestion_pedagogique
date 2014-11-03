@@ -10,10 +10,10 @@ import net.eni.gestion.pedagogie.DAO.ProfilDao;
 import net.eni.gestion.pedagogie.DAO.UtilisateurDao;
 import net.eni.gestion.pedagogie.authentification.ActiveDirectory;
 import net.eni.gestion.pedagogie.authentification.ActiveDirectory.User;
-import net.eni.gestion.pedagogie.commun.composant.GenericException;
 import net.eni.gestion.pedagogie.commun.composant.PropertyFileLoader;
 import net.eni.gestion.pedagogie.configuration.ApplicationConfiguration;
 import net.eni.gestion.pedagogie.configuration.LDAPConfiguration;
+import net.eni.gestion.pedagogie.errorhandling.ApplicationException;
 import net.eni.gestion.pedagogie.modele.Profil;
 import net.eni.gestion.pedagogie.modele.Utilisateur;
 import net.eni.gestion.pedagogie.service.UtilisateurService;
@@ -46,7 +46,7 @@ public class UtilisateurServiceImpl extends AServiceImpl<Utilisateur, Integer, U
         this.droitProfilDao = droitProfilDao;
     }
 
-    public Utilisateur authentifier(Utilisateur utilisateur) throws GenericException {
+    public Utilisateur authentifier(Utilisateur utilisateur) throws ApplicationException {
     	if (ApplicationConfiguration.DEV_MODE.equals(propertyFileLoader
 				.getValue("application.mode"))) {
 			try {
@@ -94,7 +94,7 @@ public class UtilisateurServiceImpl extends AServiceImpl<Utilisateur, Integer, U
 				System.out.println("identifiant MDP incorrect");
 			}
 		} catch (Exception e1) {
-			throw new GenericException(
+			throw new ApplicationException(
 					"Echec lors de la connection a la base de donnée.");
 		}
 		
@@ -149,11 +149,11 @@ public class UtilisateurServiceImpl extends AServiceImpl<Utilisateur, Integer, U
 
 	@Override
 	public boolean checkConnection(Utilisateur utilisateur, boolean loginOnly)
-			throws GenericException {
+			throws ApplicationException {
 		try {
 			return (null != this.dao.checkConnection(utilisateur, true));
 		} catch (Exception e) {
-			throw new GenericException("Utilisateur invalide");
+			throw new ApplicationException("Utilisateur invalide");
 		}
 	}
 }

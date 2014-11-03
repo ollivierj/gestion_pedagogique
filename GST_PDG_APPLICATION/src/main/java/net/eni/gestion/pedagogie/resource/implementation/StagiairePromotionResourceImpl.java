@@ -8,7 +8,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import net.eni.gestion.pedagogie.commun.composant.GenericException;
+import net.eni.gestion.pedagogie.errorhandling.ApplicationException;
 import net.eni.gestion.pedagogie.modele.StagiairePromotion;
 import net.eni.gestion.pedagogie.resource.StagiairePromotionResource;
 import net.eni.gestion.pedagogie.service.StagiairePromotionService;
@@ -31,7 +31,7 @@ public class StagiairePromotionResourceImpl extends AResourceImpl<StagiairePromo
     @Path("/stagiaires/{type}/{id}")
     @Produces(MediaType.APPLICATION_JSON)
 	public ArrayList<StagiairePromotion> chargerStagiaireOrPromotion(
-			@PathParam("type") String type, @PathParam("id") String id) throws GenericException {
+			@PathParam("type") String type, @PathParam("id") String id) throws ApplicationException {
 		switch (type) {
 		case "Promotion":
 			return service.chargerByPromotionId(id);
