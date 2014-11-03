@@ -8,7 +8,7 @@ import net.eni.gestion.pedagogie.DAO.AvisDao;
 import net.eni.gestion.pedagogie.DAO.EchangeDao;
 import net.eni.gestion.pedagogie.DAO.PromotionDao;
 import net.eni.gestion.pedagogie.DAO.StagiaireDao;
-import net.eni.gestion.pedagogie.errorhandling.ApplicationException;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.modele.Promotion;
 import net.eni.gestion.pedagogie.modele.Stagiaire;
 import net.eni.gestion.pedagogie.service.StagiaireService;

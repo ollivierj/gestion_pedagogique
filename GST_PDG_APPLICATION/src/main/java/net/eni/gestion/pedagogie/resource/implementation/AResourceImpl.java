@@ -15,10 +15,10 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import net.eni.gestion.pedagogie.commun.composant.NamedObjectMap;
-import net.eni.gestion.pedagogie.commun.composant.Pager;
-import net.eni.gestion.pedagogie.commun.composant.Pair;
-import net.eni.gestion.pedagogie.errorhandling.ApplicationException;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
+import net.eni.gestion.pedagogie.commun.composant.map.NamedObjectMap;
+import net.eni.gestion.pedagogie.commun.composant.pagination.Pager;
+import net.eni.gestion.pedagogie.commun.composant.tuple.Pair;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 import net.eni.gestion.pedagogie.resource.AResource;
 import net.eni.gestion.pedagogie.service.AService;

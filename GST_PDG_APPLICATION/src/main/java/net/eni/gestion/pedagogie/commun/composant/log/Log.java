@@ -1,7 +1,9 @@
-package net.eni.gestion.pedagogie.commun.composant;
+package net.eni.gestion.pedagogie.commun.composant.log;
 
 import java.util.Properties;
 
+import net.eni.gestion.pedagogie.commun.composant.propriete.PropertyStore;
+import net.eni.gestion.pedagogie.configuration.ApplicationConfiguration;
 import net.eni.gestion.pedagogie.configuration.DatabaseConfiguration;
 
 import org.apache.log4j.Level;
@@ -71,7 +73,7 @@ public class Log {
 	 * @return Chemin complet et nom du fichier de configuration
 	 */
 	public static String getLoggerFileLocation() {
-		return Environment.getWebInfLocation() + LOGGER_FILE_NAME;
+		return ApplicationConfiguration.getWebInfLocation() + LOGGER_FILE_NAME;
 	}
 	
 	/**

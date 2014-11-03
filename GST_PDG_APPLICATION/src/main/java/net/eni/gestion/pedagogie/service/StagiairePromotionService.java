@@ -2,7 +2,7 @@ package net.eni.gestion.pedagogie.service;
 
 import java.util.ArrayList;
 
-import net.eni.gestion.pedagogie.errorhandling.ApplicationException;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.modele.StagiairePromotion;
 
 public interface StagiairePromotionService extends AService<StagiairePromotion, Integer> {

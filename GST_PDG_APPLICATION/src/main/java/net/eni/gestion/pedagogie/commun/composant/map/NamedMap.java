@@ -1,7 +1,7 @@
 /**
  * 
  */
-package net.eni.gestion.pedagogie.commun.composant;
+package net.eni.gestion.pedagogie.commun.composant.map;
 
 import java.util.HashMap;
 

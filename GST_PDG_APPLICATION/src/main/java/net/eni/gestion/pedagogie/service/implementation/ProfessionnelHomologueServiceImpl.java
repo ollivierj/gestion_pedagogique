@@ -2,7 +2,7 @@ package net.eni.gestion.pedagogie.service.implementation;
 
 import net.eni.gestion.pedagogie.DAO.HomologationDao;
 import net.eni.gestion.pedagogie.DAO.ProfessionnelHomologueDao;
-import net.eni.gestion.pedagogie.errorhandling.ApplicationException;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.modele.ProfessionnelHomologue;
 import net.eni.gestion.pedagogie.service.ProfessionnelHomologueService;
 

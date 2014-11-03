@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import net.eni.gestion.pedagogie.DAO.DroitProfilDao;
 import net.eni.gestion.pedagogie.DAO.ProfilDao;
-import net.eni.gestion.pedagogie.errorhandling.ApplicationException;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.modele.Profil;
 import net.eni.gestion.pedagogie.service.ProfilService;
 

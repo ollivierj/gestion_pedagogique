@@ -6,8 +6,8 @@ package net.eni.gestion.pedagogie.DAO;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import net.eni.gestion.pedagogie.commun.composant.Pager;
-import net.eni.gestion.pedagogie.commun.composant.Pair;
+import net.eni.gestion.pedagogie.commun.composant.pagination.Pager;
+import net.eni.gestion.pedagogie.commun.composant.tuple.Pair;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 /**

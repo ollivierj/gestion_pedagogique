@@ -5,7 +5,7 @@ import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
+import net.eni.gestion.pedagogie.configuration.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 import com.j256.ormlite.field.DataType;

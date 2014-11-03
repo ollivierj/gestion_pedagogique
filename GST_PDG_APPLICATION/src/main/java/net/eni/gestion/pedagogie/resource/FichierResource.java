@@ -4,8 +4,8 @@ import java.util.List;
 
 import javax.ws.rs.core.Response;
 
-import net.eni.gestion.pedagogie.commun.composant.FileBean;
-import net.eni.gestion.pedagogie.errorhandling.ApplicationException;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
+import net.eni.gestion.pedagogie.commun.composant.fichier.FileBean;
 
 import com.sun.jersey.multipart.FormDataMultiPart;
 

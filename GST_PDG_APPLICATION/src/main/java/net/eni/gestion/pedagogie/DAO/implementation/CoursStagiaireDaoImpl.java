@@ -3,7 +3,7 @@ package net.eni.gestion.pedagogie.DAO.implementation;
 import java.sql.SQLException;
 
 import net.eni.gestion.pedagogie.DAO.CoursStagiaireDao;
-import net.eni.gestion.pedagogie.commun.composant.Connexion;
+import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.modele.CoursStagiaire;
 
 import com.google.inject.Singleton;

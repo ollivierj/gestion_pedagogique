@@ -1,4 +1,4 @@
-package net.eni.gestion.pedagogie.commun.composant;
+package net.eni.gestion.pedagogie.commun.composant.pagination;
 
 import java.io.Serializable;
 

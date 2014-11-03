@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import net.eni.gestion.pedagogie.DAO.SessionValidationStagiaireDao;
-import net.eni.gestion.pedagogie.commun.composant.Connexion;
+import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.outil.CRUDHelper;
 import net.eni.gestion.pedagogie.commun.outil.SearchCallable;
 import net.eni.gestion.pedagogie.modele.SessionValidation;

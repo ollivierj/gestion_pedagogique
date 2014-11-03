@@ -3,14 +3,14 @@ package net.eni.gestion.pedagogie.DAO.implementation;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import org.apache.commons.lang3.StringUtils;
-
 import net.eni.gestion.pedagogie.DAO.InstanceCoursDao;
-import net.eni.gestion.pedagogie.commun.composant.Connexion;
-import net.eni.gestion.pedagogie.commun.composant.Pager;
-import net.eni.gestion.pedagogie.commun.composant.Pair;
+import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
+import net.eni.gestion.pedagogie.commun.composant.pagination.Pager;
+import net.eni.gestion.pedagogie.commun.composant.tuple.Pair;
 import net.eni.gestion.pedagogie.commun.outil.ORMLiteHelper;
 import net.eni.gestion.pedagogie.modele.InstanceCours;
+
+import org.apache.commons.lang3.StringUtils;
 
 import com.google.inject.Singleton;
 

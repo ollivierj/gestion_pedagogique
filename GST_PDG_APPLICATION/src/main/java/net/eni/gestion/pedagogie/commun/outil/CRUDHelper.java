@@ -2,8 +2,8 @@ package net.eni.gestion.pedagogie.commun.outil;
 
 import java.util.ArrayList;
 
-import net.eni.gestion.pedagogie.commun.composant.Pager;
-import net.eni.gestion.pedagogie.commun.composant.Pair;
+import net.eni.gestion.pedagogie.commun.composant.pagination.Pager;
+import net.eni.gestion.pedagogie.commun.composant.tuple.Pair;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 import org.apache.commons.lang3.StringUtils;

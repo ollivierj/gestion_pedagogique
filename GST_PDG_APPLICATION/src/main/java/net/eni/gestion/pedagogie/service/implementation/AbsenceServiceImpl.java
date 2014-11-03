@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import net.eni.gestion.pedagogie.DAO.AbsenceDao;
-import net.eni.gestion.pedagogie.errorhandling.ApplicationException;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.modele.Absence;
 import net.eni.gestion.pedagogie.service.AbsenceService;
 

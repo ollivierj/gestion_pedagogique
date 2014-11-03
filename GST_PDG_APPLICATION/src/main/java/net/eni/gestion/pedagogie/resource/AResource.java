@@ -9,9 +9,9 @@ import java.util.HashMap;
 
 import javax.ws.rs.NameBinding;
 
-import net.eni.gestion.pedagogie.commun.composant.NamedObjectMap;
-import net.eni.gestion.pedagogie.commun.composant.Pager;
-import net.eni.gestion.pedagogie.errorhandling.ApplicationException;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
+import net.eni.gestion.pedagogie.commun.composant.map.NamedObjectMap;
+import net.eni.gestion.pedagogie.commun.composant.pagination.Pager;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 /**

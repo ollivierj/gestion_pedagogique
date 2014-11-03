@@ -1,4 +1,4 @@
-package net.eni.gestion.pedagogie.errorhandling;
+package net.eni.gestion.pedagogie.commun.composant.erreur;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

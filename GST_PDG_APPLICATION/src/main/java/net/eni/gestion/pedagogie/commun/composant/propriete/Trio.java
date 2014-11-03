@@ -1,7 +1,7 @@
 /**
  * 
  */
-package net.eni.gestion.pedagogie.commun.composant;
+package net.eni.gestion.pedagogie.commun.composant.propriete;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

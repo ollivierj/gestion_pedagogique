@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import net.eni.gestion.pedagogie.DAO.StagiairePromotionDao;
-import net.eni.gestion.pedagogie.commun.composant.Connexion;
+import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.modele.StagiairePromotion;
 
 import com.google.inject.Singleton;

@@ -1,4 +1,4 @@
-package net.eni.gestion.pedagogie.commun.composant;
+package net.eni.gestion.pedagogie.commun.composant.propriete;
 
 import java.io.File;
 import java.io.FileInputStream;

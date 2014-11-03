@@ -1,4 +1,4 @@
-package net.eni.gestion.pedagogie.commun.composant;
+package net.eni.gestion.pedagogie.commun.composant.propriete;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.Predicate;

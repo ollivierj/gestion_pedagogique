@@ -2,6 +2,10 @@ package net.eni.gestion.pedagogie.configuration;
 
 
 
+import java.io.File;
+
+import net.TopLevelDomain;
+
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -21,6 +25,11 @@ public class ApplicationConfiguration extends GuiceServletContextListener {
 	public final static String DEV_MODE 						= "DEV";
 	public final static String PROD_MODE 						= "PROD";
 	
+	public static String getWebInfLocation() {
+		return TopLevelDomain.class.getResource("").getPath()
+			+ ".." + File.separatorChar + ".." + File.separatorChar;
+	}
+	
     @Override
     protected Injector getInjector() {
         return Guice.createInjector(new ServletModule() {
@@ -30,7 +39,7 @@ public class ApplicationConfiguration extends GuiceServletContextListener {
 
                 super.configureServlets();
 
-                ResourceConfig resourceConfig = new PackagesResourceConfig("net.eni.gestion.pedagogie.authentification","net.eni.gestion.pedagogie.resource","net.eni.gestion.pedagogie.errorhandling");
+                ResourceConfig resourceConfig = new PackagesResourceConfig("net.eni.gestion.pedagogie.commun.composant.authentification","net.eni.gestion.pedagogie.resource","net.eni.gestion.pedagogie.errorhandling");
                 
                 for (Class<?> resource : resourceConfig.getClasses()) {
                     bind(resource);

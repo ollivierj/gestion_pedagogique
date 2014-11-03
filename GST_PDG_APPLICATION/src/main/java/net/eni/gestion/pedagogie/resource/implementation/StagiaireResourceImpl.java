@@ -8,8 +8,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import net.eni.gestion.pedagogie.commun.composant.NamedObjectMap;
-import net.eni.gestion.pedagogie.errorhandling.ApplicationException;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
+import net.eni.gestion.pedagogie.commun.composant.map.NamedObjectMap;
 import net.eni.gestion.pedagogie.modele.Promotion;
 import net.eni.gestion.pedagogie.modele.Stagiaire;
 import net.eni.gestion.pedagogie.resource.StagiaireResource;

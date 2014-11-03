@@ -1,4 +1,4 @@
-package net.eni.gestion.pedagogie.commun.constante;
+package net.eni.gestion.pedagogie.configuration;
 
 
 

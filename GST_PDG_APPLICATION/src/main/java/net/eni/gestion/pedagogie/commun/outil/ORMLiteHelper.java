@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
-import net.eni.gestion.pedagogie.commun.composant.PropertyPredicate;
-import net.eni.gestion.pedagogie.commun.composant.SortOptions;
-import net.eni.gestion.pedagogie.errorhandling.ApplicationException;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
+import net.eni.gestion.pedagogie.commun.composant.pagination.SortOptions;
+import net.eni.gestion.pedagogie.commun.composant.propriete.PropertyPredicate;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 import org.apache.commons.collections.CollectionUtils;

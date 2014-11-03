@@ -1,4 +1,4 @@
-package net.eni.gestion.pedagogie.authentification;
+package net.eni.gestion.pedagogie.commun.composant.authentification;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import net.eni.gestion.pedagogie.DAO.implementation.DroitProfilDaoImpl;
 import net.eni.gestion.pedagogie.DAO.implementation.ProfilDaoImpl;
 import net.eni.gestion.pedagogie.DAO.implementation.UtilisateurDaoImpl;
-import net.eni.gestion.pedagogie.commun.composant.UnauthorizedException;
-import net.eni.gestion.pedagogie.errorhandling.ApplicationException;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationExceptionMapper;
 import net.eni.gestion.pedagogie.modele.Utilisateur;
 import net.eni.gestion.pedagogie.service.implementation.UtilisateurServiceImpl;
 
@@ -36,10 +36,12 @@ public class AuthentificationFilter implements Filter {
 				response.addHeader("Authorization", auth);
 				filterChain.doFilter(request, response);
 			} else {
-				throw new UnauthorizedException();
+				throw new ApplicationException("Vous devez vous connecter");
 			}
-		} catch (SQLException | ApplicationException e) {
-			throw new UnauthorizedException();
+		} catch (ApplicationException e) {
+			new ApplicationExceptionMapper().toResponse(e);
+		} catch (SQLException e) {
+			new ApplicationExceptionMapper().toResponse(new ApplicationException("Erreur en base de données"));
 		}
 	}
 

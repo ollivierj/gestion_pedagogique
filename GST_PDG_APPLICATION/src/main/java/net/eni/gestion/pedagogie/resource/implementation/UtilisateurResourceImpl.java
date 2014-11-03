@@ -6,7 +6,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import net.eni.gestion.pedagogie.errorhandling.ApplicationException;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.modele.Utilisateur;
 import net.eni.gestion.pedagogie.resource.UtilisateurResource;
 import net.eni.gestion.pedagogie.service.UtilisateurService;

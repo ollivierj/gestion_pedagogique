@@ -11,7 +11,7 @@ import java.util.Iterator;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
+import net.eni.gestion.pedagogie.configuration.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 import org.apache.commons.lang3.time.DateFormatUtils;

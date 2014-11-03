@@ -3,8 +3,7 @@
  */
 package net.eni.gestion.pedagogie.configuration;
 
-import net.eni.gestion.pedagogie.commun.composant.Environment;
-import net.eni.gestion.pedagogie.commun.composant.PropertyStore;
+import net.eni.gestion.pedagogie.commun.composant.propriete.PropertyStore;
 
 /**
  * @author jollivier
@@ -33,7 +32,7 @@ public class DatabaseConfiguration {
 	 * @return Chemin complet et nom du fichier de configuration
 	 */
 	public static String getConfigurationFileLocation() {
-		return Environment.getWebInfLocation() + CONFIG_FILE_NAME;
+		return ApplicationConfiguration.getWebInfLocation() + CONFIG_FILE_NAME;
 	}
 	
 	/**
