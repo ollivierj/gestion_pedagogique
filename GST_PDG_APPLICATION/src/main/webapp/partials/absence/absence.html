@@ -10,17 +10,21 @@
 
 				<div class="row">
 					<nav class="navbar navbar-default" role="navigation">
-						<div class="container-fluid" style="padding-top: 11px;">
+						<div class="container-fluid">
 							<form class="navbar-form navbar-left" role="search">
 								<input type="text" class="form-control"
 									ng-required="form.required" ng-disabled="form.disabled"
-									ng-model="date" name="date" bs-datepicker> <input
-									type="text" ng-model="item" class="form-control"
-									placeholder="Recherche"
-									typeahead="item as (item.libelle) for item in chargerStagiaires($viewValue)"
-									typeahead-loading="chargementItem" class="form-control">
-								<i ng-show="chargementItem" class="glyphicon glyphicon-refresh"></i>
+									ng-model="date" name="date" bs-datepicker> 
+								<div class="form-group has-feedback">
+									<input
+										type="text" ng-model="item" class="form-control"
+										placeholder="Recherche"
+										typeahead="item as (item.libelle) for item in chargerStagiaires($viewValue)"
+										typeahead-loading="chargementItem" class="form-control">
+									<span ng-show="chargementItem" class="glyphicon glyphicon-refresh form-control-feedback"></span>
+								</div>
 							</form>
+							
 							<form class="navbar-form navbar-right" role="search">
 								<button class="btn btn-primary" ng-click="addAbsence(item)">
 									<span class="fa fa-plus"></span>

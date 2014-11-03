@@ -13,7 +13,7 @@ import com.google.inject.Singleton;
  * Service métier "Salle"
  */
 @Singleton
-public class SalleDaoImpl extends ADaoImpl<Salle, String> implements SalleDao{
+public class SalleDaoImpl extends ADaoImpl<Salle, Integer> implements SalleDao{
 	
 	/**
 	 * Constructeur de la DAO SalleBase
@@ -22,5 +22,5 @@ public class SalleDaoImpl extends ADaoImpl<Salle, String> implements SalleDao{
 	public SalleDaoImpl() throws SQLException {
 		super(Connexion.getConnexion(), Salle.class);
 	}
-
+	
 }

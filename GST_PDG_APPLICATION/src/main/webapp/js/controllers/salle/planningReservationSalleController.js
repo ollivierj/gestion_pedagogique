@@ -4,7 +4,7 @@
 
 controllers.controller('planningReservationSalleCtrl', function($scope, $location, 
 		modalService, SallesFactory, PromotionsFactory, SallesReserveesFactory, AnimateursLibresFactory, 
-		PlanningFactory, $filter, PLANNING_ELEMENTS, planningElements) {
+		PlanningFactory, $filter, CONSTANTS, planningElements) {
 
 	
 	//Assignation des couleur pour les 3 types d'éléments
@@ -12,7 +12,7 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
     $scope.evaluations = {color: '#FF4219'};
     $scope.cours = {color: '#1242B2'};
     //Construction d'un tableau contenant les constantes de types d'éléments (Affichage de la combo box)
-    $scope.typeElements = [{typeName: PLANNING_ELEMENTS.SESSION}, {typeName: PLANNING_ELEMENTS.EVALUATION}, {typeName: PLANNING_ELEMENTS.COURS}];
+    $scope.typeElements = [{typeName: CONSTANTS.PLANNING_ELEMENTS.SESSION}, {typeName: CONSTANTS.PLANNING_ELEMENTS.EVALUATION}, {typeName: CONSTANTS.PLANNING_ELEMENTS.COURS}];
     
     
 	//Transforme le résultat des éléments en éléments graphique correspondant à ui calendar.
@@ -44,7 +44,7 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
     };
     
     //Utilisé lors de l'affichage du planning la première fois
-    initElements(planningElements)
+    initElements(planningElements);
     
     //Récupère les éléments du planning en fonction d'une date
     $scope.getPlanningElements = function(date) {
@@ -65,8 +65,8 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
             items: function () {
               return event;
             },
-            salles: function (SallesFactory) {
-                return SallesFactory.query().$promise;
+            salles: function (SalleFactory) {
+                return SalleFactory.referenceSalle.query().$promise;
             },
             sallesReservees : function (SallesReserveesFactory) {
                 return SallesReserveesFactory.query().$promise;
@@ -74,8 +74,6 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
            /* animateursLibres : function (AnimateursLibresFactory) {
                 return AnimateursLibresFactory.query().$promise;
             },*/
-            
-            
         }
     };
     
@@ -87,26 +85,29 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
         //Pour chaque type une vue et un controller sont associés.
         switch(event.type) {
         
-        	case PLANNING_ELEMENTS.SESSION: modalEditionInstance.templateUrl = 'partials/salle/instance/sessionsValidation.html';
-        						modalEditionInstance.controller = 'formSessionSalleCtrl';
-        						modalEditionInstance.resolve.data = function (SessionValidationsFactory) {
-        							return SessionValidationsFactory.detail.getData({id:event.entityId}).$promise;
-        						};
-        						break;
+        	case CONSTANTS.PLANNING_ELEMENTS.SESSION: 
+						modalEditionInstance.templateUrl = 'partials/salle/instance/sessionsValidation.html';
+						modalEditionInstance.controller = 'formSessionSalleCtrl';
+						modalEditionInstance.resolve.data = function (SessionValidationsFactory) {
+							return SessionValidationsFactory.detail.getData({id:event.entityId}).$promise;
+						};
+						break;
         						
-        	case PLANNING_ELEMENTS.EVALUATION: modalEditionInstance.templateUrl = 'partials/salle/instance/evaluations.html';
-        						modalEditionInstance.controller = 'formEvaluationSalleCtrl';
-        						modalEditionInstance.resolve.data = function (EvaluationsFactory) {
-        							return EvaluationsFactory.detail.getData({id:event.entityId}).$promise;
-        						};
-								break;
+        	case CONSTANTS.PLANNING_ELEMENTS.EVALUATION: 
+						modalEditionInstance.templateUrl = 'partials/salle/instance/evaluations.html';
+						modalEditionInstance.controller = 'formEvaluationSalleCtrl';
+						modalEditionInstance.resolve.data = function (EvaluationsFactory) {
+							return EvaluationsFactory.detail.getData({id:event.entityId}).$promise;
+						};
+						break;
 								
-        	case PLANNING_ELEMENTS.COURS: modalEditionInstance.templateUrl = 'partials/salle/instance/cours.html';
-        						modalEditionInstance.controller = 'formCoursSalleCtrl';
-        						modalEditionInstance.resolve.data = function (CoursFactory) {
-        							return CoursFactory.detail.getData({id:event.entityId}).$promise;
-        						};
-								break;
+        	case CONSTANTS.PLANNING_ELEMENTS.COURS: 
+						modalEditionInstance.templateUrl = 'partials/salle/instance/cours.html';
+						modalEditionInstance.controller = 'formCoursSalleCtrl';
+						modalEditionInstance.resolve.data = function (CoursFactory) {
+							return CoursFactory.detail.getData({id:event.entityId}).$promise;
+						};
+						break;
         }
         
        //Affichage de la fenêtre modale

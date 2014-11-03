@@ -56,6 +56,10 @@ services.factory('SessionValidationsFactory', function ($resource) {
 		}),
 		delete :  $resource('/ng_gst_pdg/web/sessionValidations/suppression/:id', {}, {
 			doAction : { method: 'DELETE', params: {id: '@id'} }
+		}),
+		instance :  $resource('/ng_gst_pdg/web/sessionValidations/instance/:id', {}, {
+			getData : { method: 'GET', params: {id: '@id'}, isArray: false },
+			saveData : { method : 'POST' }
 		})
 	}
 });

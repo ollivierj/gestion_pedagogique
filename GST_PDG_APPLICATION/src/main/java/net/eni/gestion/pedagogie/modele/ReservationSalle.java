@@ -4,7 +4,6 @@
 package net.eni.gestion.pedagogie.modele;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -15,7 +14,6 @@ import net.eni.gestion.pedagogie.modele.generique.AModele;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
@@ -71,6 +69,7 @@ public class ReservationSalle extends AModele<Integer> implements Serializable {
 		useGetSet = true)
 	private Integer nbPosteLibre = null;
 
+	//@JsonBackReference("reservation-salle")
 	@DatabaseField(
 		columnName = SALLE_FIELD_NAME,
 		foreign = true,
@@ -82,20 +81,24 @@ public class ReservationSalle extends AModele<Integer> implements Serializable {
 		return id;
 	}
 
-	@ForeignCollectionField(eager = true, columnName = InstanceCours.RESERVATION_SALLE_FIELD_NAME)
+	
+	/*@ForeignCollectionField(eager = true, columnName = InstanceCours.RESERVATION_SALLE_FIELD_NAME)
 	private transient Collection<InstanceCours> transientInstanceCours = null;
 
+	@JsonIgnore
 	private InstanceCours instanceCours = null;
 	
 	@ForeignCollectionField(eager = true, columnName = InstanceEvaluation.RESERVATION_SALLE_FIELD_NAME)
 	private transient Collection<InstanceEvaluation> transientInstanceEvaluations = null;
 
+	@JsonIgnore
 	private InstanceEvaluation instanceEvaluation = null;
 	
 	@ForeignCollectionField(eager = true, columnName = InstanceSessionValidation.RESERVATION_SALLE_FIELD_NAME)
 	private transient Collection<InstanceSessionValidation> transientInstanceSessionValidations = null;
 
-	private InstanceSessionValidation instanceSessionValidation = null;
+	@JsonIgnore
+	private InstanceSessionValidation instanceSessionValidation = null;*/
 	
 	@Override
 	public void setId(Integer pId) {
@@ -133,7 +136,7 @@ public class ReservationSalle extends AModele<Integer> implements Serializable {
 	public void setSalle(Salle salle) {
 		this.salle = salle;
 	}
-	
+	/*
 	public InstanceCours getInstanceCours() {
 		if (null != transientInstanceCours && 1 == transientInstanceCours.size()) {
 			instanceCours = transientInstanceCours.iterator().next();
@@ -156,6 +159,6 @@ public class ReservationSalle extends AModele<Integer> implements Serializable {
 			transientInstanceSessionValidations = null;
 		}
 		return instanceSessionValidation;
-	}
+	}*/
 
 }

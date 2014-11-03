@@ -44,6 +44,9 @@ services.factory('ProfessionnelHomologuesFactory', function ($resource) {
 		detail :  $resource('/ng_gst_pdg/web/professionnelHomologues/detail/:id', {}, {
 			getData : { method: 'GET', params: {id: '@id'}, isArray: false }
 		}),
+		autocomplete :  $resource('/ng_gst_pdg/web/professionnelHomologues/autocomplete/:search', {}, {
+			getData : { method: 'GET', params: {search: '@search'}, isArray: true }
+		}),
 		create :  $resource('/ng_gst_pdg/web/professionnelHomologues/creation', {}, {
 			doAction : { method: 'POST'}
 		}),

@@ -1,8 +1,15 @@
 package net.eni.gestion.pedagogie.resource.implementation;
 
-import javax.ws.rs.Path;
+import java.util.List;
 
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import net.eni.gestion.pedagogie.commun.composant.GenericException;
 import net.eni.gestion.pedagogie.modele.ReservationSalle;
+import net.eni.gestion.pedagogie.modele.Salle;
 import net.eni.gestion.pedagogie.resource.ReservationSalleResource;
 import net.eni.gestion.pedagogie.service.ReservationSalleService;
 
@@ -23,5 +30,12 @@ public class ReservationSalleResourceImpl extends AResourceImpl<ReservationSalle
     public ReservationSalleResourceImpl(ReservationSalleService reservationSalleService) {
     	super(reservationSalleService, ReservationSalle.class);
     }
+    
+    @GET
+    @Path("/salles")
+    @Produces(MediaType.APPLICATION_JSON)
+	public List<Salle> chargerSalle() throws GenericException {
+    	return service.getSalles();
+	}
 
 }

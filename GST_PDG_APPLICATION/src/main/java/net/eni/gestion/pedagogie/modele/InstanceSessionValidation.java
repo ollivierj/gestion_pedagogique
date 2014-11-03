@@ -37,8 +37,8 @@ public class InstanceSessionValidation extends AModele<Integer> implements Seria
 	private static final long serialVersionUID = 1L;
 
 	public final static String ID_FIELD_NAME 					= "INST_SES_VAL_ID";
-	public final static String SESSION_VALIDATION_FIELD_NAME	= "INST_SES_SESSION_VALIDATION";
-	public final static String RESERVATION_SALLE_FIELD_NAME		= "INST_SES_RESERVATION_SALLE";
+	public final static String SESSION_VALIDATION_FIELD_NAME	= "INST_SES_VAL_SESSION_VALIDATION";
+	public final static String RESERVATION_SALLE_FIELD_NAME		= "INST_SES_VAL_RESERVATION_SALLE";
 	
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
@@ -57,7 +57,8 @@ public class InstanceSessionValidation extends AModele<Integer> implements Seria
 	@DatabaseField(
 		columnName = RESERVATION_SALLE_FIELD_NAME,
 		foreign = true,
-		useGetSet = true)
+		useGetSet = true,
+		foreignAutoRefresh = true)
 	private ReservationSalle reservationSalle = null;
 	
 	@ForeignCollectionField(eager = true, columnName = Jury.INSTANCE_SESSION_VALIDATION_FIELD_NAME)

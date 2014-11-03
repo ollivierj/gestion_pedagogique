@@ -5,6 +5,7 @@ package net.eni.gestion.pedagogie.DAO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import net.eni.gestion.pedagogie.commun.composant.Pager;
 import net.eni.gestion.pedagogie.commun.composant.Pair;
@@ -67,4 +68,11 @@ public interface ADao<M extends AModele<ID>, ID> {
 		public ID supprimer(ID pId)throws Exception;
 
 		public HashMap<String, String> getTitleMap() throws Exception;
+		
+		/**
+		 * Récupère tous les modèles
+		 * @return modèles
+		 * @throws Exception
+		 */
+		public List<M> chargerTous() throws Exception;
 }

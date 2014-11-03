@@ -44,11 +44,12 @@ public class SessionValidationServiceImpl extends
     @Override
 	public SessionValidation chargerDetail(Integer pId)
 			throws GenericException {
-		SessionValidation lSessionValidation = super
-				.chargerDetail(pId);
+		SessionValidation lSessionValidation = super.chargerDetail(pId);
 		lSessionValidation.getSessionValidationStagiaires();
 		return lSessionValidation;
 	}
+    
+    
 
 	@Override
 	public SessionValidation ajouter(SessionValidation pModel)
@@ -91,6 +92,22 @@ public class SessionValidationServiceImpl extends
 		} catch (Exception e) {
 			throw new GenericException(
 					"Echec lors de la mise à jour en base de données.");
+		}
+	}
+	
+	@Override
+	public SessionValidation getInstanceData(Integer id) throws GenericException {
+		try {
+			SessionValidation session = dao.chargerDetail(id);
+			session.getSessionValidationStagiaires();
+			for (SessionValidationStagiaire svs : session.getSessionValidationStagiaires()) {
+				svs.getInstanceSessionValidation().getReservationSalle().getSalle();
+			}
+			
+			return session;
+//			return dao.getInstance(id);
+		} catch (Exception e) {
+			throw new GenericException("Impossible de récupérer les instances de session de validation.");
 		}
 	}
 }

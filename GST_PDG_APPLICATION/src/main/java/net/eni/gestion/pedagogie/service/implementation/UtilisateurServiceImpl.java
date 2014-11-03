@@ -2,6 +2,7 @@ package net.eni.gestion.pedagogie.service.implementation;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.ldap.LdapContext;
 
@@ -131,6 +132,15 @@ public class UtilisateurServiceImpl extends AServiceImpl<Utilisateur, Integer, U
 			e.printStackTrace();
 		}
 		return utilBDD;
+	}
+
+	@Override
+	public List<Utilisateur> getProfil(Integer profilId) throws GenericException {
+		try {
+			return dao.getByProfil(profilId);
+		} catch (Exception e) {
+			throw new GenericException("Impossible de récupérer les formateurs");
+		}
 	}
 
 }

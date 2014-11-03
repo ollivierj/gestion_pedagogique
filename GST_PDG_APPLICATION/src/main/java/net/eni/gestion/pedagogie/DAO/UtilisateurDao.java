@@ -1,5 +1,7 @@
 package net.eni.gestion.pedagogie.DAO;
 
+import java.util.List;
+
 import net.eni.gestion.pedagogie.modele.Utilisateur;
 
 /**
@@ -9,7 +11,7 @@ import net.eni.gestion.pedagogie.modele.Utilisateur;
  */
 public interface UtilisateurDao extends ADao<Utilisateur, Integer> {
 
-	
+	public List<Utilisateur> getByProfil(Integer profilId) throws Exception;
 
 	public String checkConnection(Utilisateur utilisateur, boolean loginOnly ) throws Exception;
 }

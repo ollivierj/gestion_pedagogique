@@ -12,7 +12,6 @@ import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
 import net.eni.gestion.pedagogie.modele.generique.AModele;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.reinert.jjschema.SchemaIgnore;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
@@ -52,6 +51,7 @@ public class SessionValidationStagiaire extends AModele<Integer> implements Seri
 	private Integer id = null;
 	
 	@JsonBackReference("SessionValidationStagiaire-SessionValidation")
+	//@JsonIgnore
 	@DatabaseField(
 		columnName = SESSION_VALIDATION_FIELD_NAME,
 		foreign = true,
@@ -70,14 +70,14 @@ public class SessionValidationStagiaire extends AModele<Integer> implements Seri
 
 	@SchemaIgnore
 	@DatabaseField(
-			columnName = INSTANCE_SESSION_VALIDATION_FIELD_NAME,
-			foreign = true,
-			useGetSet = true,
-			canBeNull = true)
-		private InstanceSessionValidation instanceSessionValidation = null;
+		columnName = INSTANCE_SESSION_VALIDATION_FIELD_NAME,
+		foreign = true,
+		useGetSet = true,
+		canBeNull = true,
+		foreignAutoRefresh = true)
+	private InstanceSessionValidation instanceSessionValidation = null;
 
 	@SchemaIgnore
-	@JsonIgnore
 	@DatabaseField(
 		columnName = DATE_HEURE_DEBUT_PASSAGE_FIELD_NAME,
 		dataType = DataType.DATE,
@@ -86,7 +86,6 @@ public class SessionValidationStagiaire extends AModele<Integer> implements Seri
 	private Date dateHeureDebut = null;
 
 	@SchemaIgnore
-	@JsonIgnore
 	@DatabaseField(
 		columnName = DATE_HEURE_FIN_FIELD_NAME,
 		dataType = DataType.DATE,

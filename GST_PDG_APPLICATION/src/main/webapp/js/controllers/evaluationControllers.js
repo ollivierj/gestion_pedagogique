@@ -384,6 +384,7 @@ var modalEditionEvaluationCtrl = function($scope, $modalInstance, $filter, $moda
 			angular.forEach(data, function(item) {
 				stagiairesOrPromotions.push(item);
 			});
+			console.log(stagiairesOrPromotions);
 			return stagiairesOrPromotions;
 		});
 	};

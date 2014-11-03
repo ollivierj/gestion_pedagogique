@@ -3,9 +3,11 @@ package net.eni.gestion.pedagogie.DAO.implementation;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 import net.eni.gestion.pedagogie.DAO.UtilisateurDao;
 import net.eni.gestion.pedagogie.commun.composant.Connexion;
+import net.eni.gestion.pedagogie.modele.Profil;
 import net.eni.gestion.pedagogie.modele.Utilisateur;
 
 import com.google.inject.Singleton;
@@ -71,6 +73,19 @@ public class UtilisateurDaoImpl extends ADaoImpl<Utilisateur, Integer> implement
 		}
 		return utilBDD[0];
 		
+	}
+
+	@Override
+	public List<Utilisateur> getByProfil(Integer profilId) throws Exception {
+		List<Utilisateur> utilisateur = null;
+		
+		try {
+			utilisateur = this.queryBuilder().where().eq(Utilisateur.PROFIL_FIELD_NAME, new Profil(profilId)).query();
+		} catch (Exception exception) {
+			throw new Exception("Echec de chargement de la liste d'enregistrements depuis la base de données");
+		}
+		
+		return utilisateur;
 	}
 
 }

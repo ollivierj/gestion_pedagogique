@@ -1,6 +1,9 @@
 package net.eni.gestion.pedagogie.resource.implementation;
 
+import java.util.List;
+
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -36,5 +39,13 @@ public class UtilisateurResourceImpl extends AResourceImpl<Utilisateur, Integer,
 	public Utilisateur getAuthentification(Utilisateur utilisateur)
 			throws GenericException {
     	return service.checkLogin(utilisateur);
+	}
+
+    @GET
+    @Path("/byProfil")
+    @Produces(MediaType.APPLICATION_JSON)
+	@Override
+	public List<Utilisateur> getProfil(Integer profilId) throws GenericException {
+		return service.getProfil(profilId);
 	}
 }
