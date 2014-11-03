@@ -57,7 +57,7 @@ controllers.controller('detailEchangeCtrl', function($scope, $rootScope, $http, 
 				},
 				
 				function (error) {
-					toaster.pop('error', null, error.message);
+					toaster.pop('error', null, error.data.message);
 				}
 		);
     };
@@ -75,7 +75,7 @@ controllers.controller('detailEchangeCtrl', function($scope, $rootScope, $http, 
 		    		toaster.pop('warning', null, "Echange supprimé");
 		    	},
     			function(error) {
-		    		toaster.pop('error', null, error.message);
+		    		toaster.pop('error', null, error.data.message);
 		    	}
     	);
     };

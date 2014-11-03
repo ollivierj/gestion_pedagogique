@@ -17,12 +17,14 @@ controllers.controller('wrapperCtrl', function($rootScope, $http, $scope, $modal
 		var sessionsValidationMenu ={"mainTitle" : "Sessions de validation", "iconTitle":"fa fa-file-o", "url":"sessionValidations", "type":"single"};
 		var reservationSallesMenu  ={"mainTitle" : "Salles", "iconTitle":"fa fa-building-o", "url":"salles", "type":"single"};
 		var absencesMenu =			{"mainTitle" : "Absences", "iconTitle":"fa fa-calendar", "url":"absences", "type":"single"};	
+		var avisMenu = 				{"mainTitle" : "Avis", "iconTitle":"fa fa-male", "url":"avis", "type":"single"};
 		if ($rootScope.utilisateurConnecte){
 			if ($rootScope.utilisateurConnecte.profil.droits[0]!='STG_A'){$scope.menuTitles.push(stagiairesMenu);};
 			if ($rootScope.utilisateurConnecte.profil.droits[1]!='EVAL_A'){$scope.menuTitles.push(evaluationsMenu);};
 			if ($rootScope.utilisateurConnecte.profil.droits[2]!='SES_VAL_A'){$scope.menuTitles.push(sessionsValidationMenu);};
 			if ($rootScope.utilisateurConnecte.profil.droits[3]!='RES_SALLE_A'){$scope.menuTitles.push(reservationSallesMenu);};
 			if ($rootScope.utilisateurConnecte.profil.droits[4]!='ABS_A'){$scope.menuTitles.push(absencesMenu);};
+			if ($rootScope.utilisateurConnecte.profil.droits[4]!='AVIS_A'){$scope.menuTitles.push(avisMenu);};
 		};
 	};
 	

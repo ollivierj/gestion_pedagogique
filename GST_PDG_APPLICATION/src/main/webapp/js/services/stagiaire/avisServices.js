@@ -51,7 +51,7 @@ services.factory('SAvisFactory', function ($resource, StagiaireFactory, $rootSco
 	}
 	
 	factory.canEdit = ($rootScope.utilisateurConnecte.profil.droits[6]=='AVIS_E');
-	factory.canView = ($rootScope.utilisateurConnecte.profil.droits[6]=='AVIS_L'||canEdit);
+	factory.canView = ($rootScope.utilisateurConnecte.profil.droits[6]=='AVIS_L'||factory.canEdit);
 	
 	//Retour de la factory avec ses variables
 	return factory;

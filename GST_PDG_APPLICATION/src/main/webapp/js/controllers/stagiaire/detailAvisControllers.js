@@ -57,7 +57,7 @@ controllers.controller('detailAvisCtrl', function($scope, $rootScope, $http, avi
 				},
 				
 				function (error) {
-					toaster.pop('error', null, error.message);
+					toaster.pop('error', null, error.data.message);
 				}
 		);
     };
@@ -75,7 +75,7 @@ controllers.controller('detailAvisCtrl', function($scope, $rootScope, $http, avi
 		    		toaster.pop('success', null, "Absence supprimée");
 		    	},
     			function(error) {
-		    		toaster.pop('error', null, error.message);
+		    		toaster.pop('error', null, error.data.message);
 		    	}
     	);
     };

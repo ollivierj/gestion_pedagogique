@@ -109,7 +109,7 @@ controllers
 										toaster.pop('warning', null, "Utilisateur enregistré");
 									},
 									function(error) {
-										toaster.pop('error', null, error.message);
+										toaster.pop('error', null, error.data.message);
 									}		
 								);};}
 							}
@@ -184,7 +184,7 @@ controllers
 											toaster.pop('success', null, "Utilisateur enregistré");
 										},
 										function(error) {
-											toaster.pop('error', null, error.message);
+											toaster.pop('error', null, error.data.message);
 										}		
 									);};}
 							}
@@ -215,7 +215,7 @@ controllers
 												toaster.pop('success', null, "Utilisateur supprimé");
 											},
 											function(error) {
-												toaster.pop('error', null, error.message);
+												toaster.pop('error', null, error.data.message);
 											}	
 										);};}
 							}
@@ -384,9 +384,6 @@ $scope.submit =function(){
 			$scope.ok($scope.data).$promise.then(
 				function(response) {
 					$modalInstance.close($scope.data);
-				}, 
-				function(reason) {
-					alert('Echec: ' + reason);
 				});
 		}else{
 			$('.ng-invalid')[1].focus();
@@ -407,9 +404,6 @@ $scope.ok =function(item){
 ok(id).$promise.then(
 	function(response) {
 		$modalInstance.close(id);
-	}, 
-	function(reason) {
-		alert('Failed: ' + reason);
 	});
 };
 $scope.cancel = function() {

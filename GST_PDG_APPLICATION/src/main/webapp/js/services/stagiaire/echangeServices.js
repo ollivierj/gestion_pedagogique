@@ -51,7 +51,7 @@ services.factory('SEchangeFactory', function ($resource, StagiaireFactory, $root
 	}
 	
 	factory.canEdit = ($rootScope.utilisateurConnecte.profil.droits[5]=='ECH_E');
-	factory.canView = ($rootScope.utilisateurConnecte.profil.droits[5]=='ECH_L'||canEdit);
+	factory.canView = ($rootScope.utilisateurConnecte.profil.droits[5]=='ECH_L'||factory.canEdit);
 	
 	
 	//Retour de la factory avec ses variables

@@ -85,7 +85,7 @@ controllers
 													toaster.pop('success', null, "Titre prfessionnel enregistré");
 												},
 												function(error) {
-													toaster.pop('error', null, error.message);
+													toaster.pop('error', null, error.data.message);
 												}		
 											);}}
 									}
@@ -158,7 +158,7 @@ controllers
 													toaster.pop('success', null, "Titre prfessionnel enregistré");
 												},
 												function(error) {
-													toaster.pop('error', null, error.message);
+													toaster.pop('error', null, error.data.message);
 												}	
 											);};}
 									}
@@ -187,7 +187,7 @@ controllers
 												toaster.pop('warning', null, "Titre prfessionnel supprimé");
 											},
 											function(error) {
-												toaster.pop('error', null, error.message);
+												toaster.pop('error', null, error.data.message);
 											}	
 										);};}
 									}
@@ -291,9 +291,6 @@ var modalEditionTitreProfessionnelCtrl = function($scope, $modalInstance, $modal
 			$scope.ok($scope.data).$promise.then(
 				function(response) {
 					$modalInstance.close($scope.data);
-				}, 
-				function(reason) {
-					alert('Echec: ' + reason);
 				});
 		}else{
 			$('.ng-invalid')[1].focus();
@@ -396,9 +393,6 @@ var modalConfirmationDeleteTitreProfessionnelCtrl = function($scope, $modalInsta
 		ok(id).$promise.then(
 			function(response) {
 				$modalInstance.close(id);
-			}, 
-			function(reason) {
-				alert('Failed: ' + reason);
 			});
 	};
 	$scope.cancel = function() {

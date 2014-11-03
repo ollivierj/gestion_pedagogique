@@ -1,4 +1,5 @@
-﻿﻿'use strict';
+﻿
+'use strict';
 controllers.
 	controller(
 		'profilsCtrl', 
@@ -89,7 +90,7 @@ controllers.
 								    		toaster.pop('success', null, "Profil enregistré");
 										},
 										function(error) {
-											toaster.pop('error', null, error.message);
+											toaster.pop('error', null, error.data.message);
 										}
 								);}}
 							}
@@ -159,7 +160,7 @@ controllers.
 								    		toaster.pop('success', null, "Profil enregistré");
 										},
 										function(error) {
-											toaster.pop('error', null, error.message);
+											toaster.pop('error', null, error.data.message);
 										}		
 								);}}
 							}
@@ -188,7 +189,7 @@ controllers.
 								    		toaster.pop('warning', null, "Profil supprimé");
 										},
 										function(error) {
-											toaster.pop('error', null, error.message);
+											toaster.pop('error', null, error.data.message);
 										}
 								);};}
 							}
@@ -315,9 +316,6 @@ var modalProfilCtrl = function($scope, $modalInstance,
 					$scope.ok($scope.data).$promise.then(
 						function(response) {
 							$modalInstance.close($scope.data);
-						}, 
-						function(reason) {
-							alert('Echec: ' + reason);
 						});
 				}else{
 					$('.ng-invalid')[1].focus();
@@ -337,9 +335,6 @@ var modalProfilCtrl = function($scope, $modalInstance,
 		ok(id).$promise.then(
 			function(response) {
 				$modalInstance.close(id);
-			}, 
-			function(reason) {
-				alert('Failed: ' + reason);
 			});
 		};
 		$scope.cancel = function() {

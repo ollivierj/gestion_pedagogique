@@ -21,6 +21,11 @@
 	
 	<filter-mapping>
 		<filter-name>guiceFilter</filter-name>
+		<url-pattern>/web/fichiers/image/*</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>guiceFilter</filter-name>
 		<url-pattern>/web/utilisateurs/login</url-pattern>
 	</filter-mapping>
 	

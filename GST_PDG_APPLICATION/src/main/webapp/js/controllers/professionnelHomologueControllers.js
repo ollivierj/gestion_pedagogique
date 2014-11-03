@@ -113,7 +113,7 @@ controllers
 														toaster.pop('success', null, "Professionnel homologué enregistré");
 													},
 													function(error) {
-														toaster.pop('error', null, error.message);
+														toaster.pop('error', null, error.data.message);
 													}	
 												);
 											};
@@ -185,7 +185,7 @@ controllers
 														toaster.pop('success', null, "Professionnel homologué enregistré");
 													},
 													function(error) {
-														toaster.pop('error', null, error.message);
+														toaster.pop('error', null, error.data.message);
 													}	
 												);
 											};
@@ -218,7 +218,7 @@ controllers
 														toaster.pop('warning', null, "Professionnel homologué supprimé");
 													},
 													function(error) {
-														toaster.pop('error', null, error.message);
+														toaster.pop('error', null, error.data.message);
 													}	
 												);
 											};
@@ -429,9 +429,6 @@ var modalProfessionnelHomologueCtrl = function($scope, $modalInstance,
 				$scope.ok($scope.data).$promise.then(
 					function(response) {
 						$modalInstance.close($scope.data);
-					}, 
-					function(reason) {
-						alert('Echec: ' + reason);
 					});
 			}else{
 				$('.ng-invalid')[1].focus();
@@ -452,9 +449,6 @@ var modalConfirmationDeleteProfessionnelHomologueCtrl = function($scope, $modalI
 		ok(id).$promise.then(
 			function(response) {
 				$modalInstance.close(id);
-			}, 
-			function(reason) {
-				alert('Failed: ' + reason);
 			});
 	};
 	$scope.cancel = function() {

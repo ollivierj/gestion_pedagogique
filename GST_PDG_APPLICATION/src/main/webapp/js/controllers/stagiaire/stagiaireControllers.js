@@ -7,13 +7,9 @@ controllers.controller('stagiaireCtrl', function($scope, $rootScope, $http, $loc
 	if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken){
 		$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
 	}
-    /*Variable contenant la sélection des données des tableaux de recherche*/
-    var promotionSelected = [];
     $scope.stagiaireSelected = [];
     $scope.canEdit=StagiaireFactory.canEdit;
 	$scope.canView=StagiaireFactory.canView;
-    /*Liste de tous les stagiaires utilisée pour effectuer le filtre*/
-    var allStagiaire = [];
     
     $scope.totalServerItems = 0;
     $scope.pagingOptions = StagiaireFactory.pagingOptions;
@@ -100,47 +96,30 @@ controllers.controller('stagiaireCtrl', function($scope, $rootScope, $http, $loc
     };
     
 
-    $scope.refreshData = function () {
-    	//Utilisation de la méthode du service permettant la récupération des données
-    	//Cette méthode retourne une promise donc utilisation de .then()
-    	StagiaireFactory.getData($scope.pagingOptions, $scope.sortOptions, $scope.filterOptions).then(
-			function (success) {
-				$scope.stagiaires = success.data;
-		        $scope.totalServerItems = success.totalServerItems;
-			},
-			function (error) {
-				alert('Error : ' + error);
-			}
-		);
-    };
-    
-    $scope.refreshData();
-    
-    //Watch equality permet de comparer toutes les données de l'objet aini que ses attributs. Avec la valeur true
-    //Surveillance de la variable pagingOptions
     $scope.$watch('pagingOptions', function (newVal, oldVal) {
         if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
-        	$scope.refreshData();
+        	StagiaireFactory.refreshData($scope);
         }
     }, true);
-    
-    //Surveillance de la variable filterOptions
-    $scope.$watch('filterOptions', function (newVal, oldVal) {
-    	if (newVal !== oldVal) {
-    		if ($scope.timer) {
+
+	$scope.$watch('filterOptions', function (newVal, oldVal) {
+        if (newVal !== oldVal) {
+        	if ($scope.timer) {
                 $timeout.cancel($scope.timer);
             }
         	$scope.timer = $timeout(function () {
-        		$scope.refreshData();
+        		StagiaireFactory.refreshData($scope);
             }, 500);
-    	}
-    }, true);
-    
-    $scope.$watch('sortOptions', function (newVal, oldVal) {
-        if (newVal !== oldVal) {
-        	$scope.refreshData();
         }
     }, true);
+
+    $scope.$watch('sortOptions', function (newVal, oldVal) {
+        if (newVal !== oldVal) {
+        	StagiaireFactory.refreshData($scope);
+        }
+    }, true);
+	
+    StagiaireFactory.refreshData($scope);
 
 });
 

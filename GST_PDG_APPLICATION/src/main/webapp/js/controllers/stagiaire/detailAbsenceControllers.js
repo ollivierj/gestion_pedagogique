@@ -73,7 +73,7 @@ controllers.controller('detailAbsenceCtrl', function($scope, $rootScope, $http, 
 				},
 				
 				function (error) {
-					toaster.pop('error', null, error.message);
+					toaster.pop('error', null, error.data.message);
 				}
 		);
     };
@@ -93,7 +93,7 @@ controllers.controller('detailAbsenceCtrl', function($scope, $rootScope, $http, 
 		    		toaster.pop('warning', null, "Absence supprimée");
 		    	},
     			function(error) {
-		    		toaster.pop('error', null, error.message);
+		    		toaster.pop('error', null, error.data.message);
 		    	}
     	);
     };

@@ -107,7 +107,7 @@ controllers
 													toaster.pop('success', null, "Session de validation enregistrée");
 												},
 												function(error) {
-													toaster.pop('error', null, error.message);
+													toaster.pop('error', null, error.data.message);
 												}		
 											);};}
 									}
@@ -189,7 +189,7 @@ controllers
 													toaster.pop('success', null, "Session de validation enregistrée");
 												},
 												function(error) {
-													toaster.pop('error', null, error.message);
+													toaster.pop('error', null, error.data.message);
 												}			
 											);};}
 									}
@@ -220,7 +220,7 @@ controllers
 													toaster.pop('success', null, "Session de validation supprimée");
 												},
 												function(error) {
-													toaster.pop('error', null, error.message);
+													toaster.pop('error', null, error.data.message);
 												}			
 											
 											);};}
@@ -398,9 +398,6 @@ var modalEditionSessionValidationCtrl = function($scope, $modalInstance, $filter
 			$scope.ok($scope.data).$promise.then(
 				function(response) {
 					$modalInstance.close($scope.data);
-				}, 
-				function(reason) {
-					alert('Echec: ' + reason);
 				});
 		}else{
 			$('.ng-invalid')[1].focus();
@@ -507,9 +504,6 @@ var modalConfirmationDeleteSessionValidationCtrl = function($scope, $modalInstan
 		ok(id).$promise.then(
 			function(response) {
 				$modalInstance.close(id);
-			}, 
-			function(reason) {
-				alert('Failed: ' + reason);
 			});
 	};
 	$scope.cancel = function() {

@@ -13,7 +13,7 @@
 
         <div class="col-lg-2">
             <img ng-src="/ng_gst_pdg/web/fichiers/image/{{stagiaire.id}}"
-												err-src="img/anonymous.png" width="200" height="200" />
+												err-src="img/anonymous.png" width="150" height="150" />
         </div>
 
         <div class="col-lg-5">
@@ -88,12 +88,12 @@
     </div> <!-- /panel -->
   </div> <!-- /col-lg -->
 </div> <!-- /row -->
-<div ui-view="fichiers"></div>
+<div ui-view="fichiersStagiaire"></div>
 
-<div ui-view="absences"></div>
+<div ui-view="absencesStagiaire"></div>
 
-<div ui-view="avis"></div>
+<div ui-view="avisStagiaire"></div>
 
-<div ui-view="echanges"></div>
+<div ui-view="echangesStagiaire"></div>
 
 <toaster-container toaster-options="{'time-out':5000, 'close-button':true, 'position-class': 'toast-top-left'}"></toaster-container>

@@ -76,7 +76,7 @@ controllers
 							},
 							
 							function (error) {
-								toaster.pop('error', null, error.message);
+								toaster.pop('error', null, error.data.message);
 							}
 					);
 		    	}else {
@@ -89,7 +89,7 @@ controllers
 							},
 							
 							function (error) {
-								toaster.pop('error', null, error.message);
+								toaster.pop('error', null, error.data.message);
 							}
 					);
 		    	}
@@ -126,7 +126,7 @@ controllers
 				    		toaster.pop('warning', null, "Absence supprimée");
 				    	},
 		    			function(error) {
-				    		toaster.pop('error', null, error.message);
+				    		toaster.pop('error', null, error.data.message);
 				    	}
 		    	);
 		    };

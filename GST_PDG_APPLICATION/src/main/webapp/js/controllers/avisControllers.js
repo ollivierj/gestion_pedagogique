@@ -2,39 +2,40 @@
 
 controllers
 		.controller(
-				'evaluationsCtrl',
-				function($scope, $modal, $log, $timeout, $http, $rootScope, toaster, EvaluationsFactory, SujetEvaluationsFactory, UtilisateursFactory, FichiersFactory) {
+				'avisCtrl',
+				function($scope, $modal, $log, $timeout, $http, $rootScope, toaster, AvisFactory, InstanceCoursFactory, UtilisateursFactory) {
 					if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken){
 						$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
 					}
-					$scope.pagingOptions = EvaluationsFactory.pagingOptions;		
-					$scope.sortOptions = EvaluationsFactory.sortOptions;		
-					$scope.filterOptions = EvaluationsFactory.filterOptions;
-					$scope.title = "Evaluations";
-					$scope.canEdit=EvaluationsFactory.canEdit;
-					$scope.canView=EvaluationsFactory.canView;
+					$scope.pagingOptions = AvisFactory.pagingOptions;		
+					$scope.sortOptions = AvisFactory.sortOptions;		
+					$scope.filterOptions = AvisFactory.filterOptions;
+					$scope.title = "Avis";
+					$scope.canEdit=AvisFactory.canEdit;
+					$scope.canView=AvisFactory.canView;
 					$scope.gridOptions = {
-						data : 'evaluations',
+						data : 'avis',
 						multiSelect : false,
 						columnDefs : 	[
 										{
-											field : 'sujetEvaluation.module.libelle',
-											displayName : 'Module'
+											field : 'cours.libelleCours',
+											displayName : 'Libellé'
 										},
 										{
-											field : 'sujetEvaluation.version',
-											displayName : 'Version'
+											field : 'cours.debut',
+											displayName : 'Date de début',
+											cellFilter: 'date:\'dd/MM/yyyym\'',
 										},
 										{
-											field : 'formatedDateHeureDebutPassage',
+											field : 'cours.fin',
 											cellFilter: 'date:\'dd/MM/yyyy HH:mm\'',
-											displayName : 'Date et heure de début'
+											displayName : 'Date de fin'
 										},
 										{
-											field : 'formatedDateHeureFinPassage',
-											cellFilter: 'date:\'dd/MM/yyyy HH:mm\'',
-											displayName : 'Date et heure de fin'
+											field : 'cours.promotion.libelle',
+											displayName : 'Libellé'
 										},
+										
 										{										
 											displayName : 'Actions',
 											cellTemplate : 'partials/templates/ng-grid_actions.html'
@@ -54,58 +55,58 @@ controllers
 						pagingOptions : $scope.pagingOptions
 					};
 
-					$scope.editRow = function(evaluation) {
-						$scope.editerEvaluation(evaluation.id);
+					$scope.editRow = function(avis) {
+						$scope.editerAvis(avis.id);
 					};
 
-					$scope.viewRow = function(evaluation) {
-						$scope.visualiserEvaluation(evaluation.id);
+					$scope.viewRow = function(avis) {
+						$scope.visualiserAvis(avis.id);
 					};
 					
-					$scope.removeRow = function(evaluation) {
-						$scope.supprimerEvaluation(evaluation.id);
+					$scope.removeRow = function(avis) {
+						$scope.supprimerAvis(avis.id);
 					};
 					
 					$scope.afficherFenetreEdition = function(){
-						$scope.ajouterEvaluation();
+						$scope.ajouterAvis();
 					}
 					
 					
 					$scope.exporter = function(){
-						FichiersFactory.exporter('/ng_gst_pdg/web/evaluations/csv', $scope.pagingOptions, $scope.filterOptions, $scope.sortOptions);
+						FichiersFactory.exporter('/ng_gst_pdg/web/avis/csv', $scope.pagingOptions, $scope.filterOptions, $scope.sortOptions);
 					};
 					
-					$scope.ajouterEvaluation = function(
-							evaluationId) {
+					$scope.ajouterAvis = function(
+							avisId) {
 						var modalAdd = $modal
 								.open({
-									templateUrl : 'partials/evaluation.html',
-									controller : modalEditionEvaluationCtrl,
+									templateUrl : 'partials/avis.html',
+									controller : modalEditionAvisCtrl,
 									resolve : {
 										title : function() {return "Ajout d'une évaluation";},
 										readonly : function() {return false;},
 										affFichiers : function() {return false;},
 										affTelech : function() {return false;},
-										evaluation : function(){ return {}},
+										avis : function(){ return {}},
 										fichiers : function() {
 											return null;
 										},
-										sujetEvaluations : function(SujetEvaluationsFactory){
-											return SujetEvaluationsFactory.titlemap.getData().$promise;
+										sujetAvis : function(SujetAvisFactory){
+											return SujetAvisFactory.titlemap.getData().$promise;
 										},
 										utilisateurs : function(UtilisateursFactory){
 											return UtilisateursFactory.titlemap.getData().$promise;
 										},
-										schema : function(EvaluationsFactory) {
-											return EvaluationsFactory.jsonschema.getData().$promise;
+										schema : function(AvisFactory) {
+											return AvisFactory.jsonschema.getData().$promise;
 										},
 										okTitle : function() {return "Enregistrer";},
 										ok : function() { 
 											return function(item){ 
-												return EvaluationsFactory.create.doAction(
+												return AvisFactory.create.doAction(
 													item,
 													function(success) {
-														toaster.pop('success', null, "Evaluation enregistrée");
+														toaster.pop('success', null, "Avis enregistrée");
 													},
 													function(error) {
 														toaster.pop('error', null, error.data.message);
@@ -117,37 +118,37 @@ controllers
 								});
 
 						modalAdd.result.then(function(selectedItem) {
-							EvaluationsFactory.refreshData($scope);
+							AvisFactory.refreshData($scope);
 						}, function() {
 							$log.info('Modal dismissed at: ' + new Date());
 						});
 					};
 
-					$scope.visualiserEvaluation = function(
-							evaluationId) {
+					$scope.visualiserAvis = function(
+							avisId) {
 						var modalEdit = $modal
 								.open({
-									templateUrl : 'partials/evaluation.html',
-									controller : modalEditionEvaluationCtrl,
+									templateUrl : 'partials/avis.html',
+									controller : modalEditionAvisCtrl,
 									resolve : {
 										title : function() {return "Visualisation d'une évaluation";},
 										readonly : function() {return true;},
 										affFichiers : function() {return true;},
 										affTelech : function() {return false;},
-										evaluation : function(EvaluationsFactory) {
-											return EvaluationsFactory.detail.getData({id : evaluationId}).$promise;
+										avis : function(AvisFactory) {
+											return AvisFactory.detail.getData({id : avisId}).$promise;
 										},
 										fichiers : function(FichiersFactory) {
-											return FichiersFactory.fichiers.getData({entite_type : "Evaluation", entite_id : evaluationId}).$promise;
+											return FichiersFactory.fichiers.getData({entite_type : "Avis", entite_id : avisId}).$promise;
 										},
-										sujetEvaluations : function(SujetEvaluationsFactory){
-											return SujetEvaluationsFactory.titlemap.getData().$promise;
+										sujetAvis : function(SujetAvisFactory){
+											return SujetAvisFactory.titlemap.getData().$promise;
 										},
 										utilisateurs : function(UtilisateursFactory){
 											return UtilisateursFactory.titlemap.getData().$promise;
 										},
-										schema : function(EvaluationsFactory) {
-											return EvaluationsFactory.jsonschema.getData().$promise;
+										schema : function(AvisFactory) {
+											return AvisFactory.jsonschema.getData().$promise;
 										},
 										okTitle : function() {return "Fermer";},
 										ok : function() { return function(item){ return item;}}
@@ -155,43 +156,43 @@ controllers
 								});
 
 						modalEdit.result.then(function(selectedItem) {
-							EvaluationsFactory.refreshData($scope);
+							AvisFactory.refreshData($scope);
 						}, function() {
 							$log.info('Modal dismissed at: ' + new Date());
 						});
 					};
 					
-					$scope.editerEvaluation = function(
-							evaluationId) {
+					$scope.editerAvis = function(
+							avisId) {
 						var modalEdit = $modal
 								.open({
-									templateUrl : 'partials/evaluation.html',
-									controller : modalEditionEvaluationCtrl,
+									templateUrl : 'partials/avis.html',
+									controller : modalEditionAvisCtrl,
 									resolve : {
 										title : function() {return "Edition d'une évaluation";},
 										readonly : function() {return false;},
 										affFichiers : function() {return true;},
 										affTelech : function() {return true;},
-										evaluation : function(EvaluationsFactory) {
-											return EvaluationsFactory.detail.getData({id : evaluationId}).$promise;
+										avis : function(AvisFactory) {
+											return AvisFactory.detail.getData({id : avisId}).$promise;
 										},
 										fichiers : function(FichiersFactory) {
-											return FichiersFactory.fichiers.getData({entite_type : "Evaluation", entite_id : evaluationId}).$promise;
+											return FichiersFactory.fichiers.getData({entite_type : "Avis", entite_id : avisId}).$promise;
 										},
-										sujetEvaluations : function(SujetEvaluationsFactory){
-											return SujetEvaluationsFactory.titlemap.getData().$promise;
+										sujetAvis : function(SujetAvisFactory){
+											return SujetAvisFactory.titlemap.getData().$promise;
 										},
 										utilisateurs : function(UtilisateursFactory){
 											return UtilisateursFactory.titlemap.getData().$promise;
 										},
-										schema : function(EvaluationsFactory) {
-											return EvaluationsFactory.jsonschema.getData().$promise;
+										schema : function(AvisFactory) {
+											return AvisFactory.jsonschema.getData().$promise;
 										},
 										okTitle : function() {return "Enregistrer";},
-										ok : function() { return function(item){return EvaluationsFactory.modify.doAction(
+										ok : function() { return function(item){return AvisFactory.modify.doAction(
 											item,
 											function(success) {
-									    		toaster.pop('success', null, "Evaluation enregistrée");
+									    		toaster.pop('success', null, "Avis enregistrée");
 											},
 											function(error) {
 												toaster.pop('error', null, error.data.message);
@@ -200,28 +201,28 @@ controllers
 								});
 						
 						modalEdit.result.then(function(selectedItem) {
-							EvaluationsFactory.refreshData($scope);
+							AvisFactory.refreshData($scope);
 						}, function() {
 							$log.info('Modal dismissed at: ' + new Date());
 						});
 					};
 					
-					$scope.supprimerEvaluation = function(
-							evaluationId) {
+					$scope.supprimerAvis = function(
+							avisId) {
 						var modalDelete = $modal
 								.open({
 									templateUrl : 'partials/templates/dialog.html',
-									controller : modalConfirmationDeleteEvaluationCtrl,
+									controller : modalConfirmationDeleteAvisCtrl,
 									resolve : {
-										id : function() {return evaluationId},
+										id : function() {return avisId},
 										title : function() {return "Suppression d'une évaluation";},
 										message : function() {return "Etes-vous sur de vouloir supprimer cette évaluation ?";},
 										ok : function () { 
 											return function(id) {
-												return EvaluationsFactory.delete.doAction(
+												return AvisFactory.delete.doAction(
 													{id : id},
 													function(success) {
-											    		toaster.pop('warning', null, "Evaluation enregistrée");
+											    		toaster.pop('warning', null, "Avis enregistrée");
 													},
 													function(error) {
 														toaster.pop('error', null, error.data.message);
@@ -232,7 +233,7 @@ controllers
 									}
 								});
 						modalDelete.result.then(function(selectedItem) {
-							EvaluationsFactory.refreshData($scope);
+							AvisFactory.refreshData($scope);
 						}, function() {
 							$log.info('Modal dismissed at: ' + new Date());
 						});
@@ -240,7 +241,7 @@ controllers
 					
 					$scope.$watch('pagingOptions', function (newVal, oldVal) {
 				        if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
-				        	EvaluationsFactory.refreshData($scope);
+				        	AvisFactory.refreshData($scope);
 				        }
 				    }, true);
 
@@ -250,30 +251,30 @@ controllers
 			                    $timeout.cancel($scope.timer);
 			                }
 				        	$scope.timer = $timeout(function () {
-			                    EvaluationsFactory.refreshData($scope);
+			                    AvisFactory.refreshData($scope);
 			                }, 500);
 				        }
 				    }, true);
 
 				    $scope.$watch('sortOptions', function (newVal, oldVal) {
 				        if (newVal !== oldVal) {
-				        	EvaluationsFactory.refreshData($scope);
+				        	AvisFactory.refreshData($scope);
 				        }
 				    }, true);
 					
-					EvaluationsFactory.refreshData($scope);
+				    InstanceCoursFactory.refreshData($scope);
 				});
 
-var modalEditionEvaluationCtrl = function($scope, $modalInstance, $filter, $modal, FileUploader ,
-		EvaluationsFactory, StagiaireFactory, onlyNumbersFilter, title, FichiersFactory, fichiers, readonly, affFichiers, affTelech, evaluation, sujetEvaluations, utilisateurs, schema, ok, okTitle) {
+var modalEditionAvisCtrl = function($scope, $modalInstance, $filter, $modal, FileUploader ,
+		AvisFactory, StagiaireFactory, onlyNumbersFilter, title, FichiersFactory, fichiers, readonly, affFichiers, affTelech, avis, sujetAvis, utilisateurs, schema, ok, okTitle) {
 	$scope.affFichiers=affFichiers;
 	$scope.affTelech=affTelech;
 	$scope.title = title;
-	$scope.data = evaluation;
-	$scope.data.evaluationStagiaires=($scope.data.evaluationStagiaires)?$scope.data.evaluationStagiaires:[];
+	$scope.data = avis;
+	$scope.data.avisStagiaires=($scope.data.avisStagiaires)?$scope.data.avisStagiaires:[];
 	$scope.data.readonly = readonly;
-	$scope.sujetEvaluationsTitleMap = sujetEvaluations;
-	$scope.sujetEvaluationsEnum = onlyNumbersFilter(Object.keys($scope.sujetEvaluationsTitleMap)),
+	$scope.sujetAvisTitleMap = sujetAvis;
+	$scope.sujetAvisEnum = onlyNumbersFilter(Object.keys($scope.sujetAvisTitleMap)),
 	$scope.utilisateursTitleMap = utilisateurs;
 	$scope.utilisateursEnum = onlyNumbersFilter(Object.keys($scope.utilisateursTitleMap)),
 	$scope.okTitle = okTitle;
@@ -283,12 +284,12 @@ var modalEditionEvaluationCtrl = function($scope, $modalInstance, $filter, $moda
 		[
 		{
 			title : "Sujet d'évaluation",
-			key: "sujetEvaluation.id",
+			key: "sujetAvis.id",
 			type : "select",
 			required : true,
 			disabled : $scope.data.readonly,
-			schema : { enum : $scope.sujetEvaluationsEnum},
-			titleMap : $scope.sujetEvaluationsTitleMap
+			schema : { enum : $scope.sujetAvisEnum},
+			titleMap : $scope.sujetAvisTitleMap
 		}, 
 		{
 			title : "Correcteur",
@@ -371,7 +372,7 @@ var modalEditionEvaluationCtrl = function($scope, $modalInstance, $filter, $moda
 			filterText: ''
 		};
 	 $scope.stagiairesGridOptions = {
-		        data: 'data.evaluationStagiaires',
+		        data: 'data.avisStagiaires',
 		        selectedItems: $scope.stagiaireSelected,
 		        columnDefs : columnDefs,
 		        enablePaging: false,
@@ -379,9 +380,9 @@ var modalEditionEvaluationCtrl = function($scope, $modalInstance, $filter, $moda
 		        multiSelect: false,
 		        filterOptions : $scope.stagiairesFilterOptions
 		    };
-	$scope.removeRow = function(evaluationStagiaire) {
-		var index = $scope.data.evaluationStagiaires.indexOf(evaluationStagiaire);
-		 $scope.data.evaluationStagiaires.splice(index, 1);     
+	$scope.removeRow = function(avisStagiaire) {
+		var index = $scope.data.avisStagiaires.indexOf(avisStagiaire);
+		 $scope.data.avisStagiaires.splice(index, 1);     
 	};
 	$scope.chargerStagiairesOrPromotions = function(search) {
 		return StagiaireFactory.stagiaireOrPromotionAutocomplete.getData({search: search}).$promise.then(function(data) {
@@ -395,10 +396,10 @@ var modalEditionEvaluationCtrl = function($scope, $modalInstance, $filter, $moda
 	$scope.addItem = function(item) {
 		StagiaireFactory.stagiaireOrPromotion.getData({type: item.type, id : item.id}).$promise.then(function(data) {
 			angular.forEach(data, function(stagiaire) {
-				var evaluation = {id : $scope.data.id};
-				var test = $filter('filter')($scope.data.evaluationStagiaires, {stagiaire : {id:stagiaire.id}});
+				var avis = {id : $scope.data.id};
+				var test = $filter('filter')($scope.data.avisStagiaires, {stagiaire : {id:stagiaire.id}});
 				if (0==test.length){
-					$scope.data.evaluationStagiaires.push({evaluation : evaluation, stagiaire : stagiaire});
+					$scope.data.avisStagiaires.push({avis : avis, stagiaire : stagiaire});
 				}
 			});
 		});
@@ -406,7 +407,7 @@ var modalEditionEvaluationCtrl = function($scope, $modalInstance, $filter, $moda
 	$scope.decorator = 'bootstrap-decorator';
 	$scope.submit =function(){
 		 $scope.$broadcast('schemaFormValidate');
-		if ($scope.form.evaluation.$valid) {
+		if ($scope.form.avis.$valid) {
 			$scope.ok($scope.data).$promise.then(
 				function(response) {
 					$modalInstance.close($scope.data);
@@ -452,7 +453,7 @@ var modalEditionEvaluationCtrl = function($scope, $modalInstance, $filter, $moda
 	};
 	
 	$scope.downloadFile = function(fichier) {
-		var downloadPath = '/ng_gst_pdg/web/fichiers/telecharger/Evaluation/'+$scope.data.id+'/'+fichier.filename;
+		var downloadPath = '/ng_gst_pdg/web/fichiers/telecharger/Avis/'+$scope.data.id+'/'+fichier.filename;
 		window.open(downloadPath,'_blank');  
 	};
 	
@@ -460,16 +461,16 @@ var modalEditionEvaluationCtrl = function($scope, $modalInstance, $filter, $moda
 		var modalDelete = $modal
 		.open({
 			templateUrl : 'partials/templates/dialog.html',
-			controller : modalConfirmationDeleteEvaluationCtrl,
+			controller : modalConfirmationDeleteAvisCtrl,
 			resolve : {
 				id : function() {return fichier.filename;},
 				title : function() {return "Suppression d'un fichier";},
 				message : function() {return "Etes-vous sur de vouloir supprimer ce fichier ?";},
-				ok : function () { return function(id) { return FichiersFactory.delete.doAction({entite_type: 'Evaluation', entite_id: $scope.data.id, filename : id });}}
+				ok : function () { return function(id) { return FichiersFactory.delete.doAction({entite_type: 'Avis', entite_id: $scope.data.id, filename : id });}}
 			}
 		});	
 		modalDelete.result.then(function(selectedItem) {
-			FichiersFactory.fichiers.getData({entite_type : "Evaluation", entite_id : $scope.data.id})
+			FichiersFactory.fichiers.getData({entite_type : "Avis", entite_id : $scope.data.id})
 				.$promise.then(function(data){
 					$scope.fichiers = data;
 					$scope.results = data;
@@ -492,11 +493,11 @@ var modalEditionEvaluationCtrl = function($scope, $modalInstance, $filter, $moda
 	});
 
 	uploader.onBeforeUploadItem = function(item) {
-		item.formData.push({entite_type : "Evaluation"});
+		item.formData.push({entite_type : "Avis"});
 		item.formData.push({entite_id : $scope.data.id});
 	};
 	uploader.onCompleteAll = function() {
-		FichiersFactory.fichiers.getData({entite_type : "Evaluation", entite_id : $scope.data.id})
+		FichiersFactory.fichiers.getData({entite_type : "Avis", entite_id : $scope.data.id})
 		.$promise.then(function(data){
 			$scope.fichiers = data;
 			$scope.results = data;
@@ -505,8 +506,8 @@ var modalEditionEvaluationCtrl = function($scope, $modalInstance, $filter, $moda
 };
 
 
-var modalConfirmationDeleteEvaluationCtrl = function($scope, $modalInstance, 
-		EvaluationsFactory, id, title, message, ok) {
+var modalConfirmationDeleteAvisCtrl = function($scope, $modalInstance, 
+		AvisFactory, id, title, message, ok) {
 	$scope.title = title;
 	$scope.message = message;
 	$scope.ok =function(item){
