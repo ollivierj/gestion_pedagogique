@@ -17,7 +17,7 @@ import net.eni.gestion.pedagogie.DAO.implementation.ProfilDaoImpl;
 import net.eni.gestion.pedagogie.DAO.implementation.UtilisateurDaoImpl;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationExceptionMapper;
-import net.eni.gestion.pedagogie.modele.Utilisateur;
+import net.eni.gestion.pedagogie.commun.modele.Utilisateur;
 import net.eni.gestion.pedagogie.service.implementation.UtilisateurServiceImpl;
 
 import com.sun.jersey.core.util.Base64;

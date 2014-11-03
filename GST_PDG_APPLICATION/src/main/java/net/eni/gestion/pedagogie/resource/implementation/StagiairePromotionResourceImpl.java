@@ -9,7 +9,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
-import net.eni.gestion.pedagogie.modele.StagiairePromotion;
+import net.eni.gestion.pedagogie.commun.modele.StagiairePromotion;
 import net.eni.gestion.pedagogie.resource.StagiairePromotionResource;
 import net.eni.gestion.pedagogie.service.StagiairePromotionService;
 

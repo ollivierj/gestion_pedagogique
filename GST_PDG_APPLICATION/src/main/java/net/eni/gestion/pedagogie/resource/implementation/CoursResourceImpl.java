@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import javax.ws.rs.Path;
 
-import net.eni.gestion.pedagogie.modele.Cours;
+import net.eni.gestion.pedagogie.commun.modele.Cours;
 import net.eni.gestion.pedagogie.resource.CoursResource;
 import net.eni.gestion.pedagogie.service.CoursService;
 

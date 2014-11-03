@@ -4,7 +4,7 @@ import java.sql.SQLException;
 
 import net.eni.gestion.pedagogie.DAO.UniteFormationDao;
 import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
-import net.eni.gestion.pedagogie.modele.UniteFormation;
+import net.eni.gestion.pedagogie.commun.modele.UniteFormation;
 
 import com.google.inject.Singleton;
 

@@ -3,8 +3,8 @@ package net.eni.gestion.pedagogie.service;
 import java.util.ArrayList;
 
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
-import net.eni.gestion.pedagogie.modele.Promotion;
-import net.eni.gestion.pedagogie.modele.Stagiaire;
+import net.eni.gestion.pedagogie.commun.modele.Promotion;
+import net.eni.gestion.pedagogie.commun.modele.Stagiaire;
 
 /**
  * @author jollivier

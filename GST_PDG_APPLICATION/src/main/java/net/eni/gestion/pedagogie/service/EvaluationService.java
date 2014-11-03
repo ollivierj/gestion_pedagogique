@@ -1,6 +1,6 @@
 package net.eni.gestion.pedagogie.service;
 
-import net.eni.gestion.pedagogie.modele.Evaluation;
+import net.eni.gestion.pedagogie.commun.modele.Evaluation;
 
 /**
  * @author jollivier

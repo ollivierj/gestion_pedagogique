@@ -9,7 +9,7 @@ import net.eni.gestion.pedagogie.DAO.ADao;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.composant.pagination.Pager;
 import net.eni.gestion.pedagogie.commun.composant.tuple.Pair;
-import net.eni.gestion.pedagogie.modele.generique.AModele;
+import net.eni.gestion.pedagogie.commun.modele.generique.AModele;
 import net.eni.gestion.pedagogie.service.AService;
 
 import com.google.inject.Inject;

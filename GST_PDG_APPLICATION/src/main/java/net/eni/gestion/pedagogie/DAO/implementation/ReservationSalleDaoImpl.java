@@ -4,7 +4,7 @@ import java.sql.SQLException;
 
 import net.eni.gestion.pedagogie.DAO.ReservationSalleDao;
 import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
-import net.eni.gestion.pedagogie.modele.ReservationSalle;
+import net.eni.gestion.pedagogie.commun.modele.ReservationSalle;
 
 import com.google.inject.Singleton;
 

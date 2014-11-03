@@ -3,8 +3,8 @@ package net.eni.gestion.pedagogie.commun.composant.log;
 import java.util.Properties;
 
 import net.eni.gestion.pedagogie.commun.composant.propriete.PropertyStore;
-import net.eni.gestion.pedagogie.configuration.ApplicationConfiguration;
-import net.eni.gestion.pedagogie.configuration.DatabaseConfiguration;
+import net.eni.gestion.pedagogie.commun.configuration.ApplicationConfiguration;
+import net.eni.gestion.pedagogie.commun.configuration.DatabaseConfiguration;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;

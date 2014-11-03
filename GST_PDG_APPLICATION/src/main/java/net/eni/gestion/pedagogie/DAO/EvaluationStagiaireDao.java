@@ -2,8 +2,8 @@ package net.eni.gestion.pedagogie.DAO;
 
 import java.util.ArrayList;
 
-import net.eni.gestion.pedagogie.modele.Evaluation;
-import net.eni.gestion.pedagogie.modele.EvaluationStagiaire;
+import net.eni.gestion.pedagogie.commun.modele.Evaluation;
+import net.eni.gestion.pedagogie.commun.modele.EvaluationStagiaire;
 
 /**
  * @author jollivier

@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 import net.eni.gestion.pedagogie.commun.composant.pagination.Pager;
 import net.eni.gestion.pedagogie.commun.composant.tuple.Pair;
-import net.eni.gestion.pedagogie.modele.generique.AModele;
+import net.eni.gestion.pedagogie.commun.modele.generique.AModele;
 
 /**
  * @author jollivier

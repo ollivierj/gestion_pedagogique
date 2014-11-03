@@ -1,7 +1,7 @@
 package net.eni.gestion.pedagogie.service;
 
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
-import net.eni.gestion.pedagogie.modele.Utilisateur;
+import net.eni.gestion.pedagogie.commun.modele.Utilisateur;
 
 /**
  * @author jollivier

@@ -1,6 +1,6 @@
 package net.eni.gestion.pedagogie.service;
 
-import net.eni.gestion.pedagogie.modele.InstanceCours;
+import net.eni.gestion.pedagogie.commun.modele.InstanceCours;
 
 /**
  * @author jollivier

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import net.eni.gestion.pedagogie.DAO.StagiairePromotionDao;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
-import net.eni.gestion.pedagogie.modele.StagiairePromotion;
+import net.eni.gestion.pedagogie.commun.modele.StagiairePromotion;
 import net.eni.gestion.pedagogie.service.StagiairePromotionService;
 
 import com.google.inject.Inject;

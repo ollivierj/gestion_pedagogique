@@ -2,8 +2,8 @@ package net.eni.gestion.pedagogie.DAO;
 
 import java.util.ArrayList;
 
-import net.eni.gestion.pedagogie.modele.SessionValidation;
-import net.eni.gestion.pedagogie.modele.SessionValidationStagiaire;
+import net.eni.gestion.pedagogie.commun.modele.SessionValidation;
+import net.eni.gestion.pedagogie.commun.modele.SessionValidationStagiaire;
 
 /**
  * @author jollivier

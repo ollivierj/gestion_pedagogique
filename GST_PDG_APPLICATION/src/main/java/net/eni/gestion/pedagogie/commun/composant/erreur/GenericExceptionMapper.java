@@ -11,7 +11,7 @@ import javax.ws.rs.ext.Provider;
 
 import com.google.inject.Singleton;
 
-import net.eni.gestion.pedagogie.configuration.ApplicationConstants;
+import net.eni.gestion.pedagogie.commun.configuration.ApplicationConstants;
 
 @Provider
 @Singleton

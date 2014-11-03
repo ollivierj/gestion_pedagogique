@@ -12,10 +12,10 @@ import net.eni.gestion.pedagogie.commun.composant.authentification.ActiveDirecto
 import net.eni.gestion.pedagogie.commun.composant.authentification.ActiveDirectory.User;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.composant.propriete.PropertyFileLoader;
-import net.eni.gestion.pedagogie.configuration.ApplicationConfiguration;
-import net.eni.gestion.pedagogie.configuration.LDAPConfiguration;
-import net.eni.gestion.pedagogie.modele.Profil;
-import net.eni.gestion.pedagogie.modele.Utilisateur;
+import net.eni.gestion.pedagogie.commun.configuration.ApplicationConfiguration;
+import net.eni.gestion.pedagogie.commun.configuration.LDAPConfiguration;
+import net.eni.gestion.pedagogie.commun.modele.Profil;
+import net.eni.gestion.pedagogie.commun.modele.Utilisateur;
 import net.eni.gestion.pedagogie.service.UtilisateurService;
 
 import com.google.inject.Inject;

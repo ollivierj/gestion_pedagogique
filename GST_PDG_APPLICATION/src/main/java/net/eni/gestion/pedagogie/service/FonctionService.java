@@ -3,7 +3,7 @@ package net.eni.gestion.pedagogie.service;
 import java.util.HashMap;
 
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
-import net.eni.gestion.pedagogie.modele.Fonction;
+import net.eni.gestion.pedagogie.commun.modele.Fonction;
 
 /**
  * @author jollivier

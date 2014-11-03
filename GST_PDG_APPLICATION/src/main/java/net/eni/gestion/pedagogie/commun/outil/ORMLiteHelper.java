@@ -7,7 +7,7 @@ import java.util.Collection;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.composant.pagination.SortOptions;
 import net.eni.gestion.pedagogie.commun.composant.propriete.PropertyPredicate;
-import net.eni.gestion.pedagogie.modele.generique.AModele;
+import net.eni.gestion.pedagogie.commun.modele.generique.AModele;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;

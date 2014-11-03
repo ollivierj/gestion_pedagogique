@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import net.eni.gestion.pedagogie.DAO.SessionValidationDao;
 import net.eni.gestion.pedagogie.DAO.SessionValidationStagiaireDao;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
-import net.eni.gestion.pedagogie.modele.SessionValidation;
-import net.eni.gestion.pedagogie.modele.SessionValidationStagiaire;
+import net.eni.gestion.pedagogie.commun.modele.SessionValidation;
+import net.eni.gestion.pedagogie.commun.modele.SessionValidationStagiaire;
 import net.eni.gestion.pedagogie.service.SessionValidationService;
 
 import com.google.inject.Inject;

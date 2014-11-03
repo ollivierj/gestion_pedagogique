@@ -4,7 +4,7 @@ import java.sql.SQLException;
 
 import net.eni.gestion.pedagogie.DAO.SessionValidationDao;
 import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
-import net.eni.gestion.pedagogie.modele.SessionValidation;
+import net.eni.gestion.pedagogie.commun.modele.SessionValidation;
 
 import com.google.inject.Singleton;
 

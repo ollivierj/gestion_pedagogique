@@ -1,6 +1,6 @@
 package net.eni.gestion.pedagogie.resource;
 
-import net.eni.gestion.pedagogie.modele.SessionValidation;
+import net.eni.gestion.pedagogie.commun.modele.SessionValidation;
 
 /**
  * @author jollivier

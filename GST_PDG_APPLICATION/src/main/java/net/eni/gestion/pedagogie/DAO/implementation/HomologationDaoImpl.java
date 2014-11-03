@@ -5,10 +5,10 @@ import java.util.ArrayList;
 
 import net.eni.gestion.pedagogie.DAO.HomologationDao;
 import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
+import net.eni.gestion.pedagogie.commun.modele.Homologation;
+import net.eni.gestion.pedagogie.commun.modele.ProfessionnelHomologue;
 import net.eni.gestion.pedagogie.commun.outil.CRUDHelper;
 import net.eni.gestion.pedagogie.commun.outil.SearchCallable;
-import net.eni.gestion.pedagogie.modele.Homologation;
-import net.eni.gestion.pedagogie.modele.ProfessionnelHomologue;
 
 import org.apache.commons.collections.CollectionUtils;
 

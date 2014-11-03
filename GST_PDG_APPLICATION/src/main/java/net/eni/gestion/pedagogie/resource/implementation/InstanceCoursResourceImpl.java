@@ -2,7 +2,7 @@ package net.eni.gestion.pedagogie.resource.implementation;
 
 import javax.ws.rs.Path;
 
-import net.eni.gestion.pedagogie.modele.InstanceCours;
+import net.eni.gestion.pedagogie.commun.modele.InstanceCours;
 import net.eni.gestion.pedagogie.resource.InstanceCoursResource;
 import net.eni.gestion.pedagogie.service.InstanceCoursService;
 

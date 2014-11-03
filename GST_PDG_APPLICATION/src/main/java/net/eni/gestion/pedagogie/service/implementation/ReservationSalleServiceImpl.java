@@ -3,7 +3,7 @@ package net.eni.gestion.pedagogie.service.implementation;
 import java.sql.SQLException;
 
 import net.eni.gestion.pedagogie.DAO.ReservationSalleDao;
-import net.eni.gestion.pedagogie.modele.ReservationSalle;
+import net.eni.gestion.pedagogie.commun.modele.ReservationSalle;
 import net.eni.gestion.pedagogie.service.ReservationSalleService;
 
 import com.google.inject.Inject;

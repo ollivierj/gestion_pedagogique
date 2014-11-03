@@ -3,7 +3,7 @@ package net.eni.gestion.pedagogie.DAO;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import net.eni.gestion.pedagogie.modele.DroitProfil;
+import net.eni.gestion.pedagogie.commun.modele.DroitProfil;
 
 /**
  * @author jollivier

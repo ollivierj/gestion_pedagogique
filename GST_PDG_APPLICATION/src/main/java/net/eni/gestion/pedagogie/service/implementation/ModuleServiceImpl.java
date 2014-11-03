@@ -3,7 +3,7 @@ package net.eni.gestion.pedagogie.service.implementation;
 import java.sql.SQLException;
 
 import net.eni.gestion.pedagogie.DAO.ModuleDao;
-import net.eni.gestion.pedagogie.modele.Module;
+import net.eni.gestion.pedagogie.commun.modele.Module;
 import net.eni.gestion.pedagogie.service.ModuleService;
 
 import com.google.inject.Inject;

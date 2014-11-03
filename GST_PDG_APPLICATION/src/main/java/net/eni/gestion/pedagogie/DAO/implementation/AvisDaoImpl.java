@@ -4,7 +4,7 @@ import java.sql.SQLException;
 
 import net.eni.gestion.pedagogie.DAO.AvisDao;
 import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
-import net.eni.gestion.pedagogie.modele.Avis;
+import net.eni.gestion.pedagogie.commun.modele.Avis;
 
 import com.google.inject.Singleton;
 

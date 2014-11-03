@@ -30,7 +30,7 @@ public class PropertyFileLoader {
 	public void loadProperties(String name) {
 		properties = new Properties();
 		StringBuilder lStrBuilder = new StringBuilder();
-		lStrBuilder.append("/net/eni/gestion/pedagogie/configuration/");
+		lStrBuilder.append("/net/eni/gestion/pedagogie/commun/configuration/");
 		lStrBuilder.append(name + PROPERTIES_FILE);
 		InputStream in = this.getClass().getResourceAsStream(lStrBuilder.toString());
 		try {

@@ -2,7 +2,7 @@ package net.eni.gestion.pedagogie.DAO;
 
 import java.util.UUID;
 
-import net.eni.gestion.pedagogie.modele.Cours;
+import net.eni.gestion.pedagogie.commun.modele.Cours;
 
 /**
  * @author jollivier

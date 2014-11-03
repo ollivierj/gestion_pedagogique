@@ -3,7 +3,7 @@ package net.eni.gestion.pedagogie.commun.composant.erreur;
 import javax.ws.rs.core.Response;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import net.eni.gestion.pedagogie.configuration.ApplicationConstants;
+import net.eni.gestion.pedagogie.commun.configuration.ApplicationConstants;
 
 /**
  * Class to map application related exceptions

@@ -2,7 +2,7 @@ package net.eni.gestion.pedagogie.resource.implementation;
 
 import javax.ws.rs.Path;
 
-import net.eni.gestion.pedagogie.modele.SujetEvaluation;
+import net.eni.gestion.pedagogie.commun.modele.SujetEvaluation;
 import net.eni.gestion.pedagogie.resource.SujetEvaluationResource;
 import net.eni.gestion.pedagogie.service.SujetEvaluationService;
 

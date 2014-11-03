@@ -7,8 +7,8 @@ import net.eni.gestion.pedagogie.DAO.InstanceCoursDao;
 import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.pagination.Pager;
 import net.eni.gestion.pedagogie.commun.composant.tuple.Pair;
+import net.eni.gestion.pedagogie.commun.modele.InstanceCours;
 import net.eni.gestion.pedagogie.commun.outil.ORMLiteHelper;
-import net.eni.gestion.pedagogie.modele.InstanceCours;
 
 import org.apache.commons.lang3.StringUtils;
 

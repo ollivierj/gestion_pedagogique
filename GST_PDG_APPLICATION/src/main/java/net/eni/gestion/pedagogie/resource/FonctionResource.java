@@ -1,6 +1,6 @@
 package net.eni.gestion.pedagogie.resource;
 
-import net.eni.gestion.pedagogie.modele.Fonction;
+import net.eni.gestion.pedagogie.commun.modele.Fonction;
 
 /**
  * @author jollivier

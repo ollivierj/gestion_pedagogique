@@ -1,6 +1,6 @@
 package net.eni.gestion.pedagogie.DAO;
 
-import net.eni.gestion.pedagogie.modele.Promotion;
+import net.eni.gestion.pedagogie.commun.modele.Promotion;
 
 /**
  * @author jollivier

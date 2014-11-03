@@ -6,7 +6,7 @@ import java.util.Iterator;
 
 import net.eni.gestion.pedagogie.DAO.SujetEvaluationDao;
 import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
-import net.eni.gestion.pedagogie.modele.SujetEvaluation;
+import net.eni.gestion.pedagogie.commun.modele.SujetEvaluation;
 
 import com.google.inject.Singleton;
 

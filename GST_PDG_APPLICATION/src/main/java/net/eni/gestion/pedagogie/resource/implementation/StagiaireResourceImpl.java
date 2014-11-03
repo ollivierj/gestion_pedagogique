@@ -10,8 +10,8 @@ import javax.ws.rs.core.MediaType;
 
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.composant.map.NamedObjectMap;
-import net.eni.gestion.pedagogie.modele.Promotion;
-import net.eni.gestion.pedagogie.modele.Stagiaire;
+import net.eni.gestion.pedagogie.commun.modele.Promotion;
+import net.eni.gestion.pedagogie.commun.modele.Stagiaire;
 import net.eni.gestion.pedagogie.resource.StagiaireResource;
 import net.eni.gestion.pedagogie.service.StagiaireService;
 

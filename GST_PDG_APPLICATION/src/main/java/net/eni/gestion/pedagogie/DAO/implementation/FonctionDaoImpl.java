@@ -6,7 +6,7 @@ import java.util.Iterator;
 
 import net.eni.gestion.pedagogie.DAO.FonctionDao;
 import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
-import net.eni.gestion.pedagogie.modele.Fonction;
+import net.eni.gestion.pedagogie.commun.modele.Fonction;
 
 import com.google.inject.Singleton;
 

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import net.eni.gestion.pedagogie.DAO.PromotionDao;
 import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
-import net.eni.gestion.pedagogie.modele.Promotion;
+import net.eni.gestion.pedagogie.commun.modele.Promotion;
 
 import com.google.inject.Singleton;
 import com.j256.ormlite.dao.RawRowMapper;

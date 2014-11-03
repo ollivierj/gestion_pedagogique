@@ -2,7 +2,7 @@ package net.eni.gestion.pedagogie.commun.composant.connexion;
 
 import java.sql.SQLException;
 
-import net.eni.gestion.pedagogie.configuration.DatabaseConfiguration;
+import net.eni.gestion.pedagogie.commun.configuration.DatabaseConfiguration;
 
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;

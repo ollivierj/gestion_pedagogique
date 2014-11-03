@@ -2,7 +2,7 @@ package net.eni.gestion.pedagogie.DAO;
 
 import java.sql.SQLException;
 
-import net.eni.gestion.pedagogie.modele.Stagiaire;
+import net.eni.gestion.pedagogie.commun.modele.Stagiaire;
 
 /**
  * @author jollivier

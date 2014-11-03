@@ -3,7 +3,7 @@ package net.eni.gestion.pedagogie.service.implementation;
 import java.sql.SQLException;
 
 import net.eni.gestion.pedagogie.DAO.TitreProfessionnelDao;
-import net.eni.gestion.pedagogie.modele.TitreProfessionnel;
+import net.eni.gestion.pedagogie.commun.modele.TitreProfessionnel;
 import net.eni.gestion.pedagogie.service.TitreProfessionnelService;
 
 import com.google.inject.Inject;
