@@ -54,7 +54,6 @@ public class UtilisateurServiceImpl extends AServiceImpl<Utilisateur, Integer, U
 				lUtilisateur.getProfil().setDroits(droitProfilDao.getListeDroits(lUtilisateur.getProfil().getId()));
 				return lUtilisateur;
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
     	}
@@ -67,7 +66,7 @@ public class UtilisateurServiceImpl extends AServiceImpl<Utilisateur, Integer, U
 		// --------------- AUTHENTIFICATION LDAP --------------- //
 		try{
 			//authentification LDAP Ok
-		    LdapContext ctx = ActiveDirectory.getConnection(utilisateur.getLogin(), utilisateur.getMotPasse(), LDAPConfiguration.LDAP_DOMAINE, LDAPConfiguration.getAdresseLDAP());
+		    LdapContext ctx = ActiveDirectory.getConnection(utilisateur.getLogin(), utilisateur.getMotPasse(), LDAPConfiguration.getLdapDomaine(), LDAPConfiguration.getAdresseLDAP());
 		    userLDAP = ActiveDirectory.getUser(utilisateur.getLogin(), ctx);
 		    LDAPauth = true;
 		    ctx.close();
@@ -103,7 +102,7 @@ public class UtilisateurServiceImpl extends AServiceImpl<Utilisateur, Integer, U
 			String[] userInfo = userLDAP.getCommonName().split(" ");
 			Profil profilDefault = null;
 			try {
-				profilDefault = this.profilDao.chargerDetail(LDAPConfiguration.LDAP_CREATE_USER_DEFAULT_PROFIL);
+				profilDefault = this.profilDao.chargerDetail(LDAPConfiguration.getDefaultUserProfil());
 			} catch (Exception e) {
 			}
 			Utilisateur newUtil = new Utilisateur();
