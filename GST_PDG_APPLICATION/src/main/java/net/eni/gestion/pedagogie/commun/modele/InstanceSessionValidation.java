@@ -13,6 +13,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.configuration.ModeleMetier;
 import net.eni.gestion.pedagogie.commun.modele.generique.AModele;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -54,12 +56,14 @@ public class InstanceSessionValidation extends AModele<Integer> implements Seria
 		canBeNull = false)
 	private SessionValidation sessionValidation = null;
 
+	@JsonManagedReference("InstanceSessionValidation-ReservationSalle")
 	@DatabaseField(
 		columnName = RESERVATION_SALLE_FIELD_NAME,
 		foreign = true,
 		useGetSet = true)
 	private ReservationSalle reservationSalle = null;
 	
+	@JsonIgnore
 	@ForeignCollectionField(eager = true, columnName = Jury.INSTANCE_SESSION_VALIDATION_FIELD_NAME)
 	private transient Collection<Jury> transientJurys = null;
 

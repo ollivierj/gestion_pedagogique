@@ -171,9 +171,14 @@ var ng_gst_pdg = angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid',
 			}
 		}).
 		// SAISIE DES AVIS ***********************************************
+		state('instanceCours', {
+			url: '/instanceCours',
+			templateUrl: 'partials/templates/list.html',
+			controller: 'instanceCoursCtrl'
+		}).
 		state('avis', {
 			url: '/avis',
-			templateUrl: 'partials/templates/list.html',
+			templateUrl: 'partials/avis.html',
 			controller: 'avisCtrl'
 		});
 	

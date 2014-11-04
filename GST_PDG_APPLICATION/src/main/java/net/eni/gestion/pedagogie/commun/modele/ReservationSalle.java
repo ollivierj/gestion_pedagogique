@@ -12,7 +12,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.configuration.ModeleMetier;
 import net.eni.gestion.pedagogie.commun.modele.generique.AModele;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -82,19 +84,25 @@ public class ReservationSalle extends AModele<Integer> implements Serializable {
 		return id;
 	}
 
+	@JsonIgnore
 	@ForeignCollectionField(eager = true, columnName = InstanceCours.RESERVATION_SALLE_FIELD_NAME)
 	private transient Collection<InstanceCours> transientInstanceCours = null;
 
+	@JsonBackReference("InstanceCours-ReservationSalle")
 	private InstanceCours instanceCours = null;
 	
+	@JsonIgnore
 	@ForeignCollectionField(eager = true, columnName = InstanceEvaluation.RESERVATION_SALLE_FIELD_NAME)
 	private transient Collection<InstanceEvaluation> transientInstanceEvaluations = null;
 
+	@JsonBackReference("InstanceEvaluation-ReservationSalle")
 	private InstanceEvaluation instanceEvaluation = null;
 	
+	@JsonIgnore
 	@ForeignCollectionField(eager = true, columnName = InstanceSessionValidation.RESERVATION_SALLE_FIELD_NAME)
 	private transient Collection<InstanceSessionValidation> transientInstanceSessionValidations = null;
 
+	@JsonBackReference("InstanceSessionValidation-ReservationSalle")
 	private InstanceSessionValidation instanceSessionValidation = null;
 	
 	@Override

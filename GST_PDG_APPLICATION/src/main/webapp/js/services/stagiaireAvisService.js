@@ -1,6 +1,6 @@
 'use strict';
 
-services.factory('AvisFactory', function ($resource, $rootScope) {
+services.factory('StagiaireAvisFactory', function ($resource, $rootScope) {
 	var	pagingOptions = {
 		pageSizes : [ 5, 10, 15, 25 ],
 		pageSize : 10,
@@ -21,7 +21,7 @@ services.factory('AvisFactory', function ($resource, $rootScope) {
 	
 	var readonly=true;
 	
-	var page = $resource('/ng_gst_pdg/web/avis/page', {}, {
+	var page = $resource('/ng_gst_pdg/web/stagiaireavis/page', {}, {
 		getData : { method: 'POST'}
 	});
 	
@@ -44,7 +44,7 @@ services.factory('AvisFactory', function ($resource, $rootScope) {
 					filterOptions : $scope.filterOptions,
 					sortOptions : 	$scope.sortOptions,
 					connectedUser : $rootScope.utilisateurConnecte,
-					id : instanceCours.id
+					id : $scope.instanceCours.id
 					}
 				).$promise.then(function(response) {
 					$scope.avis=response.data;
@@ -52,22 +52,22 @@ services.factory('AvisFactory', function ($resource, $rootScope) {
 		         });			
 			},
 		page : page,
-		titlemap : $resource('/ng_gst_pdg/web/avis/titlemap', {}, {
+		titlemap : $resource('/ng_gst_pdg/web/stagiaireavis/titlemap', {}, {
 			getData : { method: 'GET', isArray: false}
 		}),
-		jsonschema :  $resource('/ng_gst_pdg/web/avis/jsonschema', {}, {
+		jsonschema :  $resource('/ng_gst_pdg/web/stagiaireavis/jsonschema', {}, {
 			getData : { method: 'GET'}
 		}),
-		detail :  $resource('/ng_gst_pdg/web/avis/detail/:id', {}, {
+		detail :  $resource('/ng_gst_pdg/web/stagiaireavis/detail/:id', {}, {
 			getData : { method: 'GET', params: {id: '@id'}, isArray: false }
 		}),
-		create :  $resource('/ng_gst_pdg/web/avis/creation', {}, {
+		create :  $resource('/ng_gst_pdg/web/stagiaireavis/creation', {}, {
 			doAction : { method: 'POST'}
 		}),
-		modify :  $resource('/ng_gst_pdg/web/avis/modification', {}, {
+		modify :  $resource('/ng_gst_pdg/web/stagiaireavis/modification', {}, {
 			doAction : { method: 'PUT'}
 		}),
-		delete :  $resource('/ng_gst_pdg/web/avis/suppression/:id', {}, {
+		delete :  $resource('/ng_gst_pdg/web/stagiaireavis/suppression/:id', {}, {
 			doAction : { method: 'DELETE', params: {id: '@id'} }
 		})
 	}

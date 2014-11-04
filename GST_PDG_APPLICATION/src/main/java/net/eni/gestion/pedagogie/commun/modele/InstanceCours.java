@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.configuration.ModeleMetier;
 import net.eni.gestion.pedagogie.commun.modele.generique.AModele;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -51,6 +52,7 @@ public class InstanceCours extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private Utilisateur animateur = null;
 
+	@JsonManagedReference("InstanceCours-ReservationSalle")
 	@DatabaseField(
 		columnName = RESERVATION_SALLE_FIELD_NAME,
 		foreign = true,
@@ -58,6 +60,7 @@ public class InstanceCours extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private ReservationSalle reservationSalle = null;
 
+	@JsonManagedReference("InstanceCours-Cours")
 	@DatabaseField(
 		columnName = COURS_FIELD_NAME,
 		foreign = true,
