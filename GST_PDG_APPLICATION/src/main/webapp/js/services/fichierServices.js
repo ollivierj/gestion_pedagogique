@@ -1,6 +1,6 @@
 'use strict';
 
-services.factory('FichiersFactory', function ($resource, $http) {
+services.factory('FichiersFactory', function ($resource, $http, $rootScope) {
 	var filterOptions = {
         filterText: "",
         useExternalFilter: true
@@ -8,7 +8,7 @@ services.factory('FichiersFactory', function ($resource, $http) {
 	return {
 		filterOptions : filterOptions,
 		fichiers : $resource('/ng_gst_pdg/web/fichiers/charger/:entite_type/:entite_id', {}, {
-			getData : { method: 'GET', isArray: true, params: {entite_type: '@entite_type', entite_id: '@entite_id'}}
+			getData : { method: 'GET', headers: {'Authorization':'Basic ' + $rootScope.authtoken}, isArray: true, params: {entite_type: '@entite_type', entite_id: '@entite_id'}}
 		}),
 		telecharger : $resource('/ng_gst_pdg/web/fichiers/telecharger/:entite_type/:entite_id/:filename', {}, {
 			getData : { method: 'GET', params: {entite_type: '@entite_type', entite_id: '@entite_id', filename : '@filename'}}

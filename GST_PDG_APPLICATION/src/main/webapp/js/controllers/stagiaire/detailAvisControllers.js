@@ -1,10 +1,13 @@
 /**
  * Controller de la page detail stagiaire
  */
-controllers.controller('detailAvisCtrl', function($scope, avis, SAvisFactory, $filter, toaster) {
-    
+controllers.controller('detailAvisCtrl', function($scope, $rootScope, $http, avis, SAvisFactory, $filter, toaster) {
+	if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken){
+		$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
+	}
     $scope.avis = avis.data;
-    
+    $scope.canEdit=SAvisFactory.canEdit;
+	$scope.canView=SAvisFactory.canView;
     // Les avis ou retards du stagiaire
     $scope.gridOptionsAvis = {
         data: 'avis',
@@ -54,7 +57,7 @@ controllers.controller('detailAvisCtrl', function($scope, avis, SAvisFactory, $f
 				},
 				
 				function (error) {
-					toaster.pop('error', null, error.message);
+					toaster.pop('error', null, error.data.message);
 				}
 		);
     };
@@ -72,7 +75,7 @@ controllers.controller('detailAvisCtrl', function($scope, avis, SAvisFactory, $f
 		    		toaster.pop('success', null, "Absence supprimée");
 		    	},
     			function(error) {
-		    		toaster.pop('error', null, error.message);
+		    		toaster.pop('error', null, error.data.message);
 		    	}
     	);
     };

@@ -1,10 +1,11 @@
 package net.eni.gestion.pedagogie.service;
 
+
 import java.util.List;
 
-import net.eni.gestion.pedagogie.commun.composant.GenericException;
-import net.eni.gestion.pedagogie.modele.ReservationSalle;
-import net.eni.gestion.pedagogie.modele.Salle;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
+import net.eni.gestion.pedagogie.commun.modele.Salle;
+import net.eni.gestion.pedagogie.commun.modele.ReservationSalle;
 
 /**
  * @author jollivier
@@ -17,5 +18,5 @@ public interface ReservationSalleService extends AService<ReservationSalle, Inte
 	 * @return salles
 	 * @throws GenericException
 	 */
-	public List<Salle> getSalles() throws GenericException;
+	public List<Salle> getSalles() throws ApplicationException;
 }

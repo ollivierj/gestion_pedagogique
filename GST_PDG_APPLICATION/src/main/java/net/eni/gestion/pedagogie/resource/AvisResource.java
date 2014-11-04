@@ -1,6 +1,6 @@
 package net.eni.gestion.pedagogie.resource;
 
-import net.eni.gestion.pedagogie.modele.Avis;
+import net.eni.gestion.pedagogie.commun.modele.Avis;
 
 /**
  * @author jollivier

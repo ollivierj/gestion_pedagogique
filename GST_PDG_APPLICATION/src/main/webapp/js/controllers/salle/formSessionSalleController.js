@@ -1,6 +1,10 @@
-var formSessionSalleCtrl = function($scope, $modalInstance, $filter,
+var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope, $http,
 		items, salles, sallesReservees, getByIdFilter, data, ProfessionnelHomologuesFactory, SessionValidationsFactory) {
 	
+	
+	if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken){
+		$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
+	}
 	// Contient toutes les instances réservées.
 	$scope.instances = [];
 	// Mot clé pour la création d'une nouvelle absence, utilisé pour un ID temporaire

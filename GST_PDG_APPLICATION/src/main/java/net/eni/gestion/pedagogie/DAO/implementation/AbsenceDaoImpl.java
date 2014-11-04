@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import net.eni.gestion.pedagogie.DAO.AbsenceDao;
-import net.eni.gestion.pedagogie.commun.composant.Connexion;
-import net.eni.gestion.pedagogie.modele.Absence;
+import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
+import net.eni.gestion.pedagogie.commun.modele.Absence;
 
 import com.google.inject.Singleton;
 

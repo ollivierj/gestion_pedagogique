@@ -17,7 +17,7 @@
               <form class="navbar-form navbar-left" role="search">
                 <input type="text" class="form-control" placeholder="Recherche">
               </form>
-              <form class="navbar-form navbar-right" role="search">
+              <form class="navbar-form navbar-right" role="search" ng-if="canEdit">
                 <button class="btn btn-primary" ng-click="createAbsence()">
                   <span class="fa fa-plus"></span>
                 </button>

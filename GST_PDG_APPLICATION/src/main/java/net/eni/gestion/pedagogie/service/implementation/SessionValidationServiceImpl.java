@@ -5,9 +5,9 @@ import java.util.ArrayList;
 
 import net.eni.gestion.pedagogie.DAO.SessionValidationDao;
 import net.eni.gestion.pedagogie.DAO.SessionValidationStagiaireDao;
-import net.eni.gestion.pedagogie.commun.composant.GenericException;
-import net.eni.gestion.pedagogie.modele.SessionValidation;
-import net.eni.gestion.pedagogie.modele.SessionValidationStagiaire;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
+import net.eni.gestion.pedagogie.commun.modele.SessionValidation;
+import net.eni.gestion.pedagogie.commun.modele.SessionValidationStagiaire;
 import net.eni.gestion.pedagogie.service.SessionValidationService;
 
 import com.google.inject.Inject;
@@ -43,8 +43,9 @@ public class SessionValidationServiceImpl extends
     
     @Override
 	public SessionValidation chargerDetail(Integer pId)
-			throws GenericException {
-		SessionValidation lSessionValidation = super.chargerDetail(pId);
+			throws ApplicationException {
+		SessionValidation lSessionValidation = super
+				.chargerDetail(pId);
 		lSessionValidation.getSessionValidationStagiaires();
 		return lSessionValidation;
 	}
@@ -53,7 +54,7 @@ public class SessionValidationServiceImpl extends
 
 	@Override
 	public SessionValidation ajouter(SessionValidation pModel)
-			throws GenericException {
+			throws ApplicationException {
 		SessionValidation lUpdatedModel = super.ajouter(pModel);
 		try {
 			ArrayList<SessionValidationStagiaire> lSessionValidationStagiaires = lUpdatedModel.getSessionValidationStagiaires();
@@ -68,14 +69,14 @@ public class SessionValidationServiceImpl extends
 							lSessionValidationStagiaires);
 			return lUpdatedModel;
 		} catch (Exception e) {
-			throw new GenericException(
+			throw new ApplicationException(
 					"Echec lors de la mise à jour en base de données.");
 		}
 	}
 
 	@Override
 	public SessionValidation mettreAJour(SessionValidation pModel)
-			throws GenericException {
+			throws ApplicationException {
 		SessionValidation lUpdatedModel = super.mettreAJour(pModel);
 		try {
 			ArrayList<SessionValidationStagiaire> lSessionValidationStagiaires = lUpdatedModel.getSessionValidationStagiaires();
@@ -90,13 +91,13 @@ public class SessionValidationServiceImpl extends
 							lSessionValidationStagiaires);
 			return lUpdatedModel;
 		} catch (Exception e) {
-			throw new GenericException(
+			throw new ApplicationException(
 					"Echec lors de la mise à jour en base de données.");
 		}
 	}
 	
 	@Override
-	public SessionValidation getInstanceData(Integer id) throws GenericException {
+	public SessionValidation getInstanceData(Integer id) throws ApplicationException {
 		try {
 			SessionValidation session = dao.chargerDetail(id);
 			session.getSessionValidationStagiaires();
@@ -107,7 +108,7 @@ public class SessionValidationServiceImpl extends
 			return session;
 //			return dao.getInstance(id);
 		} catch (Exception e) {
-			throw new GenericException("Impossible de récupérer les instances de session de validation.");
+			throw new ApplicationException("Impossible de récupérer les instances de session de validation.");
 		}
 	}
 }

@@ -3,11 +3,16 @@
 controllers
 		.controller(
 				'professionelHomologuesCtrl',
-				function($scope, $modal, $log, $timeout, toaster, ProfessionnelHomologuesFactory, TitreProfessionnelsFactory, FichiersFactory) {
+				function($scope, $modal, $log, $timeout, $rootScope, $http, toaster, ProfessionnelHomologuesFactory, TitreProfessionnelsFactory, FichiersFactory) {
+					if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken){
+						$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
+					}
 					$scope.pagingOptions = ProfessionnelHomologuesFactory.pagingOptions;		
 					$scope.sortOptions = ProfessionnelHomologuesFactory.sortOptions;		
 					$scope.filterOptions = ProfessionnelHomologuesFactory.filterOptions;
 					$scope.title = "Professionnels homologués";
+					$scope.canEdit=ProfessionnelHomologuesFactory.canEdit;
+					$scope.canView=ProfessionnelHomologuesFactory.canView;
 					$scope.gridOptions = {
 						data : 'professionnelHomologues',
 						multiSelect : false,
@@ -108,7 +113,7 @@ controllers
 														toaster.pop('success', null, "Professionnel homologué enregistré");
 													},
 													function(error) {
-														toaster.pop('error', null, error.message);
+														toaster.pop('error', null, error.data.message);
 													}	
 												);
 											};
@@ -180,7 +185,7 @@ controllers
 														toaster.pop('success', null, "Professionnel homologué enregistré");
 													},
 													function(error) {
-														toaster.pop('error', null, error.message);
+														toaster.pop('error', null, error.data.message);
 													}	
 												);
 											};
@@ -213,7 +218,7 @@ controllers
 														toaster.pop('warning', null, "Professionnel homologué supprimé");
 													},
 													function(error) {
-														toaster.pop('error', null, error.message);
+														toaster.pop('error', null, error.data.message);
 													}	
 												);
 											};
@@ -424,9 +429,6 @@ var modalProfessionnelHomologueCtrl = function($scope, $modalInstance,
 				$scope.ok($scope.data).$promise.then(
 					function(response) {
 						$modalInstance.close($scope.data);
-					}, 
-					function(reason) {
-						alert('Echec: ' + reason);
 					});
 			}else{
 				$('.ng-invalid')[1].focus();
@@ -447,9 +449,6 @@ var modalConfirmationDeleteProfessionnelHomologueCtrl = function($scope, $modalI
 		ok(id).$promise.then(
 			function(response) {
 				$modalInstance.close(id);
-			}, 
-			function(reason) {
-				alert('Failed: ' + reason);
 			});
 	};
 	$scope.cancel = function() {

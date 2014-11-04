@@ -3,14 +3,15 @@ package net.eni.gestion.pedagogie.DAO.implementation;
 import java.sql.SQLException;
 
 import net.eni.gestion.pedagogie.DAO.SessionValidationDao;
-import net.eni.gestion.pedagogie.commun.composant.Connexion;
-import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
-import net.eni.gestion.pedagogie.modele.InstanceSessionValidation;
-import net.eni.gestion.pedagogie.modele.ReservationSalle;
-import net.eni.gestion.pedagogie.modele.Salle;
-import net.eni.gestion.pedagogie.modele.SessionValidation;
-import net.eni.gestion.pedagogie.modele.SessionValidationStagiaire;
-import net.eni.gestion.pedagogie.modele.StagiairePromotion;
+import net.eni.gestion.pedagogie.commun.configuration.ModeleMetier;
+import net.eni.gestion.pedagogie.commun.modele.InstanceSessionValidation;
+import net.eni.gestion.pedagogie.commun.modele.ReservationSalle;
+import net.eni.gestion.pedagogie.commun.modele.Salle;
+import net.eni.gestion.pedagogie.commun.modele.SessionValidation;
+import net.eni.gestion.pedagogie.commun.modele.SessionValidationStagiaire;
+import net.eni.gestion.pedagogie.commun.modele.StagiairePromotion;
+import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
+
 
 import com.google.inject.Singleton;
 

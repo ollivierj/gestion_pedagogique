@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import net.eni.gestion.pedagogie.commun.composant.Pair;
+import net.eni.gestion.pedagogie.commun.composant.tuple.Pair;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;

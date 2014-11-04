@@ -1,7 +1,7 @@
 package net.eni.gestion.pedagogie.service;
 
-import net.eni.gestion.pedagogie.commun.composant.GenericException;
-import net.eni.gestion.pedagogie.modele.SessionValidation;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
+import net.eni.gestion.pedagogie.commun.modele.SessionValidation;
 
 /**
  * @author jollivier
@@ -15,6 +15,6 @@ public interface SessionValidationService extends AService<SessionValidation, In
 	 * @return Retourne les données sous forme de map
 	 * @throws GenericException
 	 */
-	public SessionValidation getInstanceData(Integer id) throws GenericException;
+	public SessionValidation getInstanceData(Integer id) throws ApplicationException;
 
 }

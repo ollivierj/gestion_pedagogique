@@ -11,8 +11,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import net.eni.gestion.pedagogie.commun.composant.GenericException;
-import net.eni.gestion.pedagogie.modele.Absence;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
+import net.eni.gestion.pedagogie.commun.modele.Absence;
 import net.eni.gestion.pedagogie.resource.AbsenceResource;
 import net.eni.gestion.pedagogie.service.AbsenceService;
 
@@ -40,7 +40,7 @@ public class AbsenceResourceImpl extends AResourceImpl<Absence, Integer, Absence
 	public ArrayList<Absence> chargerAbsencesByDate(@PathParam("year") int year,
 			@PathParam("month") int month, 
 			@PathParam("day") int day)
-			throws GenericException {
+			throws ApplicationException {
     	Calendar lCalendar = GregorianCalendar.getInstance();
     	lCalendar.set(year,month,day, lCalendar.getMinimum(GregorianCalendar.HOUR_OF_DAY), lCalendar.getMinimum(GregorianCalendar.MINUTE), lCalendar.getMinimum(GregorianCalendar.SECOND));
     	Date lMinDate = lCalendar.getTime();

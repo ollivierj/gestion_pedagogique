@@ -1,6 +1,6 @@
 'use strict';
 
-services.factory('SAvisFactory', function ($resource, StagiaireFactory) {
+services.factory('SAvisFactory', function ($resource, StagiaireFactory, $rootScope) {
 		
 	var factory = {};
 	
@@ -49,6 +49,9 @@ services.factory('SAvisFactory', function ($resource, StagiaireFactory) {
 				}
 			).$promise;
 	}
+	
+	factory.canEdit = ($rootScope.utilisateurConnecte.profil.droits[6]=='AVIS_E');
+	factory.canView = ($rootScope.utilisateurConnecte.profil.droits[6]=='AVIS_L'||factory.canEdit);
 	
 	//Retour de la factory avec ses variables
 	return factory;

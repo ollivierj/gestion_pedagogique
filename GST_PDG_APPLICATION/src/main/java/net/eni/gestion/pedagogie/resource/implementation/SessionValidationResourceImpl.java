@@ -11,11 +11,11 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import net.eni.gestion.pedagogie.commun.composant.GenericException;
-import net.eni.gestion.pedagogie.modele.InstanceSessionValidation;
-import net.eni.gestion.pedagogie.modele.SessionValidation;
-import net.eni.gestion.pedagogie.modele.SessionValidationStagiaire;
-import net.eni.gestion.pedagogie.modele.StagiairePromotion;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
+import net.eni.gestion.pedagogie.commun.modele.InstanceSessionValidation;
+import net.eni.gestion.pedagogie.commun.modele.SessionValidationStagiaire;
+import net.eni.gestion.pedagogie.commun.modele.StagiairePromotion;
+import net.eni.gestion.pedagogie.commun.modele.SessionValidation;
 import net.eni.gestion.pedagogie.resource.SessionValidationResource;
 import net.eni.gestion.pedagogie.service.SessionValidationService;
 
@@ -41,7 +41,7 @@ public class SessionValidationResourceImpl extends AResourceImpl<SessionValidati
     @GET
     @Path("/instance/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-	public SessionValidation getInstance(@PathParam("id") Integer id) throws GenericException {
+	public SessionValidation getInstance(@PathParam("id") Integer id) throws ApplicationException {
     	return service.getInstanceData(id);
 	}
 
@@ -52,7 +52,7 @@ public class SessionValidationResourceImpl extends AResourceImpl<SessionValidati
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void saveInstance(
 			Map<InstanceSessionValidation, List<StagiairePromotion>> instancesSessions,
-			List<SessionValidationStagiaire> stagiaireLibres) throws GenericException {
+			List<SessionValidationStagiaire> stagiaireLibres) throws ApplicationException {
 		System.out.println(instancesSessions);
 		System.out.println(stagiaireLibres);
 	}

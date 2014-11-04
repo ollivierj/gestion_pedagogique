@@ -3,8 +3,8 @@ package net.eni.gestion.pedagogie.service.implementation;
 import java.util.ArrayList;
 
 import net.eni.gestion.pedagogie.DAO.StagiairePromotionDao;
-import net.eni.gestion.pedagogie.commun.composant.GenericException;
-import net.eni.gestion.pedagogie.modele.StagiairePromotion;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
+import net.eni.gestion.pedagogie.commun.modele.StagiairePromotion;
 import net.eni.gestion.pedagogie.service.StagiairePromotionService;
 
 import com.google.inject.Inject;
@@ -22,19 +22,19 @@ public class StagiairePromotionServiceImpl extends AServiceImpl<StagiairePromoti
 		super(pStagiairePromotionDao);
 	}
 	
-	 public ArrayList<StagiairePromotion> chargerByStagiaireId(Integer id) throws GenericException {
+	 public ArrayList<StagiairePromotion> chargerByStagiaireId(Integer id) throws ApplicationException {
 	        try {
 				return dao.chargerByStagiaireId(id);
 			} catch (Exception e) {
-				throw new GenericException("Echec lors du chargement depuis la base de données.");
+				throw new ApplicationException("Echec lors du chargement depuis la base de données.");
 			}
 	    }
 	 
-	 public ArrayList<StagiairePromotion> chargerByPromotionId(String id) throws GenericException {
+	 public ArrayList<StagiairePromotion> chargerByPromotionId(String id) throws ApplicationException {
 	        try {
 				return dao.chargerByPromotionId(id);
 			} catch (Exception e) {
-				throw new GenericException("Echec lors du chargement depuis la base de données.");
+				throw new ApplicationException("Echec lors du chargement depuis la base de données.");
 			}
 	    }
 

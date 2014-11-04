@@ -2,11 +2,16 @@
 controllers
 	.controller(
 		'utilisateursCtrl',
-		function($scope, $modal, $log, $timeout, toaster, UtilisateursFactory, FonctionsFactory, ProfilsFactory, FichiersFactory) {
+		function($scope, $modal,$rootScope, $http, $log, $timeout, toaster, UtilisateursFactory, FonctionsFactory, ProfilsFactory, FichiersFactory) {
+			if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken){
+				$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
+			}
 			$scope.pagingOptions = UtilisateursFactory.pagingOptions;		
 			$scope.sortOptions = UtilisateursFactory.sortOptions;		
 			$scope.filterOptions = UtilisateursFactory.filterOptions;
 			$scope.title = "Utilisateurs";
+			$scope.canEdit=UtilisateursFactory.canEdit;
+			$scope.canView=UtilisateursFactory.canView;
 			$scope.gridOptions = {
 				data : 'utilisateur',
 				multiSelect : false,
@@ -104,7 +109,7 @@ controllers
 										toaster.pop('warning', null, "Utilisateur enregistré");
 									},
 									function(error) {
-										toaster.pop('error', null, error.message);
+										toaster.pop('error', null, error.data.message);
 									}		
 								);};}
 							}
@@ -179,7 +184,7 @@ controllers
 											toaster.pop('success', null, "Utilisateur enregistré");
 										},
 										function(error) {
-											toaster.pop('error', null, error.message);
+											toaster.pop('error', null, error.data.message);
 										}		
 									);};}
 							}
@@ -210,7 +215,7 @@ controllers
 												toaster.pop('success', null, "Utilisateur supprimé");
 											},
 											function(error) {
-												toaster.pop('error', null, error.message);
+												toaster.pop('error', null, error.data.message);
 											}	
 										);};}
 							}
@@ -379,9 +384,6 @@ $scope.submit =function(){
 			$scope.ok($scope.data).$promise.then(
 				function(response) {
 					$modalInstance.close($scope.data);
-				}, 
-				function(reason) {
-					alert('Echec: ' + reason);
 				});
 		}else{
 			$('.ng-invalid')[1].focus();
@@ -402,9 +404,6 @@ $scope.ok =function(item){
 ok(id).$promise.then(
 	function(response) {
 		$modalInstance.close(id);
-	}, 
-	function(reason) {
-		alert('Failed: ' + reason);
 	});
 };
 $scope.cancel = function() {

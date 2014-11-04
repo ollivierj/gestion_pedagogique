@@ -1,12 +1,18 @@
-﻿﻿'use strict';
+﻿
+'use strict';
 controllers.
 	controller(
 		'profilsCtrl', 
-		function($scope, $modal, $log, $timeout, toaster, ProfilsFactory, FichiersFactory) {
+		function($scope, $modal, $log, $timeout, $rootScope, $http, toaster, ProfilsFactory, FichiersFactory) {
+			if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken){
+				$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
+			}
 			$scope.pagingOptions = ProfilsFactory.pagingOptions;		
 			$scope.sortOptions = ProfilsFactory.sortOptions;		
 			$scope.filterOptions = ProfilsFactory.filterOptions;
 			$scope.title = "Profils";
+			$scope.canEdit=ProfilsFactory.canEdit;
+			$scope.canView=ProfilsFactory.canView;
 			$scope.gridOptions = {
 				data : 'profils',
 				multiSelect : false,
@@ -84,7 +90,7 @@ controllers.
 								    		toaster.pop('success', null, "Profil enregistré");
 										},
 										function(error) {
-											toaster.pop('error', null, error.message);
+											toaster.pop('error', null, error.data.message);
 										}
 								);}}
 							}
@@ -154,7 +160,7 @@ controllers.
 								    		toaster.pop('success', null, "Profil enregistré");
 										},
 										function(error) {
-											toaster.pop('error', null, error.message);
+											toaster.pop('error', null, error.data.message);
 										}		
 								);}}
 							}
@@ -183,7 +189,7 @@ controllers.
 								    		toaster.pop('warning', null, "Profil supprimé");
 										},
 										function(error) {
-											toaster.pop('error', null, error.message);
+											toaster.pop('error', null, error.data.message);
 										}
 								);};}
 							}
@@ -310,9 +316,6 @@ var modalProfilCtrl = function($scope, $modalInstance,
 					$scope.ok($scope.data).$promise.then(
 						function(response) {
 							$modalInstance.close($scope.data);
-						}, 
-						function(reason) {
-							alert('Echec: ' + reason);
 						});
 				}else{
 					$('.ng-invalid')[1].focus();
@@ -332,9 +335,6 @@ var modalProfilCtrl = function($scope, $modalInstance,
 		ok(id).$promise.then(
 			function(response) {
 				$modalInstance.close(id);
-			}, 
-			function(reason) {
-				alert('Failed: ' + reason);
 			});
 		};
 		$scope.cancel = function() {

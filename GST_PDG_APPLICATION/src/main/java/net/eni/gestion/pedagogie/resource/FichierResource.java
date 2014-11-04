@@ -4,8 +4,8 @@ import java.util.List;
 
 import javax.ws.rs.core.Response;
 
-import net.eni.gestion.pedagogie.commun.composant.FileBean;
-import net.eni.gestion.pedagogie.commun.composant.GenericException;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
+import net.eni.gestion.pedagogie.commun.composant.fichier.FileBean;
 
 import com.sun.jersey.multipart.FormDataMultiPart;
 
@@ -34,10 +34,10 @@ public interface FichierResource {
 	 * @param pType
 	 * @param pId
 	 * @return
-	 * @throws GenericException
+	 * @throws ApplicationException
 	 */
 	public abstract List<FileBean> charger(String pType, String pId)
-			throws GenericException;
+			throws ApplicationException;
 
 	/**
 	 * Ressource pour la suppression de fichier

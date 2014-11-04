@@ -8,10 +8,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import net.eni.gestion.pedagogie.commun.composant.GenericException;
-import net.eni.gestion.pedagogie.commun.composant.NamedObjectMap;
-import net.eni.gestion.pedagogie.modele.Promotion;
-import net.eni.gestion.pedagogie.modele.Stagiaire;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
+import net.eni.gestion.pedagogie.commun.composant.map.NamedObjectMap;
+import net.eni.gestion.pedagogie.commun.modele.Promotion;
+import net.eni.gestion.pedagogie.commun.modele.Stagiaire;
 import net.eni.gestion.pedagogie.resource.StagiaireResource;
 import net.eni.gestion.pedagogie.service.StagiaireService;
 
@@ -36,7 +36,7 @@ public class StagiaireResourceImpl extends AResourceImpl<Stagiaire, Integer, Sta
     @GET
     @Path("/stagiaireOrPromotionAutocomplete/{search}")
     @Produces(MediaType.APPLICATION_JSON)
-	public ArrayList<NamedObjectMap> chargerStagiaireOrPromotionAutocomplete(@PathParam("search") String pSearchText) throws GenericException {
+	public ArrayList<NamedObjectMap> chargerStagiaireOrPromotionAutocomplete(@PathParam("search") String pSearchText) throws ApplicationException {
     	ArrayList<NamedObjectMap> lResultList = new ArrayList<NamedObjectMap>();
     	ArrayList<Stagiaire> lStagiaireList = service.chargerForAutocompleteSearch(pSearchText);
     	ArrayList<Promotion> lPromotionList = service.chargerPromotionForAutocompleteSearch(pSearchText);
@@ -64,7 +64,7 @@ public class StagiaireResourceImpl extends AResourceImpl<Stagiaire, Integer, Sta
     @GET
     @Path("/stagiaireAutocomplete/{search}")
     @Produces(MediaType.APPLICATION_JSON)
-	public ArrayList<NamedObjectMap> chargerStagiaireAutocomplete(@PathParam("search") String pSearchText) throws GenericException {
+	public ArrayList<NamedObjectMap> chargerStagiaireAutocomplete(@PathParam("search") String pSearchText) throws ApplicationException {
     	ArrayList<NamedObjectMap> lResultList = new ArrayList<NamedObjectMap>();
     	ArrayList<Stagiaire> lStagiaireList = service.chargerForAutocompleteSearch(pSearchText);
     	for (Stagiaire lStagiaire : lStagiaireList) {

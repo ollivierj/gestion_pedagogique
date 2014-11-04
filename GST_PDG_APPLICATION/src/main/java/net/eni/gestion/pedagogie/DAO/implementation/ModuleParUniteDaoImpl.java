@@ -3,8 +3,8 @@ package net.eni.gestion.pedagogie.DAO.implementation;
 import java.sql.SQLException;
 
 import net.eni.gestion.pedagogie.DAO.ModuleParUniteDao;
-import net.eni.gestion.pedagogie.commun.composant.Connexion;
-import net.eni.gestion.pedagogie.modele.ModuleParUnite;
+import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
+import net.eni.gestion.pedagogie.commun.modele.ModuleParUnite;
 
 import com.google.inject.Singleton;
 

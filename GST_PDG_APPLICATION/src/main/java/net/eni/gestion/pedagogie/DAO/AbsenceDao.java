@@ -3,7 +3,7 @@ package net.eni.gestion.pedagogie.DAO;
 import java.util.ArrayList;
 import java.util.Date;
 
-import net.eni.gestion.pedagogie.modele.Absence;
+import net.eni.gestion.pedagogie.commun.modele.Absence;
 
 /**
  * @author jollivier

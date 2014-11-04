@@ -1,10 +1,13 @@
 /**
  * Controller de la page detail stagiaire
  */
-controllers.controller('detailAbsenceCtrl', function($scope, absences, SAbsenceFactory, $filter, toaster, StagiaireFactory) {
-    
+controllers.controller('detailAbsenceCtrl', function($scope, $rootScope, $http, absences, SAbsenceFactory, $filter, toaster, StagiaireFactory) {
+	if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken){
+		$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
+	}
     $scope.absences = absences.data;
-    
+    $scope.canEdit=SAbsenceFactory.canEdit;
+	$scope.canView=SAbsenceFactory.canView;
     $scope.totalServerItems = absences.totalServerItems;
     $scope.pager = SAbsenceFactory.pager;
     
@@ -70,7 +73,7 @@ controllers.controller('detailAbsenceCtrl', function($scope, absences, SAbsenceF
 				},
 				
 				function (error) {
-					toaster.pop('error', null, error.message);
+					toaster.pop('error', null, error.data.message);
 				}
 		);
     };
@@ -90,7 +93,7 @@ controllers.controller('detailAbsenceCtrl', function($scope, absences, SAbsenceF
 		    		toaster.pop('warning', null, "Absence supprimée");
 		    	},
     			function(error) {
-		    		toaster.pop('error', null, error.message);
+		    		toaster.pop('error', null, error.data.message);
 		    	}
     	);
     };

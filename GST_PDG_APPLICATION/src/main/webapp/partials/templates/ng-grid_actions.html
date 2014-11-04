@@ -1,11 +1,11 @@
 <center>
-	<button class="btn btn-primary btn-xs" ng-click="viewRow(row.entity)">
+	<button class="btn btn-primary btn-xs" ng-click="viewRow(row.entity)" ng-if="canView">
 		<span class="fa fa-search fa-lg"></span>
 	</button>
-	<button class="btn btn-default btn-xs" ng-click="editRow(row.entity)" ng-disabled="">
+	<button class="btn btn-default btn-xs" ng-click="editRow(row.entity)" ng-if="canEdit" ng-disabled="">
 		<span class="fa fa-pencil fa-lg"></span>
 	</button>
-	<button class="btn btn-danger btn-xs" ng-click="removeRow(row.entity)">
+	<button class="btn btn-danger btn-xs" ng-click="removeRow(row.entity)" ng-if="canEdit">
 		<span class="fa fa-times fa-lg"></span>
 	</button>
 </center>"src/main/webapp/partials/templates/ng-grid_actions.html"

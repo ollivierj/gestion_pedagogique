@@ -1,6 +1,6 @@
 package net.eni.gestion.pedagogie.DAO;
 
-import net.eni.gestion.pedagogie.modele.InstanceSessionValidation;
+import net.eni.gestion.pedagogie.commun.modele.InstanceSessionValidation;
 
 /**
  * @author jollivier

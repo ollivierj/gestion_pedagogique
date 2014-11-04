@@ -2,7 +2,7 @@ package net.eni.gestion.pedagogie.resource.implementation;
 
 import javax.ws.rs.Path;
 
-import net.eni.gestion.pedagogie.modele.Fonction;
+import net.eni.gestion.pedagogie.commun.modele.Fonction;
 import net.eni.gestion.pedagogie.resource.FonctionResource;
 import net.eni.gestion.pedagogie.service.FonctionService;
 

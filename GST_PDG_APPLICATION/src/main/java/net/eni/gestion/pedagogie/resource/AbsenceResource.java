@@ -2,8 +2,8 @@ package net.eni.gestion.pedagogie.resource;
 
 import java.util.ArrayList;
 
-import net.eni.gestion.pedagogie.commun.composant.GenericException;
-import net.eni.gestion.pedagogie.modele.Absence;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
+import net.eni.gestion.pedagogie.commun.modele.Absence;
 
 /**
  * @author jollivier
@@ -11,6 +11,6 @@ import net.eni.gestion.pedagogie.modele.Absence;
  */
 public interface AbsenceResource extends AResource<Absence, Integer> {
 	
-	public ArrayList<Absence> chargerAbsencesByDate(int year, int month, int day) throws GenericException;
+	public ArrayList<Absence> chargerAbsencesByDate(int year, int month, int day) throws ApplicationException;
 
 }

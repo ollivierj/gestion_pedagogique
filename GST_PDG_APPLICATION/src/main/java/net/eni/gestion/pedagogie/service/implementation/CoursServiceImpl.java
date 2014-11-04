@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.UUID;
 
 import net.eni.gestion.pedagogie.DAO.CoursDao;
-import net.eni.gestion.pedagogie.modele.Cours;
+import net.eni.gestion.pedagogie.commun.modele.Cours;
 import net.eni.gestion.pedagogie.service.CoursService;
 
 import com.google.inject.Inject;

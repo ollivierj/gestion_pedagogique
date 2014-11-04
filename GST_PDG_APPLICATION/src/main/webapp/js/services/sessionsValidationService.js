@@ -1,6 +1,6 @@
 'use strict';
 
-services.factory('SessionValidationsFactory', function ($resource) {
+services.factory('SessionValidationsFactory', function ($resource, $rootScope) {
 	var	pagingOptions = {
 		pageSizes : [ 5, 10, 15, 25 ],
 		pageSize : 10,
@@ -22,7 +22,12 @@ services.factory('SessionValidationsFactory', function ($resource) {
 		getData : { method: 'POST'}
 	});
 	
+	var canEdit = ($rootScope.utilisateurConnecte.profil.droits[2]=='SES_VAL_E');
+	var canView = ($rootScope.utilisateurConnecte.profil.droits[2]=='SES_VAL_L'||canEdit);
+	
 	return {
+		canEdit : canEdit,
+		canView : canView,
 		pagingOptions : pagingOptions,
 		filterOptions : filterOptions,
 		sortOptions : sortOptions,

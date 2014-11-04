@@ -3,11 +3,16 @@
 controllers
 		.controller(
 				'evaluationsCtrl',
-				function($scope, $modal, $log, $timeout, $http, toaster, EvaluationsFactory, SujetEvaluationsFactory, UtilisateursFactory, FichiersFactory) {
+				function($scope, $modal, $log, $timeout, $http, $rootScope, toaster, EvaluationsFactory, SujetEvaluationsFactory, UtilisateursFactory, FichiersFactory) {
+					if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken){
+						$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
+					}
 					$scope.pagingOptions = EvaluationsFactory.pagingOptions;		
 					$scope.sortOptions = EvaluationsFactory.sortOptions;		
 					$scope.filterOptions = EvaluationsFactory.filterOptions;
 					$scope.title = "Evaluations";
+					$scope.canEdit=EvaluationsFactory.canEdit;
+					$scope.canView=EvaluationsFactory.canView;
 					$scope.gridOptions = {
 						data : 'evaluations',
 						multiSelect : false,
@@ -103,7 +108,7 @@ controllers
 														toaster.pop('success', null, "Evaluation enregistrée");
 													},
 													function(error) {
-														toaster.pop('error', null, error.message);
+														toaster.pop('error', null, error.data.message);
 													}
 												);
 											};
@@ -189,7 +194,7 @@ controllers
 									    		toaster.pop('success', null, "Evaluation enregistrée");
 											},
 											function(error) {
-												toaster.pop('error', null, error.message);
+												toaster.pop('error', null, error.data.message);
 											});};}
 									}
 								});
@@ -219,7 +224,7 @@ controllers
 											    		toaster.pop('warning', null, "Evaluation enregistrée");
 													},
 													function(error) {
-														toaster.pop('error', null, error.message);
+														toaster.pop('error', null, error.data.message);
 													}
 												);
 											};
@@ -406,9 +411,6 @@ var modalEditionEvaluationCtrl = function($scope, $modalInstance, $filter, $moda
 			$scope.ok($scope.data).$promise.then(
 				function(response) {
 					$modalInstance.close($scope.data);
-				}, 
-				function(reason) {
-					alert('Echec: ' + reason);
 				});
 		}else{
 			$('.ng-invalid')[1].focus();
@@ -512,9 +514,6 @@ var modalConfirmationDeleteEvaluationCtrl = function($scope, $modalInstance,
 		ok(id).$promise.then(
 			function(response) {
 				$modalInstance.close(id);
-			}, 
-			function(reason) {
-				alert('Failed: ' + reason);
 			});
 	};
 	$scope.cancel = function() {

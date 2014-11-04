@@ -4,11 +4,16 @@ controllers
 		.controller(
 				'sessionValidationsCtrl',
 
-				function($scope, $modal, $log, $timeout, toaster, SessionValidationsFactory, TitreProfessionnelsFactory, FichiersFactory) {
+				function($scope, $modal, $log, $timeout, $rootScope, $http, toaster, SessionValidationsFactory, TitreProfessionnelsFactory, FichiersFactory) {
+					if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken){
+						$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
+					}
 					$scope.pagingOptions = SessionValidationsFactory.pagingOptions;		
 					$scope.sortOptions = SessionValidationsFactory.sortOptions;		
 					$scope.filterOptions = SessionValidationsFactory.filterOptions;
 					$scope.title = "Sessions de validation";
+					$scope.canEdit=SessionValidationsFactory.canEdit;
+					$scope.canView=SessionValidationsFactory.canView;
 					$scope.gridOptions = {
 						data : 'sessionValidations',
 
@@ -102,7 +107,7 @@ controllers
 													toaster.pop('success', null, "Session de validation enregistrée");
 												},
 												function(error) {
-													toaster.pop('error', null, error.message);
+													toaster.pop('error', null, error.data.message);
 												}		
 											);};}
 									}
@@ -184,7 +189,7 @@ controllers
 													toaster.pop('success', null, "Session de validation enregistrée");
 												},
 												function(error) {
-													toaster.pop('error', null, error.message);
+													toaster.pop('error', null, error.data.message);
 												}			
 											);};}
 									}
@@ -215,7 +220,7 @@ controllers
 													toaster.pop('success', null, "Session de validation supprimée");
 												},
 												function(error) {
-													toaster.pop('error', null, error.message);
+													toaster.pop('error', null, error.data.message);
 												}			
 											
 											);};}
@@ -393,9 +398,6 @@ var modalEditionSessionValidationCtrl = function($scope, $modalInstance, $filter
 			$scope.ok($scope.data).$promise.then(
 				function(response) {
 					$modalInstance.close($scope.data);
-				}, 
-				function(reason) {
-					alert('Echec: ' + reason);
 				});
 		}else{
 			$('.ng-invalid')[1].focus();
@@ -502,9 +504,6 @@ var modalConfirmationDeleteSessionValidationCtrl = function($scope, $modalInstan
 		ok(id).$promise.then(
 			function(response) {
 				$modalInstance.close(id);
-			}, 
-			function(reason) {
-				alert('Failed: ' + reason);
 			});
 	};
 	$scope.cancel = function() {

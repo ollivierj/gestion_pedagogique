@@ -2,8 +2,8 @@ package net.eni.gestion.pedagogie.service.implementation;
 
 import net.eni.gestion.pedagogie.DAO.HomologationDao;
 import net.eni.gestion.pedagogie.DAO.ProfessionnelHomologueDao;
-import net.eni.gestion.pedagogie.commun.composant.GenericException;
-import net.eni.gestion.pedagogie.modele.ProfessionnelHomologue;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
+import net.eni.gestion.pedagogie.commun.modele.ProfessionnelHomologue;
 import net.eni.gestion.pedagogie.service.ProfessionnelHomologueService;
 
 import com.google.inject.Inject;
@@ -36,7 +36,7 @@ public class ProfessionnelHomologueServiceImpl
 
 	@Override
 	public ProfessionnelHomologue chargerDetail(Integer pId)
-			throws GenericException {
+			throws ApplicationException {
 		ProfessionnelHomologue lProfessionnelHomologue = super
 				.chargerDetail(pId);
 		lProfessionnelHomologue.getHomologations();
@@ -45,7 +45,7 @@ public class ProfessionnelHomologueServiceImpl
 
 	@Override
 	public ProfessionnelHomologue ajouter(ProfessionnelHomologue pModel)
-			throws GenericException {
+			throws ApplicationException {
 		ProfessionnelHomologue lUpdatedModel = super.ajouter(pModel);
 		try {
 			this.homologationDao
@@ -53,14 +53,14 @@ public class ProfessionnelHomologueServiceImpl
 							lUpdatedModel, lUpdatedModel.getHomologations());
 			return lUpdatedModel;
 		} catch (Exception e) {
-			throw new GenericException(
+			throw new ApplicationException(
 					"Echec lors de la mise à jour en base de données.");
 		}
 	}
 
 	@Override
 	public ProfessionnelHomologue mettreAJour(ProfessionnelHomologue pModel)
-			throws GenericException {
+			throws ApplicationException {
 		ProfessionnelHomologue lUpdatedModel = super.mettreAJour(pModel);
 		try {
 			this.homologationDao
@@ -68,7 +68,7 @@ public class ProfessionnelHomologueServiceImpl
 							lUpdatedModel, lUpdatedModel.getHomologations());
 			return lUpdatedModel;
 		} catch (Exception e) {
-			throw new GenericException(
+			throw new ApplicationException(
 					"Echec lors de la mise à jour en base de données.");
 		}
 	}

@@ -1,6 +1,6 @@
 'use strict';
 
-services.factory('SEchangeFactory', function ($resource, StagiaireFactory) {
+services.factory('SEchangeFactory', function ($resource, StagiaireFactory, $rootScope) {
 		
 	var factory = {};
 	
@@ -49,6 +49,10 @@ services.factory('SEchangeFactory', function ($resource, StagiaireFactory) {
 				}
 			).$promise;
 	}
+	
+	factory.canEdit = ($rootScope.utilisateurConnecte.profil.droits[5]=='ECH_E');
+	factory.canView = ($rootScope.utilisateurConnecte.profil.droits[5]=='ECH_L'||factory.canEdit);
+	
 	
 	//Retour de la factory avec ses variables
 	return factory;

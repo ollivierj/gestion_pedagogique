@@ -4,8 +4,8 @@ import java.sql.SQLException;
 import java.util.UUID;
 
 import net.eni.gestion.pedagogie.DAO.CoursDao;
-import net.eni.gestion.pedagogie.commun.composant.Connexion;
-import net.eni.gestion.pedagogie.modele.Cours;
+import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
+import net.eni.gestion.pedagogie.commun.modele.Cours;
 
 import com.google.inject.Singleton;
 

@@ -1,8 +1,8 @@
 package net.eni.gestion.pedagogie.DAO;
 
-import java.util.List;
 
-import net.eni.gestion.pedagogie.modele.Utilisateur;
+import java.util.List;
+import net.eni.gestion.pedagogie.commun.modele.Utilisateur;
 
 /**
  * @author jollivier

@@ -20,7 +20,7 @@ var ng_gst_pdg = angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid',
     });
 	
 	//	Url par défaut
-	$urlRouterProvider.otherwise("/accueil");
+	$urlRouterProvider.otherwise("/login");
 	
 	//	Mapping des url
 	$stateProvider.
@@ -32,7 +32,8 @@ var ng_gst_pdg = angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid',
 		state('login', {
 			url: '/login',
 			templateUrl: 'partials/authentification/authentification.html',
-			controller: 'authentificationCtrl'
+			controller: 'authentificationCtrl',
+			hideMenus: true
 		}).	
 		// STAGIAIRE ************************************************* 
 		state('stagiaires', {
@@ -48,11 +49,23 @@ var ng_gst_pdg = angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid',
 					controller: 'detailStagiaireCtrl',
 					resolve: {
 						detail: function (StagiaireFactory) {
-							return StagiaireFactory.getDetail();
+							return StagiaireFactory.detail.getData({id : StagiaireFactory.stagiaire.id}).$promise;
 						}
 					}
 				},
-				'absences@detailStagiaire': {
+				'fichiersStagiaire@detailStagiaire': {
+					templateUrl: 'partials/stagiaire/detailFichier.html',
+					controller: 'detailFichierCtrl',
+					resolve: {
+						fichiers : function(FichiersFactory, StagiaireFactory) {
+							return FichiersFactory.fichiers.getData({entite_type : "Stagiaire", entite_id : StagiaireFactory.stagiaire.id}).$promise;
+						},
+						readonly : function() {return true;},
+						affFichiers : function() {return true;},
+						affTelech : function() {return true;}
+					}
+				},
+				'absencesStagiaire@detailStagiaire': {
 					templateUrl: 'partials/stagiaire/detailAbsence.html',
 					controller: 'detailAbsenceCtrl',
 					resolve: {
@@ -61,7 +74,7 @@ var ng_gst_pdg = angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid',
 						}
 					}
 				},
-				'echanges@detailStagiaire': {
+				'echangesStagiaire@detailStagiaire': {
 					templateUrl: 'partials/stagiaire/detailEchange.html',
 					controller: 'detailEchangeCtrl',
 					resolve: {
@@ -70,7 +83,7 @@ var ng_gst_pdg = angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid',
 						}
 					}
 				},
-				'avis@detailStagiaire': {
+				'avisStagiaire@detailStagiaire': {
 					templateUrl: 'partials/stagiaire/detailAvis.html',
 					controller: 'detailAvisCtrl',
 					resolve: {
@@ -156,8 +169,36 @@ var ng_gst_pdg = angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid',
 					return  AbsencesFactory.jour.getData({year:date.getUTCFullYear(), month : date.getUTCMonth(), day : date.getUTCDate()}).$promise;
 				}
 			}
+		}).
+		// SAISIE DES AVIS ***********************************************
+		state('avis', {
+			url: '/avis',
+			templateUrl: 'partials/templates/list.html',
+			controller: 'avisCtrl'
 		});
 	
+}).run(function ($rootScope, $location, $cookieStore, $http, $state) {
+    $rootScope.utilisateurConnecte = $cookieStore.get('utilisateurConnecte') || {};
+    $rootScope.authtoken = $cookieStore.get('authtoken') || {};
+    if (!$rootScope.utilisateurConnecte.id || !$rootScope.utilisateurConnecte.profil || !$rootScope.utilisateurConnecte.profil.droits || !$rootScope.utilisateurConnecte.profil.droits.length>0){
+    	$rootScope.utilisateurConnecte=null;
+    }
+    if (typeof $rootScope.authtoken != "string"){
+    	 $rootScope.authtoken=null;
+    }
+    if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken){
+    	$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
+    }
+    $rootScope.$on('$stateChangeStart', 
+    		function(event, toState, toParams, fromState, fromParams){ 
+    			if (toState.name !== 'login' && !$rootScope.utilisateurConnecte && !$rootScope.authtoken) {
+    	        	event.preventDefault(); 
+    	        	$state.go('login');
+    	        }
+    	        $rootScope.getMenuTitles();
+    	        $rootScope.getMenuParametres();
+				$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
+    		});
 });
 
 var filters = angular.module('ng_gst_pdg.filters', []);

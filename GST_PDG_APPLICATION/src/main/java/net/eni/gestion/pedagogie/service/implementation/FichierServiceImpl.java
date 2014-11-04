@@ -14,8 +14,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import net.eni.gestion.pedagogie.DAO.StagiaireDao;
-import net.eni.gestion.pedagogie.commun.composant.FileBean;
-import net.eni.gestion.pedagogie.commun.composant.PropertyFileLoader;
+import net.eni.gestion.pedagogie.commun.composant.fichier.FileBean;
+import net.eni.gestion.pedagogie.commun.composant.propriete.PropertyFileLoader;
 import net.eni.gestion.pedagogie.service.FichierService;
 
 import org.apache.commons.io.FileUtils;

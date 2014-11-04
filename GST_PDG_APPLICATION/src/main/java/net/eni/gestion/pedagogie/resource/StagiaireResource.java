@@ -2,9 +2,9 @@ package net.eni.gestion.pedagogie.resource;
 
 import java.util.ArrayList;
 
-import net.eni.gestion.pedagogie.commun.composant.GenericException;
-import net.eni.gestion.pedagogie.commun.composant.NamedObjectMap;
-import net.eni.gestion.pedagogie.modele.Stagiaire;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
+import net.eni.gestion.pedagogie.commun.composant.map.NamedObjectMap;
+import net.eni.gestion.pedagogie.commun.modele.Stagiaire;
 
 /**
  * @author jollivier
@@ -12,8 +12,8 @@ import net.eni.gestion.pedagogie.modele.Stagiaire;
  */
 public interface StagiaireResource extends AResource<Stagiaire, Integer> {
 	public ArrayList<NamedObjectMap> chargerStagiaireOrPromotionAutocomplete(
-			String pSearchText) throws GenericException;
+			String pSearchText) throws ApplicationException;
 	
 	public ArrayList<NamedObjectMap> chargerStagiaireAutocomplete(
-			String pSearchText) throws GenericException;
+			String pSearchText) throws ApplicationException;
 }

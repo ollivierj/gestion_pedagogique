@@ -1,7 +1,12 @@
 'use strict';
 controllers
-	.controller('absencesCtrl', function($scope, $log, $filter, absences, toaster, AbsencesFactory, StagiaireFactory) {
+	.controller('absencesCtrl', function($scope, $log, $filter, $rootScope, $http, absences, toaster, AbsencesFactory, StagiaireFactory) {
+	 if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken){
+	   	$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
+     }
 	 $scope.title = "Absences";
+	 $scope.canEdit=AbsencesFactory.canEdit;
+	 $scope.canView=AbsencesFactory.canView;
 	 $scope.absences = absences;
 	 $scope.$watch('date', 
 		function (newVal, oldVal) {
@@ -71,7 +76,7 @@ controllers
 							},
 							
 							function (error) {
-								toaster.pop('error', null, error.message);
+								toaster.pop('error', null, error.data.message);
 							}
 					);
 		    	}else {
@@ -84,7 +89,7 @@ controllers
 							},
 							
 							function (error) {
-								toaster.pop('error', null, error.message);
+								toaster.pop('error', null, error.data.message);
 							}
 					);
 		    	}
@@ -121,7 +126,7 @@ controllers
 				    		toaster.pop('warning', null, "Absence supprimée");
 				    	},
 		    			function(error) {
-				    		toaster.pop('error', null, error.message);
+				    		toaster.pop('error', null, error.data.message);
 				    	}
 		    	);
 		    };

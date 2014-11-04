@@ -1,6 +1,8 @@
-var formCoursSalleCtrl = function($scope, $modalInstance, $filter,
+var formCoursSalleCtrl = function($scope, $modalInstance, $filter, $rootScope, $http, AnimateursLibresFactory,
 		items, salles, sallesReservees, getByIdFilter, data) {
-
+	if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken){
+		$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
+	}
 	
 	console.log('data cours');	
 	console.log(data);

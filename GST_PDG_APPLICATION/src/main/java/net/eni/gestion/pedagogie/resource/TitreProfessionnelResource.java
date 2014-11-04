@@ -1,6 +1,6 @@
 package net.eni.gestion.pedagogie.resource;
 
-import net.eni.gestion.pedagogie.modele.TitreProfessionnel;
+import net.eni.gestion.pedagogie.commun.modele.TitreProfessionnel;
 
 /**
  * @author jollivier

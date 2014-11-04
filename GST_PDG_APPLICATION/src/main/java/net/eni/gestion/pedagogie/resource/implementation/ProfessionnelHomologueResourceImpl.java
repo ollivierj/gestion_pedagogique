@@ -2,7 +2,7 @@ package net.eni.gestion.pedagogie.resource.implementation;
 
 import javax.ws.rs.Path;
 
-import net.eni.gestion.pedagogie.modele.ProfessionnelHomologue;
+import net.eni.gestion.pedagogie.commun.modele.ProfessionnelHomologue;
 import net.eni.gestion.pedagogie.resource.ProfessionnelHomologueResource;
 import net.eni.gestion.pedagogie.service.ProfessionnelHomologueService;
 

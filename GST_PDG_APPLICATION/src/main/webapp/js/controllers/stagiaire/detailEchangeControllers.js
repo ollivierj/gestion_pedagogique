@@ -1,10 +1,13 @@
 /**
  * Controller de la page detail stagiaire
  */
-controllers.controller('detailEchangeCtrl', function($scope, echanges, SEchangeFactory, $filter, toaster, StagiaireFactory) {
-    
+controllers.controller('detailEchangeCtrl', function($scope, $rootScope, $http, echanges, SEchangeFactory, $filter, toaster, StagiaireFactory) {
+	if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken){
+		$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
+	}
     $scope.echanges = echanges.data;
-    
+    $scope.canEdit=SEchangeFactory.canEdit;
+	$scope.canView=SEchangeFactory.canView;
     // Les echanges ou retards du stagiaire
     $scope.gridOptionsEchanges = {
         data: 'echanges',
@@ -54,7 +57,7 @@ controllers.controller('detailEchangeCtrl', function($scope, echanges, SEchangeF
 				},
 				
 				function (error) {
-					toaster.pop('error', null, error.message);
+					toaster.pop('error', null, error.data.message);
 				}
 		);
     };
@@ -72,7 +75,7 @@ controllers.controller('detailEchangeCtrl', function($scope, echanges, SEchangeF
 		    		toaster.pop('warning', null, "Echange supprimé");
 		    	},
     			function(error) {
-		    		toaster.pop('error', null, error.message);
+		    		toaster.pop('error', null, error.data.message);
 		    	}
     	);
     };

@@ -4,14 +4,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import net.eni.gestion.pedagogie.DAO.EvaluationDao;
-import net.eni.gestion.pedagogie.commun.composant.Connexion;
-import net.eni.gestion.pedagogie.commun.composant.Pager;
-import net.eni.gestion.pedagogie.commun.composant.Pair;
-import net.eni.gestion.pedagogie.commun.constante.ModeleMetier;
+import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
+import net.eni.gestion.pedagogie.commun.composant.pagination.Pager;
+import net.eni.gestion.pedagogie.commun.composant.tuple.Pair;
+import net.eni.gestion.pedagogie.commun.configuration.ModeleMetier;
+import net.eni.gestion.pedagogie.commun.modele.Evaluation;
+import net.eni.gestion.pedagogie.commun.modele.Module;
+import net.eni.gestion.pedagogie.commun.modele.SujetEvaluation;
 import net.eni.gestion.pedagogie.commun.outil.ORMLiteHelper;
-import net.eni.gestion.pedagogie.modele.Evaluation;
-import net.eni.gestion.pedagogie.modele.Module;
-import net.eni.gestion.pedagogie.modele.SujetEvaluation;
 
 import org.apache.commons.lang3.StringUtils;
 

@@ -7,9 +7,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import net.eni.gestion.pedagogie.commun.composant.GenericException;
-import net.eni.gestion.pedagogie.modele.ReservationSalle;
-import net.eni.gestion.pedagogie.modele.Salle;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
+import net.eni.gestion.pedagogie.commun.modele.ReservationSalle;
+import net.eni.gestion.pedagogie.commun.modele.Salle;
 import net.eni.gestion.pedagogie.resource.ReservationSalleResource;
 import net.eni.gestion.pedagogie.service.ReservationSalleService;
 
@@ -34,7 +34,7 @@ public class ReservationSalleResourceImpl extends AResourceImpl<ReservationSalle
     @GET
     @Path("/salles")
     @Produces(MediaType.APPLICATION_JSON)
-	public List<Salle> chargerSalle() throws GenericException {
+	public List<Salle> chargerSalle() throws ApplicationException {
     	return service.getSalles();
 	}
 

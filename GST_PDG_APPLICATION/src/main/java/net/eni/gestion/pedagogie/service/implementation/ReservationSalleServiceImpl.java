@@ -5,9 +5,9 @@ import java.util.List;
 
 import net.eni.gestion.pedagogie.DAO.ReservationSalleDao;
 import net.eni.gestion.pedagogie.DAO.SalleDao;
-import net.eni.gestion.pedagogie.commun.composant.GenericException;
-import net.eni.gestion.pedagogie.modele.ReservationSalle;
-import net.eni.gestion.pedagogie.modele.Salle;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
+import net.eni.gestion.pedagogie.commun.modele.Salle;
+import net.eni.gestion.pedagogie.commun.modele.ReservationSalle;
 import net.eni.gestion.pedagogie.service.ReservationSalleService;
 
 import com.google.inject.Inject;
@@ -34,11 +34,11 @@ public class ReservationSalleServiceImpl extends AServiceImpl<ReservationSalle, 
     }
 
 	@Override
-	public List<Salle> getSalles() throws GenericException {
+	public List<Salle> getSalles() throws ApplicationException {
 		try {
 			return salleDao.chargerTous();
 		} catch (Exception e) {
-			throw new GenericException("Impossible de récupérer toutes les salles");
+			throw new ApplicationException("Impossible de récupérer toutes les salles");
 		}
 	}
     
