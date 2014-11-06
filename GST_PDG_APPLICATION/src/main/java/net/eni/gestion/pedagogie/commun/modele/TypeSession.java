@@ -19,23 +19,23 @@ import com.j256.ormlite.table.DatabaseTable;
 /**
  * @author jollivier
  */
-@DatabaseTable(tableName = ModeleMetier.TITRE_PROFESSIONNEL_TABLE_NAME)
+@DatabaseTable(tableName = ModeleMetier.TYPE_SESSION_TABLE_NAME)
 @XmlRootElement
-public class TitreProfessionnel extends AModele<Integer> implements Serializable {
+public class TypeSession extends AModele<Integer> implements Serializable {
 	
-	public TitreProfessionnel() {
+	public TypeSession() {
 		super();
 	}
 
-	public TitreProfessionnel(Integer pId) {
+	public TypeSession(Integer pId) {
 		super();
 		setId(pId);
 	}
 
 	private static final long serialVersionUID = 1L;
 
-	public final static String ID_FIELD_NAME 					= "TR_PRF_ID";
-	public final static String INTITULE_FIELD_NAME				= "TR_PRF_INTITULE";
+	public final static String ID_FIELD_NAME 					= "TYPE_SES_ID";
+	public final static String INTITULE_FIELD_NAME				= "TYPE_SES_INTITULE";
 	
 	public final static String[] FULL_TEXT_SEARCH_FIELDS		= {INTITULE_FIELD_NAME};
 	
@@ -45,7 +45,7 @@ public class TitreProfessionnel extends AModele<Integer> implements Serializable
 		return FULL_TEXT_SEARCH_FIELDS;
 	}
 	
-	@Attributes(title = "Titre professionnel", required = true)
+	@Attributes(title = "Code", required = true)
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
 		dataType = DataType.INTEGER_OBJ,

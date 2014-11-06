@@ -40,7 +40,7 @@ public class Homologation extends AModele<Integer> implements Serializable {
 
 	public final static String ID_FIELD_NAME 						= "HMG_ID";
 	public final static String PROFESSIONNEL_HOMOLOGUE_FIELD_NAME 	= "HMG_PROFESSIONNEL_HOMOLOGUE";
-	public final static String TITRE_PROFESSIONNEL_FIELD_NAME 		= "HMG_TITRE_PROFESSIONNEL";
+	public final static String TYPE_SESSION_FIELD_NAME 				= "HMG_TYPE_SESSION";
 	public final static String DATE_DEBUT_FIELD_NAME 				= "HMG_DATE_DEBUT";
 	public final static String DATE_FIN_FIELD_NAME 					= "HMG_DATE_FIN";
 	
@@ -64,11 +64,11 @@ public class Homologation extends AModele<Integer> implements Serializable {
 
 	@Attributes(title="Titre professionnel", required = true)
 	@DatabaseField(
-		columnName = TITRE_PROFESSIONNEL_FIELD_NAME,
+		columnName = TYPE_SESSION_FIELD_NAME,
 		foreign = true,
 		useGetSet = true,
 		canBeNull = false)
-	private TitreProfessionnel titreProfessionnel = null;
+	private TypeSession typeSession = null;
 
 	@JsonIgnore
 	@DatabaseField(
@@ -111,12 +111,12 @@ public class Homologation extends AModele<Integer> implements Serializable {
 		this.professionnelHomologue = professionnelHomologue;
 	}
 
-	public TitreProfessionnel getTitreProfessionnel() {
-		return titreProfessionnel;
+	public TypeSession getTypeSession() {
+		return typeSession;
 	}
 
-	public void setTitreProfessionnel(TitreProfessionnel titreProfessionnel) {
-		this.titreProfessionnel = titreProfessionnel;
+	public void setTypeSession(TypeSession typeSession) {
+		this.typeSession = typeSession;
 	}
 
 	public Date getDateDebut() {

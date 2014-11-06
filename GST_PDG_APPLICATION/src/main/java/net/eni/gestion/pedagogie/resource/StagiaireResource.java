@@ -14,6 +14,5 @@ public interface StagiaireResource extends AResource<Stagiaire, Integer> {
 	public ArrayList<NamedObjectMap> chargerStagiaireOrPromotionAutocomplete(
 			String pSearchText) throws ApplicationException;
 	
-	public ArrayList<NamedObjectMap> chargerStagiaireAutocomplete(
-			String pSearchText) throws ApplicationException;
+	public ArrayList<NamedObjectMap> chargerStagiaireAutocomplete(String pSearchText) throws ApplicationException;
 }

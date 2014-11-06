@@ -138,7 +138,8 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 		columnName = PROFIL_FIELD_NAME,
 		foreign = true,
 		useGetSet = true,
-		canBeNull = false)
+		canBeNull = false,
+		foreignAutoRefresh = true)
 	private Profil profil = null;
 	
 	
@@ -157,7 +158,6 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 		canBeNull = true)
 	private String token = null;
 	
-	@JsonIgnore
 	@DatabaseField(
 		columnName = DATE_EXPIRATION_FIELD_NAME,
 		dataType = DataType.DATE,

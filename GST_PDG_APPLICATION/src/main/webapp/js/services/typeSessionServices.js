@@ -1,6 +1,6 @@
 'use strict';
 
-services.factory('TitreProfessionnelsFactory', function ($resource, $rootScope) {
+services.factory('TypeSessionsFactory', function ($resource, $rootScope) {
 	var	pagingOptions = {
 		pageSizes : [ 5, 10, 15, 25 ],
 		pageSize : 10,
@@ -17,7 +17,7 @@ services.factory('TitreProfessionnelsFactory', function ($resource, $rootScope) 
         directions: ["DESC"]
 	};
 	
-	var page = $resource('/ng_gst_pdg/web/titreProfessionnels/page', {}, {
+	var page = $resource('/ng_gst_pdg/web/typesessions/page', {}, {
 		getData : { method: 'POST'}
 	});
 	
@@ -38,27 +38,27 @@ services.factory('TitreProfessionnelsFactory', function ($resource, $rootScope) 
 					sortOptions : 	$scope.sortOptions
 					}
 				).$promise.then(function(response) {
-					$scope.titreProfessionnels=response.data;
+					$scope.typesessions=response.data;
 					$scope.totalServerItems=response.data.totalServerItems;
 		         });			
 			},
 		page : page,
-		titlemap : $resource('/ng_gst_pdg/web/titreProfessionnels/titlemap', {}, {
+		titlemap : $resource('/ng_gst_pdg/web/typesessions/titlemap', {}, {
 			getData : { method: 'GET', isArray: false}
 		}),
-		jsonschema :  $resource('/ng_gst_pdg/web/titreProfessionnels/jsonschema', {}, {
+		jsonschema :  $resource('/ng_gst_pdg/web/typesessions/jsonschema', {}, {
 			getData : { method: 'GET'}
 		}),
-		detail :  $resource('/ng_gst_pdg/web/titreProfessionnels/detail/:id', {}, {
+		detail :  $resource('/ng_gst_pdg/web/typesessions/detail/:id', {}, {
 			getData : { method: 'GET', params: {id: '@id'}, isArray: false }
 		}),
-		create :  $resource('/ng_gst_pdg/web/titreProfessionnels/creation', {}, {
+		create :  $resource('/ng_gst_pdg/web/typesessions/creation', {}, {
 			doAction : { method: 'POST'}
 		}),
-		modify :  $resource('/ng_gst_pdg/web/titreProfessionnels/modification', {}, {
+		modify :  $resource('/ng_gst_pdg/web/typesessions/modification', {}, {
 			doAction : { method: 'PUT'}
 		}),
-		delete :  $resource('/ng_gst_pdg/web/titreProfessionnels/suppression/:id', {}, {
+		delete :  $resource('/ng_gst_pdg/web/typesessions/suppression/:id', {}, {
 			doAction : { method: 'DELETE', params: {id: '@id'} }
 		})
 	}

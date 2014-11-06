@@ -40,7 +40,7 @@ public class ModeleMetier  {
 		public final static String SUJET_EVALUATION_TABLE_NAME 							= "SUJET_EVALUATION";
 		public final static String STAGIAIRE_TABLE_NAME 								= "Stagiaire";
 		public final static String STAGIAIRE_AVIS_TABLE_NAME 							= "STAGIAIRE_AVIS";
-		public final static String TITRE_PROFESSIONNEL_TABLE_NAME 						= "TITRE_PROFESSIONNEL";
+		public final static String TYPE_SESSION_TABLE_NAME 								= "TYPE_SESSION";
 		public final static String UNITE_FORMATION_TABLE_NAME 							= "UniteFormation";
 		public final static String UNITE_PAR_FORMATION_TABLE_NAME 						= "UniteParFormation";
 		public final static String UTILISATEUR_TABLE_NAME 								= "UTILISATEUR";

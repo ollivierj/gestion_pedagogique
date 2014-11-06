@@ -2,16 +2,16 @@
 
 controllers
 		.controller(
-				'titreProfessionnelsCtrl',
-				function($scope, $rootScope, $http, $modal, $log, $timeout, toaster, TitreProfessionnelsFactory, FichiersFactory) {
-					$scope.pagingOptions = TitreProfessionnelsFactory.pagingOptions;		
-					$scope.sortOptions = TitreProfessionnelsFactory.sortOptions;		
-					$scope.filterOptions = TitreProfessionnelsFactory.filterOptions;
-					$scope.title = "Titres professionnels";
-					$scope.canEdit=TitreProfessionnelsFactory.canEdit;
-					$scope.canView=TitreProfessionnelsFactory.canView;
+				'typeSessionsCtrl',
+				function($scope, $rootScope, $http, $modal, $log, $timeout, toaster, TypeSessionsFactory, FichiersFactory) {
+					$scope.pagingOptions = TypeSessionsFactory.pagingOptions;		
+					$scope.sortOptions = TypeSessionsFactory.sortOptions;		
+					$scope.filterOptions = TypeSessionsFactory.filterOptions;
+					$scope.title = "Types de session de validation";
+					$scope.canEdit=TypeSessionsFactory.canEdit;
+					$scope.canView=TypeSessionsFactory.canView;
 					$scope.gridOptions = {
-						data : 'titreProfessionnels',
+						data : 'typeSessions',
 						multiSelect : false,
 						columnDefs : [
 								{
@@ -36,50 +36,50 @@ controllers
 						pagingOptions : $scope.pagingOptions
 					};
 
-					$scope.editRow = function(titreProfessionnel) {
-						$scope.editerTitreProfessionnel(titreProfessionnel.id);
+					$scope.editRow = function(typeSession) {
+						$scope.editerTypeSession(typeSession.id);
 					};
 
-					$scope.viewRow = function(titreProfessionnel) {
-						$scope.visualiserTitreProfessionnel(titreProfessionnel.id);
+					$scope.viewRow = function(typeSession) {
+						$scope.visualiserTypeSession(typeSession.id);
 					};
 					
-					$scope.removeRow = function(titreProfessionnel) {
-						$scope.supprimerTitreProfessionnel(titreProfessionnel.id);
+					$scope.removeRow = function(typeSession) {
+						$scope.supprimerTypeSession(typeSession.id);
 					};
 					
 					$scope.afficherFenetreEdition = function(){
-						$scope.ajouterTitreProfessionnel();
+						$scope.ajouterTypeSession();
 					};
 					
 					$scope.exporter = function(){
-						FichiersFactory.exporter('/ng_gst_pdg/web/titreProfessionnels/csv', $scope.pagingOptions, $scope.filterOptions, $scope.sortOptions);
+						FichiersFactory.exporter('/ng_gst_pdg/web/typeSessions/csv', $scope.pagingOptions, $scope.filterOptions, $scope.sortOptions);
 					};
 					
-					$scope.ajouterTitreProfessionnel = function(
-							titreProfessionnelId) {
+					$scope.ajouterTypeSession = function(
+							typeSessionId) {
 						var modalAdd = $modal
 								.open({
-									templateUrl : 'partials/titreProfessionnel.html',
-									controller : modalEditionTitreProfessionnelCtrl,
+									templateUrl : 'partials/typeSession.html',
+									controller : modalEditionTypeSessionCtrl,
 									resolve : {
-										title : function() {return "Ajout d'un titre professionnel";},
+										title : function() {return "Ajout d'un type de session";},
 										readonly : function() {return false;},
 										affFichiers : function() {return false;},
 										affTelech : function() {return false;},
-										titreProfessionnel : function(){ return {}},
+										typeSession : function(){ return {}},
 										fichiers : function() {
 											return null;
 										},
-										schema : function(TitreProfessionnelsFactory) {
-											return TitreProfessionnelsFactory.jsonschema.getData().$promise;
+										schema : function(TypeSessionsFactory) {
+											return TypeSessionsFactory.jsonschema.getData().$promise;
 										},
 										okTitle : function() {return "Enregistrer";},
 										ok : function() { return function(item){ 
-											return TitreProfessionnelsFactory.create.doAction(
+											return TypeSessionsFactory.create.doAction(
 												item,
 												function(success) {
-													toaster.pop('success', null, "Titre prfessionnel enregistré");
+													toaster.pop('success', null, "Type de session enregistré");
 												},
 												function(error) {
 													toaster.pop('error', null, error.data.message);
@@ -89,31 +89,31 @@ controllers
 								});
 
 						modalAdd.result.then(function(selectedItem) {
-							TitreProfessionnelsFactory.refreshData($scope);
+							TypeSessionsFactory.refreshData($scope);
 						}, function() {
 							$log.info('Modal dismissed at: ' + new Date());
 						});
 					};
 
-					$scope.visualiserTitreProfessionnel = function(
-							titreProfessionnelId) {
+					$scope.visualiserTypeSession = function(
+							typeSessionId) {
 						var modalEdit = $modal
 								.open({
-									templateUrl : 'partials/titreProfessionnel.html',
-									controller : modalEditionTitreProfessionnelCtrl,
+									templateUrl : 'partials/typeSession.html',
+									controller : modalEditionTypeSessionCtrl,
 									resolve : {
-										title : function() {return "Visualisation d'un titre professionnel";},
+										title : function() {return "Visualisation d'un type de session";},
 										readonly : function() {return true;},
 										affFichiers : function() {return true;},
 										affTelech : function() {return false;},
-										titreProfessionnel : function(TitreProfessionnelsFactory) {
-											return TitreProfessionnelsFactory.detail.getData({id : titreProfessionnelId}).$promise;
+										typeSession : function(TypeSessionsFactory) {
+											return TypeSessionsFactory.detail.getData({id : typeSessionId}).$promise;
 										},
 										fichiers : function(FichiersFactory) {
-											return FichiersFactory.fichiers.getData({entite_type : "TitreProfessionnel", entite_id : titreProfessionnelId}).$promise;
+											return FichiersFactory.fichiers.getData({entite_type : "TypeSession", entite_id : typeSessionId}).$promise;
 										},
-										schema : function(TitreProfessionnelsFactory) {
-											return TitreProfessionnelsFactory.jsonschema.getData().$promise;
+										schema : function(TypeSessionsFactory) {
+											return TypeSessionsFactory.jsonschema.getData().$promise;
 										},
 										okTitle : function() {return "Fermer";},
 										ok : function() { return function(item){ return item;}}
@@ -121,38 +121,38 @@ controllers
 								});
 
 						modalEdit.result.then(function(selectedItem) {
-							TitreProfessionnelsFactory.refreshData($scope);
+							TypeSessionsFactory.refreshData($scope);
 						}, function() {
 							$log.info('Modal dismissed at: ' + new Date());
 						});
 					};
 					
-					$scope.editerTitreProfessionnel = function(
-							titreProfessionnelId) {
+					$scope.editerTypeSession = function(
+							typeSessionId) {
 						var modalEdit = $modal
 								.open({
-									templateUrl : 'partials/titreProfessionnel.html',
-									controller : modalEditionTitreProfessionnelCtrl,
+									templateUrl : 'partials/typeSession.html',
+									controller : modalEditionTypeSessionCtrl,
 									resolve : {
-										title : function() {return "Edition d'un titre professionnel";},
+										title : function() {return "Edition d'un type de session";},
 										readonly : function() {return false;},
 										affFichiers : function() {return true;},
 										affTelech : function() {return true;},
-										titreProfessionnel : function(TitreProfessionnelsFactory) {
-											return TitreProfessionnelsFactory.detail.getData({id : titreProfessionnelId}).$promise;
+										typeSession : function(TypeSessionsFactory) {
+											return TypeSessionsFactory.detail.getData({id : typeSessionId}).$promise;
 										},
 										fichiers : function(FichiersFactory) {
-											return FichiersFactory.fichiers.getData({entite_type : "TitreProfessionnel", entite_id : titreProfessionnelId}).$promise;
+											return FichiersFactory.fichiers.getData({entite_type : "TypeSession", entite_id : typeSessionId}).$promise;
 										},
-										schema : function(TitreProfessionnelsFactory) {
-											return TitreProfessionnelsFactory.jsonschema.getData().$promise;
+										schema : function(TypeSessionsFactory) {
+											return TypeSessionsFactory.jsonschema.getData().$promise;
 										},
 										okTitle : function() {return "Enregistrer";},
 										ok : function() { return function(item){ 
-											return TitreProfessionnelsFactory.modify.doAction(
+											return TypeSessionsFactory.modify.doAction(
 												item,
 												function(success) {
-													toaster.pop('success', null, "Titre prfessionnel enregistré");
+													toaster.pop('success', null, "Type de session enregistré");
 												},
 												function(error) {
 													toaster.pop('error', null, error.data.message);
@@ -162,26 +162,26 @@ controllers
 								});
 
 						modalEdit.result.then(function(selectedItem) {
-							TitreProfessionnelsFactory.refreshData($scope);
+							TypeSessionsFactory.refreshData($scope);
 						}, function() {
 							$log.info('Modal dismissed at: ' + new Date());
 						});
 					};
 					
-					$scope.supprimerTitreProfessionnel = function(
-							titreProfessionnelId) {
+					$scope.supprimerTypeSession = function(
+							typeSessionId) {
 						var modalDelete = $modal
 								.open({
 									templateUrl : 'partials/templates/dialog.html',
-									controller : modalConfirmationDeleteTitreProfessionnelCtrl,
+									controller : modalConfirmationDeleteTypeSessionCtrl,
 									resolve : {
-										id : function() {return titreProfessionnelId},
-										title : function() {return "Suppression titre professionnel";},
-										message : function() {return "Etes-vous sur de vouloir supprimer ce titre professionnel ?";},
-										ok : function () { return function(id) {return TitreProfessionnelsFactory.delete.doAction(
+										id : function() {return typeSessionId},
+										title : function() {return "Suppression type de session";},
+										message : function() {return "Etes-vous sur de vouloir supprimer ce type de session ?";},
+										ok : function () { return function(id) {return TypeSessionsFactory.delete.doAction(
 											{id : id},
 											function(success) {
-												toaster.pop('warning', null, "Titre prfessionnel supprimé");
+												toaster.pop('warning', null, "Type de session supprimé");
 											},
 											function(error) {
 												toaster.pop('error', null, error.data.message);
@@ -190,7 +190,7 @@ controllers
 									}
 								});
 						modalDelete.result.then(function(selectedItem) {
-							TitreProfessionnelsFactory.refreshData($scope);
+							TypeSessionsFactory.refreshData($scope);
 						}, function() {
 							$log.info('Modal dismissed at: ' + new Date());
 						});
@@ -198,7 +198,7 @@ controllers
 					
 					$scope.$watch('pagingOptions', function (newVal, oldVal) {
 				        if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
-				        	TitreProfessionnelsFactory.refreshData($scope);
+				        	TypeSessionsFactory.refreshData($scope);
 				        }
 				    }, true);
 
@@ -208,26 +208,26 @@ controllers
 			                    $timeout.cancel($scope.timer);
 			                }
 				        	$scope.timer = $timeout(function () {
-			                    TitreProfessionnelsFactory.refreshData($scope);
+			                    TypeSessionsFactory.refreshData($scope);
 			                }, 500);
 				        }
 				    }, true);
 
 				    $scope.$watch('sortOptions', function (newVal, oldVal) {
 				        if (newVal !== oldVal) {
-				        	TitreProfessionnelsFactory.refreshData($scope);
+				        	TypeSessionsFactory.refreshData($scope);
 				        }
 				    }, true);
 					
-					TitreProfessionnelsFactory.refreshData($scope);
+					TypeSessionsFactory.refreshData($scope);
 				});
 
-var modalEditionTitreProfessionnelCtrl = function($scope, $modalInstance, $modal, $filter, FileUploader, fichiers,
-		TitreProfessionnelsFactory, FichiersFactory, title, readonly, affFichiers, affTelech, titreProfessionnel, schema, ok, okTitle) {
+var modalEditionTypeSessionCtrl = function($scope, $modalInstance, $modal, $filter, FileUploader, fichiers,
+		TypeSessionsFactory, FichiersFactory, title, readonly, affFichiers, affTelech, typeSession, schema, ok, okTitle) {
 	$scope.affFichiers=affFichiers;
 	$scope.affTelech=affTelech;
 	$scope.title = title;
-	$scope.data = titreProfessionnel;
+	$scope.data = typeSession;
 	$scope.data.readonly = readonly;
 	$scope.okTitle = okTitle;
 	$scope.ok = ok;
@@ -284,7 +284,7 @@ var modalEditionTitreProfessionnelCtrl = function($scope, $modalInstance, $modal
 	$scope.decorator = 'bootstrap-decorator';
 	$scope.submit =function(){
 		 $scope.$broadcast('schemaFormValidate');
-		if ($scope.form.titreProfessionnel.$valid) {
+		if ($scope.form.typeSession.$valid) {
 			$scope.ok($scope.data).$promise.then(
 				function(response) {
 					$modalInstance.close($scope.data);
@@ -330,7 +330,7 @@ var modalEditionTitreProfessionnelCtrl = function($scope, $modalInstance, $modal
 	};
 	
 	$scope.downloadFile = function(fichier) {
-		var downloadPath = '/ng_gst_pdg/web/fichiers/telecharger/TitreProfessionnel/'+$scope.data.id+'/'+fichier.filename;
+		var downloadPath = '/ng_gst_pdg/web/fichiers/telecharger/TypeSession/'+$scope.data.id+'/'+fichier.filename;
 		window.open(downloadPath,'_blank');  
 	};
 	
@@ -338,16 +338,16 @@ var modalEditionTitreProfessionnelCtrl = function($scope, $modalInstance, $modal
 		var modalDelete = $modal
 		.open({
 			templateUrl : 'partials/templates/dialog.html',
-			controller : modalConfirmationDeleteTitreProfessionnelCtrl,
+			controller : modalConfirmationDeleteTypeSessionCtrl,
 			resolve : {
 				id : function() {return fichier.filename;},
 				title : function() {return "Suppression d'un fichier";},
 				message : function() {return "Etes-vous sur de vouloir supprimer ce fichier ?";},
-				ok : function () { return function(id) { return FichiersFactory.delete.doAction({entite_type: 'TitreProfessionnel', entite_id: $scope.data.id, filename : id });}}
+				ok : function () { return function(id) { return FichiersFactory.delete.doAction({entite_type: 'TypeSession', entite_id: $scope.data.id, filename : id });}}
 			}
 		});	
 		modalDelete.result.then(function(selectedItem) {
-			FichiersFactory.fichiers.getData({entite_type : "TitreProfessionnel", entite_id : $scope.data.id})
+			FichiersFactory.fichiers.getData({entite_type : "TypeSession", entite_id : $scope.data.id})
 				.$promise.then(function(data){
 					$scope.fichiers = data;
 					$scope.results = data;
@@ -370,11 +370,11 @@ var modalEditionTitreProfessionnelCtrl = function($scope, $modalInstance, $modal
 	});
 
 	uploader.onBeforeUploadItem = function(item) {
-		item.formData.push({entite_type : "TitreProfessionnel"});
+		item.formData.push({entite_type : "TypeSession"});
 		item.formData.push({entite_id : $scope.data.id});
 	};
 	uploader.onCompleteAll = function() {
-		FichiersFactory.fichiers.getData({entite_type : "TitreProfessionnel", entite_id : $scope.data.id})
+		FichiersFactory.fichiers.getData({entite_type : "TypeSession", entite_id : $scope.data.id})
 		.$promise.then(function(data){
 			$scope.fichiers = data;
 			$scope.results = data;
@@ -382,8 +382,8 @@ var modalEditionTitreProfessionnelCtrl = function($scope, $modalInstance, $modal
 	};
 };
 
-var modalConfirmationDeleteTitreProfessionnelCtrl = function($scope, $modalInstance, 
-		TitreProfessionnelsFactory, id, title, message, ok) {
+var modalConfirmationDeleteTypeSessionCtrl = function($scope, $modalInstance, 
+		TypeSessionsFactory, id, title, message, ok) {
 	$scope.title = title;
 	$scope.message = message;
 	$scope.ok =function(item){

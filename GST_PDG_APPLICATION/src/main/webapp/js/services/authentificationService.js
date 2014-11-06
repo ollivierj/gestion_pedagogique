@@ -1,7 +1,7 @@
 'use strict';
 
 services.factory('AuthentificationFactory', function($http, $cookieStore,
-		$rootScope) {
+		$rootScope, $filter) {
 	var service = {};
 	service.Login = function(username, password) {
 		return $http.post('/ng_gst_pdg/web/utilisateurs/login', {
@@ -20,7 +20,11 @@ services.factory('AuthentificationFactory', function($http, $cookieStore,
 			id : data.id,
 			prenom : data.prenom,
 			nom : data.nom,
+			email : data.email,
+			fonction : (data.fonction)?(data.fonction.libelle)?data.fonction.libelle:"":"",
+			dateExpiration : $filter('date')(data.dateExpiration, 'le dd/MM/yyyy à HH:mm:ss'),
 			profil : {
+				libelle : (data.profil)?(data.profil.libelle)?data.profil.libelle:"":"",
 				droits : data.profil.droits
 			},
 		};
@@ -30,6 +34,7 @@ services.factory('AuthentificationFactory', function($http, $cookieStore,
 	};
 
 	service.clearCredentials = function() {
+		$rootScope.titleSelected="";
 		$cookieStore.remove("token");
 		delete $rootScope.authtoken;
 		delete $rootScope.utilisateurConnecte;

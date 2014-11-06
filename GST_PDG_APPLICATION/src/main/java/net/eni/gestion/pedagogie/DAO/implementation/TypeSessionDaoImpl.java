@@ -4,33 +4,33 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import net.eni.gestion.pedagogie.DAO.TitreProfessionnelDao;
+import net.eni.gestion.pedagogie.DAO.TypeSessionDao;
 import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
-import net.eni.gestion.pedagogie.commun.modele.TitreProfessionnel;
+import net.eni.gestion.pedagogie.commun.modele.TypeSession;
 
 import com.google.inject.Singleton;
 
 /**
  * @author jollivier
- * Service métier "TitreProfessionnel"
+ * Service métier "TypeSession"
  */
 @Singleton
-public class TitreProfessionnelDaoImpl extends ADaoImpl<TitreProfessionnel, Integer> implements TitreProfessionnelDao{
+public class TypeSessionDaoImpl extends ADaoImpl<TypeSession, Integer> implements TypeSessionDao{
 	
 	/**
-	 * Constructeur de la DAO TitreProfessionnelBase
+	 * Constructeur de la DAO TypeSessionBase
 	 * @throws SQLException
 	 */
-	public TitreProfessionnelDaoImpl() throws SQLException {
-		super(Connexion.getConnexion(), TitreProfessionnel.class);
+	public TypeSessionDaoImpl() throws SQLException {
+		super(Connexion.getConnexion(), TypeSession.class);
 	}
 
 	public HashMap<String, String> getTitleMap() throws Exception {
 		try{
-			Iterator<TitreProfessionnel> lTitreProfessionnels = this.queryForAll().iterator();
+			Iterator<TypeSession> lTypeSessions = this.queryForAll().iterator();
 			HashMap<String, String> lResults = new HashMap<String, String>();
-			while (lTitreProfessionnels.hasNext()) {
-				TitreProfessionnel lTitrePorfessionnel = lTitreProfessionnels.next();
+			while (lTypeSessions.hasNext()) {
+				TypeSession lTitrePorfessionnel = lTypeSessions.next();
 				lResults.put(lTitrePorfessionnel.getId().toString(), lTitrePorfessionnel.getCode());
 			}
 			return lResults;

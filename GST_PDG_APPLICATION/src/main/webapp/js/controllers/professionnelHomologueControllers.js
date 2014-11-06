@@ -3,7 +3,7 @@
 controllers
 		.controller(
 				'professionelHomologuesCtrl',
-				function($scope, $modal, $log, $timeout, $rootScope, $http, toaster, ProfessionnelHomologuesFactory, TitreProfessionnelsFactory, FichiersFactory) {
+				function($scope, $modal, $log, $timeout, $rootScope, $http, toaster, ProfessionnelHomologuesFactory, TypeSessionsFactory, FichiersFactory) {
 					$scope.pagingOptions = ProfessionnelHomologuesFactory.pagingOptions;		
 					$scope.sortOptions = ProfessionnelHomologuesFactory.sortOptions;		
 					$scope.filterOptions = ProfessionnelHomologuesFactory.filterOptions;
@@ -95,8 +95,8 @@ controllers
 										title : function() {return "Ajout d'un professionnel homologué";},
 										readonly : function() {return false;},
 										professionnelHomologue : function(){ return {}},
-										titreProfessionnels : function(TitreProfessionnelsFactory){
-											return TitreProfessionnelsFactory.titlemap.getData().$promise;
+										typeSessions : function(TypeSessionsFactory){
+											return TypeSessionsFactory.titlemap.getData().$promise;
 										},
 										schema : function(ProfessionnelHomologuesFactory) {
 											return ProfessionnelHomologuesFactory.jsonschema.getData().$promise;
@@ -137,8 +137,8 @@ controllers
 										professionnelHomologue : function(ProfessionnelHomologuesFactory) {
 											return ProfessionnelHomologuesFactory.detail.getData({id : professionnelHomologueId}).$promise;
 										},
-										titreProfessionnels : function(TitreProfessionnelsFactory){
-											return TitreProfessionnelsFactory.titlemap.getData().$promise;
+										typeSessions : function(TypeSessionsFactory){
+											return TypeSessionsFactory.titlemap.getData().$promise;
 										},
 										schema : function(ProfessionnelHomologuesFactory) {
 											return ProfessionnelHomologuesFactory.jsonschema.getData().$promise;
@@ -167,8 +167,8 @@ controllers
 										professionnelHomologue : function(ProfessionnelHomologuesFactory) {
 											return ProfessionnelHomologuesFactory.detail.getData({id : professionnelHomologueId}).$promise;
 										},
-										titreProfessionnels : function(TitreProfessionnelsFactory){
-											return TitreProfessionnelsFactory.titlemap.getData().$promise;
+										typeSessions : function(TypeSessionsFactory){
+											return TypeSessionsFactory.titlemap.getData().$promise;
 										},
 										schema : function(ProfessionnelHomologuesFactory) {
 											return ProfessionnelHomologuesFactory.jsonschema.getData().$promise;
@@ -256,12 +256,12 @@ controllers
 				});
 
 var modalProfessionnelHomologueCtrl = function($scope, $modalInstance,
-		ProfessionnelHomologuesFactory, onlyNumbersFilter, title, readonly, professionnelHomologue, titreProfessionnels, schema, ok, okTitle) {
+		ProfessionnelHomologuesFactory, onlyNumbersFilter, title, readonly, professionnelHomologue, typeSessions, schema, ok, okTitle) {
 	$scope.title = title;
 	$scope.data = professionnelHomologue;
 	$scope.data.readonly = readonly;
-	$scope.titreProfessionnelsTitleMap = titreProfessionnels;
-	$scope.titreProfessionnelsEnum = onlyNumbersFilter(Object.keys($scope.titreProfessionnelsTitleMap)),
+	$scope.typeSessionsTitleMap = typeSessions;
+	$scope.typeSessionsEnum = onlyNumbersFilter(Object.keys($scope.typeSessionsTitleMap)),
 	$scope.okTitle = okTitle;
 	$scope.ok = ok;
 	$scope.schema = schema;
@@ -349,12 +349,12 @@ var modalProfessionnelHomologueCtrl = function($scope, $modalInstance,
 		    	      items: [
 						{
 							title : "Titre professionnel",
-							key: "homologations[].titreProfessionnel.id",
+							key: "homologations[].typeSession.id",
 							type : "select",
 							required : true,
 							disabled : $scope.data.readonly,
-							schema : { enum : $scope.titreProfessionnelsEnum},
-							titleMap : $scope.titreProfessionnelsTitleMap
+							schema : { enum : $scope.typeSessionsEnum},
+							titleMap : $scope.typeSessionsTitleMap
 						},
 						{
 							key: "homologations[].formatedDateDebut",

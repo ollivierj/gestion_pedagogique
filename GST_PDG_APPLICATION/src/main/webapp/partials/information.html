@@ -1,0 +1,54 @@
+<div class="modal-header">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<i class="fa fa-group"></i>&nbsp;{{ title }}
+			</h3>
+		</div>
+	</div>
+</div>
+<div class="modal-body">
+	<div class="row" style="padding-bottom: 3px;">
+		<div class="col-lg-5">Prénom :</div>
+		<div class="col-lg-7">
+			<label>{{utilisateur.prenom}}</label>
+		</div>
+	</div>
+	<div class="row" style="padding-bottom: 3px;">
+		<div class="col-lg-5">Nom :</div>
+		<div class="col-lg-7">
+			<label>{{utilisateur.nom}}</label>
+		</div>
+	</div>
+	<div class="row" style="padding-bottom: 3px;">
+		<div class="col-lg-5">Email :</div>
+		<div class="col-lg-7">
+			<label>{{utilisateur.email}}</label>
+		</div>
+	</div>
+	<div class="row" style="padding-bottom: 3px;">
+		<div class="col-lg-5">Fonction :</div>
+		<div class="col-lg-7">
+			<label>{{utilisateur.fonction}}</label>
+		</div>
+	</div>
+	<div class="row" style="padding-bottom: 3px;">
+		<div class="col-lg-5">Profil :</div>
+		<div class="col-lg-7">
+			<label>{{utilisateur.profil.libelle}}</label>
+		</div>
+	</div>
+	<div class="row" style="padding-bottom: 3px;">
+		<div class="col-lg-5">La session expire :</div>
+		<div class="col-lg-7">
+			<label>{{utilisateur.dateExpiration}}</label>
+		</div>
+	</div>
+</div>
+
+<div class="modal-footer">
+	<button name="cancelSubmit" data-ng-disabled="progress.active()"
+		data-ng-click="cancel()" class="btn btn-primary">Annuler</button>
+</div>
+
+

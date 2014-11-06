@@ -1,7 +1,6 @@
 package net.eni.gestion.pedagogie.commun.outil;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import net.eni.gestion.pedagogie.commun.composant.pagination.Pager;
 import net.eni.gestion.pedagogie.commun.composant.tuple.Pair;
@@ -208,9 +207,9 @@ public class CRUDHelper {
 	 * @return
 	 * @throws Exception
 	 */
-	public static <M extends AModele<ID>, ID> List<M> chargerTous(BaseDaoImpl<M, ID> pABase) throws Exception {
+	public static <M extends AModele<ID>, ID> ArrayList<M> chargerTous(BaseDaoImpl<M, ID> pABase) throws Exception {
 		try {
-			return pABase.queryForAll();
+			return new ArrayList<M>(pABase.queryForAll());
 		} catch (Exception exception) {
 			throw new Exception("Echec de chargement de la liste d'enregistrements depuis la base de données");
 		}
