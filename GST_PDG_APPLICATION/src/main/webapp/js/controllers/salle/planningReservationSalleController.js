@@ -83,7 +83,6 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
     // Evènement sur le clic d'un élément
     $scope.alertOnEventClick = function( event, allDay, jsEvent, view ){
         $scope.alertMessage = (event.title + ' was clicked ');
-        
         //En fonction un type de l'élément une fenêtre modale différente sera créée
         //Pour chaque type une vue et un controller sont associés.
         switch(event.type) {
@@ -93,6 +92,9 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
 						modalEditionInstance.controller = 'formSessionSalleCtrl';
 						modalEditionInstance.resolve.data = function (SessionValidationsFactory) {
 							return SessionValidationsFactory.detail.getData({id:event.entityId}).$promise;
+						};
+						modalEditionInstance.resolve.instanceRef = function (SessionValidationsFactory) {
+							return SessionValidationsFactory.instanceRefs.getAll({id:event.entityId}).$promise;
 						};
 						break;
         						

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import net.eni.gestion.pedagogie.DAO.ADao;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.composant.pagination.Pager;
 import net.eni.gestion.pedagogie.commun.composant.tuple.Pair;
 import net.eni.gestion.pedagogie.commun.modele.generique.AModele;
@@ -68,5 +69,19 @@ abstract class ADaoImpl<M extends AModele<ID>, ID> extends BaseDaoImpl<M,ID> imp
 	public List<M> chargerTous() throws Exception {
 		return CRUDHelper.chargerTous(this);
 	}
-
+	
+	public M addOrUpdate(M pModel) throws Exception {
+		try {
+			M m = this.chargerDetail(pModel.getId());
+			// Si le modèle n'existe pas en base on fait un ajout...
+			if (m == null) {
+				return this.ajouter(pModel);
+			// ... Sinon on le met à jour
+			} else {
+				return this.mettreAJour(pModel);
+			}
+		} catch (Exception e) {
+			throw new ApplicationException("Echec lors de la mise à jour en base de données.");
+		}
+	}
 }

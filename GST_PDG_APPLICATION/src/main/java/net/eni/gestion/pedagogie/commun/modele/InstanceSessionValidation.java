@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.configuration.ModeleMetier;
 import net.eni.gestion.pedagogie.commun.modele.generique.AModele;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -47,6 +48,7 @@ public class InstanceSessionValidation extends AModele<Integer> implements Seria
 		useGetSet = true)
 	private Integer id = null;
 	
+	@JsonBackReference("instance-session")
 	@DatabaseField(
 		columnName = SESSION_VALIDATION_FIELD_NAME,
 		foreign = true,

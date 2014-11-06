@@ -40,7 +40,7 @@
 	</filter-mapping>
 
 	<listener>
-		<listener-class>net.eni.gestion.pedagogie.configuration.ApplicationConfiguration</listener-class>
+		<listener-class>net.eni.gestion.pedagogie.commun.configuration.ApplicationConfiguration</listener-class>
 	</listener>
 
 </web-app>

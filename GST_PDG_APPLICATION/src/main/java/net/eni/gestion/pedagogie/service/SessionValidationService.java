@@ -1,7 +1,10 @@
 package net.eni.gestion.pedagogie.service;
 
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
+import net.eni.gestion.pedagogie.commun.composant.instancePlanning.InstancePlanning;
+import net.eni.gestion.pedagogie.commun.modele.InstanceSessionValidation;
 import net.eni.gestion.pedagogie.commun.modele.SessionValidation;
+import net.eni.gestion.pedagogie.commun.modele.SessionValidationStagiaire;
 
 /**
  * @author jollivier
@@ -16,5 +19,7 @@ public interface SessionValidationService extends AService<SessionValidation, In
 	 * @throws GenericException
 	 */
 	public SessionValidation getInstanceData(Integer id) throws ApplicationException;
+	
+	public SessionValidation saveInstanceData(InstancePlanning<InstanceSessionValidation, SessionValidationStagiaire> instances) throws ApplicationException;
 
 }

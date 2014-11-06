@@ -47,7 +47,7 @@
 			<a href="" style="margin-left:5px;" class="btn btn-primary btn-xs" data-nodrag ng-click="addInstance()">
 				<i class="glyphicon glyphicon-plus"></i>
 			</a>
-			<ol ui-tree-nodes ng-model="instances" class="node" data-type="salle">
+			<ol ui-tree-nodes ng-model="instances" class="node" data-type="instance">
 				<li ng-repeat="instance in instances" class="node" ui-tree-node>
 				
 					<!-- Mode lecture salle -->
@@ -62,7 +62,7 @@
 							<button class="btn btn-success btn-xs" data-nodrag ng-click="toggleInstance(instance)">
 								<span class="glyphicon" ng-class="{'glyphicon-chevron-right': instance.collapsed, 'glyphicon-chevron-down': !instance.collapsed}"></span>
 							</button>
-							&nbsp;{{getSalleLibelle(instance.reservationSalle.salle.id)}}&nbsp;-&nbsp;
+							&nbsp;{{getSalleLibelle(instance)}}&nbsp;-&nbsp;
 							{{getSallePlace(instance)}}&nbsp;place(s)
 						</div>
 					</div>
@@ -99,14 +99,15 @@
 												Required!
 											</span>
 										</div>
-										
-										<div class="col-xs-6 has-feedback">
+										<div class="col-xs-6">
+										<div class="has-feedback">
 											<input
 												type="text" ng-model="newProfessionnelH" class="form-control"
 												placeholder="Recherche"
 												typeahead="item as (item.nom + ' ' + item.prenom) for item in chargerProfessionnels($viewValue)"
 												typeahead-loading="chargementItem" class="form-control">
 											<span ng-show="chargementItem" class="glyphicon glyphicon-refresh form-control-feedback"></span>
+										</div>
 										</div>
 										
 										<div class="col-xs-2"> 
@@ -121,7 +122,7 @@
 											<label>{{p.nom + ' ' + p.prenom}}</label> 
 										</div>
 										<div class="col-xs-2"> 
-											<button class="btn btn-danger btn-sm" data-nodrag ng-click="removeProfessionnel($index, instance)">
+											<button class="btn btn-danger btn-sm" data-nodrag ng-click="removeProfessionnel($index, instance, newProfessionnelH)">
 												<i class="fa fa-minus"></i>
 											</button>
 										</div>

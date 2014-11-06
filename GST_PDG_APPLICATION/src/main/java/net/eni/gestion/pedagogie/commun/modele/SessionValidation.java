@@ -100,6 +100,10 @@ public class SessionValidation extends AModele<Integer> implements Serializable 
 		foreignAutoRefresh = true)
 	private TitreProfessionnel titreProfessionnel = null;
 
+	@SchemaIgnore
+	@JsonManagedReference("instance-session")
+	@ForeignCollectionField(eager = true, columnName = InstanceSessionValidation.SESSION_VALIDATION_FIELD_NAME)
+	private transient Collection<InstanceSessionValidation> transientInstanceSessionValidation = null;
 	
 	@SchemaIgnore
 	@JsonIgnore
@@ -107,36 +111,9 @@ public class SessionValidation extends AModele<Integer> implements Serializable 
 	private transient Collection<SessionValidationStagiaire> transientSessionValidationStagiaires = null;
 	
 	@SchemaIgnore
-	@JsonManagedReference("SessionValidationStagiaire-SessionValidation")
-	public Collection<SessionValidationStagiaire> getTransientSessionValidationStagiaire() {
-		return transientSessionValidationStagiaires;
-	}
-
-	@JsonIgnore
-	@SchemaIgnore
-	public void setTransientSessionValidationStagiaire(
-			Collection<SessionValidationStagiaire> transientSessionValidationStagiaires) {
-		this.transientSessionValidationStagiaires = transientSessionValidationStagiaires;
-	}
-	
-	@SchemaIgnore
 	@Attributes(id = "sessionValidationStagiaires")
-	private ArrayList<SessionValidationStagiaire> sessionValidationStagiaires= new ArrayList<SessionValidationStagiaire>();
+	private ArrayList<SessionValidationStagiaire> sessionValidationStagiaires= new ArrayList<SessionValidationStagiaire>();	
 	
-	@SchemaIgnore
-	public ArrayList<SessionValidationStagiaire> getSessionValidationStagiaires() {
-		if (null != transientSessionValidationStagiaires) {
-			sessionValidationStagiaires.clear();
-			sessionValidationStagiaires.addAll(transientSessionValidationStagiaires);
-			transientSessionValidationStagiaires = null;
-		}
-		return sessionValidationStagiaires;
-	}
-
-	@SchemaIgnore
-	public void setSessionValidationStagiaires(ArrayList<SessionValidationStagiaire> sessionValidationStagiaires) {
-		this.sessionValidationStagiaires = sessionValidationStagiaires;
-	}
 	
 	@Override
 	public Integer getId() {
@@ -198,6 +175,34 @@ public class SessionValidation extends AModele<Integer> implements Serializable 
 	public void setFormatedDateFin(String formatedDateFin) throws ParseException {
 		this.dateFin=DateHelper.datifyString(formatedDateFin, "yyyy-MM-dd'T'HH:mm:ss");
 		this.formatedDateFin = formatedDateFin;
+	}
+	
+	@SchemaIgnore
+	public ArrayList<SessionValidationStagiaire> getSessionValidationStagiaires() {
+		if (null != transientSessionValidationStagiaires) {
+			sessionValidationStagiaires.clear();
+			sessionValidationStagiaires.addAll(transientSessionValidationStagiaires);
+			transientSessionValidationStagiaires = null;
+		}
+		return sessionValidationStagiaires;
+	}
+	
+	@SchemaIgnore
+	public void setSessionValidationStagiaires(ArrayList<SessionValidationStagiaire> sessionValidationStagiaires) {
+		this.sessionValidationStagiaires = sessionValidationStagiaires;
+	}
+	
+	@SchemaIgnore
+	@JsonManagedReference("SessionValidationStagiaire-SessionValidation")
+	public Collection<SessionValidationStagiaire> getTransientSessionValidationStagiaire() {
+		return transientSessionValidationStagiaires;
+	}
+
+	@JsonIgnore
+	@SchemaIgnore
+	public void setTransientSessionValidationStagiaire(
+			Collection<SessionValidationStagiaire> transientSessionValidationStagiaires) {
+		this.transientSessionValidationStagiaires = transientSessionValidationStagiaires;
 	}
 	
 	@Override

@@ -75,4 +75,12 @@ public interface ADao<M extends AModele<ID>, ID> {
 		 * @throws Exception
 		 */
 		public List<M> chargerTous() throws Exception;
+		
+		/**
+		 * Ajoute ou supprime un modèle à l'aide d'un modèle passé en paramètre
+		 * @param pModel
+		 * @return
+		 * @throws Exception
+		 */
+		public M addOrUpdate(M pModel) throws Exception;
 }
