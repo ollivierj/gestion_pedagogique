@@ -49,9 +49,10 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 	public final static String LOGIN_FIELD_NAME				= "UTIL_LOGIN";
 	public final static String TOKEN_FIELD_NAME				= "UTIL_TOKEN";
 	public final static String DATE_EXPIRATION_FIELD_NAME	= "UTIL_DATE_EXPIRATION";
+	public final static String IS_FORMATEUR_FIELD_NAME		= "UTIL_IS_FORMATEUR";
 
 	
-	public final static String[] FULL_TEXT_SEARCH_FIELDS		= {NOM_FIELD_NAME, PRENOM_FIELD_NAME, EMAIL_FIELD_NAME};
+	public final static String[] FULL_TEXT_SEARCH_FIELDS	= {NOM_FIELD_NAME, PRENOM_FIELD_NAME, EMAIL_FIELD_NAME};
 	
 	@JsonIgnore
 	@Override
@@ -163,6 +164,13 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 		useGetSet = true,
 		canBeNull = true)
 	private Date dateExpiration = null;
+	
+	@DatabaseField(
+		columnName = DATE_EXPIRATION_FIELD_NAME,
+		dataType = DataType.BOOLEAN_OBJ,
+		useGetSet = true,
+		canBeNull = true)
+	private Boolean isFormateur = null;
 	
 	@Override
 	public Integer getId() {
@@ -302,7 +310,14 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 
 	public void setDateExpiration(Date dateExpiration) {
 		this.dateExpiration = dateExpiration;
+	}
+
+	public Boolean getIsFormateur() {
+		return isFormateur;
+	}
+
+	public void setIsFormateur(Boolean isFormateur) {
+		this.isFormateur = isFormateur;
 	}	
-	
 
 }

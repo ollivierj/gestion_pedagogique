@@ -13,5 +13,5 @@ import net.eni.gestion.pedagogie.commun.modele.Utilisateur;
  */
 public interface UtilisateurResource extends AResource<Utilisateur, Integer> {
 
-	public List<Utilisateur> getProfil(Integer profilId) throws ApplicationException;
+	public List<Utilisateur> getFormateurs(String pSearchText) throws ApplicationException;
 }

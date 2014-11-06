@@ -1,16 +1,18 @@
 package net.eni.gestion.pedagogie.DAO.implementation;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
 import net.eni.gestion.pedagogie.DAO.UtilisateurDao;
-import net.eni.gestion.pedagogie.commun.modele.Profil;
 import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.modele.Utilisateur;
+import net.eni.gestion.pedagogie.commun.outil.ORMLiteHelper;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 
 import com.google.inject.Singleton;
@@ -119,14 +121,29 @@ public class UtilisateurDaoImpl extends ADaoImpl<Utilisateur, Integer> implement
 	}
 
 	@Override
-	public List<Utilisateur> getByProfil(Integer profilId) throws Exception {
+	public List<Utilisateur> getFormateurs(String pSearchText) throws Exception {
 		List<Utilisateur> utilisateur = null;
 		
 		try {
-			utilisateur = this.queryBuilder().where().eq(Utilisateur.PROFIL_FIELD_NAME, new Profil(profilId)).query();
+			StringBuilder lQuery = new StringBuilder();
+			lQuery.append("SELECT TOP 10 ");
+			lQuery.append(StringUtils.join(ORMLiteHelper.getProjectionFields(this.getTableInfo()), ","));
+			lQuery.append(" FROM ");
+			lQuery.append(this.getTableInfo().getTableName());
+			String lFullTextSearchWhereClause = ORMLiteHelper.getFullTextSearchWhereClause(this.getDataClass().newInstance().getFullTextSearchFieldNames() , pSearchText);
+			lQuery.append(" WHERE ");
+			lQuery.append(Utilisateur.IS_FORMATEUR_FIELD_NAME);
+			lQuery.append(" = ");
+			lQuery.append(" 1 ");
+			if (null !=lFullTextSearchWhereClause){
+				lQuery.append(" AND ");
+				lQuery.append(lFullTextSearchWhereClause);
+			}
+			utilisateur =  new ArrayList<Utilisateur>(this.queryRaw(lQuery.toString(), this.getRawRowMapper()).getResults());
 		} catch (Exception exception) {
 			throw new Exception("Echec de chargement de la liste d'enregistrements depuis la base de données");
 		}
+		
 		
 		return utilisateur;
 	}

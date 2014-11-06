@@ -14,7 +14,6 @@ import net.eni.gestion.pedagogie.commun.configuration.ModeleMetier;
 import net.eni.gestion.pedagogie.commun.modele.generique.AModele;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
@@ -66,7 +65,7 @@ public class InstanceSessionValidation extends AModele<Integer> implements Seria
 		foreignAutoRefresh = true)
 	private ReservationSalle reservationSalle = null;
 	
-	@JsonIgnore
+	
 	@ForeignCollectionField(eager = true, columnName = Jury.INSTANCE_SESSION_VALIDATION_FIELD_NAME)
 	private transient Collection<Jury> transientJurys = null;
 

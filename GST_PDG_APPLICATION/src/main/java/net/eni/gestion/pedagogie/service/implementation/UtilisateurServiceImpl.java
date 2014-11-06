@@ -100,6 +100,7 @@ public class UtilisateurServiceImpl extends AServiceImpl<Utilisateur, Integer, U
 				lUtilisateur.setDateExpiration(lCurrentDate);
 				lUtilisateur=this.dao.ajouter(lUtilisateur);
 				lUtilisateur.getProfil().setDroits(droitProfilDao.getListeDroits(lUtilisateur.getProfil().getId()));
+				lUtilisateur.setIsFormateur(false);
 			}
 		} catch (Exception e1) {
 			throw new ApplicationException(
@@ -136,9 +137,9 @@ public class UtilisateurServiceImpl extends AServiceImpl<Utilisateur, Integer, U
 	}
 
 	@Override
-	public List<Utilisateur> getProfil(Integer profilId) throws ApplicationException {
+	public List<Utilisateur> getFormateurs(String pSearchText) throws ApplicationException {
 		try {
-			return dao.getByProfil(profilId);
+			return dao.getFormateurs(pSearchText);
 		} catch (Exception e) {
 			throw new ApplicationException("Impossible de récupérer les formateurs");
 		}

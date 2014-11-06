@@ -2,7 +2,7 @@
 	<div class="panel panel-primary">
 		<div class="panel-heading">
 			<h3 class="panel-title">
-				<i class="fa fa-group"></i>&nbsp;R&eacute;servation des salles : cours de maths du 01/05/2014 au 07/05/2014 SESSION
+				<i class="fa fa-group"></i>&nbsp;{{title}}
 			</h3>
 		</div>
 	</div>
@@ -163,7 +163,7 @@
 								</button>
 									
 								<button class="btn btn-success btn-xs pull-right" data-nodrag
-									ng-click="stagiaire.editing = false" ng-show="stagiaire.editing">
+									ng-click="updateStagiaire(stagiaire)" ng-show="stagiaire.editing">
 									<i class="fa fa-check"></i>
 								</button>
 									

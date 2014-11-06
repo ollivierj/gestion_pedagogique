@@ -47,7 +47,8 @@ public class Jury extends AModele<Integer> implements Serializable {
 		columnName = PROFESSIONNEL_HOMOLOGUE_FIELD_NAME,
 		foreign = true,
 		useGetSet = true,
-		canBeNull = false)
+		canBeNull = false,
+		foreignAutoRefresh=true)
 	private ProfessionnelHomologue professionnelHomologue = null;
 	
 	@DatabaseField(

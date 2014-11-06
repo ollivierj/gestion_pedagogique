@@ -6,11 +6,6 @@ ng_gst_pdg.constant('CONSTANTS', {
 	    COURS:'Cours',
 	    EVALUATION:'Evaluation',
 	    SESSION:'Session'
-	},
-	
-	PROFILS : {
-		FORMATEUR: 2
 	}
 	
 });
-

@@ -140,6 +140,7 @@ public class SessionValidationStagiaire extends AModele<Integer> implements Seri
 	}
 
 	public void setDateHeureDebut(Date dateHeureDebut) {
+		this.formatedDateHeureDebut = DateHelper.stringifyDate(dateHeureDebut, "yyyy-MM-dd'T'HH:mm:ss");
 		this.dateHeureDebut = dateHeureDebut;
 	}
 
@@ -157,6 +158,7 @@ public class SessionValidationStagiaire extends AModele<Integer> implements Seri
 	}
 
 	public void setDateHeureFin(Date dateHeureFin) {
+		this.formatedDateHeureFin=DateHelper.stringifyDate(dateHeureFin, "yyyy-MM-dd'T'HH:mm:ss");
 		this.dateHeureFin = dateHeureFin;
 	}
 	

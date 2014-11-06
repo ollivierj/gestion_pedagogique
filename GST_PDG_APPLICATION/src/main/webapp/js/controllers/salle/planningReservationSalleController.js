@@ -65,7 +65,7 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
         size : 'lg',
         modalFade: true,
         resolve: {
-            items: function () {
+            eventInfo: function () {
               return event;
             },
             salles: function (SalleFactory) {
@@ -74,9 +74,6 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
             sallesReservees : function (SallesReserveesFactory) {
                 return SallesReserveesFactory.query().$promise;
             }
-           /* animateursLibres : function (AnimateursLibresFactory) {
-                return AnimateursLibresFactory.query().$promise;
-            },*/
         }
     };
     

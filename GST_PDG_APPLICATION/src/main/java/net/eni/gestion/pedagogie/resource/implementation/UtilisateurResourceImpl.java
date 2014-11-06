@@ -2,7 +2,6 @@ package net.eni.gestion.pedagogie.resource.implementation;
 
 
 import java.util.List;
-
 import java.util.Date;
 
 import javax.servlet.http.HttpSession;
@@ -13,6 +12,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import net.eni.gestion.pedagogie.commun.composant.authentification.annotation.CheckSession;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.Utilisateur;
 import net.eni.gestion.pedagogie.resource.UtilisateurResource;
@@ -54,11 +54,12 @@ public class UtilisateurResourceImpl extends AResourceImpl<Utilisateur, Integer,
 	}
 
     @GET
-    @Path("/byProfil")
+    @Path("/formateurs/{search}")
     @Produces(MediaType.APPLICATION_JSON)
 	@Override
-	public List<Utilisateur> getProfil(Integer profilId) throws ApplicationException {
-		return service.getProfil(profilId);
+    @CheckSession
+	public List<Utilisateur> getFormateurs(String pSearchText) throws ApplicationException {
+		return service.getFormateurs(pSearchText);
 	}
     
     
