@@ -34,6 +34,7 @@ services.factory('AuthentificationFactory', function($http, $cookieStore,
 	};
 
 	service.clearCredentials = function() {
+		$rootScope.titleSelected="";
 		$cookieStore.remove("token");
 		delete $rootScope.authtoken;
 		delete $rootScope.utilisateurConnecte;
