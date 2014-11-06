@@ -84,7 +84,7 @@
               <ul class="dropdown-menu">
 				<li ng-repeat="menu in menuParametres"><a ui-sref="{{menu.sref}}"><i class="fa fa-gear"></i>{{menu.item}}</a></li>
                 <li class="divider"></li>
-                <li><a ui-sref="login"><i class="fa fa-gear"></i> Se déconnecter</a></li>
+                <li><a ui-sref="login" ng-click="setActive('')"><i class="fa fa-gear"></i> Se déconnecter</a></li>
               </ul>
             </li>
           </ul>
