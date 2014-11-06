@@ -4,9 +4,6 @@ controllers
 		.controller(
 				'professionelHomologuesCtrl',
 				function($scope, $modal, $log, $timeout, $rootScope, $http, toaster, ProfessionnelHomologuesFactory, TitreProfessionnelsFactory, FichiersFactory) {
-					if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken){
-						$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
-					}
 					$scope.pagingOptions = ProfessionnelHomologuesFactory.pagingOptions;		
 					$scope.sortOptions = ProfessionnelHomologuesFactory.sortOptions;		
 					$scope.filterOptions = ProfessionnelHomologuesFactory.filterOptions;

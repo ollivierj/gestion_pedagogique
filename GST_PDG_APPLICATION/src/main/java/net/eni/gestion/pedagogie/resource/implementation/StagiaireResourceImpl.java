@@ -8,6 +8,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import net.eni.gestion.pedagogie.commun.composant.authentification.annotation.CheckSession;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.composant.map.NamedObjectMap;
 import net.eni.gestion.pedagogie.commun.modele.Promotion;
@@ -36,6 +37,7 @@ public class StagiaireResourceImpl extends AResourceImpl<Stagiaire, Integer, Sta
     @GET
     @Path("/stagiaireOrPromotionAutocomplete/{search}")
     @Produces(MediaType.APPLICATION_JSON)
+    @CheckSession
 	public ArrayList<NamedObjectMap> chargerStagiaireOrPromotionAutocomplete(@PathParam("search") String pSearchText) throws ApplicationException {
     	ArrayList<NamedObjectMap> lResultList = new ArrayList<NamedObjectMap>();
     	ArrayList<Stagiaire> lStagiaireList = service.chargerForAutocompleteSearch(pSearchText);
@@ -64,6 +66,7 @@ public class StagiaireResourceImpl extends AResourceImpl<Stagiaire, Integer, Sta
     @GET
     @Path("/stagiaireAutocomplete/{search}")
     @Produces(MediaType.APPLICATION_JSON)
+    @CheckSession
 	public ArrayList<NamedObjectMap> chargerStagiaireAutocomplete(@PathParam("search") String pSearchText) throws ApplicationException {
     	ArrayList<NamedObjectMap> lResultList = new ArrayList<NamedObjectMap>();
     	ArrayList<Stagiaire> lStagiaireList = service.chargerForAutocompleteSearch(pSearchText);

@@ -2,9 +2,6 @@
  * Controller de la page detail stagiaire
  */
 controllers.controller('detailFichierCtrl', function($scope, $rootScope, $http, $modal, $filter, $modal, FileUploader, StagiaireFactory, FichiersFactory, fichiers) {
-	if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken){
-		$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
-	}
 	$scope.fichiers = fichiers;
 	$scope.results = fichiers;
 	$scope.affFichiers=true;

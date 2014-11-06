@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.configuration.ModeleMetier;
 import net.eni.gestion.pedagogie.commun.modele.generique.AModele;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -58,6 +59,7 @@ public class InstanceEvaluation extends AModele<Integer> implements Serializable
 		canBeNull = false)
 	private Utilisateur surveillant = null;
 	
+	@JsonManagedReference("InstanceEvaluation-ReservationSalle")
 	@DatabaseField(
 		columnName = EVALUATION_FIELD_NAME,
 		foreign = true,

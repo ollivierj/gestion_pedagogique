@@ -13,7 +13,8 @@ import net.eni.gestion.pedagogie.commun.modele.Utilisateur;
 public interface UtilisateurService extends AService<Utilisateur, Integer> {
 
 	public List<Utilisateur> getProfil(Integer profilId) throws ApplicationException;
-
-	public Utilisateur authentifier(Utilisateur utilisateur) throws ApplicationException;
-	public boolean checkConnection(Utilisateur utilisateur, boolean loginOnly ) throws ApplicationException;
+	public Utilisateur authentifier(String pLogin, String pMotDePasse) throws ApplicationException;
+	public  boolean checkConnection(String pLogin, String pMotDePasse, boolean loginOnly) throws ApplicationException;
+	public boolean checkToken(String pToken) throws ApplicationException;
+	public Utilisateur authentifierAvecToken(String token)throws ApplicationException;
 }

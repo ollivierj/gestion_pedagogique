@@ -3,7 +3,7 @@
 var ng_gst_pdg = angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid', 'ngAnimate', 'ui.router', 'angularFileUpload', 
                               'schemaForm','ui.bootstrap','ui.tree','ng_gst_pdg.filters','ng_gst_pdg.controllers',
                               'ng_gst_pdg.services', 'ng_gst_pdg.directives', 'mgcrea.ngStrap.timepicker',
-                              'mgcrea.ngStrap.datepicker', 'toaster', 'angular-loading-bar', 'ngCookies'])
+                              'mgcrea.ngStrap.datepicker', 'toaster', 'angular-loading-bar', 'ngCookies', 'xeditable'])
 
 .config(function($stateProvider, $urlRouterProvider, $datepickerProvider, $timepickerProvider, cfpLoadingBarProvider) {
 	
@@ -171,34 +171,46 @@ var ng_gst_pdg = angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid',
 			}
 		}).
 		// SAISIE DES AVIS ***********************************************
+		state('instanceCours', {
+			url: '/instanceCours',
+			templateUrl: 'partials/templates/list.html',
+			controller: 'instanceCoursCtrl'
+		}).
 		state('avis', {
 			url: '/avis',
-			templateUrl: 'partials/templates/list.html',
+			templateUrl: 'partials/avis.html',
 			controller: 'avisCtrl'
 		});
 	
-}).run(function ($rootScope, $location, $cookieStore, $http, $state) {
-    $rootScope.utilisateurConnecte = $cookieStore.get('utilisateurConnecte') || {};
-    $rootScope.authtoken = $cookieStore.get('authtoken') || {};
-    if (!$rootScope.utilisateurConnecte.id || !$rootScope.utilisateurConnecte.profil || !$rootScope.utilisateurConnecte.profil.droits || !$rootScope.utilisateurConnecte.profil.droits.length>0){
+}).run(function ($rootScope, $location, $cookieStore, $http, $state, editableOptions, AuthentificationFactory) {
+	$rootScope.authtoken = $cookieStore.get("token");
+    if (null==$rootScope.authtoken){
     	$rootScope.utilisateurConnecte=null;
-    }
-    if (typeof $rootScope.authtoken != "string"){
-    	 $rootScope.authtoken=null;
-    }
-    if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken){
-    	$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
     }
     $rootScope.$on('$stateChangeStart', 
     		function(event, toState, toParams, fromState, fromParams){ 
-    			if (toState.name !== 'login' && !$rootScope.utilisateurConnecte && !$rootScope.authtoken) {
+    			if (!$rootScope.utilisateurConnecte && $rootScope.authtoken){
+    				AuthentificationFactory.getUtilisateurFromToken()
+                    .success(function (data) {
+                    	$rootScope.hideMenus = false;
+                        AuthentificationFactory.setCredentials(data);
+                        $rootScope.getMenuTitles();
+            	        $rootScope.getMenuParametres();
+                        $state.go('accueil');
+                    })
+                    .error(function (data) {
+                    	$rootScope.hideMenus = true;
+                    });
+    			}else if (toState.name !== 'login' && !$rootScope.authtoken) {
     	        	event.preventDefault(); 
     	        	$state.go('login');
+    	        }else{
+    	        	 $rootScope.getMenuTitles();
+    	    	     $rootScope.getMenuParametres();
     	        }
-    	        $rootScope.getMenuTitles();
-    	        $rootScope.getMenuParametres();
-				$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
+    	       
     		});
+    editableOptions.theme = 'bs3';
 });
 
 var filters = angular.module('ng_gst_pdg.filters', []);

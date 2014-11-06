@@ -12,6 +12,8 @@ import net.eni.gestion.pedagogie.commun.modele.Utilisateur;
 public interface UtilisateurDao extends ADao<Utilisateur, Integer> {
 
 	public List<Utilisateur> getByProfil(Integer profilId) throws Exception;
-
-	public String checkConnection(Utilisateur utilisateur, boolean loginOnly ) throws Exception;
+	public Integer checkConnection(String pLogin, String pMotdePasse, boolean loginOnly) throws Exception;
+	public boolean checkToken(String token) throws Exception;
+	public Utilisateur loginwithtoken(String token) throws Exception;
+	
 }

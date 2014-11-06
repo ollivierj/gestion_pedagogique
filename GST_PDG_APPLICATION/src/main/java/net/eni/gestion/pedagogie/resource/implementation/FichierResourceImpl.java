@@ -15,6 +15,7 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import net.eni.gestion.pedagogie.commun.composant.authentification.annotation.CheckSession;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.composant.fichier.FileBean;
 import net.eni.gestion.pedagogie.resource.FichierResource;
@@ -47,6 +48,7 @@ public class FichierResourceImpl implements FichierResource {
 	@Path("/deposer")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	@Produces(MediaType.APPLICATION_JSON)
+	@CheckSession
 	public String deposer(FormDataMultiPart form) {
 		return fichierService.deposer(form);
 	}
@@ -61,6 +63,7 @@ public class FichierResourceImpl implements FichierResource {
 	@GET
 	@Path("telecharger/{entite_type}/{entite_id}/{filename}")
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
+	@CheckSession
 	public Response telecharger(@PathParam("entite_type") String pType,
 			@PathParam("entite_id") String pId,
 			@PathParam("filename") String filename) throws Exception {
@@ -77,6 +80,7 @@ public class FichierResourceImpl implements FichierResource {
 	@GET
 	@Path("charger/{entite_type}/{entite_id}")
 	@Produces(MediaType.APPLICATION_JSON)
+	@CheckSession
 	public List<FileBean> charger(@PathParam("entite_type") String pType,
 			@PathParam("entite_id") String pId) throws ApplicationException {
 		return fichierService.charger(pType, pId);
@@ -92,6 +96,7 @@ public class FichierResourceImpl implements FichierResource {
 	@DELETE
 	@Path("supprimer/{entite_type}/{entite_id}/{filename}")
 	@Produces(MediaType.APPLICATION_JSON)
+	@CheckSession
 	public String supprimer(@PathParam("entite_type") String pType,
 			@PathParam("entite_id") String pId,
 			@PathParam("filename") String filename) {
@@ -101,6 +106,7 @@ public class FichierResourceImpl implements FichierResource {
 	@GET
 	@Path("image/{stagiaireId}")
 	@Produces("image/*")
+	@CheckSession
 	public Response getImage(@PathParam("stagiaireId") Integer pStagiaireId) {
 		File lFile = fichierService.getStagiairePhoto(pStagiaireId);
 		if (!lFile.exists()) {

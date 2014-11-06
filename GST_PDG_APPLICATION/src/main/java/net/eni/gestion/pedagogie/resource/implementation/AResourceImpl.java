@@ -3,6 +3,7 @@ package net.eni.gestion.pedagogie.resource.implementation;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -12,9 +13,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import net.eni.gestion.pedagogie.commun.composant.authentification.Authentification;
+import net.eni.gestion.pedagogie.commun.composant.authentification.annotation.CheckSession;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.composant.map.NamedObjectMap;
 import net.eni.gestion.pedagogie.commun.composant.pagination.Pager;
@@ -29,12 +33,13 @@ import com.github.reinert.jjschema.v1.JsonSchemaFactory;
 import com.github.reinert.jjschema.v1.JsonSchemaV4Factory;
 import com.google.inject.Inject;
 
-public class AResourceImpl <M extends AModele<ID>, ID, S extends AService<M,ID>> implements AResource<M, ID>{
-   
+public class AResourceImpl <M extends AModele<ID>, ID, S extends AService<M,ID>> implements AResource<M, ID>, Authentification{
+	@Context protected HttpServletRequest request;
 
     protected final S service;
     
     protected final Class<M> modele;
+    
     
     /**
      * Constructeur
@@ -52,6 +57,7 @@ public class AResourceImpl <M extends AModele<ID>, ID, S extends AService<M,ID>>
     @GET
     @Path("/jsonschema")
     @Produces(MediaType.APPLICATION_JSON)
+    @CheckSession
     public String getJsonSchema() throws ApplicationException {
     	JsonLoader.class.getResource("/draftv4/schema");
     	JsonSchemaFactory schemaFactory = new JsonSchemaV4Factory();
@@ -68,6 +74,7 @@ public class AResourceImpl <M extends AModele<ID>, ID, S extends AService<M,ID>>
     @Path("/page")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @CheckSession
     public NamedObjectMap charger(Pager pPager) throws ApplicationException {
         Pair<ArrayList<M>, Long> page = service.charger(pPager);
         NamedObjectMap results = new NamedObjectMap();
@@ -85,6 +92,7 @@ public class AResourceImpl <M extends AModele<ID>, ID, S extends AService<M,ID>>
 	@Path("/csv")
     @Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
+    @CheckSession
     public Response exporter(Pager pPager) throws ApplicationException {
     	pPager.setPagingOptions(null);
     	Pair<ArrayList<M>, Long> page = service.charger(pPager);
@@ -107,6 +115,7 @@ public class AResourceImpl <M extends AModele<ID>, ID, S extends AService<M,ID>>
     @GET
     @Path("/autocomplete/{search}")
     @Produces(MediaType.APPLICATION_JSON)
+    @CheckSession
 	public ArrayList<M> chargerForAutocompleteSearch(@PathParam("search") String pSearchText) throws ApplicationException {
     	return service.chargerForAutocompleteSearch(pSearchText);
 	}
@@ -117,6 +126,7 @@ public class AResourceImpl <M extends AModele<ID>, ID, S extends AService<M,ID>>
     @GET
     @Path("/detail/{id}")
     @Produces(MediaType.APPLICATION_JSON)
+    @CheckSession
 	public M chargerDetail(@PathParam("id") ID pId) throws ApplicationException {
 		return service.chargerDetail(pId);
 
@@ -129,6 +139,7 @@ public class AResourceImpl <M extends AModele<ID>, ID, S extends AService<M,ID>>
     @Path("/creation")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @CheckSession
 	public M ajouter(M pModel) throws ApplicationException {
 		return this.service.ajouter(pModel);
 	}
@@ -140,9 +151,9 @@ public class AResourceImpl <M extends AModele<ID>, ID, S extends AService<M,ID>>
 	@Path("/modification")
 	@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+	@CheckSession
 	public M mettreAJour(M pModel) throws ApplicationException {
-		throw new ApplicationException("Echec lors du chargement depuis la base de données.");
-		//return this.service.mettreAJour(pModel);
+		return this.service.mettreAJour(pModel);
 	}
 
 	/* (non-Javadoc)
@@ -151,6 +162,7 @@ public class AResourceImpl <M extends AModele<ID>, ID, S extends AService<M,ID>>
 	@DELETE
 	@Path("/suppression/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
+	@CheckSession
 	public ID supprimer(@PathParam("id") ID pId) throws ApplicationException {
 		return this.service.supprimer(pId);
 	}
@@ -159,6 +171,7 @@ public class AResourceImpl <M extends AModele<ID>, ID, S extends AService<M,ID>>
 	@Path("/addOrUpdate")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@CheckSession
 	public M addOrUpdate(M pModel) throws ApplicationException {
 		return this.service.addOrUpdate(pModel);
 	}
@@ -169,7 +182,14 @@ public class AResourceImpl <M extends AModele<ID>, ID, S extends AService<M,ID>>
     @GET
     @Path("/titlemap")
     @Produces(MediaType.APPLICATION_JSON)
+    @CheckSession
     public HashMap<String, String> getTitleMap() throws ApplicationException {
         return service.getTitleMap();
     }
+
+	@Override
+	public boolean checkSession() {
+		return null != request.getSession().getAttribute("token");
+	}
+
 }

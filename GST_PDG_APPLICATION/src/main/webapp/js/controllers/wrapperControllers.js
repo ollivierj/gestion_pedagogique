@@ -1,9 +1,6 @@
 'use strict';
 
 controllers.controller('wrapperCtrl', function($rootScope, $http, $scope, $modal, modalService, $log) {
-	if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken){
-		$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
-	}
 	$scope.items = [ 'item1', 'item2', 'item3' ];
 
 	$scope.titleSelected = "";
@@ -17,7 +14,7 @@ controllers.controller('wrapperCtrl', function($rootScope, $http, $scope, $modal
 		var sessionsValidationMenu ={"mainTitle" : "Sessions de validation", "iconTitle":"fa fa-file-o", "url":"sessionValidations", "type":"single"};
 		var reservationSallesMenu  ={"mainTitle" : "Salles", "iconTitle":"fa fa-building-o", "url":"salles", "type":"single"};
 		var absencesMenu =			{"mainTitle" : "Absences", "iconTitle":"fa fa-calendar", "url":"absences", "type":"single"};	
-		var avisMenu = 				{"mainTitle" : "Avis", "iconTitle":"fa fa-male", "url":"avis", "type":"single"};
+		var avisMenu = 				{"mainTitle" : "Avis", "iconTitle":"fa fa-male", "url":"instanceCours", "type":"single"};
 		if ($rootScope.utilisateurConnecte){
 			if ($rootScope.utilisateurConnecte.profil.droits[0]!='STG_A'){$scope.menuTitles.push(stagiairesMenu);};
 			if ($rootScope.utilisateurConnecte.profil.droits[1]!='EVAL_A'){$scope.menuTitles.push(evaluationsMenu);};

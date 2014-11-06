@@ -1,0 +1,78 @@
+<div class="panel">
+  <a class="btn btn-primary fa fa-arrow-left" ui-sref="instanceCours">&nbsp;Retour vers la recherche instances de cours</a>
+</div>
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					<i class="fa fa-group"></i> Avis
+				</h3>
+			</div>
+			<div class="panel-body">
+
+				<!-- Filtre de recherche -->
+				<div class="row">
+					<nav class="navbar navbar-default" role="navigation">
+						<div class="container-fluid">
+							<form class="navbar-form navbar-right">
+								<button class="btn btn-success" ng-click="exporter()">
+									<span class="fa fa-sign-in"></span>
+								</button>
+							</form>
+							<form class="navbar-form navbar-left">
+								<input type="text" class="form-control" placeholder="Recherche"
+									ng-model="filterOptions.filterText">
+							</form>
+						</div>
+					</nav>
+				</div>
+
+				<!-- Mode affichage liste pour stagiaires -->
+				<div class="row">
+					<div class="row" style="height: 300px; padding-left: 30px;">
+						<div class="row col-lg-12">
+							<div class="col-lg-3" data-ng-repeat="item in avis">
+								<div class="panel panel-info">
+
+									<div class="panel-heading">
+										<div class="row">
+											<div class="col-xs-6">
+												<!-- <img data-ng-src="img" class="cardImage" />-->
+												<img
+													ng-src="/ng_gst_pdg/web/fichiers/image/{{stagiaire.id}}"
+													err-src="img/anonymous.png" width="64" height="64" />
+											</div>
+											<div class="col-xs-6 text-right">
+												<p class="announcement-text">{{item.stagiairePrenom + '
+													' + item.stagiaireNom}}</p>
+											</div>
+										</div>
+									</div>
+									<!-- panel-heading -->
+
+
+									<div class="panel-footer announcement-bottom">
+										<a href="#" editable-textarea="item.avisTexte" e-rows="7"
+											e-cols="40" onaftersave="saveItem(item)"> <pre>{{ item.avisTexte || 'Aucun avis' }}</pre>
+										</a>
+									</div>
+								</div>
+
+							</div>
+							<!-- panel -->
+						</div>
+						<!-- col lg ng-repeat -->
+					</div>
+					<!-- row col-lg -->
+				</div>
+				<!-- row ng-hide -->
+				<div class='gridStyle' ng-grid="gridOptionsAvis"></div>
+			</div>
+		</div>
+		<!-- panel-body -->
+	</div>
+	<!-- panel -->
+</div>
+<!-- col-lg-12 -->
+<toaster-container toaster-options="{'time-out':5000, 'close-button':true, 'position-class': 'toast-top-left'}"></toaster-container>
