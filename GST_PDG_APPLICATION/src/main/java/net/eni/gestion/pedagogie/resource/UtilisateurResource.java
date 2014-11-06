@@ -1,6 +1,11 @@
 package net.eni.gestion.pedagogie.resource;
 
+
+import java.util.List;
+
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.Utilisateur;
+
 
 /**
  * @author jollivier
@@ -8,4 +13,5 @@ import net.eni.gestion.pedagogie.commun.modele.Utilisateur;
  */
 public interface UtilisateurResource extends AResource<Utilisateur, Integer> {
 
+	public List<Utilisateur> getProfil(Integer profilId) throws ApplicationException;
 }

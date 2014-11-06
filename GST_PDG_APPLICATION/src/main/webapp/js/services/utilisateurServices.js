@@ -52,6 +52,9 @@ services.factory('UtilisateursFactory', function ($resource, $rootScope) {
 		detail :  $resource('/ng_gst_pdg/web/utilisateurs/detail/:id', {}, {
 			getData : { method: 'GET', params: {id: '@id'}, isArray: false }
 		}),
+		byProfil :  $resource('/ng_gst_pdg/web/utilisateurs/byProfil', {}, {
+			getData : { method: 'GET', params: {id: '@id'}, isArray: false }
+		}),
 		create :  $resource('/ng_gst_pdg/web/utilisateurs/creation', {}, {
 			doAction : { method: 'POST'}
 		}),

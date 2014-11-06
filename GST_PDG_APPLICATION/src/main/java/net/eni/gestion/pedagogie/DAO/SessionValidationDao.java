@@ -8,5 +8,7 @@ import net.eni.gestion.pedagogie.commun.modele.SessionValidation;
  * pour la gestion des sessions de validation
  */
 public interface SessionValidationDao extends ADao<SessionValidation, Integer> {
+	
+	public SessionValidation getInstance(Integer id) throws Exception;
 
 }

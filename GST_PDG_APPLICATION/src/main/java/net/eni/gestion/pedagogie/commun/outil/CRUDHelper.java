@@ -18,9 +18,9 @@ import com.j256.ormlite.dao.BaseDaoImpl;
 public class CRUDHelper {
 	
 	/**
-	 * Template pour le chargement totale de modèles
+	 * Template pour le chargement de modèles sur une plage (Rang et nombre d'éléments).
 	 * @param pABase
-	 * @param pModel
+	 * @param pPager
 	 * @return Tableau de modèles
 	 * @throws Exception 
 	 */
@@ -55,7 +55,7 @@ public class CRUDHelper {
 	}
 		
 	/**
-	 * Template pour le chargement totale de modèles
+	 * Template pour le chargement d'un modèle
 	 * @param pABase
 	 * @param pModel
 	 * @return Tableau de modèles
@@ -112,9 +112,9 @@ public class CRUDHelper {
 	/**
 	 * Template pour la suppression d'un modèle en base
 	 * @param pABase
-	 * @param pModel
-	 * @return Modèle mise à jour 
-	 * @throws Exception 
+	 * @param pId 
+	 * @return l'identifiant supprimé
+	 * @throws Exception
 	 */
 	public static <M extends AModele<ID>, ID> ID supprimer(BaseDaoImpl<M, ID> pABase, ID pId) throws Exception {
 		try {
@@ -129,7 +129,7 @@ public class CRUDHelper {
 	}
 	
 	/**
-	 * Template pour le chargement totale de modèles
+	 * Template pour le chargement d'un modèle avec le mode auto complétion
 	 * @param pABase
 	 * @param pModel
 	 * @return Tableau de modèles
@@ -154,6 +154,16 @@ public class CRUDHelper {
 	}
 	
 	@SuppressWarnings("unused")
+	/**
+	 * Met à jour une collection de modèles
+	 * @param pABase
+	 * @param pM
+	 * @param pM2
+	 * @param MField
+	 * @param pSearchFunction
+	 * @return
+	 * @throws Exception
+	 */
 	public static <M extends AModele<ID>,ID, M2 extends AModele<ID2>,ID2> ArrayList<M2> mettreAJourCollection(
 			BaseDaoImpl<M2, ID2> pABase,
 			M pM,
@@ -190,5 +200,18 @@ public class CRUDHelper {
 		return null;
 		
 	}
-	
+
+	/**
+	 * Template pour le chargement totale de modèles
+	 * @param pABase
+	 * @return
+	 * @throws Exception
+	 */
+	public static <M extends AModele<ID>, ID> ArrayList<M> chargerTous(BaseDaoImpl<M, ID> pABase) throws Exception {
+		try {
+			return new ArrayList<M>(pABase.queryForAll());
+		} catch (Exception exception) {
+			throw new Exception("Echec de chargement de la liste d'enregistrements depuis la base de données");
+		}
+	}
 }

@@ -3,9 +3,6 @@ package net.eni.gestion.pedagogie.service.implementation;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import net.eni.gestion.pedagogie.DAO.AbsenceDao;
-import net.eni.gestion.pedagogie.DAO.AvisDao;
-import net.eni.gestion.pedagogie.DAO.EchangeDao;
 import net.eni.gestion.pedagogie.DAO.PromotionDao;
 import net.eni.gestion.pedagogie.DAO.StagiaireDao;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
@@ -23,9 +20,6 @@ import com.google.inject.Singleton;
 @Singleton
 public class StagiaireServiceImpl extends AServiceImpl<Stagiaire, Integer, StagiaireDao> implements StagiaireService {
 
-	protected final AbsenceDao absenceDao;
-	protected final EchangeDao echangeDao;
-	protected final AvisDao avisDao;
 	protected final PromotionDao promotionDao;
 	
 	/**
@@ -34,11 +28,8 @@ public class StagiaireServiceImpl extends AServiceImpl<Stagiaire, Integer, Stagi
      * @throws SQLException
      */
     @Inject
-    public StagiaireServiceImpl(StagiaireDao pStagiaireDao, AbsenceDao absenceDao, EchangeDao echangeDao, AvisDao avisDao, PromotionDao promotionDao) throws SQLException {
+    public StagiaireServiceImpl(StagiaireDao pStagiaireDao, PromotionDao promotionDao) throws SQLException {
         super(pStagiaireDao);
-        this.absenceDao = absenceDao;
-        this.echangeDao = echangeDao;
-        this.avisDao = avisDao;
         this.promotionDao = promotionDao;
     }
     

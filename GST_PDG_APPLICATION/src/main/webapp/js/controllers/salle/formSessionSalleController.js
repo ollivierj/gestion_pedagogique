@@ -1,19 +1,108 @@
-var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope, $http, AnimateursLibresFactory,
-		items, salles, sallesReservees, getByIdFilter, data) {
-	//Créé une map avec le libelle de la formation
-	$scope.promotions = _.transform(data.sessionValidationStagiaires, function(result, num) {
-		if (_.find(result, {'name' : num.stagiaire.promotion.libelle})) {
-			_.find(result, {'name' : num.stagiaire.promotion.libelle}).stagiaires.push(num.stagiaire);
-		} else {
-			result.push({name : num.stagiaire.promotion.libelle, stagiaires : [num.stagiaire]});
-		}
+var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope, $http,
+		items, salles, sallesReservees, getByIdFilter, data, ProfessionnelHomologuesFactory, 
+		SessionValidationsFactory, instanceRef) {
+		
+	
+	$scope.phSelecteds = [];
+	// Mot clé pour la création d'une nouvelle absence, utilisé pour un ID temporaire
+	var INSTANCE_TEMP = 'TEMP';
+	$scope.info = "";
+	//Chargement du référentiel de salles disponibles
+	//TODO limitez sur les salles dispo ce jour
+	$scope.referentielSalles = salles;
+	$scope.salles = sallesReservees;
+	//$scope.professionnelHomologues = [];
+	
+	if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken) {
+		$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
+	}
+	
+	// On stocke toutes les instances lié à cette session de validation
+	$scope.instances = _.transform(instanceRef, function(result, num) {
+		//On ajoute l'atribut d'edition et collapse utilisé par l'IHM à chaque instance.
+		_.assign(num, {editing: false, collapsed: false, stagiaires: [], type:'instance'});
+		result.push(num);
 	});
 	
-	$scope.info = "";
-	$scope.referentielSalles = salles;
+	console.log($scope.instances);
 	
-	$scope.salles = sallesReservees;
-	$scope.animateursLibres = [];
+	//Créé une map avec le libelle de la formation
+	$scope.promotions = _.transform(data.sessionValidationStagiaires, function(result, num) {
+		
+		// Si la promotion n'est pas présente dans la liste, on l'ajoute
+		if (!_.find(result, {name: num.stagiaire.promotion.libelle})) {
+			result.push({name : num.stagiaire.promotion.libelle, type: 'promotion', stagiaires : []});
+		};
+		
+		//Si le stagiaire n'est pas associé à une instance
+		if (_.isNull(num.instanceSessionValidation)) {
+			
+			//Assignation de l'id de la session et du type (utilisé pour l'IHM)
+			_.assign(num, {type: 'stagiaire', sessionValidation: {id: data.id}});
+			_.find(result, {name : num.stagiaire.promotion.libelle}).stagiaires.push(num);
+			
+		//Si le stagiaire est associé à une instance
+		} else {
+			//On stocke chacune des instances
+			_.find($scope.instances, {id : num.instanceSessionValidation.id}).stagiaires.push({id: num.id, 
+																								dateHeureDebut: num.dateHeureDebut, 
+																								dateHeureFin: num.dateHeureDebut, 
+																								instanceSessionValidation: {id: num.instanceSessionValidation.id},
+																								sessionValidation: {id: data.id},
+																								stagiaire: num.stagiaire,
+																								type:'stagiaire'});
+		}	
+	});
+	
+	// Autocomplétion utilisé pour l'affectation des professionnel homolgue
+	$scope.chargerProfessionnels = function(search) {
+		return ProfessionnelHomologuesFactory.autocomplete.getData({search: search}).$promise.then(
+			function(data) {
+				var professionnelHomologues = [];
+				angular.forEach(data, function(item) {
+					if (($filter('filter')($scope.phSelecteds, {id: item.id})).length == 0) {
+						professionnelHomologues.push(item);
+					}
+				});
+				
+				return professionnelHomologues;
+			});
+	};
+    
+	// Ajoute un professionnel homologué l'édition d'une salle
+	$scope.addProfessionnel = function (instance, newProfessionnelH) {
+		instance.jures.unshift(newProfessionnelH);
+		$scope.phSelecteds.push(newProfessionnelH);
+	}
+	
+	// Supression d'un professionnel homologue d'un instance
+	$scope.removeProfessionnel = function (pIndex, instance, professionnelH) {
+		console.log(professionnelH);
+		_.remove($scope.phSelecteds, {id : professionnelH.id});
+		_.remove(instance.jures, {id : professionnelH.id});
+		//instance.jures.splice(pIndex, 1);
+	};
+	
+	//Récupère le libellé d'une salle
+	$scope.getSalleLibelle = function (instance) {
+		if (instance.reservationSalle.salle) {
+			var salle = _.find($scope.referentielSalles, {id: instance.reservationSalle.salle.id});
+			return salle != null 
+						? salle.libelle
+						: 'Inconnu';
+		}
+	};
+
+	// Récupère le nombre de places restantes d'une salle
+	$scope.getSallePlace = function (instance) {
+		if (instance.reservationSalle.salle) {
+			var salle = _.find($scope.referentielSalles, {id: instance.reservationSalle.salle.id});
+			return salle != null 
+						? salle.nbPlaces - instance.stagiaires.length
+						: 'Inconnu';
+		}
+	};
+	
 	$scope.getClassName = function(id) {
 		return getByIdFilter($scope.referentielSalles, id).nom;
 	};
@@ -26,37 +115,57 @@ var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope,
 		promotion.collapsed = !promotion.collapsed;
 	};
 	
-	$scope.toggleSalle = function(salle) {
-		salle.collapsed = !salle.collapsed;
+	$scope.toggleInstance = function(instance) {
+		instance.collapsed = !instance.collapsed;
 	};
 
 	$scope.options = {
+		//Appelé lors du déplament d'un noeud vers un autre
 		accept : function(sourceNode, destNodes, destIndex) {
-			var data = sourceNode.$modelValue;
+			//Récupère les données du model du noeud source
+			var dataSource = sourceNode.$modelValue;
+			//Récupère l'attribut type du noeud de destination
 			var destType = destNodes.$element.attr('data-type');
-			return (data.type == destType || (data.type == 'promotion' && destType == 'stagiaire'));
+			return ((dataSource.type == destType) 
+					|| (dataSource.type == 'promotion' && destType == 'stagiaire'));
 		},
+		//Appelé lorsque le déplacement est effectué
 		dropped : function(event) {
+			/*
+			//Noeud qui est déplacé
 			var sourceNode = event.source.nodeScope;
-			var destNodes = event.dest.nodesScope;
+			//Noeud de destination
+			var destNode = event.dest.nodesScope;
+			
 			// update changes to server
-			if (destNodes.isParent(sourceNode)
-					&& destNodes.$element.attr('data-type') == 'stagiaire') {
-				var promotion = destNodes.$nodeScope.$modelValue;
-				// promotion.save();
+			if (destNode.isParent(sourceNode)
+					&& destNode.$element.attr('data-type') == 'stagiaire') {
+				var promotion = destNode.$nodeScope.$modelValue;
+				// promotion.save();				
 			} else { // save all
 				//$scope.savePromotions();
 			}
-			event.dest.nodesScope.$modelValue
+			event.dest.nodesScope.$modelValue;*/
 
 		},
-		beforeDrop : function(event) {
+		//Appelé avant le déplacement
+		beforeDrop : function(event) {	
+			
 			if ('promotion' == event.source.nodeScope.$modelValue.type) {
 				event.source.nodeScope.$$apply = false;
 				var nodeData = event.source.nodeScope.$childNodesScope.$modelValue;
 				$scope.insertArrayAt(event.dest.nodesScope.$modelValue,
 						event.dest.index, nodeData);
 				event.source.nodeScope.$modelValue.stagiaires = [];
+			}
+		},
+		
+		dragStop : function (event) {
+			var destNode = event.dest.nodesScope;
+			if (destNode.$parent.$modelValue && destNode.$parent.$modelValue.type == "instance") {
+				angular.forEach(destNode.$modelValue, function(stagiaire) {
+					stagiaire.instanceSessionValidation = {id:destNode.$parent.$modelValue.id};
+				});
 			}
 		}
 	};
@@ -71,48 +180,66 @@ var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope,
 		return array;
 	};
 
-	$scope.addSalle = function() {
-		$scope.salles.push( {
-		    "sortOrder": salles.length,
-		    "type": "salle",
-		    "id": salles.length,
-		    "editing": true,
-		    "collapsed" : true,
-		    "stagiaires": [
-		          ]
+	$scope.addInstance = function() {
+		$scope.instances.unshift( {
+		    sortOrder: $scope.instances.length,
+		    type: "salle",
+		    id: INSTANCE_TEMP,
+		    editing: true,
+		    collapsed : true,
+		    jures : [],
+		    stagiaires: [],
+		    reservationSalle : {
+		    	formatedDateDebut: data.formatedDateDebut,
+		    	formatedDateFin: data.formatedDateFin,
+		    	id:0
+		    }
 		  });
 	};
 
-	$scope.editSalle = function(salle) {
-		salle.editing = true;
+	$scope.editInstance = function(instance) {
+		instance.editing = true;
 	};
 	
 
-
-	$scope.cancelEditingSalle = function(salle) {
-		salle.editing = false;
+	$scope.cancelEditingInstance = function(instance) {
+		if (instance.id == INSTANCE_TEMP) 
+			_.remove($scope.instances, {id: INSTANCE_TEMP});
+		instance.editing = false;
 	};
 
 	$scope.saveSalle = function(salle) {
 		salle.save();
 	};
 
-	$scope.removeSalle = function(salle) {
-		if (window
-				.confirm('Etes-sûr de vouloir annuler la réservation de cette salle ?')) {
-			//salle.destroy();
-		}
+	// Suppression d'une instance
+	$scope.removeInstance = function(instance, iIndex) {
+		/*if (window.confirm('Etes-sûr de vouloir annuler la réservation de cette salle ?')) {
+			salle.destroy();
+		}*/
+		
+		angular.forEach(instance.stagiaires, function(stagiaire, key) {
+			var selectedPromotion = $filter('filter')($scope.promotions, {
+				name : stagiaire.stagiaire.promotion.libelle
+			})[0];
+			
+			selectedPromotion.stagiaires.push(stagiaire);
+		});
+		
+		_.remove($scope.instances, {$$hashKey: instance.$$hashKey});
 	};
 
-	$scope.saveSalles = function() {
-		for (var i = $scope.salles.length - 1; i >= 0; i--) {
+	$scope.saveInstance = function(instance) {
+		instance.editing = false;
+		/*for (var i = $scope.salles.length - 1; i >= 0; i--) {
 			var salle = $scope.salles[i];
 			salle.sortOrder = i + 1;
 			//salle.save();
-		}
+		}*/
 	};
 
-	$scope.addStagiaireToSalle = function(salle) {
+	/*
+	$scope.addStagiaireToInstance = function(salle) {
 		if (!salle.newStagiaireName || salle.newStagiaireName.length === 0) {
 			return;
 		}
@@ -124,17 +251,54 @@ var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope,
 		salle.newStagiaireName = '';
 		salle.save();
 	};
-
-	$scope.removeStagiaireFromSalle = function(salle, stagiaire) {
-		var index = salle.stagiaires.indexOf(stagiaire);
+*/
+	
+	// Suppression d'un stagiaire associé à une instance
+	// Le stagiaire retourne dans sa promotion */
+	$scope.removeStagiaireFromInstance = function(instance, stagiaire) {
+		//On supprime le stagiaire de l'instance
+		stagiaire.instanceSessionValidation = null;
+		var index = instance.stagiaires.indexOf(stagiaire);
 		if (index > -1) {
-			salle.stagiaires.splice(index, 1)[0];
+			instance.stagiaires.splice(index, 1)[0];
 		}
+		//On récupère sa promotion
 		var selectedPromotion = $filter('filter')($scope.promotions, {
-			name : stagiaire.promotion
+			name : stagiaire.stagiaire.promotion.libelle
 		})[0];
+		//On le réaffecte à sa promotion
 		selectedPromotion.stagiaires.push(stagiaire);
 
+	};
+	
+
+	// Réservation et enregistrement de toutes les données de l'écran
+	$scope.reserver = function() {
+		
+		var instancesToSaved = _.transform($scope.instances, function(result, num) {
+			if (num.id == INSTANCE_TEMP) 
+				num.id = 0
+				
+			var instance = {id : num.id, jures: num.jures, reservationSalle: num.reservationSalle, sessionValidation : {id:data.id}};
+			result.push({first : instance, second: num.stagiaires});
+		});
+		
+		stagiairesToSaved = _.transform($scope.promotions, function(result, num) {
+			result.push.apply(result, num.stagiaires);			
+		});
+		
+		var dataInstances = {instances : instancesToSaved, instancesStagiaires : stagiairesToSaved};
+	
+		SessionValidationsFactory.instance.saveData(dataInstances);
+		$modalInstance.dismiss('cancel');
+	};
+
+	$scope.annuler = function() {
+		$modalInstance.dismiss('cancel');
+	};
+
+	$scope.editStagiaireFromInstance = function () {
+		
 	};
 
 	$scope.reservation = items;
@@ -142,11 +306,5 @@ var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope,
 		//item : $scope.reservation
 	};
 
-	$scope.reserver = function() {
-		
-	};
-
-	$scope.annuler = function() {
-		$modalInstance.dismiss('cancel');
-	};
 };
+

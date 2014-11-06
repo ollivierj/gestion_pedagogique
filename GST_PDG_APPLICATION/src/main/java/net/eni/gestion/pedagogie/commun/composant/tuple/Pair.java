@@ -75,5 +75,23 @@ public class Pair<E,F> implements Serializable/*, Cloneable*/ {
 	public int hashCode() {
 		return 	((null != first) ? (first.hashCode() << 16) : 0)
 			+	((null != second) ? (second.hashCode()) : 0);
+	}
+
+	public E getFirst() {
+		return first;
+	}
+
+	public void setFirst(E first) {
+		this.first = first;
+	}
+
+	public F getSecond() {
+		return second;
+	}
+
+	public void setSecond(F second) {
+		this.second = second;
 	}	
+	
+	
 }

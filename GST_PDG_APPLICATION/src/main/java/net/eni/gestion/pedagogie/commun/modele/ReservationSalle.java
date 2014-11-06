@@ -4,6 +4,7 @@
 package net.eni.gestion.pedagogie.commun.modele;
 
 import java.io.Serializable;
+import java.text.ParseException;
 import java.util.Collection;
 import java.util.Date;
 
@@ -11,6 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import net.eni.gestion.pedagogie.commun.configuration.ModeleMetier;
 import net.eni.gestion.pedagogie.commun.modele.generique.AModele;
+import net.eni.gestion.pedagogie.commun.outil.DateHelper;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -58,6 +60,8 @@ public class ReservationSalle extends AModele<Integer> implements Serializable {
 		useGetSet = true,
 		canBeNull = false)
 	private Date dateDebut = null;
+	
+	private String formatedDateDebut = null;
 
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy H:mm:ss", timezone="CET")   
 	@DatabaseField(
@@ -66,6 +70,8 @@ public class ReservationSalle extends AModele<Integer> implements Serializable {
 		useGetSet = true,
 		canBeNull = false)
 	private Date dateFin = null;
+	
+	private String formatedDateFin = null;
 
 	@DatabaseField(
 		columnName = NB_POSTE_LIBRE_FIELD_NAME,
@@ -73,6 +79,7 @@ public class ReservationSalle extends AModele<Integer> implements Serializable {
 		useGetSet = true)
 	private Integer nbPosteLibre = null;
 
+	//@JsonBackReference("reservation-salle")
 	@DatabaseField(
 		columnName = SALLE_FIELD_NAME,
 		foreign = true,
@@ -115,7 +122,17 @@ public class ReservationSalle extends AModele<Integer> implements Serializable {
 	}
 	
 	public void setDateDebut(Date dateDebut) {
+		this.formatedDateDebut=DateHelper.stringifyDate(dateDebut, "yyyy-MM-dd'T'HH:mm:ss");
 		this.dateDebut = dateDebut;
+	}
+	
+	public String getFormatedDateDebut() {
+		return formatedDateDebut;
+	}
+
+	public void setFormatedDateDebut(String formatedDateDebut) throws ParseException {
+		this.dateDebut=DateHelper.datifyString(formatedDateDebut, "yyyy-MM-dd'T'HH:mm:ss");
+		this.formatedDateDebut = formatedDateDebut;
 	}
 
 	public Date getDateFin() {
@@ -123,7 +140,17 @@ public class ReservationSalle extends AModele<Integer> implements Serializable {
 	}
 	
 	public void setDateFin(Date dateFin) {
+		this.formatedDateFin=DateHelper.stringifyDate(dateFin, "yyyy-MM-dd'T'HH:mm:ss");
 		this.dateFin = dateFin;
+	}
+	
+	public String getFormatedDateFin() {
+		return formatedDateFin;
+	}
+
+	public void setFormatedDateFin(String formatedDateFin) throws ParseException {
+		this.dateFin=DateHelper.datifyString(formatedDateFin, "yyyy-MM-dd'T'HH:mm:ss");
+		this.formatedDateFin = formatedDateFin;
 	}
 
 	public Integer getNbPosteLibre() {
@@ -141,7 +168,7 @@ public class ReservationSalle extends AModele<Integer> implements Serializable {
 	public void setSalle(Salle salle) {
 		this.salle = salle;
 	}
-	
+	/*
 	public InstanceCours getInstanceCours() {
 		if (null != transientInstanceCours && 1 == transientInstanceCours.size()) {
 			instanceCours = transientInstanceCours.iterator().next();
@@ -164,6 +191,6 @@ public class ReservationSalle extends AModele<Integer> implements Serializable {
 			transientInstanceSessionValidations = null;
 		}
 		return instanceSessionValidation;
-	}
+	}*/
 
 }

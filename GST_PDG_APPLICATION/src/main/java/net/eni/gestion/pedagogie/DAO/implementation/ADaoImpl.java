@@ -95,6 +95,23 @@ abstract class ADaoImpl<M extends AModele<ID>, ID> extends BaseDaoImpl<M,ID> imp
 	protected boolean validerAvantSuppression(ID pId) throws ApplicationException {
 		return true;
 	}
-
-
+	
+	public ArrayList<M> chargerTous() throws Exception {
+		return CRUDHelper.chargerTous(this);
+	}
+	
+	public M addOrUpdate(M pModel) throws Exception {
+		try {
+			M m = this.chargerDetail(pModel.getId());
+			// Si le modèle n'existe pas en base on fait un ajout...
+			if (m == null) {
+				return this.ajouter(pModel);
+			// ... Sinon on le met à jour
+			} else {
+				return this.mettreAJour(pModel);
+			}
+		} catch (Exception e) {
+			throw new ApplicationException("Echec lors de la mise à jour en base de données.");
+		}
+	}
 }

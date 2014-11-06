@@ -7,7 +7,7 @@ import net.eni.gestion.pedagogie.commun.modele.Salle;
  * Description des requêtes d'accès (écriture, lecture) en base de données 
  * pour la gestion des salles
  */
-public interface SalleDao extends ADao<Salle, String> {
+public interface SalleDao extends ADao<Salle, Integer> {
 
 	
 

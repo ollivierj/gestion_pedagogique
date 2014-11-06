@@ -34,7 +34,7 @@ public class ModeleMetier  {
 		public final static String PROFIL_TABLE_NAME 									= "PROFIL";
 		public final static String PROMOTION_TABLE_NAME 								= "Promotion";
 		public final static String RESERVATION_SALLE_TABLE_NAME 						= "RESERVATION_SALLE";
-		public final static String SALLE_TABLE_NAME 									= "Salle";
+		public final static String SALLE_TABLE_NAME 									= "SALLE_REF";
 		public final static String SESSION_VALIDATION_STAGIAIRE_TABLE_NAME 				= "SESSION_VALIDATION_STAGIAIRE";
 		public final static String SESSION_VALIDATION_TABLE_NAME 						= "SESSION_VALIDATION";
 		public final static String SUJET_EVALUATION_TABLE_NAME 							= "SUJET_EVALUATION";

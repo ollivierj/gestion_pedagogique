@@ -4,15 +4,16 @@
 package net.eni.gestion.pedagogie.commun.modele;
 
 import java.io.Serializable;
+import java.text.ParseException;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
 import net.eni.gestion.pedagogie.commun.configuration.ModeleMetier;
 import net.eni.gestion.pedagogie.commun.modele.generique.AModele;
+import net.eni.gestion.pedagogie.commun.outil.DateHelper;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.reinert.jjschema.SchemaIgnore;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
@@ -52,6 +53,7 @@ public class SessionValidationStagiaire extends AModele<Integer> implements Seri
 	private Integer id = null;
 	
 	@JsonBackReference("SessionValidationStagiaire-SessionValidation")
+	//@JsonIgnore
 	@DatabaseField(
 		columnName = SESSION_VALIDATION_FIELD_NAME,
 		foreign = true,
@@ -70,14 +72,14 @@ public class SessionValidationStagiaire extends AModele<Integer> implements Seri
 
 	@SchemaIgnore
 	@DatabaseField(
-			columnName = INSTANCE_SESSION_VALIDATION_FIELD_NAME,
-			foreign = true,
-			useGetSet = true,
-			canBeNull = true)
-		private InstanceSessionValidation instanceSessionValidation = null;
+		columnName = INSTANCE_SESSION_VALIDATION_FIELD_NAME,
+		foreign = true,
+		useGetSet = true,
+		canBeNull = true,
+		foreignAutoRefresh = true)
+	private InstanceSessionValidation instanceSessionValidation = null;
 
 	@SchemaIgnore
-	@JsonIgnore
 	@DatabaseField(
 		columnName = DATE_HEURE_DEBUT_PASSAGE_FIELD_NAME,
 		dataType = DataType.DATE,
@@ -86,13 +88,18 @@ public class SessionValidationStagiaire extends AModele<Integer> implements Seri
 	private Date dateHeureDebut = null;
 
 	@SchemaIgnore
-	@JsonIgnore
+	private String formatedDateHeureDebut = null;
+	
+	@SchemaIgnore
 	@DatabaseField(
 		columnName = DATE_HEURE_FIN_FIELD_NAME,
 		dataType = DataType.DATE,
 		useGetSet = true,
 		canBeNull = true)
 	private Date dateHeureFin = null;
+	
+	@SchemaIgnore
+	private String formatedDateHeureFin = null;
 	
 	@Override
 	public Integer getId() {
@@ -136,12 +143,30 @@ public class SessionValidationStagiaire extends AModele<Integer> implements Seri
 		this.dateHeureDebut = dateHeureDebut;
 	}
 
+	public String getFormatedDateHeureDebut() {
+		return formatedDateHeureDebut;
+	}
+
+	public void setFormatedDateHeureDebut(String formatedDateHeureDebut) throws ParseException {
+		this.dateHeureDebut=DateHelper.datifyString(formatedDateHeureDebut, "yyyy-MM-dd'T'HH:mm:ss");
+		this.formatedDateHeureDebut = formatedDateHeureDebut;
+	}
+	
 	public Date getDateHeureFin() {
 		return dateHeureFin;
 	}
 
 	public void setDateHeureFin(Date dateHeureFin) {
 		this.dateHeureFin = dateHeureFin;
+	}
+	
+	public String getFormatedDateHeureFin() {
+		return formatedDateHeureFin;
+	}
+
+	public void setFormatedDateHeureFin(String formatedDateHeureFin) throws ParseException {
+		this.dateHeureFin=DateHelper.datifyString(formatedDateHeureFin, "yyyy-MM-dd'T'HH:mm:ss");
+		this.formatedDateHeureFin = formatedDateHeureFin;
 	}
 	
 

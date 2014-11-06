@@ -2,6 +2,7 @@ package net.eni.gestion.pedagogie.service.implementation;
 
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
 
 import javax.naming.ldap.LdapContext;
 
@@ -135,6 +136,14 @@ public class UtilisateurServiceImpl extends AServiceImpl<Utilisateur, Integer, U
 	}
 
 	@Override
+	public List<Utilisateur> getProfil(Integer profilId) throws ApplicationException {
+		try {
+			return dao.getByProfil(profilId);
+		} catch (Exception e) {
+			throw new ApplicationException("Impossible de récupérer les formateurs");
+		}
+	}
+
 	public Utilisateur authentifierAvecToken(String token)
 			throws ApplicationException {
 		try {

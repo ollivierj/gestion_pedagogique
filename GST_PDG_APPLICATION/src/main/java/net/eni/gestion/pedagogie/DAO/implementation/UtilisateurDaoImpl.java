@@ -4,8 +4,10 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 import net.eni.gestion.pedagogie.DAO.UtilisateurDao;
+import net.eni.gestion.pedagogie.commun.modele.Profil;
 import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.modele.Utilisateur;
 
@@ -115,4 +117,18 @@ public class UtilisateurDaoImpl extends ADaoImpl<Utilisateur, Integer> implement
 			throw new Exception("Echec de chargement de la liste d'enregistrements depuis la base de données");
 		}
 	}
+
+	@Override
+	public List<Utilisateur> getByProfil(Integer profilId) throws Exception {
+		List<Utilisateur> utilisateur = null;
+		
+		try {
+			utilisateur = this.queryBuilder().where().eq(Utilisateur.PROFIL_FIELD_NAME, new Profil(profilId)).query();
+		} catch (Exception exception) {
+			throw new Exception("Echec de chargement de la liste d'enregistrements depuis la base de données");
+		}
+		
+		return utilisateur;
+	}
+
 }

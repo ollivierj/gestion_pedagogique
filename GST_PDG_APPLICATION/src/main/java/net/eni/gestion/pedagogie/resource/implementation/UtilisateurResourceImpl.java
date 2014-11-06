@@ -1,9 +1,13 @@
 package net.eni.gestion.pedagogie.resource.implementation;
 
+
+import java.util.List;
+
 import java.util.Date;
 
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -47,6 +51,14 @@ public class UtilisateurResourceImpl extends AResourceImpl<Utilisateur, Integer,
             return lUtilisateur;
     	}
     	throw new ApplicationException("Connexion refusée");
+	}
+
+    @GET
+    @Path("/byProfil")
+    @Produces(MediaType.APPLICATION_JSON)
+	@Override
+	public List<Utilisateur> getProfil(Integer profilId) throws ApplicationException {
+		return service.getProfil(profilId);
 	}
     
     
