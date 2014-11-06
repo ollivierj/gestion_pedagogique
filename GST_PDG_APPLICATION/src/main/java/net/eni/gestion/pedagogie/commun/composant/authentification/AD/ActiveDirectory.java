@@ -1,4 +1,4 @@
-package net.eni.gestion.pedagogie.commun.composant.authentification;
+package net.eni.gestion.pedagogie.commun.composant.authentification.AD;
 
 import static javax.naming.directory.SearchControls.SUBTREE_SCOPE;
 

@@ -60,7 +60,6 @@ public class InstanceCours extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private ReservationSalle reservationSalle = null;
 
-	@JsonManagedReference("InstanceCours-Cours")
 	@DatabaseField(
 		columnName = COURS_FIELD_NAME,
 		foreign = true,

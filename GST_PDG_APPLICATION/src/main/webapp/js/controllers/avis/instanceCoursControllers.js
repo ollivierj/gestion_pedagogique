@@ -3,10 +3,6 @@
 controllers.controller('instanceCoursCtrl', function($scope, $modal, $log,
 		$timeout, $http, $rootScope, $state, toaster, AvisFactory, StagiaireAvisFactory,
 		InstanceCoursFactory, UtilisateursFactory) {
-	if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken) {
-		$http.defaults.headers.common.Authorization = 'Basic '
-				+ $rootScope.authtoken;
-	}
 	$scope.pagingOptions = AvisFactory.pagingOptions;
 	$scope.sortOptions = AvisFactory.sortOptions;
 	$scope.filterOptions = AvisFactory.filterOptions;

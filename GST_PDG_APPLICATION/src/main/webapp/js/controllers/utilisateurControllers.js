@@ -3,9 +3,6 @@ controllers
 	.controller(
 		'utilisateursCtrl',
 		function($scope, $modal,$rootScope, $http, $log, $timeout, toaster, UtilisateursFactory, FonctionsFactory, ProfilsFactory, FichiersFactory) {
-			if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken){
-				$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
-			}
 			$scope.pagingOptions = UtilisateursFactory.pagingOptions;		
 			$scope.sortOptions = UtilisateursFactory.sortOptions;		
 			$scope.filterOptions = UtilisateursFactory.filterOptions;

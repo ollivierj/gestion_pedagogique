@@ -1,13 +1,7 @@
 package net.eni.gestion.pedagogie.resource;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import javax.ws.rs.NameBinding;
 
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.composant.map.NamedObjectMap;
@@ -27,13 +21,7 @@ import net.eni.gestion.pedagogie.commun.modele.generique.AModele;
  * @param <M>
  */
 public interface AResource<M extends AModele<ID>, ID> {
-
-	@NameBinding
-	@Retention(value = RetentionPolicy.RUNTIME)
-	@Target({ ElementType.METHOD })
-	public @interface AuthenticationNotRequired {
-	}
-
+	
 	/**
 	 * @return
 	 * @throws ApplicationException

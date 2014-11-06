@@ -4,9 +4,6 @@
  * Controller de la page de l'affichage des stagiaires
  */
 controllers.controller('stagiaireCtrl', function($scope, $rootScope, $http, $location, stagiaireData, StagiaireFactory, $modal, $state, $timeout, FichiersFactory) {
-	if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken){
-		$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
-	}
     $scope.stagiaireSelected = [];
     $scope.canEdit=StagiaireFactory.canEdit;
 	$scope.canView=StagiaireFactory.canView;

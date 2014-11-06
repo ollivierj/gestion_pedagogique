@@ -1,9 +1,5 @@
 var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope, $http, AnimateursLibresFactory,
 		items, salles, sallesReservees, getByIdFilter, data) {
-	if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken){
-		$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
-	}
-
 	//Créé une map avec le libelle de la formation
 	$scope.promotions = _.transform(data.sessionValidationStagiaires, function(result, num) {
 		if (_.find(result, {'name' : num.stagiaire.promotion.libelle})) {

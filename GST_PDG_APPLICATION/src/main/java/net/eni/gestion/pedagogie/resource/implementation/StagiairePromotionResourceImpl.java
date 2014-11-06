@@ -8,6 +8,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import net.eni.gestion.pedagogie.commun.composant.authentification.annotation.CheckSession;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.StagiairePromotion;
 import net.eni.gestion.pedagogie.resource.StagiairePromotionResource;
@@ -30,6 +31,7 @@ public class StagiairePromotionResourceImpl extends AResourceImpl<StagiairePromo
     @GET
     @Path("/stagiaires/{type}/{id}")
     @Produces(MediaType.APPLICATION_JSON)
+    @CheckSession
 	public ArrayList<StagiairePromotion> chargerStagiaireOrPromotion(
 			@PathParam("type") String type, @PathParam("id") String id) throws ApplicationException {
 		switch (type) {

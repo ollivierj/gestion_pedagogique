@@ -5,10 +5,6 @@
 controllers.controller('planningReservationSalleCtrl', function($scope, $location, $rootScope, $http, 
 		modalService, SallesFactory, PromotionsFactory, SallesReserveesFactory, AnimateursLibresFactory, 
 		PlanningFactory, $filter, PLANNING_ELEMENTS, planningElements) {
-	if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken){
-		$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
-	}
-	
 	//Assignation des couleur pour les 3 types d'éléments
     $scope.sessionsValidation = {color: '#70B200'};
     $scope.evaluations = {color: '#FF4219'};

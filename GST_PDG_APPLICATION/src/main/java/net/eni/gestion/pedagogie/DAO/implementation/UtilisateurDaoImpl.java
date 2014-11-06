@@ -1,6 +1,7 @@
 package net.eni.gestion.pedagogie.DAO.implementation;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -8,8 +9,9 @@ import net.eni.gestion.pedagogie.DAO.UtilisateurDao;
 import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.modele.Utilisateur;
 
+import org.apache.commons.lang3.time.DateFormatUtils;
+
 import com.google.inject.Singleton;
-import com.j256.ormlite.dao.GenericRawResults;
 
 /**
  * @author jollivier
@@ -45,32 +47,72 @@ public class UtilisateurDaoImpl extends ADaoImpl<Utilisateur, Integer> implement
 		}
 	}	
 	
-	public String checkConnection(Utilisateur utilisateur, boolean loginOnly) throws Exception{
-		
-		String[] utilBDD;
-		
+	public Integer checkConnection(String pLogin, String pMotdePasse, boolean loginOnly) throws Exception{
 		try {
 			StringBuilder lQuery = new StringBuilder();
-			lQuery.append("SELECT * ");
+			lQuery.append("SELECT TOP 1 UTIL_ID ");
 			lQuery.append(" FROM UTILISATEUR");
 			lQuery.append(" WHERE UTILISATEUR.UTIL_LOGIN = '");
-			lQuery.append(utilisateur.getLogin());
+			lQuery.append(pLogin);
+			lQuery.append("'");
 			if(!loginOnly){
 				lQuery.append("' AND UTILISATEUR.UTIL_MOT_PASSE = '");
-				lQuery.append(utilisateur.getMotPasse());
+				lQuery.append(pMotdePasse);
+				lQuery.append("'");
 			}
-			lQuery.append("'");
-			GenericRawResults<String[]> result = this.queryRaw(lQuery.toString());
-			utilBDD = result.getFirstResult();
+			String[] lResult =  this.queryRaw(lQuery.toString()).getFirstResult();
+			if (null != lResult){
+				return Integer.parseInt(lResult[0]);
+			}else {
+				return null;
+			}
 		} catch (Exception exception) {
 			throw new Exception("Echec de chargement de la liste d'enregistrements depuis la base de données");
 		}
-		
-		if(utilBDD == null){
-			return null;
-		}
-		return utilBDD[0];
-		
 	}
-
+	
+	public boolean checkToken(String token) throws Exception{
+		try {
+			StringBuilder lQuery = new StringBuilder();
+			lQuery.append("SELECT TOP 1 UTIL_ID ");
+			lQuery.append(" FROM UTILISATEUR");
+			lQuery.append(" WHERE ");
+			lQuery.append(Utilisateur.TOKEN_FIELD_NAME);
+			lQuery.append("=");
+			lQuery.append("'");
+			lQuery.append(token);
+			lQuery.append("'");
+			lQuery.append(" AND ");
+			lQuery.append(Utilisateur.DATE_EXPIRATION_FIELD_NAME);
+			lQuery.append(">");
+			lQuery.append("'");
+			lQuery.append(DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
+			lQuery.append("'");
+			return (this.queryRaw(lQuery.toString()).getFirstResult().length==1);
+		} catch (Exception exception) {
+			throw new Exception("Echec de chargement de la liste d'enregistrements depuis la base de données");
+		}
+	}
+	public Utilisateur loginwithtoken(String token) throws Exception{
+		try {
+			StringBuilder lQuery = new StringBuilder();
+			lQuery.append("SELECT TOP 1 * ");
+			lQuery.append(" FROM UTILISATEUR");
+			lQuery.append(" WHERE ");
+			lQuery.append(Utilisateur.TOKEN_FIELD_NAME);
+			lQuery.append("=");
+			lQuery.append("'");
+			lQuery.append(token);
+			lQuery.append("'");
+			lQuery.append(" AND ");
+			lQuery.append(Utilisateur.DATE_EXPIRATION_FIELD_NAME);
+			lQuery.append(">");
+			lQuery.append("'");
+			lQuery.append(DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
+			lQuery.append("'");
+			return this.queryRaw(lQuery.toString(), this.getRawRowMapper()).getFirstResult();
+		} catch (Exception exception) {
+			throw new Exception("Echec de chargement de la liste d'enregistrements depuis la base de données");
+		}
+	}
 }

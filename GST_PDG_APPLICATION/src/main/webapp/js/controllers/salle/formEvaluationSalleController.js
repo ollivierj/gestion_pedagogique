@@ -1,12 +1,5 @@
 var formEvaluationSalleCtrl = function($scope, $modalInstance, $filter, $rootScope, $http, AnimateursLibresFactory,
 		items, salles, sallesReservees, getByIdFilter, data) {
-	if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken){
-		$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
-	}
-	
-	console.log('data eval');	
-	console.log(data);
-	
 	$scope.info = "";
 	$scope.referentielSalles = salles;
 	$scope.promotions = promotions;

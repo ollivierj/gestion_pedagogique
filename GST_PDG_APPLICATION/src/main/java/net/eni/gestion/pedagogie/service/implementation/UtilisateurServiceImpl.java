@@ -1,25 +1,29 @@
 package net.eni.gestion.pedagogie.service.implementation;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.Date;
 
 import javax.naming.ldap.LdapContext;
 
 import net.eni.gestion.pedagogie.DAO.DroitProfilDao;
 import net.eni.gestion.pedagogie.DAO.ProfilDao;
 import net.eni.gestion.pedagogie.DAO.UtilisateurDao;
-import net.eni.gestion.pedagogie.commun.composant.authentification.ActiveDirectory;
-import net.eni.gestion.pedagogie.commun.composant.authentification.ActiveDirectory.User;
+import net.eni.gestion.pedagogie.commun.composant.authentification.AD.ActiveDirectory;
+import net.eni.gestion.pedagogie.commun.composant.authentification.AD.ActiveDirectory.User;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
-import net.eni.gestion.pedagogie.commun.composant.propriete.PropertyFileLoader;
 import net.eni.gestion.pedagogie.commun.configuration.ApplicationConfiguration;
+import net.eni.gestion.pedagogie.commun.configuration.AuthentificationConfiguration;
 import net.eni.gestion.pedagogie.commun.configuration.LDAPConfiguration;
 import net.eni.gestion.pedagogie.commun.modele.Profil;
 import net.eni.gestion.pedagogie.commun.modele.Utilisateur;
 import net.eni.gestion.pedagogie.service.UtilisateurService;
 
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.commons.lang3.time.DateUtils;
+
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.sun.jersey.core.util.Base64;
 
 /**
  * @author jollivier
@@ -28,129 +32,115 @@ import com.google.inject.Singleton;
 @Singleton
 public class UtilisateurServiceImpl extends AServiceImpl<Utilisateur, Integer, UtilisateurDao> implements UtilisateurService {
 
-	private PropertyFileLoader propertyFileLoader = PropertyFileLoader
-			.getInstance("configuration");
-
 	protected final ProfilDao profilDao;
 	protected final DroitProfilDao droitProfilDao;
-	
-       /**
+
+    /**
      * Constructeur
      * @param DAO utilisateur
      * @throws SQLException
      */
     @Inject
-    public UtilisateurServiceImpl(UtilisateurDao pUtilisateurDao, ProfilDao profilDao, DroitProfilDao droitProfilDao) throws SQLException {
+    public UtilisateurServiceImpl(UtilisateurDao pUtilisateurDao, ProfilDao profilDao, DroitProfilDao droitProfilDao) throws ApplicationException {
         super(pUtilisateurDao);
         this.profilDao = profilDao;
         this.droitProfilDao = droitProfilDao;
     }
 
-    public Utilisateur authentifier(Utilisateur utilisateur) throws ApplicationException {
-    	if (ApplicationConfiguration.DEV_MODE.equals(propertyFileLoader
-				.getValue("application.mode"))) {
+    public Utilisateur authentifier(String pLogin, String pMotDePasse) throws ApplicationException {
+    	Utilisateur lUtilisateur = null;
+    	User userLDAP = null;
+    	Date lCurrentDate = DateUtils.addHours(new Date(), 3);
+    	if (ApplicationConfiguration.DEV_MODE.equals(AuthentificationConfiguration.getApplicationMode())) {
 			try {
-				Utilisateur lUtilisateur = this.dao.chargerDetail(1);
+				lUtilisateur = this.dao.chargerDetail(1);
+				lUtilisateur.setToken(createToken(lUtilisateur, lCurrentDate));
+				lUtilisateur.setDateExpiration(lCurrentDate);
+				lUtilisateur=this.dao.mettreAJour(lUtilisateur);
 				lUtilisateur.getProfil().setDroits(droitProfilDao.getListeDroits(lUtilisateur.getProfil().getId()));
 				return lUtilisateur;
 			} catch (Exception e) {
-				e.printStackTrace();
+				throw new ApplicationException(
+						"Echec lors le l'authentification");
 			}
     	}
-    	 
-		boolean LDAPauth = false;
-		boolean BDDauth = false;
-		Utilisateur utilBDD = null;
-		User userLDAP = null;
-		
 		// --------------- AUTHENTIFICATION LDAP --------------- //
 		try{
 			//authentification LDAP Ok
-		    LdapContext ctx = ActiveDirectory.getConnection(utilisateur.getLogin(), utilisateur.getMotPasse(), LDAPConfiguration.getLdapDomaine(), LDAPConfiguration.getAdresseLDAP());
-		    userLDAP = ActiveDirectory.getUser(utilisateur.getLogin(), ctx);
-		    LDAPauth = true;
+		    LdapContext ctx = ActiveDirectory.getConnection(pLogin, pMotDePasse, LDAPConfiguration.getLdapDomaine(), LDAPConfiguration.getAdresseLDAP());
+		    userLDAP = ActiveDirectory.getUser(pLogin, ctx);
 		    ctx.close();
-		}
-		catch(Exception e){
-			//LDAP identifiant MDP incorrect
-			System.out.println("identifiant MDP incorrect LDAP");
-		}
 		
-		// --------------- AUTHENTIFICATION BDD --------------- //
-		try {
+		    // --------------- AUTHENTIFICATION BDD --------------- //
 			//check avec login only si identification LDAP ok
-			String sIDutilBDD = this.dao.checkConnection(utilisateur, LDAPauth);
-			if(sIDutilBDD != null){
+			Integer lUtilisateurId = this.dao.checkConnection(pLogin, pMotDePasse, (null!=userLDAP));
+			if(null!=lUtilisateurId){
 				//authentification BDD OK
-				BDDauth = true;
-				utilBDD = chargeLoginInfo(sIDutilBDD);
-				
-				//mise a jour du mot de passe en BDD
-				utilBDD.setMotPasse(utilisateur.getMotPasse());
-				this.dao.mettreAJour(utilBDD);
-			} else {
-				//identifiant MDP incorrect
-				System.out.println("identifiant MDP incorrect");
+				lUtilisateur = this.dao.chargerDetail(lUtilisateurId);
+				lUtilisateur.setMotPasse(pMotDePasse);
+				lUtilisateur.setToken(createToken(lUtilisateur, lCurrentDate));
+				lUtilisateur.setDateExpiration(lCurrentDate);
+				lUtilisateur=this.dao.mettreAJour(lUtilisateur);
+				lUtilisateur.getProfil().setDroits(droitProfilDao.getListeDroits(lUtilisateur.getProfil().getId()));
+			} else if (null != userLDAP){
+				//si l'authentification LDAP est ok et pas l'authentification BDD alors créer l'utilisateur dans la BDD
+				String[] userInfo = userLDAP.getCommonName().split(" ");
+				Profil profilDefault = this.profilDao.chargerDetail(LDAPConfiguration.getDefaultUserProfil());
+				lUtilisateur = new Utilisateur();
+				lUtilisateur.setCivilite("M");
+				lUtilisateur.setNom(userInfo[1]);
+				lUtilisateur.setPrenom(userInfo[0]);
+				lUtilisateur.setEmail(userLDAP.getUserPrincipal());
+				lUtilisateur.setMotPasse(pMotDePasse);
+				lUtilisateur.setProfil(profilDefault);
+				lUtilisateur.setLogin(pLogin);
+				lUtilisateur.setMotPasse(pMotDePasse);
+				lUtilisateur.setToken(createToken(lUtilisateur, lCurrentDate));
+				lUtilisateur.setDateExpiration(lCurrentDate);
+				lUtilisateur=this.dao.ajouter(lUtilisateur);
+				lUtilisateur.getProfil().setDroits(droitProfilDao.getListeDroits(lUtilisateur.getProfil().getId()));
 			}
 		} catch (Exception e1) {
 			throw new ApplicationException(
-					"Echec lors de la connection a la base de donnée.");
+					"Echec lors le l'authentification");
 		}
-		
-		//si l'authentification LDAP est ok et pas l'authentification BDD alors créer l'utilisateur dans la BDD
-		if(LDAPauth && !BDDauth){
-			String[] userInfo = userLDAP.getCommonName().split(" ");
-			Profil profilDefault = null;
-			try {
-				profilDefault = this.profilDao.chargerDetail(LDAPConfiguration.getDefaultUserProfil());
-			} catch (Exception e) {
-			}
-			Utilisateur newUtil = new Utilisateur();
-			newUtil.setCivilite("M");
-			newUtil.setNom(userInfo[1]);
-			newUtil.setPrenom(userInfo[0]);
-			newUtil.setEmail(userLDAP.getUserPrincipal());
-			newUtil.setMotPasse(utilisateur.getMotPasse());
-			newUtil.setProfil(profilDefault);
-			newUtil.setLogin(utilisateur.getLogin());
-			try {
-				this.dao.ajouter(newUtil);
-				String sIDutilBDD = this.dao.checkConnection(newUtil, true);
-				utilBDD = chargeLoginInfo(sIDutilBDD);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		return utilBDD;
+		return lUtilisateur;
 	}
     
-    
-	
-	/**
-	 * 
-	 * @param sIDutilBDD
-	 * @return
-	 */
-	private Utilisateur chargeLoginInfo(String sIDutilBDD) {
-		Integer IDutilBDD  = Integer.parseInt(sIDutilBDD);
-		Utilisateur utilBDD = null;
+	@Override
+	public boolean checkConnection(String pLogin, String pMotDePasse, boolean loginOnly)
+			throws ApplicationException {
 		try {
-			utilBDD = this.dao.chargerDetail(IDutilBDD);
-			Profil p = this.profilDao.chargerDetail(utilBDD.getProfil().getId());
-			ArrayList<String> listeDroit = this.droitProfilDao.getListeDroits(utilBDD.getProfil().getId());
-			p.setDroits(listeDroit);
-			utilBDD.setProfil(p);
+			return (null != this.dao.checkConnection(pLogin, pMotDePasse, true));
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new ApplicationException("Utilisateur invalide");
 		}
-		return utilBDD;
+	}
+	
+	protected String createToken(Utilisateur pUtilisateur, Date pDate){
+		StringBuilder lStrBuilder = new StringBuilder();
+		lStrBuilder.append(pUtilisateur.getLogin());
+		lStrBuilder.append(":");
+		lStrBuilder.append(DateFormatUtils.format(pDate, "yyyy-MM-dd HH:mm:ss"));
+		return Base64.encode(lStrBuilder.toString().getBytes()).toString();
+	}
+	
+	@Override
+	public boolean checkToken(String pToken) throws ApplicationException{
+		try {
+			return this.dao.checkToken(pToken);
+		} catch (Exception e) {
+			throw new ApplicationException("Utilisateur invalide");
+		}
 	}
 
 	@Override
-	public boolean checkConnection(Utilisateur utilisateur, boolean loginOnly)
+	public Utilisateur authentifierAvecToken(String token)
 			throws ApplicationException {
 		try {
-			return (null != this.dao.checkConnection(utilisateur, true));
+			Utilisateur lUtilisateur = this.dao.loginwithtoken(token);
+			lUtilisateur.getProfil().setDroits(droitProfilDao.getListeDroits(lUtilisateur.getProfil().getId()));
+			return lUtilisateur;
 		} catch (Exception e) {
 			throw new ApplicationException("Utilisateur invalide");
 		}

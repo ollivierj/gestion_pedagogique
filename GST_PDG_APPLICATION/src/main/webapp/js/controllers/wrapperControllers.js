@@ -1,9 +1,6 @@
 'use strict';
 
 controllers.controller('wrapperCtrl', function($rootScope, $http, $scope, $modal, modalService, $log) {
-	if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken){
-		$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
-	}
 	$scope.items = [ 'item1', 'item2', 'item3' ];
 
 	$scope.titleSelected = "";

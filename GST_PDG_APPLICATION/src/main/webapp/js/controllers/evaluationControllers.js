@@ -4,9 +4,6 @@ controllers
 		.controller(
 				'evaluationsCtrl',
 				function($scope, $modal, $log, $timeout, $http, $rootScope, toaster, EvaluationsFactory, SujetEvaluationsFactory, UtilisateursFactory, FichiersFactory) {
-					if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken){
-						$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
-					}
 					$scope.pagingOptions = EvaluationsFactory.pagingOptions;		
 					$scope.sortOptions = EvaluationsFactory.sortOptions;		
 					$scope.filterOptions = EvaluationsFactory.filterOptions;

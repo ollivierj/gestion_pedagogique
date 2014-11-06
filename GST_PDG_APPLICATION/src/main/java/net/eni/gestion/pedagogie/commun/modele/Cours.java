@@ -14,7 +14,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.configuration.ModeleMetier;
 import net.eni.gestion.pedagogie.commun.modele.generique.AModele;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.j256.ormlite.field.DataType;
@@ -128,7 +127,7 @@ public class Cours extends AModele<UUID> implements Serializable {
 	@ForeignCollectionField(eager = false, columnName = InstanceCours.COURS_FIELD_NAME)
 	private transient Collection<InstanceCours> transientInstanceCours = null;
 
-	@JsonBackReference("InstanceCours-Cours")
+	@JsonIgnore
 	private ArrayList<InstanceCours> instanceCours = new ArrayList<InstanceCours>();
 
 	@Override

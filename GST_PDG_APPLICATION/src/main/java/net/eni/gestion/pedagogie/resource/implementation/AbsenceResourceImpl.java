@@ -11,6 +11,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import net.eni.gestion.pedagogie.commun.composant.authentification.annotation.CheckSession;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.Absence;
 import net.eni.gestion.pedagogie.resource.AbsenceResource;
@@ -37,6 +38,7 @@ public class AbsenceResourceImpl extends AResourceImpl<Absence, Integer, Absence
 	@GET
     @Path("/jour/{year}/{month}/{day}")
     @Produces(MediaType.APPLICATION_JSON)
+	@CheckSession
 	public ArrayList<Absence> chargerAbsencesByDate(@PathParam("year") int year,
 			@PathParam("month") int month, 
 			@PathParam("day") int day)

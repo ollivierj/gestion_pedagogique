@@ -3,10 +3,7 @@
 /**
  * Controller de la page de l'affichage des avis
  */
-controllers.controller('avisCtrl', function($scope, $rootScope, $http, $location, AvisFactory, StagiaireAvisFactory, $modal, $state, $timeout, FichiersFactory) {
-	if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken){
-		$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
-	}
+controllers.controller('avisCtrl', function($scope, $rootScope, $http, $location, AvisFactory, StagiaireAvisFactory, $modal, $state, $timeout, toaster, FichiersFactory) {
     $scope.avisSelected = [];
     $scope.canEdit=StagiaireAvisFactory.canEdit;
 	$scope.canView=StagiaireAvisFactory.canView;
@@ -50,16 +47,47 @@ controllers.controller('avisCtrl', function($scope, $rootScope, $http, $location
 		FichiersFactory.exporter('/ng_gst_pdg/web/avis/csv', $scope.pagingOptions, $scope.filterOptions, $scope.sortOptions);
 	};
     
-    $scope.viewRow = function (entity) {
-    	/*AvisFactory.avis = entity;
-    	$state.go('detailAvis');
-    	AvisFactory.readonly=true;*/
-    };
-    
-    $scope.editRow = function (entity) {
-    	/*AvisFactory.avis = entity;
-    	$state.go('detailAvis');
-    	AvisFactory.readonly=false;*/
+    $scope.saveItem = function(item){
+    	if (!item.avisTexte){
+    		return "Vous devez saisir un avis";
+    	}else if (item.avisTexte.length>500){
+    		return "Le texte saisi ne doit pas dépasser 500 caractères";
+    	}
+    	
+    	var avis = {
+    			id :  item.avisId,
+    			stagiaire : item.id,
+    	    	instanceCours : item.avisInstanceCoursId || StagiaireAvisFactory.instanceCours.id,
+    	    	texte : item.avisTexte,
+    	    	auteur : $rootScope.utilisateurConnecte.id,
+    	    	date : new Date()
+    	};
+    	if (!item.avisId){
+    		return AvisFactory.create.doAction(
+    				avis,
+					function(success) {
+						toaster.pop('success', null, "Avis enregistré");
+						StagiaireAvisFactory.refreshData($scope);
+					},
+					function(error) {
+						toaster.pop('error', null, error.data.message);
+						StagiaireAvisFactory.refreshData($scope);
+					}		
+				);
+    	}else{
+    		return AvisFactory.modify.doAction(
+    				avis,
+					function(success) {
+						toaster.pop('success', null, "Avis enregistré");
+						StagiaireAvisFactory.refreshData($scope);
+					},
+					function(error) {
+						toaster.pop('error', null, error.data.message);
+						StagiaireAvisFactory.refreshData($scope);
+					}		
+				);
+    	}
+    	
     };
 
     $scope.init = function(){

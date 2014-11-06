@@ -4,6 +4,7 @@
 package net.eni.gestion.pedagogie.commun.modele;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -46,6 +47,9 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 	public final static String MOT_PASSE_FIELD_NAME			= "UTIL_MOT_PASSE";
 	public final static String PROFIL_FIELD_NAME			= "UTIL_PROFIL";
 	public final static String LOGIN_FIELD_NAME				= "UTIL_LOGIN";
+	public final static String TOKEN_FIELD_NAME				= "UTIL_TOKEN";
+	public final static String DATE_EXPIRATION_FIELD_NAME	= "UTIL_DATE_EXPIRATION";
+
 	
 	public final static String[] FULL_TEXT_SEARCH_FIELDS		= {NOM_FIELD_NAME, PRENOM_FIELD_NAME, EMAIL_FIELD_NAME};
 	
@@ -144,6 +148,21 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 		useGetSet = true,
 		canBeNull = false)
 	private String login = null;
+	
+	@DatabaseField(
+		columnName = TOKEN_FIELD_NAME,
+		dataType = DataType.STRING,
+		useGetSet = true,
+		canBeNull = true)
+	private String token = null;
+	
+	@JsonIgnore
+	@DatabaseField(
+		columnName = DATE_EXPIRATION_FIELD_NAME,
+		dataType = DataType.DATE,
+		useGetSet = true,
+		canBeNull = true)
+	private Date dateExpiration = null;
 	
 	@Override
 	public Integer getId() {
@@ -267,6 +286,22 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 		lStrStringBuilder.append((null!=getPhoto())?getPhoto():"");
 		lStrStringBuilder.append(" ");
 		return lStrStringBuilder.toString();
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	public Date getDateExpiration() {
+		return dateExpiration;
+	}
+
+	public void setDateExpiration(Date dateExpiration) {
+		this.dateExpiration = dateExpiration;
 	}	
 	
 
