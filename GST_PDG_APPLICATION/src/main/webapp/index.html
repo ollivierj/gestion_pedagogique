@@ -7,7 +7,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap/bootstrap_3.1.1/css/bootstrap.css">
     <!-- Font awesome, icones pour bootstrap -->
-    <link rel="stylesheet" href="css/fa/font-awesome_4.0.3/css/font-awesome.css">
+    <link rel="stylesheet" href="css/fa/font-awesome-4.2.0/css/font-awesome.css">
     <!-- Angular css -->
     <link rel="stylesheet" href="css/angular/ng-table.css">
     <link rel="stylesheet" href="css/angular/ng-grid_2.0.11/ng-grid.css">
@@ -40,7 +40,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.html">ENI Gestion Pédagogique - {{titleSelected}}</a>
+          <a class="navbar-brand" href="index.html">ENI Gestion Pédagogique{{titleSelected}}</a>
         </div>
 
         <!-- MENU DROITE -->
@@ -75,19 +75,7 @@
             <li class="dropdown user-dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i><b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="gestionDroit"><i class="fa fa-search"></i> Informations profil</a></li>
-              </ul>
-            </li>
-
-            <li class="dropdown alerts-dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> 3<b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Extraction des données de comptes <span class="label label-success">Réussi</span></a></li>
-                <li><a href="#">Correction en cours <span class="label label-info">Info</span></a></li>
-                <li><a href="#">Vous devez ajouter des avis <span class="label label-warning">Alerte</span></a></li>
-                <li><a href="#">Le cours commence dans 1h <span class="label label-danger">Danger</span></a></li>
-                <li class="divider"></li>
-                <li><a href="#">Tout afficher</a></li>
+                <li><a ng-click="showInformation()"><i class="fa fa-search"></i> Informations profil</a></li>
               </ul>
             </li>
 
@@ -188,7 +176,7 @@
     <script src="js/services/stagiaire/avisServices.js"></script>
     <script src="js/services/absenceService.js"></script>
     <script src="js/services/professionnelHomologueServices.js"></script> 
-    <script src="js/services/titreProfessionnelServices.js"></script> 
+    <script src="js/services/typeSessionServices.js"></script> 
     <script src="js/services/fichierServices.js"></script> 
     <script src="js/services/fonctionServices.js"></script> 
     <script src="js/services/profilServices.js"></script> 
@@ -226,7 +214,7 @@
     <script src="js/controllers/salle/formSessionSalleController.js"></script>  
     <script src="js/controllers/sessionValidationControllers.js"></script>  
     <script src="js/controllers/professionnelHomologueControllers.js"></script>
-    <script src="js/controllers/titreProfessionnelControllers.js"></script>
+    <script src="js/controllers/typeSessionControllers.js"></script>
     <script src="js/controllers/sujetEvaluationControllers.js"></script>
     <script src="js/controllers/wrapperControllers.js"></script>
     <script src="js/controllers/profilControllers.js"></script>

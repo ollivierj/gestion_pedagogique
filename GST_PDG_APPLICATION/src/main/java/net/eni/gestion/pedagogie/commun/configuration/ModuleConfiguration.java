@@ -33,7 +33,7 @@ import net.eni.gestion.pedagogie.DAO.StagiaireAvisDao;
 import net.eni.gestion.pedagogie.DAO.StagiaireDao;
 import net.eni.gestion.pedagogie.DAO.StagiairePromotionDao;
 import net.eni.gestion.pedagogie.DAO.SujetEvaluationDao;
-import net.eni.gestion.pedagogie.DAO.TitreProfessionnelDao;
+import net.eni.gestion.pedagogie.DAO.TypeSessionDao;
 import net.eni.gestion.pedagogie.DAO.UniteFormationDao;
 import net.eni.gestion.pedagogie.DAO.UniteParFormationDao;
 import net.eni.gestion.pedagogie.DAO.UtilisateurDao;
@@ -70,7 +70,7 @@ import net.eni.gestion.pedagogie.DAO.implementation.StagiaireAvisDaoImpl;
 import net.eni.gestion.pedagogie.DAO.implementation.StagiaireDaoImpl;
 import net.eni.gestion.pedagogie.DAO.implementation.StagiairePromotionDaoImpl;
 import net.eni.gestion.pedagogie.DAO.implementation.SujetEvaluationDaoImpl;
-import net.eni.gestion.pedagogie.DAO.implementation.TitreProfessionnelDaoImpl;
+import net.eni.gestion.pedagogie.DAO.implementation.TypeSessionDaoImpl;
 import net.eni.gestion.pedagogie.DAO.implementation.UniteFormationDaoImpl;
 import net.eni.gestion.pedagogie.DAO.implementation.UniteParFormationDaoImpl;
 import net.eni.gestion.pedagogie.DAO.implementation.UtilisateurDaoImpl;
@@ -93,7 +93,7 @@ import net.eni.gestion.pedagogie.service.StagiaireAvisService;
 import net.eni.gestion.pedagogie.service.StagiairePromotionService;
 import net.eni.gestion.pedagogie.service.StagiaireService;
 import net.eni.gestion.pedagogie.service.SujetEvaluationService;
-import net.eni.gestion.pedagogie.service.TitreProfessionnelService;
+import net.eni.gestion.pedagogie.service.TypeSessionService;
 import net.eni.gestion.pedagogie.service.UtilisateurService;
 import net.eni.gestion.pedagogie.service.implementation.AbsenceServiceImpl;
 import net.eni.gestion.pedagogie.service.implementation.AvisServiceImpl;
@@ -114,7 +114,7 @@ import net.eni.gestion.pedagogie.service.implementation.StagiaireAvisServiceImpl
 import net.eni.gestion.pedagogie.service.implementation.StagiairePromotionServiceImpl;
 import net.eni.gestion.pedagogie.service.implementation.StagiaireServiceImpl;
 import net.eni.gestion.pedagogie.service.implementation.SujetEvaluationServiceImpl;
-import net.eni.gestion.pedagogie.service.implementation.TitreProfessionnelServiceImpl;
+import net.eni.gestion.pedagogie.service.implementation.TypeSessionServiceImpl;
 import net.eni.gestion.pedagogie.service.implementation.UtilisateurServiceImpl;
 
 import com.google.inject.AbstractModule;
@@ -160,7 +160,7 @@ public class ModuleConfiguration extends AbstractModule {
     	bind(StagiaireDao.class).to(StagiaireDaoImpl.class).asEagerSingleton();
     	bind(StagiaireAvisDao.class).to(StagiaireAvisDaoImpl.class).asEagerSingleton();
     	bind(StagiairePromotionDao.class).to(StagiairePromotionDaoImpl.class).asEagerSingleton();
-    	bind(TitreProfessionnelDao.class).to(TitreProfessionnelDaoImpl.class).asEagerSingleton();
+    	bind(TypeSessionDao.class).to(TypeSessionDaoImpl.class).asEagerSingleton();
     	bind(UniteFormationDao.class).to(UniteFormationDaoImpl.class).asEagerSingleton();
     	bind(UniteParFormationDao.class).to(UniteParFormationDaoImpl.class).asEagerSingleton();
     	bind(UtilisateurDao.class).to(UtilisateurDaoImpl.class).asEagerSingleton();
@@ -184,7 +184,7 @@ public class ModuleConfiguration extends AbstractModule {
     	bind(StagiaireService.class).to(StagiaireServiceImpl.class).asEagerSingleton();
     	bind(StagiaireAvisService.class).to(StagiaireAvisServiceImpl.class).asEagerSingleton();
     	bind(StagiairePromotionService.class).to(StagiairePromotionServiceImpl.class).asEagerSingleton();
-    	bind(TitreProfessionnelService.class).to(TitreProfessionnelServiceImpl.class).asEagerSingleton();
+    	bind(TypeSessionService.class).to(TypeSessionServiceImpl.class).asEagerSingleton();
     	bind(UtilisateurService.class).to(UtilisateurServiceImpl.class).asEagerSingleton();
     	bind(PlanningService.class).to(PlanningServiceImpl.class).asEagerSingleton();
     }

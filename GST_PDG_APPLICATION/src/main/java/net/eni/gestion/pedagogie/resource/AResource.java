@@ -35,7 +35,7 @@ public interface AResource<M extends AModele<ID>, ID> {
 	 */
 	public ArrayList<M> chargerForAutocompleteSearch(String pSearchText)
 			throws ApplicationException;
-
+	
 	/**
 	 * Charge une liste de modèles
 	 * 

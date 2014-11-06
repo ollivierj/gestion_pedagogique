@@ -3,7 +3,7 @@
 controllers
 		.controller(
 				'sessionValidationsCtrl',
-				function($scope, $modal, $log, $timeout, $rootScope, $http, toaster, SessionValidationsFactory, TitreProfessionnelsFactory, FichiersFactory) {
+				function($scope, $modal, $log, $timeout, $rootScope, $http, toaster, SessionValidationsFactory, TypeSessionsFactory, FichiersFactory) {
 					$scope.pagingOptions = SessionValidationsFactory.pagingOptions;		
 					$scope.sortOptions = SessionValidationsFactory.sortOptions;		
 					$scope.filterOptions = SessionValidationsFactory.filterOptions;
@@ -16,7 +16,7 @@ controllers
 						multiSelect : false,
 						columnDefs : 	[
 										{
-											field : 'titreProfessionnel.code',
+											field : 'typeSession.code',
 
 											displayName : 'Module'
 										},
@@ -87,9 +87,9 @@ controllers
 										fichiers : function() {
 											return null;
 										},
-										titreProfessionnels : function(TitreProfessionnelsFactory){
+										typeSessions : function(TypeSessionsFactory){
 
-											return TitreProfessionnelsFactory.titlemap.getData().$promise;
+											return TypeSessionsFactory.titlemap.getData().$promise;
 										},
 										schema : function(SessionValidationsFactory) {
 
@@ -133,9 +133,9 @@ controllers
 										fichiers : function(FichiersFactory) {
 											return FichiersFactory.fichiers.getData({entite_type : "SessionValidation", entite_id : sessionValidationId}).$promise;
 										},
-										titreProfessionnels : function(TitreProfessionnelsFactory){
+										typeSessions : function(TypeSessionsFactory){
 
-											return TitreProfessionnelsFactory.titlemap.getData().$promise;
+											return TypeSessionsFactory.titlemap.getData().$promise;
 										},
 										schema : function(SessionValidationsFactory) {
 											return SessionValidationsFactory.jsonschema.getData().$promise;
@@ -170,9 +170,9 @@ controllers
 										fichiers : function(FichiersFactory) {
 											return FichiersFactory.fichiers.getData({entite_type : "SessionValidation", entite_id : sessionValidationId}).$promise;
 										},
-										titreProfessionnels : function(TitreProfessionnelsFactory){
+										typeSessions : function(TypeSessionsFactory){
 
-											return TitreProfessionnelsFactory.titlemap.getData().$promise;
+											return TypeSessionsFactory.titlemap.getData().$promise;
 										},
 										schema : function(SessionValidationsFactory) {
 											return SessionValidationsFactory.jsonschema.getData().$promise;
@@ -257,15 +257,15 @@ controllers
 				});
 
 var modalEditionSessionValidationCtrl = function($scope, $modalInstance, $filter, $modal, FileUploader,
-		SessionValidationsFactory, StagiaireFactory, onlyNumbersFilter, title, FichiersFactory, fichiers, readonly, affFichiers, affTelech, sessionValidation, titreProfessionnels, schema, ok, okTitle) {
+		SessionValidationsFactory, StagiaireFactory, onlyNumbersFilter, title, FichiersFactory, fichiers, readonly, affFichiers, affTelech, sessionValidation, typeSessions, schema, ok, okTitle) {
 	$scope.affFichiers=affFichiers;
 	$scope.affTelech=affTelech;
 	$scope.title = title;
 	$scope.data = sessionValidation;
 	$scope.data.sessionValidationStagiaires=($scope.data.sessionValidationStagiaires)?$scope.data.sessionValidationStagiaires:[];
 	$scope.data.readonly = readonly;
-	$scope.titreProfessionnelsTitleMap = titreProfessionnels;
-	$scope.titreProfessionnelsEnum = onlyNumbersFilter(Object.keys($scope.titreProfessionnelsTitleMap)),
+	$scope.typeSessionsTitleMap = typeSessions;
+	$scope.typeSessionsEnum = onlyNumbersFilter(Object.keys($scope.typeSessionsTitleMap)),
 	$scope.promotions=[];
 	$scope.stagiaire={};
 	$scope.okTitle = okTitle;
@@ -275,12 +275,12 @@ var modalEditionSessionValidationCtrl = function($scope, $modalInstance, $filter
 		[
 		{
 			title : "Titre professionnel",
-			key: "titreProfessionnel.id",
+			key: "typeSession.id",
 			type : "select",
 			required : true,
 			disabled : $scope.data.readonly,
-			schema : { enum : $scope.titreProfessionnelsEnum},
-			titleMap : $scope.titreProfessionnelsTitleMap
+			schema : { enum : $scope.typeSessionsEnum},
+			titleMap : $scope.typeSessionsTitleMap
 		}, 
 		{
 			key : "formatedDateDebut",

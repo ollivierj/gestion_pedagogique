@@ -123,10 +123,10 @@ var ng_gst_pdg = angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid',
 			controller: 'professionelHomologuesCtrl'
 		}).
 		//TITRES PROFESSIONNELS ***********************************************
-		state('titreProfessionnels', {
-			url: '/titreProfessionnels',
+		state('typeSessions', {
+			url: '/typeSessions',
 			templateUrl: 'partials/templates/list.html',
-			controller: 'titreProfessionnelsCtrl'
+			controller: 'typeSessionsCtrl'
 		}).
 		//SUJETS EVALUATIONS ***********************************************
 		state('sujetsEvaluations', {

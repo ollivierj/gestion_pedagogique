@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import net.eni.gestion.pedagogie.DAO.ADao;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.composant.pagination.Pager;
 import net.eni.gestion.pedagogie.commun.composant.tuple.Pair;
 import net.eni.gestion.pedagogie.commun.modele.generique.AModele;
@@ -43,25 +44,56 @@ abstract class ADaoImpl<M extends AModele<ID>, ID> extends BaseDaoImpl<M,ID> imp
 	 * @see net.eni.gestion.pedagogie.DAO.base.contrat.generique.CRUDBase#ajouter(net.eni.gestion.pedagogie.modele.AModele)
 	 */
 	public M ajouter(M pMember) throws Exception {
-		return CRUDHelper.ajouter(this, pMember);
+		if (this.validerAvantajout(pMember)){
+			return CRUDHelper.ajouter(this, pMember);
+		}
+		return null;
 	}
 
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.DAO.base.contrat.generique.CRUDBase#mettreAJour(net.eni.gestion.pedagogie.modele.AModele)
 	 */
 	public M mettreAJour(M pMember) throws Exception {
-		return CRUDHelper.mettreAJour(this, pMember);
+		if (this.validerAvantMiseAJour(pMember)){
+			return CRUDHelper.mettreAJour(this, pMember);
+		}
+		return null;
+		
 	}
 
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.DAO.base.contrat.generique.CRUDBase#supprimer(net.eni.gestion.pedagogie.modele.AModele)
 	 */
 	public ID supprimer(ID pId) throws Exception {
-		return CRUDHelper.supprimer(this, pId);
+		if (this.validerAvantSuppression(pId)){
+			return CRUDHelper.supprimer(this, pId);
+		}
+		return null;
 	}
 	
 	public HashMap<String, String> getTitleMap() throws Exception {
 		return null;
+	}
+	
+	/* (non-Javadoc)
+	 * @see net.eni.gestion.pedagogie.DAO.base.contrat.generique.CRUDBase#ajouter(net.eni.gestion.pedagogie.modele.AModele)
+	 */
+	protected boolean validerAvantajout(M pMember) throws ApplicationException {
+		return true;
+	}
+
+	/* (non-Javadoc)
+	 * @see net.eni.gestion.pedagogie.DAO.base.contrat.generique.CRUDBase#mettreAJour(net.eni.gestion.pedagogie.modele.AModele)
+	 */
+	protected boolean validerAvantMiseAJour(M pMember) throws ApplicationException {
+		return true;
+	}
+
+	/* (non-Javadoc)
+	 * @see net.eni.gestion.pedagogie.DAO.base.contrat.generique.CRUDBase#supprimer(net.eni.gestion.pedagogie.modele.AModele)
+	 */
+	protected boolean validerAvantSuppression(ID pId) throws ApplicationException {
+		return true;
 	}
 
 

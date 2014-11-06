@@ -44,7 +44,7 @@ public class SessionValidation extends AModele<Integer> implements Serializable 
 
 	public final static String ID_FIELD_NAME 						= "SES_VAL_ID";
 	public final static String AUTEUR_FIELD_NAME 					= "SES_VAL_AUTEUR";
-	public final static String TITRE_PROFESSIONNEL_FIELD_NAME		= "SES_VAL_TITRE_PROFESSIONNEL";
+	public final static String TYPE_SESSION_FIELD_NAME				= "SES_VAL_TYPE_SESSION";
 	public final static String DATE_DEBUT_FIELD_NAME				= "SES_VAL_DATE_DEBUT";
 	public final static String DATE_FIN_FIELD_NAME					= "SES_VAL_DATE_FIN";
 	
@@ -93,12 +93,12 @@ public class SessionValidation extends AModele<Integer> implements Serializable 
 	private Utilisateur auteur = null;
 
 	@DatabaseField(
-		columnName = TITRE_PROFESSIONNEL_FIELD_NAME,
+		columnName = TYPE_SESSION_FIELD_NAME,
 		foreign = true,
 		useGetSet = true,
 		canBeNull = false,
 		foreignAutoRefresh = true)
-	private TitreProfessionnel titreProfessionnel = null;
+	private TypeSession typeSession = null;
 
 	
 	@SchemaIgnore
@@ -156,12 +156,12 @@ public class SessionValidation extends AModele<Integer> implements Serializable 
 		this.auteur = auteur;
 	}
 
-	public TitreProfessionnel getTitreProfessionnel() {
-		return titreProfessionnel;
+	public TypeSession getTypeSession() {
+		return typeSession;
 	}
 
-	public void setTitreProfessionnel(TitreProfessionnel titreProfessionnel) {
-		this.titreProfessionnel = titreProfessionnel;
+	public void setTypeSession(TypeSession typeSession) {
+		this.typeSession = typeSession;
 	}
 
 	public Date getDateDebut() {
@@ -203,7 +203,7 @@ public class SessionValidation extends AModele<Integer> implements Serializable 
 	@Override
 	public String toString() {
 		StringBuilder lStrStringBuilder = new StringBuilder();
-		lStrStringBuilder.append((null!=getTitreProfessionnel())?(null!=getTitreProfessionnel().getCode())?getTitreProfessionnel().getCode():"":"");
+		lStrStringBuilder.append((null!=getTypeSession())?(null!=getTypeSession().getCode())?getTypeSession().getCode():"":"");
 		lStrStringBuilder.append(" ");
 		lStrStringBuilder.append((null!=getFormatedDateDebut())?getFormatedDateDebut():"");
 		lStrStringBuilder.append(" ");

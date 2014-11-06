@@ -27,6 +27,7 @@ public interface ADao<M extends AModele<ID>, ID> {
 		/**
 		 * Méthode de chargement pour les contrôles autocomplete 
 		 * @param pSearchText
+		 * @param pDate 
 		 * @return
 		 * @throws Exception
 		 */
