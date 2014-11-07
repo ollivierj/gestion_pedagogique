@@ -104,16 +104,16 @@ public class EvaluationDaoImpl extends ADaoImpl<Evaluation, Integer> implements 
 		lQuery.append(InstanceEvaluation.EVALUATION_FIELD_NAME);
 		lQuery.append("=");
 		lQuery.append(pId);
-		boolean isValid;
+		boolean instanceExist;
 		try {
-			isValid = this.queryRaw(lQuery.toString()).getFirstResult().length==1;
+			instanceExist = this.queryRaw(lQuery.toString()).getFirstResult().length==1;
 		} catch (SQLException e) {
 			throw new ApplicationException("Echec lors de la validation en base de données");
 		}
-		if (isValid){
+		if (!instanceExist){
 			return true;
 		}else {
-			throw new ApplicationException("Il existe au moins une instance de cours déclarée pour cette évaluation.\n Il n'est donc pas possible de supprimer cette évaluation");
+			throw new ApplicationException("Il existe au moins une instance d'évaluation déclarée pour cette évaluation.\n Il n'est donc pas possible de supprimer cette évaluation");
 		}
 	}
 

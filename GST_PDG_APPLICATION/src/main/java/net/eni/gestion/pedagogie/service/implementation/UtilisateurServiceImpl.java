@@ -51,10 +51,10 @@ public class UtilisateurServiceImpl extends AServiceImpl<Utilisateur, Integer, U
     public Utilisateur authentifier(String pLogin, String pMotDePasse) throws ApplicationException {
     	Utilisateur lUtilisateur = null;
     	User userLDAP = null;
-    	Date lCurrentDate = DateUtils.addHours(new Date(), 3);
+    	Date lCurrentDate = DateUtils.addHours(new Date(), AuthentificationConfiguration.getExpirationTime());
     	if (ApplicationConfiguration.DEV_MODE.equals(AuthentificationConfiguration.getApplicationMode())) {
 			try {
-				lUtilisateur = this.dao.chargerDetail(1);
+				lUtilisateur = this.dao.chargerDetail(AuthentificationConfiguration.getDefaultUser());
 				lUtilisateur.setToken(createToken(lUtilisateur, lCurrentDate));
 				lUtilisateur.setDateExpiration(lCurrentDate);
 				lUtilisateur=this.dao.mettreAJour(lUtilisateur);

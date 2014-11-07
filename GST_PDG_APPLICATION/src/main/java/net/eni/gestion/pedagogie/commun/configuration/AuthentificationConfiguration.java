@@ -16,6 +16,7 @@ public class AuthentificationConfiguration {
 			.getInstance("configuration");
 
 	public final static String DEFAULT_EXPIRATION_TIME = "3";
+	public final static String DEFAULT_USER = "1";
 	public final static String DEFAULT_APPLICATION_MODE = "PROD";
 	
 	public static Integer getExpirationTime() {
@@ -32,6 +33,14 @@ public class AuthentificationConfiguration {
 			return DEFAULT_APPLICATION_MODE;
 		}
 		return value;
+	}
+	
+	public static Integer getDefaultUser() {
+		String value = propertyFileLoader.getValue("authentication.default.user.id");
+		if(value == null || value.trim().equals("")){
+			return Integer.parseInt(DEFAULT_USER);
+		}
+		return Integer.parseInt(value);
 	}
 	
 }

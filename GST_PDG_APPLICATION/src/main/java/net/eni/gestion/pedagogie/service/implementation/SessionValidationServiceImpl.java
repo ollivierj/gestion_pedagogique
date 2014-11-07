@@ -117,9 +117,7 @@ public class SessionValidationServiceImpl extends
 			for (SessionValidationStagiaire svs : session.getSessionValidationStagiaires()) {
 				svs.getInstanceSessionValidation().getReservationSalle().getSalle();
 			}
-			
 			return session;
-//			return dao.getInstance(id);
 		} catch (Exception e) {
 			throw new ApplicationException("Impossible de récupérer les instances de session de validation.");
 		}
