@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.configuration.ModeleMetier;
 import net.eni.gestion.pedagogie.commun.modele.generique.AModele;
 
+import com.github.reinert.jjschema.Attributes;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -40,10 +41,11 @@ public class Salle extends AModele<Integer> implements Serializable {
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
 		dataType = DataType.INTEGER_OBJ,
-		id = true,
+		generatedId = true,
 		useGetSet = true)
 	private Integer id = null;
 	
+	@Attributes(title = "Libellé", required = true, maxLength = 100)
 	@DatabaseField(
 		columnName = LIBELLE_FIELD_NAME,
 		dataType = DataType.STRING,
@@ -51,6 +53,7 @@ public class Salle extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private String libelle = null;
 	
+	@Attributes(title = "Nombre de places", required = true)
 	@DatabaseField(
 		columnName = NBPLACE_FIELD_NAME,
 		dataType = DataType.INTEGER_OBJ,
@@ -58,20 +61,13 @@ public class Salle extends AModele<Integer> implements Serializable {
 		canBeNull = false)
 	private Integer nbPlaces = null;
 	
+	@Attributes(title = "Lieu", required = true, maxLength = 250)
 	@DatabaseField(
 		columnName = LIEU_FIELD_NAME,
 		dataType = DataType.STRING,
 		useGetSet = true,
 		canBeNull = false)
 	private String lieu = null;
-	
-	/*
-	@JsonManagedReference("reservation-salle")
-	@ForeignCollectionField(eager = true, columnName = ReservationSalle.SALLE_FIELD_NAME)
-	private transient Collection<ReservationSalle> transientReservationSalles = null;
-
-	private ArrayList<ReservationSalle> reservationSalles = new ArrayList<ReservationSalle>();
-	*/
 	
 	@Override
 	public Integer getId() {
@@ -90,17 +86,6 @@ public class Salle extends AModele<Integer> implements Serializable {
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
 	}
-
-	/*
-	public ArrayList<ReservationSalle> getReservationSalles() {
-		if (null != transientReservationSalles) {
-			reservationSalles.clear();
-			reservationSalles.addAll(transientReservationSalles);
-			transientReservationSalles = null;
-		}
-		return reservationSalles;
-	}
-	*/
 
 	public Integer getNbPlaces() {
 		return nbPlaces;

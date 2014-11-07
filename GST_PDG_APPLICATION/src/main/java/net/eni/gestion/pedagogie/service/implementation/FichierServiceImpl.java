@@ -167,6 +167,9 @@ public class FichierServiceImpl implements FichierService {
 		StringBuilder lStrBuilder = new StringBuilder();
 		lStrBuilder.append(propertyFileLoader.getValue("directory.location"));
 		switch (entite_type) {
+		case "Salle":
+			lStrBuilder.append(propertyFileLoader.getValue("directory.salle.location"));
+			break;
 		case "Stagiaire":
 			lStrBuilder.append(propertyFileLoader.getValue("directory.stagiaire.location"));
 			break;

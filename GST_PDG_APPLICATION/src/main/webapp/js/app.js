@@ -116,6 +116,11 @@ var ng_gst_pdg = angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid',
 			templateUrl: 'partials/salle/formulaireReservationSalle.html',
 			controller: 'formulaireReservationSalleCtrl'
 		}).
+		state('refsalles', {
+			url: '/salles',
+			templateUrl: 'partials/templates/list.html',
+			controller: 'sallesCtrl'
+		}).
 		//PROFFESSIONNELS HOMOLOGUES *****************************************
 		state('professionnelHomologues', {
 			url: '/professionnelHomologues',
@@ -173,12 +178,12 @@ var ng_gst_pdg = angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid',
 		// SAISIE DES AVIS ***********************************************
 		state('instanceCours', {
 			url: '/instanceCours',
-			templateUrl: 'partials/templates/list.html',
+			templateUrl: 'partials/avis/instanceCours.html',
 			controller: 'instanceCoursCtrl'
 		}).
 		state('avis', {
 			url: '/avis',
-			templateUrl: 'partials/avis.html',
+			templateUrl: 'partials/avis/avis.html',
 			controller: 'avisCtrl'
 		});
 	
