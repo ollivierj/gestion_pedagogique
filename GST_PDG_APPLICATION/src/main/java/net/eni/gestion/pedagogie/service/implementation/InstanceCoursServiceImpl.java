@@ -1,8 +1,11 @@
 package net.eni.gestion.pedagogie.service.implementation;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import net.eni.gestion.pedagogie.DAO.InstanceCoursDao;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
+import net.eni.gestion.pedagogie.commun.modele.Cours;
 import net.eni.gestion.pedagogie.commun.modele.InstanceCours;
 import net.eni.gestion.pedagogie.service.InstanceCoursService;
 
@@ -25,5 +28,17 @@ public class InstanceCoursServiceImpl extends AServiceImpl<InstanceCours, Intege
     public InstanceCoursServiceImpl(InstanceCoursDao pInstanceCoursDao) throws SQLException {
         super(pInstanceCoursDao);
     }
+    
+    @Override
+	public List<InstanceCours> getInstancesByCours(Cours cours) throws ApplicationException {
+		
+		List<InstanceCours> instances = null;
+		try {
+			instances = dao.getInstancesByCours(cours);
+		} catch (Exception e) {
+			throw new ApplicationException("Erreur lors de la récupération des instances de cours.");
+		}
+		return instances;
+	}
     
 }

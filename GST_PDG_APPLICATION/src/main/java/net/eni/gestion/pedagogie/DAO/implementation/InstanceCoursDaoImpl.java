@@ -2,11 +2,13 @@ package net.eni.gestion.pedagogie.DAO.implementation;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import net.eni.gestion.pedagogie.DAO.InstanceCoursDao;
 import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.pagination.Pager;
 import net.eni.gestion.pedagogie.commun.composant.tuple.Pair;
+import net.eni.gestion.pedagogie.commun.modele.Cours;
 import net.eni.gestion.pedagogie.commun.modele.InstanceCours;
 import net.eni.gestion.pedagogie.commun.outil.ORMLiteHelper;
 
@@ -67,5 +69,20 @@ public class InstanceCoursDaoImpl extends ADaoImpl<InstanceCours, Integer> imple
 			throw new Exception("Echec de chargement de la liste d'enregistrements depuis la base de données");
 		}
 	}
+
+	@Override
+	public List<InstanceCours> getInstancesByCours(Cours cours)
+			throws Exception {
+		List<InstanceCours> instances = null;
+		
+		try {
+			instances = this.queryBuilder().where().eq(InstanceCours.COURS_FIELD_NAME, cours.getId()).query();
+		} catch (SQLException e) {
+			throw new Exception("Impossible de récupérer les instances de cours");
+		}
+		
+		return instances;
+	}
+	
 
 }

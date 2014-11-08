@@ -61,6 +61,12 @@ services.factory('EvaluationsFactory', function ($resource, $rootScope) {
 		}),
 		delete :  $resource('/ng_gst_pdg/web/evaluations/suppression/:id', {}, {
 			doAction : { method: 'DELETE', params: {id: '@id'} }
+		}),
+		instance :  $resource('/ng_gst_pdg/web/evaluations/instance', {}, {
+			saveData : { method : 'POST' }
+		}),
+		instanceRefs : $resource('/ng_gst_pdg/web/instanceEvaluation', {}, {
+			getAll : { method : 'POST', isArray: true }
 		})
 	}
 });

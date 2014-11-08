@@ -28,7 +28,8 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
 				id: res.id, 
 				type: res.type, 
 				entityId: res.elementId,
-				title: res.libelle + ' - ' + (res.salles != null ? res.salles : 'Aucune salle'), 
+				title: res.libelle + ' - ' + (res.salles != null ? res.salles : 'Aucune salle'),
+				libelle: res.libelle,
 				start: new Date(res.debut),
 				end: new Date(res.fin)
 			});
@@ -65,14 +66,8 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
         size : 'lg',
         modalFade: true,
         resolve: {
-            eventInfo: function () {
-              return event;
-            },
             salles: function (SalleFactory) {
                 return SalleFactory.referenceSalle.query().$promise;
-            },
-            sallesReservees : function (SallesReserveesFactory) {
-                return SallesReserveesFactory.query().$promise;
             }
         }
     };
@@ -87,28 +82,52 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
         	case CONSTANTS.PLANNING_ELEMENTS.SESSION: 
 						modalEditionInstance.templateUrl = 'partials/salle/instance/sessionsValidation.html';
 						modalEditionInstance.controller = 'formSessionSalleCtrl';
+						//Données liées à la session de validation, stagiaire inscrit et non inscrit
 						modalEditionInstance.resolve.data = function (SessionValidationsFactory) {
 							return SessionValidationsFactory.detail.getData({id:event.entityId}).$promise;
 						};
+						//Toutes les instances liées à cette session de validation
 						modalEditionInstance.resolve.instanceRef = function (SessionValidationsFactory) {
 							return SessionValidationsFactory.instanceRefs.getAll({id:event.entityId}).$promise;
 						};
+						//Les infos de la session de validation
+						modalEditionInstance.resolve.eventInfo = function () {
+							return event;
+			            };
 						break;
         						
         	case CONSTANTS.PLANNING_ELEMENTS.EVALUATION: 
 						modalEditionInstance.templateUrl = 'partials/salle/instance/evaluations.html';
 						modalEditionInstance.controller = 'formEvaluationSalleCtrl';
+						//Données liées à l'évaluation, stagiaire inscrit et non inscrit
 						modalEditionInstance.resolve.data = function (EvaluationsFactory) {
 							return EvaluationsFactory.detail.getData({id:event.entityId}).$promise;
 						};
+						//Toutes les instances liées à cette évaluation
+						modalEditionInstance.resolve.instanceRef = function (EvaluationsFactory) {
+							return EvaluationsFactory.instanceRefs.getAll({id:event.entityId}).$promise;
+						};
+						//Les infos de l'évaluation
+						modalEditionInstance.resolve.eventInfo = function () {
+							return event;
+			            };
 						break;
 								
         	case CONSTANTS.PLANNING_ELEMENTS.COURS: 
 						modalEditionInstance.templateUrl = 'partials/salle/instance/cours.html';
 						modalEditionInstance.controller = 'formCoursSalleCtrl';
+						//Données liées au cours, stagiaire inscrit et non inscrit
 						modalEditionInstance.resolve.data = function (CoursFactory) {
 							return CoursFactory.detail.getData({id:event.entityId}).$promise;
 						};
+						//Toutes les instances liées à ce cours
+						modalEditionInstance.resolve.instanceRef = function (CoursFactory) {
+							return CoursFactory.instanceRefs.getAll({idString:event.entityId}).$promise;
+						};
+						//Les infos du cours
+						modalEditionInstance.resolve.eventInfo = function () {
+							return event;
+			            };
 						break;
         }
         

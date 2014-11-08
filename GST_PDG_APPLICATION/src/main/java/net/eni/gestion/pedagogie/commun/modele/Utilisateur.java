@@ -166,10 +166,10 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 	private Date dateExpiration = null;
 	
 	@DatabaseField(
-		columnName = DATE_EXPIRATION_FIELD_NAME,
+		columnName = IS_FORMATEUR_FIELD_NAME,
 		dataType = DataType.BOOLEAN_OBJ,
 		useGetSet = true,
-		canBeNull = true)
+		canBeNull = false)
 	private Boolean isFormateur = null;
 	
 	@Override

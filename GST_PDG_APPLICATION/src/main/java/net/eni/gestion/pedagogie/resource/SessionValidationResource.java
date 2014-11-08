@@ -12,8 +12,6 @@ import net.eni.gestion.pedagogie.commun.modele.SessionValidationStagiaire;
  */
 public interface SessionValidationResource extends AResource<SessionValidation, Integer> {
 	
-	public SessionValidation getInstance(Integer id) throws ApplicationException;
-	
 	/**
 	 * Enregistrement des instances des session de validation
 	 * @param instances

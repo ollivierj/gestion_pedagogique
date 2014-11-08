@@ -57,7 +57,8 @@ public class InstanceCours extends AModele<Integer> implements Serializable {
 		columnName = RESERVATION_SALLE_FIELD_NAME,
 		foreign = true,
 		useGetSet = true,
-		canBeNull = false)
+		canBeNull = false,
+		foreignAutoRefresh = true)
 	private ReservationSalle reservationSalle = null;
 
 	@DatabaseField(

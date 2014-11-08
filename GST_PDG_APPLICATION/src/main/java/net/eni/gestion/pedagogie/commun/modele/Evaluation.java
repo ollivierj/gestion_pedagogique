@@ -110,11 +110,11 @@ public class Evaluation extends AModele<Integer> implements Serializable {
 	
 	@SchemaIgnore
 	@JsonIgnore
+	@JsonManagedReference("EvaluationStagiaire-Evaluation")
 	@ForeignCollectionField(eager = true, columnName = EvaluationStagiaire.STAGIAIRE_FIELD_NAME)
 	private transient Collection<EvaluationStagiaire> transientEvaluationStagiaires = null;
 	
 	@SchemaIgnore
-	@JsonManagedReference("EvaluationStagiaire-Evaluation")
 	public Collection<EvaluationStagiaire> getTransientEvaluationStagiaire() {
 		return transientEvaluationStagiaires;
 	}

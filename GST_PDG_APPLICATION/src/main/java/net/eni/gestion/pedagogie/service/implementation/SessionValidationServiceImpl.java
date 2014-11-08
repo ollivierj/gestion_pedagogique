@@ -108,22 +108,6 @@ public class SessionValidationServiceImpl extends
 					"Echec lors de la mise à jour en base de données.");
 		}
 	}
-	
-	@Override
-	public SessionValidation getInstanceData(Integer id) throws ApplicationException {
-		try {
-			SessionValidation session = dao.chargerDetail(id);
-			session.getSessionValidationStagiaires();
-			for (SessionValidationStagiaire svs : session.getSessionValidationStagiaires()) {
-				svs.getInstanceSessionValidation().getReservationSalle().getSalle();
-			}
-			
-			return session;
-//			return dao.getInstance(id);
-		} catch (Exception e) {
-			throw new ApplicationException("Impossible de récupérer les instances de session de validation.");
-		}
-	}
 
 	@Override
 	public SessionValidation saveInstanceData(InstancePlanning<InstanceSessionValidation, SessionValidationStagiaire> instances)
@@ -142,7 +126,7 @@ public class SessionValidationServiceImpl extends
 			try {
 				instanceSessionValidation = instanceSessionValidationDao.addOrUpdate(instance.getFirst());
 			} catch (Exception e) {
-				throw new ApplicationException("Erreur lors de l'enregistrement de la réservation de salle");
+				throw new ApplicationException("Erreur lors de l'enregistrement des instances de session de validation");
 			}
 			
 			for (SessionValidationStagiaire instanceStagiaire : instance.getSecond()) {
@@ -150,10 +134,18 @@ public class SessionValidationServiceImpl extends
 				try {
 					sessionValidationStagiaireDao.addOrUpdate(instanceStagiaire);
 				} catch (Exception e) {
-					throw new ApplicationException("Erreur lors de l'enregistrement de des instances stagiaires");
+					throw new ApplicationException("Erreur lors de l'enregistrement des instances stagiaires");
 				}
 			}
 			
+		}
+		
+		for (SessionValidationStagiaire sessionValidationStagiaire : instances.getInstancesStagiaires()) {
+			try {
+				sessionValidationStagiaireDao.addOrUpdate(sessionValidationStagiaire);
+			} catch (Exception e) {
+				throw new ApplicationException("Erreur lors de l'enregistrement des stagiaires sans instance");
+			}
 		}
 		
 		return null;

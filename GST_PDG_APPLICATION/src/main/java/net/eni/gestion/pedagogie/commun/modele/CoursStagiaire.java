@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.configuration.ModeleMetier;
 import net.eni.gestion.pedagogie.commun.modele.generique.AModele;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -44,6 +45,7 @@ public class CoursStagiaire extends AModele<Integer> implements Serializable {
 		useGetSet = true)
 	private Integer id = null;
 	
+	@JsonBackReference("CoursStagiaire-Cours")
 	@DatabaseField(
 		columnName = COURS_FIELD_NAME,
 		foreign = true,
@@ -55,8 +57,9 @@ public class CoursStagiaire extends AModele<Integer> implements Serializable {
 		columnName = STAGIAIRE_FIELD_NAME,
 		foreign = true,
 		useGetSet = true,
-		canBeNull = false)
-	private Stagiaire stagiaire = null;
+		canBeNull = false,
+		foreignAutoRefresh = true)
+	private StagiairePromotion stagiaire = null;
 
 	@DatabaseField(
 			columnName = INSTANCE_COURS_FIELD_NAME,
@@ -83,11 +86,11 @@ public class CoursStagiaire extends AModele<Integer> implements Serializable {
 		this.cours = cours;
 	}
 
-	public Stagiaire getStagiaire() {
+	public StagiairePromotion getStagiaire() {
 		return stagiaire;
 	}
 
-	public void setStagiaire(Stagiaire stagiaire) {
+	public void setStagiaire(StagiairePromotion stagiaire) {
 		this.stagiaire = stagiaire;
 	}
 

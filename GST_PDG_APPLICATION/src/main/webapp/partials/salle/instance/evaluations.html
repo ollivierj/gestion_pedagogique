@@ -90,11 +90,11 @@
 									</div>
 								</div>
 								
-								<!-- Sélection des professionnels homologues -->
+								<!-- Sélection d'un formateur -->
 								<div class="top-buffer">
 									<div class="row">
 										<div class="col-xs-4">
-											<label for="jurySelect">Jury</label> 
+											<label>Formateur</label> 
 											<span class="label label-danger" ng-show="submitted && helpForm.activitesPlanifiees.$error.required">
 												Required!
 											</span>
@@ -102,27 +102,27 @@
 										<div class="col-xs-6">
 										<div class="has-feedback">
 											<input
-												type="text" ng-model="newProfessionnelH" class="form-control"
+												type="text" ng-model="newFormateur" class="form-control"
 												placeholder="Recherche"
-												typeahead="item as (item.nom + ' ' + item.prenom) for item in chargerProfessionnels($viewValue)"
+												typeahead="item as (item.nom + ' ' + item.prenom) for item in chargerFormateurs($viewValue)"
 												typeahead-loading="chargementItem" class="form-control">
 											<span ng-show="chargementItem" class="glyphicon glyphicon-refresh form-control-feedback"></span>
 										</div>
 										</div>
 										
 										<div class="col-xs-2"> 
-											<button class="btn btn-primary btn-sm" data-nodrag ng-click="addProfessionnel(instance, newProfessionnelH)">
+											<button class="btn btn-primary btn-sm" data-nodrag ng-click="addFormateur(instance, newFormateur)">
 												<i class="glyphicon glyphicon-plus"></i>
 											</button>
 										</div>
 									</div>
-									<!-- Professionnel homologue ajoute -->
-									<div class="row top-buffer" ng-repeat="p in instance.jures">
+									<!-- Surveillant ajoute -->
+									<div class="row top-buffer">
 										<div class="col-xs-offset-4 col-xs-6">
-											<label>{{p.nom + ' ' + p.prenom}}</label> 
+											<label>{{instance.surveillant.nom + ' ' + instance.surveillant.prenom}}</label> 
 										</div>
 										<div class="col-xs-2"> 
-											<button class="btn btn-danger btn-sm" data-nodrag ng-click="removeProfessionnel($index, instance, newProfessionnelH)">
+											<button class="btn btn-danger btn-sm" data-nodrag ng-click="removeFormateur($index, instance, newFormateur)">
 												<i class="fa fa-minus"></i>
 											</button>
 										</div>
@@ -157,60 +157,8 @@
 									<i class="glyphicon glyphicon-remove"></i>
 								</button>
 									
-								<button class="btn btn-primary btn-xs pull-right" data-nodrag
-									ng-click="stagiaire.editing = true" ng-hide="stagiaire.editing">
-									<i class="glyphicon glyphicon-pencil"></i>
-								</button>
-									
-								<button class="btn btn-success btn-xs pull-right" data-nodrag
-									ng-click="stagiaire.editing = false" ng-show="stagiaire.editing">
-									<i class="fa fa-check"></i>
-								</button>
-									
 								<div>&nbsp;{{stagiaire.stagiaire.nom}}&nbsp;{{stagiaire.stagiaire.prenom}}</div>
 							</div>
-														
-							<!-- Mode edition stagiaire -->
-							<div class="angular-ui-tree-handle" data-nodrag ng-show="stagiaire.editing">
-								<form class="form" role="form">
-									<div class="form-group">
-										
-										<!-- Choix heure de debut -->
-										<div class="row">
-											<div class="col-xs-4">
-												<label for="startTime">D&eacute;but</label>
-												<span class="label label-danger"
-													data-ng-show="submitted && helpForm.sallesPlanifiees.$error.required">
-													Required!
-												</span>
-											</div>
-											<div class="col-xs-6">
-												<input type="text" ng-class="form-control" ng-model="stagiaire.dateHeureDebut" 
-													data-time-format="HH:mm" name="endTime" bs-timepicker>
-											</div>
-										</div><!-- row -->
-										
-										<!-- Choix date de fin -->
-										<div class="top-buffer">
-											<div class="row">
-												<div class="col-xs-4">
-													<label for="endTime">Fin</label> 
-													<span class="label label-danger"
-														data-ng-show="submitted && helpForm.sallesPlanifiees.$error.required">
-														Required!
-													</span>
-												</div>
-												<div class="col-xs-6"> 
-													<input type="text" ng-class="form-control" ng-model="stagiaire.dateHeureFin" 
-														data-time-format="HH:mm" name="endTime" bs-timepicker>
-												</div>
-											</div>
-										</div><!-- top-buffer -->
-										
-									</div><!-- from-group -->
-		
-								</form>
-							</div><!-- fin Mode edition stagiaire -->
 							
 						</li>
 					</ol>

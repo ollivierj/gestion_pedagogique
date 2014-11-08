@@ -13,13 +13,11 @@ import net.eni.gestion.pedagogie.commun.modele.SessionValidationStagiaire;
 public interface SessionValidationService extends AService<SessionValidation, Integer> {
 
 	/**
-	 * Récupère les données nécessaire aux planifications des sessions de validation 
-	 * @param id
-	 * @return Retourne les données sous forme de map
-	 * @throws GenericException
+	 * Enregistre toutes les données liés aux instances (Réservation salles, nouvelles instances, stagiaires)
+	 * @param instances
+	 * @return
+	 * @throws ApplicationException
 	 */
-	public SessionValidation getInstanceData(Integer id) throws ApplicationException;
-	
 	public SessionValidation saveInstanceData(InstancePlanning<InstanceSessionValidation, SessionValidationStagiaire> instances) throws ApplicationException;
 
 }

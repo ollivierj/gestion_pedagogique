@@ -8,6 +8,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import net.eni.gestion.pedagogie.commun.composant.authentification.annotation.CheckSession;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.InstanceSessionValidation;
 import net.eni.gestion.pedagogie.commun.modele.SessionValidation;
@@ -36,6 +37,7 @@ public class InstanceSessionValidationResourceImpl extends AResourceImpl<Instanc
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
+	@CheckSession
 	public List<InstanceSessionValidation> getInstances(
 			SessionValidation sessionValidation) throws ApplicationException {
 		return service.getInstancesBySession(sessionValidation);

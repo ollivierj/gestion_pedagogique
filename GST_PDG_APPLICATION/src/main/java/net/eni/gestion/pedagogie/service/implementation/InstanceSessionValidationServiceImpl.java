@@ -37,7 +37,7 @@ public class InstanceSessionValidationServiceImpl extends AServiceImpl<InstanceS
 		try {
 			instances = dao.getInstancesBySession(sessionValidation);
 		} catch (Exception e) {
-			throw new ApplicationException("Erreur lors de la récupération des instance de session de validation.");
+			throw new ApplicationException("Erreur lors de la récupération des instances de session de validation.");
 		}
 		return instances;
 	}

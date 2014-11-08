@@ -13,9 +13,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import net.eni.gestion.pedagogie.commun.configuration.ModeleMetier;
 import net.eni.gestion.pedagogie.commun.modele.generique.AModele;
+import net.eni.gestion.pedagogie.commun.outil.DateHelper;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.github.reinert.jjschema.Attributes;
+import com.github.reinert.jjschema.SchemaIgnore;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -53,12 +57,15 @@ public class Cours extends AModele<UUID> implements Serializable {
 	public final static String CODE_SALLE_FIELD_NAME 				= "CodeSalle";
 	public final static String CODE_FORMATEUR_FIELD_NAME 			= "CodeFormateur";
 	
+	@JsonIgnore
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
 		dataType = DataType.UUID,
 		id = true,
 		useGetSet = true)
 	private UUID id = null;
+	
+	private String idString = null;
 	
 	@DatabaseField(
 		columnName = DEBUT_FIELD_NAME,
@@ -67,12 +74,16 @@ public class Cours extends AModele<UUID> implements Serializable {
 		canBeNull = false)
 	private Date debut = null;
 
+	private String formatedDebut = null;
+	
 	@DatabaseField(
 		columnName = FIN_FIELD_NAME,
 		dataType = DataType.DATE,
 		useGetSet = true,
 		canBeNull = false)
 	private Date fin = null;
+	
+	private String formatedFin = null;
 
 	@DatabaseField(
 		columnName = DUREE_REELLE_EN_HEURES_FIELD_NAME,
@@ -129,6 +140,43 @@ public class Cours extends AModele<UUID> implements Serializable {
 
 	@JsonIgnore
 	private ArrayList<InstanceCours> instanceCours = new ArrayList<InstanceCours>();
+	
+	@SchemaIgnore
+	@JsonIgnore
+	@JsonManagedReference("CoursStagiaire-Cours")
+	@ForeignCollectionField(eager = true, columnName = CoursStagiaire.STAGIAIRE_FIELD_NAME)
+	private transient Collection<CoursStagiaire> transientCoursStagiaires = null;
+	
+	@SchemaIgnore
+	public Collection<CoursStagiaire> getTransientCoursStagiaire() {
+		return transientCoursStagiaires;
+	}
+
+	@JsonIgnore
+	@SchemaIgnore
+	public void setTransientCoursStagiaire(
+			Collection<CoursStagiaire> transientCoursStagiaires) {
+		this.transientCoursStagiaires = transientCoursStagiaires;
+	}
+
+	@SchemaIgnore
+	@Attributes(id = "coursStagiaires")
+	private ArrayList<CoursStagiaire> coursStagiaires= new ArrayList<CoursStagiaire>();
+	
+	@SchemaIgnore
+	public ArrayList<CoursStagiaire> getCoursStagiaires() {
+		if (null != transientCoursStagiaires) {
+			coursStagiaires.clear();
+			coursStagiaires.addAll(transientCoursStagiaires);
+			transientCoursStagiaires = null;
+		}
+		return coursStagiaires;
+	}
+
+	@SchemaIgnore
+	public void setCoursStagiaires(ArrayList<CoursStagiaire> coursStagiaires) {
+		this.coursStagiaires = coursStagiaires;
+	}
 
 	@Override
 	public UUID getId() {
@@ -137,7 +185,17 @@ public class Cours extends AModele<UUID> implements Serializable {
 	
 	@Override
 	public void setId(UUID pId) {
+		idString = pId.toString();
 		id = pId;
+	}
+	
+	public String getIdString() {
+		return idString;
+	}
+
+	public void setIdString(String idString) {
+		id = UUID.fromString(idString);
+		this.idString = idString;
 	}
 
 	public Date getDebut() {
@@ -145,7 +203,17 @@ public class Cours extends AModele<UUID> implements Serializable {
 	}
 	
 	public void setDebut(Date debut) {
+		this.formatedDebut = DateHelper.stringifyDate(debut, "yyyy-MM-dd'T'HH:mm:ss");
 		this.debut = debut;
+	}
+	
+	public String getFormatedDebut() {
+		return formatedDebut;
+	}
+
+	public void setFormatedDebut(String formatedDebut) {
+		this.debut = DateHelper.datifyString(formatedDebut, "yyyy-MM-dd'T'HH:mm:ss");
+		this.formatedDebut = formatedDebut;
 	}
 
 	public Date getFin() {
@@ -153,7 +221,17 @@ public class Cours extends AModele<UUID> implements Serializable {
 	}
 
 	public void setFin(Date fin) {
+		this.formatedFin = DateHelper.stringifyDate(fin, "yyyy-MM-dd'T'HH:mm:ss");
 		this.fin = fin;
+	}
+	
+	public String getFormatedFin() {
+		return formatedFin;
+	}
+
+	public void setFormatedFin(String formatedFin) {
+		this.fin = DateHelper.datifyString(formatedFin, "yyyy-MM-dd'T'HH:mm:ss");
+		this.formatedFin = formatedFin;
 	}
 
 	public Short getDureeReelleEnHeures() {

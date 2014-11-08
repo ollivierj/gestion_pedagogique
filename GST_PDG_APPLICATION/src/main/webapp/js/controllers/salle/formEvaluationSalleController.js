@@ -1,8 +1,6 @@
-var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope, $http,
-		eventInfo, salles, sallesReservees, getByIdFilter, data, UtilisateursFactory, 
-		SessionValidationsFactory, instanceRef) {
-		
-	console.log(data);
+var formEvaluationSalleCtrl = function($scope, $modalInstance, $filter, $rootScope, $http,
+		eventInfo, salles, getByIdFilter, data, UtilisateursFactory, 
+		EvaluationsFactory, instanceRef) {
 	
 	$scope.formateursSelecteds = [];
 	
@@ -16,11 +14,11 @@ var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope,
 	
 	//Formattage du titre
 	var dateDebut = $filter('date')(
-			new Date(data.formatedDateDebut.replace("T", " ")),
+			new Date(data.formatedDateHeureDebutPassage.replace("T", " ")),
 			'dd/MM/yyyy'
 			);
 	var dateFin = $filter('date')(
-			new Date(data.formatedDateFin.replace("T", " ")),
+			new Date(data.formatedDateHeureFinPassage.replace("T", " ")),
 			'dd/MM/yyyy'
 			);
 	$scope.title = 'Evaluation du ' + dateDebut + ' au ' + dateFin + ' : ' + eventInfo.libelle;
@@ -28,22 +26,20 @@ var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope,
 	//Chargement du référentiel de salles disponibles
 	//TODO limitez sur les salles dispo ce jour
 	$scope.referentielSalles = salles;
-	$scope.salles = sallesReservees;
-	//$scope.professionnelHomologues = [];
 	
 	if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken) {
 		$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
 	}
 	
-	// On stocke toutes les instances lié à cette session de validation
+	// On stocke toutes les instances lié à cette évaluation
 	$scope.instances = _.transform(instanceRef, function(result, num) {
-		//On ajoute l'atribut d'edition et collapse utilisé par l'IHM à chaque instance.
+		//On ajoute l'attribut d'edition et collapse utilisé par l'IHM à chaque instance.
 		_.assign(num, {editing: false, collapsed: false, stagiaires: [], type: TYPE_INSTANCE});
 		result.push(num);
 	});
 	
 	//Créé une map avec le libelle de la formation
-	$scope.promotions = _.transform(data.sessionValidationStagiaires, function(result, num) {
+	$scope.promotions = _.transform(data.evaluationStagiaires, function(result, num) {
 		
 		// Si la promotion n'est pas présente dans la liste, on l'ajoute
 		if (!_.find(result, {name: num.stagiaire.promotion.libelle})) {
@@ -51,24 +47,22 @@ var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope,
 		};
 		
 		//Si le stagiaire n'est pas associé à une instance
-		if (_.isNull(num.instanceSessionValidation)) {
+		if (_.isNull(num.instanceEvaluation)) {
 			
 			//Assignation de l'id de la session et du type (utilisé pour l'IHM)
-			_.assign(num, {type: TYPE_STAGIAIRE, sessionValidation: {id: data.id}});
+			_.assign(num, {type: TYPE_STAGIAIRE, evaluation: {id: data.id}});
 			_.find(result, {name : num.stagiaire.promotion.libelle}).stagiaires.push(num);
 			
 		//Si le stagiaire est associé à une instance
 		} else {
 			//On stocke chacune des instances
-			_.find($scope.instances, {id : num.instanceSessionValidation.id}).stagiaires.push({id: num.id, 
-																								instanceSessionValidation: {id: num.instanceSessionValidation.id},
-																								sessionValidation: {id: data.id},
-																								stagiaire: num.stagiaire,
-																								type: TYPE_STAGIAIRE});
+			_.find($scope.instances, {id : num.instanceEvaluation.id}).stagiaires.push({id: num.id, 
+																						instanceEvaluation: {id: num.instanceEvaluation.id},
+																						evaluation: {id: data.id},
+																						stagiaire: num.stagiaire,
+																						type: TYPE_STAGIAIRE});
 		}	
 	});
-	
-	console.log($scope.instances);
 	
 	// Autocomplétion utilisée pour l'affectation des formateurs
 	$scope.chargerFormateurs = function(search) {
@@ -87,16 +81,15 @@ var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope,
     
 	/*************************** FORMATEURS **********************************************/
 	// Ajoute un formateur l'édition d'une salle
-	$scope.addFormateur = function (instance, newProfessionnelH) {
-		instance.jures.unshift(newProfessionnelH);
-		$scope.formateursSelecteds.push(newProfessionnelH);
+	$scope.addFormateur = function (instance, newFormateur) {
+		instance.surveillant = newFormateur;
+		$scope.formateursSelecteds.push(newFormateur);
 	}
 	
 	// Supression d'un formateur d'un instance
-	$scope.removeFormateur = function (pIndex, instance, professionnelH) {
-		console.log(professionnelH);
-		_.remove($scope.formateursSelecteds, {id : professionnelH.id});
-		_.remove(instance.jures, {id : professionnelH.id});
+	$scope.removeFormateur = function (pIndex, instance, formateur) {
+		_.remove($scope.formateursSelecteds, {id : formateur.id});
+		instance.surveillant = null;
 	};
 	
 	/*************************** SALLE **********************************************/
@@ -139,25 +132,6 @@ var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope,
 			return ((dataSource.type == destType) 
 					|| (dataSource.type == TYPE_PROMOTION && destType == TYPE_STAGIAIRE));
 		},
-		//Appelé lorsque le déplacement est effectué
-		dropped : function(event) {
-			/*
-			//Noeud qui est déplacé
-			var sourceNode = event.source.nodeScope;
-			//Noeud de destination
-			var destNode = event.dest.nodesScope;
-			
-			// update changes to server
-			if (destNode.isParent(sourceNode)
-					&& destNode.$element.attr('data-type') == 'stagiaire') {
-				var promotion = destNode.$nodeScope.$modelValue;
-				// promotion.save();				
-			} else { // save all
-				//$scope.savePromotions();
-			}
-			event.dest.nodesScope.$modelValue;*/
-
-		},
 		//Appelé avant le déplacement
 		beforeDrop : function(event) {	
 			
@@ -170,12 +144,16 @@ var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope,
 			}
 			
 		},
-		
 		dragStop : function (event) {
 			var destNode = event.dest.nodesScope;
 			if (destNode.$parent.$modelValue && destNode.$parent.$modelValue.type == TYPE_INSTANCE) {
 				angular.forEach(destNode.$modelValue, function(stagiaire) {
-					stagiaire.instanceSessionValidation = {id:destNode.$parent.$modelValue.id};
+					stagiaire.instanceEvaluation = {id:destNode.$parent.$modelValue.id};
+				});
+			}
+			if (destNode.$parent.$modelValue && destNode.$parent.$modelValue.type == TYPE_PROMOTION) {
+				angular.forEach(destNode.$modelValue, function(stagiaire) {
+					stagiaire.instanceEvaluation = null;
 				});
 			}
 		}
@@ -193,12 +171,12 @@ var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope,
 		    type: TYPE_INSTANCE,
 		    id: INSTANCE_TEMP,
 		    editing: true,
-		    collapsed : true,
-		    jures : [],
+		    collapsed : false,
+		    surveillant : null,
 		    stagiaires: [],
 		    reservationSalle : {
-		    	formatedDateDebut: data.formatedDateDebut,
-		    	formatedDateFin: data.formatedDateFin,
+		    	formatedDateDebut: data.formatedDateHeureDebutPassage,
+		    	formatedDateFin: data.formatedDateHeureFinPassage,
 		    	id:0
 		    }
 		  });
@@ -217,19 +195,18 @@ var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope,
 
 	// Suppression d'une instance
 	$scope.removeInstance = function(instance, iIndex) {
-		/*if (window.confirm('Etes-sûr de vouloir annuler la réservation de cette salle ?')) {
-			salle.destroy();
-		}*/
-		
-		angular.forEach(instance.stagiaires, function(stagiaire, key) {
-			var selectedPromotion = $filter('filter')($scope.promotions, {
-				name : stagiaire.stagiaire.promotion.libelle
-			})[0];
+		if (window.confirm('Etes-sûr de vouloir annuler la réservation de cette salle ?')) {
 			
-			selectedPromotion.stagiaires.push(stagiaire);
-		});
-		
-		_.remove($scope.instances, {$$hashKey: instance.$$hashKey});
+			angular.forEach(instance.stagiaires, function(stagiaire, key) {
+				var selectedPromotion = $filter('filter')($scope.promotions, {
+					name : stagiaire.stagiaire.promotion.libelle
+				})[0];
+				
+				selectedPromotion.stagiaires.push(stagiaire);
+			});
+			
+			_.remove($scope.instances, {$$hashKey: instance.$$hashKey});
+		}
 	};
 
 	$scope.saveInstance = function(instance) {
@@ -241,7 +218,7 @@ var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope,
 	// Le stagiaire retourne dans sa promotion */
 	$scope.removeStagiaireFromInstance = function(instance, stagiaire) {
 		//On supprime le stagiaire de l'instance
-		stagiaire.instanceSessionValidation = null;
+		stagiaire.instanceEvaluation = null;
 		var index = instance.stagiaires.indexOf(stagiaire);
 		if (index > -1) {
 			instance.stagiaires.splice(index, 1)[0];
@@ -264,7 +241,7 @@ var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope,
 			if (num.id == INSTANCE_TEMP) 
 				num.id = 0
 				
-			var instance = {id : num.id, jures: num.jures, reservationSalle: num.reservationSalle, sessionValidation : {id:data.id}};
+			var instance = {id : num.id, surveillant: num.surveillant, reservationSalle: num.reservationSalle, evaluation : {id:data.id}};
 			result.push({first : instance, second: num.stagiaires});
 		});
 		
@@ -273,8 +250,8 @@ var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope,
 		});
 		
 		var dataInstances = {instances : instancesToSaved, instancesStagiaires : stagiairesToSaved};
-	
-		SessionValidationsFactory.instance.saveData(dataInstances);
+		
+		EvaluationsFactory.instance.saveData(dataInstances);
 		$modalInstance.dismiss('cancel');
 	};
 

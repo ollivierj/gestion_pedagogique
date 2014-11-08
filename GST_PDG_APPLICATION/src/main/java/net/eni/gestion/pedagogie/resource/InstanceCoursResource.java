@@ -1,5 +1,9 @@
 package net.eni.gestion.pedagogie.resource;
 
+import java.util.List;
+
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
+import net.eni.gestion.pedagogie.commun.modele.Cours;
 import net.eni.gestion.pedagogie.commun.modele.InstanceCours;
 
 /**
@@ -8,4 +12,6 @@ import net.eni.gestion.pedagogie.commun.modele.InstanceCours;
  */
 public interface InstanceCoursResource extends AResource<InstanceCours, Integer> {
 
+	public List<InstanceCours> getInstances(Cours evaluation) throws ApplicationException;
+	
 }

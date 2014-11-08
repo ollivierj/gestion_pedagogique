@@ -1,5 +1,5 @@
 var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope, $http,
-		eventInfo, salles, sallesReservees, getByIdFilter, data, ProfessionnelHomologuesFactory, 
+		eventInfo, salles, getByIdFilter, data, ProfessionnelHomologuesFactory, 
 		SessionValidationsFactory, instanceRef) {
 		
 	
@@ -27,8 +27,6 @@ var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope,
 	//Chargement du référentiel de salles disponibles
 	//TODO limitez sur les salles dispo ce jour
 	$scope.referentielSalles = salles;
-	$scope.salles = sallesReservees;
-	//$scope.professionnelHomologues = [];
 	
 	if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken) {
 		$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
@@ -36,7 +34,7 @@ var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope,
 	
 	// On stocke toutes les instances lié à cette session de validation
 	$scope.instances = _.transform(instanceRef, function(result, num) {
-		//On ajoute l'atribut d'edition et collapse utilisé par l'IHM à chaque instance.
+		//On ajoute l'attribut d'edition et collapse utilisé par l'IHM à chaque instance.
 		_.assign(num, {editing: false, collapsed: false, stagiaires: [], type: TYPE_INSTANCE});
 		result.push(num);
 	});
@@ -95,7 +93,6 @@ var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope,
 	
 	// Supression d'un professionnel homologue d'un instance
 	$scope.removeProfessionnel = function (pIndex, instance, professionnelH) {
-		console.log(professionnelH);
 		_.remove($scope.phSelecteds, {id : professionnelH.id});
 		_.remove(instance.jures, {id : professionnelH.id});
 	};
@@ -311,11 +308,6 @@ var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope,
 
 	$scope.editStagiaireFromInstance = function () {
 		
-	};
-
-	$scope.reservation = items;
-	$scope.selected = {
-		//item : $scope.reservation
 	};
 	
 	/*************************** FONCTIONS **********************************************/
