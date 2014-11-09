@@ -5,9 +5,12 @@ var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope,
 	
 	$scope.phSelecteds = [];
 	
+	//Instances à supprimer
+	var instancesToDelete = [];
+	
 	/***** CONSTANT *****/
 	// Mot clé pour la création d'une nouvelle absence, utilisé pour un ID temporaire
-	var INSTANCE_TEMP = 'TEMP';
+	var INSTANCE_TEMP = 0;
 	var TYPE_INSTANCE = 'instance';
 	var TYPE_PROMOTION = 'promotion';
 	var TYPE_STAGIAIRE = 'stagiaire';
@@ -220,12 +223,19 @@ var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope,
 		}*/
 		
 		angular.forEach(instance.stagiaires, function(stagiaire, key) {
+			//On supprime le stagiaire de l'instance
+			stagiaire.instanceSessionValidation = null;
+			
 			var selectedPromotion = $filter('filter')($scope.promotions, {
 				name : stagiaire.stagiaire.promotion.libelle
 			})[0];
 			
 			selectedPromotion.stagiaires.push(stagiaire);
 		});
+		
+		//On sauvegarde l'instance supprimée si elle est déjà persistée en base
+		if (instance.id != INSTANCE_TEMP)
+			instancesToDelete.push(instance);
 		
 		_.remove($scope.instances, {$$hashKey: instance.$$hashKey});
 	};
@@ -296,7 +306,7 @@ var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope,
 			result.push.apply(result, num.stagiaires);			
 		});
 		
-		var dataInstances = {instances : instancesToSaved, instancesStagiaires : stagiairesToSaved};
+		var dataInstances = {instances : instancesToSaved, instancesStagiaires : stagiairesToSaved, instancesToDelete : instancesToDelete};
 	
 		SessionValidationsFactory.instance.saveData(dataInstances);
 		$modalInstance.dismiss('cancel');

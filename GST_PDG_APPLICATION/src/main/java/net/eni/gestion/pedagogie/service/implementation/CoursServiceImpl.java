@@ -58,10 +58,12 @@ public class CoursServiceImpl extends AServiceImpl<Cours, UUID, CoursDao> implem
 	public Cours saveInstanceData(InstancePlanning<InstanceCours, CoursStagiaire> instances)
 			throws ApplicationException {
 
+		//Enregistrement des stagiaires liéss aux instances
 		for (Pair<InstanceCours, List<CoursStagiaire>> instance : instances.getInstances()) {
 			ReservationSalle reservationSalle = null;
 			InstanceCours instanceCours = null;
 			try {
+				//Réservation de la salle
 				reservationSalle = reservationSalleDao.addOrUpdate(instance.getFirst().getReservationSalle());
 			} catch (Exception e) {
 				throw new ApplicationException("Erreur lors de l'enregistrement de la réservation de salle");
@@ -69,12 +71,15 @@ public class CoursServiceImpl extends AServiceImpl<Cours, UUID, CoursDao> implem
 			
 			instance.getFirst().setReservationSalle(reservationSalle);
 			try {
+				//Enregistrement de l'instance
 				instanceCours = instanceCoursDao.addOrUpdate(instance.getFirst());
 			} catch (Exception e) {
 				throw new ApplicationException("Erreur lors de l'enregistrement des instances de cours");
 			}
 			
+			//Enregistrement de stagiaires liés à l'instance
 			for (CoursStagiaire instanceStagiaire : instance.getSecond()) {
+				//Affectation de l'instance précédemment enregistrée pour récupérer son id.
 				instanceStagiaire.setInstanceCours(instanceCours);
 				try {
 					coursStagiaireDao.addOrUpdate(instanceStagiaire);
@@ -85,11 +90,27 @@ public class CoursServiceImpl extends AServiceImpl<Cours, UUID, CoursDao> implem
 			
 		}
 		
+		//Enregistrement des stagiaires non associés à une instance
 		for (CoursStagiaire instanceStagiaire : instances.getInstancesStagiaires()) {
 			try {
 				coursStagiaireDao.addOrUpdate(instanceStagiaire);
 			} catch (Exception e) {
 				throw new ApplicationException("Erreur lors de l'enregistrement des stagiaires sans instance");
+			}
+		}
+		
+		//Suppression des instances
+		for (InstanceCours instanceCours : instances.getInstancesToDelete()) {
+			ReservationSalle reservationSalle = instanceCours.getReservationSalle();
+			try {
+				instanceCoursDao.supprimer(instanceCours.getId());
+			} catch (Exception e) {
+				throw new ApplicationException("Erreur lors de la suppression d'une instance.");
+			}
+			try {
+				reservationSalleDao.supprimer(reservationSalle.getId());
+			} catch (Exception e) {
+				throw new ApplicationException("Erreur lors de la suppression d'une réservation de salle.");
 			}
 		}
 		

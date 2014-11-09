@@ -113,10 +113,12 @@ public class SessionValidationServiceImpl extends
 	public SessionValidation saveInstanceData(InstancePlanning<InstanceSessionValidation, SessionValidationStagiaire> instances)
 			throws ApplicationException {
 		
+		//Enregistrement des stagiaires liéss aux instances
 		for (Pair<InstanceSessionValidation, List<SessionValidationStagiaire>> instance : instances.getInstances()) {
 			ReservationSalle reservationSalle = null;
 			InstanceSessionValidation instanceSessionValidation = null;
 			try {
+				//Réservation de la salle
 				reservationSalle = reservationSalleDao.addOrUpdate(instance.getFirst().getReservationSalle());
 			} catch (Exception e) {
 				throw new ApplicationException("Erreur lors de l'enregistrement de la réservation de salle");
@@ -124,12 +126,15 @@ public class SessionValidationServiceImpl extends
 			
 			instance.getFirst().setReservationSalle(reservationSalle);
 			try {
+				//Enregistrement de l'instance
 				instanceSessionValidation = instanceSessionValidationDao.addOrUpdate(instance.getFirst());
 			} catch (Exception e) {
 				throw new ApplicationException("Erreur lors de l'enregistrement des instances de session de validation");
 			}
 			
+			//Enregistrement de stagiaires liés à l'instance
 			for (SessionValidationStagiaire instanceStagiaire : instance.getSecond()) {
+				//Affectation de l'instance précédemment enregistrée pour récupérer son id.
 				instanceStagiaire.setInstanceSessionValidation(instanceSessionValidation);
 				try {
 					sessionValidationStagiaireDao.addOrUpdate(instanceStagiaire);
@@ -140,11 +145,27 @@ public class SessionValidationServiceImpl extends
 			
 		}
 		
+		//Enregistrement des stagiaires non associés à une instance
 		for (SessionValidationStagiaire sessionValidationStagiaire : instances.getInstancesStagiaires()) {
 			try {
 				sessionValidationStagiaireDao.addOrUpdate(sessionValidationStagiaire);
 			} catch (Exception e) {
 				throw new ApplicationException("Erreur lors de l'enregistrement des stagiaires sans instance");
+			}
+		}
+		
+		//Suppression des instances
+		for (InstanceSessionValidation instanceSessionValidation : instances.getInstancesToDelete()) {
+			ReservationSalle reservationSalle = instanceSessionValidation.getReservationSalle();
+			try {
+				instanceSessionValidationDao.supprimer(instanceSessionValidation.getId());
+			} catch (Exception e) {
+				throw new ApplicationException("Erreur lors de la suppression d'une instance.");
+			}
+			try {
+				reservationSalleDao.supprimer(reservationSalle.getId());
+			} catch (Exception e) {
+				throw new ApplicationException("Erreur lors de la suppression d'une réservation de salle.");
 			}
 		}
 		

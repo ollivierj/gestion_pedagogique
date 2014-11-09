@@ -97,10 +97,12 @@ public class EvaluationServiceImpl extends AServiceImpl<Evaluation, Integer, Eva
 	public Evaluation saveInstanceData(InstancePlanning<InstanceEvaluation, EvaluationStagiaire> instances)
 			throws ApplicationException {
 		
+		//Enregistrement des stagiaires liéss aux instances
 		for (Pair<InstanceEvaluation, List<EvaluationStagiaire>> instance : instances.getInstances()) {
 			ReservationSalle reservationSalle = null;
 			InstanceEvaluation instanceEvaluation = null;
 			try {
+				//Réservation de la salle
 				reservationSalle = reservationSalleDao.addOrUpdate(instance.getFirst().getReservationSalle());
 			} catch (Exception e) {
 				throw new ApplicationException("Erreur lors de l'enregistrement de la réservation de salle");
@@ -108,12 +110,15 @@ public class EvaluationServiceImpl extends AServiceImpl<Evaluation, Integer, Eva
 			
 			instance.getFirst().setReservationSalle(reservationSalle);
 			try {
+				//Enregistrement de l'instance
 				instanceEvaluation = instanceEvaluationDao.addOrUpdate(instance.getFirst());
 			} catch (Exception e) {
 				throw new ApplicationException("Erreur lors de l'enregistrement des instances d'évaluations");
 			}
 			
+			//Enregistrement de stagiaires liés à l'instance
 			for (EvaluationStagiaire instanceStagiaire : instance.getSecond()) {
+				//Affectation de l'instance précédemment enregistrée pour récupérer son id.
 				instanceStagiaire.setInstanceEvaluation(instanceEvaluation);
 				try {
 					evaluationStagiaireDao.addOrUpdate(instanceStagiaire);
@@ -124,6 +129,7 @@ public class EvaluationServiceImpl extends AServiceImpl<Evaluation, Integer, Eva
 			
 		}
 		
+		//Enregistrement des stagiaires non associés à une instance
 		for (EvaluationStagiaire evaluationStagiaire : instances.getInstancesStagiaires()) {
 			try {
 				evaluationStagiaireDao.addOrUpdate(evaluationStagiaire);
@@ -131,6 +137,22 @@ public class EvaluationServiceImpl extends AServiceImpl<Evaluation, Integer, Eva
 				throw new ApplicationException("Erreur lors de l'enregistrement des stagiaires sans instance");
 			}
 		}
+		
+		//Suppression des instances
+		for (InstanceEvaluation instanceEvaluation : instances.getInstancesToDelete()) {
+			ReservationSalle reservationSalle = instanceEvaluation.getReservationSalle();
+			try {
+				instanceEvaluationDao.supprimer(instanceEvaluation.getId());
+			} catch (Exception e) {
+				throw new ApplicationException("Erreur lors de la suppression d'une instance.");
+			}
+			try {
+				reservationSalleDao.supprimer(reservationSalle.getId());
+			} catch (Exception e) {
+				throw new ApplicationException("Erreur lors de la suppression d'une réservation de salle.");
+			}
+		}
+		
 		
 		return null;
 	}

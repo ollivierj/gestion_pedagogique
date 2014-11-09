@@ -27,6 +27,7 @@ public class InstancePlanning<T,U> implements Serializable {
 	
 	List<U> instancesStagiaires;
 	
+	List<T> instancesToDelete;
 	
 	
 	public InstancePlanning() {
@@ -34,9 +35,10 @@ public class InstancePlanning<T,U> implements Serializable {
 	}
 
 	public InstancePlanning(List<Pair<T, List<U>>> instances,
-			List<U> instancesStagiaires) {
+			List<U> instancesStagiaires, List<T> instancesToDelete) {
 		this.instances = instances;
 		this.instancesStagiaires = instancesStagiaires;
+		this.instancesToDelete = instancesToDelete;
 	}
 
 	public List<Pair<T, List<U>>> getInstances() {
@@ -54,6 +56,16 @@ public class InstancePlanning<T,U> implements Serializable {
 	public void setInstancesStagiaires(List<U> instancesStagiaires) {
 		this.instancesStagiaires = instancesStagiaires;
 	}
+
+	public List<T> getInstancesToDelete() {
+		return instancesToDelete;
+	}
+
+	public void setInstancesToDelete(List<T> instancesToDelete) {
+		this.instancesToDelete = instancesToDelete;
+	}
+	
+	
 	
 	
 }

@@ -2,11 +2,15 @@ var formCoursSalleCtrl = function($scope, $modalInstance, $filter, $rootScope, $
 		eventInfo, salles, getByIdFilter, data, UtilisateursFactory, 
 		CoursFactory, instanceRef) {
 		
-	$scope.formateursSelecteds = [];
+	//Formateurs déjà slectionné au sein de l'instance
+	var formateursSelecteds = [];
+	
+	//Instances à supprimer
+	var instancesToDelete = [];
 	
 	/***** CONSTANT *****/
 	// Mot clé pour la création d'une nouvelle absence, utilisé pour un ID temporaire
-	var INSTANCE_TEMP = 'TEMP';
+	var INSTANCE_TEMP = 0;
 	var TYPE_INSTANCE = 'instance';
 	var TYPE_PROMOTION = 'promotion';
 	var TYPE_STAGIAIRE = 'stagiaire';
@@ -21,11 +25,14 @@ var formCoursSalleCtrl = function($scope, $modalInstance, $filter, $rootScope, $
 			new Date(data.formatedFin.replace("T", " ")),
 			'dd/MM/yyyy'
 			);
+	
+	//Titre de la fenêtre modale1
 	$scope.title = 'Cours du ' + dateDebut + ' au ' + dateFin + ' : ' + eventInfo.libelle;
 	
 	//Chargement du référentiel de salles disponibles
 	//TODO limitez sur les salles dispo ce jour
 	$scope.referentielSalles = salles;
+	var sallesSelected = [];
 	
 	if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken) {
 		$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
@@ -70,7 +77,7 @@ var formCoursSalleCtrl = function($scope, $modalInstance, $filter, $rootScope, $
 			function(data) {
 				var formateurs = [];
 				angular.forEach(data, function(item) {
-					if (($filter('filter')($scope.formateursSelecteds, {id: item.id})).length == 0) {
+					if (($filter('filter')(formateursSelecteds, {id: item.id})).length == 0) {
 						formateurs.push(item);
 					}
 				});
@@ -83,12 +90,12 @@ var formCoursSalleCtrl = function($scope, $modalInstance, $filter, $rootScope, $
 	// Ajoute un formateur l'édition d'une salle
 	$scope.addFormateur = function (instance, newFormateur) {
 		instance.animateur = newFormateur;
-		$scope.formateursSelecteds.push(newFormateur);
+		formateursSelecteds.push(newFormateur);
 	}
 	
 	// Supression d'un formateur d'un instance
 	$scope.removeFormateur = function (pIndex, instance, formateur) {
-		_.remove($scope.formateursSelecteds, {id : formateur.id});
+		_.remove(formateursSelecteds, {id : formateur.id});
 		instance.animateur = null;
 	};
 	
@@ -198,13 +205,18 @@ var formCoursSalleCtrl = function($scope, $modalInstance, $filter, $rootScope, $
 		if (window.confirm('Etes-sûr de vouloir annuler la réservation de cette salle ?')) {
 			
 			angular.forEach(instance.stagiaires, function(stagiaire, key) {
+				//On supprime le stagiaire de l'instance
+				stagiaire.instanceCours = null;
 				var selectedPromotion = $filter('filter')($scope.promotions, {
 					name : stagiaire.stagiaire.promotion.libelle
 				})[0];
 				
 				selectedPromotion.stagiaires.push(stagiaire);
 			});
-			
+			//On sauvegarde l'instance supprimée si elle est déjà persistée en base
+			if (instance.id != INSTANCE_TEMP)
+				instancesToDelete.push(instance);
+			//Suppression de l'instance
 			_.remove($scope.instances, {$$hashKey: instance.$$hashKey});
 		}
 	};
@@ -249,7 +261,7 @@ var formCoursSalleCtrl = function($scope, $modalInstance, $filter, $rootScope, $
 			result.push.apply(result, num.stagiaires);			
 		});
 		
-		var dataInstances = {instances : instancesToSaved, instancesStagiaires : stagiairesToSaved};
+		var dataInstances = {instances : instancesToSaved, instancesStagiaires : stagiairesToSaved, instancesToDelete : instancesToDelete};
 		
 		console.log(dataInstances);
 		CoursFactory.instance.saveData(dataInstances);
