@@ -60,9 +60,12 @@ controllers
 		    $scope.saveAbsence = function (absence) {
 		    	absence.formatedDate = $filter('date')(absence.formatedDate, 'dd/MM/yyyy');
 		    	absence.formatedTime = $filter('date')(absence.formatedTime, 'HH:mm');
-		    	// Mock de l'auteur
 		    	absence.auteur = {};
-		    	absence.auteur.id = 1;
+		    	absence.auteur.id = $rootScope.utilisateurConnecte.id;
+		    	if (!absence.isAbsence && !absence.formatedTime){
+		    		toaster.pop('error', null, "Vous devez saisir une heure.");
+		    		return;
+		    	}
 		    	if (null==absence.id){
 		    		AbsencesFactory.create.doAction(absence,
 			    			function (success) {
@@ -108,7 +111,7 @@ controllers
 					angular.forEach(data, function(stagiaire) {
 						var test = $filter('filter')($scope.absences, {stagiaire : {id:stagiaire.id}});
 						if (0==test.length){
-							$scope.absences.push({isAbsence:true, stagiaire: stagiaire, formatedDate : $scope.date})
+							$scope.absences.push({isAbsence:true, stagiaire: stagiaire, formatedDate : $scope.date, editMode : true});
 						}
 					});
 				});

@@ -3,6 +3,8 @@ package net.eni.gestion.pedagogie.DAO.implementation;
 import java.sql.SQLException;
 
 import net.eni.gestion.pedagogie.DAO.SessionValidationDao;
+import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.configuration.ModeleMetier;
 import net.eni.gestion.pedagogie.commun.modele.InstanceSessionValidation;
 import net.eni.gestion.pedagogie.commun.modele.ReservationSalle;
@@ -10,8 +12,6 @@ import net.eni.gestion.pedagogie.commun.modele.Salle;
 import net.eni.gestion.pedagogie.commun.modele.SessionValidation;
 import net.eni.gestion.pedagogie.commun.modele.SessionValidationStagiaire;
 import net.eni.gestion.pedagogie.commun.modele.StagiairePromotion;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
-
 
 import com.google.inject.Singleton;
 
@@ -91,5 +91,70 @@ public class SessionValidationDaoImpl extends ADaoImpl<SessionValidation, Intege
 		return join;
 	}
 	
+	@Override
+	protected boolean validerAvantSuppression(Integer pId) throws  ApplicationException {
+		StringBuilder lQuery = new StringBuilder();
+		lQuery.append("SELECT TOP 1 1 FROM ");
+		lQuery.append(ModeleMetier.INSTANCE_SESSION_VALIDATION_TABLE_NAME);
+		lQuery.append(" WHERE ");
+		lQuery.append(InstanceSessionValidation.SESSION_VALIDATION_FIELD_NAME);
+		lQuery.append("=");
+		lQuery.append(pId);
+		boolean instanceExist;
+		try {
+			instanceExist = this.queryRaw(lQuery.toString()).getFirstResult().length==1;
+		} catch (SQLException e) {
+			throw new ApplicationException("Echec lors de la validation en base de données");
+		}
+		if (!instanceExist){
+			return true;
+		}else {
+			throw new ApplicationException("Il existe au moins une instance de session de validation déclarée pour cette session de validation.\n Il n'est donc pas possible de supprimer cette session de validation");
+		}
+	}
+
+	@Override
+	protected boolean validerAvantMiseAJour(SessionValidation pMember)
+			throws ApplicationException {
+		boolean isValid=false;
+		int lInstanceNbr=0;
+		SessionValidation lSessionValidation = null;
+		try {
+			lSessionValidation = this.queryForId(pMember.getId());
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			throw new ApplicationException("Echec lors de la validation en base de données");
+		}
+		StringBuilder lQuery = new StringBuilder();
+		lQuery.append("SELECT TOP 1 1 FROM ");
+		lQuery.append(ModeleMetier.INSTANCE_SESSION_VALIDATION_TABLE_NAME);
+		lQuery.append(" WHERE ");
+		lQuery.append(InstanceSessionValidation.SESSION_VALIDATION_FIELD_NAME);
+		lQuery.append("=");
+		lQuery.append(pMember.getId());
+		try {
+			lInstanceNbr = this.queryRaw(lQuery.toString()).getFirstResult().length;
+		} catch (SQLException e) {
+			throw new ApplicationException("Echec lors de la validation en base de données");
+		}
+		
+		if (0==lInstanceNbr){
+			isValid=true;
+		}else{
+			isValid = 
+				(null!= lSessionValidation)? 
+					(lSessionValidation.getDateDebut().equals(pMember.getDateDebut()) && lSessionValidation.getDateFin().equals(pMember.getDateFin()))
+					:
+					false; 
+		}
+	
+		if (isValid){
+			return true;
+		}else {
+			throw new ApplicationException("Il existe au moins une instance de cours déclarée pour cette évaluation.\n Il n'est donc pas possible de modifier les dates pour cette évaluation");
+		}
+	}	
 }
+	
+
 

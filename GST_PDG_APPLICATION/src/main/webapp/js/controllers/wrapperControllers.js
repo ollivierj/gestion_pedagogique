@@ -68,8 +68,14 @@ controllers
 							"url" : "sessionValidations",
 							"type" : "single"
 						};
-						var reservationSallesMenu = {
+						var sallesRefMenu = {
 							"mainTitle" : "Salles",
+							"iconTitle" : "fa fa-key",
+							"url" : "refsalles",
+							"type" : "single"	
+						};
+						var reservationSallesMenu = {
+							"mainTitle" : "Réservation de salles",
 							"iconTitle" : "fa fa-calendar",
 							"url" : "salles",
 							"type" : "single"
@@ -118,6 +124,10 @@ controllers
 							;
 							if ($rootScope.utilisateurConnecte.profil.droits[2] != 'SES_VAL_A') {
 								$scope.menuTitles.push(sessionsValidationMenu);
+							}
+							;
+							if ($rootScope.utilisateurConnecte.profil.droits[3] != 'RES_SALLE_A') {
+								$scope.menuTitles.push(sallesRefMenu);
 							}
 							;
 							if ($rootScope.utilisateurConnecte.profil.droits[3] != 'RES_SALLE_A') {

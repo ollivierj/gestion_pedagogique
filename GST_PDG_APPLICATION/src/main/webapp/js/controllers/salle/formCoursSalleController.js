@@ -50,7 +50,7 @@ var formCoursSalleCtrl = function($scope, $modalInstance, $filter, $rootScope, $
 		if (_.isNull(num.instanceCours)) {
 			
 			//Assignation de l'id de la session et du type (utilisé pour l'IHM)
-			_.assign(num, {type: TYPE_STAGIAIRE, cours: {id: data.id}});
+			_.assign(num, {type: TYPE_STAGIAIRE, cours: {idString: data.idString}});
 			_.find(result, {name : num.stagiaire.promotion.libelle}).stagiaires.push(num);
 			
 		//Si le stagiaire est associé à une instance

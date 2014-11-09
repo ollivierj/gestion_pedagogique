@@ -3,7 +3,7 @@
 /* App Module */
 
 controllers.controller('planningReservationSalleCtrl', function($scope, $location, $rootScope, $http, 
-		modalService, SallesFactory, PromotionsFactory, SallesReserveesFactory, AnimateursLibresFactory, 
+		modalService, PromotionsFactory, SallesReserveesFactory, AnimateursLibresFactory, 
 		PlanningFactory, $filter, CONSTANTS, planningElements) {
 
 	if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken){
@@ -67,7 +67,7 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
         modalFade: true,
         resolve: {
             salles: function (SalleFactory) {
-                return SalleFactory.referenceSalle.query().$promise;
+                return SalleFactory.salle.referenceSalle.query().$promise;
             }
         }
     };
