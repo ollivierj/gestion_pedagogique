@@ -171,7 +171,7 @@ controllers
 				});
 
 var modalUtilisateurInformationCtrl = function($scope, $modalInstance,
-		title, utilisateur) {
+		title, utilisateur, $filter) {
 	$scope.title = title;
 	$scope.utilisateur = utilisateur;
 	$scope.utilisateur.dateExpiration =  $filter('date')($scope.utilisateur.dateExpiration, 'le dd/MM/yyyy à HH:mm:ss'),
