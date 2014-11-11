@@ -100,6 +100,9 @@ public class SessionValidationStagiaire extends AModele<Integer> implements Seri
 	
 	@SchemaIgnore
 	private String formatedDateHeureFin = null;
+
+	@SuppressWarnings("unused")
+	private boolean hasInstance = false;
 	
 	@Override
 	public Integer getId() {
@@ -171,5 +174,7 @@ public class SessionValidationStagiaire extends AModele<Integer> implements Seri
 		this.formatedDateHeureFin = formatedDateHeureFin;
 	}
 	
-
+	public boolean getHasInstance() {
+		return (null!=instanceSessionValidation);
+	}
 }

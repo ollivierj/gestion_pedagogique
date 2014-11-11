@@ -28,8 +28,8 @@ public class StagiairePromotionResourceImpl extends AResourceImpl<StagiairePromo
 	 * @param stagiairePromotionService
 	 */
 	@Inject
-	public StagiairePromotionResourceImpl(StagiairePromotionService stagiairePromotionService) {
-		super(stagiairePromotionService, StagiairePromotion.class);
+	public StagiairePromotionResourceImpl(StagiairePromotionService stagiairePromotionService, Connexion pConnexion) {
+		super(stagiairePromotionService, StagiairePromotion.class, pConnexion);
 	}
 
     @GET
@@ -40,7 +40,7 @@ public class StagiairePromotionResourceImpl extends AResourceImpl<StagiairePromo
 			@PathParam("type") final String type, @PathParam("id") final String id) throws ApplicationException {
     	try {
 			return TransactionManager.callInTransaction(
-					Connexion.getInstance().getConnexion(),
+					connexion.getConnection(),
 					new Callable<ArrayList<StagiairePromotion>>() {
 						public ArrayList<StagiairePromotion> call()
 								throws ApplicationException {

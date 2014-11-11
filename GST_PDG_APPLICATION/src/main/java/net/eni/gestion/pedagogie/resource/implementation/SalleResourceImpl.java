@@ -2,6 +2,7 @@ package net.eni.gestion.pedagogie.resource.implementation;
 
 import javax.ws.rs.Path;
 
+import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.modele.Salle;
 import net.eni.gestion.pedagogie.resource.SalleResource;
 import net.eni.gestion.pedagogie.service.SalleService;
@@ -20,8 +21,8 @@ public class SalleResourceImpl extends AResourceImpl<Salle, Integer, SalleServic
      * @param SalleService
      */
     @Inject
-    public SalleResourceImpl(SalleService SalleService) {
-    	super(SalleService, Salle.class);
+    public SalleResourceImpl(SalleService SalleService, Connexion pConnexion) {
+    	super(SalleService, Salle.class, pConnexion);
     }
 
 }

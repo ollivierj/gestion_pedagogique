@@ -5,9 +5,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import net.eni.gestion.pedagogie.DAO.SujetEvaluationDao;
+import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.SujetEvaluation;
 
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 /**
@@ -22,8 +24,9 @@ public class SujetEvaluationDaoImpl extends ADaoImpl<SujetEvaluation, Integer> i
 	 * 
 	 * @throws SQLException
 	 */
-	public SujetEvaluationDaoImpl() throws SQLException {
-		super( SujetEvaluation.class);
+	@Inject
+	public SujetEvaluationDaoImpl(Connexion pConnexion) throws SQLException {
+		super( SujetEvaluation.class, pConnexion);
 	}
 	
 	public HashMap<String, String> getTitleMap() throws ApplicationException {

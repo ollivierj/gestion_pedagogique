@@ -4,9 +4,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import net.eni.gestion.pedagogie.DAO.PromotionDao;
+import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.Promotion;
 
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.j256.ormlite.dao.RawRowMapper;
 
@@ -21,14 +23,15 @@ public class PromotionDaoImpl extends ADaoImpl<Promotion, String> implements Pro
 	 * Constructeur de la DAO PromotionBase
 	 * @throws SQLException
 	 */
-	public PromotionDaoImpl() throws SQLException {
-		super( Promotion.class);
+	@Inject
+	public PromotionDaoImpl(Connexion pConnexion) throws SQLException {
+		super( Promotion.class, pConnexion);
 	}
 	
 	public ArrayList<Promotion> chargerForAutocompleteSearch(String pSearchText) throws ApplicationException {
 		try {
 			StringBuilder lQuery = new StringBuilder();
-			lQuery.append(" SELECT TOP 10  Promotion.CodePromotion FROM Promotion INNER JOIN STAGIAIRE_PROMOTION ON STAGIAIRE_PROMOTION.CodePromotion = Promotion.CodePromotion WHERE CONTAINS((Promotion.CodePromotion), '\"");
+			lQuery.append(" SELECT TOP 10  Promotion.CodePromotion FROM Promotion INNER JOIN STAGIAIRE_PROMOTION ON STAGIAIRE_PROMOTION.CodePromotion = Promotion.CodePromotion WHERE CONTAINS((Promotion.Libelle), '\"");
 			lQuery.append(pSearchText);
 			lQuery.append("*\"')");
 			lQuery.append(" GROUP BY Promotion.CodePromotion ORDER BY Promotion.CodePromotion ASC");

@@ -15,10 +15,11 @@ import com.j256.ormlite.dao.BaseDaoImpl;
 
 abstract class ADaoImpl<M extends AModele<ID>, ID> extends BaseDaoImpl<M,ID> implements ADao<M, ID>{
 
+	public Connexion connexion; 
 	
-	
-	protected ADaoImpl(Class<M> dataClass) throws SQLException {
-		super(Connexion.getInstance().getConnexion(), dataClass);
+	protected ADaoImpl(Class<M> dataClass, Connexion pConnexion) throws SQLException {
+		super(pConnexion.getConnection(), dataClass);
+		connexion = pConnexion;
 	}
 	
 	/* (non-Javadoc)

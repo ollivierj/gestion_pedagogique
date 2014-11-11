@@ -33,8 +33,8 @@ public class InstanceSessionValidationResourceImpl extends AResourceImpl<Instanc
      * @param evaluationService
      */
     @Inject
-    public InstanceSessionValidationResourceImpl(InstanceSessionValidationService pInstanceSessionValidationService) {
-    	super(pInstanceSessionValidationService, InstanceSessionValidation.class);
+    public InstanceSessionValidationResourceImpl(InstanceSessionValidationService pInstanceSessionValidationService, Connexion pConnexion) {
+    	super(pInstanceSessionValidationService, InstanceSessionValidation.class, pConnexion);
     }
 
 	@Override
@@ -46,7 +46,7 @@ public class InstanceSessionValidationResourceImpl extends AResourceImpl<Instanc
 			final SessionValidation sessionValidation) throws ApplicationException {
 		try {
 			return TransactionManager.callInTransaction(
-					Connexion.getInstance().getConnexion(),
+					connexion.getConnection(),
 					new Callable<List<InstanceSessionValidation>>() {
 						public List<InstanceSessionValidation> call()
 								throws ApplicationException {

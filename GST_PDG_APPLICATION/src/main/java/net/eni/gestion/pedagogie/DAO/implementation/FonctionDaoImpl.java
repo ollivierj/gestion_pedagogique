@@ -5,9 +5,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import net.eni.gestion.pedagogie.DAO.FonctionDao;
+import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.Fonction;
 
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 /**
@@ -21,8 +23,9 @@ public class FonctionDaoImpl extends ADaoImpl<Fonction, String> implements Fonct
 	 * Constructeur de la DAO FonctionBase
 	 * @throws SQLException
 	 */
-	public FonctionDaoImpl() throws SQLException {
-		super( Fonction.class);
+	@Inject
+	public FonctionDaoImpl(Connexion pConnexion) throws SQLException {
+		super( Fonction.class, pConnexion);
 	}
 	
 	public HashMap<String, String> getTitleMap() throws ApplicationException {

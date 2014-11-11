@@ -34,8 +34,8 @@ public class StagiaireResourceImpl extends AResourceImpl<Stagiaire, Integer, Sta
      * @param stagiaireService
      */
     @Inject
-    public StagiaireResourceImpl(StagiaireService stagiaireService) {
-    	super(stagiaireService, Stagiaire.class);
+    public StagiaireResourceImpl(StagiaireService stagiaireService, Connexion pConnexion) {
+    	super(stagiaireService, Stagiaire.class, pConnexion);
     }
     
     @GET
@@ -45,7 +45,7 @@ public class StagiaireResourceImpl extends AResourceImpl<Stagiaire, Integer, Sta
 	public ArrayList<NamedObjectMap> chargerStagiaireOrPromotionAutocomplete(@PathParam("search") final String pSearchText) throws ApplicationException {
     	try {
 			return TransactionManager.callInTransaction(
-					Connexion.getInstance().getConnexion(),
+					connexion.getConnection(),
 					new Callable<ArrayList<NamedObjectMap>>() {
 						public ArrayList<NamedObjectMap> call()
 								throws ApplicationException {
@@ -86,7 +86,7 @@ public class StagiaireResourceImpl extends AResourceImpl<Stagiaire, Integer, Sta
 	public ArrayList<NamedObjectMap> chargerStagiaireAutocomplete(@PathParam("search") final String pSearchText) throws ApplicationException {
     	try {
 			return TransactionManager.callInTransaction(
-					Connexion.getInstance().getConnexion(),
+					connexion.getConnection(),
 					new Callable<ArrayList<NamedObjectMap>>() {
 						public ArrayList<NamedObjectMap> call()
 								throws ApplicationException {

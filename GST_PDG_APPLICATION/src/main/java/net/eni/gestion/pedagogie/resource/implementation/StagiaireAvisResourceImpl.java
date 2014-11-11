@@ -2,6 +2,7 @@ package net.eni.gestion.pedagogie.resource.implementation;
 
 import javax.ws.rs.Path;
 
+import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.modele.StagiaireAvis;
 import net.eni.gestion.pedagogie.resource.StagiaireAvisResource;
 import net.eni.gestion.pedagogie.service.StagiaireAvisService;
@@ -20,8 +21,8 @@ public class StagiaireAvisResourceImpl extends AResourceImpl<StagiaireAvis, Inte
      * @param AvisService
      */
     @Inject
-    public StagiaireAvisResourceImpl(StagiaireAvisService pStagiaireAvisService) {
-    	super(pStagiaireAvisService, StagiaireAvis.class);
+    public StagiaireAvisResourceImpl(StagiaireAvisService pStagiaireAvisService, Connexion pConnexion) {
+    	super(pStagiaireAvisService, StagiaireAvis.class, pConnexion);
     }
 
 }

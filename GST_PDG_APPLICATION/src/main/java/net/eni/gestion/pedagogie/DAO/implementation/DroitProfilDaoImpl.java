@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import net.eni.gestion.pedagogie.DAO.DroitProfilDao;
+import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.configuration.ModeleMetier;
 import net.eni.gestion.pedagogie.commun.modele.Droit;
@@ -14,6 +15,7 @@ import net.eni.gestion.pedagogie.commun.modele.Utilisateur;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.j256.ormlite.stmt.DeleteBuilder;
 
@@ -28,8 +30,9 @@ public class DroitProfilDaoImpl extends ADaoImpl<DroitProfil, Integer> implement
 	 * Constructeur de la DAO DroitProfilBase
 	 * @throws SQLException
 	 */
-	public DroitProfilDaoImpl() throws SQLException {
-		super( DroitProfil.class);
+	@Inject
+	public DroitProfilDaoImpl(Connexion pConnexion) throws SQLException {
+		super( DroitProfil.class, pConnexion);
 	}
 	
 	public void deleteDroits(Integer pProfilId) throws ApplicationException{
@@ -193,7 +196,7 @@ public class DroitProfilDaoImpl extends ADaoImpl<DroitProfil, Integer> implement
 		try {
 			lListeDroitsEnBase=this.getListeDroits(pProfilId);
 			Droit lRefentielDroit = null;
-			DroitDaoImpl lDroitDao = new DroitDaoImpl();
+			DroitDaoImpl lDroitDao = new DroitDaoImpl(this.connexion);
 			if (null != lListeDroitsEnBase && 12 == lListeDroitsEnBase.size() && lListeDroitsEnBase.size()==lListeDroits.size()) {
 				for (int i=0; i<lListeDroits.size();i++){
 					String lDroitEnBase = lListeDroitsEnBase.get(i);
@@ -210,7 +213,7 @@ public class DroitProfilDaoImpl extends ADaoImpl<DroitProfil, Integer> implement
 				DeleteBuilder<DroitProfil, Integer> lDeleteBuilder= this.deleteBuilder();
 				lDeleteBuilder.where().eq(DroitProfil.PROFIL_FIELD_NAME, pProfilId);
 				lDeleteBuilder.delete();
-				ProfilDaoImpl lProfilDao = new ProfilDaoImpl();
+				ProfilDaoImpl lProfilDao = new ProfilDaoImpl(this.connexion);
 				Profil lReferentielProfil = lProfilDao.queryForId(pProfilId);
 				if (null!=lReferentielProfil){
 					for (int i=0; i<lListeDroits.size();i++){

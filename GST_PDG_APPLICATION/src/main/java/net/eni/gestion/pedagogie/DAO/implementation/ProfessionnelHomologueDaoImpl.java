@@ -3,11 +3,13 @@ package net.eni.gestion.pedagogie.DAO.implementation;
 import java.sql.SQLException;
 
 import net.eni.gestion.pedagogie.DAO.ProfessionnelHomologueDao;
+import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.configuration.ModeleMetier;
 import net.eni.gestion.pedagogie.commun.modele.Jury;
 import net.eni.gestion.pedagogie.commun.modele.ProfessionnelHomologue;
 
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 /**
@@ -21,8 +23,9 @@ public class ProfessionnelHomologueDaoImpl extends ADaoImpl<ProfessionnelHomolog
 	 * Constructeur de la DAO ProfessionnelHomologueBase
 	 * @throws SQLException
 	 */
-	public ProfessionnelHomologueDaoImpl() throws SQLException {
-		super( ProfessionnelHomologue.class);
+	@Inject
+	public ProfessionnelHomologueDaoImpl(Connexion pConnexion) throws SQLException {
+		super( ProfessionnelHomologue.class, pConnexion);
 	}
 
 	

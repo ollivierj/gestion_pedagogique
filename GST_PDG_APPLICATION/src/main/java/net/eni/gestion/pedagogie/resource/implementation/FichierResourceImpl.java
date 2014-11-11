@@ -35,10 +35,13 @@ public class FichierResourceImpl implements FichierResource {
 	 * Service de gestion des fichiers
 	 */
 	private final FichierService fichierService;
+	
+	private final Connexion connexion;
 
 	@Inject
-	public FichierResourceImpl(FichierService pFichierService) {
+	public FichierResourceImpl(FichierService pFichierService, Connexion pConnexion) {
 		fichierService = pFichierService;
+		connexion=pConnexion;
 	}
 
 	/*
@@ -56,7 +59,7 @@ public class FichierResourceImpl implements FichierResource {
 	public String deposer(final FormDataMultiPart form) throws ApplicationException {
 		try {
 			return TransactionManager.callInTransaction(
-					Connexion.getInstance().getConnexion(),
+					connexion.getConnection(),
 					new Callable<String>() {
 						public String call()
 								throws ApplicationException {
@@ -85,7 +88,7 @@ public class FichierResourceImpl implements FichierResource {
 			@PathParam("filename") final String filename) throws Exception {
 		try {
 			return TransactionManager.callInTransaction(
-					Connexion.getInstance().getConnexion(),
+					connexion.getConnection(),
 					new Callable<Response>() {
 						public Response call()
 								throws ApplicationException {
@@ -117,7 +120,7 @@ public class FichierResourceImpl implements FichierResource {
 			@PathParam("entite_id") final String pId) throws ApplicationException {
 		try {
 			return TransactionManager.callInTransaction(
-					Connexion.getInstance().getConnexion(),
+					connexion.getConnection(),
 					new Callable<List<FileBean>>() {
 						public List<FileBean> call()
 								throws ApplicationException {
@@ -146,7 +149,7 @@ public class FichierResourceImpl implements FichierResource {
 			@PathParam("filename") final String filename) throws ApplicationException {
 		try {
 			return TransactionManager.callInTransaction(
-					Connexion.getInstance().getConnexion(),
+					connexion.getConnection(),
 					new Callable<String>() {
 						public String call()
 								throws ApplicationException {
@@ -168,7 +171,7 @@ public class FichierResourceImpl implements FichierResource {
 	public Response getImage(@PathParam("stagiaireId") final Integer pStagiaireId) throws ApplicationException {
 		try {
 			return TransactionManager.callInTransaction(
-					Connexion.getInstance().getConnexion(),
+					connexion.getConnection(),
 					new Callable<Response>() {
 						public Response call()
 								throws ApplicationException {

@@ -31,8 +31,8 @@ public class ReservationSalleResourceImpl extends AResourceImpl<ReservationSalle
      * @param reservationSalleService
      */
     @Inject
-    public ReservationSalleResourceImpl(ReservationSalleService reservationSalleService) {
-    	super(reservationSalleService, ReservationSalle.class);
+    public ReservationSalleResourceImpl(ReservationSalleService reservationSalleService, Connexion pConnexion) {
+    	super(reservationSalleService, ReservationSalle.class, pConnexion);
     }
     
     @GET
@@ -41,7 +41,7 @@ public class ReservationSalleResourceImpl extends AResourceImpl<ReservationSalle
 	public List<Salle> chargerSalle() throws ApplicationException {
     	try {
 			return TransactionManager.callInTransaction(
-					Connexion.getInstance().getConnexion(),
+					connexion.getConnection(),
 					new Callable<List<Salle>>() {
 						public List<Salle> call()
 								throws ApplicationException {

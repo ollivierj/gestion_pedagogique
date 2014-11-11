@@ -35,8 +35,8 @@ public class AbsenceResourceImpl extends AResourceImpl<Absence, Integer, Absence
      * @param AbsenceService
      */
     @Inject
-    public AbsenceResourceImpl(AbsenceService AbsenceService) {
-    	super(AbsenceService, Absence.class);
+    public AbsenceResourceImpl(AbsenceService AbsenceService, Connexion pConnexion) {
+    	super(AbsenceService, Absence.class, pConnexion);
     }
 
 	@GET
@@ -49,7 +49,7 @@ public class AbsenceResourceImpl extends AResourceImpl<Absence, Integer, Absence
 			throws ApplicationException {
 		try {
 			return TransactionManager.callInTransaction(
-					Connexion.getInstance().getConnexion(),
+					connexion.getConnection(),
 					new Callable<ArrayList<Absence>>() {
 						public ArrayList<Absence> call()
 								throws ApplicationException {

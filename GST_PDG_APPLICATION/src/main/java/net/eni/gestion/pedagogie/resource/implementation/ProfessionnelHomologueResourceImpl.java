@@ -2,6 +2,7 @@ package net.eni.gestion.pedagogie.resource.implementation;
 
 import javax.ws.rs.Path;
 
+import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.modele.ProfessionnelHomologue;
 import net.eni.gestion.pedagogie.resource.ProfessionnelHomologueResource;
 import net.eni.gestion.pedagogie.service.ProfessionnelHomologueService;
@@ -20,8 +21,8 @@ public class ProfessionnelHomologueResourceImpl extends AResourceImpl<Profession
      * @param professionnelHomologueService
      */
     @Inject
-    public ProfessionnelHomologueResourceImpl(ProfessionnelHomologueService professionnelHomologueService) {
-    	super(professionnelHomologueService, ProfessionnelHomologue.class);
+    public ProfessionnelHomologueResourceImpl(ProfessionnelHomologueService professionnelHomologueService, Connexion pConnexion) {
+    	super(professionnelHomologueService, ProfessionnelHomologue.class, pConnexion);
     }
     
     

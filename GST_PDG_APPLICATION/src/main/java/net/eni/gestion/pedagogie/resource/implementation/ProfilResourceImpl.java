@@ -2,6 +2,7 @@ package net.eni.gestion.pedagogie.resource.implementation;
 
 import javax.ws.rs.Path;
 
+import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.modele.Profil;
 import net.eni.gestion.pedagogie.resource.ProfilResource;
 import net.eni.gestion.pedagogie.service.ProfilService;
@@ -20,8 +21,8 @@ public class ProfilResourceImpl extends AResourceImpl<Profil, Integer, ProfilSer
      * @param profilService
      */
     @Inject
-    public ProfilResourceImpl(ProfilService profilService) {
-    	super(profilService, Profil.class);
+    public ProfilResourceImpl(ProfilService profilService, Connexion pConnexion) {
+    	super(profilService, Profil.class, pConnexion);
     }
     
 }

@@ -2,6 +2,7 @@ package net.eni.gestion.pedagogie.resource.implementation;
 
 import javax.ws.rs.Path;
 
+import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.modele.SujetEvaluation;
 import net.eni.gestion.pedagogie.resource.SujetEvaluationResource;
 import net.eni.gestion.pedagogie.service.SujetEvaluationService;
@@ -20,8 +21,8 @@ public class SujetEvaluationResourceImpl extends AResourceImpl<SujetEvaluation, 
      * @param AbsenceService
      */
     @Inject
-    public SujetEvaluationResourceImpl(SujetEvaluationService SujetEvaluationService) {
-    	super(SujetEvaluationService, SujetEvaluation.class);
+    public SujetEvaluationResourceImpl(SujetEvaluationService SujetEvaluationService, Connexion pConnexion) {
+    	super(SujetEvaluationService, SujetEvaluation.class, pConnexion);
     }
 
 }

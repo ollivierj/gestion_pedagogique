@@ -34,8 +34,8 @@ public class SessionValidationResourceImpl extends AResourceImpl<SessionValidati
      * @param sessionValidationService
      */
     @Inject
-    public SessionValidationResourceImpl(SessionValidationService sessionValidationService) {
-    	super(sessionValidationService, SessionValidation.class);
+    public SessionValidationResourceImpl(SessionValidationService sessionValidationService, Connexion pConnexion) {
+    	super(sessionValidationService, SessionValidation.class, pConnexion);
     }
     
 
@@ -50,7 +50,7 @@ public class SessionValidationResourceImpl extends AResourceImpl<SessionValidati
 			) throws ApplicationException {
 		try {
 			TransactionManager.callInTransaction(
-					Connexion.getInstance().getConnexion(),
+					connexion.getConnection(),
 					new Callable<Void>() {
 						public Void call()
 								throws ApplicationException {

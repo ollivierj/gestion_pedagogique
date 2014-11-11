@@ -34,8 +34,8 @@ public class EvaluationResourceImpl extends AResourceImpl<Evaluation, Integer, E
      * @param evaluationService
      */
     @Inject
-    public EvaluationResourceImpl(EvaluationService evaluationService) {
-    	super(evaluationService, Evaluation.class);
+    public EvaluationResourceImpl(EvaluationService evaluationService, Connexion pConnexion) {
+    	super(evaluationService, Evaluation.class, pConnexion);
     }
 
 	@Override
@@ -47,7 +47,7 @@ public class EvaluationResourceImpl extends AResourceImpl<Evaluation, Integer, E
 	public void saveInstance(final InstancePlanning<InstanceEvaluation, EvaluationStagiaire> instances) throws ApplicationException {
 		try {
 			TransactionManager.callInTransaction(
-					Connexion.getInstance().getConnexion(),
+					connexion.getConnection(),
 					new Callable<Void>() {
 						public Void call()
 								throws ApplicationException {

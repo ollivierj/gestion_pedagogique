@@ -4,10 +4,12 @@ import java.sql.SQLException;
 import java.util.List;
 
 import net.eni.gestion.pedagogie.DAO.InstanceEvaluationDao;
+import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.Evaluation;
 import net.eni.gestion.pedagogie.commun.modele.InstanceEvaluation;
 
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 /**
@@ -21,8 +23,9 @@ public class InstanceEvaluationDaoImpl extends ADaoImpl<InstanceEvaluation, Inte
 	 * Constructeur de la DAO InstanceEvaluationBase
 	 * @throws SQLException
 	 */
-	public InstanceEvaluationDaoImpl() throws SQLException {
-		super( InstanceEvaluation.class);
+	@Inject
+	public InstanceEvaluationDaoImpl(Connexion pConnexion) throws SQLException {
+		super( InstanceEvaluation.class, pConnexion);
 	}
 	
 	@Override

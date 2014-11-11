@@ -23,8 +23,8 @@ import net.eni.gestion.pedagogie.commun.composant.connexion.TransactionManager;
 public class PlanningResourceImpl extends AResourceImpl<Planning, Long, PlanningService> implements PlanningResource {
 	
 	@Inject
-	public PlanningResourceImpl(PlanningService planningService) {
-		super(planningService, Planning.class);
+	public PlanningResourceImpl(PlanningService planningService, Connexion pConnexion) {
+		super(planningService, Planning.class, pConnexion);
 	}
 	
 	@GET
@@ -32,7 +32,7 @@ public class PlanningResourceImpl extends AResourceImpl<Planning, Long, Planning
 	public List<Planning> getElements(@QueryParam("debut") final String dateDebut, @QueryParam("fin") final String dateFin) throws ApplicationException {		
 		try {
 			return TransactionManager.callInTransaction(
-					Connexion.getInstance().getConnexion(),
+					connexion.getConnection(),
 					new Callable<List<Planning>>() {
 						public List<Planning> call()
 								throws ApplicationException {

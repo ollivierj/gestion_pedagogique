@@ -3,8 +3,10 @@ package net.eni.gestion.pedagogie.DAO.implementation;
 import java.sql.SQLException;
 
 import net.eni.gestion.pedagogie.DAO.ReservationSalleDao;
+import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.modele.ReservationSalle;
 
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 /**
@@ -18,8 +20,9 @@ public class ReservationSalleDaoImpl extends ADaoImpl<ReservationSalle, Integer>
 	 * Constructeur de la DAO ReservationSalleBase
 	 * @throws SQLException
 	 */
-	public ReservationSalleDaoImpl() throws SQLException {
-		super( ReservationSalle.class);
+	@Inject
+	public ReservationSalleDaoImpl(Connexion pConnexion) throws SQLException {
+		super( ReservationSalle.class, pConnexion);
 	}
 
 }

@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import net.eni.gestion.pedagogie.DAO.SessionValidationStagiaireDao;
+import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.SessionValidation;
 import net.eni.gestion.pedagogie.commun.modele.SessionValidationStagiaire;
@@ -12,6 +13,7 @@ import net.eni.gestion.pedagogie.commun.outil.SearchCallable;
 
 import org.apache.commons.collections.CollectionUtils;
 
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 /**
@@ -25,8 +27,9 @@ public class SessionValidationStagiaireDaoImpl extends ADaoImpl<SessionValidatio
 	 * Constructeur de la DAO InstanceSessionValidationStagiaireBase
 	 * @throws SQLException
 	 */
-	public SessionValidationStagiaireDaoImpl() throws SQLException {
-		super( SessionValidationStagiaire.class);
+	@Inject
+	public SessionValidationStagiaireDaoImpl(Connexion pConnexion) throws SQLException {
+		super( SessionValidationStagiaire.class, pConnexion);
 	}
 	
 	public class findSessionValidationStagiaireByStagiaire implements SearchCallable<SessionValidationStagiaire,Integer> {
