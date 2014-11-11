@@ -1,6 +1,6 @@
 var formCoursSalleCtrl = function($scope, $modalInstance, $filter, $rootScope, $http,
 		eventInfo, salles, getByIdFilter, data, UtilisateursFactory, 
-		CoursFactory, instanceRef) {
+		CoursFactory, instanceRef, toaster) {
 		
 	//Formateurs déjà slectionné au sein de l'instance
 	var formateursSelecteds = [];
@@ -70,32 +70,42 @@ var formCoursSalleCtrl = function($scope, $modalInstance, $filter, $rootScope, $
 																						type: TYPE_STAGIAIRE});
 		}	
 	});
-	
+    
+	/*************************** FORMATEURS **********************************************/
 	// Autocomplétion utilisée pour l'affectation des formateurs
 	$scope.chargerFormateurs = function(search) {
-		return UtilisateursFactory.formateurs.getData({search: search}).$promise.then(
+		return UtilisateursFactory.formateurs.getData({search: search, debut: dateDebut, fin: dateFin}).$promise.then(
 			function(data) {
 				var formateurs = [];
 				angular.forEach(data, function(item) {
-					if (($filter('filter')(formateursSelecteds, {id: item.id})).length == 0) {
-						formateurs.push(item);
-					}
+//					if (($filter('filter')(formateursSelecteds, {id: item.id})).length > 0) {
+//						item.isUsed = true;
+//					}
+					formateurs.push(item);
 				});
 				
 				return formateurs;
 			});
 	};
-    
-	/*************************** FORMATEURS **********************************************/
+	
 	// Ajoute un formateur l'édition d'une salle
 	$scope.addFormateur = function (instance, newFormateur) {
 		instance.animateur = newFormateur;
-		formateursSelecteds.push(newFormateur);
+		/*var formateurs = $filter('filter')(formateursSelecteds, {id: newFormateur.id});
+		if (formateurs.length > 0) {
+			var i, length = formateurs.length;
+			for (i = 0 ; i < length ; i ++) {
+				formateurs[i].isUsed = true;
+			}
+		}
+		formateursSelecteds.push(newFormateur);*/
 	}
 	
 	// Supression d'un formateur d'un instance
 	$scope.removeFormateur = function (pIndex, instance, formateur) {
+		/*var formateurs = $filter('filter')(formateursSelecteds, {id: formateur.id});
 		_.remove(formateursSelecteds, {id : formateur.id});
+		_.remove(formateursSelecteds, {$$hashKey : formateurs[0].$$hashKey});*/
 		instance.animateur = null;
 	};
 	
@@ -104,7 +114,7 @@ var formCoursSalleCtrl = function($scope, $modalInstance, $filter, $rootScope, $
 	$scope.getSalleLibelle = function (instance) {
 		if (instance.reservationSalle.salle) {
 			var salle = _.find($scope.referentielSalles, {id: instance.reservationSalle.salle.id});
-			return salle != null 
+			return salle != null && salle.id != null
 						? salle.libelle
 						: 'Inconnu';
 		}
@@ -114,9 +124,9 @@ var formCoursSalleCtrl = function($scope, $modalInstance, $filter, $rootScope, $
 	$scope.getSallePlace = function (instance) {
 		if (instance.reservationSalle.salle) {
 			var salle = _.find($scope.referentielSalles, {id: instance.reservationSalle.salle.id});
-			return salle != null 
+			return salle != null && salle.id != null
 						? salle.nbPlaces - instance.stagiaires.length
-						: 'Inconnu';
+						: '0';
 		}
 	};
 	
@@ -184,7 +194,8 @@ var formCoursSalleCtrl = function($scope, $modalInstance, $filter, $rootScope, $
 		    reservationSalle : {
 		    	formatedDateDebut: data.formatedDebut,
 		    	formatedDateFin: data.formatedFin,
-		    	id:0
+		    	id:0,
+		    	salle: null
 		    }
 		  });
 	};
@@ -194,6 +205,10 @@ var formCoursSalleCtrl = function($scope, $modalInstance, $filter, $rootScope, $
 	};
 	
 
+	$scope.saveInstance = function(instance) {
+		instance.editing = false;
+	};
+	
 	$scope.cancelEditingInstance = function(instance) {
 		if (instance.id == INSTANCE_TEMP) 
 			_.remove($scope.instances, {id: INSTANCE_TEMP});
@@ -220,10 +235,7 @@ var formCoursSalleCtrl = function($scope, $modalInstance, $filter, $rootScope, $
 			_.remove($scope.instances, {$$hashKey: instance.$$hashKey});
 		}
 	};
-
-	$scope.saveInstance = function(instance) {
-		instance.editing = false;
-	};
+	
 	
 	/*************************** STAGIAIRES **********************************************/
 	// Suppression d'un stagiaire associé à une instance
@@ -246,13 +258,21 @@ var formCoursSalleCtrl = function($scope, $modalInstance, $filter, $rootScope, $
 	
 
 	/*************************** RESERVATION **********************************************/
+	//Si un des éléments de l'IHM est en mode édition
+	$scope.oneIsEditing = function () {
+		var i, length = $scope.instances.length, isEditing = false;
+		for (i = 0 ; i < length ; i ++) {
+			if ($scope.instances[i].editing == true) {
+				isEditing = true; break;
+			}
+		}
+		return isEditing;
+	}
+	
 	// Réservation et enregistrement de toutes les données de l'écran
 	$scope.reserver = function () {
 		
-		var instancesToSaved = _.transform($scope.instances, function(result, num) {
-			if (num.id == INSTANCE_TEMP) 
-				num.id = 0
-				
+		var instancesToSaved = _.transform($scope.instances, function(result, num) {				
 			var instance = {id : num.id, animateur: num.animateur, reservationSalle: num.reservationSalle, cours : {idString:data.idString}};
 			result.push({first : instance, second: num.stagiaires});
 		});
@@ -263,9 +283,14 @@ var formCoursSalleCtrl = function($scope, $modalInstance, $filter, $rootScope, $
 		
 		var dataInstances = {instances : instancesToSaved, instancesStagiaires : stagiairesToSaved, instancesToDelete : instancesToDelete};
 		
-		console.log(dataInstances);
-		CoursFactory.instance.saveData(dataInstances);
-		$modalInstance.dismiss('cancel');
+		CoursFactory.instance.saveData(dataInstances).$promise.then(
+				function (success) {
+					$modalInstance.close('success');
+				},
+				function (error) {
+					toaster.pop('error', null, error);
+				}
+		);
 	};
 
 	$scope.annuler = function() {

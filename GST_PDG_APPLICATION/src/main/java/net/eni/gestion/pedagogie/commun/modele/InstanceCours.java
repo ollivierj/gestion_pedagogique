@@ -49,7 +49,8 @@ public class InstanceCours extends AModele<Integer> implements Serializable {
 		columnName = ANIMATEUR_FIELD_NAME,
 		foreign = true,
 		useGetSet = true,
-		canBeNull = false)
+		canBeNull = false,
+		foreignAutoRefresh = true)
 	private Utilisateur animateur = null;
 
 	@JsonManagedReference("InstanceCours-ReservationSalle")

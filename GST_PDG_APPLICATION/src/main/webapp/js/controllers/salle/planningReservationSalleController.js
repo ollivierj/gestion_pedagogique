@@ -4,8 +4,10 @@
 
 controllers.controller('planningReservationSalleCtrl', function($scope, $location, $rootScope, $http, 
 		modalService, PromotionsFactory, SallesReserveesFactory, AnimateursLibresFactory, 
-		PlanningFactory, $filter, CONSTANTS, planningElements) {
+		PlanningFactory, $filter, CONSTANTS, planningElements, toaster) {
 
+	$scope.moment = new Date();
+	
 	if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken){
 		$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
 	}
@@ -122,7 +124,7 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
 						};
 						//Toutes les instances liées à ce cours
 						modalEditionInstance.resolve.instanceRef = function (CoursFactory) {
-							return CoursFactory.instanceRefs.getAll({idString:event.entityId}).$promise;
+							return CoursFactory.instanceRefs.getAll({idString:event.entityId}).$promise;planning
 						};
 						//Les infos du cours
 						modalEditionInstance.resolve.eventInfo = function () {
@@ -133,9 +135,8 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
         
        //Affichage de la fenêtre modale
         modalService.showModal(modalEditionInstance, {}).then(function (result) {
-            //dataService.deleteCustomer($scope.customer.id).then(function () {
-                $location.path('/salle');
-            //}, processError);
+        	toaster.pop('success', null, "Enregsitrement de l'instance effectuée");
+        	$scope.getPlanningElements($scope.moment);
         });
     };
     
@@ -144,30 +145,30 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
     	//Appel l'évènement next du calendrier
     	calendar.fullCalendar('next');
     	//Récupère la date courante du calendrier
-    	var moment = calendar.fullCalendar('getDate');
-    	$scope.getPlanningElements(moment);
+    	$scope.moment = calendar.fullCalendar('getDate');
+    	$scope.getPlanningElements($scope.moment);
     }
     
     //Evènement sur le clic du bouton previous
     $scope.previous = function(calendar) {
     	calendar.fullCalendar('prev');
-    	var moment = calendar.fullCalendar('getDate');
-    	$scope.getPlanningElements(moment);
+    	$scope.moment = calendar.fullCalendar('getDate');
+    	$scope.getPlanningElements($scope.moment);
     }
     
     //Evènement sur le clic du bouton today
     $scope.today = function(calendar) {
     	calendar.fullCalendar('today');
-    	var moment = calendar.fullCalendar('getDate');
-    	$scope.getPlanningElements(moment);
+    	$scope.moment = calendar.fullCalendar('getDate');
+    	$scope.getPlanningElements($scope.moment);
     }
     
     
     /* Change View (day, week, month)*/
     $scope.changeView = function(view,calendar) {
       calendar.fullCalendar('changeView',view);
-      var moment = calendar.fullCalendar('getDate');
-	  $scope.getPlanningElements(moment);
+      $scope.moment = calendar.fullCalendar('getDate');
+	  $scope.getPlanningElements($scope.moment);
     };
     
     //Configuration du calendrier
@@ -221,15 +222,15 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
         	$scope.eventSources = [$scope.sessionsValidation, $scope.evaluations, $scope.cours];
         } else {
         	switch(newVal.typeName) {
-	        	case PLANNING_ELEMENTS.SESSION:
+	        	case CONSTANTS.PLANNING_ELEMENTS.SESSION:
 	        						$scope.eventSources = [$scope.sessionsValidation];
 	        						break;
 	        						
-	        	case PLANNING_ELEMENTS.EVALUATION:
+	        	case CONSTANTS.PLANNING_ELEMENTS.EVALUATION:
 	        						$scope.eventSources = [$scope.evaluations];
 									break;
 									
-	        	case PLANNING_ELEMENTS.COURS:
+	        	case CONSTANTS.PLANNING_ELEMENTS.COURS:
 	        						$scope.eventSources = [$scope.cours];
 									break;
         	}

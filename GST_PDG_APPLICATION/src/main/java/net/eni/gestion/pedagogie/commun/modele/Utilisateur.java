@@ -318,6 +318,6 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 
 	public void setIsFormateur(Boolean isFormateur) {
 		this.isFormateur = isFormateur;
-	}	
-
+	}
+	
 }

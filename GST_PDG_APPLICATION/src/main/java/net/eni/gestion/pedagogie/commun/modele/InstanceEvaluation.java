@@ -59,7 +59,8 @@ public class InstanceEvaluation extends AModele<Integer> implements Serializable
 		columnName = SURVEILLANT_FIELD_NAME,
 		foreign = true,
 		useGetSet = true,
-		canBeNull = false)
+		canBeNull = false,
+		foreignAutoRefresh = true)
 	private Utilisateur surveillant = null;
 	
 	@JsonBackReference("EvaluationStagiaire-Evaluation")

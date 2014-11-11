@@ -1,8 +1,6 @@
 var formEvaluationSalleCtrl = function($scope, $modalInstance, $filter, $rootScope, $http,
 		eventInfo, salles, getByIdFilter, data, UtilisateursFactory, 
 		EvaluationsFactory, instanceRef) {
-	
-	$scope.formateursSelecteds = [];
 
 	//Instances à supprimer
 	var instancesToDelete = [];
@@ -67,31 +65,27 @@ var formEvaluationSalleCtrl = function($scope, $modalInstance, $filter, $rootSco
 		}	
 	});
 	
+	/*************************** FORMATEURS **********************************************/
 	// Autocomplétion utilisée pour l'affectation des formateurs
 	$scope.chargerFormateurs = function(search) {
 		return UtilisateursFactory.formateurs.getData({search: search}).$promise.then(
 			function(data) {
 				var formateurs = [];
 				angular.forEach(data, function(item) {
-					if (($filter('filter')($scope.formateursSelecteds, {id: item.id})).length == 0) {
-						formateurs.push(item);
-					}
+					formateurs.push(item);
 				});
 				
 				return formateurs;
 			});
 	};
-    
-	/*************************** FORMATEURS **********************************************/
+	
 	// Ajoute un formateur l'édition d'une salle
 	$scope.addFormateur = function (instance, newFormateur) {
 		instance.surveillant = newFormateur;
-		$scope.formateursSelecteds.push(newFormateur);
 	}
 	
 	// Supression d'un formateur d'un instance
 	$scope.removeFormateur = function (pIndex, instance, formateur) {
-		_.remove($scope.formateursSelecteds, {id : formateur.id});
 		instance.surveillant = null;
 	};
 	
@@ -244,13 +238,21 @@ var formEvaluationSalleCtrl = function($scope, $modalInstance, $filter, $rootSco
 	
 
 	/*************************** RESERVATION **********************************************/
+	//Si un des éléments de l'IHM est en mode édition
+	$scope.oneIsEditing = function () {
+		var i, length = $scope.instances.length, isEditing = false;
+		for (i = 0 ; i < length ; i ++) {
+			if ($scope.instances[i].editing == true) {
+				isEditing = true; break;
+			}
+		}
+		return isEditing;
+	}
+	
 	// Réservation et enregistrement de toutes les données de l'écran
 	$scope.reserver = function () {
 		
 		var instancesToSaved = _.transform($scope.instances, function(result, num) {
-			if (num.id == INSTANCE_TEMP) 
-				num.id = 0
-				
 			var instance = {id : num.id, surveillant: num.surveillant, reservationSalle: num.reservationSalle, evaluation : {id:data.id}};
 			result.push({first : instance, second: num.stagiaires});
 		});
@@ -261,8 +263,14 @@ var formEvaluationSalleCtrl = function($scope, $modalInstance, $filter, $rootSco
 		
 		var dataInstances = {instances : instancesToSaved, instancesStagiaires : stagiairesToSaved, instancesToDelete : instancesToDelete};
 		
-		EvaluationsFactory.instance.saveData(dataInstances);
-		$modalInstance.dismiss('cancel');
+		EvaluationsFactory.instance.saveData(dataInstances).$promise.then(
+				function (success) {
+					$modalInstance.close('success');
+				},
+				function (error) {
+					toaster.pop('error', null, error);
+				}
+		);
 	};
 
 	$scope.annuler = function() {

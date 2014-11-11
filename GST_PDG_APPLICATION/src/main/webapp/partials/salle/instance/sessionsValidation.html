@@ -11,7 +11,7 @@
 
 	<div class="panel-body">
 
-		<div class="col-xs-6" ui-tree="options">
+		<div class="col-xs-5" ui-tree="options">
 			<label>Stagiaires inscrits au cours</label>
 			<ol ui-tree-nodes ng-model="promotions" class="node" data-type="promotion">
 				<li ng-repeat="promotion in promotions" class="node" ui-tree-node>
@@ -42,7 +42,7 @@
 		</div><!-- ui-tree promotion -->
 
 
-		<div class="col-xs-6" ui-tree="options">
+		<div class="col-xs-7" ui-tree="options">
 			<label>Salles r&eacute;serv&eacute;es</label>
 			<a href="" style="margin-left:5px;" class="btn btn-primary btn-xs" data-nodrag ng-click="addInstance()">
 				<i class="glyphicon glyphicon-plus"></i>
@@ -51,12 +51,15 @@
 				<li ng-repeat="instance in instances" class="node" ui-tree-node>
 				
 					<!-- Mode lecture salle -->
-					<div class="group-title angular-ui-tree-handle" ng-show="!instance.editing">
+					<div class="group-title angular-ui-tree-handle">
 						<button class="btn btn-danger btn-xs pull-right" data-nodrag ng-click="removeInstance(instance, $index)">
 							<i class="glyphicon glyphicon-remove"></i>
 						</button> 
-						<button class="btn btn-primary btn-xs pull-right" data-nodrag ng-click="editInstance(instance)">
+						<button class="btn btn-primary btn-xs pull-right" data-nodrag ng-click="editInstance(instance)" ng-hide="instance.editing">
 							<i class="glyphicon glyphicon-pencil"></i>
+						</button>
+						<button class="btn btn-success btn-xs pull-right" data-nodrag ng-click="saveInstance(instance)" ng-show="instance.editing">
+							<i class="fa fa-check"></i>
 						</button>
 						<div class="tree-node-content">
 							<button class="btn btn-success btn-xs" data-nodrag ng-click="toggleInstance(instance)">
@@ -105,7 +108,7 @@
 												type="text" ng-model="newProfessionnelH" class="form-control"
 												placeholder="Recherche"
 												typeahead="item as (item.nom + ' ' + item.prenom) for item in chargerProfessionnels($viewValue)"
-												typeahead-loading="chargementItem" class="form-control">
+												typeahead-loading="chargementItem">
 											<span ng-show="chargementItem" class="glyphicon glyphicon-refresh form-control-feedback"></span>
 										</div>
 										</div>
@@ -129,17 +132,6 @@
 									</div>	
 								</div>
 								
-							</div>
-
-							<div class="modal-footer-node">
-								<button type="submit" class="btn btn-default"
-									ng-click="removeInstance(instance, $index)">
-									<i class="fa fa-times"></i>
-								</button>
-								<button type="submit" class="btn btn-default"
-									ng-click="saveInstance(instance)">
-									<i class="fa fa-check"></i>
-								</button>
 							</div>
 
 						</form>
@@ -222,9 +214,7 @@
 </div><!-- modal-body -->
 
 <div class="modal-footer">
-	<button name="annulerSubmit" data-ng-disabled="progress.active()"
-		data-ng-click="annuler()" class="btn btn-primary">Annuler</button>
-	<button name="reservationSubmit" data-ng-disabled="progress.active()"
-		data-ng-click="reserver()" class="btn btn-primary">R&eacute;server</button>
+	<button name="annulerSubmit" ng-click="annuler()" class="btn btn-primary">Annuler</button>
+	<button name="reservationSubmit" ng-disabled="oneIsEditing()" ng-click="reserver()" class="btn btn-primary">R&eacute;server</button>
 </div>
 

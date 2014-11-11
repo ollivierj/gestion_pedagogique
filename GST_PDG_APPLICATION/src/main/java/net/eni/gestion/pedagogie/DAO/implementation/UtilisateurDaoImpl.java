@@ -125,7 +125,9 @@ public class UtilisateurDaoImpl extends ADaoImpl<Utilisateur, Integer> implement
 		List<Utilisateur> utilisateur = null;
 		
 		try {
+			
 			StringBuilder lQuery = new StringBuilder();
+
 			lQuery.append("SELECT TOP 10 ");
 			lQuery.append(StringUtils.join(ORMLiteHelper.getProjectionFields(this.getTableInfo()), ","));
 			lQuery.append(" FROM ");
@@ -139,6 +141,7 @@ public class UtilisateurDaoImpl extends ADaoImpl<Utilisateur, Integer> implement
 				lQuery.append(" AND ");
 				lQuery.append(lFullTextSearchWhereClause);
 			}
+			
 			utilisateur =  new ArrayList<Utilisateur>(this.queryRaw(lQuery.toString(), this.getRawRowMapper()).getResults());
 		} catch (Exception exception) {
 			throw new Exception("Echec de chargement de la liste d'enregistrements depuis la base de données");
@@ -147,5 +150,85 @@ public class UtilisateurDaoImpl extends ADaoImpl<Utilisateur, Integer> implement
 		
 		return utilisateur;
 	}
+	
+/*	@Override
+	public List<Utilisateur> getFormateurs(String pSearchText, String debut, String fin) throws Exception {
+		List<Utilisateur> utilisateur = null;
+		
+		try {
+			
+			StringBuilder lQuery = new StringBuilder();
 
+			lQuery.append("SELECT TOP 10 ");
+      		lQuery.append(Utilisateur.ID_FIELD_NAME);
+      		lQuery.append(",");
+      		lQuery.append(Utilisateur.FONCTION_FIELD_NAME);
+      		lQuery.append(",");
+      		lQuery.append(Utilisateur.CIVILITE_FIELD_NAME);
+      		lQuery.append(",");
+      		lQuery.append(Utilisateur.NOM_FIELD_NAME);
+      		lQuery.append(",");
+      		lQuery.append(Utilisateur.PRENOM_FIELD_NAME);
+      		lQuery.append(",");
+      		lQuery.append(Utilisateur.TELEPHONE_FIXE_FIELD_NAME);
+      		lQuery.append(",");
+      		lQuery.append(Utilisateur.TELEPHONE_PORTABLE_FIELD_NAME);
+      		lQuery.append(",");
+      		lQuery.append(Utilisateur.EMAIL_FIELD_NAME);
+      		lQuery.append(",");
+      		lQuery.append(Utilisateur.PHOTO_FIELD_NAME);
+      		lQuery.append(",");
+      		lQuery.append(Utilisateur.MOT_PASSE_FIELD_NAME);
+      		lQuery.append(",");
+      		lQuery.append(Utilisateur.PROFIL_FIELD_NAME);
+      		lQuery.append(",");
+      		lQuery.append(Utilisateur.LOGIN_FIELD_NAME);
+      		lQuery.append(",");
+      		lQuery.append(Utilisateur.TOKEN_FIELD_NAME);
+      		lQuery.append(",");
+      		lQuery.append(Utilisateur.DATE_EXPIRATION_FIELD_NAME);
+      		lQuery.append(",");
+      		lQuery.append(Utilisateur.IS_FORMATEUR_FIELD_NAME);
+      		lQuery.append(",");
+      		
+      		//Récupère le nombre de fois que le formateur est réservé.
+      		lQuery.append(" ( SELECT COUNT(*) FROM INSTANCE_COURS ");
+      		lQuery.append(" INNER JOIN RESERVATION_SALLE ON RESERVATION_SALLE.RES_SALLE_ID = INSTANCE_COURS.INST_COURS_RESERVATION_SALLE ");
+      		lQuery.append(" WHERE INST_COURS_ANIMATEUR = UTIL_ID ");
+      		lQuery.append(" AND ( (RESERVATION_SALLE.RES_SALLE_DATE_DEBUT <= convert(datetime, '");
+      		lQuery.append(debut);
+      		lQuery.append("', 103) AND RESERVATION_SALLE.RES_SALLE_DATE_DEBUT >= convert(datetime, '");
+      		lQuery.append(debut);
+      		lQuery.append("', 103) ) OR ( RESERVATION_SALLE.RES_SALLE_DATE_FIN <= convert(datetime, '");
+      		lQuery.append(fin);
+      		lQuery.append("', 103) AND RESERVATION_SALLE.RES_SALLE_DATE_FIN >= convert(datetime, '");
+      		lQuery.append(fin);
+      		lQuery.append("', 103) ) OR ( RESERVATION_SALLE.RES_SALLE_DATE_DEBUT <= convert(datetime, '");
+      		lQuery.append(debut);
+      		lQuery.append("', 103) AND RESERVATION_SALLE.RES_SALLE_DATE_FIN >= convert(datetime, '");
+      		lQuery.append(fin);
+      		lQuery.append("', 103)) ) ) AS COUNT_RESERVED ");      		
+      		
+			lQuery.append(" FROM ");
+			lQuery.append(this.getTableInfo().getTableName());
+			String lFullTextSearchWhereClause = ORMLiteHelper.getFullTextSearchWhereClause(this.getDataClass().newInstance().getFullTextSearchFieldNames() , pSearchText);
+			lQuery.append(" WHERE ");
+			lQuery.append(Utilisateur.IS_FORMATEUR_FIELD_NAME);
+			lQuery.append(" = ");
+			lQuery.append(" 1 ");
+			if (null !=lFullTextSearchWhereClause){
+				lQuery.append(" AND ");
+				lQuery.append(lFullTextSearchWhereClause);
+			}
+			
+			List<String[]> test = this.queryRaw(lQuery.toString()).getResults();
+			//utilisateur =  new ArrayList<Utilisateur>(this.queryRaw(lQuery.toString(), this.getRawRowMapper()).getResults());
+		} catch (Exception exception) {
+			throw new Exception("Echec de chargement de la liste d'enregistrements depuis la base de données");
+		}
+		
+		
+		return utilisateur;
+	}
+*/
 }
