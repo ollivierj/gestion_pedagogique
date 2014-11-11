@@ -71,7 +71,7 @@ controllers
 									templateUrl : 'partials/salle/salle.html',
 									controller : modalEditionSalleCtrl,
 									resolve : {
-										title : function() {return "Ajout d'un type de session";},
+										title : function() {return "Ajout d'une salle";},
 										readonly : function() {return false;},
 										affFichiers : function() {return false;},
 										affTelech : function() {return false;},
@@ -87,7 +87,7 @@ controllers
 											return SalleFactory.create.doAction(
 												item,
 												function(success) {
-													toaster.pop('success', null, "Type de session enregistré");
+													toaster.pop('success', null, "Salle enregistrée");
 												},
 												function(error) {
 													toaster.pop('error', null, error.data.message);
@@ -110,7 +110,7 @@ controllers
 									templateUrl : 'partials/salle/salle.html',
 									controller : modalEditionSalleCtrl,
 									resolve : {
-										title : function() {return "Visualisation d'un type de session";},
+										title : function() {return "Visualisation d'une salle";},
 										readonly : function() {return true;},
 										affFichiers : function() {return true;},
 										affTelech : function() {return false;},
@@ -142,7 +142,7 @@ controllers
 									templateUrl : 'partials/salle/salle.html',
 									controller : modalEditionSalleCtrl,
 									resolve : {
-										title : function() {return "Edition d'un type de session";},
+										title : function() {return "Edition d'une salle";},
 										readonly : function() {return false;},
 										affFichiers : function() {return true;},
 										affTelech : function() {return true;},
@@ -184,8 +184,8 @@ controllers
 									controller : modalConfirmationDeleteSalleCtrl,
 									resolve : {
 										id : function() {return salleId},
-										title : function() {return "Suppression type de session";},
-										message : function() {return "Etes-vous sur de vouloir supprimer ce type de session ?";},
+										title : function() {return "Suppression d'une salle";},
+										message : function() {return "Etes-vous sur de vouloir supprimer cette salle ?";},
 										ok : function () { return function(id) {return SalleFactory.delete.doAction(
 											{id : id},
 											function(success) {
