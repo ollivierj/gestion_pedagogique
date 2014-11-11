@@ -7,6 +7,8 @@ import net.eni.gestion.pedagogie.DAO.StagiaireAvisDao;
 import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.pagination.Pager;
 import net.eni.gestion.pedagogie.commun.composant.tuple.Pair;
+import net.eni.gestion.pedagogie.commun.configuration.ModeleMetier;
+import net.eni.gestion.pedagogie.commun.modele.Stagiaire;
 import net.eni.gestion.pedagogie.commun.modele.StagiaireAvis;
 import net.eni.gestion.pedagogie.commun.outil.ORMLiteHelper;
 
@@ -46,8 +48,18 @@ public class StagiaireAvisDaoImpl extends ADaoImpl<StagiaireAvis, Integer> imple
 			lQuery.append(") AS RowNum ");
 			lQuery.append(" FROM ");
 			lQuery.append(this.getTableInfo().getTableName());
-			String lFullTextSearchWhereClause = ORMLiteHelper.getFullTextSearchWhereClause(this.getDataClass().newInstance().getFullTextSearchFieldNames() , pPager.getFilterOptions().getFilterText());
-			lQuery.append(" WHERE 1=1");
+			lQuery.append(" INNER JOIN ");
+			lQuery.append(ModeleMetier.STAGIAIRE_TABLE_NAME);
+			lQuery.append(" ON ");
+			lQuery.append(ModeleMetier.STAGIAIRE_TABLE_NAME);
+			lQuery.append(".");
+			lQuery.append(Stagiaire.ID_FIELD_NAME);
+			lQuery.append("=");
+			lQuery.append(ModeleMetier.STAGIAIRE_AVIS_TABLE_NAME);
+			lQuery.append(".");
+			lQuery.append(StagiaireAvis.ID_FIELD_NAME);
+			lQuery.append(" WHERE 1=1 ");
+			String lFullTextSearchWhereClause = ORMLiteHelper.getFullTextSearchWhereClause(new Stagiaire().getFullTextSearchFieldNames() , pPager.getFilterOptions().getFilterText());
 			if (null !=lFullTextSearchWhereClause){
 				lQuery.append(" AND ");
 				lQuery.append(lFullTextSearchWhereClause);

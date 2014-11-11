@@ -56,7 +56,8 @@ public class Avis extends AModele<Integer> implements Serializable {
 		columnName = STAGIAIRE_FIELD_NAME,
 		foreign = true,
 		useGetSet = true,
-		canBeNull = false)
+		canBeNull = false,
+		foreignAutoRefresh = true)
 	private Stagiaire stagiaire = null;
 
 	@SchemaIgnore
@@ -79,7 +80,8 @@ public class Avis extends AModele<Integer> implements Serializable {
 	@DatabaseField(
 		columnName = AUTEUR_FIELD_NAME,
 		foreign = true,
-		useGetSet = true)
+		useGetSet = true,
+		foreignAutoRefresh = true)
 	private Utilisateur auteur = null;
 	
 	@DatabaseField(

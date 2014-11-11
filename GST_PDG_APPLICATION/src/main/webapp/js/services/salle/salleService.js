@@ -27,8 +27,8 @@ services.factory('SalleFactory', function($resource, $filter, $rootScope) {
 			getData : { method: 'POST'}
 		});
 		
-		var canEdit = ($rootScope.utilisateurConnecte.profil.droits[1]=='EVAL_E');
-		var canView = ($rootScope.utilisateurConnecte.profil.droits[1]=='EVAL_L'||canEdit);
+		var canEdit = ($rootScope.utilisateurConnecte.profil.droits[1]=='RES_SALLEL_E');
+		var canView = ($rootScope.utilisateurConnecte.profil.droits[1]=='RES_SALLEL_L'||canEdit);
 		
 		return {
 			canEdit : canEdit,

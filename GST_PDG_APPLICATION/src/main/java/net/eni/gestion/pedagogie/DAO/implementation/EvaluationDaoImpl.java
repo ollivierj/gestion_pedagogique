@@ -74,7 +74,7 @@ public class EvaluationDaoImpl extends ADaoImpl<Evaluation, Integer> implements 
 			String lKeyword = " WHERE ";
 			if (null !=lFullTextSearchWhereClause){
 				lQuery.append(lKeyword);
-				lKeyword = " AND ";
+				lKeyword = " OR ";
 				lQuery.append(lFullTextSearchWhereClause);
 			}
 			lFullTextSearchWhereClause = ORMLiteHelper.getFullTextSearchWhereClause(new Module().getFullTextSearchFieldNames() , pPager.getFilterOptions().getFilterText());

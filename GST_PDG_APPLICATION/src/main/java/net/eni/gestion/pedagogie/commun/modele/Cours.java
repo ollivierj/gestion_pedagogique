@@ -57,7 +57,15 @@ public class Cours extends AModele<UUID> implements Serializable {
 	public final static String CODE_SALLE_FIELD_NAME 				= "CodeSalle";
 	public final static String CODE_FORMATEUR_FIELD_NAME 			= "CodeFormateur";
 	
-	@JsonIgnore
+	// Champ utilisant un index FTS
+		public final static String[] FULL_TEXT_SEARCH_FIELDS		= {LIBELLE_COURS_FIELD_NAME};
+		
+		@Override
+		public String[] getFullTextSearchFieldNames() {
+			return FULL_TEXT_SEARCH_FIELDS;
+		}
+
+		@JsonIgnore
 	@DatabaseField(
 		columnName = ID_FIELD_NAME,
 		dataType = DataType.UUID,

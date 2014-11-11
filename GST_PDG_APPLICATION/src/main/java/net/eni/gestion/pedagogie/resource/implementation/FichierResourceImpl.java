@@ -102,6 +102,8 @@ public class FichierResourceImpl implements FichierResource {
 			@PathParam("filename") String filename) {
 		return fichierService.supprimer(pType, pId, filename);
 	}
+	
+	public final static String DEFAULT_IMAGE = "default.png";
 
 	@GET
 	@Path("image/{stagiaireId}")
@@ -110,6 +112,12 @@ public class FichierResourceImpl implements FichierResource {
 	public Response getImage(@PathParam("stagiaireId") Integer pStagiaireId) {
 		File lFile = fichierService.getStagiairePhoto(pStagiaireId);
 		if (!lFile.exists()) {
+			StringBuilder lStrBuilder = new StringBuilder();
+			lStrBuilder.append("/net/eni/gestion/pedagogie/commun/configuration/");
+			lStrBuilder.append(DEFAULT_IMAGE);
+			lFile = new File(this.getClass().getResource(lStrBuilder.toString()).getFile());
+		}
+		if (!lFile.exists()){
 			throw new WebApplicationException(404);
 		}
 		String lMimeType = new MimetypesFileTypeMap().getContentType(lFile);

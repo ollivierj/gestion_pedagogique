@@ -174,6 +174,7 @@ var modalUtilisateurInformationCtrl = function($scope, $modalInstance,
 		title, utilisateur) {
 	$scope.title = title;
 	$scope.utilisateur = utilisateur;
+	$scope.utilisateur.dateExpiration =  $filter('date')($scope.utilisateur.dateExpiration, 'le dd/MM/yyyy à HH:mm:ss'),
 	$scope.cancel = function() {
 		$modalInstance.dismiss('cancel');
 	};

@@ -437,8 +437,7 @@ var modalEditionSessionValidationCtrl = function($scope, $modalInstance, $filter
 	};
 	
 	$scope.downloadFile = function(fichier) {
-		var downloadPath = '/ng_gst_pdg/web/fichiers/telecharger/SessionValidation/'+$scope.data.id+'/'+fichier.filename;
-		window.open(downloadPath,'_blank');  
+		FichiersFactory.telecharger('SessionValidation', $scope.data.id, fichier.filename);
 	};
 	
 	$scope.removeFile = function(fichier) {
