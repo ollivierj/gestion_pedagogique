@@ -19,7 +19,7 @@ import net.eni.gestion.pedagogie.resource.InstanceEvaluationResource;
 import net.eni.gestion.pedagogie.service.InstanceEvaluationService;
 
 import com.google.inject.Inject;
-import com.j256.ormlite.misc.TransactionManager;
+import net.eni.gestion.pedagogie.commun.composant.connexion.TransactionManager;
 
 /**
  * @author jollivier

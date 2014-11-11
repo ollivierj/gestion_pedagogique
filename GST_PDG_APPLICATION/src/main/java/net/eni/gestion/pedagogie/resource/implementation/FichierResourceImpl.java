@@ -25,7 +25,7 @@ import net.eni.gestion.pedagogie.resource.FichierResource;
 import net.eni.gestion.pedagogie.service.FichierService;
 
 import com.google.inject.Inject;
-import com.j256.ormlite.misc.TransactionManager;
+import net.eni.gestion.pedagogie.commun.composant.connexion.TransactionManager;
 import com.sun.jersey.multipart.FormDataMultiPart;
 
 @Path("/fichiers")

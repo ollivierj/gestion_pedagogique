@@ -18,7 +18,7 @@ import net.eni.gestion.pedagogie.resource.StagiairePromotionResource;
 import net.eni.gestion.pedagogie.service.StagiairePromotionService;
 
 import com.google.inject.Inject;
-import com.j256.ormlite.misc.TransactionManager;
+import net.eni.gestion.pedagogie.commun.composant.connexion.TransactionManager;
 
 @Path("/stagiairesPromotions")
 public class StagiairePromotionResourceImpl extends AResourceImpl<StagiairePromotion, Integer, StagiairePromotionService> implements StagiairePromotionResource {

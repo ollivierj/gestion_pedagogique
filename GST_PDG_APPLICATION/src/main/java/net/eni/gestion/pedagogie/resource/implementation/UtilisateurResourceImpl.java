@@ -22,7 +22,7 @@ import net.eni.gestion.pedagogie.resource.UtilisateurResource;
 import net.eni.gestion.pedagogie.service.UtilisateurService;
 
 import com.google.inject.Inject;
-import com.j256.ormlite.misc.TransactionManager;
+import net.eni.gestion.pedagogie.commun.composant.connexion.TransactionManager;
 
 
 /**

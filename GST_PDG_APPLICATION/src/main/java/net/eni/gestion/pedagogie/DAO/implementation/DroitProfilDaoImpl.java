@@ -33,13 +33,31 @@ public class DroitProfilDaoImpl extends ADaoImpl<DroitProfil, Integer> implement
 	}
 	
 	public void deleteDroits(Integer pProfilId) throws ApplicationException{
-		DeleteBuilder<DroitProfil, Integer> lDeleteBuilder= this.deleteBuilder();
+		StringBuilder lQuery = new StringBuilder();
+		lQuery.append("SELECT TOP 1 1 FROM ");
+		lQuery.append(ModeleMetier.UTILISATEUR_TABLE_NAME);
+		lQuery.append(" WHERE ");
+		lQuery.append(Utilisateur.PROFIL_FIELD_NAME);
+		lQuery.append("=");
+		lQuery.append(pProfilId);
+		String[] instanceExist;
 		try {
-			lDeleteBuilder.where().eq(DroitProfil.PROFIL_FIELD_NAME, pProfilId);
-			lDeleteBuilder.delete();
+			instanceExist = this.queryRaw(lQuery.toString()).getFirstResult();
 		} catch (SQLException e) {
-			throw new ApplicationException("Echec lors de la suppression des droits en base de données");
+			throw new ApplicationException("Echec lors de la validation en base de données");
 		}
+		if (null==instanceExist){
+			DeleteBuilder<DroitProfil, Integer> lDeleteBuilder= this.deleteBuilder();
+			try {
+				lDeleteBuilder.where().eq(DroitProfil.PROFIL_FIELD_NAME, pProfilId);
+				lDeleteBuilder.delete();
+			} catch (SQLException e) {
+				throw new ApplicationException("Echec lors de la suppression des droits en base de données");
+			}
+		}else {
+			throw new ApplicationException("Il existe au moins un utilisateur pour ce profil.\n Vous devez vous assurer que le profil n'est pas utilisé par un utilisateur");
+		}
+		
 		
 	}
 	
@@ -216,27 +234,6 @@ public class DroitProfilDaoImpl extends ADaoImpl<DroitProfil, Integer> implement
 		
 	}
 	
-	@Override
-	protected boolean validerAvantSuppression(Integer pId) throws  ApplicationException {
-		StringBuilder lQuery = new StringBuilder();
-		lQuery.append("SELECT TOP 1 1 FROM ");
-		lQuery.append(ModeleMetier.UTILISATEUR_TABLE_NAME);
-		lQuery.append(" WHERE ");
-		lQuery.append(Utilisateur.PROFIL_FIELD_NAME);
-		lQuery.append("=");
-		lQuery.append(pId);
-		String[] instanceExist;
-		try {
-			instanceExist = this.queryRaw(lQuery.toString()).getFirstResult();
-		} catch (SQLException e) {
-			throw new ApplicationException("Echec lors de la validation en base de données");
-		}
-		if (null==instanceExist){
-			return true;
-		}else {
-			throw new ApplicationException("Il existe au moins un utilisateur pour ce profil.\n Vous devez vous assurer que le profil n'est pas utilisé par un utilisateur");
-		}
-	}
 	
 	
 

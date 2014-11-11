@@ -20,7 +20,7 @@ import net.eni.gestion.pedagogie.resource.StagiaireResource;
 import net.eni.gestion.pedagogie.service.StagiaireService;
 
 import com.google.inject.Inject;
-import com.j256.ormlite.misc.TransactionManager;
+import net.eni.gestion.pedagogie.commun.composant.connexion.TransactionManager;
 
 /**
  * @author jollivier

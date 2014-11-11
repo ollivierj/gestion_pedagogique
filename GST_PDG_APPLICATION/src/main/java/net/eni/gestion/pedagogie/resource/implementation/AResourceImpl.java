@@ -35,7 +35,7 @@ import com.github.fge.jackson.JsonLoader;
 import com.github.reinert.jjschema.v1.JsonSchemaFactory;
 import com.github.reinert.jjschema.v1.JsonSchemaV4Factory;
 import com.google.inject.Inject;
-import com.j256.ormlite.misc.TransactionManager;
+import net.eni.gestion.pedagogie.commun.composant.connexion.TransactionManager;
 
 public class AResourceImpl<M extends AModele<ID>, ID, S extends AService<M, ID>>
 		implements AResource<M, ID>, Authentification {

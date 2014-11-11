@@ -17,7 +17,7 @@ import net.eni.gestion.pedagogie.resource.PlanningResource;
 import net.eni.gestion.pedagogie.service.PlanningService;
 
 import com.google.inject.Inject;
-import com.j256.ormlite.misc.TransactionManager;
+import net.eni.gestion.pedagogie.commun.composant.connexion.TransactionManager;
 
 @Path("/planning")
 public class PlanningResourceImpl extends AResourceImpl<Planning, Long, PlanningService> implements PlanningResource {

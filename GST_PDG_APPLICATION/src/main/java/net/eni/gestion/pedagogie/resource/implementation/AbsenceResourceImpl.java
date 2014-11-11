@@ -15,13 +15,13 @@ import javax.ws.rs.core.MediaType;
 
 import net.eni.gestion.pedagogie.commun.composant.authentification.annotation.CheckSession;
 import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
+import net.eni.gestion.pedagogie.commun.composant.connexion.TransactionManager;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.Absence;
 import net.eni.gestion.pedagogie.resource.AbsenceResource;
 import net.eni.gestion.pedagogie.service.AbsenceService;
 
 import com.google.inject.Inject;
-import com.j256.ormlite.misc.TransactionManager;
 
 /**
  * @author jollivier

@@ -17,7 +17,7 @@ import net.eni.gestion.pedagogie.resource.ReservationSalleResource;
 import net.eni.gestion.pedagogie.service.ReservationSalleService;
 
 import com.google.inject.Inject;
-import com.j256.ormlite.misc.TransactionManager;
+import net.eni.gestion.pedagogie.commun.composant.connexion.TransactionManager;
 
 /**
  * @author jollivier
