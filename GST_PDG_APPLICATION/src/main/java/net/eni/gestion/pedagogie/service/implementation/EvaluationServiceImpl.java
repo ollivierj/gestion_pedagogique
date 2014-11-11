@@ -22,120 +22,105 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 /**
- * @author jollivier
- * Classe d'implémentation pour le module de suivi des evaluations
+ * @author jollivier Classe d'implémentation pour le module de suivi des
+ *         evaluations
  */
 @Singleton
-public class EvaluationServiceImpl extends AServiceImpl<Evaluation, Integer, EvaluationDao> implements EvaluationService {
+public class EvaluationServiceImpl extends
+		AServiceImpl<Evaluation, Integer, EvaluationDao> implements
+		EvaluationService {
 
 	protected final EvaluationStagiaireDao evaluationStagiaireDao;
 	protected final ReservationSalleDao reservationSalleDao;
 	protected final InstanceEvaluationDao instanceEvaluationDao;
-	
-       /**
-     * Constructeur
-     * @param DAO evaluation
-     * @throws SQLException
-     */
-    @Inject
-    public EvaluationServiceImpl(EvaluationDao pEvaluationDao, EvaluationStagiaireDao pEvaluationStagiaireDao, 
-    		ReservationSalleDao reservationSalleDao, InstanceEvaluationDaoImpl instanceEvaluationDaoImpl) throws SQLException {
-        super(pEvaluationDao);
-        this.evaluationStagiaireDao = pEvaluationStagiaireDao;
-        this.reservationSalleDao = reservationSalleDao;
-        this.instanceEvaluationDao = instanceEvaluationDaoImpl;
-    }
-    
-    @Override
-	public Evaluation chargerDetail(Integer pId)
-			throws ApplicationException {
-		Evaluation lEvaluation = super
-				.chargerDetail(pId);
+
+	/**
+	 * Constructeur
+	 * 
+	 * @param DAO
+	 *            evaluation
+	 * @throws SQLException
+	 */
+	@Inject
+	public EvaluationServiceImpl(EvaluationDao pEvaluationDao,
+			EvaluationStagiaireDao pEvaluationStagiaireDao,
+			ReservationSalleDao reservationSalleDao,
+			InstanceEvaluationDaoImpl instanceEvaluationDaoImpl)
+			throws SQLException {
+		super(pEvaluationDao);
+		this.evaluationStagiaireDao = pEvaluationStagiaireDao;
+		this.reservationSalleDao = reservationSalleDao;
+		this.instanceEvaluationDao = instanceEvaluationDaoImpl;
+	}
+
+	@Override
+	public Evaluation chargerDetail(Integer pId) throws ApplicationException {
+		Evaluation lEvaluation = super.chargerDetail(pId);
 		lEvaluation.getEvaluationStagiaires();
 		return lEvaluation;
 	}
-    
-    @Override
-	public Evaluation ajouter(Evaluation pModel)
-			throws ApplicationException {
+
+	@Override
+	public Evaluation ajouter(Evaluation pModel) throws ApplicationException {
 		Evaluation lUpdatedModel = super.ajouter(pModel);
-		try {
-			ArrayList<EvaluationStagiaire> lEvaluationStagiaires = lUpdatedModel.getEvaluationStagiaires();
-			Evaluation lEvaluation = new Evaluation();
-			lEvaluation.setId(pModel.getId());
-			for (EvaluationStagiaire lEvaluationStagiaire : lEvaluationStagiaires) {
-				lEvaluationStagiaire.setEvaluation(lEvaluation);
-			}
-			this.evaluationStagiaireDao.mettreAJourCollectionStagiaireForEvaluation(lUpdatedModel, lEvaluationStagiaires);
-			return lUpdatedModel;
-		} catch (Exception e) {
-			throw new ApplicationException(
-					"Echec lors de la mise à jour en base de données.");
+		ArrayList<EvaluationStagiaire> lEvaluationStagiaires = lUpdatedModel
+				.getEvaluationStagiaires();
+		Evaluation lEvaluation = new Evaluation();
+		lEvaluation.setId(pModel.getId());
+		for (EvaluationStagiaire lEvaluationStagiaire : lEvaluationStagiaires) {
+			lEvaluationStagiaire.setEvaluation(lEvaluation);
 		}
+		this.evaluationStagiaireDao
+				.mettreAJourCollectionStagiaireForEvaluation(lUpdatedModel,
+						lEvaluationStagiaires);
+		return lUpdatedModel;
 	}
 
 	@Override
 	public Evaluation mettreAJour(Evaluation pModel)
 			throws ApplicationException {
 		Evaluation lUpdatedModel = super.mettreAJour(pModel);
-		try {
-			ArrayList<EvaluationStagiaire> lEvaluationStagiaires = lUpdatedModel.getEvaluationStagiaires();
-			Evaluation lEvaluation = new Evaluation();
-			lEvaluation.setId(pModel.getId());
-			for (EvaluationStagiaire lEvaluationStagiaire : lEvaluationStagiaires) {
-				lEvaluationStagiaire.setEvaluation(lEvaluation);
-			}
-			this.evaluationStagiaireDao.mettreAJourCollectionStagiaireForEvaluation(lUpdatedModel, lEvaluationStagiaires);
-			return lUpdatedModel;
-		} catch (Exception e) {
-			throw new ApplicationException(
-					"Echec lors de la mise à jour en base de données.");
+		ArrayList<EvaluationStagiaire> lEvaluationStagiaires = lUpdatedModel
+				.getEvaluationStagiaires();
+		Evaluation lEvaluation = new Evaluation();
+		lEvaluation.setId(pModel.getId());
+		for (EvaluationStagiaire lEvaluationStagiaire : lEvaluationStagiaires) {
+			lEvaluationStagiaire.setEvaluation(lEvaluation);
 		}
+		this.evaluationStagiaireDao
+				.mettreAJourCollectionStagiaireForEvaluation(lUpdatedModel,
+						lEvaluationStagiaires);
+		return lUpdatedModel;
 	}
-	
+
 	@Override
-	public Evaluation saveInstanceData(InstancePlanning<InstanceEvaluation, EvaluationStagiaire> instances)
+	public Evaluation saveInstanceData(
+			InstancePlanning<InstanceEvaluation, EvaluationStagiaire> instances)
 			throws ApplicationException {
 		
 		//Enregistrement des stagiaires liéss aux instances
 		for (Pair<InstanceEvaluation, List<EvaluationStagiaire>> instance : instances.getInstances()) {
 			ReservationSalle reservationSalle = null;
 			InstanceEvaluation instanceEvaluation = null;
-			try {
-				//Réservation de la salle
-				reservationSalle = reservationSalleDao.addOrUpdate(instance.getFirst().getReservationSalle());
-			} catch (Exception e) {
-				throw new ApplicationException("Erreur lors de l'enregistrement de la réservation de salle");
-			}
+			//Réservation de la salle
+			reservationSalle = reservationSalleDao.addOrUpdate(instance.getFirst().getReservationSalle());
 			
 			instance.getFirst().setReservationSalle(reservationSalle);
-			try {
-				//Enregistrement de l'instance
-				instanceEvaluation = instanceEvaluationDao.addOrUpdate(instance.getFirst());
-			} catch (Exception e) {
-				throw new ApplicationException("Erreur lors de l'enregistrement des instances d'évaluations");
-			}
+			//Enregistrement de l'instance
+			instanceEvaluation = instanceEvaluationDao.addOrUpdate(instance.getFirst());
 			
 			//Enregistrement de stagiaires liés à l'instance
 			for (EvaluationStagiaire instanceStagiaire : instance.getSecond()) {
 				//Affectation de l'instance précédemment enregistrée pour récupérer son id.
 				instanceStagiaire.setInstanceEvaluation(instanceEvaluation);
-				try {
-					evaluationStagiaireDao.addOrUpdate(instanceStagiaire);
-				} catch (Exception e) {
-					throw new ApplicationException("Erreur lors de l'enregistrement des instances stagiaires");
-				}
+				evaluationStagiaireDao.addOrUpdate(instanceStagiaire);
 			}
-			
+
 		}
 		
 		//Enregistrement des stagiaires non associés à une instance
 		for (EvaluationStagiaire evaluationStagiaire : instances.getInstancesStagiaires()) {
-			try {
-				evaluationStagiaireDao.addOrUpdate(evaluationStagiaire);
-			} catch (Exception e) {
-				throw new ApplicationException("Erreur lors de l'enregistrement des stagiaires sans instance");
-			}
+			evaluationStagiaireDao.addOrUpdate(evaluationStagiaire);
 		}
 		
 		//Suppression des instances
@@ -152,8 +137,7 @@ public class EvaluationServiceImpl extends AServiceImpl<Evaluation, Integer, Eva
 				throw new ApplicationException("Erreur lors de la suppression d'une réservation de salle.");
 			}
 		}
-		
-		
+
 		return null;
 	}
 

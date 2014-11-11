@@ -346,8 +346,7 @@ var modalEditionSalleCtrl = function($scope, $modalInstance, $modal, $filter, Fi
 	};
 	
 	$scope.downloadFile = function(fichier) {
-		var downloadPath = '/ng_gst_pdg/web/fichiers/telecharger/Salle/'+$scope.data.id+'/'+fichier.filename;
-		window.open(downloadPath,'_blank');  
+		FichiersFactory.telecharger('Salle', $scope.data.id, fichier.filename);
 	};
 	
 	$scope.removeFile = function(fichier) {

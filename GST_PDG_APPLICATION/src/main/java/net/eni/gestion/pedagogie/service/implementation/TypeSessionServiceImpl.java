@@ -15,8 +15,8 @@ import com.google.inject.Singleton;
  */
 @Singleton
 public class TypeSessionServiceImpl extends
-		AServiceImpl<TypeSession, Integer, TypeSessionDao>
-		implements TypeSessionService {
+		AServiceImpl<TypeSession, Integer, TypeSessionDao> implements
+		TypeSessionService {
 
 	/**
 	 * Constructeur
@@ -26,8 +26,8 @@ public class TypeSessionServiceImpl extends
 	 * @throws SQLException
 	 */
 	@Inject
-	public TypeSessionServiceImpl(
-			TypeSessionDao pTypeSessionDao) throws SQLException {
+	public TypeSessionServiceImpl(TypeSessionDao pTypeSessionDao)
+			throws SQLException {
 		super(pTypeSessionDao);
 	}
 

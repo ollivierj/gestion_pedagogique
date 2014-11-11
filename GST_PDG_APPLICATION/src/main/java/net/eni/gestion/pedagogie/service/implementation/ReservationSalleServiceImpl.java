@@ -14,34 +14,34 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 /**
- * @author jollivier
- * Classe d'implémentation pour le module de suivi des reservationSalles
+ * @author jollivier Classe d'implémentation pour le module de suivi des
+ *         reservationSalles
  */
 @Singleton
-public class ReservationSalleServiceImpl extends AServiceImpl<ReservationSalle, Integer, ReservationSalleDao> implements ReservationSalleService {
+public class ReservationSalleServiceImpl extends
+		AServiceImpl<ReservationSalle, Integer, ReservationSalleDao> implements
+		ReservationSalleService {
 
 	protected SalleDao salleDao;
-	
-   /**
-     * Constructeur
-     * @param DAO reservationSalle
-     * @throws SQLException
-     */
-    @Inject
-    public ReservationSalleServiceImpl(ReservationSalleDao pReservationSalleDao, SalleDao salleDao) throws SQLException {
-        super(pReservationSalleDao);
-        this.salleDao = salleDao;
-    }
+
+	/**
+	 * Constructeur
+	 * 
+	 * @param DAO
+	 *            reservationSalle
+	 * @throws SQLException
+	 */
+	@Inject
+	public ReservationSalleServiceImpl(
+			ReservationSalleDao pReservationSalleDao, SalleDao salleDao)
+			throws SQLException {
+		super(pReservationSalleDao);
+		this.salleDao = salleDao;
+	}
 
 	@Override
 	public List<Salle> getSalles() throws ApplicationException {
-		try {
-			return salleDao.chargerTous();
-		} catch (Exception e) {
-			throw new ApplicationException("Impossible de récupérer toutes les salles");
-		}
+		return salleDao.chargerTous();
 	}
-    
-	
-    
+
 }

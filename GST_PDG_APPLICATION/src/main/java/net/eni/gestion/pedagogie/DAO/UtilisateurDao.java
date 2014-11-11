@@ -2,6 +2,8 @@ package net.eni.gestion.pedagogie.DAO;
 
 
 import java.util.List;
+
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.Utilisateur;
 
 /**
@@ -11,9 +13,9 @@ import net.eni.gestion.pedagogie.commun.modele.Utilisateur;
  */
 public interface UtilisateurDao extends ADao<Utilisateur, Integer> {
 
-	public List<Utilisateur> getFormateurs(String pSearchText) throws Exception;
-	public Integer checkConnection(String pLogin, String pMotdePasse, boolean loginOnly) throws Exception;
-	public boolean checkToken(String token) throws Exception;
-	public Utilisateur loginwithtoken(String token) throws Exception;
+	public List<Utilisateur> getFormateurs(String pSearchText) throws ApplicationException;
+	public Integer checkConnection(String pLogin, String pMotdePasse, boolean loginOnly) throws ApplicationException;
+	public boolean checkToken(String token) throws ApplicationException;
+	public Utilisateur loginwithtoken(String token) throws ApplicationException;
 	
 }

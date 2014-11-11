@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import net.eni.gestion.pedagogie.DAO.SessionValidationStagiaireDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.SessionValidation;
 import net.eni.gestion.pedagogie.commun.modele.SessionValidationStagiaire;
 import net.eni.gestion.pedagogie.commun.outil.CRUDHelper;
@@ -26,7 +26,7 @@ public class SessionValidationStagiaireDaoImpl extends ADaoImpl<SessionValidatio
 	 * @throws SQLException
 	 */
 	public SessionValidationStagiaireDaoImpl() throws SQLException {
-		super(Connexion.getConnexion(), SessionValidationStagiaire.class);
+		super( SessionValidationStagiaire.class);
 	}
 	
 	public class findSessionValidationStagiaireByStagiaire implements SearchCallable<SessionValidationStagiaire,Integer> {
@@ -48,7 +48,7 @@ public class SessionValidationStagiaireDaoImpl extends ADaoImpl<SessionValidatio
 		}
 
 		@Override
-		public SessionValidationStagiaire call() throws Exception {
+		public SessionValidationStagiaire call() throws ApplicationException {
 			final SessionValidationStagiaire pFinalSearchItem = this.searchItem;
 			return (SessionValidationStagiaire) CollectionUtils.find(this.itemList,
 					new org.apache.commons.collections.Predicate() {
@@ -61,7 +61,7 @@ public class SessionValidationStagiaireDaoImpl extends ADaoImpl<SessionValidatio
 	
 	public ArrayList<SessionValidationStagiaire> mettreAJourCollectionStagiaireForSessionValidation(
 			SessionValidation pSessionValidation,
-			ArrayList<SessionValidationStagiaire> pSessionValidationStagiaires) throws Exception {
+			ArrayList<SessionValidationStagiaire> pSessionValidationStagiaires) throws ApplicationException {
 		return CRUDHelper.mettreAJourCollection(this, pSessionValidation, pSessionValidationStagiaires, SessionValidationStagiaire.STAGIAIRE_FIELD_NAME, new findSessionValidationStagiaireByStagiaire());
 	}
 

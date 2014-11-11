@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import net.eni.gestion.pedagogie.DAO.TypeSessionDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.TypeSession;
 
 import com.google.inject.Singleton;
@@ -22,10 +22,10 @@ public class TypeSessionDaoImpl extends ADaoImpl<TypeSession, Integer> implement
 	 * @throws SQLException
 	 */
 	public TypeSessionDaoImpl() throws SQLException {
-		super(Connexion.getConnexion(), TypeSession.class);
+		super( TypeSession.class);
 	}
 
-	public HashMap<String, String> getTitleMap() throws Exception {
+	public HashMap<String, String> getTitleMap() throws ApplicationException {
 		try{
 			Iterator<TypeSession> lTypeSessions = this.queryForAll().iterator();
 			HashMap<String, String> lResults = new HashMap<String, String>();
@@ -35,7 +35,7 @@ public class TypeSessionDaoImpl extends ADaoImpl<TypeSession, Integer> implement
 			}
 			return lResults;
 		} catch (Exception exception) {
-			throw new Exception(
+			throw new ApplicationException(
 					"Echec de chargement de la liste d'enregistrements depuis la base de données");
 		}
 	}	

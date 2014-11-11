@@ -10,20 +10,25 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 /**
- * @author jollivier
- * Classe d'implémentation pour le module de suivi des evaluations
+ * @author jollivier Classe d'implémentation pour le module de suivi des
+ *         evaluations
  */
 @Singleton
-public class SujetEvaluationServiceImpl extends AServiceImpl<SujetEvaluation, Integer, SujetEvaluationDao> implements SujetEvaluationService {
+public class SujetEvaluationServiceImpl extends
+		AServiceImpl<SujetEvaluation, Integer, SujetEvaluationDao> implements
+		SujetEvaluationService {
 
-       /**
-     * Constructeur
-     * @param DAO evaluation
-     * @throws SQLException
-     */
-    @Inject
-    public SujetEvaluationServiceImpl(SujetEvaluationDao pSujetEvaluationDao) throws SQLException {
-        super(pSujetEvaluationDao);
-    }
+	/**
+	 * Constructeur
+	 * 
+	 * @param DAO
+	 *            evaluation
+	 * @throws SQLException
+	 */
+	@Inject
+	public SujetEvaluationServiceImpl(SujetEvaluationDao pSujetEvaluationDao)
+			throws SQLException {
+		super(pSujetEvaluationDao);
+	}
 
 }

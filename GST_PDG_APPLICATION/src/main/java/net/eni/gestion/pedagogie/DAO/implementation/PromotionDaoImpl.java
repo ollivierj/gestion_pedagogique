@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import net.eni.gestion.pedagogie.DAO.PromotionDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.Promotion;
 
 import com.google.inject.Singleton;
@@ -22,10 +22,10 @@ public class PromotionDaoImpl extends ADaoImpl<Promotion, String> implements Pro
 	 * @throws SQLException
 	 */
 	public PromotionDaoImpl() throws SQLException {
-		super(Connexion.getConnexion(), Promotion.class);
+		super( Promotion.class);
 	}
 	
-	public ArrayList<Promotion> chargerForAutocompleteSearch(String pSearchText) throws Exception {
+	public ArrayList<Promotion> chargerForAutocompleteSearch(String pSearchText) throws ApplicationException {
 		try {
 			StringBuilder lQuery = new StringBuilder();
 			lQuery.append(" SELECT TOP 10  Promotion.CodePromotion FROM Promotion INNER JOIN STAGIAIRE_PROMOTION ON STAGIAIRE_PROMOTION.CodePromotion = Promotion.CodePromotion WHERE CONTAINS((Promotion.CodePromotion), '\"");
@@ -43,7 +43,7 @@ public class PromotionDaoImpl extends ADaoImpl<Promotion, String> implements Pro
 				}
 	            ).getResults());
 		} catch (Exception exception) {
-			throw new Exception("Echec de chargement de la liste d'enregistrements depuis la base de données");
+			throw new ApplicationException("Echec de chargement de la liste d'enregistrements depuis la base de données");
 		}
 	}
 

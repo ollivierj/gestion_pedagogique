@@ -13,32 +13,34 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 /**
- * @author jollivier
- * Classe d'implémentation pour le module de suivi des evaluations
+ * @author jollivier Classe d'implémentation pour le module de suivi des
+ *         evaluations
  */
 @Singleton
-public class InstanceEvaluationServiceImpl extends AServiceImpl<InstanceEvaluation, Integer, InstanceEvaluationDao> implements InstanceEvaluationService {
+public class InstanceEvaluationServiceImpl extends
+		AServiceImpl<InstanceEvaluation, Integer, InstanceEvaluationDao>
+		implements InstanceEvaluationService {
 
-    /**
-     * Constructeur
-     * @param DAO evaluation
-     * @throws SQLException
-     */
-    @Inject
-    public InstanceEvaluationServiceImpl(InstanceEvaluationDao pInstanceEvaluationDao) throws SQLException {
-        super(pInstanceEvaluationDao);
-    }
+	/**
+	 * Constructeur
+	 * 
+	 * @param DAO
+	 *            evaluation
+	 * @throws SQLException
+	 */
+	@Inject
+	public InstanceEvaluationServiceImpl(
+			InstanceEvaluationDao pInstanceEvaluationDao) throws SQLException {
+		super(pInstanceEvaluationDao);
+	}
 
 	@Override
-	public List<InstanceEvaluation> getInstancesByEvaluation (Evaluation evaluation) throws ApplicationException {
-		
+	public List<InstanceEvaluation> getInstancesByEvaluation(
+			Evaluation evaluation) throws ApplicationException {
+
 		List<InstanceEvaluation> instances = null;
-		try {
-			instances = dao.getInstancesByEvaluation(evaluation);
-		} catch (Exception e) {
-			throw new ApplicationException("Erreur lors de la récupération des instances d'évaluation.");
-		}
+		instances = dao.getInstancesByEvaluation(evaluation);
 		return instances;
 	}
-    
+
 }

@@ -1,12 +1,12 @@
 'use strict';
 
 controllers.controller('instanceCoursCtrl', function($scope, $modal, $log,
-		$timeout, $http, $rootScope, $state, toaster, AvisFactory, StagiaireAvisFactory,
+		$timeout, $http, $rootScope, $state, toaster, AvisFactory, StagiaireAvisFactory, FichiersFactory,
 		InstanceCoursFactory, UtilisateursFactory) {
 	$scope.pagingOptions = AvisFactory.pagingOptions;
 	$scope.sortOptions = AvisFactory.sortOptions;
 	$scope.filterOptions = AvisFactory.filterOptions;
-	$scope.title = "Avis";
+	$scope.title = "Cours animés";
 	$scope.canEdit = AvisFactory.canEdit;
 	$scope.canView = AvisFactory.canView;
 	$scope.viewRow = function(entity) {
@@ -15,6 +15,10 @@ controllers.controller('instanceCoursCtrl', function($scope, $modal, $log,
 		$state.go('avis');
 		StagiaireAvisFactory.readonly = true;
 		AvisFactory.readonly = true;
+	};
+	
+    $scope.exporter = function(){
+		FichiersFactory.exporter('/ng_gst_pdg/web/instanceCours/csv', $scope.pagingOptions, $scope.filterOptions, $scope.sortOptions);
 	};
 
 	$scope.editRow = function(entity) {

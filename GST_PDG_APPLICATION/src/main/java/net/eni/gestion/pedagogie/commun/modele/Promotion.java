@@ -47,7 +47,7 @@ public class Promotion extends AModele<String> implements Serializable {
 	public final static String PRIX_PEC_AFFECTE_FIELD_NAME		= "PrixPECAffecte";
 	public final static String PRIX_FINANCE_AFFECTE_FIELD_NAME	= "PrixFinanceAffecte";
 	
-	public final static String[] FULL_TEXT_SEARCH_FIELDS		= {ID_FIELD_NAME};
+	public final static String[] FULL_TEXT_SEARCH_FIELDS		= {ModeleMetier.PROMOTION_TABLE_NAME+"."+LIBELLE_FIELD_NAME};
 	
 	@JsonIgnore
 	@Override

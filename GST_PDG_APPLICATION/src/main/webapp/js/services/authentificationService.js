@@ -22,7 +22,7 @@ services.factory('AuthentificationFactory', function($http, $cookieStore,
 			nom : data.nom,
 			email : data.email,
 			fonction : (data.fonction)?(data.fonction.libelle)?data.fonction.libelle:"":"",
-			dateExpiration : $filter('date')(data.dateExpiration, 'le dd/MM/yyyy à HH:mm:ss'),
+			dateExpiration : data.dateExpiration,
 			profil : {
 				libelle : (data.profil)?(data.profil.libelle)?data.profil.libelle:"":"",
 				droits : data.profil.droits

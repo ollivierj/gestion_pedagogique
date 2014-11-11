@@ -40,8 +40,7 @@ controllers.controller('detailFichierCtrl', function($scope, $rootScope, $http, 
 	};
 	
 	$scope.downloadFile = function(fichier) {
-		var downloadPath = '/ng_gst_pdg/web/fichiers/telecharger/Stagiaire/'+StagiaireFactory.stagiaire.id+'/'+fichier.filename;
-		window.open(downloadPath,'_blank');  
+		FichiersFactory.telecharger('Stagiaire', StagiaireFactory.stagiaire.id, fichier.filename);
 	};
 	
 	$scope.removeFile = function(fichier) {

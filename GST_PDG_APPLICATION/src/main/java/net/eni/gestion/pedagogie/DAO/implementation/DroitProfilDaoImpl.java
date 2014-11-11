@@ -4,10 +4,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import net.eni.gestion.pedagogie.DAO.DroitProfilDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
+import net.eni.gestion.pedagogie.commun.configuration.ModeleMetier;
 import net.eni.gestion.pedagogie.commun.modele.Droit;
 import net.eni.gestion.pedagogie.commun.modele.DroitProfil;
 import net.eni.gestion.pedagogie.commun.modele.Profil;
+import net.eni.gestion.pedagogie.commun.modele.Utilisateur;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -27,21 +29,49 @@ public class DroitProfilDaoImpl extends ADaoImpl<DroitProfil, Integer> implement
 	 * @throws SQLException
 	 */
 	public DroitProfilDaoImpl() throws SQLException {
-		super(Connexion.getConnexion(), DroitProfil.class);
+		super( DroitProfil.class);
 	}
 	
-	public void deleteDroits(Integer pProfilId) throws SQLException{
-		DeleteBuilder<DroitProfil, Integer> lDeleteBuilder= this.deleteBuilder();
-		lDeleteBuilder.where().eq(DroitProfil.PROFIL_FIELD_NAME, pProfilId);
-		lDeleteBuilder.delete();
+	public void deleteDroits(Integer pProfilId) throws ApplicationException{
+		StringBuilder lQuery = new StringBuilder();
+		lQuery.append("SELECT TOP 1 1 FROM ");
+		lQuery.append(ModeleMetier.UTILISATEUR_TABLE_NAME);
+		lQuery.append(" WHERE ");
+		lQuery.append(Utilisateur.PROFIL_FIELD_NAME);
+		lQuery.append("=");
+		lQuery.append(pProfilId);
+		String[] instanceExist;
+		try {
+			instanceExist = this.queryRaw(lQuery.toString()).getFirstResult();
+		} catch (SQLException e) {
+			throw new ApplicationException("Echec lors de la validation en base de données");
+		}
+		if (null==instanceExist){
+			DeleteBuilder<DroitProfil, Integer> lDeleteBuilder= this.deleteBuilder();
+			try {
+				lDeleteBuilder.where().eq(DroitProfil.PROFIL_FIELD_NAME, pProfilId);
+				lDeleteBuilder.delete();
+			} catch (SQLException e) {
+				throw new ApplicationException("Echec lors de la suppression des droits en base de données");
+			}
+		}else {
+			throw new ApplicationException("Il existe au moins un utilisateur pour ce profil.\n Vous devez vous assurer que le profil n'est pas utilisé par un utilisateur");
+		}
+		
+		
 	}
 	
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.DAO.implementation.test#getListeDroits(java.lang.Integer)
 	 */
 	@Override
-	public ArrayList<String> getListeDroits(Integer pProfilId) throws SQLException{
-		ArrayList<DroitProfil> lDroitProfilArray = new ArrayList<DroitProfil>(this.queryBuilder().where().eq(DroitProfil.PROFIL_FIELD_NAME, pProfilId).query());
+	public ArrayList<String> getListeDroits(Integer pProfilId) throws ApplicationException{
+		ArrayList<DroitProfil> lDroitProfilArray;
+		try {
+			lDroitProfilArray = new ArrayList<DroitProfil>(this.queryBuilder().where().eq(DroitProfil.PROFIL_FIELD_NAME, pProfilId).query());
+		} catch (SQLException e) {
+			throw new ApplicationException("Echec lors de la récupération des droits en base de données");
+		}
 		ArrayList<String> lDroits = new ArrayList<String>();
 		DroitProfil lDroitProfil = null;
 		lDroitProfil = (DroitProfil) CollectionUtils.find(lDroitProfilArray,
@@ -158,7 +188,7 @@ public class DroitProfilDaoImpl extends ADaoImpl<DroitProfil, Integer> implement
 	 * @see net.eni.gestion.pedagogie.DAO.implementation.test#mettreAJourDroits(java.lang.Integer, java.util.ArrayList)
 	 */
 	@Override
-	public ArrayList<String> mettreAJourDroits(Integer pProfilId, ArrayList<String> lListeDroits) throws Exception {
+	public ArrayList<String> mettreAJourDroits(Integer pProfilId, ArrayList<String> lListeDroits) throws ApplicationException {
 		ArrayList<String> lListeDroitsEnBase = null;
 		try {
 			lListeDroitsEnBase=this.getListeDroits(pProfilId);
@@ -198,11 +228,12 @@ public class DroitProfilDaoImpl extends ADaoImpl<DroitProfil, Integer> implement
 			}
 			return this.getListeDroits(pProfilId);
 		} catch (Exception e) {
-			throw new Exception(
+			throw new ApplicationException(
 					"Echec de mise à jour des associations des homologations du professionnel homologués");
 		}
 		
 	}
+	
 	
 	
 

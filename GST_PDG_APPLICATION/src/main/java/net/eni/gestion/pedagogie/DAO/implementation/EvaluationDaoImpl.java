@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import net.eni.gestion.pedagogie.DAO.EvaluationDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.composant.pagination.Pager;
 import net.eni.gestion.pedagogie.commun.composant.tuple.Pair;
@@ -33,12 +32,12 @@ public class EvaluationDaoImpl extends ADaoImpl<Evaluation, Integer> implements 
 	 * @throws SQLException
 	 */
 	public EvaluationDaoImpl() throws SQLException {
-		super(Connexion.getConnexion(), Evaluation.class);
+		super( Evaluation.class);
 	}
 	
 	@Override
 	public Pair<ArrayList<Evaluation>, Long> charger(Pager pPager)
-			throws Exception {
+			throws ApplicationException {
 		try {
 			StringBuilder lQuery = new StringBuilder();
 			lQuery.append("SELECT ");
@@ -74,7 +73,7 @@ public class EvaluationDaoImpl extends ADaoImpl<Evaluation, Integer> implements 
 			String lKeyword = " WHERE ";
 			if (null !=lFullTextSearchWhereClause){
 				lQuery.append(lKeyword);
-				lKeyword = " AND ";
+				lKeyword = " OR ";
 				lQuery.append(lFullTextSearchWhereClause);
 			}
 			lFullTextSearchWhereClause = ORMLiteHelper.getFullTextSearchWhereClause(new Module().getFullTextSearchFieldNames() , pPager.getFilterOptions().getFilterText());
@@ -91,7 +90,7 @@ public class EvaluationDaoImpl extends ADaoImpl<Evaluation, Integer> implements 
 			}
 			return new Pair<ArrayList<Evaluation>, Long>(new ArrayList<Evaluation>(this.queryRaw(lQuery.toString(), this.getRawRowMapper()).getResults()), this.countOf());
 		} catch (Exception exception) {
-			throw new Exception("Echec de chargement de la liste d'enregistrements depuis la base de données");
+			throw new ApplicationException("Echec de chargement de la liste d'enregistrements depuis la base de données");
 		}
 	}
 
@@ -104,13 +103,13 @@ public class EvaluationDaoImpl extends ADaoImpl<Evaluation, Integer> implements 
 		lQuery.append(InstanceEvaluation.EVALUATION_FIELD_NAME);
 		lQuery.append("=");
 		lQuery.append(pId);
-		boolean instanceExist;
+		String[] instanceExist;
 		try {
-			instanceExist = this.queryRaw(lQuery.toString()).getFirstResult().length==1;
+			instanceExist = this.queryRaw(lQuery.toString()).getFirstResult();
 		} catch (SQLException e) {
 			throw new ApplicationException("Echec lors de la validation en base de données");
 		}
-		if (!instanceExist){
+		if (null==instanceExist){
 			return true;
 		}else {
 			throw new ApplicationException("Il existe au moins une instance d'évaluation déclarée pour cette évaluation.\n Il n'est donc pas possible de supprimer cette évaluation");
@@ -121,7 +120,7 @@ public class EvaluationDaoImpl extends ADaoImpl<Evaluation, Integer> implements 
 	protected boolean validerAvantMiseAJour(Evaluation pMember)
 			throws ApplicationException {
 		boolean isValid=false;
-		int lInstanceNbr=0;
+		String[] lInstances=null;
 		Evaluation lEvaluation = null;
 		try {
 			lEvaluation = this.queryForId(pMember.getId());
@@ -137,12 +136,12 @@ public class EvaluationDaoImpl extends ADaoImpl<Evaluation, Integer> implements 
 		lQuery.append("=");
 		lQuery.append(pMember.getId());
 		try {
-			lInstanceNbr = this.queryRaw(lQuery.toString()).getFirstResult().length;
+			lInstances = this.queryRaw(lQuery.toString()).getFirstResult();
 		} catch (SQLException e) {
 			throw new ApplicationException("Echec lors de la validation en base de données");
 		}
 		
-		if (0==lInstanceNbr){
+		if (null==lInstances){
 			isValid=true;
 		}else{
 			isValid = 

@@ -13,32 +13,34 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 /**
- * @author jollivier
- * Classe d'implémentation pour le module de suivi des evaluations
+ * @author jollivier Classe d'implémentation pour le module de suivi des
+ *         evaluations
  */
 @Singleton
-public class InstanceCoursServiceImpl extends AServiceImpl<InstanceCours, Integer, InstanceCoursDao> implements InstanceCoursService {
+public class InstanceCoursServiceImpl extends
+		AServiceImpl<InstanceCours, Integer, InstanceCoursDao> implements
+		InstanceCoursService {
 
-    /**
-     * Constructeur
-     * @param DAO evaluation
-     * @throws SQLException
-     */
-    @Inject
-    public InstanceCoursServiceImpl(InstanceCoursDao pInstanceCoursDao) throws SQLException {
-        super(pInstanceCoursDao);
-    }
-    
-    @Override
-	public List<InstanceCours> getInstancesByCours(Cours cours) throws ApplicationException {
-		
+	/**
+	 * Constructeur
+	 * 
+	 * @param DAO
+	 *            evaluation
+	 * @throws SQLException
+	 */
+	@Inject
+	public InstanceCoursServiceImpl(InstanceCoursDao pInstanceCoursDao)
+			throws SQLException {
+		super(pInstanceCoursDao);
+	}
+
+	@Override
+	public List<InstanceCours> getInstancesByCours(Cours cours)
+			throws ApplicationException {
+
 		List<InstanceCours> instances = null;
-		try {
-			instances = dao.getInstancesByCours(cours);
-		} catch (Exception e) {
-			throw new ApplicationException("Erreur lors de la récupération des instances de cours.");
-		}
+		instances = dao.getInstancesByCours(cours);
 		return instances;
 	}
-    
+
 }

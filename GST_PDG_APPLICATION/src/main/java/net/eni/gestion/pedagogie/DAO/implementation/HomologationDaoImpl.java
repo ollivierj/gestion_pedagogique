@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import net.eni.gestion.pedagogie.DAO.HomologationDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.Homologation;
 import net.eni.gestion.pedagogie.commun.modele.ProfessionnelHomologue;
 import net.eni.gestion.pedagogie.commun.outil.CRUDHelper;
@@ -27,12 +27,12 @@ public class HomologationDaoImpl extends ADaoImpl<Homologation, Integer>
 	 * @throws SQLException
 	 */
 	public HomologationDaoImpl() throws SQLException {
-		super(Connexion.getConnexion(), Homologation.class);
+		super( Homologation.class);
 	}
 
 	public ArrayList<Homologation> mettreAJourCollectionHomologationForProfessionnelHomologue(
 			ProfessionnelHomologue pProfessionnelHomologue,
-			ArrayList<Homologation> pHomologations) throws Exception {
+			ArrayList<Homologation> pHomologations) throws ApplicationException {
 		return CRUDHelper.mettreAJourCollection(this, pProfessionnelHomologue, pHomologations, Homologation.PROFESSIONNEL_HOMOLOGUE_FIELD_NAME, new findHomologationByProfessionnelHomologue());
 	}	
 	
@@ -55,7 +55,7 @@ public class HomologationDaoImpl extends ADaoImpl<Homologation, Integer>
 		}
 
 		@Override
-		public Homologation call() throws Exception {
+		public Homologation call() throws ApplicationException {
 			final Homologation pFinalSearchItem = this.searchItem;
 			return (Homologation) CollectionUtils.find(this.itemList,
 					new org.apache.commons.collections.Predicate() {

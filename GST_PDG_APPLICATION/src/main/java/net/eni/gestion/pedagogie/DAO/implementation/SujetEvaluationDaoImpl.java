@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import net.eni.gestion.pedagogie.DAO.SujetEvaluationDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.SujetEvaluation;
 
 import com.google.inject.Singleton;
@@ -23,10 +23,10 @@ public class SujetEvaluationDaoImpl extends ADaoImpl<SujetEvaluation, Integer> i
 	 * @throws SQLException
 	 */
 	public SujetEvaluationDaoImpl() throws SQLException {
-		super(Connexion.getConnexion(), SujetEvaluation.class);
+		super( SujetEvaluation.class);
 	}
 	
-	public HashMap<String, String> getTitleMap() throws Exception {
+	public HashMap<String, String> getTitleMap() throws ApplicationException {
 		try{
 			Iterator<SujetEvaluation> lSujetEvaluations = this.queryForAll().iterator();
 			HashMap<String, String> lResults = new HashMap<String, String>();
@@ -40,7 +40,7 @@ public class SujetEvaluationDaoImpl extends ADaoImpl<SujetEvaluation, Integer> i
 			}
 			return lResults;
 		} catch (Exception exception) {
-			throw new Exception(
+		throw new ApplicationException(
 					"Echec de chargement de la liste d'enregistrements depuis la base de données");
 		}
 	}

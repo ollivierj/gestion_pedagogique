@@ -14,8 +14,7 @@ import com.google.inject.Singleton;
  *         titreProfessionnels
  */
 @Singleton
-public class ModuleServiceImpl extends
-		AServiceImpl<Module, Integer, ModuleDao>
+public class ModuleServiceImpl extends AServiceImpl<Module, Integer, ModuleDao>
 		implements ModuleService {
 
 	/**
@@ -26,8 +25,7 @@ public class ModuleServiceImpl extends
 	 * @throws SQLException
 	 */
 	@Inject
-	public ModuleServiceImpl(
-			ModuleDao pModuleDao) throws SQLException {
+	public ModuleServiceImpl(ModuleDao pModuleDao) throws SQLException {
 		super(pModuleDao);
 	}
 

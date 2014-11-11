@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.ws.rs.core.Response;
 
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.composant.fichier.FileBean;
 
 import com.sun.jersey.multipart.FormDataMultiPart;
@@ -15,8 +16,9 @@ public interface FichierService {
 	 * Methode pour l'upload de fichier
 	 * @param form
 	 * @return
+	 * @throws ApplicationException 
 	 */
-	public abstract String deposer(FormDataMultiPart form);
+	public abstract String deposer(FormDataMultiPart form) throws ApplicationException;
 
 	/**
 	 * Methode pour le telechargement de fichier 

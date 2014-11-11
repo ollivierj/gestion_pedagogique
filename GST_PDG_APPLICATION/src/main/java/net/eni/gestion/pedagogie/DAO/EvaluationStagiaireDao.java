@@ -2,6 +2,7 @@ package net.eni.gestion.pedagogie.DAO;
 
 import java.util.ArrayList;
 
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.Evaluation;
 import net.eni.gestion.pedagogie.commun.modele.EvaluationStagiaire;
 
@@ -14,6 +15,6 @@ public interface EvaluationStagiaireDao extends ADao<EvaluationStagiaire, Intege
 
 	public ArrayList<EvaluationStagiaire> mettreAJourCollectionStagiaireForEvaluation(
 			Evaluation pEvaluation,
-			ArrayList<EvaluationStagiaire> pEvaluationStagiaires) throws Exception;
+			ArrayList<EvaluationStagiaire> pEvaluationStagiaires) throws ApplicationException;
 
 }

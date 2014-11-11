@@ -3,7 +3,6 @@ package net.eni.gestion.pedagogie.DAO.implementation;
 import java.sql.SQLException;
 
 import net.eni.gestion.pedagogie.DAO.PlanningIndividuelDetailDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.modele.PlanningIndividuelDetail;
 
 import com.google.inject.Singleton;
@@ -20,7 +19,7 @@ public class PlanningIndividuelDetailDaoImpl extends ADaoImpl<PlanningIndividuel
 	 * @throws SQLException
 	 */
 	public PlanningIndividuelDetailDaoImpl() throws SQLException {
-		super(Connexion.getConnexion(), PlanningIndividuelDetail.class);
+		super( PlanningIndividuelDetail.class);
 	}
 
 }

@@ -450,8 +450,7 @@ var modalEditionEvaluationCtrl = function($scope, $modalInstance, $filter, $moda
 	};
 	
 	$scope.downloadFile = function(fichier) {
-		var downloadPath = '/ng_gst_pdg/web/fichiers/telecharger/Evaluation/'+$scope.data.id+'/'+fichier.filename;
-		window.open(downloadPath,'_blank');  
+		FichiersFactory.telecharger('Evaluation', $scope.data.id, fichier.filename);
 	};
 	
 	$scope.removeFile = function(fichier) {

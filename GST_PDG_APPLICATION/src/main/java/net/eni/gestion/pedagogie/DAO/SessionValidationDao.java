@@ -1,5 +1,6 @@
 package net.eni.gestion.pedagogie.DAO;
 
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.SessionValidation;
 
 /**
@@ -9,6 +10,6 @@ import net.eni.gestion.pedagogie.commun.modele.SessionValidation;
  */
 public interface SessionValidationDao extends ADao<SessionValidation, Integer> {
 	
-	public SessionValidation getInstance(Integer id) throws Exception;
+	public SessionValidation getInstance(Integer id) throws ApplicationException;
 
 }

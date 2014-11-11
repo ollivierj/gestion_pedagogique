@@ -103,5 +103,23 @@ public class InstanceCours extends AModele<Integer> implements Serializable {
 	public void setCours(Cours cours) {
 		this.cours = cours;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder lStrStringBuilder = new StringBuilder();
+		lStrStringBuilder.append((null!=getCours())?(null!=getCours().getLibelleCours())?getCours().getLibelleCours():"":"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getCours())?(null!=getCours().getPromotion())?getCours().getPromotion():"":"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getCours())?(null!=getCours().getFormatedDebut())?getCours().getFormatedDebut():"":"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getCours())?(null!=getCours().getFormatedFin())?getCours().getFormatedFin():"":"");
+		lStrStringBuilder.append(";");		
+		lStrStringBuilder.append((null!=getReservationSalle())?(null!=getReservationSalle().getSalle())?(null!=getReservationSalle().getSalle().getLibelle())?getReservationSalle().getSalle().getLibelle():"":"":"");
+		lStrStringBuilder.append(";");
+		lStrStringBuilder.append((null!=getReservationSalle())?(null!=getReservationSalle().getSalle())?(null!=getReservationSalle().getSalle().getLieu())?getReservationSalle().getSalle().getLieu():"":"":"");
+		lStrStringBuilder.append(";");
+		return lStrStringBuilder.toString();
+	}
 
 }

@@ -39,7 +39,7 @@ public class ApplicationConfiguration extends GuiceServletContextListener {
 
                 super.configureServlets();
 
-                ResourceConfig resourceConfig = new PackagesResourceConfig("net.eni.gestion.pedagogie.commun.composant.authentification","net.eni.gestion.pedagogie.resource","net.eni.gestion.pedagogie.errorhandling");
+                ResourceConfig resourceConfig = new PackagesResourceConfig("net.eni.gestion.pedagogie.commun.composant.authentification","net.eni.gestion.pedagogie.commun.composant.erreur","net.eni.gestion.pedagogie.resource");
                 
                 for (Class<?> resource : resourceConfig.getClasses()) {
                     bind(resource);

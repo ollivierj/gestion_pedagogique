@@ -15,8 +15,9 @@ public interface FichierResource {
 	 * Ressource pour le depot de fichier
 	 * @param form
 	 * @return
+	 * @throws ApplicationException 
 	 */
-	public abstract String deposer(FormDataMultiPart form);
+	public abstract String deposer(FormDataMultiPart form) throws ApplicationException;
 
 	/**
 	 * Ressource pour le telechargement de fichier
@@ -45,6 +46,7 @@ public interface FichierResource {
 	 * @param pId
 	 * @param filename
 	 * @return
+	 * @throws ApplicationException 
 	 */
-	public abstract String supprimer(String pType, String pId, String filename);
+	public abstract String supprimer(String pType, String pId, String filename) throws ApplicationException;
 }

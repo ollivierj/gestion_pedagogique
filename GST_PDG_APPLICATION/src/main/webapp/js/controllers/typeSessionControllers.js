@@ -330,8 +330,7 @@ var modalEditionTypeSessionCtrl = function($scope, $modalInstance, $modal, $filt
 	};
 	
 	$scope.downloadFile = function(fichier) {
-		var downloadPath = '/ng_gst_pdg/web/fichiers/telecharger/TypeSession/'+$scope.data.id+'/'+fichier.filename;
-		window.open(downloadPath,'_blank');  
+		FichiersFactory.telecharger('TypeSession', $scope.data.id, fichier.filename);
 	};
 	
 	$scope.removeFile = function(fichier) {

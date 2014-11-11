@@ -13,34 +13,32 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 /**
- * @author jollivier
- * Classe d'implémentation pour le module de suivi des profils
+ * @author jollivier Classe d'implémentation pour le module de suivi des profils
  */
 @Singleton
-public class ProfilServiceImpl extends AServiceImpl<Profil, Integer, ProfilDao> implements ProfilService {
+public class ProfilServiceImpl extends AServiceImpl<Profil, Integer, ProfilDao>
+		implements ProfilService {
 
-	
 	protected final DroitProfilDao droitProfilDao;
-       /**
-     * Constructeur
-     * @param DAO profil
-     * @throws SQLException
-     */
-    @Inject
-    public ProfilServiceImpl(ProfilDao pProfilDao, DroitProfilDao pDroitProfilDao) throws SQLException {
-        super(pProfilDao);
-        this.droitProfilDao = pDroitProfilDao;
-    }
+
+	/**
+	 * Constructeur
+	 * 
+	 * @param DAO
+	 *            profil
+	 * @throws SQLException
+	 */
+	@Inject
+	public ProfilServiceImpl(ProfilDao pProfilDao,
+			DroitProfilDao pDroitProfilDao) throws SQLException {
+		super(pProfilDao);
+		this.droitProfilDao = pDroitProfilDao;
+	}
 
 	@Override
 	public Profil chargerDetail(Integer pId) throws ApplicationException {
 		Profil lProfil = super.chargerDetail(pId);
-		try {
-			lProfil.setDroits(droitProfilDao.getListeDroits(pId));
-		} catch (SQLException e) {
-			throw new ApplicationException(
-					"Echec lors de la mise à jour en base de données.");
-		}
+		lProfil.setDroits(droitProfilDao.getListeDroits(pId));
 		return lProfil;
 	}
 
@@ -48,37 +46,24 @@ public class ProfilServiceImpl extends AServiceImpl<Profil, Integer, ProfilDao> 
 	public Profil ajouter(Profil pModel) throws ApplicationException {
 		ArrayList<String> lDroits = pModel.getDroits();
 		Profil lProfil = super.ajouter(pModel);
-		try {
-			lProfil.setDroits(this.droitProfilDao.mettreAJourDroits(lProfil.getId(), lDroits));
-			return lProfil;
-		} catch (Exception e) {
-			throw new ApplicationException(
-					"Echec lors de la mise à jour en base de données.");
-		}
+		lProfil.setDroits(this.droitProfilDao.mettreAJourDroits(
+				lProfil.getId(), lDroits));
+		return lProfil;
 	}
 
 	@Override
 	public Profil mettreAJour(Profil pModel) throws ApplicationException {
 		ArrayList<String> lDroits = pModel.getDroits();
 		Profil lProfil = super.mettreAJour(pModel);
-		try {
-			lProfil.setDroits(this.droitProfilDao.mettreAJourDroits(lProfil.getId(), lDroits));
-			return lProfil;
-		} catch (Exception e) {
-			throw new ApplicationException(
-					"Echec lors de la mise à jour en base de données.");
-		}
+		lProfil.setDroits(this.droitProfilDao.mettreAJourDroits(
+				lProfil.getId(), lDroits));
+		return lProfil;
 	}
 
 	@Override
 	public Integer supprimer(Integer pId) throws ApplicationException {
-		try {
-			this.droitProfilDao.deleteDroits(pId);
-			return super.supprimer(pId);
-		} catch (SQLException e) {
-			throw new ApplicationException(
-					"Echec lors de la mise à jour en base de données.");
-		}
+		this.droitProfilDao.deleteDroits(pId);
+		return super.supprimer(pId);
 	}
-    
+
 }

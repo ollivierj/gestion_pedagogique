@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import net.eni.gestion.pedagogie.DAO.UtilisateurDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.Utilisateur;
 import net.eni.gestion.pedagogie.commun.outil.ORMLiteHelper;
 
@@ -29,10 +29,10 @@ public class UtilisateurDaoImpl extends ADaoImpl<Utilisateur, Integer> implement
 	 * @throws SQLException
 	 */
 	public UtilisateurDaoImpl() throws SQLException {
-		super(Connexion.getConnexion(), Utilisateur.class);
+		super( Utilisateur.class);
 	}
 	
-	public HashMap<String, String> getTitleMap() throws Exception {
+	public HashMap<String, String> getTitleMap() throws ApplicationException {
 		try{
 			Iterator<Utilisateur> lUtilisateurs = this.queryForAll().iterator();
 			HashMap<String, String> lResults = new HashMap<String, String>();
@@ -46,12 +46,12 @@ public class UtilisateurDaoImpl extends ADaoImpl<Utilisateur, Integer> implement
 			}
 			return lResults;
 		} catch (Exception exception) {
-			throw new Exception(
+			throw new ApplicationException(
 					"Echec de chargement de la liste d'enregistrements depuis la base de données");
 		}
 	}	
 	
-	public Integer checkConnection(String pLogin, String pMotdePasse, boolean loginOnly) throws Exception{
+	public Integer checkConnection(String pLogin, String pMotdePasse, boolean loginOnly) throws ApplicationException{
 		try {
 			StringBuilder lQuery = new StringBuilder();
 			lQuery.append("SELECT TOP 1 UTIL_ID ");
@@ -71,11 +71,11 @@ public class UtilisateurDaoImpl extends ADaoImpl<Utilisateur, Integer> implement
 				return null;
 			}
 		} catch (Exception exception) {
-			throw new Exception("Echec de chargement de la liste d'enregistrements depuis la base de données");
+			throw new ApplicationException("Echec de chargement de la liste d'enregistrements depuis la base de données");
 		}
 	}
 	
-	public boolean checkToken(String token) throws Exception{
+	public boolean checkToken(String token) throws ApplicationException{
 		try {
 			StringBuilder lQuery = new StringBuilder();
 			lQuery.append("SELECT TOP 1 UTIL_ID ");
@@ -94,10 +94,10 @@ public class UtilisateurDaoImpl extends ADaoImpl<Utilisateur, Integer> implement
 			lQuery.append("'");
 			return (this.queryRaw(lQuery.toString()).getFirstResult().length==1);
 		} catch (Exception exception) {
-			throw new Exception("Echec de chargement de la liste d'enregistrements depuis la base de données");
+			throw new ApplicationException("Echec de chargement de la liste d'enregistrements depuis la base de données");
 		}
 	}
-	public Utilisateur loginwithtoken(String token) throws Exception{
+	public Utilisateur loginwithtoken(String token) throws ApplicationException{
 		try {
 			StringBuilder lQuery = new StringBuilder();
 			lQuery.append("SELECT TOP 1 * ");
@@ -116,12 +116,12 @@ public class UtilisateurDaoImpl extends ADaoImpl<Utilisateur, Integer> implement
 			lQuery.append("'");
 			return this.queryRaw(lQuery.toString(), this.getRawRowMapper()).getFirstResult();
 		} catch (Exception exception) {
-			throw new Exception("Echec de chargement de la liste d'enregistrements depuis la base de données");
+			throw new ApplicationException("Echec de chargement de la liste d'enregistrements depuis la base de données");
 		}
 	}
 
 	@Override
-	public List<Utilisateur> getFormateurs(String pSearchText) throws Exception {
+	public List<Utilisateur> getFormateurs(String pSearchText) throws ApplicationException {
 		List<Utilisateur> utilisateur = null;
 		
 		try {
@@ -144,7 +144,7 @@ public class UtilisateurDaoImpl extends ADaoImpl<Utilisateur, Integer> implement
 			
 			utilisateur =  new ArrayList<Utilisateur>(this.queryRaw(lQuery.toString(), this.getRawRowMapper()).getResults());
 		} catch (Exception exception) {
-			throw new Exception("Echec de chargement de la liste d'enregistrements depuis la base de données");
+			throw new ApplicationException("Echec de chargement de la liste d'enregistrements depuis la base de données");
 		}
 		
 		

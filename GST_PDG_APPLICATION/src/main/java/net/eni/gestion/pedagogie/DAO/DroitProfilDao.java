@@ -1,8 +1,8 @@
 package net.eni.gestion.pedagogie.DAO;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.DroitProfil;
 
 /**
@@ -12,11 +12,11 @@ import net.eni.gestion.pedagogie.commun.modele.DroitProfil;
  */
 public interface DroitProfilDao extends ADao<DroitProfil, Integer> {
 	public abstract ArrayList<String> getListeDroits(Integer pProfilId)
-			throws SQLException;
+			throws ApplicationException;
 
 	public abstract ArrayList<String> mettreAJourDroits(Integer pProfilId,
-			ArrayList<String> lListeDroits) throws Exception;
+			ArrayList<String> lListeDroits) throws ApplicationException;
 	
-	public void deleteDroits(Integer pProfilId) throws SQLException;
+	public void deleteDroits(Integer pProfilId) throws ApplicationException;
 
 }

@@ -2,6 +2,7 @@ package net.eni.gestion.pedagogie.DAO;
 
 import java.util.List;
 
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.InstanceSessionValidation;
 import net.eni.gestion.pedagogie.commun.modele.SessionValidation;
 
@@ -16,8 +17,8 @@ public interface InstanceSessionValidationDao extends ADao<InstanceSessionValida
 	 * Récupère les instances d'une session de validation
 	 * @param sessionValidation Session de validation souhaitée
 	 * @return Une liste d'instances de session de validation
-	 * @throws Exception
+	 * @throws ApplicationException
 	 */
-	public List<InstanceSessionValidation> getInstancesBySession(SessionValidation sessionValidation) throws Exception;
+	public List<InstanceSessionValidation> getInstancesBySession(SessionValidation sessionValidation) throws ApplicationException;
 
 }

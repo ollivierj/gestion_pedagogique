@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import net.eni.gestion.pedagogie.DAO.InstanceSessionValidationDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.InstanceSessionValidation;
 import net.eni.gestion.pedagogie.commun.modele.SessionValidation;
 
@@ -22,19 +22,19 @@ public class InstanceSessionValidationDaoImpl extends ADaoImpl<InstanceSessionVa
 	 * @throws SQLException
 	 */
 	public InstanceSessionValidationDaoImpl() throws SQLException {
-		super(Connexion.getConnexion(), InstanceSessionValidation.class);
+		super( InstanceSessionValidation.class);
 	}
 
 	@Override
 	public List<InstanceSessionValidation> getInstancesBySession(
-			SessionValidation sessionValidation) throws Exception {
+			SessionValidation sessionValidation) throws ApplicationException {
 		
 		List<InstanceSessionValidation> instances = null;
 		
 		try {
 			instances = this.queryBuilder().where().eq(InstanceSessionValidation.SESSION_VALIDATION_FIELD_NAME, sessionValidation.getId()).query();
 		} catch (SQLException e) {
-			throw new Exception("Impossible de récupérer les instances de session de validation");
+			throw new ApplicationException("Impossible de récupérer les instances de session de validation");
 		}
 		
 		return instances;
