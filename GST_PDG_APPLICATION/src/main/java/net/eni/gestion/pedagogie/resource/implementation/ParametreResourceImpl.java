@@ -22,7 +22,7 @@ public class ParametreResourceImpl extends AResourceImpl<Parametre, String, Para
      */
     @Inject
     public ParametreResourceImpl(ParametreService parametreService, Connexion pConnexion) {
-    	super(parametreService, Parametre.class, pConnexion);
+    	super(parametreService, Parametre.class);
     }
 
 }

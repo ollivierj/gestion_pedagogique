@@ -5,12 +5,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import net.eni.gestion.pedagogie.DAO.TypeSessionDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.TypeSession;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import com.j256.ormlite.support.ConnectionSource;
 
 /**
  * @author jollivier
@@ -24,8 +25,8 @@ public class TypeSessionDaoImpl extends ADaoImpl<TypeSession, Integer> implement
 	 * @throws SQLException
 	 */
 	@Inject
-	public TypeSessionDaoImpl(Connexion pConnexion) throws SQLException {
-		super( TypeSession.class, pConnexion);
+	public TypeSessionDaoImpl(Provider<ConnectionSource> connection) throws SQLException {
+		super(connection, TypeSession.class);
 	}
 
 	public HashMap<String, String> getTitleMap() throws ApplicationException {

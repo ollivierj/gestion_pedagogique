@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import net.eni.gestion.pedagogie.DAO.EvaluationDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.composant.pagination.Pager;
 import net.eni.gestion.pedagogie.commun.composant.tuple.Pair;
@@ -18,7 +17,9 @@ import net.eni.gestion.pedagogie.commun.outil.ORMLiteHelper;
 import org.apache.commons.lang3.StringUtils;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import com.j256.ormlite.support.ConnectionSource;
 
 /**
  * @author jollivier
@@ -34,8 +35,8 @@ public class EvaluationDaoImpl extends ADaoImpl<Evaluation, Integer> implements 
 	 * @throws SQLException
 	 */
 	@Inject
-	public EvaluationDaoImpl(Connexion pConnexion) throws SQLException {
-		super( Evaluation.class, pConnexion);
+	public EvaluationDaoImpl(Provider<ConnectionSource> connection) throws SQLException {
+		super(connection, Evaluation.class);
 	}
 	
 	@Override

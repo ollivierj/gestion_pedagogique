@@ -22,7 +22,7 @@ public class ProfessionnelHomologueResourceImpl extends AResourceImpl<Profession
      */
     @Inject
     public ProfessionnelHomologueResourceImpl(ProfessionnelHomologueService professionnelHomologueService, Connexion pConnexion) {
-    	super(professionnelHomologueService, ProfessionnelHomologue.class, pConnexion);
+    	super(professionnelHomologueService, ProfessionnelHomologue.class);
     }
     
     

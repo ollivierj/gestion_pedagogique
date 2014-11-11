@@ -3,11 +3,12 @@ package net.eni.gestion.pedagogie.DAO.implementation;
 import java.sql.SQLException;
 
 import net.eni.gestion.pedagogie.DAO.AvisDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.modele.Avis;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import com.j256.ormlite.support.ConnectionSource;
 
 /**
  * @author jollivier
@@ -21,8 +22,8 @@ public class AvisDaoImpl extends ADaoImpl<Avis, Integer> implements AvisDao{
 	 * @throws SQLException
 	 */
 	@Inject
-	public AvisDaoImpl(Connexion pConnexion) throws SQLException {
-		super( Avis.class, pConnexion);
+	public AvisDaoImpl(Provider<ConnectionSource> connection) throws SQLException {
+		super(connection, Avis.class);
 	}
 
 }

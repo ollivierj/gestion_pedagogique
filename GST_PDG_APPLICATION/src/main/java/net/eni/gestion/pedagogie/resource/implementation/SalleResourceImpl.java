@@ -22,7 +22,7 @@ public class SalleResourceImpl extends AResourceImpl<Salle, Integer, SalleServic
      */
     @Inject
     public SalleResourceImpl(SalleService SalleService, Connexion pConnexion) {
-    	super(SalleService, Salle.class, pConnexion);
+    	super(SalleService, Salle.class);
     }
 
 }

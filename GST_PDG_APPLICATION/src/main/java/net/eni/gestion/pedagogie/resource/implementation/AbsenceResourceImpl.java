@@ -14,7 +14,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import net.eni.gestion.pedagogie.commun.composant.authentification.annotation.CheckSession;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.connexion.TransactionManager;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.Absence;
@@ -35,8 +34,8 @@ public class AbsenceResourceImpl extends AResourceImpl<Absence, Integer, Absence
      * @param AbsenceService
      */
     @Inject
-    public AbsenceResourceImpl(AbsenceService AbsenceService, Connexion pConnexion) {
-    	super(AbsenceService, Absence.class, pConnexion);
+    public AbsenceResourceImpl(AbsenceService AbsenceService) {
+    	super(AbsenceService, Absence.class);
     }
 
 	@GET
@@ -49,7 +48,7 @@ public class AbsenceResourceImpl extends AResourceImpl<Absence, Integer, Absence
 			throws ApplicationException {
 		try {
 			return TransactionManager.callInTransaction(
-					connexion.getConnection(),
+					connection.get(),
 					new Callable<ArrayList<Absence>>() {
 						public ArrayList<Absence> call()
 								throws ApplicationException {

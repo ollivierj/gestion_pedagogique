@@ -34,7 +34,7 @@ public class InstanceCoursResourceImpl extends AResourceImpl<InstanceCours, Inte
      */
     @Inject
     public InstanceCoursResourceImpl(InstanceCoursService pInstanceCoursService, Connexion pConnexion) {
-    	super(pInstanceCoursService, InstanceCours.class, pConnexion);
+    	super(pInstanceCoursService, InstanceCours.class);
     }
     
     @Override
@@ -45,7 +45,7 @@ public class InstanceCoursResourceImpl extends AResourceImpl<InstanceCours, Inte
 	public List<InstanceCours> getInstances(final Cours cours) throws ApplicationException {
     	try {
 			return TransactionManager.callInTransaction(
-					connexion.getConnection(),
+					connection.get(),
 					new Callable<List<InstanceCours>>() {
 						public List<InstanceCours> call()
 								throws ApplicationException {

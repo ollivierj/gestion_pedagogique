@@ -3,11 +3,12 @@ package net.eni.gestion.pedagogie.DAO.implementation;
 import java.sql.SQLException;
 
 import net.eni.gestion.pedagogie.DAO.ParametreDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.modele.Parametre;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import com.j256.ormlite.support.ConnectionSource;
 
 /**
  * @author jollivier
@@ -21,8 +22,8 @@ public class ParametreDaoImpl extends ADaoImpl<Parametre, String> implements Par
 	 * @throws SQLException
 	 */
 	@Inject
-	public ParametreDaoImpl(Connexion pConnexion) throws SQLException {
-		super( Parametre.class, pConnexion);
+	public ParametreDaoImpl(Provider<ConnectionSource> connection) throws SQLException {
+		super(connection, Parametre.class);
 	}
 
 }

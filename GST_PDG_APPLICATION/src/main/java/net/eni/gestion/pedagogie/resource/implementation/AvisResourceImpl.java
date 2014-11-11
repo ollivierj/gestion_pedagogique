@@ -22,7 +22,7 @@ public class AvisResourceImpl extends AResourceImpl<Avis, Integer, AvisService> 
      */
     @Inject
     public AvisResourceImpl(AvisService AvisService, Connexion pConnexion) {
-    	super(AvisService, Avis.class, pConnexion);
+    	super(AvisService, Avis.class);
     }
 
 }

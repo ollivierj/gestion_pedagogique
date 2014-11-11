@@ -22,7 +22,7 @@ public class ProfilResourceImpl extends AResourceImpl<Profil, Integer, ProfilSer
      */
     @Inject
     public ProfilResourceImpl(ProfilService profilService, Connexion pConnexion) {
-    	super(profilService, Profil.class, pConnexion);
+    	super(profilService, Profil.class);
     }
     
 }

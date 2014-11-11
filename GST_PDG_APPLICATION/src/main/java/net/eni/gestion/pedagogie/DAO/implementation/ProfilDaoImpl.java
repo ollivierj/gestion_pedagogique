@@ -5,14 +5,15 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import net.eni.gestion.pedagogie.DAO.ProfilDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.configuration.ModeleMetier;
 import net.eni.gestion.pedagogie.commun.modele.Profil;
 import net.eni.gestion.pedagogie.commun.modele.Utilisateur;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import com.j256.ormlite.support.ConnectionSource;
 
 /**
  * @author jollivier
@@ -26,8 +27,8 @@ public class ProfilDaoImpl extends ADaoImpl<Profil, Integer> implements ProfilDa
 	 * @throws SQLException
 	 */
 	@Inject
-	public ProfilDaoImpl(Connexion pConnexion) throws SQLException {
-		super( Profil.class, pConnexion);
+	public ProfilDaoImpl(Provider<ConnectionSource> connection) throws SQLException {
+		super(connection, Profil.class);
 	}
 	
 	public HashMap<String, String> getTitleMap() throws ApplicationException {

@@ -4,11 +4,12 @@ import java.sql.SQLException;
 import java.util.UUID;
 
 import net.eni.gestion.pedagogie.DAO.CoursDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.modele.Cours;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import com.j256.ormlite.support.ConnectionSource;
 
 /**
  * @author jollivier
@@ -22,8 +23,8 @@ public class CoursDaoImpl extends ADaoImpl<Cours, UUID> implements CoursDao{
 	 * @throws SQLException
 	 */
 	@Inject
-	public CoursDaoImpl(Connexion pConnexion) throws SQLException {
-		super( Cours.class, pConnexion);
+	public CoursDaoImpl(Provider<ConnectionSource> connection) throws SQLException {
+		super(connection, Cours.class);
 	}
 
 }

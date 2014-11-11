@@ -34,7 +34,7 @@ public class InstanceEvaluationResourceImpl extends AResourceImpl<InstanceEvalua
      */
     @Inject
     public InstanceEvaluationResourceImpl(InstanceEvaluationService pInstanceSessionValidationService, Connexion pConnexion) {
-    	super(pInstanceSessionValidationService, InstanceEvaluation.class, pConnexion);
+    	super(pInstanceSessionValidationService, InstanceEvaluation.class);
     }
 
 	@Override
@@ -45,7 +45,7 @@ public class InstanceEvaluationResourceImpl extends AResourceImpl<InstanceEvalua
 	public List<InstanceEvaluation> getInstances(final Evaluation evaluation) throws ApplicationException {
 		try {
 			return TransactionManager.callInTransaction(
-					connexion.getConnection(),
+					connection.get(),
 					new Callable<List<InstanceEvaluation>>() {
 						public List<InstanceEvaluation> call()
 								throws ApplicationException {

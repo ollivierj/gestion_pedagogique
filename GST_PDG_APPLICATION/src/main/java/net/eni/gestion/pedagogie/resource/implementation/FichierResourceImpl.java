@@ -25,7 +25,11 @@ import net.eni.gestion.pedagogie.resource.FichierResource;
 import net.eni.gestion.pedagogie.service.FichierService;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
+import com.j256.ormlite.support.ConnectionSource;
+
 import net.eni.gestion.pedagogie.commun.composant.connexion.TransactionManager;
+
 import com.sun.jersey.multipart.FormDataMultiPart;
 
 @Path("/fichiers")
@@ -36,12 +40,12 @@ public class FichierResourceImpl implements FichierResource {
 	 */
 	private final FichierService fichierService;
 	
-	private final Connexion connexion;
+	@Inject
+	public Provider<ConnectionSource> connection;
 
 	@Inject
 	public FichierResourceImpl(FichierService pFichierService, Connexion pConnexion) {
 		fichierService = pFichierService;
-		connexion=pConnexion;
 	}
 
 	/*
@@ -59,7 +63,7 @@ public class FichierResourceImpl implements FichierResource {
 	public String deposer(final FormDataMultiPart form) throws ApplicationException {
 		try {
 			return TransactionManager.callInTransaction(
-					connexion.getConnection(),
+					connection.get(),
 					new Callable<String>() {
 						public String call()
 								throws ApplicationException {
@@ -88,7 +92,7 @@ public class FichierResourceImpl implements FichierResource {
 			@PathParam("filename") final String filename) throws Exception {
 		try {
 			return TransactionManager.callInTransaction(
-					connexion.getConnection(),
+					connection.get(),
 					new Callable<Response>() {
 						public Response call()
 								throws ApplicationException {
@@ -120,7 +124,7 @@ public class FichierResourceImpl implements FichierResource {
 			@PathParam("entite_id") final String pId) throws ApplicationException {
 		try {
 			return TransactionManager.callInTransaction(
-					connexion.getConnection(),
+					connection.get(),
 					new Callable<List<FileBean>>() {
 						public List<FileBean> call()
 								throws ApplicationException {
@@ -149,7 +153,7 @@ public class FichierResourceImpl implements FichierResource {
 			@PathParam("filename") final String filename) throws ApplicationException {
 		try {
 			return TransactionManager.callInTransaction(
-					connexion.getConnection(),
+					connection.get(),
 					new Callable<String>() {
 						public String call()
 								throws ApplicationException {
@@ -171,7 +175,7 @@ public class FichierResourceImpl implements FichierResource {
 	public Response getImage(@PathParam("stagiaireId") final Integer pStagiaireId) throws ApplicationException {
 		try {
 			return TransactionManager.callInTransaction(
-					connexion.getConnection(),
+					connection.get(),
 					new Callable<Response>() {
 						public Response call()
 								throws ApplicationException {

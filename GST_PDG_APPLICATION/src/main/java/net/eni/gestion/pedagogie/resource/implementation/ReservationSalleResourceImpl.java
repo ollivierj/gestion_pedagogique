@@ -32,7 +32,7 @@ public class ReservationSalleResourceImpl extends AResourceImpl<ReservationSalle
      */
     @Inject
     public ReservationSalleResourceImpl(ReservationSalleService reservationSalleService, Connexion pConnexion) {
-    	super(reservationSalleService, ReservationSalle.class, pConnexion);
+    	super(reservationSalleService, ReservationSalle.class);
     }
     
     @GET
@@ -41,7 +41,7 @@ public class ReservationSalleResourceImpl extends AResourceImpl<ReservationSalle
 	public List<Salle> chargerSalle() throws ApplicationException {
     	try {
 			return TransactionManager.callInTransaction(
-					connexion.getConnection(),
+					connection.get(),
 					new Callable<List<Salle>>() {
 						public List<Salle> call()
 								throws ApplicationException {

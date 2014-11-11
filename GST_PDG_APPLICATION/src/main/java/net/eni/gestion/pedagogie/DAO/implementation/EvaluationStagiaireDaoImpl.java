@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import net.eni.gestion.pedagogie.DAO.EvaluationStagiaireDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.Evaluation;
 import net.eni.gestion.pedagogie.commun.modele.EvaluationStagiaire;
@@ -14,7 +13,9 @@ import net.eni.gestion.pedagogie.commun.outil.SearchCallable;
 import org.apache.commons.collections.CollectionUtils;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import com.j256.ormlite.support.ConnectionSource;
 
 /**
  * @author jollivier
@@ -28,8 +29,8 @@ public class EvaluationStagiaireDaoImpl extends ADaoImpl<EvaluationStagiaire, In
 	 * @throws SQLException
 	 */
 	@Inject
-	public EvaluationStagiaireDaoImpl(Connexion pConnexion) throws SQLException {
-		super( EvaluationStagiaire.class, pConnexion);
+	public EvaluationStagiaireDaoImpl(Provider<ConnectionSource> connection) throws SQLException {
+		super(connection, EvaluationStagiaire.class);
 	}
 	
 	public class findEvaluationStagiaireByStagiaire implements SearchCallable<EvaluationStagiaire,Integer> {

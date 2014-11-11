@@ -5,12 +5,13 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import net.eni.gestion.pedagogie.DAO.AbsenceDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.Absence;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import com.j256.ormlite.support.ConnectionSource;
 
 /**
  * @author jollivier
@@ -24,8 +25,8 @@ public class AbsenceDaoImpl extends ADaoImpl<Absence, Integer> implements Absenc
 	 * @throws SQLException
 	 */
 	@Inject
-	public AbsenceDaoImpl(Connexion pConnexion) throws SQLException {
-		super(Absence.class, pConnexion);
+	public AbsenceDaoImpl(Provider<ConnectionSource> connection) throws SQLException {
+		super(connection, Absence.class);
 	}
 
 	@Override

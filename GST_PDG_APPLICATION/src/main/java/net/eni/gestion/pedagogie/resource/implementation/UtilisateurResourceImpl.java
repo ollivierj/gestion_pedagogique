@@ -38,7 +38,7 @@ public class UtilisateurResourceImpl extends AResourceImpl<Utilisateur, Integer,
      */
     @Inject
     public UtilisateurResourceImpl(UtilisateurService utilisateurService, Connexion pConnexion) {
-    	super(utilisateurService, Utilisateur.class, pConnexion);
+    	super(utilisateurService, Utilisateur.class);
     }
 
     @POST
@@ -49,7 +49,7 @@ public class UtilisateurResourceImpl extends AResourceImpl<Utilisateur, Integer,
 			throws ApplicationException {
     	try {
 			return TransactionManager.callInTransaction(
-					connexion.getConnection(),
+					connection.get(),
 					new Callable<Utilisateur>() {
 						public Utilisateur call()
 								throws ApplicationException {
@@ -77,7 +77,7 @@ public class UtilisateurResourceImpl extends AResourceImpl<Utilisateur, Integer,
 	public List<Utilisateur> getFormateurs(final String pSearchText) throws ApplicationException {
     	try {
 			return TransactionManager.callInTransaction(
-					connexion.getConnection(),
+					connection.get(),
 					new Callable<List<Utilisateur>>() {
 						public List<Utilisateur> call()
 								throws ApplicationException {
@@ -98,7 +98,7 @@ public class UtilisateurResourceImpl extends AResourceImpl<Utilisateur, Integer,
     public Utilisateur loginwithtoken(final Utilisateur utilisateur) throws ApplicationException{
     	try {
 			return TransactionManager.callInTransaction(
-					connexion.getConnection(),
+					connection.get(),
 					new Callable<Utilisateur>() {
 						public Utilisateur call()
 								throws ApplicationException {

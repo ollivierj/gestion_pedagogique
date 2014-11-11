@@ -22,7 +22,7 @@ public class TypeSessionResourceImpl extends AResourceImpl<TypeSession, Integer,
      */
     @Inject
     public TypeSessionResourceImpl(TypeSessionService titreProfessionnelService, Connexion pConnexion) {
-    	super(titreProfessionnelService, TypeSession.class, pConnexion);
+    	super(titreProfessionnelService, TypeSession.class);
     }
     
 }

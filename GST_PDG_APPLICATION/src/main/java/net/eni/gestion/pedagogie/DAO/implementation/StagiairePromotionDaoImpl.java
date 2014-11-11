@@ -4,12 +4,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import net.eni.gestion.pedagogie.DAO.StagiairePromotionDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.StagiairePromotion;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import com.j256.ormlite.support.ConnectionSource;
 
 @Singleton
 public class StagiairePromotionDaoImpl extends ADaoImpl<StagiairePromotion, Integer> implements StagiairePromotionDao {
@@ -19,8 +20,8 @@ public class StagiairePromotionDaoImpl extends ADaoImpl<StagiairePromotion, Inte
 	 * @throws SQLException
 	 */
 	@Inject
-	public StagiairePromotionDaoImpl(Connexion pConnexion) throws SQLException {
-		super( StagiairePromotion.class, pConnexion);
+	public StagiairePromotionDaoImpl(Provider<ConnectionSource> connection) throws SQLException {
+		super(connection, StagiairePromotion.class);
 	}
 	
 	public ArrayList<StagiairePromotion> chargerByStagiaireId(Integer id) throws ApplicationException{

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.eni.gestion.pedagogie.DAO.InstanceCoursDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.composant.pagination.Pager;
 import net.eni.gestion.pedagogie.commun.composant.tuple.Pair;
@@ -18,7 +17,9 @@ import net.eni.gestion.pedagogie.commun.outil.ORMLiteHelper;
 import org.apache.commons.lang3.StringUtils;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import com.j256.ormlite.support.ConnectionSource;
 
 /**
  * @author jollivier
@@ -32,8 +33,8 @@ public class InstanceCoursDaoImpl extends ADaoImpl<InstanceCours, Integer> imple
 	 * @throws SQLException
 	 */
 	@Inject
-	public InstanceCoursDaoImpl(Connexion pConnexion) throws SQLException {
-		super( InstanceCours.class, pConnexion);
+	public InstanceCoursDaoImpl(Provider<ConnectionSource> connection) throws SQLException {
+		super(connection, InstanceCours.class);
 	}
 
 	@Override

@@ -22,7 +22,7 @@ public class StagiaireAvisResourceImpl extends AResourceImpl<StagiaireAvis, Inte
      */
     @Inject
     public StagiaireAvisResourceImpl(StagiaireAvisService pStagiaireAvisService, Connexion pConnexion) {
-    	super(pStagiaireAvisService, StagiaireAvis.class, pConnexion);
+    	super(pStagiaireAvisService, StagiaireAvis.class);
     }
 
 }

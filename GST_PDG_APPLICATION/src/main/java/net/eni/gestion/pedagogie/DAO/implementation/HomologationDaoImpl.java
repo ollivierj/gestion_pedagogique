@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import net.eni.gestion.pedagogie.DAO.HomologationDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.Homologation;
 import net.eni.gestion.pedagogie.commun.modele.ProfessionnelHomologue;
@@ -14,7 +13,9 @@ import net.eni.gestion.pedagogie.commun.outil.SearchCallable;
 import org.apache.commons.collections.CollectionUtils;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import com.j256.ormlite.support.ConnectionSource;
 
 /**
  * @author jollivier Service métier "Homologation"
@@ -29,8 +30,8 @@ public class HomologationDaoImpl extends ADaoImpl<Homologation, Integer>
 	 * @throws SQLException
 	 */
 	@Inject
-	public HomologationDaoImpl(Connexion pConnexion) throws SQLException {
-		super( Homologation.class, pConnexion);
+	public HomologationDaoImpl(Provider<ConnectionSource> connection) throws SQLException {
+		super(connection, Homologation.class);
 	}
 
 	public ArrayList<Homologation> mettreAJourCollectionHomologationForProfessionnelHomologue(

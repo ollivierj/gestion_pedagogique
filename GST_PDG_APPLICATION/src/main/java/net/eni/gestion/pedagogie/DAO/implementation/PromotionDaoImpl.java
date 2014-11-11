@@ -4,13 +4,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import net.eni.gestion.pedagogie.DAO.PromotionDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.Promotion;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.j256.ormlite.dao.RawRowMapper;
+import com.j256.ormlite.support.ConnectionSource;
 
 /**
  * @author jollivier
@@ -24,8 +25,8 @@ public class PromotionDaoImpl extends ADaoImpl<Promotion, String> implements Pro
 	 * @throws SQLException
 	 */
 	@Inject
-	public PromotionDaoImpl(Connexion pConnexion) throws SQLException {
-		super( Promotion.class, pConnexion);
+	public PromotionDaoImpl(Provider<ConnectionSource> connection) throws SQLException {
+		super(connection, Promotion.class);
 	}
 	
 	public ArrayList<Promotion> chargerForAutocompleteSearch(String pSearchText) throws ApplicationException {

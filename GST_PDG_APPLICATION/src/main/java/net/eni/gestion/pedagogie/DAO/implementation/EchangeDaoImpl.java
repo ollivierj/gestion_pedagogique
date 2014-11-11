@@ -3,11 +3,12 @@ package net.eni.gestion.pedagogie.DAO.implementation;
 import java.sql.SQLException;
 
 import net.eni.gestion.pedagogie.DAO.EchangeDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.modele.Echange;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import com.j256.ormlite.support.ConnectionSource;
 
 /**
  * @author jollivier
@@ -21,8 +22,8 @@ public class EchangeDaoImpl extends ADaoImpl<Echange, Integer> implements Echang
 	 * @throws SQLException
 	 */
 	@Inject
-	public EchangeDaoImpl(Connexion pConnexion) throws SQLException {
-		super( Echange.class, pConnexion);
+	public EchangeDaoImpl(Provider<ConnectionSource> connection) throws SQLException {
+		super(connection, Echange.class);
 	}
 
 }

@@ -4,13 +4,14 @@ import java.sql.SQLException;
 import java.util.List;
 
 import net.eni.gestion.pedagogie.DAO.InstanceEvaluationDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.Evaluation;
 import net.eni.gestion.pedagogie.commun.modele.InstanceEvaluation;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import com.j256.ormlite.support.ConnectionSource;
 
 /**
  * @author jollivier
@@ -24,8 +25,8 @@ public class InstanceEvaluationDaoImpl extends ADaoImpl<InstanceEvaluation, Inte
 	 * @throws SQLException
 	 */
 	@Inject
-	public InstanceEvaluationDaoImpl(Connexion pConnexion) throws SQLException {
-		super( InstanceEvaluation.class, pConnexion);
+	public InstanceEvaluationDaoImpl(Provider<ConnectionSource> connection) throws SQLException {
+		super(connection, InstanceEvaluation.class);
 	}
 	
 	@Override

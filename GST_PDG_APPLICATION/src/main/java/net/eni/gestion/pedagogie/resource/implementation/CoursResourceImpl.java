@@ -38,7 +38,7 @@ public class CoursResourceImpl extends AResourceImpl<Cours, UUID, CoursService> 
      */
     @Inject
     public CoursResourceImpl(CoursService coursService, Connexion pConnexion) {
-    	super(coursService, Cours.class, pConnexion);
+    	super(coursService, Cours.class);
     }
     
     @Override
@@ -50,7 +50,7 @@ public class CoursResourceImpl extends AResourceImpl<Cours, UUID, CoursService> 
 	public void saveInstance(final InstancePlanning<InstanceCours, CoursStagiaire> instances) throws ApplicationException {
     	try {
 			TransactionManager.callInTransaction(
-					connexion.getConnection(),
+					connection.get(),
 					new Callable<Void>() {
 						public Void call()
 								throws ApplicationException {
@@ -72,7 +72,7 @@ public class CoursResourceImpl extends AResourceImpl<Cours, UUID, CoursService> 
 	public Cours getData(@PathParam("id") final String pId) throws ApplicationException {
     	try {
 			return TransactionManager.callInTransaction(
-					connexion.getConnection(),
+					connection.get(),
 					new Callable<Cours>() {
 						public Cours call()
 								throws ApplicationException {

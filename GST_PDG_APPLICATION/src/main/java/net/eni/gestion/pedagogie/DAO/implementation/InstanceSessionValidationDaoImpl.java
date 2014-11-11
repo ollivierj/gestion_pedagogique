@@ -4,13 +4,14 @@ import java.sql.SQLException;
 import java.util.List;
 
 import net.eni.gestion.pedagogie.DAO.InstanceSessionValidationDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.InstanceSessionValidation;
 import net.eni.gestion.pedagogie.commun.modele.SessionValidation;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import com.j256.ormlite.support.ConnectionSource;
 
 /**
  * @author jollivier
@@ -24,8 +25,8 @@ public class InstanceSessionValidationDaoImpl extends ADaoImpl<InstanceSessionVa
 	 * @throws SQLException
 	 */
 	@Inject
-	public InstanceSessionValidationDaoImpl(Connexion pConnexion) throws SQLException {
-		super( InstanceSessionValidation.class, pConnexion);
+	public InstanceSessionValidationDaoImpl(Provider<ConnectionSource> connection) throws SQLException {
+		super(connection, InstanceSessionValidation.class);
 	}
 
 	@Override

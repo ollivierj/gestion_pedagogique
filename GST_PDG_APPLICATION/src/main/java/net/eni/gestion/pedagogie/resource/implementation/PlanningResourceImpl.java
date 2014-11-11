@@ -24,7 +24,7 @@ public class PlanningResourceImpl extends AResourceImpl<Planning, Long, Planning
 	
 	@Inject
 	public PlanningResourceImpl(PlanningService planningService, Connexion pConnexion) {
-		super(planningService, Planning.class, pConnexion);
+		super(planningService, Planning.class);
 	}
 	
 	@GET
@@ -32,7 +32,7 @@ public class PlanningResourceImpl extends AResourceImpl<Planning, Long, Planning
 	public List<Planning> getElements(@QueryParam("debut") final String dateDebut, @QueryParam("fin") final String dateFin) throws ApplicationException {		
 		try {
 			return TransactionManager.callInTransaction(
-					connexion.getConnection(),
+					connection.get(),
 					new Callable<List<Planning>>() {
 						public List<Planning> call()
 								throws ApplicationException {

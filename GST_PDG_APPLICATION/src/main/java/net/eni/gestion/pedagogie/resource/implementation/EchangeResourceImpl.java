@@ -22,7 +22,7 @@ public class EchangeResourceImpl extends AResourceImpl<Echange, Integer, Echange
      */
     @Inject
     public EchangeResourceImpl(EchangeService echangeService, Connexion pConnexion) {
-    	super(echangeService, Echange.class, pConnexion);
+    	super(echangeService, Echange.class);
     }
 
 }

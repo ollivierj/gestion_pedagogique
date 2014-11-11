@@ -22,7 +22,7 @@ public class FonctionResourceImpl extends AResourceImpl<Fonction, String, Foncti
      */
     @Inject
     public FonctionResourceImpl(FonctionService titreProfessionnelService, Connexion pConnexion) {
-    	super(titreProfessionnelService, Fonction.class, pConnexion);
+    	super(titreProfessionnelService, Fonction.class);
     }
     
 }

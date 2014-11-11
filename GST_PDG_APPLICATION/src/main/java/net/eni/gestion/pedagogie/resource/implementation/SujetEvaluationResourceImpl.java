@@ -22,7 +22,7 @@ public class SujetEvaluationResourceImpl extends AResourceImpl<SujetEvaluation, 
      */
     @Inject
     public SujetEvaluationResourceImpl(SujetEvaluationService SujetEvaluationService, Connexion pConnexion) {
-    	super(SujetEvaluationService, SujetEvaluation.class, pConnexion);
+    	super(SujetEvaluationService, SujetEvaluation.class);
     }
 
 }

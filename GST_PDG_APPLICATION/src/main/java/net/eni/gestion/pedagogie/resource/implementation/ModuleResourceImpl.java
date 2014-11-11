@@ -22,7 +22,7 @@ public class ModuleResourceImpl extends AResourceImpl<Module, Integer, ModuleSer
      */
     @Inject
     public ModuleResourceImpl(ModuleService titreProfessionnelService, Connexion pConnexion) {
-    	super(titreProfessionnelService, Module.class, pConnexion);
+    	super(titreProfessionnelService, Module.class);
     }
     
 }
