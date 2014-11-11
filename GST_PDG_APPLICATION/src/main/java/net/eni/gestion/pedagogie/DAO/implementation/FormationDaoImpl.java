@@ -3,7 +3,6 @@ package net.eni.gestion.pedagogie.DAO.implementation;
 import java.sql.SQLException;
 
 import net.eni.gestion.pedagogie.DAO.FormationDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.modele.Formation;
 
 import com.google.inject.Singleton;
@@ -20,7 +19,7 @@ public class FormationDaoImpl extends ADaoImpl<Formation, String> implements For
 	 * @throws SQLException
 	 */
 	public FormationDaoImpl() throws SQLException {
-		super(Connexion.getConnexion(), Formation.class);
+		super( Formation.class);
 	}
 
 }

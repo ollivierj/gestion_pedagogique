@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import net.eni.gestion.pedagogie.DAO.AbsenceDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.Absence;
 
@@ -23,7 +22,7 @@ public class AbsenceDaoImpl extends ADaoImpl<Absence, Integer> implements Absenc
 	 * @throws SQLException
 	 */
 	public AbsenceDaoImpl() throws SQLException {
-		super(Connexion.getConnexion(), Absence.class);
+		super(Absence.class);
 	}
 
 	@Override

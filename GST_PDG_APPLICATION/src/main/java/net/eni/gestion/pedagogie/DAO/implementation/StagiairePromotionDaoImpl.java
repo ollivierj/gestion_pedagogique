@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import net.eni.gestion.pedagogie.DAO.StagiairePromotionDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.StagiairePromotion;
 
@@ -18,7 +17,7 @@ public class StagiairePromotionDaoImpl extends ADaoImpl<StagiairePromotion, Inte
 	 * @throws SQLException
 	 */
 	public StagiairePromotionDaoImpl() throws SQLException {
-		super(Connexion.getConnexion(), StagiairePromotion.class);
+		super( StagiairePromotion.class);
 	}
 	
 	public ArrayList<StagiairePromotion> chargerByStagiaireId(Integer id) throws ApplicationException{

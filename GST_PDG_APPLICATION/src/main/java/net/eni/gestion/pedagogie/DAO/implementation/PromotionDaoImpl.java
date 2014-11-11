@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import net.eni.gestion.pedagogie.DAO.PromotionDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.Promotion;
 
@@ -23,7 +22,7 @@ public class PromotionDaoImpl extends ADaoImpl<Promotion, String> implements Pro
 	 * @throws SQLException
 	 */
 	public PromotionDaoImpl() throws SQLException {
-		super(Connexion.getConnexion(), Promotion.class);
+		super( Promotion.class);
 	}
 	
 	public ArrayList<Promotion> chargerForAutocompleteSearch(String pSearchText) throws ApplicationException {

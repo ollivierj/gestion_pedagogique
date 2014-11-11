@@ -3,7 +3,6 @@ package net.eni.gestion.pedagogie.DAO.implementation;
 import java.sql.SQLException;
 
 import net.eni.gestion.pedagogie.DAO.CoursStagiaireDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.modele.CoursStagiaire;
 
 import com.google.inject.Singleton;
@@ -21,7 +20,7 @@ public class CoursStagiaireDaoImpl extends ADaoImpl<CoursStagiaire, Integer> imp
 	 * @throws SQLException
 	 */
 	public CoursStagiaireDaoImpl() throws SQLException {
-		super(Connexion.getConnexion(), CoursStagiaire.class);
+		super( CoursStagiaire.class);
 	}
 
 }

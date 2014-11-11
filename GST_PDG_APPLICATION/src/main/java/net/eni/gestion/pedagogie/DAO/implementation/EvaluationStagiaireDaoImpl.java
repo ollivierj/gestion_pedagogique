@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import net.eni.gestion.pedagogie.DAO.EvaluationStagiaireDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.Evaluation;
 import net.eni.gestion.pedagogie.commun.modele.EvaluationStagiaire;
@@ -27,7 +26,7 @@ public class EvaluationStagiaireDaoImpl extends ADaoImpl<EvaluationStagiaire, In
 	 * @throws SQLException
 	 */
 	public EvaluationStagiaireDaoImpl() throws SQLException {
-		super(Connexion.getConnexion(), EvaluationStagiaire.class);
+		super( EvaluationStagiaire.class);
 	}
 	
 	public class findEvaluationStagiaireByStagiaire implements SearchCallable<EvaluationStagiaire,Integer> {

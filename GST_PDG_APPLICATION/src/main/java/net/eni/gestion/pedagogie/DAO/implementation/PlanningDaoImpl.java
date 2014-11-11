@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.eni.gestion.pedagogie.DAO.PlanningDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.configuration.ModeleMetier;
 import net.eni.gestion.pedagogie.commun.modele.Planning;
@@ -16,7 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 public class PlanningDaoImpl extends ADaoImpl<Planning, Long> implements PlanningDao {
 
 	protected PlanningDaoImpl() throws SQLException {
-		super(Connexion.getConnexion(), Planning.class);
+		super( Planning.class);
 	}
 
 	@Override

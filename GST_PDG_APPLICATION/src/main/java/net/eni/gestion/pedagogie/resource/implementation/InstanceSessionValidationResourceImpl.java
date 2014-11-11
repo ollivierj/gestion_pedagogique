@@ -1,6 +1,8 @@
 package net.eni.gestion.pedagogie.resource.implementation;
 
+import java.sql.SQLException;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -9,6 +11,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import net.eni.gestion.pedagogie.commun.composant.authentification.annotation.CheckSession;
+import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.InstanceSessionValidation;
 import net.eni.gestion.pedagogie.commun.modele.SessionValidation;
@@ -16,6 +19,7 @@ import net.eni.gestion.pedagogie.resource.InstanceSessionValidationResource;
 import net.eni.gestion.pedagogie.service.InstanceSessionValidationService;
 
 import com.google.inject.Inject;
+import com.j256.ormlite.misc.TransactionManager;
 
 /**
  * @author jollivier
@@ -39,8 +43,20 @@ public class InstanceSessionValidationResourceImpl extends AResourceImpl<Instanc
 	@Consumes(MediaType.APPLICATION_JSON)
 	@CheckSession
 	public List<InstanceSessionValidation> getInstances(
-			SessionValidation sessionValidation) throws ApplicationException {
-		return service.getInstancesBySession(sessionValidation);
+			final SessionValidation sessionValidation) throws ApplicationException {
+		try {
+			return TransactionManager.callInTransaction(
+					Connexion.getInstance().getConnexion(),
+					new Callable<List<InstanceSessionValidation>>() {
+						public List<InstanceSessionValidation> call()
+								throws ApplicationException {
+							return service.getInstancesBySession(sessionValidation);
+						}
+					});
+		} catch (SQLException e) {
+			throw new ApplicationException(
+					"Erreur lors de la lecture en base de données");
+		}
 	}
 
 }

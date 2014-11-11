@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import net.eni.gestion.pedagogie.DAO.FonctionDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.Fonction;
 
@@ -23,7 +22,7 @@ public class FonctionDaoImpl extends ADaoImpl<Fonction, String> implements Fonct
 	 * @throws SQLException
 	 */
 	public FonctionDaoImpl() throws SQLException {
-		super(Connexion.getConnexion(), Fonction.class);
+		super( Fonction.class);
 	}
 	
 	public HashMap<String, String> getTitleMap() throws ApplicationException {

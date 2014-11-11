@@ -8,7 +8,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import net.eni.gestion.pedagogie.DAO.UtilisateurDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.Utilisateur;
 import net.eni.gestion.pedagogie.commun.outil.ORMLiteHelper;
@@ -30,7 +29,7 @@ public class UtilisateurDaoImpl extends ADaoImpl<Utilisateur, Integer> implement
 	 * @throws SQLException
 	 */
 	public UtilisateurDaoImpl() throws SQLException {
-		super(Connexion.getConnexion(), Utilisateur.class);
+		super( Utilisateur.class);
 	}
 	
 	public HashMap<String, String> getTitleMap() throws ApplicationException {

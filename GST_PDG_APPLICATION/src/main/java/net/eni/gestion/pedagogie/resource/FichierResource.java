@@ -46,6 +46,7 @@ public interface FichierResource {
 	 * @param pId
 	 * @param filename
 	 * @return
+	 * @throws ApplicationException 
 	 */
-	public abstract String supprimer(String pType, String pId, String filename);
+	public abstract String supprimer(String pType, String pId, String filename) throws ApplicationException;
 }

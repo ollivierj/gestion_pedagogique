@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import net.eni.gestion.pedagogie.DAO.ModuleDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.Module;
 
@@ -23,7 +22,7 @@ public class ModuleDaoImpl extends ADaoImpl<Module, Integer> implements ModuleDa
 	 * @throws SQLException
 	 */
 	public ModuleDaoImpl() throws SQLException {
-		super(Connexion.getConnexion(), Module.class);
+		super( Module.class);
 	}
 	
 	public HashMap<String, String> getTitleMap() throws ApplicationException {

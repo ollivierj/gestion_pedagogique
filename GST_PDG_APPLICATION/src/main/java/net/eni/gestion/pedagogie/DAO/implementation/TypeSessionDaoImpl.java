@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import net.eni.gestion.pedagogie.DAO.TypeSessionDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.TypeSession;
 
@@ -23,7 +22,7 @@ public class TypeSessionDaoImpl extends ADaoImpl<TypeSession, Integer> implement
 	 * @throws SQLException
 	 */
 	public TypeSessionDaoImpl() throws SQLException {
-		super(Connexion.getConnexion(), TypeSession.class);
+		super( TypeSession.class);
 	}
 
 	public HashMap<String, String> getTitleMap() throws ApplicationException {

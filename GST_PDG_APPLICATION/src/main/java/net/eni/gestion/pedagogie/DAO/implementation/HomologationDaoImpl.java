@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import net.eni.gestion.pedagogie.DAO.HomologationDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.Homologation;
 import net.eni.gestion.pedagogie.commun.modele.ProfessionnelHomologue;
@@ -28,7 +27,7 @@ public class HomologationDaoImpl extends ADaoImpl<Homologation, Integer>
 	 * @throws SQLException
 	 */
 	public HomologationDaoImpl() throws SQLException {
-		super(Connexion.getConnexion(), Homologation.class);
+		super( Homologation.class);
 	}
 
 	public ArrayList<Homologation> mettreAJourCollectionHomologationForProfessionnelHomologue(

@@ -3,7 +3,6 @@ package net.eni.gestion.pedagogie.DAO.implementation;
 import java.sql.SQLException;
 
 import net.eni.gestion.pedagogie.DAO.ParametreDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.modele.Parametre;
 
 import com.google.inject.Singleton;
@@ -20,7 +19,7 @@ public class ParametreDaoImpl extends ADaoImpl<Parametre, String> implements Par
 	 * @throws SQLException
 	 */
 	public ParametreDaoImpl() throws SQLException {
-		super(Connexion.getConnexion(), Parametre.class);
+		super( Parametre.class);
 	}
 
 }

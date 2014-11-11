@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import net.eni.gestion.pedagogie.DAO.StagiaireAvisDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.composant.pagination.Pager;
 import net.eni.gestion.pedagogie.commun.composant.tuple.Pair;
@@ -29,7 +28,7 @@ public class StagiaireAvisDaoImpl extends ADaoImpl<StagiaireAvis, Integer> imple
 	 * @throws SQLException
 	 */
 	public StagiaireAvisDaoImpl() throws SQLException {
-		super(Connexion.getConnexion(), StagiaireAvis.class);
+		super( StagiaireAvis.class);
 	}
 
 	@Override

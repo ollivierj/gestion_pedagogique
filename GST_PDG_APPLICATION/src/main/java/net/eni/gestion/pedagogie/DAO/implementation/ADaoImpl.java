@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import net.eni.gestion.pedagogie.DAO.ADao;
+import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.composant.pagination.Pager;
 import net.eni.gestion.pedagogie.commun.composant.tuple.Pair;
@@ -11,12 +12,13 @@ import net.eni.gestion.pedagogie.commun.modele.generique.AModele;
 import net.eni.gestion.pedagogie.commun.outil.CRUDHelper;
 
 import com.j256.ormlite.dao.BaseDaoImpl;
-import com.j256.ormlite.support.ConnectionSource;
 
 abstract class ADaoImpl<M extends AModele<ID>, ID> extends BaseDaoImpl<M,ID> implements ADao<M, ID>{
 
-	protected ADaoImpl(ConnectionSource connectionSource, Class<M> dataClass) throws SQLException {
-		super(connectionSource, dataClass);
+	
+	
+	protected ADaoImpl(Class<M> dataClass) throws SQLException {
+		super(Connexion.getInstance().getConnexion(), dataClass);
 	}
 	
 	/* (non-Javadoc)

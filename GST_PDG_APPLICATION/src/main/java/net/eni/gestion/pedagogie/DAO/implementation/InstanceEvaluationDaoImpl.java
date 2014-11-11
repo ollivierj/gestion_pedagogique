@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import net.eni.gestion.pedagogie.DAO.InstanceEvaluationDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.Evaluation;
 import net.eni.gestion.pedagogie.commun.modele.InstanceEvaluation;
@@ -23,7 +22,7 @@ public class InstanceEvaluationDaoImpl extends ADaoImpl<InstanceEvaluation, Inte
 	 * @throws SQLException
 	 */
 	public InstanceEvaluationDaoImpl() throws SQLException {
-		super(Connexion.getConnexion(), InstanceEvaluation.class);
+		super( InstanceEvaluation.class);
 	}
 	
 	@Override

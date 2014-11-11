@@ -3,7 +3,6 @@ package net.eni.gestion.pedagogie.DAO.implementation;
 import java.sql.SQLException;
 
 import net.eni.gestion.pedagogie.DAO.UniteParFormationDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.modele.UniteParFormation;
 
 import com.google.inject.Singleton;
@@ -20,7 +19,7 @@ public class UniteParFormationDaoImpl extends ADaoImpl<UniteParFormation, Intege
 	 * @throws SQLException
 	 */
 	public UniteParFormationDaoImpl() throws SQLException {
-		super(Connexion.getConnexion(), UniteParFormation.class);
+		super( UniteParFormation.class);
 	}
 
 }

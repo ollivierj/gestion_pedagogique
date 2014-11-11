@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import net.eni.gestion.pedagogie.DAO.InstanceSessionValidationDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.InstanceSessionValidation;
 import net.eni.gestion.pedagogie.commun.modele.SessionValidation;
@@ -23,7 +22,7 @@ public class InstanceSessionValidationDaoImpl extends ADaoImpl<InstanceSessionVa
 	 * @throws SQLException
 	 */
 	public InstanceSessionValidationDaoImpl() throws SQLException {
-		super(Connexion.getConnexion(), InstanceSessionValidation.class);
+		super( InstanceSessionValidation.class);
 	}
 
 	@Override

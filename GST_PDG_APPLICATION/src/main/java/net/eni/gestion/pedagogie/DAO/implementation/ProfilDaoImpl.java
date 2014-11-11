@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import net.eni.gestion.pedagogie.DAO.ProfilDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.configuration.ModeleMetier;
 import net.eni.gestion.pedagogie.commun.modele.Profil;
@@ -25,7 +24,7 @@ public class ProfilDaoImpl extends ADaoImpl<Profil, Integer> implements ProfilDa
 	 * @throws SQLException
 	 */
 	public ProfilDaoImpl() throws SQLException {
-		super(Connexion.getConnexion(), Profil.class);
+		super( Profil.class);
 	}
 	
 	public HashMap<String, String> getTitleMap() throws ApplicationException {
@@ -61,7 +60,7 @@ public class ProfilDaoImpl extends ADaoImpl<Profil, Integer> implements ProfilDa
 		if (null==instanceExist){
 			return true;
 		}else {
-			throw new ApplicationException("Il existe au moins une instance d'évaluation déclarée pour cette évaluation.\n Il n'est donc pas possible de supprimer cette évaluation");
+			throw new ApplicationException("Il existe au moins un utilisateur pour ce profil.\n Vous devez vous assurer que le profil n'est pas utilisé par un utilisateur");
 		}
 	}
 	

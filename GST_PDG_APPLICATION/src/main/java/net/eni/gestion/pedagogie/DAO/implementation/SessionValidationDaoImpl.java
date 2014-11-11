@@ -3,7 +3,6 @@ package net.eni.gestion.pedagogie.DAO.implementation;
 import java.sql.SQLException;
 
 import net.eni.gestion.pedagogie.DAO.SessionValidationDao;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.configuration.ModeleMetier;
 import net.eni.gestion.pedagogie.commun.modele.InstanceSessionValidation;
@@ -27,7 +26,7 @@ public class SessionValidationDaoImpl extends ADaoImpl<SessionValidation, Intege
 	 * @throws SQLException
 	 */
 	public SessionValidationDaoImpl() throws SQLException {
-		super(Connexion.getConnexion(), SessionValidation.class);
+		super( SessionValidation.class);
 	}
 
 	@Override
