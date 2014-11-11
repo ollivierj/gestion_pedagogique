@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 import net.eni.gestion.pedagogie.DAO.FonctionDao;
 import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.Fonction;
 
 import com.google.inject.Singleton;
@@ -25,7 +26,7 @@ public class FonctionDaoImpl extends ADaoImpl<Fonction, String> implements Fonct
 		super(Connexion.getConnexion(), Fonction.class);
 	}
 	
-	public HashMap<String, String> getTitleMap() throws Exception {
+	public HashMap<String, String> getTitleMap() throws ApplicationException {
 		try{
 			Iterator<Fonction> lFonctions = this.queryForAll().iterator();
 			HashMap<String, String> lResults = new HashMap<String, String>();
@@ -35,7 +36,7 @@ public class FonctionDaoImpl extends ADaoImpl<Fonction, String> implements Fonct
 			}
 			return lResults;
 		} catch (Exception exception) {
-			throw new Exception(
+			throw new ApplicationException(
 					"Echec de chargement de la liste d'enregistrements depuis la base de données");
 		}
 	}

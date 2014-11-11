@@ -49,7 +49,7 @@ public class FichierResourceImpl implements FichierResource {
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	@Produces(MediaType.APPLICATION_JSON)
 	@CheckSession
-	public String deposer(FormDataMultiPart form) {
+	public String deposer(FormDataMultiPart form) throws ApplicationException {
 		return fichierService.deposer(form);
 	}
 

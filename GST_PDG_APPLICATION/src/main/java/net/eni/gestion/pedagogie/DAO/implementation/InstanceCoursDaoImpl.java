@@ -6,6 +6,7 @@ import java.util.List;
 
 import net.eni.gestion.pedagogie.DAO.InstanceCoursDao;
 import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.composant.pagination.Pager;
 import net.eni.gestion.pedagogie.commun.composant.tuple.Pair;
 import net.eni.gestion.pedagogie.commun.configuration.ModeleMetier;
@@ -35,7 +36,7 @@ public class InstanceCoursDaoImpl extends ADaoImpl<InstanceCours, Integer> imple
 
 	@Override
 	public Pair<ArrayList<InstanceCours>, Long> charger(Pager pPager)
-			throws Exception {
+			throws ApplicationException {
 		try {
 			if (null == pPager.getConnectedUser()){
 				throw new Exception("Vous devez être connecté.");
@@ -102,19 +103,19 @@ public class InstanceCoursDaoImpl extends ADaoImpl<InstanceCours, Integer> imple
 			}
 			return new Pair<ArrayList<InstanceCours>, Long>(new ArrayList<InstanceCours>(this.queryRaw(lQuery.toString(), this.getRawRowMapper()).getResults()), this.countOf());
 		} catch (Exception exception) {
-			throw new Exception("Echec de chargement de la liste d'enregistrements depuis la base de données");
+			throw new ApplicationException("Echec de chargement de la liste d'enregistrements depuis la base de données");
 		}
 	}
 
 	@Override
 	public List<InstanceCours> getInstancesByCours(Cours cours)
-			throws Exception {
+			throws ApplicationException {
 		List<InstanceCours> instances = null;
 		
 		try {
 			instances = this.queryBuilder().where().eq(InstanceCours.COURS_FIELD_NAME, cours.getId()).query();
 		} catch (SQLException e) {
-			throw new Exception("Impossible de récupérer les instances de cours");
+			throw new ApplicationException("Impossible de récupérer les instances de cours");
 		}
 		
 		return instances;

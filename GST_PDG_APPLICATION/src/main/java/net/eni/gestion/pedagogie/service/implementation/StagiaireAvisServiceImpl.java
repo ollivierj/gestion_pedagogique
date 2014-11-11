@@ -10,20 +10,24 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 /**
- * @author jollivier
- * Classe d'implémentation pour le module de suivi des aviss
+ * @author jollivier Classe d'implémentation pour le module de suivi des aviss
  */
 @Singleton
-public class StagiaireAvisServiceImpl extends AServiceImpl<StagiaireAvis, Integer, StagiaireAvisDao> implements StagiaireAvisService {
+public class StagiaireAvisServiceImpl extends
+		AServiceImpl<StagiaireAvis, Integer, StagiaireAvisDao> implements
+		StagiaireAvisService {
 
-       /**
-     * Constructeur
-     * @param DAO avis
-     * @throws SQLException
-     */
-    @Inject
-    public StagiaireAvisServiceImpl(StagiaireAvisDao pStagiaireAvisDao) throws SQLException {
-        super(pStagiaireAvisDao);
-    }
+	/**
+	 * Constructeur
+	 * 
+	 * @param DAO
+	 *            avis
+	 * @throws SQLException
+	 */
+	@Inject
+	public StagiaireAvisServiceImpl(StagiaireAvisDao pStagiaireAvisDao)
+			throws SQLException {
+		super(pStagiaireAvisDao);
+	}
 
 }

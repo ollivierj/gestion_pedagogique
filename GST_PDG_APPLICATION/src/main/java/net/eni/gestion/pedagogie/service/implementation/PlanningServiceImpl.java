@@ -12,23 +12,19 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton
-public class PlanningServiceImpl extends AServiceImpl<Planning, Long, PlanningDao> implements PlanningService {
+public class PlanningServiceImpl extends
+		AServiceImpl<Planning, Long, PlanningDao> implements PlanningService {
 
-
-	
 	@Inject
 	public PlanningServiceImpl(PlanningDao planningDao) {
 		super(planningDao);
 	}
 
 	@Override
-	public List<Planning> getPlanningElement(String dateDebut, String dateFin) throws ApplicationException {
+	public List<Planning> getPlanningElement(String dateDebut, String dateFin)
+			throws ApplicationException {
 		List<Planning> planningElements = new ArrayList<Planning>();
-		try {
-			planningElements = dao.charger(dateDebut, dateFin);
-		} catch (Exception e) {
-			throw new ApplicationException("Erreur lors de la recherche des éléments du planning");
-		}
+		planningElements = dao.charger(dateDebut, dateFin);
 		return planningElements;
 	}
 }

@@ -28,7 +28,7 @@ public class ProfilDaoImpl extends ADaoImpl<Profil, Integer> implements ProfilDa
 		super(Connexion.getConnexion(), Profil.class);
 	}
 	
-	public HashMap<String, String> getTitleMap() throws Exception {
+	public HashMap<String, String> getTitleMap() throws ApplicationException {
 		try{
 			Iterator<Profil> lProfils = this.queryForAll().iterator();
 			HashMap<String, String> lResults = new HashMap<String, String>();
@@ -38,7 +38,7 @@ public class ProfilDaoImpl extends ADaoImpl<Profil, Integer> implements ProfilDa
 			}
 			return lResults;
 		} catch (Exception exception) {
-			throw new Exception(
+			throw new ApplicationException(
 					"Echec de chargement de la liste d'enregistrements depuis la base de données");
 		}
 	}
@@ -52,13 +52,13 @@ public class ProfilDaoImpl extends ADaoImpl<Profil, Integer> implements ProfilDa
 		lQuery.append(Utilisateur.PROFIL_FIELD_NAME);
 		lQuery.append("=");
 		lQuery.append(pId);
-		boolean instanceExist;
+		String[] instanceExist;
 		try {
-			instanceExist = this.queryRaw(lQuery.toString()).getFirstResult().length==1;
+			instanceExist = this.queryRaw(lQuery.toString()).getFirstResult();
 		} catch (SQLException e) {
 			throw new ApplicationException("Echec lors de la validation en base de données");
 		}
-		if (!instanceExist){
+		if (null==instanceExist){
 			return true;
 		}else {
 			throw new ApplicationException("Il existe au moins une instance d'évaluation déclarée pour cette évaluation.\n Il n'est donc pas possible de supprimer cette évaluation");

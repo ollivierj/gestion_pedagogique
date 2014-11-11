@@ -6,6 +6,7 @@ import java.util.List;
 
 import net.eni.gestion.pedagogie.DAO.PlanningDao;
 import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.configuration.ModeleMetier;
 import net.eni.gestion.pedagogie.commun.modele.Planning;
 import net.eni.gestion.pedagogie.commun.outil.ORMLiteHelper;
@@ -19,7 +20,7 @@ public class PlanningDaoImpl extends ADaoImpl<Planning, Long> implements Plannin
 	}
 
 	@Override
-	public List<Planning> charger(String dateDebut, String dateFin) throws Exception {
+	public List<Planning> charger(String dateDebut, String dateFin) throws ApplicationException {
 		try {
 			if (dateDebut != null && dateFin != null) {
 				
@@ -40,12 +41,12 @@ public class PlanningDaoImpl extends ADaoImpl<Planning, Long> implements Plannin
 				return new ArrayList<Planning>(this.queryRaw(lQuery.toString(), this.getRawRowMapper()).getResults());
 
 			} else {
-				throw new Exception("Date de début et date de fin absents");
+				throw new ApplicationException("Date de début et date de fin absents");
 			}
 				
 			
 		} catch (Exception exception) {
-			throw new Exception("Echec de chargement de la liste des évaluations depuis la base de données");
+			throw new ApplicationException("Echec de chargement de la liste des évaluations depuis la base de données");
 		}
 	}
 

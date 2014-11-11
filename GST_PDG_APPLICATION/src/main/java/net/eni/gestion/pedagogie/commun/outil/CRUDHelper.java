@@ -2,6 +2,7 @@ package net.eni.gestion.pedagogie.commun.outil;
 
 import java.util.ArrayList;
 
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.composant.pagination.Pager;
 import net.eni.gestion.pedagogie.commun.composant.tuple.Pair;
 import net.eni.gestion.pedagogie.commun.modele.generique.AModele;
@@ -22,9 +23,9 @@ public class CRUDHelper {
 	 * @param pABase
 	 * @param pPager
 	 * @return Tableau de modèles
-	 * @throws Exception 
+	 * @throws ApplicationException 
 	 */
-	public static <M extends AModele<ID>, ID> Pair<ArrayList<M>, Long> charger(BaseDaoImpl<M, ID> pABase, Pager pPager) throws Exception {
+	public static <M extends AModele<ID>, ID> Pair<ArrayList<M>, Long> charger(BaseDaoImpl<M, ID> pABase, Pager pPager) throws ApplicationException {
 		try {
 			StringBuilder lQuery = new StringBuilder();
 			lQuery.append("SELECT ");
@@ -50,7 +51,7 @@ public class CRUDHelper {
 			}
 			return new Pair<ArrayList<M>, Long>(new ArrayList<M>(pABase.queryRaw(lQuery.toString(), pABase.getRawRowMapper()).getResults()), pABase.countOf());
 		} catch (Exception exception) {
-			throw new Exception("Echec de chargement de la liste d'enregistrements depuis la base de données");
+			throw new ApplicationException("Echec de chargement de la liste d'enregistrements depuis la base de données");
 		}
 	}
 		
@@ -59,13 +60,13 @@ public class CRUDHelper {
 	 * @param pABase
 	 * @param pModel
 	 * @return Tableau de modèles
-	 * @throws Exception 
+	 * @throws ApplicationException 
 	 */
-	public static <M extends AModele<ID>, ID> M chargerDetail(BaseDaoImpl<M, ID> pABase, ID pId) throws Exception {
+	public static <M extends AModele<ID>, ID> M chargerDetail(BaseDaoImpl<M, ID> pABase, ID pId) throws ApplicationException {
 		try {
 			return pABase.queryForId(pId);
 		} catch (Exception exception) {
-			throw new Exception("Echec de chargement de la liste d'enregistrements depuis la base de données");
+			throw new ApplicationException("Echec de chargement de la liste d'enregistrements depuis la base de données");
 		}
 	}
 
@@ -75,18 +76,18 @@ public class CRUDHelper {
 	 * @param pABase
 	 * @param pModel
 	 * @return Modèle insérée en base avec son nouvel ID
-	 * @throws Exception 
+	 * @throws ApplicationException 
 	 */
-	public static <M extends AModele<ID>, ID> M ajouter(BaseDaoImpl<M, ID> pABase, M pModel) throws Exception {
+	public static <M extends AModele<ID>, ID> M ajouter(BaseDaoImpl<M, ID> pABase, M pModel) throws ApplicationException {
 		try {
 			if (1 == pABase.create(pModel)) {
 				return pModel;
 			} else {
-				throw new Exception("Echec de l'ajout de l'enregistrement en base de données");
+				throw new ApplicationException("Echec de l'ajout de l'enregistrement en base de données");
 			}
 			
 		} catch (Exception exception) {
-			throw new Exception("Echec de l'ajout de l'enregistrement en base de données");
+			throw new ApplicationException("Echec de l'ajout de l'enregistrement en base de données");
 		}
 	}
 	
@@ -95,17 +96,17 @@ public class CRUDHelper {
 	 * @param pABase
 	 * @param pModel
 	 * @return Modèle mise à jour 
-	 * @throws Exception 
+	 * @throws ApplicationException 
 	 */
-	public static <M extends AModele<ID>, ID> M mettreAJour(BaseDaoImpl<M, ID> pABase, M pModel) throws Exception {
+	public static <M extends AModele<ID>, ID> M mettreAJour(BaseDaoImpl<M, ID> pABase, M pModel) throws ApplicationException {
 		try {
 			if (1 == pABase.update(pModel)) {
 				return pModel;
 			} else {
-				throw new Exception("Echec de la modification de l'enregistrement en base de données");
+				throw new ApplicationException("Echec de la modification de l'enregistrement en base de données");
 			}
 		} catch (Exception exception) {
-			throw new Exception("Echec la modification de l'enregistrement en base de données");
+			throw new ApplicationException("Echec la modification de l'enregistrement en base de données");
 		}
 	}
 
@@ -114,17 +115,17 @@ public class CRUDHelper {
 	 * @param pABase
 	 * @param pId 
 	 * @return l'identifiant supprimé
-	 * @throws Exception
+	 * @throws ApplicationException
 	 */
-	public static <M extends AModele<ID>, ID> ID supprimer(BaseDaoImpl<M, ID> pABase, ID pId) throws Exception {
+	public static <M extends AModele<ID>, ID> ID supprimer(BaseDaoImpl<M, ID> pABase, ID pId) throws ApplicationException {
 		try {
 			if (1 == pABase.deleteById(pId)) {
 				return pId;
 			} else {
-				throw new Exception("Echec de la suppression de l'enregistrement en base de données");
+				throw new ApplicationException("Echec de la suppression de l'enregistrement en base de données");
 			}
 		} catch (Exception exception) {
-			throw new Exception("Echec de la suppression de l'enregistrement en base de données");
+			throw new ApplicationException("Echec de la suppression de l'enregistrement en base de données");
 		}
 	}
 	
@@ -133,9 +134,9 @@ public class CRUDHelper {
 	 * @param pABase
 	 * @param pModel
 	 * @return Tableau de modèles
-	 * @throws Exception 
+	 * @throws ApplicationException 
 	 */
-	public static <M extends AModele<ID>, ID> ArrayList<M> chargerForAutocompleteSearch(BaseDaoImpl<M, ID> pABase, String pSearchText) throws Exception {
+	public static <M extends AModele<ID>, ID> ArrayList<M> chargerForAutocompleteSearch(BaseDaoImpl<M, ID> pABase, String pSearchText) throws ApplicationException {
 		try {
 			StringBuilder lQuery = new StringBuilder();
 			lQuery.append("SELECT TOP 10 ");
@@ -149,7 +150,7 @@ public class CRUDHelper {
 			}
 			return new ArrayList<M>(pABase.queryRaw(lQuery.toString(), pABase.getRawRowMapper()).getResults());
 		} catch (Exception exception) {
-			throw new Exception("Echec de chargement de la liste d'enregistrements depuis la base de données");
+			throw new ApplicationException("Echec de chargement de la liste d'enregistrements depuis la base de données");
 		}
 	}
 	
@@ -162,13 +163,13 @@ public class CRUDHelper {
 	 * @param MField
 	 * @param pSearchFunction
 	 * @return
-	 * @throws Exception
+	 * @throws ApplicationException
 	 */
 	public static <M extends AModele<ID>,ID, M2 extends AModele<ID2>,ID2> ArrayList<M2> mettreAJourCollection(
 			BaseDaoImpl<M2, ID2> pABase,
 			M pM,
 			ArrayList<M2> pM2, String MField,
-			SearchCallable<M2,ID2> pSearchFunction) throws Exception {
+			SearchCallable<M2,ID2> pSearchFunction) throws ApplicationException {
 		ArrayList<M2> lM2sEnBase = null;
 		try {
 
@@ -194,7 +195,7 @@ public class CRUDHelper {
 				return pM2;
 			}
 		} catch (Exception e) {
-			throw new Exception(
+			throw new ApplicationException(
 					"Echec de mise à jour des associations des homologations du professionnel homologués");
 		}
 		return null;
@@ -205,13 +206,13 @@ public class CRUDHelper {
 	 * Template pour le chargement totale de modèles
 	 * @param pABase
 	 * @return
-	 * @throws Exception
+	 * @throws ApplicationException
 	 */
-	public static <M extends AModele<ID>, ID> ArrayList<M> chargerTous(BaseDaoImpl<M, ID> pABase) throws Exception {
+	public static <M extends AModele<ID>, ID> ArrayList<M> chargerTous(BaseDaoImpl<M, ID> pABase) throws ApplicationException {
 		try {
 			return new ArrayList<M>(pABase.queryForAll());
 		} catch (Exception exception) {
-			throw new Exception("Echec de chargement de la liste d'enregistrements depuis la base de données");
+			throw new ApplicationException("Echec de chargement de la liste d'enregistrements depuis la base de données");
 		}
 	}
 }

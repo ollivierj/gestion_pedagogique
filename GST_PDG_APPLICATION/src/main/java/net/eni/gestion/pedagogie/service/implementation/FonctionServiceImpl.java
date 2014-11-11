@@ -15,8 +15,7 @@ import com.google.inject.Singleton;
  */
 @Singleton
 public class FonctionServiceImpl extends
-		AServiceImpl<Fonction, String, FonctionDao>
-		implements FonctionService {
+		AServiceImpl<Fonction, String, FonctionDao> implements FonctionService {
 
 	/**
 	 * Constructeur
@@ -26,8 +25,7 @@ public class FonctionServiceImpl extends
 	 * @throws SQLException
 	 */
 	@Inject
-	public FonctionServiceImpl(
-			FonctionDao pFonctionDao) throws SQLException {
+	public FonctionServiceImpl(FonctionDao pFonctionDao) throws SQLException {
 		super(pFonctionDao);
 	}
 

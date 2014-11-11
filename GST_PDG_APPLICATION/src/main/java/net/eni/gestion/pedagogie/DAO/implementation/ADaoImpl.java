@@ -22,28 +22,28 @@ abstract class ADaoImpl<M extends AModele<ID>, ID> extends BaseDaoImpl<M,ID> imp
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.DAO.base.contrat.generique.CRUDBase#charger(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public Pair<ArrayList<M>, Long> charger(Pager pPager) throws Exception {
+	public Pair<ArrayList<M>, Long> charger(Pager pPager) throws ApplicationException {
 		return CRUDHelper.charger(this, pPager);
 	}
 	
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.DAO.ADao#chargerForAutocompleteSearch(java.lang.String)
 	 */
-	public ArrayList<M> chargerForAutocompleteSearch(String pSearchText) throws Exception {
+	public ArrayList<M> chargerForAutocompleteSearch(String pSearchText) throws ApplicationException {
 		return CRUDHelper.chargerForAutocompleteSearch(this, pSearchText);
 	}
 	
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.DAO.base.generique.CRUDBase#chargerDetail(net.eni.gestion.pedagogie.modele.Avis)
 	 */
-	public M chargerDetail(ID pId) throws Exception {
+	public M chargerDetail(ID pId) throws ApplicationException {
 		return CRUDHelper.chargerDetail(this, pId);
 	}
 
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.DAO.base.contrat.generique.CRUDBase#ajouter(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public M ajouter(M pMember) throws Exception {
+	public M ajouter(M pMember) throws ApplicationException {
 		if (this.validerAvantajout(pMember)){
 			return CRUDHelper.ajouter(this, pMember);
 		}
@@ -53,7 +53,7 @@ abstract class ADaoImpl<M extends AModele<ID>, ID> extends BaseDaoImpl<M,ID> imp
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.DAO.base.contrat.generique.CRUDBase#mettreAJour(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public M mettreAJour(M pMember) throws Exception {
+	public M mettreAJour(M pMember) throws ApplicationException {
 		if (this.validerAvantMiseAJour(pMember)){
 			return CRUDHelper.mettreAJour(this, pMember);
 		}
@@ -64,14 +64,14 @@ abstract class ADaoImpl<M extends AModele<ID>, ID> extends BaseDaoImpl<M,ID> imp
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.DAO.base.contrat.generique.CRUDBase#supprimer(net.eni.gestion.pedagogie.modele.AModele)
 	 */
-	public ID supprimer(ID pId) throws Exception {
+	public ID supprimer(ID pId) throws ApplicationException {
 		if (this.validerAvantSuppression(pId)){
 			return CRUDHelper.supprimer(this, pId);
 		}
 		return null;
 	}
 	
-	public HashMap<String, String> getTitleMap() throws Exception {
+	public HashMap<String, String> getTitleMap() throws ApplicationException {
 		return null;
 	}
 	
@@ -96,11 +96,11 @@ abstract class ADaoImpl<M extends AModele<ID>, ID> extends BaseDaoImpl<M,ID> imp
 		return true;
 	}
 	
-	public ArrayList<M> chargerTous() throws Exception {
+	public ArrayList<M> chargerTous() throws ApplicationException {
 		return CRUDHelper.chargerTous(this);
 	}
 	
-	public M addOrUpdate(M pModel) throws Exception {
+	public M addOrUpdate(M pModel) throws ApplicationException {
 		try {
 			M m = this.chargerDetail(pModel.getId());
 			// Si le modèle n'existe pas en base on fait un ajout...

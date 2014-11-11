@@ -50,104 +50,90 @@ public class SessionValidationServiceImpl extends
 		super(pSessionValidationDao);
 		this.sessionValidationStagiaireDao = pSessionValidationStagiaireDao;
 		this.reservationSalleDao = reservationSalleDao;
-		this.instanceSessionValidationDao = instanceSessionValidationDao; 
+		this.instanceSessionValidationDao = instanceSessionValidationDao;
 
 	}
-    
-    @Override
+
+	@Override
 	public SessionValidation chargerDetail(Integer pId)
 			throws ApplicationException {
-		SessionValidation lSessionValidation = super
-				.chargerDetail(pId);
+		SessionValidation lSessionValidation = super.chargerDetail(pId);
 		lSessionValidation.getSessionValidationStagiaires();
 		return lSessionValidation;
 	}
-    
-    
 
 	@Override
 	public SessionValidation ajouter(SessionValidation pModel)
 			throws ApplicationException {
 		SessionValidation lUpdatedModel = super.ajouter(pModel);
-		try {
-			ArrayList<SessionValidationStagiaire> lSessionValidationStagiaires = lUpdatedModel.getSessionValidationStagiaires();
-			SessionValidation lSessionValidation = new SessionValidation();
-			lSessionValidation.setId(pModel.getId());
-			for (SessionValidationStagiaire lSessionValidationStagiaire : lSessionValidationStagiaires) {
-				lSessionValidationStagiaire.setSessionValidation(lSessionValidation);
-			}
-			this.sessionValidationStagiaireDao
-					.mettreAJourCollectionStagiaireForSessionValidation(
-							lUpdatedModel,
-							lSessionValidationStagiaires);
-			return lUpdatedModel;
-		} catch (Exception e) {
-			throw new ApplicationException(
-					"Echec lors de la mise à jour en base de données.");
+		ArrayList<SessionValidationStagiaire> lSessionValidationStagiaires = lUpdatedModel
+				.getSessionValidationStagiaires();
+		SessionValidation lSessionValidation = new SessionValidation();
+		lSessionValidation.setId(pModel.getId());
+		for (SessionValidationStagiaire lSessionValidationStagiaire : lSessionValidationStagiaires) {
+			lSessionValidationStagiaire
+					.setSessionValidation(lSessionValidation);
 		}
+		this.sessionValidationStagiaireDao
+				.mettreAJourCollectionStagiaireForSessionValidation(
+						lUpdatedModel, lSessionValidationStagiaires);
+		return lUpdatedModel;
 	}
 
 	@Override
 	public SessionValidation mettreAJour(SessionValidation pModel)
 			throws ApplicationException {
 		SessionValidation lUpdatedModel = super.mettreAJour(pModel);
-		try {
-			ArrayList<SessionValidationStagiaire> lSessionValidationStagiaires = lUpdatedModel.getSessionValidationStagiaires();
-			SessionValidation lSessionValidation = new SessionValidation();
-			lSessionValidation.setId(pModel.getId());
-			for (SessionValidationStagiaire lSessionValidationStagiaire : lSessionValidationStagiaires) {
-				lSessionValidationStagiaire.setSessionValidation(lSessionValidation);
-			}
-			this.sessionValidationStagiaireDao
-					.mettreAJourCollectionStagiaireForSessionValidation(
-							lUpdatedModel,
-							lSessionValidationStagiaires);
-			return lUpdatedModel;
-		} catch (Exception e) {
-			throw new ApplicationException(
-					"Echec lors de la mise à jour en base de données.");
+		ArrayList<SessionValidationStagiaire> lSessionValidationStagiaires = lUpdatedModel
+				.getSessionValidationStagiaires();
+		SessionValidation lSessionValidation = new SessionValidation();
+		lSessionValidation.setId(pModel.getId());
+		for (SessionValidationStagiaire lSessionValidationStagiaire : lSessionValidationStagiaires) {
+			lSessionValidationStagiaire
+					.setSessionValidation(lSessionValidation);
 		}
+		this.sessionValidationStagiaireDao
+				.mettreAJourCollectionStagiaireForSessionValidation(
+						lUpdatedModel, lSessionValidationStagiaires);
+		return lUpdatedModel;
 	}
 
 	@Override
-	public SessionValidation saveInstanceData(InstancePlanning<InstanceSessionValidation, SessionValidationStagiaire> instances)
+	public SessionValidation saveInstanceData(
+			InstancePlanning<InstanceSessionValidation, SessionValidationStagiaire> instances)
 			throws ApplicationException {
-		
-		for (Pair<InstanceSessionValidation, List<SessionValidationStagiaire>> instance : instances.getInstances()) {
+
+		for (Pair<InstanceSessionValidation, List<SessionValidationStagiaire>> instance : instances
+				.getInstances()) {
 			ReservationSalle reservationSalle = null;
 			InstanceSessionValidation instanceSessionValidation = null;
 			try {
-				reservationSalle = reservationSalleDao.addOrUpdate(instance.getFirst().getReservationSalle());
+				reservationSalle = reservationSalleDao.addOrUpdate(instance
+						.getFirst().getReservationSalle());
 			} catch (Exception e) {
-				throw new ApplicationException("Erreur lors de l'enregistrement de la réservation de salle");
+				throw new ApplicationException(
+						"Erreur lors de l'enregistrement de la réservation de salle");
 			}
-			
+
 			instance.getFirst().setReservationSalle(reservationSalle);
-			try {
-				instanceSessionValidation = instanceSessionValidationDao.addOrUpdate(instance.getFirst());
-			} catch (Exception e) {
-				throw new ApplicationException("Erreur lors de l'enregistrement des instances de session de validation");
+			instanceSessionValidation = instanceSessionValidationDao
+					.addOrUpdate(instance.getFirst());
+
+			for (SessionValidationStagiaire instanceStagiaire : instance
+					.getSecond()) {
+				instanceStagiaire
+						.setInstanceSessionValidation(instanceSessionValidation);
+				sessionValidationStagiaireDao.addOrUpdate(instanceStagiaire);
 			}
-			
-			for (SessionValidationStagiaire instanceStagiaire : instance.getSecond()) {
-				instanceStagiaire.setInstanceSessionValidation(instanceSessionValidation);
-				try {
-					sessionValidationStagiaireDao.addOrUpdate(instanceStagiaire);
-				} catch (Exception e) {
-					throw new ApplicationException("Erreur lors de l'enregistrement des instances stagiaires");
-				}
-			}
-			
+
 		}
-		
-		for (SessionValidationStagiaire sessionValidationStagiaire : instances.getInstancesStagiaires()) {
-			try {
-				sessionValidationStagiaireDao.addOrUpdate(sessionValidationStagiaire);
-			} catch (Exception e) {
-				throw new ApplicationException("Erreur lors de l'enregistrement des stagiaires sans instance");
-			}
+
+		for (SessionValidationStagiaire sessionValidationStagiaire : instances
+				.getInstancesStagiaires()) {
+			sessionValidationStagiaireDao
+					.addOrUpdate(sessionValidationStagiaire);
 		}
-		
+
 		return null;
 	}
 }

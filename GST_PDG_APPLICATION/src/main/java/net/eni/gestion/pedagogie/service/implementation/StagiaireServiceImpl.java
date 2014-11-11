@@ -14,38 +14,39 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 /**
- * @author jollivier
- * Classe d'implémentation pour le module de suivi des stagiaires
+ * @author jollivier Classe d'implémentation pour le module de suivi des
+ *         stagiaires
  */
 @Singleton
-public class StagiaireServiceImpl extends AServiceImpl<Stagiaire, Integer, StagiaireDao> implements StagiaireService {
+public class StagiaireServiceImpl extends
+		AServiceImpl<Stagiaire, Integer, StagiaireDao> implements
+		StagiaireService {
 
 	protected final PromotionDao promotionDao;
-	
+
 	/**
-     * Constructeur
-     * @param DAO stagiaire
-     * @throws SQLException
-     */
-    @Inject
-    public StagiaireServiceImpl(StagiaireDao pStagiaireDao, PromotionDao promotionDao) throws SQLException {
-        super(pStagiaireDao);
-        this.promotionDao = promotionDao;
-    }
-    
-    @Override
-    public Stagiaire chargerDetail(Integer pId) throws ApplicationException {
-    	Stagiaire stagiaire = super.chargerDetail(pId);
-    	return stagiaire;
-    }
+	 * Constructeur
+	 * 
+	 * @param DAO
+	 *            stagiaire
+	 * @throws SQLException
+	 */
+	@Inject
+	public StagiaireServiceImpl(StagiaireDao pStagiaireDao,
+			PromotionDao promotionDao) throws SQLException {
+		super(pStagiaireDao);
+		this.promotionDao = promotionDao;
+	}
+
+	@Override
+	public Stagiaire chargerDetail(Integer pId) throws ApplicationException {
+		Stagiaire stagiaire = super.chargerDetail(pId);
+		return stagiaire;
+	}
 
 	@Override
 	public ArrayList<Promotion> chargerPromotionForAutocompleteSearch(
 			String pSearchText) throws ApplicationException {
-		try {
-			return this.promotionDao.chargerForAutocompleteSearch(pSearchText);
-		} catch (Exception e) {
-			throw new ApplicationException("Echec lors du chargement depuis la base de données.");
-		}
+		return this.promotionDao.chargerForAutocompleteSearch(pSearchText);
 	}
 }

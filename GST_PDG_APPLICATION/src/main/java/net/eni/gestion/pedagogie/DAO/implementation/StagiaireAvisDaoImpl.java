@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import net.eni.gestion.pedagogie.DAO.StagiaireAvisDao;
 import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.composant.pagination.Pager;
 import net.eni.gestion.pedagogie.commun.composant.tuple.Pair;
 import net.eni.gestion.pedagogie.commun.configuration.ModeleMetier;
@@ -33,7 +34,7 @@ public class StagiaireAvisDaoImpl extends ADaoImpl<StagiaireAvis, Integer> imple
 
 	@Override
 	public Pair<ArrayList<StagiaireAvis>, Long> charger(Pager pPager)
-			throws Exception {
+			throws ApplicationException {
 		try {
 			if (null == pPager.getId()){
 				throw new Exception("Une instance de cours doit être sélectionnée.");
@@ -77,7 +78,7 @@ public class StagiaireAvisDaoImpl extends ADaoImpl<StagiaireAvis, Integer> imple
 			}
 			return new Pair<ArrayList<StagiaireAvis>, Long>(new ArrayList<StagiaireAvis>(this.queryRaw(lQuery.toString(), this.getRawRowMapper()).getResults()), this.countOf());
 		} catch (Exception exception) {
-			throw new Exception("Echec de chargement de la liste d'enregistrements depuis la base de données");
+			throw new ApplicationException("Echec de chargement de la liste d'enregistrements depuis la base de données");
 		}
 	}
 }

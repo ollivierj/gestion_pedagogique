@@ -21,78 +21,66 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 /**
- * @author jollivier
- * Classe d'implémentation pour le module de suivi des absences
+ * @author jollivier Classe d'implémentation pour le module de suivi des
+ *         absences
  */
 @Singleton
-public class CoursServiceImpl extends AServiceImpl<Cours, UUID, CoursDao> implements CoursService {
+public class CoursServiceImpl extends AServiceImpl<Cours, UUID, CoursDao>
+		implements CoursService {
 
-   
 	protected final CoursStagiaireDao coursStagiaireDao;
 	protected final ReservationSalleDao reservationSalleDao;
 	protected final InstanceCoursDao instanceCoursDao;
-	
-	/**
-     * Constructeur
-     * @param DAO absence
-     * @throws SQLException
-     */
-    @Inject
-    public CoursServiceImpl(CoursDao pCoursDao, CoursStagiaireDao coursStagiaireDao,
-    						ReservationSalleDao reservationSalleDao, InstanceCoursDao instanceCoursDao) 
-    								throws SQLException {
-        super(pCoursDao);
-        this.coursStagiaireDao = coursStagiaireDao;
-        this.reservationSalleDao = reservationSalleDao;
-        this.instanceCoursDao = instanceCoursDao;
-    }
 
-    @Override
-    public Cours getData(String pId) throws ApplicationException {
-    	Cours cours = super.chargerDetail(UUID.fromString(pId));
-    	cours.getCoursStagiaires();
-    	return cours;
-    }
-    
+	/**
+	 * Constructeur
+	 * 
+	 * @param DAO
+	 *            absence
+	 * @throws SQLException
+	 */
+	@Inject
+	public CoursServiceImpl(CoursDao pCoursDao,
+			CoursStagiaireDao coursStagiaireDao,
+			ReservationSalleDao reservationSalleDao,
+			InstanceCoursDao instanceCoursDao) throws SQLException {
+		super(pCoursDao);
+		this.coursStagiaireDao = coursStagiaireDao;
+		this.reservationSalleDao = reservationSalleDao;
+		this.instanceCoursDao = instanceCoursDao;
+	}
+
 	@Override
-	public Cours saveInstanceData(InstancePlanning<InstanceCours, CoursStagiaire> instances)
+	public Cours getData(String pId) throws ApplicationException {
+		Cours cours = super.chargerDetail(UUID.fromString(pId));
+		cours.getCoursStagiaires();
+		return cours;
+	}
+
+	@Override
+	public Cours saveInstanceData(
+			InstancePlanning<InstanceCours, CoursStagiaire> instances)
 			throws ApplicationException {
 
-		for (Pair<InstanceCours, List<CoursStagiaire>> instance : instances.getInstances()) {
+		for (Pair<InstanceCours, List<CoursStagiaire>> instance : instances
+				.getInstances()) {
 			ReservationSalle reservationSalle = null;
 			InstanceCours instanceCours = null;
-			try {
-				reservationSalle = reservationSalleDao.addOrUpdate(instance.getFirst().getReservationSalle());
-			} catch (Exception e) {
-				throw new ApplicationException("Erreur lors de l'enregistrement de la réservation de salle");
-			}
-			
+			reservationSalle = reservationSalleDao.addOrUpdate(instance
+					.getFirst().getReservationSalle());
 			instance.getFirst().setReservationSalle(reservationSalle);
-			try {
-				instanceCours = instanceCoursDao.addOrUpdate(instance.getFirst());
-			} catch (Exception e) {
-				throw new ApplicationException("Erreur lors de l'enregistrement des instances de cours");
-			}
-			
+			instanceCours = instanceCoursDao.addOrUpdate(instance.getFirst());
 			for (CoursStagiaire instanceStagiaire : instance.getSecond()) {
 				instanceStagiaire.setInstanceCours(instanceCours);
-				try {
-					coursStagiaireDao.addOrUpdate(instanceStagiaire);
-				} catch (Exception e) {
-					throw new ApplicationException("Erreur lors de l'enregistrement des instances stagiaires");
-				}
-			}
-			
-		}
-		
-		for (CoursStagiaire instanceStagiaire : instances.getInstancesStagiaires()) {
-			try {
 				coursStagiaireDao.addOrUpdate(instanceStagiaire);
-			} catch (Exception e) {
-				throw new ApplicationException("Erreur lors de l'enregistrement des stagiaires sans instance");
 			}
 		}
-		
+
+		for (CoursStagiaire instanceStagiaire : instances
+				.getInstancesStagiaires()) {
+			coursStagiaireDao.addOrUpdate(instanceStagiaire);
+		}
+
 		return null;
 
 	}

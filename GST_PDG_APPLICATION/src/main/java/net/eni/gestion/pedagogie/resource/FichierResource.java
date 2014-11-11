@@ -15,8 +15,9 @@ public interface FichierResource {
 	 * Ressource pour le depot de fichier
 	 * @param form
 	 * @return
+	 * @throws ApplicationException 
 	 */
-	public abstract String deposer(FormDataMultiPart form);
+	public abstract String deposer(FormDataMultiPart form) throws ApplicationException;
 
 	/**
 	 * Ressource pour le telechargement de fichier

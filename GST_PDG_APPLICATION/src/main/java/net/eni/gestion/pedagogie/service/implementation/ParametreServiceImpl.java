@@ -10,20 +10,24 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 /**
- * @author jollivier
- * Classe d'implémentation pour le module de suivi des parametres
+ * @author jollivier Classe d'implémentation pour le module de suivi des
+ *         parametres
  */
 @Singleton
-public class ParametreServiceImpl extends AServiceImpl<Parametre, String, ParametreDao> implements ParametreService {
+public class ParametreServiceImpl extends
+		AServiceImpl<Parametre, String, ParametreDao> implements
+		ParametreService {
 
-       /**
-     * Constructeur
-     * @param DAO parametre
-     * @throws SQLException
-     */
-    @Inject
-    public ParametreServiceImpl(ParametreDao pParametreDao) throws SQLException {
-        super(pParametreDao);
-    }
-    
+	/**
+	 * Constructeur
+	 * 
+	 * @param DAO
+	 *            parametre
+	 * @throws SQLException
+	 */
+	@Inject
+	public ParametreServiceImpl(ParametreDao pParametreDao) throws SQLException {
+		super(pParametreDao);
+	}
+
 }

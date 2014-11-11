@@ -31,7 +31,7 @@ public class SessionValidationDaoImpl extends ADaoImpl<SessionValidation, Intege
 	}
 
 	@Override
-	public SessionValidation getInstance(Integer id) throws Exception {
+	public SessionValidation getInstance(Integer id) throws ApplicationException {
 		try {
 			StringBuilder lQuery = new StringBuilder();
 			lQuery.append("SELECT * ");
@@ -53,7 +53,7 @@ public class SessionValidationDaoImpl extends ADaoImpl<SessionValidation, Intege
 
 			return this.queryRaw(lQuery.toString(), this.getRawRowMapper()).getFirstResult();
 		} catch (Exception exception) {
-			throw new Exception("Echec de chargement des données des intances de session de validationq");
+			throw new ApplicationException("Echec de chargement des données des intances de session de validationq");
 		}
 	}
 	
@@ -100,13 +100,13 @@ public class SessionValidationDaoImpl extends ADaoImpl<SessionValidation, Intege
 		lQuery.append(InstanceSessionValidation.SESSION_VALIDATION_FIELD_NAME);
 		lQuery.append("=");
 		lQuery.append(pId);
-		boolean instanceExist;
+		String[] instanceExist;
 		try {
-			instanceExist = this.queryRaw(lQuery.toString()).getFirstResult().length==1;
+			instanceExist = this.queryRaw(lQuery.toString()).getFirstResult();
 		} catch (SQLException e) {
 			throw new ApplicationException("Echec lors de la validation en base de données");
 		}
-		if (!instanceExist){
+		if (null==instanceExist){
 			return true;
 		}else {
 			throw new ApplicationException("Il existe au moins une instance de session de validation déclarée pour cette session de validation.\n Il n'est donc pas possible de supprimer cette session de validation");
@@ -117,7 +117,7 @@ public class SessionValidationDaoImpl extends ADaoImpl<SessionValidation, Intege
 	protected boolean validerAvantMiseAJour(SessionValidation pMember)
 			throws ApplicationException {
 		boolean isValid=false;
-		int lInstanceNbr=0;
+		String[] lInstances=null;
 		SessionValidation lSessionValidation = null;
 		try {
 			lSessionValidation = this.queryForId(pMember.getId());
@@ -133,12 +133,12 @@ public class SessionValidationDaoImpl extends ADaoImpl<SessionValidation, Intege
 		lQuery.append("=");
 		lQuery.append(pMember.getId());
 		try {
-			lInstanceNbr = this.queryRaw(lQuery.toString()).getFirstResult().length;
+			lInstances = this.queryRaw(lQuery.toString()).getFirstResult();
 		} catch (SQLException e) {
 			throw new ApplicationException("Echec lors de la validation en base de données");
 		}
 		
-		if (0==lInstanceNbr){
+		if (null==lInstances){
 			isValid=true;
 		}else{
 			isValid = 

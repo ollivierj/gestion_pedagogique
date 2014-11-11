@@ -13,33 +13,36 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 /**
- * @author jollivier
- * Classe d'implémentation pour le module de suivi des evaluations
+ * @author jollivier Classe d'implémentation pour le module de suivi des
+ *         evaluations
  */
 @Singleton
-public class InstanceSessionValidationServiceImpl extends AServiceImpl<InstanceSessionValidation, Integer, InstanceSessionValidationDao> implements InstanceSessionValidationService {
+public class InstanceSessionValidationServiceImpl
+		extends
+		AServiceImpl<InstanceSessionValidation, Integer, InstanceSessionValidationDao>
+		implements InstanceSessionValidationService {
 
-    /**
-     * Constructeur
-     * @param DAO evaluation
-     * @throws SQLException
-     */
-    @Inject
-    public InstanceSessionValidationServiceImpl(InstanceSessionValidationDao pInstanceSessionValidationDao) throws SQLException {
-        super(pInstanceSessionValidationDao);
-    }
+	/**
+	 * Constructeur
+	 * 
+	 * @param DAO
+	 *            evaluation
+	 * @throws SQLException
+	 */
+	@Inject
+	public InstanceSessionValidationServiceImpl(
+			InstanceSessionValidationDao pInstanceSessionValidationDao)
+			throws SQLException {
+		super(pInstanceSessionValidationDao);
+	}
 
 	@Override
 	public List<InstanceSessionValidation> getInstancesBySession(
 			SessionValidation sessionValidation) throws ApplicationException {
-		
+
 		List<InstanceSessionValidation> instances = null;
-		try {
-			instances = dao.getInstancesBySession(sessionValidation);
-		} catch (Exception e) {
-			throw new ApplicationException("Erreur lors de la récupération des instances de session de validation.");
-		}
+		instances = dao.getInstancesBySession(sessionValidation);
 		return instances;
 	}
-    
+
 }

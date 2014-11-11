@@ -47,30 +47,20 @@ public class ProfessionnelHomologueServiceImpl
 	public ProfessionnelHomologue ajouter(ProfessionnelHomologue pModel)
 			throws ApplicationException {
 		ProfessionnelHomologue lUpdatedModel = super.ajouter(pModel);
-		try {
-			this.homologationDao
-					.mettreAJourCollectionHomologationForProfessionnelHomologue(
-							lUpdatedModel, lUpdatedModel.getHomologations());
-			return lUpdatedModel;
-		} catch (Exception e) {
-			throw new ApplicationException(
-					"Echec lors de la mise à jour en base de données.");
-		}
+		this.homologationDao
+				.mettreAJourCollectionHomologationForProfessionnelHomologue(
+						lUpdatedModel, lUpdatedModel.getHomologations());
+		return lUpdatedModel;
 	}
 
 	@Override
 	public ProfessionnelHomologue mettreAJour(ProfessionnelHomologue pModel)
 			throws ApplicationException {
 		ProfessionnelHomologue lUpdatedModel = super.mettreAJour(pModel);
-		try {
-			this.homologationDao
-					.mettreAJourCollectionHomologationForProfessionnelHomologue(
-							lUpdatedModel, lUpdatedModel.getHomologations());
-			return lUpdatedModel;
-		} catch (Exception e) {
-			throw new ApplicationException(
-					"Echec lors de la mise à jour en base de données.");
-		}
+		this.homologationDao
+				.mettreAJourCollectionHomologationForProfessionnelHomologue(
+						lUpdatedModel, lUpdatedModel.getHomologations());
+		return lUpdatedModel;
 	}
 
 }

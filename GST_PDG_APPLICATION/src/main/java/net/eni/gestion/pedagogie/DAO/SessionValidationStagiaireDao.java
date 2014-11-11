@@ -2,6 +2,7 @@ package net.eni.gestion.pedagogie.DAO;
 
 import java.util.ArrayList;
 
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.SessionValidation;
 import net.eni.gestion.pedagogie.commun.modele.SessionValidationStagiaire;
 
@@ -14,7 +15,7 @@ public interface SessionValidationStagiaireDao extends ADao<SessionValidationSta
 
 	public ArrayList<SessionValidationStagiaire> mettreAJourCollectionStagiaireForSessionValidation(
 			SessionValidation pSessionValidation,
-			ArrayList<SessionValidationStagiaire> pSessionValidationStagiaires) throws Exception;
+			ArrayList<SessionValidationStagiaire> pSessionValidationStagiaires) throws ApplicationException;
 	
 
 }

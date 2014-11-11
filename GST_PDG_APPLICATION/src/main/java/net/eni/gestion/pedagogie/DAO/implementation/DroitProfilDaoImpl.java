@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import net.eni.gestion.pedagogie.DAO.DroitProfilDao;
 import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.Droit;
 import net.eni.gestion.pedagogie.commun.modele.DroitProfil;
 import net.eni.gestion.pedagogie.commun.modele.Profil;
@@ -30,18 +31,28 @@ public class DroitProfilDaoImpl extends ADaoImpl<DroitProfil, Integer> implement
 		super(Connexion.getConnexion(), DroitProfil.class);
 	}
 	
-	public void deleteDroits(Integer pProfilId) throws SQLException{
+	public void deleteDroits(Integer pProfilId) throws ApplicationException{
 		DeleteBuilder<DroitProfil, Integer> lDeleteBuilder= this.deleteBuilder();
-		lDeleteBuilder.where().eq(DroitProfil.PROFIL_FIELD_NAME, pProfilId);
-		lDeleteBuilder.delete();
+		try {
+			lDeleteBuilder.where().eq(DroitProfil.PROFIL_FIELD_NAME, pProfilId);
+			lDeleteBuilder.delete();
+		} catch (SQLException e) {
+			throw new ApplicationException("Echec lors de la suppression des droits en base de données");
+		}
+		
 	}
 	
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.DAO.implementation.test#getListeDroits(java.lang.Integer)
 	 */
 	@Override
-	public ArrayList<String> getListeDroits(Integer pProfilId) throws SQLException{
-		ArrayList<DroitProfil> lDroitProfilArray = new ArrayList<DroitProfil>(this.queryBuilder().where().eq(DroitProfil.PROFIL_FIELD_NAME, pProfilId).query());
+	public ArrayList<String> getListeDroits(Integer pProfilId) throws ApplicationException{
+		ArrayList<DroitProfil> lDroitProfilArray;
+		try {
+			lDroitProfilArray = new ArrayList<DroitProfil>(this.queryBuilder().where().eq(DroitProfil.PROFIL_FIELD_NAME, pProfilId).query());
+		} catch (SQLException e) {
+			throw new ApplicationException("Echec lors de la récupération des droits en base de données");
+		}
 		ArrayList<String> lDroits = new ArrayList<String>();
 		DroitProfil lDroitProfil = null;
 		lDroitProfil = (DroitProfil) CollectionUtils.find(lDroitProfilArray,
@@ -158,7 +169,7 @@ public class DroitProfilDaoImpl extends ADaoImpl<DroitProfil, Integer> implement
 	 * @see net.eni.gestion.pedagogie.DAO.implementation.test#mettreAJourDroits(java.lang.Integer, java.util.ArrayList)
 	 */
 	@Override
-	public ArrayList<String> mettreAJourDroits(Integer pProfilId, ArrayList<String> lListeDroits) throws Exception {
+	public ArrayList<String> mettreAJourDroits(Integer pProfilId, ArrayList<String> lListeDroits) throws ApplicationException {
 		ArrayList<String> lListeDroitsEnBase = null;
 		try {
 			lListeDroitsEnBase=this.getListeDroits(pProfilId);
@@ -198,7 +209,7 @@ public class DroitProfilDaoImpl extends ADaoImpl<DroitProfil, Integer> implement
 			}
 			return this.getListeDroits(pProfilId);
 		} catch (Exception e) {
-			throw new Exception(
+			throw new ApplicationException(
 					"Echec de mise à jour des associations des homologations du professionnel homologués");
 		}
 		

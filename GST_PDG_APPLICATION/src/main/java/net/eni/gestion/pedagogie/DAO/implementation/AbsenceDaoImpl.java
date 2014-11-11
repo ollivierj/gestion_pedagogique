@@ -6,6 +6,7 @@ import java.util.Date;
 
 import net.eni.gestion.pedagogie.DAO.AbsenceDao;
 import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.Absence;
 
 import com.google.inject.Singleton;
@@ -27,8 +28,12 @@ public class AbsenceDaoImpl extends ADaoImpl<Absence, Integer> implements Absenc
 
 	@Override
 	public ArrayList<Absence> chargerAbsencesByDate(Date pMinDate, Date pMaxDate)
-			throws Exception {
-		return new ArrayList<Absence>(this.queryBuilder().where().between(Absence.DATE_FIELD_NAME, pMinDate, pMaxDate).query());
+			throws ApplicationException {
+		try {
+			return new ArrayList<Absence>(this.queryBuilder().where().between(Absence.DATE_FIELD_NAME, pMinDate, pMaxDate).query());
+		} catch (SQLException e) {
+			throw new ApplicationException("Erreur lors du chargement des absences");
+		}
 	}
 
 }

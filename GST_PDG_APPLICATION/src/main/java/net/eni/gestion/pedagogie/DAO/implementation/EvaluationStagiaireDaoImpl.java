@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import net.eni.gestion.pedagogie.DAO.EvaluationStagiaireDao;
 import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
+import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.Evaluation;
 import net.eni.gestion.pedagogie.commun.modele.EvaluationStagiaire;
 import net.eni.gestion.pedagogie.commun.outil.CRUDHelper;
@@ -48,7 +49,7 @@ public class EvaluationStagiaireDaoImpl extends ADaoImpl<EvaluationStagiaire, In
 		}
 
 		@Override
-		public EvaluationStagiaire call() throws Exception {
+		public EvaluationStagiaire call() throws ApplicationException {
 			final EvaluationStagiaire pFinalSearchItem = this.searchItem;
 			return (EvaluationStagiaire) CollectionUtils.find(this.itemList,
 					new org.apache.commons.collections.Predicate() {
@@ -63,7 +64,7 @@ public class EvaluationStagiaireDaoImpl extends ADaoImpl<EvaluationStagiaire, In
 
 	public ArrayList<EvaluationStagiaire> mettreAJourCollectionStagiaireForEvaluation(
 			Evaluation pEvaluation,
-			ArrayList<EvaluationStagiaire> pEvaluationStagiaires) throws Exception {
+			ArrayList<EvaluationStagiaire> pEvaluationStagiaires) throws ApplicationException {
 		return CRUDHelper.mettreAJourCollection(this, pEvaluation, pEvaluationStagiaires, EvaluationStagiaire.STAGIAIRE_FIELD_NAME, new findEvaluationStagiaireByStagiaire());
 	}
 
