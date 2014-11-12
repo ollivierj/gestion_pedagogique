@@ -10,7 +10,7 @@
 	<div class="col-xs-offset-4 col-xs-4">
 		<input type="text" class="form-control" ng-model="dateInstance" 
 				ng-change="changeDateInstance()" data-date-format="dd/MM/yyyy" 
-				name="datePicker" bs-datepicker>
+				name="datePicker" data-min-date="{{dateDebut}}" data-max-date="{{dateFin}}" bs-datepicker>
 	</div>
 </div>
 <div class="modal-body">

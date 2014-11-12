@@ -17,15 +17,9 @@ var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope,
 	
 	
 	//Formattage du titre
-	var dateDebut = $filter('date')(
-			new Date(data.formatedDateDebut.replace("T", " ")),
-			'dd/MM/yyyy'
-			);
-	var dateFin = $filter('date')(
-			new Date(data.formatedDateFin.replace("T", " ")),
-			'dd/MM/yyyy'
-			);
-	$scope.title = 'Sessions de validation du ' + dateDebut + ' au ' + dateFin;
+	$scope.dateDebut = $filter('date')($scope.dateD,'dd/MM/yyyy');
+	$scope.dateFin = $filter('date')($scope.dateF,'dd/MM/yyyy');
+	$scope.title = 'Sessions de validation du ' + $scope.dateDebut + ' au ' + $scope.dateFin;
 	
 	//Chargement du référentiel de salles disponibles
 	//TODO limitez sur les salles dispo ce jour
