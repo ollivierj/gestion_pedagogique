@@ -12,11 +12,11 @@ controllers.controller('detailAvisCtrl', function($scope, $rootScope, $http, avi
                 {field:'formatedDate', displayName:'Date', enableCellEdit: true,
           			cellFilter: 'date : \'dd/MM/yyyy\'',
                 	editableCellTemplate: 'partials/stagiaire/template/datepicker.html'},
-            	{field:'formatedTime', displayName:'Heure', enableCellEdit: true,
+            	/*{field:'formatedTime', displayName:'Heure', enableCellEdit: true,
             		editableCellTemplate: 'partials/stagiaire/template/timepicker.html',
-                	cellTemplate: 'partials/stagiaire/template/timepickerText.html'},	
+                	cellTemplate: 'partials/stagiaire/template/timepickerText.html'},*/	
                 {field:'auteur.nom', displayName:'Auteur', enableCellEdit: false},
-                {field:'commentaire', displayName:'Raison', enableCellEdit: true,
+                {field:'texte', displayName:'Raison', enableCellEdit: true,
                 	editableCellTemplate: 'partials/stagiaire/template/textEdit.html'},
                 {displayName:'Actions', cellTemplate: 'partials/stagiaire/template/actions.html'}
         ],
@@ -39,11 +39,8 @@ controllers.controller('detailAvisCtrl', function($scope, $rootScope, $http, avi
     };
     
     $scope.ok = function (entity) {
-    	entity.formatedDate = $filter('date')(entity.formatedDate, 'dd/MM/yyyy');
+    	entity.formatedDate = $filter('date')(entity.formatedDate, 'yyyy-MM-dd');
     	entity.formatedTime = $filter('date')(entity.formatedTime, 'HH:mm');
-    	//Mock de l'auteur
-    	entity.auteur = {};
-    	entity.auteur.id = 1;
     	SAvisFactory.createLine.create(entity,
     			function (success) {
     				entity.editMode = false;
@@ -58,11 +55,11 @@ controllers.controller('detailAvisCtrl', function($scope, $rootScope, $http, avi
 				}
 		);
     };
-    
+    /*
     $scope.createAvis = function() {
     	$scope.avis.push({isAvis:true, stagiaire: SAvisFactory.stagiaire});
     };
-    
+    */
     $scope.removeRow = function(entity) {
     	SAvisFactory.deleteLine.delete({id: entity.id},
     			function(success) {
