@@ -5,10 +5,7 @@ import java.sql.SQLException;
 import net.eni.gestion.pedagogie.DAO.EchangeDao;
 import net.eni.gestion.pedagogie.commun.modele.Echange;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.inject.Singleton;
-import com.j256.ormlite.support.ConnectionSource;
 
 /**
  * @author jollivier
@@ -21,9 +18,8 @@ public class EchangeDaoImpl extends ADaoImpl<Echange, Integer> implements Echang
 	 * Constructeur de la DAO EchangeBase
 	 * @throws SQLException
 	 */
-	@Inject
-	public EchangeDaoImpl(Provider<ConnectionSource> connection) throws SQLException {
-		super(connection, Echange.class);
+	public EchangeDaoImpl() throws SQLException {
+		super(Echange.class);
 	}
 
 }

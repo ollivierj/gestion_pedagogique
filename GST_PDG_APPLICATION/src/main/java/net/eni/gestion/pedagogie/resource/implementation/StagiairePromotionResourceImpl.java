@@ -10,15 +10,14 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.google.inject.Inject;
+
 import net.eni.gestion.pedagogie.commun.composant.authentification.annotation.CheckSession;
 import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.StagiairePromotion;
 import net.eni.gestion.pedagogie.resource.StagiairePromotionResource;
 import net.eni.gestion.pedagogie.service.StagiairePromotionService;
-
-import com.google.inject.Inject;
-import net.eni.gestion.pedagogie.commun.composant.connexion.TransactionManager;
 
 @Path("/stagiairesPromotions")
 public class StagiairePromotionResourceImpl extends AResourceImpl<StagiairePromotion, Integer, StagiairePromotionService> implements StagiairePromotionResource {
@@ -28,7 +27,7 @@ public class StagiairePromotionResourceImpl extends AResourceImpl<StagiairePromo
 	 * @param stagiairePromotionService
 	 */
 	@Inject
-	public StagiairePromotionResourceImpl(StagiairePromotionService stagiairePromotionService, Connexion pConnexion) {
+	public StagiairePromotionResourceImpl(StagiairePromotionService stagiairePromotionService) {
 		super(stagiairePromotionService, StagiairePromotion.class);
 	}
 
@@ -39,8 +38,7 @@ public class StagiairePromotionResourceImpl extends AResourceImpl<StagiairePromo
 	public ArrayList<StagiairePromotion> chargerStagiaireOrPromotion(
 			@PathParam("type") final String type, @PathParam("id") final String id) throws ApplicationException {
     	try {
-			return TransactionManager.callInTransaction(
-					connection.get(),
+			return Connexion.getTransactionManager().callInTransaction(
 					new Callable<ArrayList<StagiairePromotion>>() {
 						public ArrayList<StagiairePromotion> call()
 								throws ApplicationException {

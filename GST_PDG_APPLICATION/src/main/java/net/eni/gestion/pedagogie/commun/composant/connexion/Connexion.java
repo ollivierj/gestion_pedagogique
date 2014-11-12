@@ -4,19 +4,29 @@ import java.sql.SQLException;
 
 import net.eni.gestion.pedagogie.commun.configuration.DatabaseConfiguration;
 
-import com.google.inject.Provider;
-import com.google.inject.Singleton;
-import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
+import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
 
-@Singleton
-public class Connexion implements Provider<ConnectionSource> {
-	public ConnectionSource get() {
-		try {
-			return new JdbcPooledConnectionSource(DatabaseConfiguration.getDatabaseJdbcConnectionString());
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
+public final class Connexion {
+
+  private static final ThreadLocal<TransactionManager> threadTransactionManager =
+	         new ThreadLocal<TransactionManager>() {
+	             @Override protected TransactionManager initialValue() {
+	                 try {
+						return new TransactionManager(new JdbcConnectionSource(DatabaseConfiguration.getDatabaseJdbcConnectionString()));
+					} catch (SQLException e) {}
+					return null;
+	         }
+	     };
+  
+  
+  public static ConnectionSource getConnexion(){
+	  return threadTransactionManager.get().getConnectionSource();
+  }
+  
+  public static TransactionManager getTransactionManager(){
+	  return threadTransactionManager.get();
+  }
+
+  
 }

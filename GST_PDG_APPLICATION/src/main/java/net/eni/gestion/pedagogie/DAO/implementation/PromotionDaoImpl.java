@@ -7,11 +7,8 @@ import net.eni.gestion.pedagogie.DAO.PromotionDao;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.Promotion;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.j256.ormlite.dao.RawRowMapper;
-import com.j256.ormlite.support.ConnectionSource;
 
 /**
  * @author jollivier
@@ -24,9 +21,8 @@ public class PromotionDaoImpl extends ADaoImpl<Promotion, String> implements Pro
 	 * Constructeur de la DAO PromotionBase
 	 * @throws SQLException
 	 */
-	@Inject
-	public PromotionDaoImpl(Provider<ConnectionSource> connection) throws SQLException {
-		super(connection, Promotion.class);
+	public PromotionDaoImpl() throws SQLException {
+		super(Promotion.class);
 	}
 	
 	public ArrayList<Promotion> chargerForAutocompleteSearch(String pSearchText) throws ApplicationException {

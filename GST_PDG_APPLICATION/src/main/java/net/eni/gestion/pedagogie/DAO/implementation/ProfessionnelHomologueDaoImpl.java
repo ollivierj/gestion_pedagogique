@@ -8,10 +8,7 @@ import net.eni.gestion.pedagogie.commun.configuration.ModeleMetier;
 import net.eni.gestion.pedagogie.commun.modele.Jury;
 import net.eni.gestion.pedagogie.commun.modele.ProfessionnelHomologue;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.inject.Singleton;
-import com.j256.ormlite.support.ConnectionSource;
 
 /**
  * @author jollivier
@@ -24,9 +21,8 @@ public class ProfessionnelHomologueDaoImpl extends ADaoImpl<ProfessionnelHomolog
 	 * Constructeur de la DAO ProfessionnelHomologueBase
 	 * @throws SQLException
 	 */
-	@Inject
-	public ProfessionnelHomologueDaoImpl(Provider<ConnectionSource> connection) throws SQLException {
-		super(connection, ProfessionnelHomologue.class);
+	public ProfessionnelHomologueDaoImpl() throws SQLException {
+		super(ProfessionnelHomologue.class);
 	}
 
 	

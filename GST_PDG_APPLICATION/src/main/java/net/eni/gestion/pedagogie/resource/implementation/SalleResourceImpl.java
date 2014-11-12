@@ -2,12 +2,11 @@ package net.eni.gestion.pedagogie.resource.implementation;
 
 import javax.ws.rs.Path;
 
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
+import com.google.inject.Inject;
+
 import net.eni.gestion.pedagogie.commun.modele.Salle;
 import net.eni.gestion.pedagogie.resource.SalleResource;
 import net.eni.gestion.pedagogie.service.SalleService;
-
-import com.google.inject.Inject;
 
 /**
  * @author jollivier
@@ -20,8 +19,8 @@ public class SalleResourceImpl extends AResourceImpl<Salle, Integer, SalleServic
      * Constructeur
      * @param SalleService
      */
-    @Inject
-    public SalleResourceImpl(SalleService SalleService, Connexion pConnexion) {
+	@Inject
+    public SalleResourceImpl(SalleService SalleService) {
     	super(SalleService, Salle.class);
     }
 

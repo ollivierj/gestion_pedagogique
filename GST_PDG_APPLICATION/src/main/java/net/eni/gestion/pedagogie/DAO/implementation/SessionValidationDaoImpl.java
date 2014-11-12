@@ -12,10 +12,7 @@ import net.eni.gestion.pedagogie.commun.modele.SessionValidation;
 import net.eni.gestion.pedagogie.commun.modele.SessionValidationStagiaire;
 import net.eni.gestion.pedagogie.commun.modele.StagiairePromotion;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.inject.Singleton;
-import com.j256.ormlite.support.ConnectionSource;
 
 /**
  * @author jollivier
@@ -28,9 +25,8 @@ public class SessionValidationDaoImpl extends ADaoImpl<SessionValidation, Intege
 	 * Constructeur de la DAO SessionValidationBase
 	 * @throws SQLException
 	 */
-	@Inject
-	public SessionValidationDaoImpl(Provider<ConnectionSource> connection) throws SQLException {
-		super(connection, SessionValidation.class);
+	public SessionValidationDaoImpl() throws SQLException {
+		super(SessionValidation.class);
 	}
 
 	@Override

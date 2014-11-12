@@ -10,6 +10,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.google.inject.Inject;
+
 import net.eni.gestion.pedagogie.commun.composant.authentification.annotation.CheckSession;
 import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
@@ -17,9 +19,6 @@ import net.eni.gestion.pedagogie.commun.modele.Evaluation;
 import net.eni.gestion.pedagogie.commun.modele.InstanceEvaluation;
 import net.eni.gestion.pedagogie.resource.InstanceEvaluationResource;
 import net.eni.gestion.pedagogie.service.InstanceEvaluationService;
-
-import com.google.inject.Inject;
-import net.eni.gestion.pedagogie.commun.composant.connexion.TransactionManager;
 
 /**
  * @author jollivier
@@ -32,8 +31,8 @@ public class InstanceEvaluationResourceImpl extends AResourceImpl<InstanceEvalua
      * Constructeur
      * @param evaluationService
      */
-    @Inject
-    public InstanceEvaluationResourceImpl(InstanceEvaluationService pInstanceSessionValidationService, Connexion pConnexion) {
+	@Inject
+    public InstanceEvaluationResourceImpl(InstanceEvaluationService pInstanceSessionValidationService) {
     	super(pInstanceSessionValidationService, InstanceEvaluation.class);
     }
 
@@ -44,8 +43,7 @@ public class InstanceEvaluationResourceImpl extends AResourceImpl<InstanceEvalua
 	@CheckSession
 	public List<InstanceEvaluation> getInstances(final Evaluation evaluation) throws ApplicationException {
 		try {
-			return TransactionManager.callInTransaction(
-					connection.get(),
+			return Connexion.getTransactionManager().callInTransaction(
 					new Callable<List<InstanceEvaluation>>() {
 						public List<InstanceEvaluation> call()
 								throws ApplicationException {

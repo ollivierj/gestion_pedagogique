@@ -74,7 +74,6 @@ import net.eni.gestion.pedagogie.DAO.implementation.TypeSessionDaoImpl;
 import net.eni.gestion.pedagogie.DAO.implementation.UniteFormationDaoImpl;
 import net.eni.gestion.pedagogie.DAO.implementation.UniteParFormationDaoImpl;
 import net.eni.gestion.pedagogie.DAO.implementation.UtilisateurDaoImpl;
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.service.AbsenceService;
 import net.eni.gestion.pedagogie.service.AvisService;
 import net.eni.gestion.pedagogie.service.CoursService;
@@ -125,8 +124,6 @@ import net.eni.gestion.pedagogie.service.implementation.TypeSessionServiceImpl;
 import net.eni.gestion.pedagogie.service.implementation.UtilisateurServiceImpl;
 
 import com.google.inject.AbstractModule;
-import com.google.inject.Scopes;
-import com.j256.ormlite.support.ConnectionSource;
 
 /**
  * @author jollivier
@@ -135,7 +132,6 @@ import com.j256.ormlite.support.ConnectionSource;
 public class ModuleConfiguration extends AbstractModule {
     @Override
     protected void configure() {
-    	bind(ConnectionSource.class).toProvider(Connexion.class).in(Scopes.SINGLETON);
     	// Binding des daos
     	bind(AbsenceDao.class).to(AbsenceDaoImpl.class).asEagerSingleton();
     	bind(AvisDao.class).to(AvisDaoImpl.class).asEagerSingleton();

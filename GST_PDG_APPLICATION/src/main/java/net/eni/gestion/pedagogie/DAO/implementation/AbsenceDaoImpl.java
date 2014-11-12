@@ -9,9 +9,7 @@ import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.Absence;
 
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.inject.Singleton;
-import com.j256.ormlite.support.ConnectionSource;
 
 /**
  * @author jollivier
@@ -25,8 +23,8 @@ public class AbsenceDaoImpl extends ADaoImpl<Absence, Integer> implements Absenc
 	 * @throws SQLException
 	 */
 	@Inject
-	public AbsenceDaoImpl(Provider<ConnectionSource> connection) throws SQLException {
-		super(connection, Absence.class);
+	public AbsenceDaoImpl() throws SQLException {
+		super(Absence.class);
 	}
 
 	@Override

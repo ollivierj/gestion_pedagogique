@@ -16,10 +16,7 @@ import net.eni.gestion.pedagogie.commun.outil.ORMLiteHelper;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.inject.Singleton;
-import com.j256.ormlite.support.ConnectionSource;
 
 /**
  * @author jollivier
@@ -32,9 +29,8 @@ public class InstanceCoursDaoImpl extends ADaoImpl<InstanceCours, Integer> imple
 	 * Constructeur de la DAO InstanceCoursBase
 	 * @throws SQLException
 	 */
-	@Inject
-	public InstanceCoursDaoImpl(Provider<ConnectionSource> connection) throws SQLException {
-		super(connection, InstanceCours.class);
+	public InstanceCoursDaoImpl() throws SQLException {
+		super(InstanceCours.class);
 	}
 
 	@Override

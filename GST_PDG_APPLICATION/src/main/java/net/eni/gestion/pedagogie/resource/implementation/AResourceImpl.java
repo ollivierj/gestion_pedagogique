@@ -21,7 +21,7 @@ import javax.ws.rs.core.Response;
 
 import net.eni.gestion.pedagogie.commun.composant.authentification.Authentification;
 import net.eni.gestion.pedagogie.commun.composant.authentification.annotation.CheckSession;
-import net.eni.gestion.pedagogie.commun.composant.connexion.TransactionManager;
+import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.composant.map.NamedObjectMap;
 import net.eni.gestion.pedagogie.commun.composant.pagination.Pager;
@@ -34,18 +34,12 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.github.fge.jackson.JsonLoader;
 import com.github.reinert.jjschema.v1.JsonSchemaFactory;
 import com.github.reinert.jjschema.v1.JsonSchemaV4Factory;
-import com.google.inject.Inject;
-import com.google.inject.Provider;
-import com.j256.ormlite.support.ConnectionSource;
 
 public class AResourceImpl<M extends AModele<ID>, ID, S extends AService<M, ID>>
 		implements AResource<M, ID>, Authentification {
 	
 	
 
-	@Inject
-	public Provider<ConnectionSource> connection;
-	
 	@Context
 	protected HttpServletRequest request;
 
@@ -53,7 +47,6 @@ public class AResourceImpl<M extends AModele<ID>, ID, S extends AService<M, ID>>
 
 	protected final Class<M> modele;
 
-	@Inject
 	public AResourceImpl(S pService, Class<M> pModele) {
 		this.service = pService;
 		this.modele = pModele;
@@ -70,8 +63,7 @@ public class AResourceImpl<M extends AModele<ID>, ID, S extends AService<M, ID>>
 	@CheckSession
 	public String getJsonSchema() throws ApplicationException {
 		try {
-			return TransactionManager.callInTransaction(
-					connection.get(), new Callable<String>() {
+			return Connexion.getTransactionManager().callInTransaction(new Callable<String>() {
 						public String call() throws ApplicationException {
 							JsonLoader.class.getResource("/draftv4/schema");
 							JsonSchemaFactory schemaFactory = new JsonSchemaV4Factory();
@@ -102,8 +94,7 @@ public class AResourceImpl<M extends AModele<ID>, ID, S extends AService<M, ID>>
 	public NamedObjectMap charger(final Pager pPager)
 			throws ApplicationException {
 		try {
-			return TransactionManager.callInTransaction(
-					connection.get(), new Callable<NamedObjectMap>() {
+			return Connexion.getTransactionManager().callInTransaction(new Callable<NamedObjectMap>() {
 						public NamedObjectMap call()
 								throws ApplicationException {
 							Pair<ArrayList<M>, Long> page = service
@@ -133,8 +124,7 @@ public class AResourceImpl<M extends AModele<ID>, ID, S extends AService<M, ID>>
 	@CheckSession
 	public Response exporter(final Pager pPager) throws ApplicationException {
 		try {
-			return TransactionManager.callInTransaction(
-					connection.get(), new Callable<Response>() {
+			return Connexion.getTransactionManager().callInTransaction(new Callable<Response>() {
 						public Response call() throws ApplicationException {
 							pPager.setPagingOptions(null);
 							Pair<ArrayList<M>, Long> page = service
@@ -171,8 +161,7 @@ public class AResourceImpl<M extends AModele<ID>, ID, S extends AService<M, ID>>
 			@PathParam("search") final String pSearchText)
 			throws ApplicationException {
 		try {
-			return TransactionManager.callInTransaction(
-					connection.get(), new Callable<ArrayList<M>>() {
+			return Connexion.getTransactionManager().callInTransaction(new Callable<ArrayList<M>>() {
 						public ArrayList<M> call() throws ApplicationException {
 							return service
 									.chargerForAutocompleteSearch(pSearchText);
@@ -198,8 +187,7 @@ public class AResourceImpl<M extends AModele<ID>, ID, S extends AService<M, ID>>
 	public M chargerDetail(@PathParam("id") final ID pId)
 			throws ApplicationException {
 		try {
-			return TransactionManager.callInTransaction(
-					connection.get(), new Callable<M>() {
+			return Connexion.getTransactionManager().callInTransaction(new Callable<M>() {
 						public M call() throws ApplicationException {
 							return service.chargerDetail(pId);
 						}
@@ -224,8 +212,7 @@ public class AResourceImpl<M extends AModele<ID>, ID, S extends AService<M, ID>>
 	@CheckSession
 	public M ajouter(final M pModel) throws ApplicationException {
 		try {
-			return TransactionManager.callInTransaction(
-					connection.get(), new Callable<M>() {
+			return Connexion.getTransactionManager().callInTransaction(new Callable<M>() {
 						public M call() throws ApplicationException {
 							return service.ajouter(pModel);
 						}
@@ -250,8 +237,7 @@ public class AResourceImpl<M extends AModele<ID>, ID, S extends AService<M, ID>>
 	@CheckSession
 	public M mettreAJour(final M pModel) throws ApplicationException {
 		try {
-			return TransactionManager.callInTransaction(
-					connection.get(), new Callable<M>() {
+			return Connexion.getTransactionManager().callInTransaction(new Callable<M>() {
 						public M call() throws ApplicationException {
 							return service.mettreAJour(pModel);
 						}
@@ -276,8 +262,7 @@ public class AResourceImpl<M extends AModele<ID>, ID, S extends AService<M, ID>>
 	public ID supprimer(@PathParam("id") final ID pId)
 			throws ApplicationException {
 		try {
-			return TransactionManager.callInTransaction(
-					connection.get(), new Callable<ID>() {
+			return Connexion.getTransactionManager().callInTransaction(new Callable<ID>() {
 						public ID call() throws ApplicationException {
 							return service.supprimer(pId);
 						}
@@ -295,8 +280,7 @@ public class AResourceImpl<M extends AModele<ID>, ID, S extends AService<M, ID>>
 	@CheckSession
 	public M addOrUpdate(final M pModel) throws ApplicationException {
 		try {
-			return TransactionManager.callInTransaction(
-					connection.get(), new Callable<M>() {
+			return Connexion.getTransactionManager().callInTransaction(new Callable<M>() {
 						public M call() throws ApplicationException {
 							return service.addOrUpdate(pModel);
 						}
@@ -319,8 +303,7 @@ public class AResourceImpl<M extends AModele<ID>, ID, S extends AService<M, ID>>
 	@CheckSession
 	public HashMap<String, String> getTitleMap() throws ApplicationException {
 		try {
-			return TransactionManager.callInTransaction(
-					connection.get(),
+			return Connexion.getTransactionManager().callInTransaction(
 					new Callable<HashMap<String, String>>() {
 						public HashMap<String, String> call()
 								throws ApplicationException {

@@ -168,6 +168,10 @@ public class TransactionManager {
 	public void setConnectionSource(ConnectionSource connectionSource) {
 		this.connectionSource = connectionSource;
 	}
+	
+	public ConnectionSource getConnectionSource() {
+		return this.connectionSource;
+	}
 
 	private static void commit(DatabaseConnection connection, Savepoint savePoint) throws SQLException {
 		String name = (savePoint == null ? null : savePoint.getSavepointName());

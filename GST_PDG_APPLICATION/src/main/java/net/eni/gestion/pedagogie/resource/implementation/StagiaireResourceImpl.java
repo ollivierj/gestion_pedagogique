@@ -10,6 +10,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.google.inject.Inject;
+
 import net.eni.gestion.pedagogie.commun.composant.authentification.annotation.CheckSession;
 import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
@@ -18,9 +20,6 @@ import net.eni.gestion.pedagogie.commun.modele.Promotion;
 import net.eni.gestion.pedagogie.commun.modele.Stagiaire;
 import net.eni.gestion.pedagogie.resource.StagiaireResource;
 import net.eni.gestion.pedagogie.service.StagiaireService;
-
-import com.google.inject.Inject;
-import net.eni.gestion.pedagogie.commun.composant.connexion.TransactionManager;
 
 /**
  * @author jollivier
@@ -33,8 +32,8 @@ public class StagiaireResourceImpl extends AResourceImpl<Stagiaire, Integer, Sta
      * Constructeur
      * @param stagiaireService
      */
-    @Inject
-    public StagiaireResourceImpl(StagiaireService stagiaireService, Connexion pConnexion) {
+	@Inject
+    public StagiaireResourceImpl(StagiaireService stagiaireService) {
     	super(stagiaireService, Stagiaire.class);
     }
     
@@ -44,8 +43,7 @@ public class StagiaireResourceImpl extends AResourceImpl<Stagiaire, Integer, Sta
     @CheckSession
 	public ArrayList<NamedObjectMap> chargerStagiaireOrPromotionAutocomplete(@PathParam("search") final String pSearchText) throws ApplicationException {
     	try {
-			return TransactionManager.callInTransaction(
-					connection.get(),
+			return Connexion.getTransactionManager().callInTransaction(
 					new Callable<ArrayList<NamedObjectMap>>() {
 						public ArrayList<NamedObjectMap> call()
 								throws ApplicationException {
@@ -85,8 +83,7 @@ public class StagiaireResourceImpl extends AResourceImpl<Stagiaire, Integer, Sta
     @CheckSession
 	public ArrayList<NamedObjectMap> chargerStagiaireAutocomplete(@PathParam("search") final String pSearchText) throws ApplicationException {
     	try {
-			return TransactionManager.callInTransaction(
-					connection.get(),
+			return Connexion.getTransactionManager().callInTransaction(
 					new Callable<ArrayList<NamedObjectMap>>() {
 						public ArrayList<NamedObjectMap> call()
 								throws ApplicationException {

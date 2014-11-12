@@ -10,6 +10,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.google.inject.Inject;
+
 import net.eni.gestion.pedagogie.commun.composant.authentification.annotation.CheckSession;
 import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
@@ -17,9 +19,6 @@ import net.eni.gestion.pedagogie.commun.modele.Cours;
 import net.eni.gestion.pedagogie.commun.modele.InstanceCours;
 import net.eni.gestion.pedagogie.resource.InstanceCoursResource;
 import net.eni.gestion.pedagogie.service.InstanceCoursService;
-
-import com.google.inject.Inject;
-import net.eni.gestion.pedagogie.commun.composant.connexion.TransactionManager;
 
 /**
  * @author jollivier
@@ -32,8 +31,8 @@ public class InstanceCoursResourceImpl extends AResourceImpl<InstanceCours, Inte
      * Constructeur
      * @param evaluationService
      */
-    @Inject
-    public InstanceCoursResourceImpl(InstanceCoursService pInstanceCoursService, Connexion pConnexion) {
+	@Inject
+    public InstanceCoursResourceImpl(InstanceCoursService pInstanceCoursService) {
     	super(pInstanceCoursService, InstanceCours.class);
     }
     
@@ -44,8 +43,7 @@ public class InstanceCoursResourceImpl extends AResourceImpl<InstanceCours, Inte
     @CheckSession
 	public List<InstanceCours> getInstances(final Cours cours) throws ApplicationException {
     	try {
-			return TransactionManager.callInTransaction(
-					connection.get(),
+			return Connexion.getTransactionManager().callInTransaction(
 					new Callable<List<InstanceCours>>() {
 						public List<InstanceCours> call()
 								throws ApplicationException {

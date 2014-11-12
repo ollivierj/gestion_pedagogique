@@ -14,10 +14,7 @@ import net.eni.gestion.pedagogie.commun.outil.ORMLiteHelper;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.inject.Singleton;
-import com.j256.ormlite.support.ConnectionSource;
 
 /**
  * @author jollivier
@@ -30,9 +27,8 @@ public class StagiaireAvisDaoImpl extends ADaoImpl<StagiaireAvis, Integer> imple
 	 * Constructeur de la DAO AvisBase
 	 * @throws SQLException
 	 */
-	@Inject
-	public StagiaireAvisDaoImpl(Provider<ConnectionSource> connection) throws SQLException {
-		super(connection, StagiaireAvis.class);
+	public StagiaireAvisDaoImpl() throws SQLException {
+		super(StagiaireAvis.class);
 	}
 
 	@Override

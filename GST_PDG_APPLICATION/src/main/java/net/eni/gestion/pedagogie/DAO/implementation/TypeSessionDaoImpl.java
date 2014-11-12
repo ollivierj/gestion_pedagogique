@@ -8,10 +8,7 @@ import net.eni.gestion.pedagogie.DAO.TypeSessionDao;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.TypeSession;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.inject.Singleton;
-import com.j256.ormlite.support.ConnectionSource;
 
 /**
  * @author jollivier
@@ -24,9 +21,8 @@ public class TypeSessionDaoImpl extends ADaoImpl<TypeSession, Integer> implement
 	 * Constructeur de la DAO TypeSessionBase
 	 * @throws SQLException
 	 */
-	@Inject
-	public TypeSessionDaoImpl(Provider<ConnectionSource> connection) throws SQLException {
-		super(connection, TypeSession.class);
+	public TypeSessionDaoImpl() throws SQLException {
+		super(TypeSession.class);
 	}
 
 	public HashMap<String, String> getTitleMap() throws ApplicationException {

@@ -5,10 +5,7 @@ import java.sql.SQLException;
 import net.eni.gestion.pedagogie.DAO.UniteFormationDao;
 import net.eni.gestion.pedagogie.commun.modele.UniteFormation;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.inject.Singleton;
-import com.j256.ormlite.support.ConnectionSource;
 
 /**
  * @author jollivier
@@ -21,9 +18,8 @@ public class UniteFormationDaoImpl extends ADaoImpl<UniteFormation, Integer> imp
 	 * Constructeur de la DAO UniteFormationBase
 	 * @throws SQLException
 	 */
-	@Inject
-	public UniteFormationDaoImpl(Provider<ConnectionSource> connection) throws SQLException {
-		super(connection, UniteFormation.class);
+	public UniteFormationDaoImpl() throws SQLException {
+		super(UniteFormation.class);
 	}
 
 }

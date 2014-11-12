@@ -12,10 +12,7 @@ import net.eni.gestion.pedagogie.commun.outil.SearchCallable;
 
 import org.apache.commons.collections.CollectionUtils;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.inject.Singleton;
-import com.j256.ormlite.support.ConnectionSource;
 
 /**
  * @author jollivier Service métier "Homologation"
@@ -29,9 +26,8 @@ public class HomologationDaoImpl extends ADaoImpl<Homologation, Integer>
 	 * 
 	 * @throws SQLException
 	 */
-	@Inject
-	public HomologationDaoImpl(Provider<ConnectionSource> connection) throws SQLException {
-		super(connection, Homologation.class);
+	public HomologationDaoImpl() throws SQLException {
+		super(Homologation.class);
 	}
 
 	public ArrayList<Homologation> mettreAJourCollectionHomologationForProfessionnelHomologue(

@@ -2,12 +2,11 @@ package net.eni.gestion.pedagogie.resource.implementation;
 
 import javax.ws.rs.Path;
 
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
+import com.google.inject.Inject;
+
 import net.eni.gestion.pedagogie.commun.modele.Module;
 import net.eni.gestion.pedagogie.resource.ModuleResource;
 import net.eni.gestion.pedagogie.service.ModuleService;
-
-import com.google.inject.Inject;
 
 /**
  * @author jollivier
@@ -20,8 +19,8 @@ public class ModuleResourceImpl extends AResourceImpl<Module, Integer, ModuleSer
      * Constructeur
      * @param titreProfessionnelService
      */
-    @Inject
-    public ModuleResourceImpl(ModuleService titreProfessionnelService, Connexion pConnexion) {
+	@Inject
+    public ModuleResourceImpl(ModuleService titreProfessionnelService) {
     	super(titreProfessionnelService, Module.class);
     }
     

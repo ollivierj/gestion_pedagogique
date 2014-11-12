@@ -9,12 +9,9 @@ import net.eni.gestion.pedagogie.commun.modele.Stagiaire;
 import net.eni.gestion.pedagogie.commun.outil.CRUDHelper;
 import net.eni.gestion.pedagogie.commun.outil.SQLHelper;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.j256.ormlite.dao.GenericRawResults;
 import com.j256.ormlite.stmt.QueryBuilder;
-import com.j256.ormlite.support.ConnectionSource;
 
 /**
  * @author jollivier Service métier "Stagiaire"
@@ -28,9 +25,8 @@ public class StagiaireDaoImpl extends ADaoImpl<Stagiaire, Integer> implements
 	 * 
 	 * @throws SQLException
 	 */
-	@Inject
-	public StagiaireDaoImpl(Provider<ConnectionSource> connection) throws SQLException {
-		super(connection, Stagiaire.class);
+	public StagiaireDaoImpl() throws SQLException {
+		super(Stagiaire.class);
 	}
 
 	/*

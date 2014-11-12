@@ -5,10 +5,7 @@ import java.sql.SQLException;
 import net.eni.gestion.pedagogie.DAO.PlanningIndividuelDetailDao;
 import net.eni.gestion.pedagogie.commun.modele.PlanningIndividuelDetail;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.inject.Singleton;
-import com.j256.ormlite.support.ConnectionSource;
 
 /**
  * @author jollivier
@@ -21,9 +18,8 @@ public class PlanningIndividuelDetailDaoImpl extends ADaoImpl<PlanningIndividuel
 	 * Constructeur de la DAO PlanningIndividuelDetailBase
 	 * @throws SQLException
 	 */
-	@Inject
-	public PlanningIndividuelDetailDaoImpl(Provider<ConnectionSource> connection) throws SQLException {
-		super(connection, PlanningIndividuelDetail.class);
+	public PlanningIndividuelDetailDaoImpl() throws SQLException {
+		super(PlanningIndividuelDetail.class);
 	}
 
 }

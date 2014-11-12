@@ -5,8 +5,6 @@ import java.sql.SQLException;
 import net.eni.gestion.pedagogie.DAO.DroitDao;
 import net.eni.gestion.pedagogie.commun.modele.Droit;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.j256.ormlite.support.ConnectionSource;
 
@@ -22,9 +20,12 @@ public class DroitDaoImpl extends ADaoImpl<Droit, Integer> implements DroitDao{
 	 * Constructeur de la DAO DroitBase
 	 * @throws SQLException
 	 */
-	@Inject
-	public DroitDaoImpl(Provider<ConnectionSource> connection) throws SQLException {
-		super(connection, Droit.class);
+	public DroitDaoImpl() throws SQLException {
+		super(Droit.class);
+	}
+	
+	public DroitDaoImpl(ConnectionSource connection) throws SQLException {
+		super(Droit.class);
 	}
 
 }

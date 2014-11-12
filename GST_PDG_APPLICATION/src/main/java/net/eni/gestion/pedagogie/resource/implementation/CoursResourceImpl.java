@@ -12,6 +12,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.google.inject.Inject;
+
 import net.eni.gestion.pedagogie.commun.composant.authentification.annotation.CheckSession;
 import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
@@ -21,9 +23,6 @@ import net.eni.gestion.pedagogie.commun.modele.CoursStagiaire;
 import net.eni.gestion.pedagogie.commun.modele.InstanceCours;
 import net.eni.gestion.pedagogie.resource.CoursResource;
 import net.eni.gestion.pedagogie.service.CoursService;
-
-import com.google.inject.Inject;
-import net.eni.gestion.pedagogie.commun.composant.connexion.TransactionManager;
 
 /**
  * @author jollivier
@@ -36,8 +35,8 @@ public class CoursResourceImpl extends AResourceImpl<Cours, UUID, CoursService> 
      * Constructeur
      * @param coursService
      */
-    @Inject
-    public CoursResourceImpl(CoursService coursService, Connexion pConnexion) {
+	@Inject
+    public CoursResourceImpl(CoursService coursService) {
     	super(coursService, Cours.class);
     }
     
@@ -49,8 +48,7 @@ public class CoursResourceImpl extends AResourceImpl<Cours, UUID, CoursService> 
     @CheckSession
 	public void saveInstance(final InstancePlanning<InstanceCours, CoursStagiaire> instances) throws ApplicationException {
     	try {
-			TransactionManager.callInTransaction(
-					connection.get(),
+    		Connexion.getTransactionManager().callInTransaction(
 					new Callable<Void>() {
 						public Void call()
 								throws ApplicationException {
@@ -71,8 +69,7 @@ public class CoursResourceImpl extends AResourceImpl<Cours, UUID, CoursService> 
     @CheckSession
 	public Cours getData(@PathParam("id") final String pId) throws ApplicationException {
     	try {
-			return TransactionManager.callInTransaction(
-					connection.get(),
+			return Connexion.getTransactionManager().callInTransaction(
 					new Callable<Cours>() {
 						public Cours call()
 								throws ApplicationException {

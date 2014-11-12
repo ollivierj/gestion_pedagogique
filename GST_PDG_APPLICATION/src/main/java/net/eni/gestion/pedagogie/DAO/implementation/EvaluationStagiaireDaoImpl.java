@@ -12,10 +12,7 @@ import net.eni.gestion.pedagogie.commun.outil.SearchCallable;
 
 import org.apache.commons.collections.CollectionUtils;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.inject.Singleton;
-import com.j256.ormlite.support.ConnectionSource;
 
 /**
  * @author jollivier
@@ -28,9 +25,8 @@ public class EvaluationStagiaireDaoImpl extends ADaoImpl<EvaluationStagiaire, In
 	 * Constructeur de la DAO InstanceEvaluationStagiaireBase
 	 * @throws SQLException
 	 */
-	@Inject
-	public EvaluationStagiaireDaoImpl(Provider<ConnectionSource> connection) throws SQLException {
-		super(connection, EvaluationStagiaire.class);
+	public EvaluationStagiaireDaoImpl() throws SQLException {
+		super(EvaluationStagiaire.class);
 	}
 	
 	public class findEvaluationStagiaireByStagiaire implements SearchCallable<EvaluationStagiaire,Integer> {

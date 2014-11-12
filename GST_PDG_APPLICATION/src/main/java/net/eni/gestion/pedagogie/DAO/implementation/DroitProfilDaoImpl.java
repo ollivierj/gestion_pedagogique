@@ -14,11 +14,8 @@ import net.eni.gestion.pedagogie.commun.modele.Utilisateur;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.j256.ormlite.stmt.DeleteBuilder;
-import com.j256.ormlite.support.ConnectionSource;
 
 /**
  * @author jollivier
@@ -31,9 +28,8 @@ public class DroitProfilDaoImpl extends ADaoImpl<DroitProfil, Integer> implement
 	 * Constructeur de la DAO DroitProfilBase
 	 * @throws SQLException
 	 */
-	@Inject
-	public DroitProfilDaoImpl(Provider<ConnectionSource> connection) throws SQLException {
-		super(connection, DroitProfil.class);
+	public DroitProfilDaoImpl() throws SQLException {
+		super(DroitProfil.class);
 	}
 	
 	public void deleteDroits(Integer pProfilId) throws ApplicationException{
@@ -197,7 +193,7 @@ public class DroitProfilDaoImpl extends ADaoImpl<DroitProfil, Integer> implement
 		try {
 			lListeDroitsEnBase=this.getListeDroits(pProfilId);
 			Droit lRefentielDroit = null;
-			DroitDaoImpl lDroitDao = new DroitDaoImpl(connection);
+			DroitDaoImpl lDroitDao = new DroitDaoImpl(this.getConnectionSource());
 			if (null != lListeDroitsEnBase && 12 == lListeDroitsEnBase.size() && lListeDroitsEnBase.size()==lListeDroits.size()) {
 				for (int i=0; i<lListeDroits.size();i++){
 					String lDroitEnBase = lListeDroitsEnBase.get(i);
@@ -214,7 +210,7 @@ public class DroitProfilDaoImpl extends ADaoImpl<DroitProfil, Integer> implement
 				DeleteBuilder<DroitProfil, Integer> lDeleteBuilder= this.deleteBuilder();
 				lDeleteBuilder.where().eq(DroitProfil.PROFIL_FIELD_NAME, pProfilId);
 				lDeleteBuilder.delete();
-				ProfilDaoImpl lProfilDao = new ProfilDaoImpl(connection);
+				ProfilDaoImpl lProfilDao = new ProfilDaoImpl();
 				Profil lReferentielProfil = lProfilDao.queryForId(pProfilId);
 				if (null!=lReferentielProfil){
 					for (int i=0; i<lListeDroits.size();i++){

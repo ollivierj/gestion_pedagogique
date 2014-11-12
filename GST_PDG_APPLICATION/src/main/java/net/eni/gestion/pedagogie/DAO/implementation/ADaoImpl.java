@@ -4,28 +4,23 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import net.eni.gestion.pedagogie.DAO.ADao;
+import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.composant.pagination.Pager;
 import net.eni.gestion.pedagogie.commun.composant.tuple.Pair;
 import net.eni.gestion.pedagogie.commun.modele.generique.AModele;
 import net.eni.gestion.pedagogie.commun.outil.CRUDHelper;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.j256.ormlite.dao.BaseDaoImpl;
-import com.j256.ormlite.support.ConnectionSource;
 
 abstract class ADaoImpl<M extends AModele<ID>, ID> extends BaseDaoImpl<M,ID> implements ADao<M, ID>{
 
-	public Provider<ConnectionSource> connection;
 	
-	@Inject
-	protected ADaoImpl(Provider<ConnectionSource> connection, Class<M> dataClass) throws SQLException {
-		super(connection.get(), dataClass);
-		this.connection = connection;
+	public ADaoImpl(Class<M> dataClass)
+			throws SQLException {
+		super(Connexion.getConnexion(), dataClass);
 	}
-	
-	
+
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.DAO.base.contrat.generique.CRUDBase#charger(net.eni.gestion.pedagogie.modele.AModele)
 	 */

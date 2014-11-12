@@ -15,10 +15,7 @@ import net.eni.gestion.pedagogie.commun.outil.ORMLiteHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.inject.Singleton;
-import com.j256.ormlite.support.ConnectionSource;
 
 /**
  * @author jollivier
@@ -31,9 +28,8 @@ public class UtilisateurDaoImpl extends ADaoImpl<Utilisateur, Integer> implement
 	 * Constructeur de la DAO UtilisateurBase
 	 * @throws SQLException
 	 */
-	@Inject
-	public UtilisateurDaoImpl(Provider<ConnectionSource> connection) throws SQLException {
-		super(connection, Utilisateur.class);
+	public UtilisateurDaoImpl() throws SQLException {
+		super(Utilisateur.class);
 	}
 	
 	public HashMap<String, String> getTitleMap() throws ApplicationException {

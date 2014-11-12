@@ -2,12 +2,11 @@ package net.eni.gestion.pedagogie.resource.implementation;
 
 import javax.ws.rs.Path;
 
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
+import com.google.inject.Inject;
+
 import net.eni.gestion.pedagogie.commun.modele.StagiaireAvis;
 import net.eni.gestion.pedagogie.resource.StagiaireAvisResource;
 import net.eni.gestion.pedagogie.service.StagiaireAvisService;
-
-import com.google.inject.Inject;
 
 /**
  * @author jollivier
@@ -20,8 +19,8 @@ public class StagiaireAvisResourceImpl extends AResourceImpl<StagiaireAvis, Inte
      * Constructeur
      * @param AvisService
      */
-    @Inject
-    public StagiaireAvisResourceImpl(StagiaireAvisService pStagiaireAvisService, Connexion pConnexion) {
+	@Inject
+    public StagiaireAvisResourceImpl(StagiaireAvisService pStagiaireAvisService) {
     	super(pStagiaireAvisService, StagiaireAvis.class);
     }
 

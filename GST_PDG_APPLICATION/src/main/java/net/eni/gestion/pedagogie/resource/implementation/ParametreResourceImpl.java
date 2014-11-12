@@ -2,12 +2,11 @@ package net.eni.gestion.pedagogie.resource.implementation;
 
 import javax.ws.rs.Path;
 
-import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
+import com.google.inject.Inject;
+
 import net.eni.gestion.pedagogie.commun.modele.Parametre;
 import net.eni.gestion.pedagogie.resource.ParametreResource;
 import net.eni.gestion.pedagogie.service.ParametreService;
-
-import com.google.inject.Inject;
 
 /**
  * @author jollivier
@@ -20,8 +19,8 @@ public class ParametreResourceImpl extends AResourceImpl<Parametre, String, Para
      * Constructeur
      * @param parametreService
      */
-    @Inject
-    public ParametreResourceImpl(ParametreService parametreService, Connexion pConnexion) {
+	@Inject
+    public ParametreResourceImpl(ParametreService parametreService) {
     	super(parametreService, Parametre.class);
     }
 

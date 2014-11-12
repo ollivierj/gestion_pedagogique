@@ -9,6 +9,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.google.inject.Inject;
+
 import net.eni.gestion.pedagogie.commun.composant.authentification.annotation.CheckSession;
 import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
@@ -18,9 +20,6 @@ import net.eni.gestion.pedagogie.commun.modele.SessionValidation;
 import net.eni.gestion.pedagogie.commun.modele.SessionValidationStagiaire;
 import net.eni.gestion.pedagogie.resource.SessionValidationResource;
 import net.eni.gestion.pedagogie.service.SessionValidationService;
-
-import com.google.inject.Inject;
-import net.eni.gestion.pedagogie.commun.composant.connexion.TransactionManager;
 
 /**
  * @author jollivier
@@ -33,8 +32,8 @@ public class SessionValidationResourceImpl extends AResourceImpl<SessionValidati
      * Constructeur
      * @param sessionValidationService
      */
-    @Inject
-    public SessionValidationResourceImpl(SessionValidationService sessionValidationService, Connexion pConnexion) {
+	@Inject
+    public SessionValidationResourceImpl(SessionValidationService sessionValidationService) {
     	super(sessionValidationService, SessionValidation.class);
     }
     
@@ -49,8 +48,7 @@ public class SessionValidationResourceImpl extends AResourceImpl<SessionValidati
 			final InstancePlanning<InstanceSessionValidation, SessionValidationStagiaire> instances
 			) throws ApplicationException {
 		try {
-			TransactionManager.callInTransaction(
-					connection.get(),
+			Connexion.getTransactionManager().callInTransaction(
 					new Callable<Void>() {
 						public Void call()
 								throws ApplicationException {

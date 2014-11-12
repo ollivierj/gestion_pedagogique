@@ -14,15 +14,14 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.google.inject.Inject;
+
 import net.eni.gestion.pedagogie.commun.composant.authentification.annotation.CheckSession;
 import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.Utilisateur;
 import net.eni.gestion.pedagogie.resource.UtilisateurResource;
 import net.eni.gestion.pedagogie.service.UtilisateurService;
-
-import com.google.inject.Inject;
-import net.eni.gestion.pedagogie.commun.composant.connexion.TransactionManager;
 
 
 /**
@@ -36,8 +35,8 @@ public class UtilisateurResourceImpl extends AResourceImpl<Utilisateur, Integer,
      * Constructeur
      * @param utilisateurService
      */
-    @Inject
-    public UtilisateurResourceImpl(UtilisateurService utilisateurService, Connexion pConnexion) {
+	@Inject
+    public UtilisateurResourceImpl(UtilisateurService utilisateurService) {
     	super(utilisateurService, Utilisateur.class);
     }
 
@@ -48,8 +47,7 @@ public class UtilisateurResourceImpl extends AResourceImpl<Utilisateur, Integer,
 	public Utilisateur getAuthentification(final Utilisateur utilisateur)
 			throws ApplicationException {
     	try {
-			return TransactionManager.callInTransaction(
-					connection.get(),
+			return Connexion.getTransactionManager().callInTransaction(
 					new Callable<Utilisateur>() {
 						public Utilisateur call()
 								throws ApplicationException {
@@ -76,8 +74,7 @@ public class UtilisateurResourceImpl extends AResourceImpl<Utilisateur, Integer,
     @CheckSession
 	public List<Utilisateur> getFormateurs(final String pSearchText) throws ApplicationException {
     	try {
-			return TransactionManager.callInTransaction(
-					connection.get(),
+			return Connexion.getTransactionManager().callInTransaction(
 					new Callable<List<Utilisateur>>() {
 						public List<Utilisateur> call()
 								throws ApplicationException {
@@ -97,8 +94,7 @@ public class UtilisateurResourceImpl extends AResourceImpl<Utilisateur, Integer,
     @Consumes(MediaType.APPLICATION_JSON)
     public Utilisateur loginwithtoken(final Utilisateur utilisateur) throws ApplicationException{
     	try {
-			return TransactionManager.callInTransaction(
-					connection.get(),
+			return Connexion.getTransactionManager().callInTransaction(
 					new Callable<Utilisateur>() {
 						public Utilisateur call()
 								throws ApplicationException {

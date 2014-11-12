@@ -12,15 +12,10 @@ import net.eni.gestion.pedagogie.commun.outil.ORMLiteHelper;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
-import com.j256.ormlite.support.ConnectionSource;
-
 public class PlanningDaoImpl extends ADaoImpl<Planning, Long> implements PlanningDao {
 
-	@Inject
-	public PlanningDaoImpl(Provider<ConnectionSource> connection) throws SQLException {
-		super(connection, Planning.class);
+	public PlanningDaoImpl() throws SQLException {
+		super(Planning.class);
 	}
 
 	@Override
