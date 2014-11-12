@@ -21,10 +21,12 @@ services.factory('SujetEvaluationsFactory', function ($resource, $rootScope) {
 	var page = $resource('/ng_gst_pdg/web/sujetEvaluations/page', {}, {
 		getData : { method: 'POST'}
 	});
-	
-	var canEdit = ($rootScope.utilisateurConnecte.profil.droits[9]=='SUJ_EVAL_E');
-	var canView = ($rootScope.utilisateurConnecte.profil.droits[9]=='SUJ_EVAL_L'||canEdit);
-	
+	var canEdit = false;
+	var canView = false;
+	if ($rootScope.utilisateurConnecte){
+	 canEdit = ($rootScope.utilisateurConnecte.profil.droits[9]=='SUJ_EVAL_E');
+	 canView = ($rootScope.utilisateurConnecte.profil.droits[9]=='SUJ_EVAL_L'||canEdit);
+	}
 	return {
 		canEdit : canEdit,
 		canView : canView,

@@ -24,10 +24,12 @@ services.factory('AvisFactory', function ($resource, $rootScope) {
 	var page = $resource('/ng_gst_pdg/web/avis/page', {}, {
 		getData : { method: 'POST'}
 	});
-	
-	var canEdit = ($rootScope.utilisateurConnecte.profil.droits[6]=='AVIS_E');
-	var canView = ($rootScope.utilisateurConnecte.profil.droits[6]=='AVIS_L'||canEdit);
-	
+	var canEdit = false;
+	var canView = false;
+	if ($rootScope.utilisateurConnecte){
+	 canEdit = ($rootScope.utilisateurConnecte.profil.droits[6]=='AVIS_E');
+	 canView = ($rootScope.utilisateurConnecte.profil.droits[6]=='AVIS_L'||canEdit);
+	}
 	return {
 		canEdit : canEdit,
 		canView : canView,

@@ -21,10 +21,12 @@ services.factory('SessionValidationsFactory', function ($resource, $rootScope) {
 	var page = $resource('/ng_gst_pdg/web/sessionValidations/page', {}, {
 		getData : { method: 'POST'}
 	});
-	
-	var canEdit = ($rootScope.utilisateurConnecte.profil.droits[2]=='SES_VAL_E');
-	var canView = ($rootScope.utilisateurConnecte.profil.droits[2]=='SES_VAL_L'||canEdit);
-	
+	var canEdit = false;
+	var canView = false;
+	if ($rootScope.utilisateurConnecte){
+	 canEdit = ($rootScope.utilisateurConnecte.profil.droits[2]=='SES_VAL_E');
+	 canView = ($rootScope.utilisateurConnecte.profil.droits[2]=='SES_VAL_L'||canEdit);
+	}
 	return {
 		canEdit : canEdit,
 		canView : canView,

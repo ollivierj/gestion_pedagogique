@@ -153,10 +153,15 @@ public class UtilisateurServiceImpl extends
 	public Utilisateur authentifierAvecToken(String token)
 			throws ApplicationException {
 		Utilisateur lUtilisateur = this.dao.loginwithtoken(token);
-		lUtilisateur.getProfil()
-				.setDroits(
-						droitProfilDao.getListeDroits(lUtilisateur.getProfil()
-								.getId()));
-		return lUtilisateur;
+		if (null!=lUtilisateur){
+			lUtilisateur.getProfil()
+			.setDroits(
+					droitProfilDao.getListeDroits(lUtilisateur.getProfil()
+							.getId()));
+			return lUtilisateur;
+		}else{
+			return null;
+		}
+		
 	}
 }

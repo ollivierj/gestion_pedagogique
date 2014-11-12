@@ -26,10 +26,12 @@ services.factory('SalleFactory', function($resource, $filter, $rootScope) {
 		var page = $resource('/ng_gst_pdg/web/salles/page', {}, {
 			getData : { method: 'POST'}
 		});
-		
-		var canEdit = ($rootScope.utilisateurConnecte.profil.droits[3]=='RES_SALLE_E');
-		var canView = ($rootScope.utilisateurConnecte.profil.droits[3]=='RES_SALLE_L'||canEdit);
-		
+		var canEdit = false;
+		var canView = false;
+		if ($rootScope.utilisateurConnecte){
+			canEdit = ($rootScope.utilisateurConnecte.profil.droits[3]=='RES_SALLE_E');
+			canView = ($rootScope.utilisateurConnecte.profil.droits[3]=='RES_SALLE_L'||canEdit);
+		}
 		return {
 			canEdit : canEdit,
 			canView : canView,

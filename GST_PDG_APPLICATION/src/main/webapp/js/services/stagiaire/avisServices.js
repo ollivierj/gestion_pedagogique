@@ -49,10 +49,12 @@ services.factory('SAvisFactory', function ($resource, StagiaireFactory, $rootSco
 				}
 			).$promise;
 	}
-	
+	factory.canEdit = false;
+	factory.canView = false;
+	if ($rootScope.utilisateurConnecte){
 	factory.canEdit = ($rootScope.utilisateurConnecte.profil.droits[6]=='AVIS_E');
 	factory.canView = ($rootScope.utilisateurConnecte.profil.droits[6]=='AVIS_L'||factory.canEdit);
-	
+	}
 	//Retour de la factory avec ses variables
 	return factory;
 });

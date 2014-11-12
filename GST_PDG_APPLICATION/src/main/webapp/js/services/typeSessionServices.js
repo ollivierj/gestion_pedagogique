@@ -20,10 +20,12 @@ services.factory('TypeSessionsFactory', function ($resource, $rootScope) {
 	var page = $resource('/ng_gst_pdg/web/typesessions/page', {}, {
 		getData : { method: 'POST'}
 	});
-	
-	var canEdit = ($rootScope.utilisateurConnecte.profil.droits[11]=='TR_PRF_E');
-	var canView = ($rootScope.utilisateurConnecte.profil.droits[11]=='TR_PRF_L'||canEdit);
-	
+	var canEdit = false;
+	var canView = false;
+	if ($rootScope.utilisateurConnecte){
+	 canEdit = ($rootScope.utilisateurConnecte.profil.droits[11]=='TR_PRF_E');
+	 canView = ($rootScope.utilisateurConnecte.profil.droits[11]=='TR_PRF_L'||canEdit);
+	}
 	return {
 		canEdit : canEdit,
 		canView : canView,

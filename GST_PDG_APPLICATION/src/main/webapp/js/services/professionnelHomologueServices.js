@@ -20,10 +20,12 @@ services.factory('ProfessionnelHomologuesFactory', function ($resource, $rootSco
 	var page = $resource('/ng_gst_pdg/web/professionnelHomologues/page', {}, {
 		getData : { method: 'POST'}
 	});
-	
-	var canEdit = ($rootScope.utilisateurConnecte.profil.droits[10]=='PRF_HMG_E');
-	var canView = ($rootScope.utilisateurConnecte.profil.droits[10]=='PRF_HMG_L'||canEdit);
-	
+	var canEdit = false;
+	var canView = false;
+	if ($rootScope.utilisateurConnecte){
+	 canEdit = ($rootScope.utilisateurConnecte.profil.droits[10]=='PRF_HMG_E');
+	 canView = ($rootScope.utilisateurConnecte.profil.droits[10]=='PRF_HMG_L'||canEdit);
+	}
 	return {
 		canEdit : canEdit,
 		canView : canView,

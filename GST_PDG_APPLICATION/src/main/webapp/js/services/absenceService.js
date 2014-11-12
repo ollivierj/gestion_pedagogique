@@ -20,9 +20,13 @@ services.factory('AbsencesFactory', function ($resource, $rootScope) {
 	var page = $resource('/ng_gst_pdg/web/absences/page', {}, {
 		getData : { method: 'POST'}
 	});
+	var canEdit = false;
+	var canView = false;
+	if ($rootScope.utilisateurConnecte){
+		canEdit = ($rootScope.utilisateurConnecte.profil.droits[4]=='ABS_E');
+		canView = ($rootScope.utilisateurConnecte.profil.droits[4]=='ABS_L'||canEdit);
+	}
 	
-	var canEdit = ($rootScope.utilisateurConnecte.profil.droits[4]=='ABS_E');
-	var canView = ($rootScope.utilisateurConnecte.profil.droits[4]=='ABS_L'||canEdit);
 	
 	
 	return {

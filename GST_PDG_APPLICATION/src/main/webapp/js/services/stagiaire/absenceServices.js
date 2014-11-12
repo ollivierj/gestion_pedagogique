@@ -47,10 +47,12 @@ services.factory('SAbsenceFactory', function ($resource, StagiaireFactory, $root
 				}
 			).$promise;
 	}
-	
+	factory.canEdit = false;
+	factory.canView = false;
+	if ($rootScope.utilisateurConnecte){
 	factory.canEdit = ($rootScope.utilisateurConnecte.profil.droits[4]=='ABS_E');
 	factory.canView = ($rootScope.utilisateurConnecte.profil.droits[4]=='ABS_L'||factory.canEdit);
-	
+	}
 	//Retour de la factory avec ses variables
 	return factory;
 	

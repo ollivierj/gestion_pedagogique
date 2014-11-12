@@ -20,10 +20,12 @@ services.factory('UtilisateursFactory', function ($resource, $rootScope) {
 	var page = $resource('/ng_gst_pdg/web/utilisateurs/page', {}, {
 		getData : { method: 'POST'}
 	});
-	
-	var canEdit = ($rootScope.utilisateurConnecte.profil.droits[7]=='UTIL_E');
-	var canView = ($rootScope.utilisateurConnecte.profil.droits[7]=='UTIL_L'||canEdit);
-	
+	var canEdit = false;
+	var canView = false;
+	if ($rootScope.utilisateurConnecte){
+	 canEdit = ($rootScope.utilisateurConnecte.profil.droits[7]=='UTIL_E');
+	 canView = ($rootScope.utilisateurConnecte.profil.droits[7]=='UTIL_L'||canEdit);
+	}
 	return {
 		canEdit : canEdit,
 		canView : canView,
