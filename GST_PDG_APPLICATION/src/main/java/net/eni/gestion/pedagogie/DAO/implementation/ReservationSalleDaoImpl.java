@@ -19,7 +19,7 @@ public class ReservationSalleDaoImpl extends ADaoImpl<ReservationSalle, Integer>
 	 * @throws SQLException
 	 */
 	public ReservationSalleDaoImpl() throws SQLException {
-		super( ReservationSalle.class);
+		super(ReservationSalle.class);
 	}
 
 }

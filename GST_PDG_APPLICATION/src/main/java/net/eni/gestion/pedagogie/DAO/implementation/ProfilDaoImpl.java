@@ -24,7 +24,7 @@ public class ProfilDaoImpl extends ADaoImpl<Profil, Integer> implements ProfilDa
 	 * @throws SQLException
 	 */
 	public ProfilDaoImpl() throws SQLException {
-		super( Profil.class);
+		super(Profil.class);
 	}
 	
 	public HashMap<String, String> getTitleMap() throws ApplicationException {

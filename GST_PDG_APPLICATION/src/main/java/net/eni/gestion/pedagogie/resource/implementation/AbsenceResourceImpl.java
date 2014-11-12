@@ -13,15 +13,14 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.google.inject.Inject;
+
 import net.eni.gestion.pedagogie.commun.composant.authentification.annotation.CheckSession;
 import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
-import net.eni.gestion.pedagogie.commun.composant.connexion.TransactionManager;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.Absence;
 import net.eni.gestion.pedagogie.resource.AbsenceResource;
 import net.eni.gestion.pedagogie.service.AbsenceService;
-
-import com.google.inject.Inject;
 
 /**
  * @author jollivier
@@ -34,7 +33,7 @@ public class AbsenceResourceImpl extends AResourceImpl<Absence, Integer, Absence
      * Constructeur
      * @param AbsenceService
      */
-    @Inject
+	@Inject
     public AbsenceResourceImpl(AbsenceService AbsenceService) {
     	super(AbsenceService, Absence.class);
     }
@@ -48,8 +47,7 @@ public class AbsenceResourceImpl extends AResourceImpl<Absence, Integer, Absence
 			@PathParam("day") final int day)
 			throws ApplicationException {
 		try {
-			return TransactionManager.callInTransaction(
-					Connexion.getInstance().getConnexion(),
+			return Connexion.getTransactionManager().callInTransaction(
 					new Callable<ArrayList<Absence>>() {
 						public ArrayList<Absence> call()
 								throws ApplicationException {

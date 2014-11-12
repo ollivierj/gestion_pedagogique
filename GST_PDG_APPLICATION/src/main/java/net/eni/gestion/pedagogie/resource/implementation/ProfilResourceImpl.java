@@ -2,11 +2,11 @@ package net.eni.gestion.pedagogie.resource.implementation;
 
 import javax.ws.rs.Path;
 
+import com.google.inject.Inject;
+
 import net.eni.gestion.pedagogie.commun.modele.Profil;
 import net.eni.gestion.pedagogie.resource.ProfilResource;
 import net.eni.gestion.pedagogie.service.ProfilService;
-
-import com.google.inject.Inject;
 
 /**
  * @author jollivier
@@ -19,7 +19,7 @@ public class ProfilResourceImpl extends AResourceImpl<Profil, Integer, ProfilSer
      * Constructeur
      * @param profilService
      */
-    @Inject
+	@Inject
     public ProfilResourceImpl(ProfilService profilService) {
     	super(profilService, Profil.class);
     }

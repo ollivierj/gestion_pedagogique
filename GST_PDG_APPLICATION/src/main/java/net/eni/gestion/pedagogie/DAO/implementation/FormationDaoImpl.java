@@ -19,7 +19,7 @@ public class FormationDaoImpl extends ADaoImpl<Formation, String> implements For
 	 * @throws SQLException
 	 */
 	public FormationDaoImpl() throws SQLException {
-		super( Formation.class);
+		super(Formation.class);
 	}
 
 }

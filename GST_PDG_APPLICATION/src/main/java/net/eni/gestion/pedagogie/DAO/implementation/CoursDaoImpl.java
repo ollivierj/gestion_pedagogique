@@ -20,7 +20,7 @@ public class CoursDaoImpl extends ADaoImpl<Cours, UUID> implements CoursDao{
 	 * @throws SQLException
 	 */
 	public CoursDaoImpl() throws SQLException {
-		super( Cours.class);
+		super(Cours.class);
 	}
 
 }

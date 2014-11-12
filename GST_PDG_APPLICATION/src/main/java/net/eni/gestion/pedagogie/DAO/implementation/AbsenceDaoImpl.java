@@ -8,6 +8,7 @@ import net.eni.gestion.pedagogie.DAO.AbsenceDao;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.modele.Absence;
 
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 /**
@@ -21,6 +22,7 @@ public class AbsenceDaoImpl extends ADaoImpl<Absence, Integer> implements Absenc
 	 * Constructeur de la DAO AbsenceBase
 	 * @throws SQLException
 	 */
+	@Inject
 	public AbsenceDaoImpl() throws SQLException {
 		super(Absence.class);
 	}

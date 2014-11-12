@@ -73,6 +73,9 @@ public class EvaluationStagiaire extends AModele<Integer> implements Serializabl
 			useGetSet = true,
 			canBeNull = true)
 		private InstanceEvaluation instanceEvaluation = null;
+	
+	@SuppressWarnings("unused")
+	private boolean hasInstance = false;
 
 	@Override
 	public Integer getId() {
@@ -107,6 +110,11 @@ public class EvaluationStagiaire extends AModele<Integer> implements Serializabl
 	public void setInstanceEvaluation(InstanceEvaluation instanceEvaluation) {
 		this.instanceEvaluation = instanceEvaluation;
 	}
+
+	public boolean getHasInstance() {
+		return (null!=instanceEvaluation);
+	}
+
 	
 
 }

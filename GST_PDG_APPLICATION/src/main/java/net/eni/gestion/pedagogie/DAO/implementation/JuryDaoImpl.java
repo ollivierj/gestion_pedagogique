@@ -19,7 +19,7 @@ public class JuryDaoImpl extends ADaoImpl<Jury, Integer> implements JuryDao{
 	 * @throws SQLException
 	 */
 	public JuryDaoImpl() throws SQLException {
-		super( Jury.class);
+		super(Jury.class);
 	}
 
 }

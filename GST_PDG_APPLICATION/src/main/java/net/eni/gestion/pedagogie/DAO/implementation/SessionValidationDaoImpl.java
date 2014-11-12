@@ -26,7 +26,7 @@ public class SessionValidationDaoImpl extends ADaoImpl<SessionValidation, Intege
 	 * @throws SQLException
 	 */
 	public SessionValidationDaoImpl() throws SQLException {
-		super( SessionValidation.class);
+		super(SessionValidation.class);
 	}
 
 	@Override

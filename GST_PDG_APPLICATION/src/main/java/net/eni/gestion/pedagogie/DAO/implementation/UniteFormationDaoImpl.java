@@ -19,7 +19,7 @@ public class UniteFormationDaoImpl extends ADaoImpl<UniteFormation, Integer> imp
 	 * @throws SQLException
 	 */
 	public UniteFormationDaoImpl() throws SQLException {
-		super( UniteFormation.class);
+		super(UniteFormation.class);
 	}
 
 }

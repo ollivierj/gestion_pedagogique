@@ -22,7 +22,7 @@ public class FonctionDaoImpl extends ADaoImpl<Fonction, String> implements Fonct
 	 * @throws SQLException
 	 */
 	public FonctionDaoImpl() throws SQLException {
-		super( Fonction.class);
+		super(Fonction.class);
 	}
 	
 	public HashMap<String, String> getTitleMap() throws ApplicationException {

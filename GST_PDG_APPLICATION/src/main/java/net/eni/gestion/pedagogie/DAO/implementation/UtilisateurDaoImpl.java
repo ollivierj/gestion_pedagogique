@@ -29,7 +29,7 @@ public class UtilisateurDaoImpl extends ADaoImpl<Utilisateur, Integer> implement
 	 * @throws SQLException
 	 */
 	public UtilisateurDaoImpl() throws SQLException {
-		super( Utilisateur.class);
+		super(Utilisateur.class);
 	}
 	
 	public HashMap<String, String> getTitleMap() throws ApplicationException {
@@ -110,7 +110,7 @@ public class UtilisateurDaoImpl extends ADaoImpl<Utilisateur, Integer> implement
 			lQuery.append("'");
 			lQuery.append(" AND ");
 			lQuery.append(Utilisateur.DATE_EXPIRATION_FIELD_NAME);
-			lQuery.append(">");
+			lQuery.append("<");
 			lQuery.append("'");
 			lQuery.append(DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
 			lQuery.append("'");

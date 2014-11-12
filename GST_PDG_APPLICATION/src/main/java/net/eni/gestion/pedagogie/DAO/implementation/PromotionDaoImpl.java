@@ -22,13 +22,13 @@ public class PromotionDaoImpl extends ADaoImpl<Promotion, String> implements Pro
 	 * @throws SQLException
 	 */
 	public PromotionDaoImpl() throws SQLException {
-		super( Promotion.class);
+		super(Promotion.class);
 	}
 	
 	public ArrayList<Promotion> chargerForAutocompleteSearch(String pSearchText) throws ApplicationException {
 		try {
 			StringBuilder lQuery = new StringBuilder();
-			lQuery.append(" SELECT TOP 10  Promotion.CodePromotion FROM Promotion INNER JOIN STAGIAIRE_PROMOTION ON STAGIAIRE_PROMOTION.CodePromotion = Promotion.CodePromotion WHERE CONTAINS((Promotion.CodePromotion), '\"");
+			lQuery.append(" SELECT TOP 10  Promotion.CodePromotion FROM Promotion INNER JOIN STAGIAIRE_PROMOTION ON STAGIAIRE_PROMOTION.CodePromotion = Promotion.CodePromotion WHERE CONTAINS((Promotion.Libelle), '\"");
 			lQuery.append(pSearchText);
 			lQuery.append("*\"')");
 			lQuery.append(" GROUP BY Promotion.CodePromotion ORDER BY Promotion.CodePromotion ASC");

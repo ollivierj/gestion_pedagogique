@@ -27,7 +27,7 @@ public class HomologationDaoImpl extends ADaoImpl<Homologation, Integer>
 	 * @throws SQLException
 	 */
 	public HomologationDaoImpl() throws SQLException {
-		super( Homologation.class);
+		super(Homologation.class);
 	}
 
 	public ArrayList<Homologation> mettreAJourCollectionHomologationForProfessionnelHomologue(

@@ -19,7 +19,7 @@ public class AvisDaoImpl extends ADaoImpl<Avis, Integer> implements AvisDao{
 	 * @throws SQLException
 	 */
 	public AvisDaoImpl() throws SQLException {
-		super( Avis.class);
+		super(Avis.class);
 	}
 
 }

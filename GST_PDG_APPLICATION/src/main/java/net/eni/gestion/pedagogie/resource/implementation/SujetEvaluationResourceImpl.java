@@ -2,11 +2,11 @@ package net.eni.gestion.pedagogie.resource.implementation;
 
 import javax.ws.rs.Path;
 
+import com.google.inject.Inject;
+
 import net.eni.gestion.pedagogie.commun.modele.SujetEvaluation;
 import net.eni.gestion.pedagogie.resource.SujetEvaluationResource;
 import net.eni.gestion.pedagogie.service.SujetEvaluationService;
-
-import com.google.inject.Inject;
 
 /**
  * @author jollivier
@@ -19,7 +19,7 @@ public class SujetEvaluationResourceImpl extends AResourceImpl<SujetEvaluation, 
      * Constructeur
      * @param AbsenceService
      */
-    @Inject
+	@Inject
     public SujetEvaluationResourceImpl(SujetEvaluationService SujetEvaluationService) {
     	super(SujetEvaluationService, SujetEvaluation.class);
     }

@@ -26,7 +26,7 @@ public class EvaluationStagiaireDaoImpl extends ADaoImpl<EvaluationStagiaire, In
 	 * @throws SQLException
 	 */
 	public EvaluationStagiaireDaoImpl() throws SQLException {
-		super( EvaluationStagiaire.class);
+		super(EvaluationStagiaire.class);
 	}
 	
 	public class findEvaluationStagiaireByStagiaire implements SearchCallable<EvaluationStagiaire,Integer> {

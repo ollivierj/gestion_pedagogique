@@ -34,10 +34,12 @@ services.factory('StagiaireFactory', function ($resource, $rootScope) {
 	var keepStagiaire = function (stagiaireSelected)  {
 		stagiaire = stagiaireSelected;
 	};
-	
-	var canEdit = ($rootScope.utilisateurConnecte.profil.droits[0]=='STG_E');
-	var canView = ($rootScope.utilisateurConnecte.profil.droits[0]=='STG_L'||canEdit);
-	
+	var canEdit = false;
+	var canView = false;
+	if ($rootScope.utilisateurConnecte){
+	 canEdit = ($rootScope.utilisateurConnecte.profil.droits[0]=='STG_E');
+	 canView = ($rootScope.utilisateurConnecte.profil.droits[0]=='STG_L'||canEdit);
+	}
 	//Retour de la factory avec ses variables
 	return {
 		canEdit : canEdit,

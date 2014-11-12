@@ -30,7 +30,7 @@ public class InstanceCoursDaoImpl extends ADaoImpl<InstanceCours, Integer> imple
 	 * @throws SQLException
 	 */
 	public InstanceCoursDaoImpl() throws SQLException {
-		super( InstanceCours.class);
+		super(InstanceCours.class);
 	}
 
 	@Override

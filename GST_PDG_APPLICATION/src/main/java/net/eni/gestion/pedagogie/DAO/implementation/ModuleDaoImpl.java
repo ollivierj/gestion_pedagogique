@@ -22,7 +22,7 @@ public class ModuleDaoImpl extends ADaoImpl<Module, Integer> implements ModuleDa
 	 * @throws SQLException
 	 */
 	public ModuleDaoImpl() throws SQLException {
-		super( Module.class);
+		super(Module.class);
 	}
 	
 	public HashMap<String, String> getTitleMap() throws ApplicationException {

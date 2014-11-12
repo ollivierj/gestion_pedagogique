@@ -20,10 +20,12 @@ services.factory('ProfilsFactory', function ($resource, $rootScope) {
 	var page = $resource('/ng_gst_pdg/web/profils/page', {}, {
 		getData : { method: 'POST'}
 	});
-	
-	var canEdit = ($rootScope.utilisateurConnecte.profil.droits[8]=='PRF_E');
-	var canView = ($rootScope.utilisateurConnecte.profil.droits[8]=='PRF_L'||canEdit);
-	
+	var canEdit = false;
+	var canView = false;
+	if ($rootScope.utilisateurConnecte){
+	 canEdit = ($rootScope.utilisateurConnecte.profil.droits[8]=='PRF_E');
+	 canView = ($rootScope.utilisateurConnecte.profil.droits[8]=='PRF_L'||canEdit);
+	}
 	return {
 		canEdit : canEdit,
 		canView : canView,

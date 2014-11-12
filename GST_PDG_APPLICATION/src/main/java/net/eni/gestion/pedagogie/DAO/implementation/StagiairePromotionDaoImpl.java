@@ -17,7 +17,7 @@ public class StagiairePromotionDaoImpl extends ADaoImpl<StagiairePromotion, Inte
 	 * @throws SQLException
 	 */
 	public StagiairePromotionDaoImpl() throws SQLException {
-		super( StagiairePromotion.class);
+		super(StagiairePromotion.class);
 	}
 	
 	public ArrayList<StagiairePromotion> chargerByStagiaireId(Integer id) throws ApplicationException{

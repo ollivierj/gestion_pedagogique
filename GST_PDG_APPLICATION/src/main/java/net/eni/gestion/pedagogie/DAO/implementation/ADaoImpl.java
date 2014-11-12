@@ -16,11 +16,11 @@ import com.j256.ormlite.dao.BaseDaoImpl;
 abstract class ADaoImpl<M extends AModele<ID>, ID> extends BaseDaoImpl<M,ID> implements ADao<M, ID>{
 
 	
-	
-	protected ADaoImpl(Class<M> dataClass) throws SQLException {
-		super(Connexion.getInstance().getConnexion(), dataClass);
+	public ADaoImpl(Class<M> dataClass)
+			throws SQLException {
+		super(Connexion.getConnexion(), dataClass);
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see net.eni.gestion.pedagogie.DAO.base.contrat.generique.CRUDBase#charger(net.eni.gestion.pedagogie.modele.AModele)
 	 */

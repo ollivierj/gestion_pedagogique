@@ -22,7 +22,7 @@ public class InstanceEvaluationDaoImpl extends ADaoImpl<InstanceEvaluation, Inte
 	 * @throws SQLException
 	 */
 	public InstanceEvaluationDaoImpl() throws SQLException {
-		super( InstanceEvaluation.class);
+		super(InstanceEvaluation.class);
 	}
 	
 	@Override

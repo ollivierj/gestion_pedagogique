@@ -19,7 +19,7 @@ public class EchangeDaoImpl extends ADaoImpl<Echange, Integer> implements Echang
 	 * @throws SQLException
 	 */
 	public EchangeDaoImpl() throws SQLException {
-		super( Echange.class);
+		super(Echange.class);
 	}
 
 }

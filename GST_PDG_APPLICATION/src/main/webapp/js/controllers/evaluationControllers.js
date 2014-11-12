@@ -353,6 +353,7 @@ var modalEditionEvaluationCtrl = function($scope, $modalInstance, $filter, $moda
 		[
 		{field:'stagiaire.nom', displayName:'Nom'},
 		{field:'stagiaire.prenom', displayName:'Prénom'},
+		{field:'stagiaire.hasInstance', displayName:'Affecté à une salle', cellTemplate: '<center><input ng-disabled="true" type="checkbox" ng-checked="row.entity.hasInstance"></center>'},
 		{field:'stagiaire.codePromotion', displayName:'Promotion', cellTemplate: 'partials/templates/ng-grid_detailsPromotion.html'}
 		];
 	

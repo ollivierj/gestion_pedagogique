@@ -29,7 +29,7 @@ public class DroitProfilDaoImpl extends ADaoImpl<DroitProfil, Integer> implement
 	 * @throws SQLException
 	 */
 	public DroitProfilDaoImpl() throws SQLException {
-		super( DroitProfil.class);
+		super(DroitProfil.class);
 	}
 	
 	public void deleteDroits(Integer pProfilId) throws ApplicationException{
@@ -193,7 +193,7 @@ public class DroitProfilDaoImpl extends ADaoImpl<DroitProfil, Integer> implement
 		try {
 			lListeDroitsEnBase=this.getListeDroits(pProfilId);
 			Droit lRefentielDroit = null;
-			DroitDaoImpl lDroitDao = new DroitDaoImpl();
+			DroitDaoImpl lDroitDao = new DroitDaoImpl(this.getConnectionSource());
 			if (null != lListeDroitsEnBase && 12 == lListeDroitsEnBase.size() && lListeDroitsEnBase.size()==lListeDroits.size()) {
 				for (int i=0; i<lListeDroits.size();i++){
 					String lDroitEnBase = lListeDroitsEnBase.get(i);

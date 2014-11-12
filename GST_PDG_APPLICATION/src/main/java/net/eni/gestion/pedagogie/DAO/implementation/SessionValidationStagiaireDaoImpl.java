@@ -26,7 +26,7 @@ public class SessionValidationStagiaireDaoImpl extends ADaoImpl<SessionValidatio
 	 * @throws SQLException
 	 */
 	public SessionValidationStagiaireDaoImpl() throws SQLException {
-		super( SessionValidationStagiaire.class);
+		super(SessionValidationStagiaire.class);
 	}
 	
 	public class findSessionValidationStagiaireByStagiaire implements SearchCallable<SessionValidationStagiaire,Integer> {

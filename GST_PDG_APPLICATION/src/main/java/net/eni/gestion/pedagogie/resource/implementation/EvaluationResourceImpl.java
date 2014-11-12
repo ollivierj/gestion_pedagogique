@@ -9,6 +9,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.google.inject.Inject;
+
 import net.eni.gestion.pedagogie.commun.composant.authentification.annotation.CheckSession;
 import net.eni.gestion.pedagogie.commun.composant.connexion.Connexion;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
@@ -18,9 +20,6 @@ import net.eni.gestion.pedagogie.commun.modele.EvaluationStagiaire;
 import net.eni.gestion.pedagogie.commun.modele.InstanceEvaluation;
 import net.eni.gestion.pedagogie.resource.EvaluationResource;
 import net.eni.gestion.pedagogie.service.EvaluationService;
-
-import com.google.inject.Inject;
-import net.eni.gestion.pedagogie.commun.composant.connexion.TransactionManager;
 
 /**
  * @author jollivier
@@ -33,7 +32,7 @@ public class EvaluationResourceImpl extends AResourceImpl<Evaluation, Integer, E
      * Constructeur
      * @param evaluationService
      */
-    @Inject
+	@Inject
     public EvaluationResourceImpl(EvaluationService evaluationService) {
     	super(evaluationService, Evaluation.class);
     }
@@ -46,8 +45,7 @@ public class EvaluationResourceImpl extends AResourceImpl<Evaluation, Integer, E
 	@CheckSession
 	public void saveInstance(final InstancePlanning<InstanceEvaluation, EvaluationStagiaire> instances) throws ApplicationException {
 		try {
-			TransactionManager.callInTransaction(
-					Connexion.getInstance().getConnexion(),
+			Connexion.getTransactionManager().callInTransaction(
 					new Callable<Void>() {
 						public Void call()
 								throws ApplicationException {

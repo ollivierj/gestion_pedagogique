@@ -19,7 +19,7 @@ public class ParametreDaoImpl extends ADaoImpl<Parametre, String> implements Par
 	 * @throws SQLException
 	 */
 	public ParametreDaoImpl() throws SQLException {
-		super( Parametre.class);
+		super(Parametre.class);
 	}
 
 }

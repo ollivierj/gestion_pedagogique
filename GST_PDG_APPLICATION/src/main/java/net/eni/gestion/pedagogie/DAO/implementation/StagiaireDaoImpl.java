@@ -26,7 +26,7 @@ public class StagiaireDaoImpl extends ADaoImpl<Stagiaire, Integer> implements
 	 * @throws SQLException
 	 */
 	public StagiaireDaoImpl() throws SQLException {
-		super( Stagiaire.class);
+		super(Stagiaire.class);
 	}
 
 	/*

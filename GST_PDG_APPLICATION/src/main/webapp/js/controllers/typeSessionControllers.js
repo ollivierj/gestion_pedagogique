@@ -11,7 +11,7 @@ controllers
 					$scope.canEdit=TypeSessionsFactory.canEdit;
 					$scope.canView=TypeSessionsFactory.canView;
 					$scope.gridOptions = {
-						data : 'typeSessions',
+						data : 'typesessions',
 						multiSelect : false,
 						columnDefs : [
 								{
@@ -53,7 +53,7 @@ controllers
 					};
 					
 					$scope.exporter = function(){
-						FichiersFactory.exporter('/ng_gst_pdg/web/typeSessions/csv', $scope.pagingOptions, $scope.filterOptions, $scope.sortOptions);
+						FichiersFactory.exporter('/ng_gst_pdg/web/typesessions/csv', $scope.pagingOptions, $scope.filterOptions, $scope.sortOptions);
 					};
 					
 					$scope.ajouterTypeSession = function(

@@ -22,7 +22,7 @@ public class ProfessionnelHomologueDaoImpl extends ADaoImpl<ProfessionnelHomolog
 	 * @throws SQLException
 	 */
 	public ProfessionnelHomologueDaoImpl() throws SQLException {
-		super( ProfessionnelHomologue.class);
+		super(ProfessionnelHomologue.class);
 	}
 
 	

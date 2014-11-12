@@ -23,7 +23,7 @@ public class SujetEvaluationDaoImpl extends ADaoImpl<SujetEvaluation, Integer> i
 	 * @throws SQLException
 	 */
 	public SujetEvaluationDaoImpl() throws SQLException {
-		super( SujetEvaluation.class);
+		super(SujetEvaluation.class);
 	}
 	
 	public HashMap<String, String> getTitleMap() throws ApplicationException {

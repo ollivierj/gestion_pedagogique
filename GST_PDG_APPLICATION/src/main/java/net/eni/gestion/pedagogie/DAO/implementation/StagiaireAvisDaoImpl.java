@@ -28,7 +28,7 @@ public class StagiaireAvisDaoImpl extends ADaoImpl<StagiaireAvis, Integer> imple
 	 * @throws SQLException
 	 */
 	public StagiaireAvisDaoImpl() throws SQLException {
-		super( StagiaireAvis.class);
+		super(StagiaireAvis.class);
 	}
 
 	@Override

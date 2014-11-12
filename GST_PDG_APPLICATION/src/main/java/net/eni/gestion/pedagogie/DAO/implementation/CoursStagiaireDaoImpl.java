@@ -20,7 +20,7 @@ public class CoursStagiaireDaoImpl extends ADaoImpl<CoursStagiaire, Integer> imp
 	 * @throws SQLException
 	 */
 	public CoursStagiaireDaoImpl() throws SQLException {
-		super( CoursStagiaire.class);
+		super(CoursStagiaire.class);
 	}
 
 }

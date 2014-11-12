@@ -19,7 +19,7 @@ public class UniteParFormationDaoImpl extends ADaoImpl<UniteParFormation, Intege
 	 * @throws SQLException
 	 */
 	public UniteParFormationDaoImpl() throws SQLException {
-		super( UniteParFormation.class);
+		super(UniteParFormation.class);
 	}
 
 }

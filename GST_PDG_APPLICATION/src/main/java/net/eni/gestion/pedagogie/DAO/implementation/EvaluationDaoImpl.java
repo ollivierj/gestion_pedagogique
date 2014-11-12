@@ -32,7 +32,7 @@ public class EvaluationDaoImpl extends ADaoImpl<Evaluation, Integer> implements 
 	 * @throws SQLException
 	 */
 	public EvaluationDaoImpl() throws SQLException {
-		super( Evaluation.class);
+		super(Evaluation.class);
 	}
 	
 	@Override

@@ -19,7 +19,7 @@ public class ModuleParUniteDaoImpl extends ADaoImpl<ModuleParUnite, Integer> imp
 	 * @throws SQLException
 	 */
 	public ModuleParUniteDaoImpl() throws SQLException {
-		super( ModuleParUnite.class);
+		super(ModuleParUnite.class);
 	}
 
 }

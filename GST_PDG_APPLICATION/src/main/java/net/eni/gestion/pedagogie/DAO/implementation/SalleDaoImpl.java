@@ -19,7 +19,7 @@ public class SalleDaoImpl extends ADaoImpl<Salle, Integer> implements SalleDao{
 	 * @throws SQLException
 	 */
 	public SalleDaoImpl() throws SQLException {
-		super( Salle.class);
+		super(Salle.class);
 	}
 	
 }

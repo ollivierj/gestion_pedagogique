@@ -22,7 +22,7 @@ public class InstanceSessionValidationDaoImpl extends ADaoImpl<InstanceSessionVa
 	 * @throws SQLException
 	 */
 	public InstanceSessionValidationDaoImpl() throws SQLException {
-		super( InstanceSessionValidation.class);
+		super(InstanceSessionValidation.class);
 	}
 
 	@Override

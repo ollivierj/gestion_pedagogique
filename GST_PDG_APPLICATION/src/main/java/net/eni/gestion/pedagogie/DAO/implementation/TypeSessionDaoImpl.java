@@ -22,7 +22,7 @@ public class TypeSessionDaoImpl extends ADaoImpl<TypeSession, Integer> implement
 	 * @throws SQLException
 	 */
 	public TypeSessionDaoImpl() throws SQLException {
-		super( TypeSession.class);
+		super(TypeSession.class);
 	}
 
 	public HashMap<String, String> getTitleMap() throws ApplicationException {

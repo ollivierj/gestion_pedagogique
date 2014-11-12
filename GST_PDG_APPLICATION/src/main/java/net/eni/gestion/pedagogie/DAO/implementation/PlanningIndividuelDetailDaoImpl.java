@@ -19,7 +19,7 @@ public class PlanningIndividuelDetailDaoImpl extends ADaoImpl<PlanningIndividuel
 	 * @throws SQLException
 	 */
 	public PlanningIndividuelDetailDaoImpl() throws SQLException {
-		super( PlanningIndividuelDetail.class);
+		super(PlanningIndividuelDetail.class);
 	}
 
 }

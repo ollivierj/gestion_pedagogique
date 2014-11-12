@@ -14,8 +14,8 @@ import org.apache.commons.lang3.StringUtils;
 
 public class PlanningDaoImpl extends ADaoImpl<Planning, Long> implements PlanningDao {
 
-	protected PlanningDaoImpl() throws SQLException {
-		super( Planning.class);
+	public PlanningDaoImpl() throws SQLException {
+		super(Planning.class);
 	}
 
 	@Override
