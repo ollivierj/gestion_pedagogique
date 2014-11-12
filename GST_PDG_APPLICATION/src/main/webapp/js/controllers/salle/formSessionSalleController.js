@@ -70,8 +70,6 @@ var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope,
 		}	
 	});
 	
-	console.log($scope.instances);
-	
 	// Autocomplétion utilisé pour l'affectation des professionnel homolgue
 	$scope.chargerProfessionnels = function(search) {
 		return ProfessionnelHomologuesFactory.autocomplete.getData({search: search}).$promise.then(
@@ -113,12 +111,11 @@ var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope,
 
 	// Récupère le nombre de places restantes d'une salle
 	$scope.getSallePlace = function (instance) {
-		if (instance.reservationSalle.salle) {
-			var salle = _.find($scope.referentielSalles, {id: instance.reservationSalle.salle.id});
-			return salle != null 
-						? salle.nbPlaces - instance.stagiaires.length
-						: 'Inconnu';
+		var nbPlaces = 0;
+		if (instance.reservationSalle) {
+			nbPlaces = instance.reservationSalle.nbPosteLibre;
 		}
+		return nbPlaces;
 	};
 	
 	$scope.saveSalle = function(salle) {
@@ -128,6 +125,15 @@ var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope,
 	$scope.togglePromotion = function(promotion) {
 		promotion.collapsed = !promotion.collapsed;
 	};
+	
+	//Calcul du nombre de place restante d'une salle
+	var calculNbPlaceRestante = function (instance) {
+		if (instance) {
+			var salle = $filter('filter')($scope.referentielSalles, {id: instance.reservationSalle.salle.id})[0];
+			instance.reservationSalle.nbPosteLibre = 
+				salle.nbPlaces - instance.stagiaires.length;
+		}
+	}
 
 	/*************************** UI TREE OPTIONS **********************************************/
 	$scope.options = {
@@ -174,9 +180,19 @@ var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope,
 		
 		dragStop : function (event) {
 			var destNode = event.dest.nodesScope;
+			var instance = null;
 			if (destNode.$parent.$modelValue && destNode.$parent.$modelValue.type == TYPE_INSTANCE) {
 				angular.forEach(destNode.$modelValue, function(stagiaire) {
+					instance = destNode.$parent.$modelValue;
+					calculNbPlaceRestante(instance);
 					stagiaire.instanceSessionValidation = {id:destNode.$parent.$modelValue.id};
+				});
+			}
+			if (destNode.$parent.$modelValue && destNode.$parent.$modelValue.type == TYPE_PROMOTION) {
+				angular.forEach(destNode.$modelValue, function(stagiaire) {
+					instance = $filter('filter')($scope.instances, {id : stagiaire.instanceCours})[0];
+					calculNbPlaceRestante(instance);
+					stagiaire.instanceSessionValidation = null;
 				});
 			}
 		}
@@ -200,7 +216,9 @@ var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope,
 		    reservationSalle : {
 		    	formatedDateDebut: data.formatedDateDebut,
 		    	formatedDateFin: data.formatedDateFin,
-		    	id:0
+		    	id:0,
+		    	salle: null,
+		    	nbPosteLibre: 0
 		    }
 		  });
 	};
@@ -247,6 +265,7 @@ var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope,
 			salle.sortOrder = i + 1;
 			//salle.save();
 		}*/
+		calculNbPlaceRestante(instance);
 	};
 
 	/*
@@ -281,6 +300,7 @@ var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope,
 		//On le réaffecte à sa promotion
 		selectedPromotion.stagiaires.push(stagiaire);
 
+		calculNbPlaceRestante(instance);
 	};
 	
 	$scope.updateStagiaire = function (stagiaire) {
@@ -321,7 +341,7 @@ var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope,
 					$modalInstance.close('success');
 				},
 				function (error) {
-					toaster.pop('error', null, error);
+					toaster.pop('error', null, error.data.message);
 				}
 		);
 	};

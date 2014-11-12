@@ -102,12 +102,11 @@ var formEvaluationSalleCtrl = function($scope, $modalInstance, $filter, $rootSco
 
 	// Récupère le nombre de places restantes d'une salle
 	$scope.getSallePlace = function (instance) {
-		if (instance.reservationSalle.salle) {
-			var salle = _.find($scope.referentielSalles, {id: instance.reservationSalle.salle.id});
-			return salle != null 
-						? salle.nbPlaces - instance.stagiaires.length
-						: 'Inconnu';
+		var nbPlaces = 0;
+		if (instance.reservationSalle) {
+			nbPlaces = instance.reservationSalle.nbPosteLibre;
 		}
+		return nbPlaces;
 	};
 	
 	$scope.saveSalle = function(salle) {
@@ -117,6 +116,15 @@ var formEvaluationSalleCtrl = function($scope, $modalInstance, $filter, $rootSco
 	$scope.togglePromotion = function(promotion) {
 		promotion.collapsed = !promotion.collapsed;
 	};
+	
+	//Calcul du nombre de place restante d'une salle
+	var calculNbPlaceRestante = function (instance) {
+		if (instance) {
+			var salle = $filter('filter')($scope.referentielSalles, {id: instance.reservationSalle.salle.id})[0];
+			instance.reservationSalle.nbPosteLibre = 
+				salle.nbPlaces - instance.stagiaires.length;
+		}
+	}
 
 	/*************************** UI TREE OPTIONS **********************************************/
 	$scope.options = {
@@ -143,13 +151,18 @@ var formEvaluationSalleCtrl = function($scope, $modalInstance, $filter, $rootSco
 		},
 		dragStop : function (event) {
 			var destNode = event.dest.nodesScope;
+			var instance = null;
 			if (destNode.$parent.$modelValue && destNode.$parent.$modelValue.type == TYPE_INSTANCE) {
 				angular.forEach(destNode.$modelValue, function(stagiaire) {
+					instance = destNode.$parent.$modelValue;
+					calculNbPlaceRestante(instance);
 					stagiaire.instanceEvaluation = {id:destNode.$parent.$modelValue.id};
 				});
 			}
 			if (destNode.$parent.$modelValue && destNode.$parent.$modelValue.type == TYPE_PROMOTION) {
 				angular.forEach(destNode.$modelValue, function(stagiaire) {
+					instance = $filter('filter')($scope.instances, {id : stagiaire.instanceCours})[0];
+					calculNbPlaceRestante(instance);
 					stagiaire.instanceEvaluation = null;
 				});
 			}
@@ -174,7 +187,9 @@ var formEvaluationSalleCtrl = function($scope, $modalInstance, $filter, $rootSco
 		    reservationSalle : {
 		    	formatedDateDebut: data.formatedDateHeureDebutPassage,
 		    	formatedDateFin: data.formatedDateHeureFinPassage,
-		    	id:0
+		    	id:0,
+		    	salle: null,
+		    	nbPosteLibre: 0
 		    }
 		  });
 	};
@@ -215,6 +230,7 @@ var formEvaluationSalleCtrl = function($scope, $modalInstance, $filter, $rootSco
 
 	$scope.saveInstance = function(instance) {
 		instance.editing = false;
+		calculNbPlaceRestante(instance);
 	};
 	
 	/*************************** STAGIAIRES **********************************************/
@@ -233,7 +249,8 @@ var formEvaluationSalleCtrl = function($scope, $modalInstance, $filter, $rootSco
 		})[0];
 		//On le réaffecte à sa promotion
 		selectedPromotion.stagiaires.push(stagiaire);
-
+		
+		calculNbPlaceRestante(instance);
 	};
 	
 
@@ -268,7 +285,7 @@ var formEvaluationSalleCtrl = function($scope, $modalInstance, $filter, $rootSco
 					$modalInstance.close('success');
 				},
 				function (error) {
-					toaster.pop('error', null, error);
+					toaster.pop('error', null, error.data.message);
 				}
 		);
 	};

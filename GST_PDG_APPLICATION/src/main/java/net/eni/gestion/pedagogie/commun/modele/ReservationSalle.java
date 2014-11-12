@@ -76,7 +76,8 @@ public class ReservationSalle extends AModele<Integer> implements Serializable {
 	@DatabaseField(
 		columnName = NB_POSTE_LIBRE_FIELD_NAME,
 		dataType = DataType.INTEGER_OBJ,
-		useGetSet = true)
+		useGetSet = true,
+		canBeNull = false)
 	private Integer nbPosteLibre = null;
 
 	//@JsonBackReference("reservation-salle")

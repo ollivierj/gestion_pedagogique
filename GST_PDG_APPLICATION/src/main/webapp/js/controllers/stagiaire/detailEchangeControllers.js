@@ -41,9 +41,7 @@ controllers.controller('detailEchangeCtrl', function($scope, $rootScope, $http, 
     $scope.ok = function (entity) {
     	entity.formatedDate = $filter('date')(entity.formatedDate, 'dd/MM/yyyy');
     	entity.formatedTime = $filter('date')(entity.formatedTime, 'HH:mm');
-    	//Mock de l'auteur
-    	entity.auteur = {};
-    	entity.auteur.id = 1;
+    	
     	SEchangeFactory.createLine.create(entity,
     			function (success) {
     				entity.editMode = false;
@@ -60,7 +58,7 @@ controllers.controller('detailEchangeCtrl', function($scope, $rootScope, $http, 
     };
     
     $scope.createEchange = function() {
-    	$scope.echanges.push({isEchange:true, stagiaire: StagiaireFactory.stagiaire});
+    	$scope.echanges.push({isEchange:true, stagiaire: StagiaireFactory.stagiaire, auteur: $rootScope.utilisateurConnecte});
     };
     
     $scope.removeRow = function(entity) {
