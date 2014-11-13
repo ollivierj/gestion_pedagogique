@@ -15,11 +15,18 @@ var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope,
 	var TYPE_PROMOTION = 'promotion';
 	var TYPE_STAGIAIRE = 'stagiaire';
 	
+	$scope.changeDateInstance = function () {
+		console.log($scope.dateInstance);
+	}
 	
 	//Formattage du titre
-	$scope.dateDebut = $filter('date')($scope.dateD,'dd/MM/yyyy');
-	$scope.dateFin = $filter('date')($scope.dateF,'dd/MM/yyyy');
+	$scope.debutLimit = new Date(data.formatedDateDebut.replace("T", " "));
+	$scope.finLimit = new Date(data.formatedDateFin.replace("T", " "));
+	var dateDebut = $filter('date')($scope.debutLimit,'dd/MM/yyyy');
+	var dateFin = $filter('date')($scope.finLimit,'dd/MM/yyyy');
+	
 	$scope.title = 'Sessions de validation du ' + $scope.dateDebut + ' au ' + $scope.dateFin;
+	//$scope.dateDebut = new Date();
 	
 	//Chargement du référentiel de salles disponibles
 	//TODO limitez sur les salles dispo ce jour
@@ -208,8 +215,8 @@ var formSessionSalleCtrl = function($scope, $modalInstance, $filter, $rootScope,
 		    jures : [],
 		    stagiaires: [],
 		    reservationSalle : {
-		    	formatedDateDebut: data.formatedDateDebut,
-		    	formatedDateFin: data.formatedDateFin,
+		    	formatedDateDebut: $scope.dateInstance,
+		    	formatedDateFin: $scope.dateInstance,
 		    	id:0,
 		    	salle: null,
 		    	nbPosteLibre: 0

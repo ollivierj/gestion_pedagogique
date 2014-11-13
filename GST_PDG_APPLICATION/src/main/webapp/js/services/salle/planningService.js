@@ -8,7 +8,6 @@ services.factory('PlanningFactory', function($resource, $filter) {
 	
 	planning.initElements = function (date) {
 		//Transformation de la date courante en date de début et de fin
-		
 		//Initialisation du jour du mois à 1
 		date.setDate(1);
     	var debut = $filter('date')(date, 'yyyy-dd-MM');

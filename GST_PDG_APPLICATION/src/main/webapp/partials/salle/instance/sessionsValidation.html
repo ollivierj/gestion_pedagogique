@@ -7,15 +7,23 @@
 		</div>
 	</div>
 	
-	<div class="col-xs-offset-4 col-xs-4">
-		<input type="text" class="form-control" ng-model="dateInstance" 
-				ng-change="changeDateInstance()" data-date-format="dd/MM/yyyy" 
-				name="datePicker" data-min-date="{{dateDebut}}" data-max-date="{{dateFin}}" bs-datepicker>
+	<div class="row">
+		<div class="col-xs-4">
+		<label>Choix de la date</label></div>
+		<div class="col-xs-8">
+		<input type="text" class="form-control" ng-model="dateInstance"
+				ng-change="changeDateInstance()" data-date-format="dd/MM/yyyy" data-date-type="string"
+				data-min-date="{{debutLimit}}" data-max-date="{{finLimit}}" bs-datepicker>
+		</div>
 	</div>
 </div>
 <div class="modal-body">
 
 	<div class="panel-body">
+	
+	<input type="text" class="form-control" ng-model="dateInstance"
+				ng-change="changeDateInstance()" data-date-format="dd/MM/yyyy" data-date-type="string"
+				data-min-date="{{debutLimit}}" data-max-date="{{finLimit}}" bs-datepicker>
 
 		<div class="col-xs-5" ui-tree="options">
 			<label>Stagiaires inscrits au cours</label>

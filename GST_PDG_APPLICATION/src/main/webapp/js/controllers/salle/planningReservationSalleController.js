@@ -6,7 +6,10 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
 		modalService, PromotionsFactory, SallesReserveesFactory, AnimateursLibresFactory, 
 		PlanningFactory, $filter, CONSTANTS, planningElements, toaster) {
 
+	//Date du calendrier
 	$scope.moment = new Date();
+	//Type d'instance sélectionne
+	$scope.typeInstance = null;
 	
 	if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken){
 		$http.defaults.headers.common.Authorization =  'Basic ' + $rootScope.authtoken;
@@ -19,9 +22,11 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
     //Construction d'un tableau contenant les constantes de types d'éléments (Affichage de la combo box)
     $scope.typeElements = [{typeName: CONSTANTS.PLANNING_ELEMENTS.SESSION}, {typeName: CONSTANTS.PLANNING_ELEMENTS.EVALUATION}, {typeName: CONSTANTS.PLANNING_ELEMENTS.COURS}];
     
+    $scope.eventSources = [];
     
 	//Transforme le résultat des éléments en éléments graphique correspondant à ui calendar.
-	var initElements = function (results) {
+	var initElements = function (results, type) {
+
     	var elements = [];
 		//Parcours des résultats pour les parse sur le bon format
 		_(results).forEach(function (res) {
@@ -37,11 +42,32 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
 			});
 		});
 		
-		//Ajout des élements dans les tableaux correpondants.
-		$scope.evaluations.events = _.filter(elements, {type:'Evaluation'});
-	    $scope.sessionsValidation.events = _.filter(elements, {type:'Session'});
-		$scope.cours.events = _.filter(elements, {type:'Cours'});
-		
+		//Suivant le type sélectionné les données sont rafraichies
+		if (type == undefined || type == null) {
+			$scope.evaluations.events = _.filter(elements, {type:'Evaluation'});
+		    $scope.sessionsValidation.events = _.filter(elements, {type:'Session'});
+			$scope.cours.events = _.filter(elements, {type:'Cours'});
+        } else {
+        	switch (type) {
+	        	case CONSTANTS.PLANNING_ELEMENTS.SESSION:
+					        		$scope.evaluations.events = [];
+					    		    $scope.sessionsValidation.events = _.filter(elements, {type:'Session'});
+					    			$scope.cours.events = [];
+	        						break;
+	        						
+	        	case CONSTANTS.PLANNING_ELEMENTS.EVALUATION:
+					        		$scope.evaluations.events = _.filter(elements, {type:'Evaluation'});
+					    		    $scope.sessionsValidation.events = [];
+					    			$scope.cours.events = [];
+									break;
+									
+	        	case CONSTANTS.PLANNING_ELEMENTS.COURS:
+					        		$scope.evaluations.events = [];
+					    		    $scope.sessionsValidation.events = [];
+					    			$scope.cours.events = _.filter(elements, {type:'Cours'});
+									break;
+        	}
+        }
 		
 		// Rafraichissement de la vue
 		if(!$scope.$$phase) {
@@ -53,11 +79,11 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
     initElements(planningElements);
     
     //Récupère les éléments du planning en fonction d'une date
-    $scope.getPlanningElements = function(date) {
+    $scope.getPlanningElements = function(date, type) {
     	//Appel au service pour récupérer les éléments du planning 
     	//en fonction de la date de début et de fin
-    	PlanningFactory.initElements(date).then(function(result) {
-    		initElements(result);
+    	PlanningFactory.initElements(angular.copy(date)).then(function(result) {
+    		initElements(result, type);
     	});
     };
     
@@ -146,21 +172,21 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
     	calendar.fullCalendar('next');
     	//Récupère la date courante du calendrier
     	$scope.moment = calendar.fullCalendar('getDate');
-    	$scope.getPlanningElements($scope.moment);
+    	$scope.getPlanningElements($scope.moment, $scope.typeInstance);
     }
     
     //Evènement sur le clic du bouton previous
     $scope.previous = function(calendar) {
     	calendar.fullCalendar('prev');
     	$scope.moment = calendar.fullCalendar('getDate');
-    	$scope.getPlanningElements($scope.moment);
+    	$scope.getPlanningElements($scope.moment, $scope.typeInstance);
     }
     
     //Evènement sur le clic du bouton today
     $scope.today = function(calendar) {
     	calendar.fullCalendar('today');
     	$scope.moment = calendar.fullCalendar('getDate');
-    	$scope.getPlanningElements($scope.moment);
+    	$scope.getPlanningElements($scope.moment, $scope.typeInstance);
     }
     
     
@@ -168,7 +194,7 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
     $scope.changeView = function(view,calendar) {
       calendar.fullCalendar('changeView',view);
       $scope.moment = calendar.fullCalendar('getDate');
-	  $scope.getPlanningElements($scope.moment);
+	  $scope.getPlanningElements($scope.moment, $scope.typeInstance);
     };
     
     //Configuration du calendrier
@@ -218,27 +244,12 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
     $scope.eventSources = [$scope.sessionsValidation, $scope.evaluations, $scope.cours];
     
     $scope.$watch('typeElement', function (newVal, oldVal) {
-        if (newVal == null) {
-        	$scope.eventSources = [$scope.sessionsValidation, $scope.evaluations, $scope.cours];
-        } else {
-        	switch(newVal.typeName) {
-	        	case CONSTANTS.PLANNING_ELEMENTS.SESSION:
-	        						$scope.eventSources = [$scope.sessionsValidation];
-	        						break;
-	        						
-	        	case CONSTANTS.PLANNING_ELEMENTS.EVALUATION:
-	        						$scope.eventSources = [$scope.evaluations];
-									break;
-									
-	        	case CONSTANTS.PLANNING_ELEMENTS.COURS:
-	        						$scope.eventSources = [$scope.cours];
-									break;
-        	}
-        }
-        // Rafraichissement de la vue
-		if(!$scope.$$phase) {
-			$scope.$digest();
-		}
+    	//Récupération du type
+    	$scope.typeInstance = null
+    	if (newVal)
+    		$scope.typeInstance = newVal.typeName
+		//Refresh des éléments du planning
+    	$scope.getPlanningElements($scope.moment, $scope.typeInstance);
     }, true);
     
 });
