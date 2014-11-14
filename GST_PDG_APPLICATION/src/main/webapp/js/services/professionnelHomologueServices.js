@@ -41,7 +41,7 @@ services.factory('ProfessionnelHomologuesFactory', function ($resource, $rootSco
 					}
 				).$promise.then(function(response) {
 					$scope.professionnelHomologues=response.data;
-					$scope.totalServerItems=response.data.totalServerItems;
+					$scope.totalServerItems=response.totalServerItems;
 		         });			
 			},
 		page : page,

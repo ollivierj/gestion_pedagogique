@@ -205,6 +205,7 @@ var ng_gst_pdg = angular.module('ng_gst_pdg', ['ngRoute','ngSanitize', 'ngGrid',
                     })
                     .error(function (data) {
                     	$rootScope.hideMenus = true;
+                    	$state.go('login');
                     });
     			}else if (toState.name !== 'login' && !$rootScope.authtoken) {
     	        	event.preventDefault(); 

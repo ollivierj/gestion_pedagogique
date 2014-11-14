@@ -42,7 +42,7 @@ services.factory('SujetEvaluationsFactory', function ($resource, $rootScope) {
 					}
 				).$promise.then(function(response) {
 					$scope.sujetEvaluations=response.data;
-					$scope.totalServerItems=response.data.totalServerItems;
+					$scope.totalServerItems=response.totalServerItems;
 		         });			
 			},
 		page : page,

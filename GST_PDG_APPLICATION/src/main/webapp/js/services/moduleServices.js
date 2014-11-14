@@ -35,7 +35,7 @@ services.factory('ModulesFactory', function ($resource) {
 					}
 				).$promise.then(function(response) {
 					$scope.modules=response.data;
-					$scope.totalServerItems=response.data.totalServerItems;
+					$scope.totalServerItems=response.totalServerItems;
 		         });			
 			},
 		page : page,

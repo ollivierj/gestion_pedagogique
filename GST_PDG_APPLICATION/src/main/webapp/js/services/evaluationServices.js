@@ -42,7 +42,7 @@ services.factory('EvaluationsFactory', function ($resource, $rootScope) {
 					}
 				).$promise.then(function(response) {
 					$scope.evaluations=response.data;
-					$scope.totalServerItems=response.data.totalServerItems;
+					$scope.totalServerItems=response.totalServerItems;
 		         });			
 			},
 		page : page,

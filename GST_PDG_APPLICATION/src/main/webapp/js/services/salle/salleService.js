@@ -48,7 +48,7 @@ services.factory('SalleFactory', function($resource, $filter, $rootScope) {
 						}
 					).$promise.then(function(response) {
 						$scope.salles=response.data;
-						$scope.totalServerItems=response.data.totalServerItems;
+						$scope.totalServerItems=response.totalServerItems;
 			         });			
 				},
 			page : page,

@@ -34,7 +34,7 @@ services.factory('FonctionsFactory', function ($resource) {
 					}
 				).$promise.then(function(response) {
 					$scope.fonctions=response.data;
-					$scope.totalServerItems=response.data.totalServerItems;
+					$scope.totalServerItems=response.totalServerItems;
 		         });			
 			},
 		page : page,

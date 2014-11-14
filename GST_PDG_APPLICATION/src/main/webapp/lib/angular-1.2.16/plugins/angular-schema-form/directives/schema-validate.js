@@ -63,7 +63,7 @@ angular.module('schemaForm').directive('schemaValidate',function(){
       };
 
       scope.hasError = function(){
-        return ngModel.$invalid && !ngModel.$pristine;
+        return ngModel.$invalid /*&& !ngModel.$pristine*/;
       };
 
       scope.schemaError = function() {

@@ -6,6 +6,8 @@ import java.util.Iterator;
 
 import net.eni.gestion.pedagogie.DAO.TypeSessionDao;
 import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
+import net.eni.gestion.pedagogie.commun.configuration.ModeleMetier;
+import net.eni.gestion.pedagogie.commun.modele.SessionValidation;
 import net.eni.gestion.pedagogie.commun.modele.TypeSession;
 
 import com.google.inject.Singleton;
@@ -39,6 +41,28 @@ public class TypeSessionDaoImpl extends ADaoImpl<TypeSession, Integer> implement
 					"Echec de chargement de la liste d'enregistrements depuis la base de données");
 		}
 	}	
+	
+	@Override
+	protected boolean validerAvantSuppression(Integer pId) throws  ApplicationException {
+		StringBuilder lQuery = new StringBuilder();
+		lQuery.append("SELECT TOP 1 1 FROM ");
+		lQuery.append(ModeleMetier.SESSION_VALIDATION_TABLE_NAME);
+		lQuery.append(" WHERE ");
+		lQuery.append(SessionValidation.TYPE_SESSION_FIELD_NAME);
+		lQuery.append("=");
+		lQuery.append(pId);
+		String[] instanceExist;
+		try {
+			instanceExist = this.queryRaw(lQuery.toString()).getFirstResult();
+		} catch (SQLException e) {
+			throw new ApplicationException("Echec lors de la validation en base de données");
+		}
+		if (null==instanceExist){
+			return true;
+		}else {
+			throw new ApplicationException("Il existe au moins une session de validationréférençant ce type de session.\n Vous ne pouvez pas supprimer ce type de session.");
+		}
+	}
 	
 
 }

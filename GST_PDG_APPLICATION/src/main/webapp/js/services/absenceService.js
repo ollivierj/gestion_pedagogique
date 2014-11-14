@@ -44,7 +44,7 @@ services.factory('AbsencesFactory', function ($resource, $rootScope) {
 					}
 				).$promise.then(function(response) {
 					$scope.absences=response.data;
-					$scope.totalServerItems=response.data.totalServerItems;
+					$scope.totalServerItems=response.totalServerItems;
 		         });			
 			},
 		page : page,

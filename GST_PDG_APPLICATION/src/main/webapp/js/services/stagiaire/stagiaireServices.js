@@ -61,7 +61,7 @@ services.factory('StagiaireFactory', function ($resource, $rootScope) {
 				}
 			).$promise.then(function(response) {
 				$scope.stagiaires=response.data;
-				$scope.totalServerItems=response.data.totalServerItems;
+				$scope.totalServerItems=response.totalServerItems;
 	         });			
 		},
 		dataAutocomplete : $resource('/ng_gst_pdg/web/stagiaires/autocomplete/:search', {}, {

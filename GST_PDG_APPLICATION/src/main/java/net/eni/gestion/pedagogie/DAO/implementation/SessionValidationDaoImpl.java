@@ -34,17 +34,13 @@ public class SessionValidationDaoImpl extends ADaoImpl<SessionValidation, Intege
 		try {
 			StringBuilder lQuery = new StringBuilder();
 			lQuery.append("SELECT * ");
-//			lQuery.append(StringUtils.join(ORMLiteHelper.getProjectionFields(this.getTableInfo()), ","));
 			lQuery.append(" FROM  ");
-			
 			lQuery.append(ModeleMetier.SESSION_VALIDATION_TABLE_NAME);
-			
 			lQuery.append(getJoinSessionStagiaire());
 			lQuery.append(getJoinStagiaire());
 			lQuery.append(getJoinSessionInstance());
 			lQuery.append(getJoinSessionResa());
 			lQuery.append(getJoinSessionSalle());
-			
 			lQuery.append(" WHERE ");
 			lQuery.append(SessionValidation.ID_FIELD_NAME);
 			lQuery.append(" = ");
@@ -152,7 +148,8 @@ public class SessionValidationDaoImpl extends ADaoImpl<SessionValidation, Intege
 		}else {
 			throw new ApplicationException("Il existe au moins une instance de cours déclarée pour cette évaluation.\n Il n'est donc pas possible de modifier les dates pour cette évaluation");
 		}
-	}	
+	}
+	
 }
 	
 

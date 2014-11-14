@@ -44,7 +44,7 @@ services.factory('InstanceCoursFactory', function ($resource, $rootScope) {
 					}
 				).$promise.then(function(response) {
 					$scope.instanceCours=response.data;
-					$scope.totalServerItems=response.data.totalServerItems;
+					$scope.totalServerItems=response.totalServerItems;
 		         });			
 			},
 		page : page,
