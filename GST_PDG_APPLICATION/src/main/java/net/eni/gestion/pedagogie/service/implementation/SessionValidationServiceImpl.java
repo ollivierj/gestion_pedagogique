@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.eni.gestion.pedagogie.DAO.InstanceSessionValidationDao;
+import net.eni.gestion.pedagogie.DAO.JuryDao;
 import net.eni.gestion.pedagogie.DAO.ReservationSalleDao;
 import net.eni.gestion.pedagogie.DAO.SessionValidationDao;
 import net.eni.gestion.pedagogie.DAO.SessionValidationStagiaireDao;
@@ -12,6 +13,8 @@ import net.eni.gestion.pedagogie.commun.composant.erreur.ApplicationException;
 import net.eni.gestion.pedagogie.commun.composant.instancePlanning.InstancePlanning;
 import net.eni.gestion.pedagogie.commun.composant.tuple.Pair;
 import net.eni.gestion.pedagogie.commun.modele.InstanceSessionValidation;
+import net.eni.gestion.pedagogie.commun.modele.Jury;
+import net.eni.gestion.pedagogie.commun.modele.ProfessionnelHomologue;
 import net.eni.gestion.pedagogie.commun.modele.ReservationSalle;
 import net.eni.gestion.pedagogie.commun.modele.SessionValidation;
 import net.eni.gestion.pedagogie.commun.modele.SessionValidationStagiaire;
@@ -32,6 +35,7 @@ public class SessionValidationServiceImpl extends
 	protected final SessionValidationStagiaireDao sessionValidationStagiaireDao;
 	protected final ReservationSalleDao reservationSalleDao;
 	protected final InstanceSessionValidationDao instanceSessionValidationDao;
+	protected final JuryDao juryDao;
 
 	/**
 	 * Constructeur
@@ -45,12 +49,14 @@ public class SessionValidationServiceImpl extends
 			SessionValidationDao pSessionValidationDao,
 			SessionValidationStagiaireDao pSessionValidationStagiaireDao,
 			ReservationSalleDao reservationSalleDao,
-			InstanceSessionValidationDao instanceSessionValidationDao)
+			InstanceSessionValidationDao instanceSessionValidationDao,
+			JuryDao juryDao)
 			throws SQLException {
 		super(pSessionValidationDao);
 		this.sessionValidationStagiaireDao = pSessionValidationStagiaireDao;
 		this.reservationSalleDao = reservationSalleDao;
 		this.instanceSessionValidationDao = instanceSessionValidationDao;
+		this.juryDao = juryDao;
 
 	}
 
@@ -103,17 +109,48 @@ public class SessionValidationServiceImpl extends
 			InstancePlanning<InstanceSessionValidation, SessionValidationStagiaire> instances)
 			throws ApplicationException {
 		
-		//Enregistrement des stagiaires liéss aux instances
+		//Enregistrement des stagiaires liés aux instances
 		for (Pair<InstanceSessionValidation, List<SessionValidationStagiaire>> instance : instances.getInstances()) {
 			ReservationSalle reservationSalle = null;
 			InstanceSessionValidation instanceSessionValidation = null;
 
 			//Réservation de la salle
 			reservationSalle = reservationSalleDao.addOrUpdate(instance.getFirst().getReservationSalle());
-
+			
+			//Stockage des professionnels homologués
+			List<ProfessionnelHomologue> profHomologues = instance.getFirst().getJures();
+			
 			instance.getFirst().setReservationSalle(reservationSalle);
 			//Enregistrement de l'instance
 			instanceSessionValidation = instanceSessionValidationDao.addOrUpdate(instance.getFirst());
+			
+			//Gestion des jury
+			List<Jury> jurys = instanceSessionValidation.getJurys();
+			Boolean isExist = false;
+			for (ProfessionnelHomologue professionnelHomologue : profHomologues) {
+				isExist = false;
+				for (Jury jury : jurys) {
+					if (jury.getProfessionnelHomologue().getId() == professionnelHomologue.getId()) {
+						isExist = true;
+					}
+				}
+				if (!isExist) {
+					juryDao.addOrUpdate(new Jury(0, professionnelHomologue, instanceSessionValidation));
+				}
+			}
+			
+			for (Jury jury : jurys) {
+				
+				for (ProfessionnelHomologue professionnelHomologue : profHomologues) {
+					if (jury.getProfessionnelHomologue().getId() == professionnelHomologue.getId()) {
+						isExist = true;
+					}
+				}
+				if (!isExist) {
+					juryDao.supprimer(jury.getId());
+				}
+			}
+			
 			
 			//Enregistrement de stagiaires liés à l'instance
 			for (SessionValidationStagiaire instanceStagiaire : instance.getSecond()) {

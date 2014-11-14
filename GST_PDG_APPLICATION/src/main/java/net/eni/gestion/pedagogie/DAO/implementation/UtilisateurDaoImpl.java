@@ -60,7 +60,7 @@ public class UtilisateurDaoImpl extends ADaoImpl<Utilisateur, Integer> implement
 			lQuery.append(pLogin);
 			lQuery.append("'");
 			if(!loginOnly){
-				lQuery.append("' AND UTILISATEUR.UTIL_MOT_PASSE = '");
+				lQuery.append(" AND UTILISATEUR.UTIL_MOT_PASSE = '");
 				lQuery.append(pMotdePasse);
 				lQuery.append("'");
 			}

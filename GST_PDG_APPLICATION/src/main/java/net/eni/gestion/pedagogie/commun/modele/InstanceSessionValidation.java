@@ -70,6 +70,7 @@ public class InstanceSessionValidation extends AModele<Integer> implements Seria
 	private transient Collection<Jury> transientJurys = null;
 
 	private ArrayList<Jury> jurys = new ArrayList<Jury>();
+	
 
 	@Override
 	public Integer getId() {
@@ -97,7 +98,7 @@ public class InstanceSessionValidation extends AModele<Integer> implements Seria
 		this.reservationSalle = reservationSalle;
 	}
 
-	private ArrayList<Jury> getJurys() {
+	public ArrayList<Jury> getJurys() {
 		if (null != transientJurys) {
 			jurys.clear();
 			jurys.addAll(transientJurys);
@@ -106,6 +107,11 @@ public class InstanceSessionValidation extends AModele<Integer> implements Seria
 		return jurys;
 	}
 	
+	
+	public void setJurys(ArrayList<Jury> jurys) {
+		this.jurys = jurys;
+	}
+
 	public ArrayList<ProfessionnelHomologue> getJures(){
 		ArrayList<ProfessionnelHomologue> jures = new ArrayList<ProfessionnelHomologue>();
 		if (0 < getJurys().size()) {

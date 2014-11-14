@@ -75,11 +75,15 @@ public class UtilisateurServiceImpl extends
 		// --------------- AUTHENTIFICATION LDAP --------------- //
 		try {
 			// authentification LDAP Ok
-			LdapContext ctx = ActiveDirectory.getConnection(pLogin,
-					pMotDePasse, LDAPConfiguration.getLdapDomaine(),
-					LDAPConfiguration.getAdresseLDAP());
-			userLDAP = ActiveDirectory.getUser(pLogin, ctx);
-			ctx.close();
+			try {
+				LdapContext ctx = ActiveDirectory.getConnection(pLogin,
+						pMotDePasse, LDAPConfiguration.getLdapDomaine(),
+						LDAPConfiguration.getAdresseLDAP());
+				userLDAP = ActiveDirectory.getUser(pLogin, ctx);
+				ctx.close();
+			} catch (Exception e2) {
+				userLDAP = null;
+			}
 
 			// --------------- AUTHENTIFICATION BDD --------------- //
 			// check avec login only si identification LDAP ok

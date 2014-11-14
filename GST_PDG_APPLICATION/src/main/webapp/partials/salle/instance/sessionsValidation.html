@@ -59,8 +59,8 @@
 			<a href="" style="margin-left:5px;" class="btn btn-primary btn-xs" data-nodrag ng-click="addInstance()">
 				<i class="glyphicon glyphicon-plus"></i>
 			</a>
-			<ol ui-tree-nodes ng-model="instances" class="node" data-type="instance">
-				<li ng-repeat="instance in instances" class="node" ui-tree-node>
+			<ol ui-tree-nodes ng-model="instancesToDisplay" class="node" data-type="instance">
+				<li ng-repeat="instance in instancesToDisplay" class="node" ui-tree-node>
 				
 					<!-- Mode lecture salle -->
 					<div class="group-title angular-ui-tree-handle">

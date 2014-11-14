@@ -29,6 +29,16 @@ public class Jury extends AModele<Integer> implements Serializable {
 		super();
 		setId(pId);
 	}
+	
+
+	public Jury(Integer id, ProfessionnelHomologue professionnelHomologue,
+			InstanceSessionValidation instanceSessionValidation) {
+		super();
+		this.id = id;
+		this.professionnelHomologue = professionnelHomologue;
+		this.instanceSessionValidation = instanceSessionValidation;
+	}
+
 
 	private static final long serialVersionUID = 1L;
 
