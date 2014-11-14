@@ -144,7 +144,7 @@ var formCoursSalleCtrl = function($scope, $modalInstance, $filter, $rootScope, $
 	
 	//Calcul du nombre de place restante d'une salle
 	var calculNbPlaceRestante = function (instance) {
-		if (instance) {
+		if (instance && instance.reservationSalle.salle && instance.reservationSalle.salle.id) {
 			var salle = $filter('filter')($scope.referentielSalles, {id: instance.reservationSalle.salle.id})[0];
 			instance.reservationSalle.nbPosteLibre = 
 				salle.nbPlaces - instance.stagiaires.length;

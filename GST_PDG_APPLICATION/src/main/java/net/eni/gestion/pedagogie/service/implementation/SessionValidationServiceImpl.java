@@ -131,6 +131,7 @@ public class SessionValidationServiceImpl extends
 			}
 			
 			for (Jury jury : jurysInstance) {
+				jury.setInstanceSessionValidation(instanceSessionValidation);
 				juryDao.addOrUpdate(jury);
 			}
 			

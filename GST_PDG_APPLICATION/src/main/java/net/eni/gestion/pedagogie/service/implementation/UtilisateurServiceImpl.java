@@ -123,7 +123,7 @@ public class UtilisateurServiceImpl extends
 								.getId()));
 			}
 		} catch (Exception e1) {
-			throw new ApplicationException("Echec lors le l'authentification");
+			throw new ApplicationException("Echec lors de l'authentification");
 		}
 		return lUtilisateur;
 	}

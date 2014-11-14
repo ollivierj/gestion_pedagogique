@@ -71,7 +71,8 @@
 							<i class="glyphicon glyphicon-pencil"></i>
 						</button>
 						<button class="btn btn-success btn-xs pull-right" data-nodrag ng-click="saveInstance(instance)" ng-show="instance.editing"
-							ng-disabled="instance.reservationSalle.salle == null || instance.reservationSalle.salle == undefined || instance.jures.length == 0">
+							ng-disabled="instance.reservationSalle.salle == null || instance.reservationSalle.salle == undefined ||
+									instance.reservationSalle.salle.id == null || instance.jures.length == 0">
 							<i class="fa fa-check"></i>
 						</button>
 						<div class="tree-node-content">
