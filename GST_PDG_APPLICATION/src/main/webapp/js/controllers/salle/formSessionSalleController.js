@@ -1,6 +1,6 @@
 var formSessionSalleCtrl = function($scope, $modalInstance, $filter,
 		$rootScope, $http, eventInfo, salles, getByIdFilter, data,
-		ProfessionnelHomologuesFactory, SessionValidationsFactory, instanceRef) {
+		ProfessionnelHomologuesFactory, SessionValidationsFactory, instanceRef, toaster) {
 
 	// Instances à supprimer
 	var instancesToDelete = [];
@@ -45,7 +45,7 @@ var formSessionSalleCtrl = function($scope, $modalInstance, $filter,
 		});
 		result.push(num);
 	});
-	
+
 	// Créé une map avec le libelle de la formation
 	$scope.promotions = _.transform(data.sessionValidationStagiaires, function(
 			result, num) {
@@ -83,8 +83,8 @@ var formSessionSalleCtrl = function($scope, $modalInstance, $filter,
 				id : num.instanceSessionValidation.id
 			}).stagiaires.push({
 				id : num.id,
-				dateHeureDebut : num.dateHeureDebut,
-				dateHeureFin : num.dateHeureDebut,
+				dateHeureDebut : new Date(num.dateHeureDebut),
+				dateHeureFin : new Date(num.dateHeureFin),
 				instanceSessionValidation : {
 					id : num.instanceSessionValidation.id
 				},
@@ -393,6 +393,7 @@ var formSessionSalleCtrl = function($scope, $modalInstance, $filter,
 
 	$scope.editStagiaire = function(stagiaire) {
 		stagiaire.editing = true;
+		
 		if (stagiaire.formatedDateHeureDebut)
 			stagiaire.dateHeureDebut = new Date(
 					stagiaire.formatedDateHeureDebut.replace("T", ""));
@@ -427,17 +428,36 @@ var formSessionSalleCtrl = function($scope, $modalInstance, $filter,
 	// Réservation et enregistrement de toutes les données de l'écran
 	$scope.reserver = function() {
 
-		console.log($scope.instances);
+		var i, length;
+		
 		var instancesToSaved = _.transform($scope.instances, function(result,
 				num) {
+			
+			var jurys = []
+			length = num.jures.length;
+			for (i = 0 ; i < length ; i ++) {
+				jurys.push({
+						id: 0, 
+						professionnelHomologue: {
+							id: num.jures[i].id
+						}, 
+						instanceSessionValidation: {
+							id: num.id
+						}
+					}
+				);
+			}
+			
 			var instance = {
 				id : num.id,
 				jures : num.jures,
+				jurys : jurys,
 				reservationSalle : num.reservationSalle,
 				sessionValidation : {
 					id : data.id
 				}
 			};
+			
 			result.push({
 				first : instance,
 				second : num.stagiaires

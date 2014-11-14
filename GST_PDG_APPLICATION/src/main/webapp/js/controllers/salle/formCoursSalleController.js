@@ -101,7 +101,7 @@ var formCoursSalleCtrl = function($scope, $modalInstance, $filter, $rootScope, $
 	}
 	
 	// Supression d'un formateur d'un instance
-	$scope.removeFormateur = function (pIndex, instance, formateur) {
+	$scope.removeFormateur = function (pIndex, instance) {
 		/*var formateurs = $filter('filter')(formateursSelecteds, {id: formateur.id});
 		_.remove(formateursSelecteds, {id : formateur.id});
 		_.remove(formateursSelecteds, {$$hashKey : formateurs[0].$$hashKey});*/

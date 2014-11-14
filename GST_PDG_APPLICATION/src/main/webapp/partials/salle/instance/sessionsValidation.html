@@ -133,7 +133,7 @@
 											<label>{{p.nom + ' ' + p.prenom}}</label> 
 										</div>
 										<div class="col-xs-2"> 
-											<button class="btn btn-danger btn-sm" data-nodrag ng-click="removeProfessionnel($index, instance, newProfessionnelH)">
+											<button class="btn btn-danger btn-sm" data-nodrag ng-click="removeProfessionnel($index, instance, p)">
 												<i class="fa fa-minus"></i>
 											</button>
 										</div>
@@ -185,8 +185,8 @@
 												</span>
 											</div>
 											<div class="col-xs-6">
-												<input type="text" ng-class="form-control" ng-model="stagiaire.dateHeureDebut" 
-													data-time-format="HH:mm" name="endTime" bs-timepicker>
+												<input type="text" class="form-control" ng-model="stagiaire.dateHeureDebut" 
+													data-time-format="HH:mm" name="startTime" bs-timepicker>
 											</div>
 										</div><!-- row -->
 										
@@ -201,7 +201,7 @@
 													</span>
 												</div>
 												<div class="col-xs-6"> 
-													<input type="text" ng-class="form-control" ng-model="stagiaire.dateHeureFin" 
+													<input type="text" class="form-control" ng-model="stagiaire.dateHeureFin" 
 														data-time-format="HH:mm" name="endTime" bs-timepicker>
 												</div>
 											</div>

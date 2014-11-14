@@ -65,7 +65,7 @@ public class InstanceSessionValidation extends AModele<Integer> implements Seria
 		foreignAutoRefresh = true)
 	private ReservationSalle reservationSalle = null;
 	
-	
+	@JsonManagedReference("InstanceSessionValidation-Jury")
 	@ForeignCollectionField(eager = true, columnName = Jury.INSTANCE_SESSION_VALIDATION_FIELD_NAME)
 	private transient Collection<Jury> transientJurys = null;
 

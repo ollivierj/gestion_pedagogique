@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import net.eni.gestion.pedagogie.commun.configuration.ModeleMetier;
 import net.eni.gestion.pedagogie.commun.modele.generique.AModele;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -61,6 +62,7 @@ public class Jury extends AModele<Integer> implements Serializable {
 		foreignAutoRefresh=true)
 	private ProfessionnelHomologue professionnelHomologue = null;
 	
+	@JsonBackReference("InstanceSessionValidation-Jury")
 	@DatabaseField(
 		columnName = INSTANCE_SESSION_VALIDATION_FIELD_NAME,
 		foreign = true,

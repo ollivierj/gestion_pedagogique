@@ -116,12 +116,12 @@
 										</div>
 									</div>
 									<!-- Surveillant ajoute -->
-									<div class="row top-buffer">
+									<div class="row top-buffer" ng-show="instance.surveillant">
 										<div class="col-xs-offset-4 col-xs-6">
 											<label>{{instance.surveillant.nom + ' ' + instance.surveillant.prenom}}</label> 
 										</div>
 										<div class="col-xs-2"> 
-											<button class="btn btn-danger btn-sm" data-nodrag ng-click="removeFormateur($index, instance, newFormateur)">
+											<button class="btn btn-danger btn-sm" data-nodrag ng-click="removeFormateur($index, instance)">
 												<i class="fa fa-minus"></i>
 											</button>
 										</div>

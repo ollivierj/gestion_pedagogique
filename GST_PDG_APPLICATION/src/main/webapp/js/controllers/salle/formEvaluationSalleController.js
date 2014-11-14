@@ -84,7 +84,7 @@ var formEvaluationSalleCtrl = function($scope, $modalInstance, $filter, $rootSco
 	}
 	
 	// Supression d'un formateur d'un instance
-	$scope.removeFormateur = function (pIndex, instance, formateur) {
+	$scope.removeFormateur = function (pIndex, instance) {
 		instance.surveillant = null;
 	};
 	

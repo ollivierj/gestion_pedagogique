@@ -116,7 +116,7 @@
 										</div>
 									</div>
 									<!-- Surveillant ajoute -->
-									<div class="row top-buffer">
+									<div class="row top-buffer" ng-show="instance.animateur">
 										<div class="col-xs-4">
 											<!-- <span class="label label-warning" ng-show="instance.animateur.isUsed">Formateur d&eacute;j&agrave; r&eacute;serv&eacute;.</span> --> 
 										</div>
@@ -124,7 +124,7 @@
 											<label>{{instance.animateur.nom + ' ' + instance.animateur.prenom}}</label> 
 										</div>
 										<div class="col-xs-2"> 
-											<button class="btn btn-danger btn-sm" data-nodrag ng-click="removeFormateur($index, instance, newFormateur)">
+											<button class="btn btn-danger btn-sm" data-nodrag ng-click="removeFormateur($index, instance)">
 												<i class="fa fa-minus"></i>
 											</button>
 										</div>

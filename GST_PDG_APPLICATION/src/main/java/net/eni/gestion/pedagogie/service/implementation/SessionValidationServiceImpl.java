@@ -14,7 +14,6 @@ import net.eni.gestion.pedagogie.commun.composant.instancePlanning.InstancePlann
 import net.eni.gestion.pedagogie.commun.composant.tuple.Pair;
 import net.eni.gestion.pedagogie.commun.modele.InstanceSessionValidation;
 import net.eni.gestion.pedagogie.commun.modele.Jury;
-import net.eni.gestion.pedagogie.commun.modele.ProfessionnelHomologue;
 import net.eni.gestion.pedagogie.commun.modele.ReservationSalle;
 import net.eni.gestion.pedagogie.commun.modele.SessionValidation;
 import net.eni.gestion.pedagogie.commun.modele.SessionValidationStagiaire;
@@ -118,39 +117,22 @@ public class SessionValidationServiceImpl extends
 			reservationSalle = reservationSalleDao.addOrUpdate(instance.getFirst().getReservationSalle());
 			
 			//Stockage des professionnels homologués
-			List<ProfessionnelHomologue> profHomologues = instance.getFirst().getJures();
-			
+
+			List<Jury> jurysInstance = instance.getFirst().getJurys();
+			instance.getFirst().setJurys(new ArrayList<Jury>());
 			instance.getFirst().setReservationSalle(reservationSalle);
 			//Enregistrement de l'instance
 			instanceSessionValidation = instanceSessionValidationDao.addOrUpdate(instance.getFirst());
 			
 			//Gestion des jury
-			List<Jury> jurys = instanceSessionValidation.getJurys();
-			Boolean isExist = false;
-			for (ProfessionnelHomologue professionnelHomologue : profHomologues) {
-				isExist = false;
-				for (Jury jury : jurys) {
-					if (jury.getProfessionnelHomologue().getId() == professionnelHomologue.getId()) {
-						isExist = true;
-					}
-				}
-				if (!isExist) {
-					juryDao.addOrUpdate(new Jury(0, professionnelHomologue, instanceSessionValidation));
-				}
+			List<Jury> jurysInDB = instanceSessionValidationDao.chargerDetail(instanceSessionValidation.getId()).getJurys();
+			for (Jury jury : jurysInDB) {
+				juryDao.supprimer(jury.getId());
 			}
 			
-			for (Jury jury : jurys) {
-				
-				for (ProfessionnelHomologue professionnelHomologue : profHomologues) {
-					if (jury.getProfessionnelHomologue().getId() == professionnelHomologue.getId()) {
-						isExist = true;
-					}
-				}
-				if (!isExist) {
-					juryDao.supprimer(jury.getId());
-				}
+			for (Jury jury : jurysInstance) {
+				juryDao.addOrUpdate(jury);
 			}
-			
 			
 			//Enregistrement de stagiaires liés à l'instance
 			for (SessionValidationStagiaire instanceStagiaire : instance.getSecond()) {
