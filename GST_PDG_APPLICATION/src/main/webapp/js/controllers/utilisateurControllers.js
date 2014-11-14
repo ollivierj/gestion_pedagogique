@@ -290,7 +290,11 @@ $scope.form =
 						disabled : $scope.data.readonly,
 						schema : { enum : $scope.fonctionsEnum},
 						titleMap : $scope.fonctionsTitleMap
-					}
+					},
+					{
+	             		key : "isFormateur",
+	             		disabled : $scope.data.readonly
+	             	},
 		            ]
 	    },
 	    {
