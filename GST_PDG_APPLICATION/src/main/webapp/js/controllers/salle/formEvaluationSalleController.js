@@ -25,7 +25,6 @@ var formEvaluationSalleCtrl = function($scope, $modalInstance, $filter, $rootSco
 	$scope.title = 'Evaluation du ' + dateDebut + ' au ' + dateFin + ' : ' + eventInfo.libelle;
 	
 	//Chargement du référentiel de salles disponibles
-	//TODO limitez sur les salles dispo ce jour
 	$scope.referentielSalles = salles;
 	
 	if (!$rootScope.utilisateurConnecte && !$rootScope.authtoken) {
@@ -126,6 +125,13 @@ var formEvaluationSalleCtrl = function($scope, $modalInstance, $filter, $rootSco
 		}
 	}
 
+	var calculAllNbPlaceRestante = function () {
+		var i, length = $scope.instances.length;
+		for (i = 0 ; i < length ; i ++) {
+			calculNbPlaceRestante($scope.instances[i]);
+		}
+	}
+	
 	/*************************** UI TREE OPTIONS **********************************************/
 	$scope.options = {
 		//Appelé lors du déplament d'un noeud vers un autre
@@ -154,17 +160,15 @@ var formEvaluationSalleCtrl = function($scope, $modalInstance, $filter, $rootSco
 			var instance = null;
 			if (destNode.$parent.$modelValue && destNode.$parent.$modelValue.type == TYPE_INSTANCE) {
 				angular.forEach(destNode.$modelValue, function(stagiaire) {
-					instance = destNode.$parent.$modelValue;
-					calculNbPlaceRestante(instance);
 					stagiaire.instanceEvaluation = {id:destNode.$parent.$modelValue.id};
 				});
+				calculAllNbPlaceRestante();
 			}
 			if (destNode.$parent.$modelValue && destNode.$parent.$modelValue.type == TYPE_PROMOTION) {
 				angular.forEach(destNode.$modelValue, function(stagiaire) {
-					instance = $filter('filter')($scope.instances, {id : stagiaire.instanceCours})[0];
-					calculNbPlaceRestante(instance);
 					stagiaire.instanceEvaluation = null;
 				});
+				calculAllNbPlaceRestante();
 			}
 		}
 	};

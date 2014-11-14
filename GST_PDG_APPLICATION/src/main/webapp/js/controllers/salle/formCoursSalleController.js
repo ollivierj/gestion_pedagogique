@@ -150,6 +150,13 @@ var formCoursSalleCtrl = function($scope, $modalInstance, $filter, $rootScope, $
 				salle.nbPlaces - instance.stagiaires.length;
 		}
 	}
+	
+	var calculAllNbPlaceRestante = function () {
+		var i, length = $scope.instances.length;
+		for (i = 0 ; i < length ; i ++) {
+			calculNbPlaceRestante($scope.instances[i]);
+		}
+	}
 
 	/*************************** UI TREE OPTIONS **********************************************/
 	$scope.options = {
@@ -179,17 +186,20 @@ var formCoursSalleCtrl = function($scope, $modalInstance, $filter, $rootScope, $
 			var instance = null;
 			if (destNode.$parent.$modelValue && destNode.$parent.$modelValue.type == TYPE_INSTANCE) {
 				angular.forEach(destNode.$modelValue, function(stagiaire) {
-					instance = destNode.$parent.$modelValue;
-					calculNbPlaceRestante(instance);
+					//instance = destNode.$parent.$modelValue;
+					//calculNbPlaceRestante(instance);
 					stagiaire.instanceCours = {id:destNode.$parent.$modelValue.id};
 				});
+				calculAllNbPlaceRestante();
 			}
 			if (destNode.$parent.$modelValue && destNode.$parent.$modelValue.type == TYPE_PROMOTION) {
 				angular.forEach(destNode.$modelValue, function(stagiaire) {
-					instance = $filter('filter')($scope.instances, {id : stagiaire.instanceCours})[0];
-					calculNbPlaceRestante(instance);
+					//instance = $filter('filter')($scope.instances, {id : stagiaire.instanceCours.id})[0];
+					//calculNbPlaceRestante(instance);
+					//calculAllNbPlaceRestante();
 					stagiaire.instanceCours = null;
 				});
+				calculAllNbPlaceRestante();
 			}
 		}
 	};

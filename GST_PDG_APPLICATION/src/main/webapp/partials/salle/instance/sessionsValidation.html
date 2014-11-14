@@ -7,23 +7,21 @@
 		</div>
 	</div>
 	
+	<form name="datepickerForm" class="form-inline" role="form">
 	<div class="row">
-		<div class="col-xs-4">
+		<div class="col-xs-2">
 		<label>Choix de la date</label></div>
-		<div class="col-xs-8">
+		<div class="col-xs-10">
 		<input type="text" class="form-control" ng-model="dateInstance"
-				ng-change="changeDateInstance()" data-date-format="dd/MM/yyyy" data-date-type="string"
-				data-min-date="{{debutLimit}}" data-max-date="{{finLimit}}" bs-datepicker>
+				data-min-date="{{debutLimit}}"
+				data-max-date="{{finLimit}}" data-autoclose="1" bs-datepicker>
 		</div>
 	</div>
+	</form>
 </div>
 <div class="modal-body">
 
 	<div class="panel-body">
-	
-	<input type="text" class="form-control" ng-model="dateInstance"
-				ng-change="changeDateInstance()" data-date-format="dd/MM/yyyy" data-date-type="string"
-				data-min-date="{{debutLimit}}" data-max-date="{{finLimit}}" bs-datepicker>
 
 		<div class="col-xs-5" ui-tree="options">
 			<label>Stagiaires inscrits au cours</label>
@@ -72,7 +70,8 @@
 						<button class="btn btn-primary btn-xs pull-right" data-nodrag ng-click="editInstance(instance)" ng-hide="instance.editing">
 							<i class="glyphicon glyphicon-pencil"></i>
 						</button>
-						<button class="btn btn-success btn-xs pull-right" data-nodrag ng-click="saveInstance(instance)" ng-show="instance.editing">
+						<button class="btn btn-success btn-xs pull-right" data-nodrag ng-click="saveInstance(instance)" ng-show="instance.editing"
+							ng-disabled="instance.reservationSalle.salle == null || instance.reservationSalle.salle == undefined || instance.jures.length == 0">
 							<i class="fa fa-check"></i>
 						</button>
 						<div class="tree-node-content">
@@ -92,16 +91,14 @@
 								<!-- Sélection de la salle -->
 								<div class="row">
 									<div class="col-xs-4">
-										<label for="salleSelectionnee">Salle</label> <span
-											class="label label-danger"
-											data-ng-show="submitted && helpForm.sallesPlanifiees.$error.required">Required!</span>
+										<label for="salleSelectionnee">Salle</label>
 									</div>
-									<div class="col-xs-6">
+									<div class="col-xs-8">
 										<select name="salleSelectionnee"
 											ng-model="instance.reservationSalle.salle.id"
-											ng-options="s.id as s.libelle for s in referentielSalles"
-											class="form-control" required>
-											<option value=""></option>
+											ng-options="s.id as (s.libelle + ' - places : ' + s.nbPlaces + ' - ' + s.lieu) for s in referentielSalles"
+											class="form-control">
+											<option value="">S&eacute;lectionnez une salle</option>
 										</select>
 
 									</div>
@@ -112,9 +109,6 @@
 									<div class="row">
 										<div class="col-xs-4">
 											<label for="jurySelect">Jury</label> 
-											<span class="label label-danger" ng-show="submitted && helpForm.activitesPlanifiees.$error.required">
-												Required!
-											</span>
 										</div>
 										<div class="col-xs-6">
 										<div class="has-feedback">
@@ -164,7 +158,7 @@
 								</button>
 									
 								<button class="btn btn-primary btn-xs pull-right" data-nodrag
-									ng-click="stagiaire.editing = true" ng-hide="stagiaire.editing">
+									ng-click="editStagiaire(stagiaire)" ng-hide="stagiaire.editing">
 									<i class="glyphicon glyphicon-pencil"></i>
 								</button>
 									
