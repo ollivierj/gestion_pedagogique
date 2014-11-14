@@ -116,11 +116,11 @@ public class UtilisateurServiceImpl extends
 				lUtilisateur.setMotPasse(pMotDePasse);
 				lUtilisateur.setToken(createToken(lUtilisateur, lCurrentDate));
 				lUtilisateur.setDateExpiration(lCurrentDate);
+				lUtilisateur.setIsFormateur(false);
 				lUtilisateur = this.dao.ajouter(lUtilisateur);
 				lUtilisateur.getProfil().setDroits(
 						droitProfilDao.getListeDroits(lUtilisateur.getProfil()
 								.getId()));
-				lUtilisateur.setIsFormateur(false);
 			}
 		} catch (Exception e1) {
 			throw new ApplicationException("Echec lors le l'authentification");
