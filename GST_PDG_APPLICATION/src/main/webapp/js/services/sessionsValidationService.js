@@ -42,7 +42,7 @@ services.factory('SessionValidationsFactory', function ($resource, $rootScope) {
 					}
 				).$promise.then(function(response) {
 					$scope.sessionValidations=response.data;
-					$scope.totalServerItems=response.data.totalServerItems;
+					$scope.totalServerItems=response.totalServerItems;
 		         });			
 			},
 		page : page,

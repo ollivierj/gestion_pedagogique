@@ -41,7 +41,7 @@ services.factory('UtilisateursFactory', function ($resource, $rootScope) {
 					}
 				).$promise.then(function(response) {
 					$scope.utilisateur=response.data;
-					$scope.totalServerItems=response.data.totalServerItems;
+					$scope.totalServerItems=response.totalServerItems;
 		         });			
 			},
 		page : page,

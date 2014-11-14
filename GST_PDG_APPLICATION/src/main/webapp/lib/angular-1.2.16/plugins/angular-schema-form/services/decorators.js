@@ -161,7 +161,7 @@ angular.module('schemaForm').provider('schemaFormDecorators',['$compileProvider'
               }
 
               //Otherwise we only use required so it must be it.
-              return "Required";
+              return "Le champ est requis";
 
             };
           }

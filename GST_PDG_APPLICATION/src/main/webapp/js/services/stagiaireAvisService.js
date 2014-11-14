@@ -50,7 +50,7 @@ services.factory('StagiaireAvisFactory', function ($resource, $rootScope) {
 					}
 				).$promise.then(function(response) {
 					$scope.avis=response.data;
-					$scope.totalServerItems=response.data.totalServerItems;
+					$scope.totalServerItems=response.totalServerItems;
 		         });			
 			},
 		page : page,

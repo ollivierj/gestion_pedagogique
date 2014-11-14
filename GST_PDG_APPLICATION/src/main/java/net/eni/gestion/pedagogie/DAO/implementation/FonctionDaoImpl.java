@@ -40,4 +40,5 @@ public class FonctionDaoImpl extends ADaoImpl<Fonction, String> implements Fonct
 		}
 	}
 	
+	
 }
