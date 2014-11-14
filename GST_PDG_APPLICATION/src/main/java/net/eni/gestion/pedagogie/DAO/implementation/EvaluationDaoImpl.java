@@ -119,6 +119,9 @@ public class EvaluationDaoImpl extends ADaoImpl<Evaluation, Integer> implements 
 	@Override
 	protected boolean validerAvantMiseAJour(Evaluation pMember)
 			throws ApplicationException {
+		if (null!=pMember.getDateHeureFinPassage() && null!=pMember.getDateHeureDebutPassage() && pMember.getDateHeureFinPassage().before(pMember.getDateHeureDebutPassage())){
+			throw new ApplicationException("L'heure de début doit précédé l'heure de fin");
+		}
 		boolean isValid=false;
 		String[] lInstances=null;
 		Evaluation lEvaluation = null;
@@ -155,6 +158,16 @@ public class EvaluationDaoImpl extends ADaoImpl<Evaluation, Integer> implements 
 			return true;
 		}else {
 			throw new ApplicationException("Il existe au moins une instance de cours déclarée pour cette évaluation.\n Il n'est donc pas possible de modifier les dates pour cette évaluation");
+		}
+	}
+
+	@Override
+	protected boolean validerAvantajout(Evaluation pMember)
+			throws ApplicationException {
+		if (null!=pMember.getDateHeureFinPassage() && null!=pMember.getDateHeureDebutPassage() && pMember.getDateHeureFinPassage().before(pMember.getDateHeureDebutPassage())){
+			throw new ApplicationException("L'heure de début doit précédé l'heure de fin");
+		}else{
+			return true;
 		}
 	}	
 }

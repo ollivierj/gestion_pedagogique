@@ -24,9 +24,6 @@ public final class DataSource {
     private DataSource() throws SQLException {
     	connectionSource = new JdbcPooledConnectionSource(DatabaseConfiguration.getDatabaseJdbcConnectionString());
     	connectionSource.setMaxConnectionAgeMillis(5 * 60 * 1000);
-    	connectionSource.setCheckConnectionsEveryMillis(60 * 1000);
-    	connectionSource.setMaxConnectionsFree(20);
-    	connectionSource.setTestBeforeGet(true);
     }
 
     /**
