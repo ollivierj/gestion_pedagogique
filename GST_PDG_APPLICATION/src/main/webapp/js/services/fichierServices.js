@@ -1,5 +1,5 @@
 'use strict';
-
+var filename=null;
 services.factory('FichiersFactory', function ($resource, $http, $rootScope, toaster) {
 	var filterOptions = {
         filterText: "",
@@ -13,7 +13,8 @@ services.factory('FichiersFactory', function ($resource, $http, $rootScope, toas
 		delete :  $resource('/ng_gst_pdg/web/fichiers/supprimer/:entite_type/:entite_id/:filename', {}, {
 			doAction : { method: 'DELETE', params: {entite_type: '@entite_type', entite_id: '@entite_id', filename : '@filename' }}
 		}),
-		telecharger : function(entite_type,entite_id,filename){
+		telecharger : function(entite_type,entite_id,pfilename){
+			filename = pfilename;
 			$http({
 			    url: '/ng_gst_pdg/web/fichiers/telecharger/'+entite_type+'/'+entite_id+'/'+filename,
 			    method: 'GET',
@@ -26,7 +27,6 @@ services.factory('FichiersFactory', function ($resource, $http, $rootScope, toas
 		        var octetStreamMime = 'application/octet-stream';
 		        var success = false;
 		        headers = headers();
-		        var filename = headers['x-filename'] || 'export.csv';
 		        var contentType = headers['content-type'] || octetStreamMime;
 		        try
 		        {
