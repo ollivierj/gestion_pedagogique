@@ -165,7 +165,7 @@ public class Utilisateur extends AModele<Integer> implements Serializable {
 		canBeNull = true)
 	private Date dateExpiration = null;
 	
-	@Attributes(title = "Est formateur", required = true)
+	@Attributes(title = "Est formateur")
 	@DatabaseField(
 		columnName = IS_FORMATEUR_FIELD_NAME,
 		dataType = DataType.BOOLEAN_OBJ,
