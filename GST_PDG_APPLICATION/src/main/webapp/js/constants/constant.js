@@ -6,6 +6,8 @@ ng_gst_pdg.constant('CONSTANTS', {
 	    COURS:'Cours',
 	    EVALUATION:'Evaluation',
 	    SESSION:'Session'
-	}
+	},
+
+	PLANNING_LIMIT : 1  
 	
 });

@@ -6,8 +6,23 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
 		modalService, PromotionsFactory, SallesReserveesFactory, AnimateursLibresFactory, 
 		PlanningFactory, $filter, CONSTANTS, planningElements, toaster) {
 
-	//Date du calendrier
+	//Date actuelle du calendrier
 	$scope.moment = new Date();
+	$scope.moment.setDate(1);
+	$scope.moment.setHours(0);
+	$scope.moment.setMinutes(0);
+	$scope.moment.setSeconds(0);
+	//Date minimum pour le formateur
+	$scope.startLimit = angular.copy($scope.moment);
+	//Date maximum pour le formateur
+	$scope.endLimit = angular.copy($scope.startLimit);
+	$scope.endLimit.setMonth($scope.endLimit.getMonth() + CONSTANTS.PLANNING_LIMIT)
+	//Date pour la limite datepicker
+	$scope.endLimitPicker = angular.copy($scope.endLimit); 
+	$scope.endLimitPicker.setDate(31);
+	$scope.dateSelected = null; 
+	
+	
 	//Type d'instance sélectionne
 	$scope.typeInstance = null;
 	
@@ -24,7 +39,7 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
     
     $scope.eventSources = [];
     
-	//Transforme le résultat des éléments en éléments graphique correspondant à ui calendar.
+	//Transforme le résultat des éléments en éléments graphiques correspondant à ui calendar.
 	var initElements = function (results, type) {
 
     	var elements = [];
@@ -87,6 +102,10 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
     	});
     };
     
+    
+    /********************************************
+     * ************ GESTION D'EDITION DES INSTANCES
+     *******************************************/
     //Affichage de la fenêtre modale correspodant à l'élément sélectionné.
     var modalEditionInstance = {
         backdrop: true,
@@ -166,36 +185,53 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
         });
     };
     
+    
+    /*************************************** 
+     * **********CONTROLE DE NAVIGATION ************
+     * **********************************************/
+    
     //Evènement sur le clic du bouton next
     $scope.next = function(calendar) {
     	//Appel l'évènement next du calendrier
-    	calendar.fullCalendar('next');
+    	$scope.calendarForInstance.fullCalendar('next');
     	//Récupère la date courante du calendrier
-    	$scope.moment = calendar.fullCalendar('getDate');
+    	$scope.moment = $scope.calendarForInstance.fullCalendar('getDate');
     	$scope.getPlanningElements($scope.moment, $scope.typeInstance);
     }
-    
+
     //Evènement sur le clic du bouton previous
     $scope.previous = function(calendar) {
-    	calendar.fullCalendar('prev');
-    	$scope.moment = calendar.fullCalendar('getDate');
+    	$scope.calendarForInstance.fullCalendar('prev');
+    	$scope.moment = $scope.calendarForInstance.fullCalendar('getDate');
     	$scope.getPlanningElements($scope.moment, $scope.typeInstance);
     }
     
     //Evènement sur le clic du bouton today
     $scope.today = function(calendar) {
-    	calendar.fullCalendar('today');
-    	$scope.moment = calendar.fullCalendar('getDate');
+    	$scope.calendarForInstance.fullCalendar('today');
+    	$scope.moment = $scope.calendarForInstance.fullCalendar('getDate');
     	$scope.getPlanningElements($scope.moment, $scope.typeInstance);
     }
     
     
     /* Change View (day, week, month)*/
     $scope.changeView = function(view,calendar) {
-      calendar.fullCalendar('changeView',view);
-      $scope.moment = calendar.fullCalendar('getDate');
+    	$scope.calendarForInstance.fullCalendar('changeView',view);
+      $scope.moment = $scope.calendarForInstance.fullCalendar('getDate');
 	  $scope.getPlanningElements($scope.moment, $scope.typeInstance);
     };
+    
+    /*Changement de date dans le filtre*/
+    $scope.$watch('dateSelected', function (newVal, oldVal) {
+    	if (newVal != null && newVal != oldVal) {
+	    	newVal = new Date(newVal.replace('T', ' '));
+	    	newVal.setDate(1);
+	    	$scope.moment = newVal;
+	    	$scope.calendarForInstance.fullCalendar('gotoDate', $scope.moment);
+	    	$scope.getPlanningElements($scope.moment, $scope.typeInstance);
+    	}
+    }, true);
+    
     
     //Configuration du calendrier
     $scope.uiConfig = {
@@ -251,6 +287,7 @@ controllers.controller('planningReservationSalleCtrl', function($scope, $locatio
 		//Refresh des éléments du planning
     	$scope.getPlanningElements($scope.moment, $scope.typeInstance);
     }, true);
+  
     
 });
 

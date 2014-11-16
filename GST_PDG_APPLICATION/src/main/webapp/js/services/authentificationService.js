@@ -21,6 +21,7 @@ services.factory('AuthentificationFactory', function($http, $cookieStore,
 			prenom : data.prenom,
 			nom : data.nom,
 			email : data.email,
+			isFormateur : data.isFormateur,
 			fonction : (data.fonction)?(data.fonction.libelle)?data.fonction.libelle:"":"",
 			dateExpiration : data.dateExpiration,
 			profil : {
