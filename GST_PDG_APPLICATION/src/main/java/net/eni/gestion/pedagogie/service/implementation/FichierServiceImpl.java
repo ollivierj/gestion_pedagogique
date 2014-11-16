@@ -224,9 +224,9 @@ public class FichierServiceImpl implements FichierService {
 		case "SessionValidation":
 			lStrBuilder.append(propertyFileLoader
 					.getValue("directory.sessionvalidation.location"));
-		case "TitreProfessionnel":
+		case "TypeSession":
 			lStrBuilder.append(propertyFileLoader
-					.getValue("directory.titreprofessionnel.location"));
+					.getValue("directory.typesession.location"));
 			break;
 		default:
 			return null;

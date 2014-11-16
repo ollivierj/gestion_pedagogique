@@ -103,7 +103,7 @@ controllers
 								ok : function() { return function(item){ return UtilisateursFactory.create.doAction(
 									item,
 									function(success) {
-										toaster.pop('warning', null, "Utilisateur enregistré");
+										toaster.pop('success', null, "Utilisateur enregistré");
 									},
 									function(error) {
 										toaster.pop('error', null, error.data.message);
