@@ -23,7 +23,7 @@ controllers.controller('stagiaireCtrl', function($scope, $rootScope, $http, $loc
                 {field:'nom', displayName:'Nom'},
                 {field:'prenom', displayName:'Prénom'},
                 {field:'dateNaissance', displayName:'Date de naissance'},
-                {field:'codePromotion', displayName:'Promotion', cellTemplate: 'partials/templates/ng-grid_detailsPromotion.html'},
+                {field:'libellePromotion', displayName:'Promotion', cellTemplate: 'partials/templates/ng-grid_detailsPromotion.html'},
                 {field:'details', displayName:'Actions', cellTemplate: 'partials/templates/ng-grid_details.html'}
         ],
         enablePaging: true,

@@ -15,7 +15,7 @@ services.factory('StagiaireFactory', function ($resource, $rootScope) {
 	
 	var filterOptions = {
 			filterText: "",
-			useExternalFilter: false
+			useExternalFilter: true
 	};
 	
 	var stagiaire = {};

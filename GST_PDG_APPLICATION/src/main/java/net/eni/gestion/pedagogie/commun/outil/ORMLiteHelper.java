@@ -58,6 +58,8 @@ public class ORMLiteHelper {
 		StringBuilder lOrderStrBuilder= new StringBuilder();
 		lOrderStrBuilder.append(" ORDER BY ");
 		if (null == pSortOptions) {
+			lOrderStrBuilder.append(tableInfo.getTableName());
+			lOrderStrBuilder.append(".");
 			lOrderStrBuilder.append(tableInfo.getIdField().getColumnName());
 			return lOrderStrBuilder.toString();
 		}
@@ -72,11 +74,15 @@ public class ORMLiteHelper {
 							.getDirections()[i]);
 			if (null != orderSortTableFieldBy && null != orderSortDirectionBy) {
 				StringBuilder lStrBuilder = new StringBuilder();
+				lOrderStrBuilder.append(tableInfo.getTableName());
+				lOrderStrBuilder.append(".");
 				lStrBuilder.append(orderSortTableFieldBy);
 				lStrBuilder.append(" ");
 				lStrBuilder.append(orderSortDirectionBy);
 				orderByClauseArray.add(lStrBuilder.toString());
 			} else {
+				lOrderStrBuilder.append(tableInfo.getTableName());
+				lOrderStrBuilder.append(".");
 				lOrderStrBuilder.append(tableInfo.getIdField().getColumnName());
 				return lOrderStrBuilder.toString();
 			}
